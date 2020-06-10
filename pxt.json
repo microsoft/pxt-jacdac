@@ -1,18 +1,40 @@
 {
     "name": "jacdac-services",
-    "dependencies": {
-        "device": "*"
-    },
+    "description": "Services for JACDAC",
     "files": [
-        "CODE_OF_CONDUCT.md",
-        "README.md",
-        "SECURITY.md"
+        "nameservice.ts",
+        "sensorclient.ts",
+        "consoleclient.ts",
+        "buttonclient.ts",
+        "lightsensorclient.ts",
+        "accelerometerclient.ts",
+        "touchbuttonclient.ts",
+        "microphoneclient.ts",
+        "thermometerclient.ts",
+        "switchclient.ts",
+        "lightclient.ts",
+        "keyboardclient.ts",
+        "mouseclient.ts",
+        "gamepadclient.ts",
+        "pixelclient.ts",
+        "musicclient.ts",
+        "servoclient.ts",
+        "lcdclient.ts",
+        "colorsensorclient.ts",
+        "proximityclient.ts",
+        "lightspectrumsensorclient.ts",
+        "rotaryencoderclient.ts",
+        "arcadecontrolsclient.ts",
+        "pwmlightclient.ts"
     ],
     "testFiles": [
         "test.ts"
     ],
+    "public": true,
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "tsprj"
+    "dependencies": {
+        "core": "*"
+    }
 }
