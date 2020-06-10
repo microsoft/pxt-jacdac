@@ -1,7 +1,29 @@
 {
     "name": "jacdac-services",
-    "description": "Services for JACDAC",
+    "description": "Plug and play single wire serial protocol v1 - beta",
     "files": [
+        "README.md",
+        "jacdac.svg",
+        "pxtparts.json",
+        "jdlow.c",
+        "jdlow.h",
+        "jdprotocol.h",
+        "jdutil.c",
+        "app.cpp",
+        "hw.cpp",
+        "shims.d.ts",
+        "hw.h",
+        "commands.ts",
+        "config.ts",
+        "routing.ts",
+        "packet.ts",
+        "consolehost.ts",
+        "service.ts",
+        "sensordriver.ts",
+        "actuator.ts",
+        "controllerclient.ts",
+        "messagebus.ts",
+        "ns.ts",
         "nameservice.ts",
         "sensorclient.ts",
         "consoleclient.ts",
@@ -35,6 +57,7 @@
         "arcade"
     ],
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "settings": "*"
     }
 }
