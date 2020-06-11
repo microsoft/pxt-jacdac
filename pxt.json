@@ -43,7 +43,6 @@
         "mouseclient.ts",
         "gamepadclient.ts",
         "pixelclient.ts",
-        "musicclient.ts",
         "servoclient.ts",
         "lcdclient.ts",
         "colorsensorclient.ts",
