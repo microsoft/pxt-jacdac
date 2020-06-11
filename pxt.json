@@ -15,7 +15,7 @@
         "jdutil.c",
         "app.cpp",
         "hw.cpp",
-        "shims.d.ts",
+        "jdsim.ts",
         "hw.h",
         "commands.ts",
         "config.ts",
