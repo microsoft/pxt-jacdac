@@ -743,10 +743,6 @@ namespace jacdac {
         return new jacdac.JDDiagnostics(jacdac.__physGetDiagnostics());
     }
 
-    export function stop() {
-        jacdac.__physStop(); // not really implemented
-    }
-
     export class JDDiagnostics {
         bus_state: number;
         bus_lo_error: number;

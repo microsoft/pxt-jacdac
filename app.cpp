@@ -149,17 +149,11 @@ extern "C" void app_frame_sent(jd_frame_t *frame) {
     queue_cnt();
 }
 
-/**
- * Gets the physical layer component id
- **/
 //%
 int __physId() {
     return DEVICE_ID;
 }
 
-/**
- * Write a buffer to the jacdac physical layer.
- **/
 //%
 void __physSendPacket(Buffer header, Buffer data) {
     if (!header || header->length != JD_SERIAL_FULL_HEADER_SIZE)
@@ -183,9 +177,6 @@ void __physSendPacket(Buffer header, Buffer data) {
     jd_packet_ready();
 }
 
-/**
- * Reads a packet from the queue. NULL if queue is empty
- **/
 //%
 Buffer __physGetPacket() {
     if (superFrameRX && jd_shift_frame(&superFrameRX->frame) == 0) {
@@ -209,17 +200,6 @@ Buffer __physGetPacket() {
     return mkBuffer(pkt, JD_SERIAL_FULL_HEADER_SIZE + pkt->service_size);
 }
 
-/**
- * Returns the connection state of the JACDAC physical layer.
- **/
-//%
-bool __physIsConnected() {
-    return jd_is_running() != 0;
-}
-
-/**
- * Indicates if the bus is running
- **/
 //%
 bool __physIsRunning() {
     return jd_is_running() != 0;
@@ -231,18 +211,12 @@ static void sendFrame(const uint8_t *data) {
     jd_packet_ready();
 }
 
-/**
- * Starts the JACDAC physical layer.
- **/
 //%
 void __physStart() {
     jd_init();
     sendJDFrame = sendFrame;
 }
 
-/**
- * Reads the diagnostics struct provided by the physical layer. Returns a buffer or NULL.
- **/
 //%
 Buffer __physGetDiagnostics() {
     if (!jd_is_running())
@@ -250,14 +224,5 @@ Buffer __physGetDiagnostics() {
     return mkBuffer(jd_get_diagnostics(), sizeof(jd_diagnostics_t));
 }
 
-/**
- * Stops the JACDAC physical layer.
- **/
-//%
-void __physStop() {
-    if (!jd_is_running())
-        return;                 // nothing to do
-    target_panic(PANIC_JACDAC); // not supported
-}
 
 } // namespace jacdac
