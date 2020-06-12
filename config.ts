@@ -30,6 +30,7 @@ namespace jd_class {
     export const PWM_LIGHT = 0x1fb57453;
     export const BOOTLOADER = 0x1ffa9948
     export const ARCADE_CONTROLS = 0x1deaa06e
+    export const WIFI = 0x18aae1fa
 
     // to generate a new class number, head to https://microsoft.github.io/uf2/patcher/
     // click link at the bottom and replace first digit with '1'

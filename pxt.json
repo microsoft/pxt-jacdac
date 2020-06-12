@@ -24,6 +24,7 @@
         "packet.ts",
         "consolehost.ts",
         "service.ts",
+        "streams.ts",
         "sensordriver.ts",
         "actuator.ts",
         "controllerclient.ts",
@@ -51,6 +52,8 @@
         "lightspectrumsensorclient.ts",
         "rotaryencoderclient.ts",
         "arcadecontrolsclient.ts",
+        "musicclient.ts",
+        "wificlient.ts",
         "pwmlightclient.ts"
     ],
     "testFiles": [
