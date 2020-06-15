@@ -46,6 +46,7 @@
         "gamepadclient.ts",
         "pixelclient.ts",
         "servoclient.ts",
+        "motorclient.ts",
         "lcdclient.ts",
         "colorsensorclient.ts",
         "proximityclient.ts",
