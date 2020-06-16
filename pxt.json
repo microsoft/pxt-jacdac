@@ -60,6 +60,9 @@
     "testFiles": [
         "test.ts"
     ],
+    "fileDependencies": {
+        "musicclient.ts": "mixer"
+    },
     "public": true,
     "supportedTargets": [
         "arcade"
