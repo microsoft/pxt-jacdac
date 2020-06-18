@@ -242,12 +242,12 @@ namespace jacdac {
         }
 
         clearNames() {
-            this.sendCommand(JDPacket.onlyHeader(DNS_CMD_CLEAR_STORED_IDS), true)
+            this.sendCommandWithAck(JDPacket.onlyHeader(DNS_CMD_CLEAR_STORED_IDS))
         }
 
         setName(dev: Device, name: string) {
-            this.sendCommand(JDPacket.from(DNS_CMD_SET_NAME,
-                Buffer.fromHex(dev.deviceId).concat(Buffer.fromUTF8(name))), true)
+            this.sendCommandWithAck(JDPacket.from(DNS_CMD_SET_NAME,
+                Buffer.fromHex(dev.deviceId).concat(Buffer.fromUTF8(name))))
         }
 
         handlePacket(pkt: JDPacket) {

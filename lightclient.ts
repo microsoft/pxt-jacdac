@@ -167,7 +167,7 @@ namespace jacdac {
 
         runProgram(prog: Buffer) {
             this.currAnimation++
-            this.sendCommand(JDPacket.from(JDLightCommand.Run, prog), true)
+            this.sendCommandWithAck(JDPacket.from(JDLightCommand.Run, prog))
         }
 
         runEncoded(prog: string, args?: number[]) {

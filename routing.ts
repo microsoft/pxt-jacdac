@@ -305,16 +305,21 @@ namespace jacdac {
         protected onAttach() { }
         protected onDetach() { }
 
-        sendCommand(pkt: JDPacket, ack = false) {
+        sendCommand(pkt: JDPacket) {
             this.start()
             if (this.serviceNumber == null)
                 return
             pkt.service_number = this.serviceNumber
-            if (ack) {
-                if (!pkt._sendWithAck(this.device))
-                    throw "No ACK"
-            } else
-                pkt._sendCmd(this.device)
+            pkt._sendCmd(this.device)
+        }
+
+        sendCommandWithAck(pkt: JDPacket) {
+            this.start()
+            if (this.serviceNumber == null)
+                return
+            pkt.service_number = this.serviceNumber
+            if (!pkt._sendWithAck(this.device))
+                throw "No ACK"
         }
 
         sendPackedCommand(service_command: number, fmt: string, nums: number[]) {
