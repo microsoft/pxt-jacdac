@@ -1,9 +1,14 @@
 namespace jacdac {
+    const PORT_SHIFT = 7
+    const COUNTER_MASK = 0x001f
+    const CLOSE_MASK = 0x0020
+    const METADATA_MASK = 0x0040
+
     let streams: InStream[]
     function handleStreamData(pkt: JDPacket) {
-        if (pkt.service_number != JD_SERVICE_NUMBER_STREAM)
+        if (pkt.service_number != JD_SERVICE_NUMBER_STREAM || pkt.device_identifier != selfDevice().deviceId)
             return
-        const port = pkt.service_command >> 7
+        const port = pkt.service_command >> PORT_SHIFT
         const s = streams.find(s => s.port == port)
         if (s) s._handle(pkt)
     }
@@ -36,6 +41,13 @@ namespace jacdac {
             return b
         }
 
+        bytesAvailable() {
+            let sum = 0
+            for (const b of this.inQ)
+                sum += b.length
+            return sum
+        }
+
         read() {
             while (true) {
                 if (this.inQ.length)
@@ -58,19 +70,18 @@ namespace jacdac {
             this.inQ = []
         }
 
-        outOfBand(buf: Buffer) { }
+        meta(buf: Buffer) { }
 
         _handle(pkt: JDPacket) {
             let cmd = pkt.service_command
-            if ((cmd & 0x1f) != this.nextCnt)
+            if ((cmd & COUNTER_MASK) != (this.nextCnt & COUNTER_MASK))
                 return
             this.nextCnt++
-            cmd = (cmd >> 5) & 3
-            if (cmd == 1)
+            if (cmd & CLOSE_MASK)
                 this._close()
-            if (cmd == 2) {
-                this.outOfBand(pkt.data)
-            } else if (cmd <= 1) {
+            if (cmd & METADATA_MASK) {
+                this.meta(pkt.data)
+            } else {
                 this.inQ.push(pkt.data)
                 control.raiseEvent(DAL.DEVICE_ID_NOTIFY_ONE, this.eventId);
             }
@@ -84,6 +95,38 @@ namespace jacdac {
                 if (buf.length)
                     r.push(f(buf))
             }
+        }
+    }
+
+    export class OutStream {
+        private nextCnt = 0
+
+        constructor(public device: Device, public port: number) { }
+
+        private writeEx(buf: Buffer, flags: number) {
+            if (!this.port) return
+            const pkt = JDPacket.from((this.nextCnt & COUNTER_MASK) | (this.port << PORT_SHIFT) | flags, buf)
+            this.nextCnt++
+            if (flags & CLOSE_MASK)
+                this.port = null
+            if (!pkt._sendWithAck(this.device))
+                throw "No ACK (stream)"
+        }
+
+        write(buf: Buffer) {
+            this.writeEx(buf, 0)
+        }
+
+        writeAndClose(buf: Buffer) {
+            this.writeEx(buf, CLOSE_MASK)
+        }
+
+        close() {
+            this.writeAndClose(Buffer.create(0))
+        }
+
+        writeMeta(buf: Buffer) {
+            this.writeEx(buf, METADATA_MASK)
         }
     }
 }
