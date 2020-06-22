@@ -9,8 +9,8 @@ namespace jacdac {
     function decodeAP(buf: Buffer): net.AccessPoint {
         const [flags, reserved, rssi, channel] = buf.unpack("IIbB")
         let p = 16
-        while (this.buf[p]) p++
-        const ssid = this.buf.slice(16, p - 16).toString()
+        while (buf[p]) p++
+        const ssid = buf.slice(16, p - 16).toString()
         const r = new net.AccessPoint(ssid)
         r.encryption = flags & 0x0001 ? 4 : 7;
         r.rssi = rssi
@@ -70,10 +70,14 @@ namespace jacdac {
             this.outp.close()
         }
         write(buf: Buffer) {
-            this.outp.write(buf)
+            if (this.isConnected)
+                this.outp.write(buf)
         }
         read(): Buffer {
-            return this.inp.read()
+            if (this.isConnected)
+                return this.inp.read()
+            else
+                return null
         }
         bytesAvailable(): number {
             return this.inp.bytesAvailable()
@@ -106,7 +110,7 @@ namespace jacdac {
         _retPort: number = null
 
         constructor(requiredDevice: string = null) {
-            super("tcp", jd_class.WIFI, requiredDevice);
+            super("tcp", jd_class.TCP, requiredDevice);
         }
 
         handlePacket(pkt: JDPacket) {
@@ -229,6 +233,7 @@ namespace jacdac {
                 try {
                     this.wifiClient.connect(network.ssid, wifis[network.ssid])
                     this._ssid = network.ssid
+                    net.log(`connected to '${network.ssid}'`)
                     return true;
                 } catch {
                     net.log(`can't connect to '${network.ssid}'`)
@@ -249,4 +254,7 @@ namespace jacdac {
 
         public ping(dest: string, ttl: number = 250): number { return -1; }
     }
+
+    // initialize default controller and net.Net instance
+    new net.Net(() => new WifiController())
 }

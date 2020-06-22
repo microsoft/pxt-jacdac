@@ -109,6 +109,7 @@ namespace jacdac {
             this.nextCnt++
             if (flags & CLOSE_MASK)
                 this.port = null
+            pkt.service_number = JD_SERVICE_NUMBER_STREAM
             if (!pkt._sendWithAck(this.device))
                 throw "No ACK (stream)"
         }
