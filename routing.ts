@@ -462,8 +462,10 @@ namespace jacdac {
             return this.queryInt(REG_CTRL_TEMPERATURE)
         }
 
-        get lightLevel() {
-            return this.queryInt(REG_CTRL_LIGHT_LEVEL)
+        get firmwareVersion() {
+            const b = this.query(REG_CTRL_FIRMWARE_VERSION, null)
+            if (b) return b.toString()
+            else return ""
         }
 
         handleCtrlReport(pkt: JDPacket) {

@@ -55,6 +55,7 @@ namespace jacdac {
     export const REG_CTRL_DEVICE_CLASS = 0x181
     // MCU temperature in Celsius
     export const REG_CTRL_TEMPERATURE = 0x182
-    // this is very approximate; ADC reading from backward-biasing the identification LED
-    export const REG_CTRL_LIGHT_LEVEL = 0x183
+    // semver string
+    export const REG_CTRL_FIRMWARE_VERSION = 0x185
+
 }
