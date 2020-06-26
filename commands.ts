@@ -57,5 +57,6 @@ namespace jacdac {
     export const REG_CTRL_TEMPERATURE = 0x182
     // semver string
     export const REG_CTRL_FIRMWARE_VERSION = 0x185
-
+    // number of microseconds since boot, 64 bit
+    export const REG_CTRL_MICROS_SINCE_BOOT = 0x186
 }

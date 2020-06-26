@@ -20,6 +20,7 @@ namespace jacdac {
     let announceCallbacks: (() => void)[] = [];
     let newDeviceCallbacks: (() => void)[];
     let pktCallbacks: ((p: JDPacket) => void)[];
+    let restartCounter = 0
 
     function log(msg: string) {
         console.add(jacdac.consolePriority, msg);
@@ -439,7 +440,9 @@ namespace jacdac {
                 this.queries.push(q = new RegQuery(reg))
 
             const now = control.millis()
-            if (!q.lastQuery || (refreshRate != null && now - q.lastQuery > refreshRate)) {
+            if (!q.lastQuery ||
+                (q.value === undefined && now - q.lastQuery > 500) ||
+                (refreshRate != null && now - q.lastQuery > refreshRate)) {
                 q.lastQuery = now
                 this.sendCtrlCommand(CMD_GET_REG | reg)
             }
@@ -472,8 +475,8 @@ namespace jacdac {
             if ((pkt.service_command & CMD_TYPE_MASK) == CMD_GET_REG) {
                 const reg = pkt.service_command & CMD_REG_MASK
                 const q = this.lookupQuery(reg)
-                pkt.intData
-                q.value = pkt.data
+                if (q)
+                    q.value = pkt.data
             }
         }
 
@@ -494,6 +497,13 @@ namespace jacdac {
             for (let d of devices_)
                 d._name = undefined
             clearAttachCache()
+        }
+
+        _destroy() {
+            log("destroy " + this.shortId)
+            for (let c of this.clients)
+                c._detach()
+            this.clients = null
         }
     }
 
@@ -557,6 +567,8 @@ namespace jacdac {
     function queueAnnounce() {
         const fmt = "<" + hostServices.length + "I"
         const ids = hostServices.map(h => h.running ? h.serviceClass : -1)
+        if (restartCounter < 0xf) restartCounter++
+        ids[0] = restartCounter | 0x100
         JDPacket.packed(CMD_ADVERTISEMENT_DATA, fmt, ids)
             ._sendReport(selfDevice())
         announceCallbacks.forEach(f => f())
@@ -600,7 +612,7 @@ namespace jacdac {
         if (_unattachedClients.length == 0)
             return
 
-        for (let i = 0; i < dev.services.length; i += 4) {
+        for (let i = 4; i < dev.services.length; i += 4) {
             if (occupied[i >> 2])
                 continue
             const service_class = dev.services.getNumber(NumberFormat.UInt32LE, i)
@@ -611,6 +623,16 @@ namespace jacdac {
                 }
             }
         }
+    }
+
+    function serviceMatches(dev: Device, serv: Buffer) {
+        const ds = dev.services
+        if (!ds || ds.length != serv.length)
+            return false
+        for (let i = 4; i < serv.length; ++i)
+            if (ds[i] != serv[i])
+                return false
+        return true
     }
 
     export function routePacket(pkt: JDPacket) {
@@ -660,10 +682,19 @@ namespace jacdac {
 
             if (pkt.service_number == JD_SERVICE_NUMBER_CTRL) {
                 if (pkt.service_command == CMD_ADVERTISEMENT_DATA) {
+                    if (dev && (dev.services[0] & 0xf) > (pkt.data[0] & 0xf)) {
+                        // if the reset counter went down, it means the device resetted; treat it as new device
+                        devices_.removeElement(dev)
+                        dev._destroy()
+                        dev = null
+                    }
+
                     if (!dev)
                         dev = new Device(pkt.device_identifier)
-                    if (!pkt.data.equals(dev.services)) {
-                        dev.services = pkt.data
+
+                    const matches = serviceMatches(dev, pkt.data)
+                    dev.services = pkt.data
+                    if (!matches) {
                         dev.lastSeen = control.millis()
                         reattach(dev)
                     }
@@ -707,10 +738,7 @@ namespace jacdac {
             if (dev.lastSeen < cutoff) {
                 devices_.splice(i, 1)
                 i--
-                for (let c of dev.clients) {
-                    c._detach()
-                }
-                dev.clients = null
+                dev._destroy()
                 numdel++
             }
         }
