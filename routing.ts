@@ -379,8 +379,8 @@ namespace jacdac {
         const h = Buffer.fromHex(devid).hash(30)
         return String.fromCharCode(0x41 + h % 26) +
             String.fromCharCode(0x41 + Math.idiv(h, 26) % 26) +
-            String.fromCharCode(0x41 + Math.idiv(h, 26 * 26) % 26) +
-            String.fromCharCode(0x41 + Math.idiv(h, 26 * 26 * 26) % 26)
+            String.fromCharCode(0x30 + Math.idiv(h, 26 * 26) % 10) +
+            String.fromCharCode(0x30 + Math.idiv(h, 26 * 26 * 10) % 10)
     }
 
     class RegQuery {
