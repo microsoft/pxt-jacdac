@@ -134,8 +134,8 @@ namespace jacdac {
 
     export const enum LightType {
         WS2812B_GRB = 0x00,
-        WS2812B_APA102 = 0x10,
-        WS2812B_SK9822 = 0x11,
+        APA102 = 0x10,
+        SK9822 = 0x11,
     }
 
     //% fixedInstances
