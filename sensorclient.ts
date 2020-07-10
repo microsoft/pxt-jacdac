@@ -57,9 +57,6 @@ namespace jacdac {
                         this._stateChangedHandler();
                     break
                 }
-                case CMD_EVENT:
-                    control.raiseEvent(this.eventId, packet.intData);
-                    break
                 default:
                     this.handleCustomCommand(packet);
                     break
