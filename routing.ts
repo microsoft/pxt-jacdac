@@ -229,6 +229,10 @@ namespace jacdac {
         }
     }
 
+    interface SMap<T> {
+        [index: string]: T;
+    }
+
     //% fixedInstances
     export class Client {
         device: Device
@@ -238,7 +242,8 @@ namespace jacdac {
         serviceNumber: number;
         protected supressLog: boolean;
         started: boolean;
-        advertisementData: Buffer
+        advertisementData: Buffer;
+        private handlers: SMap<(idx?: number) => void>;
 
         config: ClientPacketQueue
 
@@ -268,7 +273,7 @@ namespace jacdac {
                 this.advertisementData = pkt.data
 
             if (pkt.service_command == CMD_EVENT)
-                control.raiseEvent(this.eventId, pkt.intData)
+                this.raiseEvent(pkt.intData, pkt.data.length >= 8 ? pkt.getNumber(NumberFormat.Int32LE, 4) : undefined)
 
             this.handlePacket(pkt)
         }
@@ -339,9 +344,24 @@ namespace jacdac {
             this.config.send(JDPacket.from(CMD_SET_REG | reg, value))
         }
 
+        protected raiseEvent(value: number, argument: number) {
+            control.raiseEvent(this.eventId, value)
+            if (this.handlers) {
+                const h = this.handlers[value + ""]
+                if (h)
+                    h(argument)
+            }
+        }
+
         protected registerEvent(value: number, handler: () => void) {
             this.start()
             control.onEvent(this.eventId, value, handler);
+        }
+
+        protected registerHandler(value: number, handler: (idx: number) => void) {
+            this.start()
+            if (!this.handlers) this.handlers = {}
+            this.handlers[value + ""] = handler
         }
 
         protected log(text: string) {
