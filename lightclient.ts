@@ -176,6 +176,10 @@ namespace jacdac {
             this.sendCommand(JDPacket.from(JDLightCommand.Run, lightEncode(prog, args)))
         }
 
+        set(idx: number, rgb: number) {
+            this.runEncoded("setone % # wait 1", [idx, rgb])
+        }
+
         /**
          * Set all of the pixels on the strip to one RGB color.
          * @param rgb RGB color of the LED
@@ -184,7 +188,7 @@ namespace jacdac {
         //% weight=80 blockGap=8
         //% group="Light"
         setAll(rgb: number) {
-            this.runEncoded("fade #", [rgb])
+            this.runEncoded("fade # wait 1", [rgb])
         }
 
         private currAnimation = 0
