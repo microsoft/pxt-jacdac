@@ -55,7 +55,8 @@
         "arcadecontrolsclient.ts",
         "musicclient.ts",
         "wificlient.ts",
-        "pwmlightclient.ts"
+        "pwmlightclient.ts",
+        "multitouchclient.ts"
     ],
     "testFiles": [
         "test.ts"

@@ -33,6 +33,7 @@ namespace jd_class {
     export const WIFI = 0x18aae1fa
     export const MOTOR = 0x17004cd8
     export const TCP = 0x1b43b70b
+    export const MULTITOUCH = 0x18d55e2b
 
 
     // to generate a new class number, head to https://microsoft.github.io/uf2/patcher/
