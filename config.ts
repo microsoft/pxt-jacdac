@@ -34,6 +34,7 @@ namespace jd_class {
     export const MOTOR = 0x17004cd8
     export const TCP = 0x1b43b70b
     export const MULTITOUCH = 0x18d55e2b
+    export const RGB_LED = 0xe7aeb0fc;
 
 
     // to generate a new class number, head to https://microsoft.github.io/uf2/patcher/
@@ -69,6 +70,10 @@ namespace jacdac {
         DAL.DEVICE_BUTTON_EVT_DOWN,
         DAL.DEVICE_BUTTON_EVT_UP
     ];
+}
+
+const enum JDRGBLEDCommand {
+    SetColor = 0x80
 }
 
 const enum JDLightReg {
