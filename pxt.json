@@ -56,7 +56,8 @@
         "musicclient.ts",
         "wificlient.ts",
         "pwmlightclient.ts",
-        "multitouchclient.ts"
+        "multitouchclient.ts",
+        "rgbledclient.ts"
     ],
     "testFiles": [
         "test.ts"
