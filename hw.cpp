@@ -26,11 +26,11 @@ static uint32_t *logPinMasks;
 
 static void init_log_pins() {
     logPins = new DevicePin *[NUM_LOG_PINS];
-    logPins[0] = LOOKUP_PIN(A5);
-    logPins[1] = LOOKUP_PIN(A1);
-    logPins[2] = LOOKUP_PIN(A2);
-    logPins[3] = LOOKUP_PIN(A3);
-    logPins[4] = LOOKUP_PIN(A4);
+    logPins[0] = LOOKUP_PIN(P0);
+    logPins[1] = LOOKUP_PIN(P1);
+    logPins[2] = LOOKUP_PIN(P2);
+    logPins[3] = LOOKUP_PIN(P8);
+    logPins[4] = LOOKUP_PIN(P16);
 
     logPinMasks = new uint32_t[NUM_LOG_PINS];
     for (int i = 0; i < NUM_LOG_PINS; ++i) {
@@ -123,6 +123,8 @@ static void setup_exti() {
     sws->setMode(SingleWireDisconnected);
     // force transition to output so that the pin is reconfigured.
     // also drive the bus high for a little bit.
+    // TODO this is problematic as it may drive the line high, while another device is transmitting,
+    // in case we're called by rx_timeout()
     sws->p.setDigitalValue(1);
     sws->p.getDigitalValue(PullMode::Up);
     sws->p.eventOn(DEVICE_PIN_INTERRUPT_ON_EDGE);
