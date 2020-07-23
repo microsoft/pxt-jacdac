@@ -595,8 +595,9 @@ namespace jacdac {
 
     function clearAttachCache() {
         for (let d of devices_) {
-            if (d.services)
-                d.services[0]++
+            // add a dummy byte at the end (if not done already), to force re-attach of services
+            if (d.services && (d.services.length & 3) == 0)
+                d.services = d.services.concat(Buffer.create(1))
         }
     }
 
