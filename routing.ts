@@ -85,6 +85,7 @@ namespace jacdac {
             return currno
         }
 
+        // TODO remove and use pipes
         sendChunkedReport(cmd: number, bufs: Buffer[]) {
             const total = this.sendChunkedReportCore(null, bufs, 0)
             this.sendChunkedReportCore(cmd, bufs, total)

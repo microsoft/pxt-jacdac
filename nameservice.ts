@@ -87,6 +87,7 @@ namespace jacdac {
                     if (packet.data.length >= 8)
                         setDevName(packet.data.slice(0, 8).toHex(), packet.data.slice(8).toString())
                     break
+                // TODO this should use pipes!
                 case DNS_CMD_LIST_STORED_IDS:
                     this.sendChunkedReport(DNS_CMD_LIST_STORED_IDS,
                         settings.list(devNameSettingPrefix)
