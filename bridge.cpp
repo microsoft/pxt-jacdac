@@ -19,9 +19,19 @@ void (*logJDFrame)(const uint8_t *data);
 void (*sendJDFrame)(const uint8_t *data);
 } // namespace pxt
 
-
 void target_disable_irq() {}
 void target_enable_irq() {}
+
+class MyTimer : public MicroBitComponent {
+  public:
+    MyTimer() { system_timer_add_component(this); }
+    virtual void systemTick() {
+        if (current_time_ms() > nextAnnounce) {
+            nextAnnounce = current_time_ms() + 500;
+            app_queue_annouce();
+        }
+    }
+};
 
 void jd_panic() {
     microbit_panic(PANIC_JACDAC);
@@ -29,6 +39,7 @@ void jd_panic() {
 
 void jd_init() {
     nextAnnounce = current_time_ms() + 500;
+    new MyTimer();
 
     TXRQ(0);
     NRF_GPIO->PIN_CNF[PIN_TXRQ] = (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos) |
@@ -93,11 +104,6 @@ extern "C" void SPI1_TWI1_IRQHandler(void) {
     if (rxBuf.size) {
         app_handle_frame(&rxBuf);
         rxBuf.size = 0;
-    }
-
-    if (current_time_ms() > nextAnnounce) {
-        nextAnnounce += 500;
-        app_queue_annouce();
     }
 }
 
