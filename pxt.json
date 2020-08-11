@@ -5,6 +5,9 @@
     "dependencies": {
         "core": "*"
     },
+    "testDependencies": {
+        "settings": "*"
+    },
     "files": [
         "README.md",
         "jacdac.svg",
