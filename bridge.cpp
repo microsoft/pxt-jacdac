@@ -25,3 +25,15 @@ int jd_is_running() {
 jd_diagnostics_t *jd_get_diagnostics() {
     return NULL;
 }
+
+namespace jacdac {
+//%
+Buffer deviceLongSerialNumber() {
+    uint8_t buf[8];
+    memcpy(buf + 1, (void *)&NRF_FICR->DEVICEADDR[0], 6);
+    buf[0] = 0xfe;
+    buf[7] = 0xff;
+    return mkBuffer(buf, sizeof(uint64_t));
+}
+
+} // namespace jacdac

@@ -787,10 +787,14 @@ namespace jacdac {
         });
         control.internalOnEvent(jacdac.__physId(), 100, queueAnnounce);
 
-        console.addListener(function (pri, msg) {
+        console.addListener(function (pri: any, msg: any) {
+            if (typeof pri == "string") {
+                msg = pri
+                pri = ConsolePriority.Log
+            }
             if (msg[0] != ":")
                 consoleHost.add(pri as number as JDConsolePriority, msg)
-        });
+        } as any);
         consoleHost.start()
     }
 

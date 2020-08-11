@@ -18,6 +18,7 @@
         "hw.cpp",
         "jdsim.ts",
         "hw.h",
+        "mbcompat.ts",
         "commands.ts",
         "config.ts",
         "routing.ts",
@@ -67,6 +68,7 @@
         "wificlient.ts": "net",
         "hw.cpp": "base",
         "jdlow.c": "base",
+        "mbcompat.ts": "radio",
         "bridge.cpp": "radio",
         "nameservice.ts": "settings"
     },
