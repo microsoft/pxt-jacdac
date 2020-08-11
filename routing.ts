@@ -554,6 +554,9 @@ namespace jacdac {
                 case CMD_CTRL_RESET:
                     control.reset()
                     break
+                case CMD_GET_REG | REG_CTRL_DEVICE_DESCRIPTION:
+                    this.sendReport(JDPacket.from(pkt.service_command, Buffer.fromUTF8("PXT Device")))
+                    break
             }
         }
     }
