@@ -787,6 +787,7 @@ namespace jacdac {
         });
         control.internalOnEvent(jacdac.__physId(), 100, queueAnnounce);
 
+        /*
         console.addListener(function (pri: any, msg: any) {
             if (typeof pri == "string") {
                 msg = pri
@@ -796,6 +797,7 @@ namespace jacdac {
                 consoleHost.add(pri as number as JDConsolePriority, msg)
         } as any);
         consoleHost.start()
+        */
     }
 
     export function diagnostics(): jacdac.JDDiagnostics {
