@@ -29,6 +29,10 @@ namespace pins {
     }
 }
 
+namespace jacdac {
+    
+}
+
 namespace settings {
     export function readString(key: string): string {
         return undefined

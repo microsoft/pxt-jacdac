@@ -77,22 +77,11 @@ namespace jacdac {
 
         public handlePacket(packet: JDPacket) {
             switch (packet.service_command) {
-                case DNS_CMD_GET_NAME:
-                    if (packet.data.length == 8) {
-                        const name = settings.readBuffer(devNameSettingPrefix + packet.data.toHex())
-                        this.sendReport(JDPacket.from(DNS_CMD_GET_NAME, packet.data.concat(name)))
-                    }
-                    break
                 case DNS_CMD_SET_NAME:
                     if (packet.data.length >= 8)
                         setDevName(packet.data.slice(0, 8).toHex(), packet.data.slice(8).toString())
                     break
                 // TODO this should use pipes!
-                case DNS_CMD_LIST_STORED_IDS:
-                    this.sendChunkedReport(DNS_CMD_LIST_STORED_IDS,
-                        settings.list(devNameSettingPrefix)
-                            .map(k => Buffer.fromHex(k.slice(devNameSettingPrefix.length))))
-                    break
                 case DNS_CMD_LIST_USED_NAMES:
                     const attachedClients = _allClients.filter(c => !!c.requiredDeviceName)
                     this.sendChunkedReport(DNS_CMD_LIST_USED_NAMES, attachedClients.map(packName))

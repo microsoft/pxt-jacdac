@@ -73,7 +73,7 @@
         "jdlow.c": "base",
         "mbcompat.ts": "radio",
         "bridge.cpp": "radio",
-        "nameservice.ts": "settings"
+        "namesettings.ts": "settings"
     },
     "public": true,
     "supportedTargets": [
