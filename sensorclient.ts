@@ -26,10 +26,12 @@ namespace jacdac {
         //% blockid=jacdacsensorstreaming block="jacdac %sensor set streaming %on"
         //% on.shadow=toggleOnOff weight=1
         //% group="Services"
-        public setStreaming(on: boolean) {
+        public setStreaming(on: boolean, interval?: number) {
             this.start();
             this.isStreaming = on
             this.setRegInt(REG_IS_STREAMING, this.isStreaming ? 1 : 0)
+            if (interval != undefined)
+                this.setRegInt(REG_STREAMING_INTERVAL, interval)
         }
 
         /**
