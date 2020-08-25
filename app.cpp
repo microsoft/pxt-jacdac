@@ -13,8 +13,11 @@
 
 namespace jacdac {
 
+#define LINKED_FRAME_HEADER_SIZE (sizeof(uint32_t) + sizeof(void *))
+
 struct LinkedFrame {
     LinkedFrame *next;
+    uint32_t timestamp_ms;
     jd_frame_t frame;
 };
 
@@ -85,9 +88,11 @@ extern "C" void app_queue_annouce() {
     Event(DEVICE_ID, EVT_QUEUE_ANNOUNCE);
 }
 
-static inline int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max,
-                                uint8_t *data = NULL) {
-    auto buf = (LinkedFrame *)malloc(JD_FRAME_SIZE(frame) + sizeof(void *));
+static int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max,
+                         uint8_t *data = NULL) {
+    auto buf = (LinkedFrame *)malloc(JD_FRAME_SIZE(frame) + LINKED_FRAME_HEADER_SIZE);
+
+    buf->timestamp_ms = current_time_ms();
 
     if (data) {
         memcpy(&buf->frame, frame, JD_SERIAL_FULL_HEADER_SIZE);
@@ -178,6 +183,13 @@ void __physSendPacket(Buffer header, Buffer data) {
 }
 
 //%
+int __physGetTimestamp() {
+    if (!superFrameRX)
+        return 0;
+    return superFrameRX->timestamp_ms;
+}
+
+//%
 Buffer __physGetPacket() {
     if (superFrameRX && jd_shift_frame(&superFrameRX->frame) == 0) {
         free(superFrameRX);
@@ -223,6 +235,5 @@ Buffer __physGetDiagnostics() {
         return NULL;
     return mkBuffer(jd_get_diagnostics(), sizeof(jd_diagnostics_t));
 }
-
 
 } // namespace jacdac

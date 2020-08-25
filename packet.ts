@@ -27,8 +27,11 @@ namespace jacdac {
     export class JDPacket {
         _header: Buffer;
         _data: Buffer;
+        timestamp: number;
 
-        private constructor() { }
+        private constructor() {
+            this.timestamp = control.millis()
+        }
 
         static fromBinary(buf: Buffer) {
             const p = new JDPacket()

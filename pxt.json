@@ -67,10 +67,6 @@
         "wificlient.ts": "net"
     },
     "public": true,
-    "targetVersions": {
-        "target": "1.2.2",
-        "targetId": "arcade"
-    },
     "supportedTargets": [
         "arcade"
     ],

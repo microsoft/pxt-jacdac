@@ -785,7 +785,9 @@ namespace jacdac {
         control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
             let buf: Buffer;
             while (null != (buf = jacdac.__physGetPacket())) {
-                routePacket(JDPacket.fromBinary(buf))
+                const pkt = JDPacket.fromBinary(buf)
+                pkt.timestamp = jacdac.__physGetTimestamp()
+                routePacket(pkt)
             }
         });
         control.internalOnEvent(jacdac.__physId(), 100, queueAnnounce);
