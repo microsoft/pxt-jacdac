@@ -75,4 +75,53 @@ namespace jacdac {
             this.setRegInt(low ? REG_LOW_THRESHOLD : REG_HIGH_THRESHOLD, value)
         }
     }
+
+    export class BufferedSensorClient<T> extends SensorClient {
+        protected _samples: T[]
+        protected _numSamples: number
+        protected _interval: number
+        protected _lastTimestamp: number
+
+        constructor(name: string, deviceClass: number, requiredDevice: string) {
+            super(name, deviceClass, requiredDevice);
+        }
+
+        enableBuffer(numSamples: number, interval: number) {
+            this._numSamples = numSamples
+            this._samples = []
+            this._interval = interval
+            this.setStreaming(true, interval)
+        }
+
+        getSamples() {
+            if (!this._samples || this._samples.length < this._numSamples)
+                return null
+            return this._samples.slice(-this._numSamples)
+        }
+
+        protected parseSample(packet: JDPacket): T {
+            return null
+        }
+
+        handlePacket(packet: JDPacket) {
+            if (this._samples && packet.service_command == (CMD_GET_REG | REG_READING)) {
+                const v = this.parseSample(packet)
+                if (v != null) {
+                    let num = 1
+                    if (this._lastTimestamp != undefined) {
+                        const d = packet.timestamp - this._lastTimestamp
+                        num = Math.idiv(d + (this._interval >> 1), this._interval)
+                        num = Math.clamp(1, 5, num)
+                    }
+                    this._lastTimestamp = packet.timestamp
+                    while (num--)
+                        this._samples.push(v)
+                    const del = this._samples.length - this._numSamples
+                    if (del > 5)
+                        this._samples.splice(0, del)
+                }
+            }
+            super.handlePacket(packet)
+        }
+    }
 }
