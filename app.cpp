@@ -148,7 +148,7 @@ extern "C" int app_handle_frame(jd_frame_t *frame) {
 
 extern "C" void app_frame_sent(jd_frame_t *frame) {
     // LOG("frame sent");
-    free((uint8_t *)frame - sizeof(void *));
+    free((uint8_t *)frame - LINKED_FRAME_HEADER_SIZE);
     if (txQ)
         jd_packet_ready();
     queue_cnt();
