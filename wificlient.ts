@@ -43,7 +43,7 @@ namespace jacdac {
 
         scan() {
             if (!this.device) return []
-            const s = new InPipe(this.device)
+            const s = new InPipe()
             this.sendCommandWithAck(JDPacket.from(CMD_SCAN, s.openInfo()))
             const elts = s.readList(decodeAP)
             elts.sort((x, y) => y.rssi - x.rssi)

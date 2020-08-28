@@ -20,7 +20,7 @@ namespace jacdac {
         private inQ: Buffer[]
         private eventId: number
 
-        constructor(public remote: Device) {
+        constructor() {
             this.eventId = control.allocateNotifyEvent()
             this.inQ = []
             if (!pipes) {
