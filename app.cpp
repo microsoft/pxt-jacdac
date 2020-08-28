@@ -3,6 +3,8 @@
 
 // #define COUNT_SERVICE 1
 
+#define FRAME_EXT_FLAG 0x80
+
 #define LOG(msg, ...) DMESG("JDAPP: " msg, ##__VA_ARGS__)
 //#define LOG(...) ((void)0)
 
@@ -201,7 +203,7 @@ Buffer __physGetPacket() {
         if ((superFrameRX = rxQ) != NULL)
             rxQ = rxQ->next;
         target_enable_irq();
-        if (pxt::logJDFrame)
+        if (pxt::logJDFrame && !(superFrameRX->frame.flags & FRAME_EXT_FLAG))
             pxt::logJDFrame((uint8_t *)&superFrameRX->frame);
     }
 
@@ -217,16 +219,19 @@ bool __physIsRunning() {
     return jd_is_running() != 0;
 }
 
-static void sendFrame(const uint8_t *data) {
+static void sendExtFrame(const uint8_t *data) {
     jd_frame_t *frame = (jd_frame_t *)data;
-    copyAndAppend(&txQ, frame, MAX_TX);
+    frame->flags |= FRAME_EXT_FLAG; // set flag saying the frame came from USB
+    app_handle_frame(frame);        // pretend we got it from the wire
+    frame->flags &= ~FRAME_EXT_FLAG;
+    copyAndAppend(&txQ, frame, MAX_TX); // and also put it on the send Q
     jd_packet_ready();
 }
 
 //%
 void __physStart() {
     jd_init();
-    sendJDFrame = sendFrame;
+    sendJDFrame = sendExtFrame;
 }
 
 //%
