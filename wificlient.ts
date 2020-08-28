@@ -43,7 +43,7 @@ namespace jacdac {
 
         scan() {
             if (!this.device) return []
-            const s = new InStream(this.device)
+            const s = new InPipe(this.device)
             this.sendCommandWithAck(JDPacket.from(CMD_SCAN, s.openInfo()))
             const elts = s.readList(decodeAP)
             elts.sort((x, y) => y.rssi - x.rssi)
@@ -62,8 +62,8 @@ namespace jacdac {
     const CMD_OPEN = 0x80
 
     export class Socket {
-        private outp: OutStream
-        private inp: InStream
+        private outp: OutPipe
+        private inp: InPipe
         isConnected = false
 
         close() {
@@ -96,13 +96,13 @@ namespace jacdac {
         }
 
         constructor(private parent: TcpClient) {
-            this.inp = new InStream(this.parent.device)
+            this.inp = new InPipe(this.parent.device)
             // TODO handle races
             this.parent.sendCommandWithAck(JDPacket.from(CMD_OPEN, this.inp.openInfo()))
             pauseUntil(() => this.parent._retPort != null)
             const port = this.parent._retPort
             this.parent._retPort = null
-            this.outp = new OutStream(this.parent.device, port)
+            this.outp = new OutPipe(this.parent.device, port)
         }
     }
 
