@@ -107,6 +107,8 @@ namespace jacdac {
             if (getset == 1) {
                 this.sendReport(JDPacket.packed(pkt.service_command, "i", [current >> 0]))
             } else {
+                if (register >> 8 == 0x1)
+                    return current // read-only
                 const v = pkt.intData
                 if (v != current) {
                     this.stateUpdated = true
@@ -127,6 +129,8 @@ namespace jacdac {
             if (getset == 1) {
                 this.sendReport(JDPacket.from(pkt.service_command, current))
             } else {
+                if (register >> 8 == 0x1)
+                    return current // read-only
                 let data = pkt.data
                 const diff = current.length - data.length
                 if (diff == 0) { }
@@ -139,7 +143,6 @@ namespace jacdac {
                     current.write(0, data)
                     this.stateUpdated = true
                 }
-
             }
             return current
         }
