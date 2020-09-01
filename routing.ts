@@ -38,6 +38,7 @@ namespace jacdac {
                 this.sendReport(
                     JDPacket.from(CMD_ADVERTISEMENT_DATA, this.advertisementData()))
             } else {
+                this.stateUpdated = false
                 this.handlePacket(pkt)
             }
         }

@@ -131,9 +131,9 @@ static int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max,
 }
 
 extern "C" int app_handle_frame(jd_frame_t *frame) {
-    // DMESG("PKT from %x/%d sz=%d cmd %x", (int)frame->device_identifier,
-    // frame->service_number,
-    //      frame->size, frame->service_command);
+    // DMESG("PKT t:%d fl:%x %d cmd=%x", (int)current_time_ms(), frame->flags,
+    //      ((jd_packet_t *)frame)->service_number, ((jd_packet_t *)frame)->service_command);
+
 
     if (((jd_packet_t *)frame)->service_number == 0x42) {
         handle_count_packet((jd_packet_t *)frame);
@@ -182,6 +182,7 @@ void __physSendPacket(Buffer header, Buffer data) {
     }
 
     jd_packet_ready();
+    // DMESG("s3:%d", (int)current_time_ms());
 }
 
 //%
