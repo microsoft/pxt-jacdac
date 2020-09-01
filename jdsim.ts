@@ -26,6 +26,16 @@ namespace jacdac {
         return recvQ.shift()
     }
 
+
+    /**
+     * Gets reception time in ms of last __physGetPacket()
+     **/
+    //% shim=jacdac::__physGetTimestamp
+    export function __physGetTimestamp(): number {
+        if (!recvQ) return 0
+        return control.millis() // TODO
+    }
+
     /**
      * Indicates if the bus is running
      **/

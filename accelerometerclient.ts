@@ -1,8 +1,16 @@
 namespace jacdac {
     //% fixedInstances
-    export class AccelerometerClient extends SensorClient {
+    export class AccelerometerClient extends BufferedSensorClient<number[]> {
         constructor(requiredDevice: string = null) {
             super("acc", jd_class.ACCELEROMETER, requiredDevice);
+        }
+
+        protected parseSample(packet: JDPacket) {
+            return [
+                packet.getNumber(NumberFormat.Int16LE, 0),
+                packet.getNumber(NumberFormat.Int16LE, 2),
+                packet.getNumber(NumberFormat.Int16LE, 4),
+            ]
         }
 
         /**

@@ -4,7 +4,7 @@ namespace jacdac {
     export const JD_SERVICE_NUMBER_MASK = 0x3f
     export const JD_SERVICE_NUMBER_INV_MASK = 0xc0
     export const JD_SERVICE_NUMBER_CRC_ACK = 0x3f
-    export const JD_SERVICE_NUMBER_STREAM = 0x3e
+    export const JD_SERVICE_NUMBER_PIPE = 0x3e
     export const JD_SERVICE_NUMBER_CTRL = 0x00
 
     // the COMMAND flag signifies that the device_identifier is the recipent
@@ -27,8 +27,11 @@ namespace jacdac {
     export class JDPacket {
         _header: Buffer;
         _data: Buffer;
+        timestamp: number;
 
-        private constructor() { }
+        private constructor() {
+            this.timestamp = control.millis()
+        }
 
         static fromBinary(buf: Buffer) {
             const p = new JDPacket()

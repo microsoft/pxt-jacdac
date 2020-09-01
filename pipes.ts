@@ -4,35 +4,35 @@ namespace jacdac {
     const CLOSE_MASK = 0x0020
     const METADATA_MASK = 0x0040
 
-    let streams: InStream[]
-    function handleStreamData(pkt: JDPacket) {
-        if (pkt.service_number != JD_SERVICE_NUMBER_STREAM || pkt.device_identifier != selfDevice().deviceId)
+    let pipes: InPipe[]
+    function handlePipeData(pkt: JDPacket) {
+        if (pkt.service_number != JD_SERVICE_NUMBER_PIPE || pkt.device_identifier != selfDevice().deviceId)
             return
         const port = pkt.service_command >> PORT_SHIFT
-        const s = streams.find(s => s.port == port)
+        const s = pipes.find(s => s.port == port)
         if (s) s._handle(pkt)
     }
 
-    export class InStream {
+    export class InPipe {
         port: number
         private nextCnt = 0
         private closed = false
         private inQ: Buffer[]
         private eventId: number
 
-        constructor(public remote: Device) {
+        constructor() {
             this.eventId = control.allocateNotifyEvent()
             this.inQ = []
-            if (!streams) {
-                streams = []
-                jacdac.onRawPacket(handleStreamData)
+            if (!pipes) {
+                pipes = []
+                jacdac.onRawPacket(handlePipeData)
             }
             while (true) {
                 this.port = Math.randomRange(1, 511)
-                if (streams.every(s => s.port != this.port))
+                if (pipes.every(s => s.port != this.port))
                     break
             }
-            streams.push(this)
+            pipes.push(this)
         }
 
         openInfo() {
@@ -62,7 +62,7 @@ namespace jacdac {
 
         private _close() {
             this.closed = true
-            streams.removeElement(this)
+            pipes.removeElement(this)
         }
 
         close() {
@@ -98,7 +98,7 @@ namespace jacdac {
         }
     }
 
-    export class OutStream {
+    export class OutPipe {
         private nextCnt = 0
 
         constructor(public device: Device, public port: number) { }
@@ -109,9 +109,9 @@ namespace jacdac {
             this.nextCnt++
             if (flags & CLOSE_MASK)
                 this.port = null
-            pkt.service_number = JD_SERVICE_NUMBER_STREAM
+            pkt.service_number = JD_SERVICE_NUMBER_PIPE
             if (!pkt._sendWithAck(this.device))
-                throw "No ACK (stream)"
+                throw "No ACK (pipe)"
         }
 
         write(buf: Buffer) {

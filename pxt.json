@@ -24,7 +24,7 @@
         "packet.ts",
         "consolehost.ts",
         "service.ts",
-        "streams.ts",
+        "pipes.ts",
         "sensordriver.ts",
         "actuator.ts",
         "controllerclient.ts",
@@ -67,10 +67,6 @@
         "wificlient.ts": "net"
     },
     "public": true,
-    "targetVersions": {
-        "target": "1.2.2",
-        "targetId": "arcade"
-    },
     "supportedTargets": [
         "arcade"
     ],

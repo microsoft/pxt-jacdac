@@ -3,6 +3,8 @@
 
 // #define COUNT_SERVICE 1
 
+#define FRAME_EXT_FLAG 0x80
+
 #define LOG(msg, ...) DMESG("JDAPP: " msg, ##__VA_ARGS__)
 //#define LOG(...) ((void)0)
 
@@ -13,8 +15,11 @@
 
 namespace jacdac {
 
+#define LINKED_FRAME_HEADER_SIZE (sizeof(uint32_t) + sizeof(void *))
+
 struct LinkedFrame {
     LinkedFrame *next;
+    uint32_t timestamp_ms;
     jd_frame_t frame;
 };
 
@@ -85,9 +90,11 @@ extern "C" void app_queue_annouce() {
     Event(DEVICE_ID, EVT_QUEUE_ANNOUNCE);
 }
 
-static inline int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max,
-                                uint8_t *data = NULL) {
-    auto buf = (LinkedFrame *)malloc(JD_FRAME_SIZE(frame) + sizeof(void *));
+static int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max,
+                         uint8_t *data = NULL) {
+    auto buf = (LinkedFrame *)malloc(JD_FRAME_SIZE(frame) + LINKED_FRAME_HEADER_SIZE);
+
+    buf->timestamp_ms = current_time_ms();
 
     if (data) {
         memcpy(&buf->frame, frame, JD_SERIAL_FULL_HEADER_SIZE);
@@ -124,9 +131,9 @@ static inline int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int
 }
 
 extern "C" int app_handle_frame(jd_frame_t *frame) {
-    // DMESG("PKT from %x/%d sz=%d cmd %x", (int)frame->device_identifier,
-    // frame->service_number,
-    //      frame->size, frame->service_command);
+    // DMESG("PKT t:%d fl:%x %d cmd=%x", (int)current_time_ms(), frame->flags,
+    //      ((jd_packet_t *)frame)->service_number, ((jd_packet_t *)frame)->service_command);
+
 
     if (((jd_packet_t *)frame)->service_number == 0x42) {
         handle_count_packet((jd_packet_t *)frame);
@@ -143,7 +150,7 @@ extern "C" int app_handle_frame(jd_frame_t *frame) {
 
 extern "C" void app_frame_sent(jd_frame_t *frame) {
     // LOG("frame sent");
-    free((uint8_t *)frame - sizeof(void *));
+    free((uint8_t *)frame - LINKED_FRAME_HEADER_SIZE);
     if (txQ)
         jd_packet_ready();
     queue_cnt();
@@ -175,6 +182,14 @@ void __physSendPacket(Buffer header, Buffer data) {
     }
 
     jd_packet_ready();
+    // DMESG("s3:%d", (int)current_time_ms());
+}
+
+//%
+int __physGetTimestamp() {
+    if (!superFrameRX)
+        return 0;
+    return superFrameRX->timestamp_ms;
 }
 
 //%
@@ -189,7 +204,7 @@ Buffer __physGetPacket() {
         if ((superFrameRX = rxQ) != NULL)
             rxQ = rxQ->next;
         target_enable_irq();
-        if (pxt::logJDFrame)
+        if (pxt::logJDFrame && !(superFrameRX->frame.flags & FRAME_EXT_FLAG))
             pxt::logJDFrame((uint8_t *)&superFrameRX->frame);
     }
 
@@ -205,16 +220,19 @@ bool __physIsRunning() {
     return jd_is_running() != 0;
 }
 
-static void sendFrame(const uint8_t *data) {
+static void sendExtFrame(const uint8_t *data) {
     jd_frame_t *frame = (jd_frame_t *)data;
-    copyAndAppend(&txQ, frame, MAX_TX);
+    frame->flags |= FRAME_EXT_FLAG; // set flag saying the frame came from USB
+    app_handle_frame(frame);        // pretend we got it from the wire
+    frame->flags &= ~FRAME_EXT_FLAG;
+    copyAndAppend(&txQ, frame, MAX_TX); // and also put it on the send Q
     jd_packet_ready();
 }
 
 //%
 void __physStart() {
     jd_init();
-    sendJDFrame = sendFrame;
+    sendJDFrame = sendExtFrame;
 }
 
 //%
@@ -223,6 +241,5 @@ Buffer __physGetDiagnostics() {
         return NULL;
     return mkBuffer(jd_get_diagnostics(), sizeof(jd_diagnostics_t));
 }
-
 
 } // namespace jacdac
