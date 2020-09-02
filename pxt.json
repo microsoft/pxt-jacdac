@@ -62,6 +62,10 @@
     "testFiles": [
         "test.ts"
     ],
+    "testDependencies": {
+        "device": "*",
+        "net": "*"
+    },
     "fileDependencies": {
         "musicclient.ts": "mixer",
         "wificlient.ts": "net"
