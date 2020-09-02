@@ -189,7 +189,13 @@ namespace jacdac {
         _sendCmd(dev: Device) {
             if (!dev)
                 return
-            this.device_identifier = dev.deviceId
+            this._sendCmdId(dev.deviceId)
+        }
+
+        _sendCmdId(devId: string) {
+            if (!devId)
+                return
+            this.device_identifier = devId
             this._header[3] |= JD_FRAME_FLAG_COMMAND
             this._sendCore()
         }
@@ -202,11 +208,11 @@ namespace jacdac {
         }
 
         // returns true when sent and recieved
-        _sendWithAck(dev: Device) {
-            if (!dev)
+        _sendWithAck(devId: string) {
+            if (!devId)
                 return false
             this.requires_ack = true
-            this._sendCmd(dev)
+            this._sendCmdId(devId)
 
             if (!ackAwaiters) {
                 ackAwaiters = []
@@ -218,7 +224,7 @@ namespace jacdac {
                 })
             }
 
-            const aw = new AckAwaiter(this, dev.deviceId)
+            const aw = new AckAwaiter(this, devId)
             ackAwaiters.push(aw)
             while (aw.added > 0)
                 control.waitForEvent(DAL.DEVICE_ID_NOTIFY, aw.eventId)

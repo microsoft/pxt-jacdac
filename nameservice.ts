@@ -1,9 +1,22 @@
 namespace jacdac {
-    const DNS_CMD_GET_NAME = 0x80
-    const DNS_CMD_SET_NAME = 0x81
-    const DNS_CMD_LIST_STORED_IDS = 0x82
-    const DNS_CMD_LIST_USED_NAMES = 0x83
-    const DNS_CMD_CLEAR_STORED_IDS = 0x84
+
+    export const SRV_DEVICE_NAME_SERVICE = 0x119c3ad1
+    export enum DNSCmd {
+        /** Argument: device_id uint64_t. Get the name corresponding to given device identifer. Returns empty string if unset. */
+        GetName = 0x80,
+
+        /** Set name. Can set to empty to remove name binding. */
+        SetName = 0x81,
+
+        /** No args. Remove all name bindings. */
+        ClearAllNames = 0x84,
+
+        /** Argument: stored_names pipe (bytes). Return all names stored internally. */
+        ListStoredNames = 0x82,
+
+        /** Argument: required_names pipe (bytes). List all names required by the current program. `device_id` is `0` if name is unbound. */
+        ListRequiredNames = 0x83,
+    }
 
     export function autoBind() {
         function log(msg: string) {
@@ -77,27 +90,26 @@ namespace jacdac {
 
         public handlePacket(packet: JDPacket) {
             switch (packet.service_command) {
-                case DNS_CMD_GET_NAME:
+                case DNSCmd.GetName:
                     if (packet.data.length == 8) {
-                        const name = settings.readBuffer(devNameSettingPrefix + packet.data.toHex())
-                        this.sendReport(JDPacket.from(DNS_CMD_GET_NAME, packet.data.concat(name)))
+                        let name = settings.readBuffer(devNameSettingPrefix + packet.data.toHex())
+                        if (!name) name = Buffer.create(0)
+                        this.sendReport(JDPacket.from(DNSCmd.GetName, packet.data.concat(name)))
                     }
                     break
-                case DNS_CMD_SET_NAME:
+                case DNSCmd.SetName:
                     if (packet.data.length >= 8)
                         setDevName(packet.data.slice(0, 8).toHex(), packet.data.slice(8).toString())
                     break
-                // TODO this should use pipes!
-                case DNS_CMD_LIST_STORED_IDS:
-                    this.sendChunkedReport(DNS_CMD_LIST_STORED_IDS,
-                        settings.list(devNameSettingPrefix)
-                            .map(k => Buffer.fromHex(k.slice(devNameSettingPrefix.length))))
+                case DNSCmd.ListStoredNames:
+                    OutPipe.respondForEach(packet, settings.list(devNameSettingPrefix), k =>
+                        settings.readBuffer(k).concat(Buffer.fromHex(k.slice(devNameSettingPrefix.length))))
                     break
-                case DNS_CMD_LIST_USED_NAMES:
+                case DNSCmd.ListRequiredNames:
                     const attachedClients = _allClients.filter(c => !!c.requiredDeviceName)
-                    this.sendChunkedReport(DNS_CMD_LIST_USED_NAMES, attachedClients.map(packName))
+                    OutPipe.respondForEach(packet, attachedClients, packName)
                     break
-                case DNS_CMD_CLEAR_STORED_IDS:
+                case DNSCmd.ClearAllNames:
                     clearAllNames()
                     break
             }
@@ -105,7 +117,7 @@ namespace jacdac {
             function packName(c: Client) {
                 const devid = c.device ? Buffer.fromHex(c.device.deviceId) : Buffer.create(8)
                 const name = Buffer.fromUTF8(c.requiredDeviceName)
-                const devdesc = Buffer.pack("Ib", [c.serviceClass, name.length])
+                const devdesc = Buffer.pack("I", [c.serviceClass])
                 return devid.concat(devdesc).concat(name)
             }
         }
@@ -113,45 +125,6 @@ namespace jacdac {
 
     //% fixedInstance whenUsed block="device name service"
     export const deviceNameService = new DeviceNameService()
-
-    export class Dechunker {
-        pending: Buffer[]
-        previous: Buffer
-
-        constructor(
-            public cmd: number,
-            public onUpdate: (b: Buffer) => void
-        ) { }
-
-        handlePacket(pkt: JDPacket): boolean {
-            if (pkt.service_command != this.cmd)
-                return false
-
-            const [currno, total] = pkt.data.unpack("HH")
-            if (currno == 0)
-                this.pending = []
-            else if (!this.pending)
-                return true
-
-            if (this.pending.length != currno) {
-                this.pending = null
-                return true
-            }
-
-            this.pending.push(pkt.data.slice(4))
-
-            if (currno == total - 1) {
-                const r = Buffer.concat(this.pending)
-                this.pending = null
-                if (!this.previous || !this.previous.equals(r)) {
-                    this.previous = r
-                    this.onUpdate(r)
-                }
-            }
-
-            return true
-        }
-    }
 
     export class RemoteRequestedDevice {
         services: number[] = [];
@@ -199,7 +172,6 @@ namespace jacdac {
     export class DeviceNameClient extends Client {
         public remoteRequestedDevices: RemoteRequestedDevice[] = []
 
-        private usedNames: Dechunker
         constructor(requiredDevice: string = null) {
             super("dnsc", jd_class.DEVICE_NAME_SERVICE, requiredDevice)
 
@@ -208,51 +180,49 @@ namespace jacdac {
             })
 
             onAnnounce(() => {
-                this.sendCommand(JDPacket.onlyHeader(DNS_CMD_LIST_USED_NAMES))
+                if (this.isConnected())
+                    control.runInParallel(() => this.scanCore())
+            })
+        }
+
+        private scanCore() {
+            const inp = new InPipe()
+            this.sendCommand(inp.openCommand(DNSCmd.ListRequiredNames))
+
+            const localDevs = devices()
+            const devs: RemoteRequestedDevice[] = []
+
+            inp.readList(buf => {
+                const devid = buf.slice(0, 8).toHex()
+                const [service_class] = buf.unpack("I", 8)
+                const name = buf.slice(12).toString()
+                const r = addRequested(devs, name, service_class, this)
+                const dev = localDevs.find(d => d.deviceId == devid)
+                if (dev)
+                    r.boundTo = dev
             })
 
-            this.usedNames = new Dechunker(DNS_CMD_LIST_USED_NAMES, buf => {
-                let off = 0
-                const devs: RemoteRequestedDevice[] = []
-                const localDevs = devices()
-                while (off < buf.length) {
-                    const devid = buf.slice(off, 8).toHex()
-                    off += 8
-                    const [service_class, nameBytes] = buf.unpack("Ib", off)
-                    off += 5
-                    const name = buf.slice(off, nameBytes).toString()
-                    off += nameBytes
+            devs.sort((a, b) => a.name.compare(b.name))
 
-                    const r = addRequested(devs, name, service_class, this)
-                    const dev = localDevs.find(d => d.deviceId == devid)
-                    if (dev)
-                        r.boundTo = dev
-                }
-
-                devs.sort((a, b) => a.name.compare(b.name))
-
-                this.remoteRequestedDevices = devs
-                recomputeCandidates(this.remoteRequestedDevices)
-            })
+            this.remoteRequestedDevices = devs
+            recomputeCandidates(this.remoteRequestedDevices)
         }
 
         scan() {
             pauseUntil(() => this.isConnected())
-            this.sendCommand(JDPacket.onlyHeader(DNS_CMD_LIST_USED_NAMES))
-            pause(100)
+            this.scanCore()
         }
 
         clearNames() {
-            this.sendCommandWithAck(JDPacket.onlyHeader(DNS_CMD_CLEAR_STORED_IDS))
+            this.sendCommandWithAck(JDPacket.onlyHeader(DNSCmd.ClearAllNames))
         }
 
         setName(dev: Device, name: string) {
-            this.sendCommandWithAck(JDPacket.from(DNS_CMD_SET_NAME,
+            this.sendCommandWithAck(JDPacket.from(DNSCmd.SetName,
                 Buffer.fromHex(dev.deviceId).concat(Buffer.fromUTF8(name))))
         }
 
         handlePacket(pkt: JDPacket) {
-            this.usedNames.handlePacket(pkt)
         }
     }
 }
