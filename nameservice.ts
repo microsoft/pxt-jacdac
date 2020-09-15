@@ -1,7 +1,7 @@
 namespace jacdac {
 
-    export const SRV_DEVICE_NAME_SERVICE = 0x119c3ad1
-    export enum DNSCmd {
+    export const SRV_DEVICE_NAMER = 0x119c3ad1
+    export enum DeviceNamerCmd {
         /** Argument: device_id uint64_t. Get the name corresponding to given device identifer. Returns empty string if unset. */
         GetName = 0x80,
 
@@ -83,33 +83,33 @@ namespace jacdac {
         Device.clearNameCache()
     }
 
-    export class DeviceNameService extends Host {
+    export class DeviceNamer extends Host {
         constructor() {
-            super("dns", jd_class.DEVICE_NAME_SERVICE)
+            super("namer", jd_class.DEVICE_NAME_SERVICE)
         }
 
         public handlePacket(packet: JDPacket) {
             switch (packet.service_command) {
-                case DNSCmd.GetName:
+                case DeviceNamerCmd.GetName:
                     if (packet.data.length == 8) {
                         let name = settings.readBuffer(devNameSettingPrefix + packet.data.toHex())
                         if (!name) name = Buffer.create(0)
-                        this.sendReport(JDPacket.from(DNSCmd.GetName, packet.data.concat(name)))
+                        this.sendReport(JDPacket.from(DeviceNamerCmd.GetName, packet.data.concat(name)))
                     }
                     break
-                case DNSCmd.SetName:
+                case DeviceNamerCmd.SetName:
                     if (packet.data.length >= 8)
                         setDevName(packet.data.slice(0, 8).toHex(), packet.data.slice(8).toString())
                     break
-                case DNSCmd.ListStoredNames:
+                case DeviceNamerCmd.ListStoredNames:
                     OutPipe.respondForEach(packet, settings.list(devNameSettingPrefix), k =>
                         settings.readBuffer(k).concat(Buffer.fromHex(k.slice(devNameSettingPrefix.length))))
                     break
-                case DNSCmd.ListRequiredNames:
+                case DeviceNamerCmd.ListRequiredNames:
                     const attachedClients = _allClients.filter(c => !!c.requiredDeviceName)
                     OutPipe.respondForEach(packet, attachedClients, packName)
                     break
-                case DNSCmd.ClearAllNames:
+                case DeviceNamerCmd.ClearAllNames:
                     clearAllNames()
                     break
             }
@@ -123,8 +123,8 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="device name service"
-    export const deviceNameService = new DeviceNameService()
+    //% fixedInstance whenUsed block="device namer"
+    export const deviceNamer = new DeviceNamer()
 
     export class RemoteRequestedDevice {
         services: number[] = [];
@@ -132,7 +132,7 @@ namespace jacdac {
         candidates: Device[] = [];
 
         constructor(
-            public parent: DeviceNameClient,
+            public parent: DeviceNamerClient,
             public name: string
         ) { }
 
@@ -160,7 +160,7 @@ namespace jacdac {
             dev.candidates = localDevs.filter(ldev => dev.isCandidate(ldev))
     }
 
-    function addRequested(devs: RemoteRequestedDevice[], name: string, service_class: number, parent: DeviceNameClient) {
+    function addRequested(devs: RemoteRequestedDevice[], name: string, service_class: number, parent: DeviceNamerClient) {
         let r = devs.find(d => d.name == name)
         if (!r)
             devs.push(r = new RemoteRequestedDevice(parent, name))
@@ -169,11 +169,11 @@ namespace jacdac {
     }
 
 
-    export class DeviceNameClient extends Client {
+    export class DeviceNamerClient extends Client {
         public remoteRequestedDevices: RemoteRequestedDevice[] = []
 
         constructor(requiredDevice: string = null) {
-            super("dnsc", jd_class.DEVICE_NAME_SERVICE, requiredDevice)
+            super("namerc", jd_class.DEVICE_NAME_SERVICE, requiredDevice)
 
             onNewDevice(() => {
                 recomputeCandidates(this.remoteRequestedDevices)
@@ -187,7 +187,7 @@ namespace jacdac {
 
         private scanCore() {
             const inp = new InPipe()
-            this.sendCommand(inp.openCommand(DNSCmd.ListRequiredNames))
+            this.sendCommand(inp.openCommand(DeviceNamerCmd.ListRequiredNames))
 
             const localDevs = devices()
             const devs: RemoteRequestedDevice[] = []
@@ -214,11 +214,11 @@ namespace jacdac {
         }
 
         clearNames() {
-            this.sendCommandWithAck(JDPacket.onlyHeader(DNSCmd.ClearAllNames))
+            this.sendCommandWithAck(JDPacket.onlyHeader(DeviceNamerCmd.ClearAllNames))
         }
 
         setName(dev: Device, name: string) {
-            this.sendCommandWithAck(JDPacket.from(DNSCmd.SetName,
+            this.sendCommandWithAck(JDPacket.from(DeviceNamerCmd.SetName,
                 Buffer.fromHex(dev.deviceId).concat(Buffer.fromUTF8(name))))
         }
 
