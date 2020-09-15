@@ -111,10 +111,14 @@ namespace jacdac {
 
         static respondForEach<T>(pkt: JDPacket, inp: T[], f: (v: T) => Buffer) {
             control.runInParallel(() => {
-                const outp = OutPipe.from(pkt)
-                for (const e of inp)
-                    outp.write(f(e))
-                outp.close()
+                try {
+                    const outp = OutPipe.from(pkt)
+                    for (const e of inp)
+                        outp.write(f(e))
+                    outp.close()
+                } catch (e) {
+                    console.logValue("respondForEach", e)
+                }
             })
         }
 
