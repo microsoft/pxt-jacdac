@@ -591,7 +591,7 @@ namespace jacdac {
                 continue // will re-attach
             }
             const newClass = dev.services.getNumber(NumberFormat.UInt32LE, c.serviceNumber << 2)
-            if (newClass == c.serviceClass) {
+            if (newClass == c.serviceClass && (!c.requiredDeviceName || c.requiredDeviceName == dev.name)) {
                 newClients.push(c)
                 occupied[c.serviceNumber] = 1
             } else {
