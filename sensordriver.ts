@@ -20,7 +20,8 @@ namespace jacdac {
             this.lowThreshold = this.handleRegInt(packet, REG_LOW_THRESHOLD, this.lowThreshold)
             this.highThreshold = this.handleRegInt(packet, REG_HIGH_THRESHOLD, this.highThreshold)
             this.streamingInterval = this.handleRegInt(packet, REG_STREAMING_INTERVAL, this.streamingInterval)
-            const newStr = this.handleRegBool(packet, REG_IS_STREAMING, this.isStreaming)
+            // TODO this should be integer counter
+            const newStr = this.handleRegBool(packet, REG_STREAMING_SAMPLES, this.isStreaming)
             this.setStreaming(newStr)
 
             switch (packet.service_command) {

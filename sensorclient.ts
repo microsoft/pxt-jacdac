@@ -19,6 +19,11 @@ namespace jacdac {
             return this._lastState;
         }
 
+        announceCallback() {
+            if (this.isStreaming)
+                this.setRegInt(REG_STREAMING_SAMPLES, this.isStreaming ? 255 : 0)
+        }
+
         /**
          * Enables or disable streaming the sensor internal state
          * @param on streaming enabled
@@ -29,7 +34,7 @@ namespace jacdac {
         public setStreaming(on: boolean, interval?: number) {
             this.start();
             this.isStreaming = on
-            this.setRegInt(REG_IS_STREAMING, this.isStreaming ? 1 : 0)
+            this.setRegInt(REG_STREAMING_SAMPLES, this.isStreaming ? 255 : 0)
             if (interval != undefined)
                 this.setRegInt(REG_STREAMING_INTERVAL, interval)
         }

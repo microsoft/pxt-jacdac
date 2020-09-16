@@ -361,6 +361,8 @@ namespace jacdac {
             this.device = null
             clearAttachCache()
         }
+
+        announceCallback() { }
     }
 
     // 2 letter + 2 digit ID; 1.8%/0.3%/0.07%/0.015% collision probability among 50/20/10/5 devices
@@ -564,6 +566,8 @@ namespace jacdac {
         JDPacket.packed(CMD_ADVERTISEMENT_DATA, fmt, ids)
             ._sendReport(selfDevice())
         announceCallbacks.forEach(f => f())
+        for (const cl of _allClients)
+            cl.announceCallback()
         gcDevices()
     }
 
