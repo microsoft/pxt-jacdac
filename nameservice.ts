@@ -103,11 +103,12 @@ namespace jacdac {
                     break
                 case DeviceNamerCmd.ListStoredNames:
                     OutPipe.respondForEach(packet, settings.list(devNameSettingPrefix), k =>
-                        settings.readBuffer(k).concat(Buffer.fromHex(k.slice(devNameSettingPrefix.length))))
+                        Buffer.fromHex(k.slice(devNameSettingPrefix.length))
+                            .concat(settings.readBuffer(k)))
                     break
                 case DeviceNamerCmd.ListRequiredNames:
-                    const attachedClients = _allClients.filter(c => !!c.requiredDeviceName)
-                    OutPipe.respondForEach(packet, attachedClients, packName)
+                    const namedClients = _allClients.filter(c => !!c.requiredDeviceName)
+                    OutPipe.respondForEach(packet, namedClients, packName)
                     break
                 case DeviceNamerCmd.ClearAllNames:
                     clearAllNames()
