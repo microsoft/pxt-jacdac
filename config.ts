@@ -26,7 +26,7 @@ namespace jd_class {
     export const TOUCH_BUTTONS = 0x1acb49d5;
     export const SERVOS = 0x182988d8;
     export const ROTARY_ENCODER = 0x10fa29c9;
-    export const DEVICE_NAME_SERVICE = 0x117729bd;
+    export const DEVICE_NAME_SERVICE = 0x119c3ad1
     export const PWM_LIGHT = 0x1fb57453;
     export const BOOTLOADER = 0x1ffa9948
     export const ARCADE_CONTROLS = 0x1deaa06e

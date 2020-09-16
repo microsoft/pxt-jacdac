@@ -58,40 +58,6 @@ namespace jacdac {
             pkt._sendReport(myDevice)
         }
 
-        private sendOneChunk(cmd: number, bufs: Buffer[], currno: number, total: number) {
-            if (cmd != null) {
-                bufs.unshift(Buffer.pack("HH", [currno, total]))
-                this.sendReport(JDPacket.from(cmd, Buffer.concat(bufs)))
-            }
-        }
-
-        private sendChunkedReportCore(cmd: number, bufs: Buffer[], total: number) {
-            let sz = 0
-            let prev = 0
-            let i = 0
-            let currno = 0
-            for (i = 0; i < bufs.length; ++i) {
-                if (sz + bufs[i].length > JD_SERIAL_MAX_PAYLOAD_SIZE - 4) {
-                    this.sendOneChunk(cmd, bufs.slice(prev, i), currno, total)
-                    currno++
-                    prev = i
-                    sz = 0
-                }
-                sz += bufs[i].length
-            }
-            if (prev != i) {
-                this.sendOneChunk(cmd, bufs.slice(prev, i), currno, total)
-                currno++
-            }
-            return currno
-        }
-
-        // TODO remove and use pipes
-        sendChunkedReport(cmd: number, bufs: Buffer[]) {
-            const total = this.sendChunkedReportCore(null, bufs, 0)
-            this.sendChunkedReportCore(cmd, bufs, total)
-        }
-
         handleRegBool(pkt: JDPacket, register: number, current: boolean): boolean {
             return this.handleRegInt(pkt, register, current ? 1 : 0) != 0
         }
@@ -329,7 +295,7 @@ namespace jacdac {
             if (this.serviceNumber == null)
                 return
             pkt.service_number = this.serviceNumber
-            if (!pkt._sendWithAck(this.device))
+            if (!pkt._sendWithAck(this.device.deviceId))
                 throw "No ACK"
         }
 
@@ -625,7 +591,7 @@ namespace jacdac {
                 continue // will re-attach
             }
             const newClass = dev.services.getNumber(NumberFormat.UInt32LE, c.serviceNumber << 2)
-            if (newClass == c.serviceClass) {
+            if (newClass == c.serviceClass && (!c.requiredDeviceName || c.requiredDeviceName == dev.name)) {
                 newClients.push(c)
                 occupied[c.serviceNumber] = 1
             } else {

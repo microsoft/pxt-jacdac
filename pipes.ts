@@ -35,10 +35,10 @@ namespace jacdac {
             pipes.push(this)
         }
 
-        openInfo() {
+        openCommand(cmd: number) {
             const b = Buffer.pack("IIHH", [0, 0, this.port, 0])
             b.write(0, Buffer.fromHex(selfDevice().deviceId))
-            return b
+            return JDPacket.from(cmd, b)
         }
 
         bytesAvailable() {
@@ -101,7 +101,26 @@ namespace jacdac {
     export class OutPipe {
         private nextCnt = 0
 
-        constructor(public device: Device, public port: number) { }
+        constructor(public deviceId: string, public port: number) { }
+
+        static from(pkt: JDPacket) {
+            const id = pkt.data.slice(0, 8).toHex()
+            const [port] = pkt.data.unpack("H", 8)
+            return new OutPipe(id, port)
+        }
+
+        static respondForEach<T>(pkt: JDPacket, inp: T[], f: (v: T) => Buffer) {
+            control.runInParallel(() => {
+                try {
+                    const outp = OutPipe.from(pkt)
+                    for (const e of inp)
+                        outp.write(f(e))
+                    outp.close()
+                } catch (e) {
+                    console.logValue("respondForEach", e)
+                }
+            })
+        }
 
         private writeEx(buf: Buffer, flags: number) {
             if (!this.port) return
@@ -110,7 +129,7 @@ namespace jacdac {
             if (flags & CLOSE_MASK)
                 this.port = null
             pkt.service_number = JD_SERVICE_NUMBER_PIPE
-            if (!pkt._sendWithAck(this.device))
+            if (!pkt._sendWithAck(this.deviceId))
                 throw "No ACK (pipe)"
         }
 

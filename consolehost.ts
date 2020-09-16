@@ -12,7 +12,7 @@ namespace jacdac {
             switch (packet.service_command) {
                 case JDConsoleCommand.SetMinPriority:
                     const now = control.millis()
-                    // lower the priority immedietly, but tighten it only when no one 
+                    // lower the priority immediately, but tighten it only when no one 
                     // was asking for lower one for some time
                     const d = packet.intData
                     if (d <= this.minPriority ||
