@@ -102,8 +102,8 @@ namespace jacdac {
         private collectors: Collector[]
         private lastSample: number
         private samplingInterval: number
-        private samplesInWindow: number
-        private sampleSize: number
+        private _samplesInWindow = 1
+        sampleSize: number
         private streamSamples: number
         samplesBuffer: Buffer
         numSamples: number
@@ -114,8 +114,25 @@ namespace jacdac {
             super("agg", jd_class.SENSOR_AGGREGATOR);
         }
 
+        get samplesInWindow() {
+            return this._samplesInWindow
+        }
+
+        set samplesInWindow(v: number) {
+            if (!v || v <= 1) v = 1
+            this._samplesInWindow = v
+            this.syncWindow()
+        }
+
         get inputSettings() {
             return settings.readBuffer(inputsSettingsKey)
+        }
+
+        private syncWindow() {
+            if (this.sampleSize)
+                this.samplesBuffer = Buffer.create(this.samplesInWindow * this.sampleSize)
+            else
+                this.samplesBuffer = Buffer.create(this.samplesInWindow)
         }
 
         private pushData() {
@@ -176,7 +193,7 @@ namespace jacdac {
             }
             */
 
-            [this.samplingInterval, this.samplesInWindow] = config.unpack("HH")
+            [this.samplingInterval] = config.unpack("H")
             const entrySize = 16
             let off = 8
             for (const coll of this.collectors || [])
@@ -192,8 +209,8 @@ namespace jacdac {
                 off += entrySize
             }
             this.sampleSize = frameSz
-            this.samplesBuffer = Buffer.create(this.samplesInWindow * frameSz)
             this.numSamples = 0
+            this.syncWindow()
         }
 
         private sendLastSample() {
@@ -207,7 +224,6 @@ namespace jacdac {
             this.streamSamples = this.handleRegInt(packet, SensorAggregatorReg.StreamSamples, this.streamSamples)
             this.streamSamples = this.handleRegInt(packet, REG_STREAMING_SAMPLES, this.streamSamples)
 
-            let arr: number[]
             switch (packet.service_command) {
                 case SensorAggregatorReg.Inputs | CMD_GET_REG:
                     this.sendReport(JDPacket.from(packet.service_command, this.inputSettings))
