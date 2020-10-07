@@ -1,6 +1,6 @@
 {
     "name": "jacdac-services",
-    "version": "0.0.1",
+    "version": "0.0.7",
     "description": "Plug and play single wire serial protocol v1 - beta",
     "dependencies": {
         "core": "*",
@@ -75,5 +75,6 @@
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "tsprj",
+    "binaryonly": true
 }
