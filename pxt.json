@@ -64,8 +64,8 @@
         "test.ts"
     ],
     "testDependencies": {
-        "device": "*",
-        "net": "*"
+        "net": "*",
+        "nucleo-f411re": "*"
     },
     "fileDependencies": {
         "musicclient.ts": "mixer",

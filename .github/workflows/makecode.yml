@@ -27,7 +27,6 @@ jobs:
       - name: npm install
         run: |
           npm install -g makecode
-      - run: makecode --hw f4
-      - run: makecode --hw d5
+      - run: makecode -u
 
 
