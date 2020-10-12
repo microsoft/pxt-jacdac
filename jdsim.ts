@@ -55,6 +55,11 @@ namespace jacdac {
             recvQ.push(buf)
             control.raiseEvent(__physId(), 1)
         })
+        // announce packet
+        forever(function() {
+            control.raiseEvent(__physId(), 100);
+            pause(480)
+        })
     }
 
     /**

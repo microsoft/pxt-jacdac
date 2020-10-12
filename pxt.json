@@ -72,8 +72,13 @@
         "wificlient.ts": "net"
     },
     "public": true,
+    "targetVersions": {
+        "target": "0.13.56",
+        "targetId": "maker"
+    },
     "supportedTargets": [
-        "arcade"
+        "arcade",
+        "maker"
     ],
     "preferredEditor": "tsprj",
     "binaryonly": true
