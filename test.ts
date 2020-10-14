@@ -1,1 +1,10 @@
-// todo tests
+pins.A9.digitalWrite(false)
+jacdac.start()
+forever(function() {
+    console.log("angle 45")
+    jacdac.servoClient.setAngle(45)
+    pause(1000)
+    console.log("angle 90")
+    jacdac.servoClient.setAngle(90)
+    pause(1000)
+})

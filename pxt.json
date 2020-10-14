@@ -73,7 +73,7 @@
     },
     "public": true,
     "targetVersions": {
-        "target": "0.13.56",
+        "target": "0.13.59",
         "targetId": "maker"
     },
     "supportedTargets": [
