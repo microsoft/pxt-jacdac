@@ -34,7 +34,8 @@ namespace jd_class {
     export const MOTOR = 0x17004cd8
     export const TCP = 0x1b43b70b
     export const MULTITOUCH = 0x18d55e2b
-    export const RGB_LED = 0x17aeb0fc;
+    export const RGB_LED = 0x17aeb0fc
+    export const MODEL_RUNNER = 0x140f9a78
 
 
     // to generate a new class number, head to https://microsoft.github.io/uf2/patcher/

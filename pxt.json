@@ -58,7 +58,8 @@
         "wificlient.ts",
         "pwmlightclient.ts",
         "multitouchclient.ts",
-        "rgbledclient.ts"
+        "rgbledclient.ts",
+        "modelrunnerclient.ts"
     ],
     "testFiles": [
         "test.ts"
