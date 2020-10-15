@@ -106,7 +106,7 @@ namespace jacdac {
                     if (scores[i] > this._minScore) {
                         if (this._currClass != i) {
                             this._currClass = i
-                            this.raiseEvent(this.eventId, this._currClass + 1000)
+                            this.raiseEvent(this._currClass + 1000, 0)
                         }
                         break
                     }
