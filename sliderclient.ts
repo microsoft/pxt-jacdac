@@ -12,9 +12,9 @@ namespace jacdac {
         //% group="Slider"
         get position(): number {
             if (!this.started) {
-                this.setStreaming(true, 200)
+                this.setStreaming(true, 100)
             }
-            if (!this.state || this.state.length != 2)
+            if (!this.state || this.state.length < 2)
                 return 0
             const v = this.state.getNumber(NumberFormat.UInt16LE, 0)
             return v / 0x10000
