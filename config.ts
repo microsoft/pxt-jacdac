@@ -36,6 +36,7 @@ namespace jd_class {
     export const MULTITOUCH = 0x18d55e2b
     export const RGB_LED = 0x17aeb0fc
     export const MODEL_RUNNER = 0x140f9a78
+    export const SLIDER = 0x1f274746
 
 
     // to generate a new class number, head to https://microsoft.github.io/uf2/patcher/

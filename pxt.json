@@ -59,7 +59,8 @@
         "pwmlightclient.ts",
         "multitouchclient.ts",
         "rgbledclient.ts",
-        "modelrunnerclient.ts"
+        "modelrunnerclient.ts",
+        "sliderclient.ts"
     ],
     "testFiles": [
         "test.ts"
