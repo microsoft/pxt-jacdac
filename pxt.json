@@ -60,7 +60,8 @@
         "multitouchclient.ts",
         "rgbledclient.ts",
         "modelrunnerclient.ts",
-        "sliderclient.ts"
+        "sliderclient.ts",
+        "specconstants.ts"
     ],
     "testFiles": [
         "test.ts"
@@ -75,7 +76,7 @@
     },
     "public": true,
     "targetVersions": {
-        "target": "0.13.59",
+        "target": "0.13.60",
         "targetId": "maker"
     },
     "supportedTargets": [

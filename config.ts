@@ -1,8 +1,5 @@
 namespace jd_class {
-    export const CTRL = 0x00000000;
-    export const LOGGER = 0x12dc1fca;
     export const BATTERY = 0x1d2a2acd;
-    export const ACCELEROMETER = 0x1f140409;
     export const BUTTON = 0x1473a263;
     export const TOUCHBUTTON = 0x130cf5be;
     export const LIGHT_SENSOR = 0x15e7a0ff;
@@ -26,7 +23,6 @@ namespace jd_class {
     export const TOUCH_BUTTONS = 0x1acb49d5;
     export const SERVOS = 0x182988d8;
     export const ROTARY_ENCODER = 0x10fa29c9;
-    export const DEVICE_NAME_SERVICE = 0x119c3ad1
     export const PWM_LIGHT = 0x1fb57453;
     export const BOOTLOADER = 0x1ffa9948
     export const ARCADE_CONTROLS = 0x1deaa06e
@@ -35,8 +31,6 @@ namespace jd_class {
     export const TCP = 0x1b43b70b
     export const MULTITOUCH = 0x18d55e2b
     export const RGB_LED = 0x17aeb0fc
-    export const MODEL_RUNNER = 0x140f9a78
-    export const SLIDER = 0x1f274746
 
 
     // to generate a new class number, head to https://microsoft.github.io/uf2/patcher/

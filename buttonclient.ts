@@ -5,7 +5,7 @@ namespace jacdac {
     //% fixedInstances
     export class ButtonClient extends SensorClient {
         constructor(requiredDevice: string = null) {
-            super("btn", jd_class.BUTTON, requiredDevice);
+            super("btn", SRV_BUTTON, requiredDevice);
         }
 
         connectControllerButton(controllerButton: number) {

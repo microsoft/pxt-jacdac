@@ -1,37 +1,4 @@
-namespace jd_class {
-    export const SENSOR_AGGREGATOR = 0x1d90e1c5
-}
-
 namespace jacdac {
-    export enum SensorAggregatorSampleType { // uint8_t
-        U8 = 0x8,
-        I8 = 0x88,
-        U16 = 0x10,
-        I16 = 0x90,
-        U32 = 0x20,
-        I32 = 0xa0,
-    }
-
-    export enum SensorAggregatorReg {
-        /**
-         * Set automatic input collection.
-         * These settings are stored in flash.
-         */
-        Inputs = 0x80,
-
-        /** Read-only uint32_t. Number of input samples collected so far. */
-        NumSamples = 0x180,
-
-        /** Read-only bytes uint8_t. Size of a single sample. */
-        SampleSize = 0x181,
-
-        /** Read-write uint32_t. When set to `N`, will stream `N` samples as `current_sample` reading. */
-        StreamSamples = 0x81,
-
-        /** Read-only bytes. Last collected sample. */
-        CurrentSample = 0x101,
-    }
-
     function numberFmt(stype: SensorAggregatorSampleType) {
         switch (stype) {
             case SensorAggregatorSampleType.U8: return NumberFormat.UInt8LE
@@ -111,7 +78,7 @@ namespace jacdac {
         newDataCallback: () => void
 
         constructor() {
-            super("agg", jd_class.SENSOR_AGGREGATOR);
+            super("agg", SRV_SENSOR_AGGREGATOR);
         }
 
         get samplesInWindow() {

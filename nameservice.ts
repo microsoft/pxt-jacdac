@@ -1,23 +1,4 @@
 namespace jacdac {
-
-    export const SRV_DEVICE_NAMER = 0x119c3ad1
-    export enum DeviceNamerCmd {
-        /** Argument: device_id uint64_t. Get the name corresponding to given device identifer. Returns empty string if unset. */
-        GetName = 0x80,
-
-        /** Set name. Can set to empty to remove name binding. */
-        SetName = 0x81,
-
-        /** No args. Remove all name bindings. */
-        ClearAllNames = 0x84,
-
-        /** Argument: stored_names pipe (bytes). Return all names stored internally. */
-        ListStoredNames = 0x82,
-
-        /** Argument: required_names pipe (bytes). List all names required by the current program. `device_id` is `0` if name is unbound. */
-        ListRequiredNames = 0x83,
-    }
-
     export function autoBind() {
         function log(msg: string) {
             control.dmesg("autobind: " + msg)
@@ -83,34 +64,34 @@ namespace jacdac {
         Device.clearNameCache()
     }
 
-    export class DeviceNamer extends Host {
+    export class RoleManager extends Host {
         constructor() {
-            super("namer", jd_class.DEVICE_NAME_SERVICE)
+            super("rolemgr", SRV_ROLE_MANAGER)
         }
 
         public handlePacket(packet: JDPacket) {
             switch (packet.service_command) {
-                case DeviceNamerCmd.GetName:
+                case RoleManagerCmd.GetRole:
                     if (packet.data.length == 8) {
                         let name = settings.readBuffer(devNameSettingPrefix + packet.data.toHex())
                         if (!name) name = Buffer.create(0)
-                        this.sendReport(JDPacket.from(DeviceNamerCmd.GetName, packet.data.concat(name)))
+                        this.sendReport(JDPacket.from(RoleManagerCmd.GetRole, packet.data.concat(name)))
                     }
                     break
-                case DeviceNamerCmd.SetName:
+                case RoleManagerCmd.SetRole:
                     if (packet.data.length >= 8)
                         setDevName(packet.data.slice(0, 8).toHex(), packet.data.slice(8).toString())
                     break
-                case DeviceNamerCmd.ListStoredNames:
+                case RoleManagerCmd.ListStoredRoles:
                     OutPipe.respondForEach(packet, settings.list(devNameSettingPrefix), k =>
                         Buffer.fromHex(k.slice(devNameSettingPrefix.length))
                             .concat(settings.readBuffer(k)))
                     break
-                case DeviceNamerCmd.ListRequiredNames:
+                case RoleManagerCmd.ListRequiredRoles:
                     const namedClients = _allClients.filter(c => !!c.requiredDeviceName)
                     OutPipe.respondForEach(packet, namedClients, packName)
                     break
-                case DeviceNamerCmd.ClearAllNames:
+                case RoleManagerCmd.ClearAllRoles:
                     clearAllNames()
                     break
             }
@@ -125,7 +106,7 @@ namespace jacdac {
     }
 
     //% fixedInstance whenUsed block="device namer"
-    export const deviceNamer = new DeviceNamer()
+    export const roleManager = new RoleManager()
 
     export class RemoteRequestedDevice {
         services: number[] = [];
@@ -133,7 +114,7 @@ namespace jacdac {
         candidates: Device[] = [];
 
         constructor(
-            public parent: DeviceNamerClient,
+            public parent: RoleManagerClient,
             public name: string
         ) { }
 
@@ -161,7 +142,8 @@ namespace jacdac {
             dev.candidates = localDevs.filter(ldev => dev.isCandidate(ldev))
     }
 
-    function addRequested(devs: RemoteRequestedDevice[], name: string, service_class: number, parent: DeviceNamerClient) {
+    function addRequested(devs: RemoteRequestedDevice[], name: string, service_class: number, 
+        parent: RoleManagerClient) {
         let r = devs.find(d => d.name == name)
         if (!r)
             devs.push(r = new RemoteRequestedDevice(parent, name))
@@ -170,11 +152,11 @@ namespace jacdac {
     }
 
 
-    export class DeviceNamerClient extends Client {
+    export class RoleManagerClient extends Client {
         public remoteRequestedDevices: RemoteRequestedDevice[] = []
 
         constructor(requiredDevice: string = null) {
-            super("namerc", jd_class.DEVICE_NAME_SERVICE, requiredDevice)
+            super("rolemgrc", SRV_ROLE_MANAGER, requiredDevice)
 
             onNewDevice(() => {
                 recomputeCandidates(this.remoteRequestedDevices)
@@ -188,7 +170,7 @@ namespace jacdac {
 
         private scanCore() {
             const inp = new InPipe()
-            this.sendCommand(inp.openCommand(DeviceNamerCmd.ListRequiredNames))
+            this.sendCommand(inp.openCommand(RoleManagerCmd.ListRequiredRoles))
 
             const localDevs = devices()
             const devs: RemoteRequestedDevice[] = []
@@ -215,11 +197,11 @@ namespace jacdac {
         }
 
         clearNames() {
-            this.sendCommandWithAck(JDPacket.onlyHeader(DeviceNamerCmd.ClearAllNames))
+            this.sendCommandWithAck(JDPacket.onlyHeader(RoleManagerCmd.ClearAllRoles))
         }
 
         setName(dev: Device, name: string) {
-            this.sendCommandWithAck(JDPacket.from(DeviceNamerCmd.SetName,
+            this.sendCommandWithAck(JDPacket.from(RoleManagerCmd.SetRole,
                 Buffer.fromHex(dev.deviceId).concat(Buffer.fromUTF8(name))))
         }
 
