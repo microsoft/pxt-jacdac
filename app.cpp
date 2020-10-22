@@ -5,8 +5,11 @@
 namespace pxt {
 extern void (*logJDFrame)(const uint8_t *data);
 extern void (*sendJDFrame)(const uint8_t *data);
+} // namespace pxt
+namespace jacdac {
 void mbbridge_init();
 }
+#define LOGQ 1
 #endif
 
 // #define COUNT_SERVICE 1
@@ -33,9 +36,15 @@ struct LinkedFrame {
 
 #define MAX_RX 10
 #define MAX_TX 10
+#define MAX_LOGQ 10
+
 static LinkedFrame *volatile rxQ;
 static LinkedFrame *volatile txQ;
 static LinkedFrame *superFrameRX;
+
+#ifdef LOGQ
+static LinkedFrame *volatile logQ;
+#endif
 
 extern "C" jd_frame_t *app_pull_frame() {
     target_disable_irq();
@@ -142,7 +151,6 @@ extern "C" int app_handle_frame(jd_frame_t *frame) {
     // DMESG("PKT t:%d fl:%x %d cmd=%x", (int)current_time_ms(), frame->flags,
     //      ((jd_packet_t *)frame)->service_number, ((jd_packet_t *)frame)->service_command);
 
-
     if (((jd_packet_t *)frame)->service_number == 0x42) {
         handle_count_packet((jd_packet_t *)frame);
         return 0;
@@ -237,10 +245,37 @@ static void sendExtFrame(const uint8_t *data) {
     jd_packet_ready();
 }
 
+#ifdef LOGQ
+void logq_poke();
+
+static void logFrame(const uint8_t *data) {
+    copyAndAppend(&logQ, (jd_frame_t *)data, MAX_LOGQ);
+    logq_poke();
+}
+
+jd_frame_t *logq_pull_frame() {
+    target_disable_irq();
+    jd_frame_t *res = NULL;
+    if (logQ) {
+        res = &logQ->frame;
+        logQ = logQ->next;
+    }
+    target_enable_irq();
+    return res;
+}
+
+void logq_free(jd_frame_t *frame) {
+    free((uint8_t *)frame - LINKED_FRAME_HEADER_SIZE);
+}
+#endif
+
 //%
 void __physStart() {
     jd_init();
     sendJDFrame = sendExtFrame;
+#ifdef LOGQ
+    logJDFrame = logFrame;
+#endif
 #ifdef MICROBIT_CODAL
     mbbridge_init();
 #endif
