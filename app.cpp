@@ -1,6 +1,14 @@
 #include "pxt.h"
 #include "jdlow.h"
 
+#ifdef MICROBIT_CODAL
+namespace pxt {
+extern void (*logJDFrame)(const uint8_t *data);
+extern void (*sendJDFrame)(const uint8_t *data);
+void mbbridge_init();
+}
+#endif
+
 // #define COUNT_SERVICE 1
 
 #define FRAME_EXT_FLAG 0x80
@@ -233,6 +241,9 @@ static void sendExtFrame(const uint8_t *data) {
 void __physStart() {
     jd_init();
     sendJDFrame = sendExtFrame;
+#ifdef MICROBIT_CODAL
+    mbbridge_init();
+#endif
 }
 
 //%

@@ -18,6 +18,7 @@
         "hw.cpp",
         "jdsim.ts",
         "hw.h",
+        "mbbridge.cpp",
         "commands.ts",
         "config.ts",
         "routing.ts",
@@ -64,6 +65,9 @@
     ],
     "testFiles": [
         "test.ts"
+    ],
+    "disablesVariants": [
+        "mbdal"
     ],
     "testDependencies": {
         "net": "*",

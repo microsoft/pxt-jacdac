@@ -192,7 +192,11 @@ static void sws_done(uint16_t errCode) {
 }
 
 void uart_init() {
+#ifdef MICROBIT_CODAL
+    sws = new ZSingleWireSerial(uBit.io.P0);
+#else
     sws = new ZSingleWireSerial(*LOOKUP_PIN(JACK_TX));
+#endif
     sws->setBaud(1000000);
 
     sws->p.setIRQ(line_falling);
