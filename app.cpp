@@ -1,16 +1,6 @@
 #include "pxt.h"
 #include "jdlow.h"
-
-#ifdef MICROBIT_CODAL
-namespace pxt {
-extern void (*logJDFrame)(const uint8_t *data);
-extern void (*sendJDFrame)(const uint8_t *data);
-} // namespace pxt
-namespace jacdac {
-void mbbridge_init();
-}
-#define LOGQ 1
-#endif
+#include "mbbridge.h"
 
 // #define COUNT_SERVICE 1
 
@@ -26,25 +16,13 @@ void mbbridge_init();
 
 namespace jacdac {
 
-#define LINKED_FRAME_HEADER_SIZE (sizeof(uint32_t) + sizeof(void *))
-
-struct LinkedFrame {
-    LinkedFrame *next;
-    uint32_t timestamp_ms;
-    jd_frame_t frame;
-};
-
 #define MAX_RX 10
 #define MAX_TX 10
-#define MAX_LOGQ 10
 
 static LinkedFrame *volatile rxQ;
 static LinkedFrame *volatile txQ;
 static LinkedFrame *superFrameRX;
 
-#ifdef LOGQ
-static LinkedFrame *volatile logQ;
-#endif
 
 extern "C" jd_frame_t *app_pull_frame() {
     target_disable_irq();
@@ -107,8 +85,7 @@ extern "C" void app_queue_annouce() {
     Event(DEVICE_ID, EVT_QUEUE_ANNOUNCE);
 }
 
-static int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max,
-                         uint8_t *data = NULL) {
+int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max, uint8_t *data) {
     auto buf = (LinkedFrame *)malloc(JD_FRAME_SIZE(frame) + LINKED_FRAME_HEADER_SIZE);
 
     buf->timestamp_ms = current_time_ms();
@@ -245,37 +222,11 @@ static void sendExtFrame(const uint8_t *data) {
     jd_packet_ready();
 }
 
-#ifdef LOGQ
-void logq_poke();
-
-static void logFrame(const uint8_t *data) {
-    copyAndAppend(&logQ, (jd_frame_t *)data, MAX_LOGQ);
-    logq_poke();
-}
-
-jd_frame_t *logq_pull_frame() {
-    target_disable_irq();
-    jd_frame_t *res = NULL;
-    if (logQ) {
-        res = &logQ->frame;
-        logQ = logQ->next;
-    }
-    target_enable_irq();
-    return res;
-}
-
-void logq_free(jd_frame_t *frame) {
-    free((uint8_t *)frame - LINKED_FRAME_HEADER_SIZE);
-}
-#endif
 
 //%
 void __physStart() {
     jd_init();
     sendJDFrame = sendExtFrame;
-#ifdef LOGQ
-    logJDFrame = logFrame;
-#endif
 #ifdef MICROBIT_CODAL
     mbbridge_init();
 #endif

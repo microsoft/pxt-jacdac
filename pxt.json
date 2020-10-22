@@ -18,6 +18,7 @@
         "hw.cpp",
         "jdsim.ts",
         "hw.h",
+        "mbbridge.h",
         "mbbridge.cpp",
         "mbcompat.ts",
         "commands.ts",
