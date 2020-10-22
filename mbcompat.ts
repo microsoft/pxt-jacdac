@@ -9,12 +9,6 @@ namespace control {
         control.runInParallel(a);
         pauseUntil
     }
-
-    /**
-     * Derive a unique, consistent 64-bit serial number of this device from internal data.
-     */
-    //% shim=jacdac::deviceLongSerialNumber
-    export declare function deviceLongSerialNumber(): Buffer;
 }
 
 namespace pins {
