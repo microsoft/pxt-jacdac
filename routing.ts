@@ -521,7 +521,7 @@ namespace jacdac {
                     queueAnnounce()
                     break
                 case CMD_CTRL_IDENTIFY:
-                    control.runInBackground(onIdentifyRequest)
+                    control.runInParallel(onIdentifyRequest)
                     break
                 case CMD_CTRL_RESET:
                     control.reset()

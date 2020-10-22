@@ -62,7 +62,7 @@ namespace jacdac {
 
             this.log(`start`);
             this.isStreaming = true;
-            control.runInBackground(() => {
+            control.runInParallel(() => {
                 while (this.isStreaming) {
                     // run callback                    
                     const state = this.serializeState();
