@@ -33,12 +33,6 @@ namespace jacdac {
     
 }
 
-namespace settings {
-    export function readString(key: string): string {
-        return undefined
-    }
-}
-
 enum ConsolePriority {
     Debug = 0,
     Log = 1,

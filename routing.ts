@@ -21,7 +21,6 @@ namespace jacdac {
     let newDeviceCallbacks: (() => void)[];
     let pktCallbacks: ((p: JDPacket) => void)[];
     let restartCounter = 0
-    let lastName: string
 
     function log(msg: string) {
         console.add(jacdac.consolePriority, msg);
@@ -385,7 +384,7 @@ namespace jacdac {
         services: Buffer
         lastSeen: number
         clients: Client[] = []
-        _name: string
+        private _name: string
         private _shortId: string
         private queries: RegQuery[]
 
@@ -679,8 +678,6 @@ namespace jacdac {
             let dev = devices_.find(d => d.deviceId == devId)
 
             if (pkt.service_number == JD_SERVICE_NUMBER_CTRL) {
-                if (pkt.service_command == 0x1080)
-                    lastName = pkt.data.toString()
                 if (pkt.service_command == CMD_ADVERTISEMENT_DATA) {
                     if (dev && (dev.services[0] & 0xf) > (pkt.data[0] & 0xf)) {
                         // if the reset counter went down, it means the device resetted; treat it as new device
@@ -692,16 +689,7 @@ namespace jacdac {
                     if (!dev)
                         dev = new Device(pkt.device_identifier)
 
-                    let matches = serviceMatches(dev, pkt.data)
-
-                    if (lastName) {
-                        if (!dev._name || dev._name != lastName) {
-                            dev._name = lastName
-                            matches = false
-                        }
-                        lastName = null
-                    }
-
+                    const matches = serviceMatches(dev, pkt.data)
                     dev.services = pkt.data
                     if (!matches) {
                         dev.lastSeen = control.millis()
@@ -778,7 +766,6 @@ namespace jacdac {
         });
         control.internalOnEvent(jacdac.__physId(), 100, queueAnnounce);
 
-        /*
         console.addListener(function (pri: any, msg: any) {
             if (typeof pri == "string") {
                 msg = pri
@@ -788,7 +775,6 @@ namespace jacdac {
                 consoleHost.add(pri as number as JDConsolePriority, msg)
         } as any);
         consoleHost.start()
-        */
     }
 
     export function diagnostics(): jacdac.JDDiagnostics {

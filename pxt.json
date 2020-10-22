@@ -3,9 +3,7 @@
     "version": "0.1.4",
     "description": "Plug and play single wire serial protocol v1 - beta",
     "dependencies": {
-        "core": "*"
-    },
-    "testDependencies": {
+        "core": "*",
         "settings": "*"
     },
     "files": [
@@ -16,7 +14,6 @@
         "jdlow.h",
         "jdprotocol.h",
         "jdutil.c",
-        "bridge.cpp",
         "app.cpp",
         "hw.cpp",
         "jdsim.ts",
@@ -80,11 +77,7 @@
     "fileDependencies": {
         "musicclient.ts": "mixer",
         "wificlient.ts": "net",
-        "hw.cpp": "base",
-        "jdlow.c": "base",
-        "mbcompat.ts": "radio",
-        "bridge.cpp": "radio",
-        "namesettings.ts": "settings"
+        "mbcompat.ts": "radio"
     },
     "public": true,
     "targetVersions": {

@@ -1,20 +1,3 @@
-#ifdef TARGET_NRF51_MICROBIT
-
-#define DEVICE_ID_JACDAC 1234
-#define Event MicroBitEvent
-#include <stddef.h>
-
-#ifdef __cplusplus
-namespace pxt {
-extern void (*logJDFrame)(const uint8_t *data);
-extern void (*sendJDFrame)(const uint8_t *data);
-} // namespace pxt
-#else
-#define DMESG(...) ((void)0)
-#endif
-
-#else
-
 #include "CodalDmesg.h"
 
 #if defined(NRF52840) || defined(NRF52832) || defined(NRF52833)
@@ -34,6 +17,4 @@ extern void (*sendJDFrame)(const uint8_t *data);
 
 #ifndef JD_TIM_OVERHEAD
 #define JD_TIM_OVERHEAD 12
-#endif
-
 #endif
