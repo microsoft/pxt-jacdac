@@ -17,15 +17,62 @@ namespace jacdac {
 
 #define MAX_LOGQ 10
 static LinkedFrame *volatile logQ;
-static ZDMASerial *serial;
-static volatile uint8_t sending;
-static volatile uint8_t recvBuf[256];
+
+struct ExchangeBuffer {
+    uint8_t magic[8];
+    uint8_t irq;
+    uint8_t padding[3];
+
+    volatile uint8_t recvBuf0[256];
+    volatile uint8_t recvBuf1[256];
+    volatile uint8_t sendBuf[256];
+};
+
+static ExchangeBuffer *buff;
 
 static void logq_poke();
 
+static volatile uint32_t *recvPtr() {
+    auto bp = buff->recvBuf0;
+    if (bp[2])
+        bp = buff->recvBuf1;
+    if (bp[2])
+        bp = NULL;
+    return (volatile uint32_t *)bp;
+}
+
+static void pushOutData(const jd_frame_t *frame) {
+    auto bp = recvPtr();
+    if (!bp)
+        target_panic(111);
+    auto src = (uint32_t *)frame;
+    int len = (JD_FRAME_SIZE(frame) + 3) & ~3;
+    for (int i = 1; i < len; ++i)
+        bp[i] = src[i];
+    bp[0] = src[0];
+}
+
+// a nice unused interrupt
+extern "C" void TEMP_IRQHandler() {
+    target_disable_irq();
+    while (logQ && recvPtr()) {
+        auto tmp = logQ;
+        logQ = tmp->next;
+        pushOutData(tmp);
+    }
+    target_enable_irq();
+}
+
 static void logFrame(const uint8_t *data) {
-    copyAndAppend(&logQ, (jd_frame_t *)data, MAX_LOGQ);
-    logq_poke();
+    auto frame = (const jd_frame_t *)data;
+
+    target_disable_irq();
+    if (logQ || !recvPtr()) {
+        copyAndAppend(&logQ, frame, MAX_LOGQ);
+    } else {
+        pushOutData(frame);
+    }
+    target_enable_irq();
 }
 
 static void send_done(void *frame) {
@@ -53,18 +100,6 @@ static void logq_poke() {
 }
 
 void mbbridge_init() {
-    // make sure no-one will be using serial anymore
-    uBit.serial.lockTx();
-    uBit.serial.lockRx();
-    // un-allocate serial peripherals
-    uBit.serial.~NRF52Serial();
-
-    serialLoggingDisabled = true;
-
-    // serial = new ZDMASerial(uBit.io.usbTx, uBit.io.usbRx);
-    serial = new ZDMASerial(uBit.io.P1, uBit.io.P2);
-    serial->enableTxRx(true, true);
-    serial->setBaud(115200); // for now
 
     pxt::logJDFrame = logFrame;
 }
