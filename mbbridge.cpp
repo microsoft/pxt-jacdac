@@ -20,11 +20,11 @@ static LinkedFrame *volatile logQ;
 
 struct ExchangeBuffer {
     uint8_t magic[8];
-    uint8_t irq;
+    uint8_t irqn;
     uint8_t padding[3];
 
-    volatile uint8_t recvBuf0[256];
-    volatile uint8_t recvBuf1[256];
+    // only single buffer in each direction to ensure ordering
+    volatile uint8_t recvBuf[256];
     volatile uint8_t sendBuf[256];
 };
 
@@ -33,9 +33,7 @@ static ExchangeBuffer *buff;
 static void logq_poke();
 
 static volatile uint32_t *recvPtr() {
-    auto bp = buff->recvBuf0;
-    if (bp[2])
-        bp = buff->recvBuf1;
+    auto bp = buff->recvBuf;
     if (bp[2])
         bp = NULL;
     return (volatile uint32_t *)bp;
@@ -54,18 +52,11 @@ static void pushOutData(const jd_frame_t *frame) {
 
 // a nice unused interrupt
 extern "C" void TEMP_IRQHandler() {
-    target_disable_irq();
-    while (logQ && recvPtr()) {
-        auto tmp = logQ;
-        logQ = tmp->next;
-        pushOutData(tmp);
-    }
-    target_enable_irq();
+    logq_poke();
 }
 
 static void logFrame(const uint8_t *data) {
-    auto frame = (const jd_frame_t *)data;
-
+    auto frame = (jd_frame_t *)(void *)data;
     target_disable_irq();
     if (logQ || !recvPtr()) {
         copyAndAppend(&logQ, frame, MAX_LOGQ);
@@ -73,33 +64,32 @@ static void logFrame(const uint8_t *data) {
         pushOutData(frame);
     }
     target_enable_irq();
-}
-
-static void send_done(void *frame) {
-    free(frame);
-    sending = 0;
     logq_poke();
 }
 
 static void logq_poke() {
-    LinkedFrame *frame = NULL;
     target_disable_irq();
-    if (!sending) {
-        frame = logQ;
-        if (frame) {
-            logQ = frame->next;
-            sending = 1;
-        }
+    if (logQ && recvPtr()) {
+        auto tmp = logQ;
+        logQ = tmp->next;
+        pushOutData(&tmp->frame);
+        free(tmp);
+    }
+    if (buff->sendBuf[2]) {
+        pxt::sendJDFrame((const uint8_t *)(void *)buff->sendBuf);
+        buff->sendBuf[2] = 0;
     }
     target_enable_irq();
-    if (!frame)
-        return;
-
-    frame->timestamp_ms = 0x6b70444a; // magic JDpk
-    serial->startSend((uint8_t *)frame + 4, 4 + JD_FRAME_SIZE(&frame->frame), send_done, frame);
 }
 
 void mbbridge_init() {
+    buff = (ExchangeBuffer *)app_alloc(sizeof(*buff));
+    memset(buff, 0, sizeof(*buff));
+    buff->irqn = TEMP_IRQn;
+    memcpy(buff->magic, "JDmx\xe9\xc0\xa6\xb0", 8);
+
+    NVIC_ClearPendingIRQ((IRQn_Type)buff->irqn);
+    NVIC_EnableIRQ((IRQn_Type)buff->irqn);
 
     pxt::logJDFrame = logFrame;
 }
