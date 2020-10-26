@@ -1,7 +1,6 @@
 #include "pxt.h"
 #include "jdlow.h"
 #include "mbbridge.h"
-#include "ZDMASerial.h"
 
 #ifdef MICROBIT_CODAL
 
@@ -83,6 +82,8 @@ static void logq_poke() {
 }
 
 void mbbridge_init() {
+    //microbit_panic_timeout(0);
+
     buff = (ExchangeBuffer *)app_alloc(sizeof(*buff));
     memset(buff, 0, sizeof(*buff));
     buff->irqn = TEMP_IRQn;
