@@ -181,7 +181,7 @@ static void sws_done(uint16_t errCode) {
             jd_rx_completed(0);
         } else {
             LOG("double complete");
-            target_panic(122);
+            //target_panic(122);
         }
         sws->abortDMA();
         break;
