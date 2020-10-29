@@ -69,9 +69,6 @@
     "testFiles": [
         "test.ts"
     ],
-    "disablesVariants": [
-        "mbdal"
-    ],
     "testDependencies": {
         "net": "*",
         "nucleo-f411re": "*"
@@ -91,5 +88,8 @@
         "maker"
     ],
     "preferredEditor": "tsprj",
+    "disablesVariants": [
+        "mbdal"
+    ],
     "binaryonly": true
 }
