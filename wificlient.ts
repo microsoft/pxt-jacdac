@@ -21,7 +21,7 @@ namespace jacdac {
         private gotIP = false
 
         constructor(requiredDevice: string = null) {
-            super("wifi", jd_class.WIFI, requiredDevice);
+            super("wifi", SRV_WIFI, requiredDevice);
         }
 
         get hasIP() {
@@ -110,7 +110,7 @@ namespace jacdac {
         _retPort: number = null
 
         constructor(requiredDevice: string = null) {
-            super("tcp", jd_class.TCP, requiredDevice);
+            super("tcp", SRV_TCP, requiredDevice);
         }
 
         handlePacket(pkt: JDPacket) {

@@ -2,7 +2,7 @@ namespace jacdac {
     //% fixedInstances
     export class MotorClient extends Client {
         constructor(requiredDevice: string = null) {
-            super("motor", jd_class.MOTOR, requiredDevice);
+            super("motor", SRV_MOTOR, requiredDevice);
         }
 
         break() {

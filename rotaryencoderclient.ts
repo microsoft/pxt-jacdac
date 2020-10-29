@@ -2,7 +2,7 @@ namespace jacdac {
     //% fixedInstances
     export class RotaryEncoderClient extends SensorClient {
         constructor(requiredDevice: string = null) {
-            super("crank", jd_class.ROTARY_ENCODER, requiredDevice);
+            super("crank", SRV_ROTARY_ENCODER, requiredDevice);
         }
 
         scale = 1

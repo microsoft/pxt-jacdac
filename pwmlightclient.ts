@@ -23,7 +23,7 @@ namespace jacdac {
     //% fixedInstances
     export class MonoLightClient extends Client {
         constructor(requiredDevice: string = null) {
-            super("pwml", jd_class.PWM_LIGHT, requiredDevice);
+            super("pwml", SRV_PWM_LIGHT, requiredDevice);
         }
 
         // set to negative for infinity

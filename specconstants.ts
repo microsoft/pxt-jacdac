@@ -143,7 +143,7 @@ namespace jacdac {
     /** Read-only uint32_t. Number of input samples collected so far. */
         NumSamples = 0x180,
     
-    /** Read-only bytes uint8_t. Size of a single sample. */
+    /** Read-only B uint8_t. Size of a single sample. */
         SampleSize = 0x181,
     
     /** Read-write uint32_t. When set to `N`, will stream `N` samples as `current_sample` reading. */
@@ -210,6 +210,15 @@ namespace jacdac {
 
 }
 namespace jacdac {
+    // Service: CODAL Message Bus
+    export const SRV_CODAL_MESSAGE_BUS = 0x1161590c
+    export const enum CODALMessageBusCmd {
+    /** Sends a new event on the message bus. */
+        Send = 0x80,
+    }
+
+}
+namespace jacdac {
     // Service: Control
     export const SRV_CONTROL = 0x0
 
@@ -264,12 +273,12 @@ namespace jacdac {
     export const SRV_ROTARY_ENCODER = 0x10fa29c9
     export const enum RotaryEncoderReg {
     /**
-     * Read-only int32_t. Upon device reset starts at `0` (regardless of the shaft position).
+     * Read-only # int32_t. Upon device reset starts at `0` (regardless of the shaft position).
      * Increases by `1` for a clockwise "click", by `-1` for counter-clockwise.
      */
         Position = 0x101,
     
-    /** Constant uint16_t. This specifies by how much `position` changes when the crank does 360 degree turn. Typically 12 or 24. */
+    /** Constant # uint16_t. This specifies by how much `position` changes when the crank does 360 degree turn. Typically 12 or 24. */
         ClicksPerTurn = 0x180,
     }
 
@@ -323,6 +332,37 @@ namespace jacdac {
 
 }
 namespace jacdac {
+    // Service: Keyboard
+    export const SRV_KEYBOARD = 0x18b05b6a
+
+    export const enum KeyboardModifiers { // uint8_t
+        LeftControl = 0xe0,
+        LeftShift = 0xe1,
+        LeftAlt = 0xe2,
+        LeftGUID = 0xe3,
+        RightControl = 0xe4,
+        RightShift = 0xe5,
+        RightAlt = 0xe6,
+        RightGUID = 0xe7,
+    }
+
+
+    export const enum KeyboardAction { // uint8_t
+        Press = 0x0,
+        Up = 0x1,
+        Down = 0x2,
+    }
+
+    export const enum KeyboardCmd {
+    /** Presses a key or a sequence of keys down. */
+        Key = 0x80,
+    
+    /** No args. Clears all pressed keys. */
+        Clear = 0x81,
+    }
+
+}
+namespace jacdac {
     // Service: Light
     export const SRV_LIGHT = 0x126f00e0
 
@@ -334,13 +374,13 @@ namespace jacdac {
 
     export const enum LightReg {
     /**
-     * Read-write fraction uint8_t. Set the luminosity of the strip.
+     * Read-write ratio uint8_t. Set the luminosity of the strip.
      * At `0` the power to the strip is completely shut down.
      */
         Brightness = 0x1,
     
     /**
-     * Read-only fraction uint8_t. This is the luminosity actually applied to the strip.
+     * Read-only ratio uint8_t. This is the luminosity actually applied to the strip.
      * May be lower than `brightness` if power-limited by the `max_power` register.
      * It will rise slowly (few seconds) back to `brightness` is limits are no longer required.
      */
@@ -420,7 +460,7 @@ namespace jacdac {
 
     export const enum ModelRunnerCmd {
     /**
-     * Argument: model_size bytes uint32_t. Open pipe for streaming in the model. The size of the model has to be declared upfront.
+     * Argument: model_size B uint32_t. Open pipe for streaming in the model. The size of the model has to be declared upfront.
      * The model is streamed over regular pipe data packets.
      * The format supported by this instance of the service is specified in `format` register.
      * When the pipe is closed, the model is written all into flash, and the device running the service may reset.
@@ -455,10 +495,10 @@ namespace jacdac {
     /** Read-only μs uint32_t. The time consumed in last model execution. */
         LastRunTime = 0x182,
     
-    /** Read-only bytes uint32_t. Number of RAM bytes allocated for model execution. */
+    /** Read-only B uint32_t. Number of RAM bytes allocated for model execution. */
         AllocatedArenaSize = 0x183,
     
-    /** Read-only bytes uint32_t. The size of the model in bytes. */
+    /** Read-only B uint32_t. The size of the model in bytes. */
         ModelSize = 0x184,
     
     /** Read-only string (bytes). Textual description of last error when running or loading model (if any). */
@@ -488,13 +528,53 @@ namespace jacdac {
     export const SRV_MOTOR = 0x17004cd8
     export const enum MotorReg {
     /**
-     * Read-write fraction int16_t. PWM duty cycle of the motor. Use negative/positive values to run the motor forwards and backwards.
+     * Read-write ratio int16_t. PWM duty cycle of the motor. Use negative/positive values to run the motor forwards and backwards.
      * Positive is recommended to be clockwise rotation and negative counterclockwise.
      */
         Duty = 0x2,
     
     /** Read-write bool (uint8_t). Turn the power to the motor on/off. */
         Enabled = 0x1,
+    }
+
+}
+namespace jacdac {
+    // Service: Mouse
+    export const SRV_MOUSE = 0x1885dc1c
+
+    export const enum MouseButton { // uint16_t
+        Right = 0x1,
+        Middle = 0x4,
+        Left = 0x2,
+    }
+
+
+    export const enum MouseButtonEvent { // uint8_t
+        Up = 0x1,
+        Down = 0x2,
+        Click = 0x3,
+        DoubleClick = 0x4,
+    }
+
+    export const enum MouseCmd {
+    /**
+     * Sets the up/down state of one or more buttons.
+     * A ``Click`` is the same as ``Down`` followed by ``Up`` after 100ms.
+     * A ``DoubleClick`` is two clicks with ``150ms`` gap between them (that is, ``100ms`` first click, ``150ms`` gap, ``100ms`` second click).
+     */
+        SetButton = 0x80,
+    
+    /**
+     * Moves the mouse by the distance specified.
+     * If the time is positive, it specifies how long to make the move.
+     */
+        Move = 0x81,
+    
+    /**
+     * Turns the wheel up or down. Positive if scrolling up.
+     * If the time is positive, it specifies how long to make the move.
+     */
+        Wheel = 0x82,
     }
 
 }
@@ -535,7 +615,7 @@ namespace jacdac {
     // Service: Music
     export const SRV_MUSIC = 0x1b57b1d7
     export const enum MusicReg {
-    /** Read-write fraction uint8_t. The volume (duty cycle) of the buzzer. */
+    /** Read-write ratio uint8_t. The volume (duty cycle) of the buzzer. */
         Volume = 0x1,
     }
 
@@ -572,7 +652,7 @@ namespace jacdac {
     /** Read-only mV uint16_t. Voltage on input. */
         BatteryVoltage = 0x180,
     
-    /** Read-only fraction uint16_t. Fraction of charge in the battery. */
+    /** Read-only ratio uint16_t. Fraction of charge in the battery. */
         BatteryCharge = 0x182,
     
     /**
@@ -602,7 +682,7 @@ namespace jacdac {
     export const SRV_PWM_LIGHT = 0x1fb57453
     export const enum PwmLightReg {
     /**
-     * Read-write fraction uint16_t. Set the luminosity of the strip. The value is used to scale `start_intensity` in `steps` register.
+     * Read-write ratio uint16_t. Set the luminosity of the strip. The value is used to scale `start_intensity` in `steps` register.
      * At `0` the power to the strip is completely shut down.
      */
         Brightness = 0x1,
@@ -667,7 +747,7 @@ namespace jacdac {
     // Service: Slider
     export const SRV_SLIDER = 0x1f274746
     export const enum SliderReg {
-    /** Read-only fraction uint16_t. The relative position of the slider between `0x0000` and `0xffff`. */
+    /** Read-only ratio uint16_t. The relative position of the slider between `0x0000` and `0xffff`. */
         Position = 0x101,
     }
 
@@ -744,4 +824,5 @@ namespace jacdac {
     /** Emitted when disconnected from network. */
         LostIp = 0x2,
     }
+
 }

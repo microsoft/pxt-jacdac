@@ -20,7 +20,7 @@ namespace jacdac {
      */
     export class MultiTouchClient extends SensorClient {
         constructor(requiredDevice: string = null) {
-            super("multitouch", jd_class.MULTITOUCH, requiredDevice);
+            super("multitouch", SRV_MULTITOUCH, requiredDevice);
         }
 
         /**
