@@ -61,7 +61,7 @@ namespace jacdac {
     //% fixedInstances
     export class MusicClient extends Client {
         constructor(requiredDevice: string = null) {
-            super("mus", jd_class.MUSIC, requiredDevice);
+            super("mus", SRV_MUSIC, requiredDevice);
         }
 
         private player: JDMelodyPlayer
