@@ -46,7 +46,7 @@ static void pushOutData(const jd_frame_t *frame) {
     int len = (JD_FRAME_SIZE(frame) + 3) & ~3;
     for (int i = 1; i < len; ++i)
         bp[i] = src[i];
-    bp[0] = src[0];
+    bp[0] = src[0]; // first word copied last to ensure atomicity
 }
 
 // a nice unused interrupt
@@ -57,10 +57,12 @@ extern "C" void TEMP_IRQHandler() {
 static void logFrame(const uint8_t *data) {
     auto frame = (jd_frame_t *)(void *)data;
     target_disable_irq();
-    if (logQ || !recvPtr()) {
-        copyAndAppend(&logQ, frame, MAX_LOGQ);
-    } else {
-        pushOutData(frame);
+    if (buff->recvBuf[2] != 0xff) {
+        if (logQ || !recvPtr()) {
+            copyAndAppend(&logQ, frame, MAX_LOGQ);
+        } else {
+            pushOutData(frame);
+        }
     }
     target_enable_irq();
     logq_poke();
@@ -82,12 +84,13 @@ static void logq_poke() {
 }
 
 void mbbridge_init() {
-    //microbit_panic_timeout(0);
+    // microbit_panic_timeout(0);
 
     buff = (ExchangeBuffer *)app_alloc(sizeof(*buff));
     memset(buff, 0, sizeof(*buff));
     buff->irqn = TEMP_IRQn;
     memcpy(buff->magic, "JDmx\xe9\xc0\xa6\xb0", 8);
+    buff->recvBuf[2] = 0xff; // we'll wait until this is cleared by the computer
 
     NVIC_ClearPendingIRQ((IRQn_Type)buff->irqn);
     NVIC_EnableIRQ((IRQn_Type)buff->irqn);
