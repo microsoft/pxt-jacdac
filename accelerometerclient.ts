@@ -2,7 +2,7 @@ namespace jacdac {
     //% fixedInstances
     export class AccelerometerClient extends BufferedSensorClient<number[]> {
         constructor(requiredDevice: string = null) {
-            super("acc", jd_class.ACCELEROMETER, requiredDevice);
+            super("acc", SRV_ACCELEROMETER, requiredDevice);
         }
 
         protected parseSample(packet: JDPacket) {

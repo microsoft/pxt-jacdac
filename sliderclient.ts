@@ -2,7 +2,7 @@ namespace jacdac {
     //% fixedInstances
     export class SliderClient extends SensorClient {
         constructor(requiredDevice: string = null) {
-            super("slider", jd_class.SLIDER, requiredDevice);
+            super("slider", SRV_SLIDER, requiredDevice);
         }
 
         /**
