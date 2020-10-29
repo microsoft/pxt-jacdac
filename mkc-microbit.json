@@ -1,0 +1,8 @@
+{
+    "targetWebsite": "https://makecode.microbit.org/v3.1",
+    "overrides": {
+        "testDependencies": {
+            "radio": "*"
+        }
+    }
+}

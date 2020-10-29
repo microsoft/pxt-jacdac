@@ -28,5 +28,10 @@ jobs:
         run: |
           npm install -g makecode
       - run: makecode -u
+      - run: makecode -u -c mkc-microbit.json
+      - run: makecode -u -c mkc-arcade.json --hw F4
+      - run: makecode -u -c mkc-arcade.json --hw D5
+      - run: makecode -u -c mkc-arcade.json --hw N4
+      - run: makecode -u -c mkc-arcade.json --hw N3
 
 
