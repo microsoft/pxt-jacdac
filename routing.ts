@@ -521,7 +521,7 @@ namespace jacdac {
                     queueAnnounce()
                     break
                 case CMD_CTRL_IDENTIFY:
-                    control.runInBackground(onIdentifyRequest)
+                    control.runInParallel(onIdentifyRequest)
                     break
                 case CMD_CTRL_RESET:
                     control.reset()
@@ -768,7 +768,7 @@ namespace jacdac {
 
         console.addListener(function (pri, msg) {
             if (msg[0] != ":")
-                consoleHost.add(pri as number as JDConsolePriority, msg)
+                consoleHost.add(pri as number, msg);
         });
         consoleHost.start()
     }

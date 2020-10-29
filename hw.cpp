@@ -181,7 +181,7 @@ static void sws_done(uint16_t errCode) {
             jd_rx_completed(0);
         } else {
             LOG("double complete");
-            target_panic(122);
+            //target_panic(122);
         }
         sws->abortDMA();
         break;
@@ -192,7 +192,11 @@ static void sws_done(uint16_t errCode) {
 }
 
 void uart_init() {
+#ifdef MICROBIT_CODAL
+    sws = new ZSingleWireSerial(uBit.io.P12);
+#else
     sws = new ZSingleWireSerial(*LOOKUP_PIN(JACK_TX));
+#endif
     sws->setBaud(1000000);
 
     sws->p.setIRQ(line_falling);

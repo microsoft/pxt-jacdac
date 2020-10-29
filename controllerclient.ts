@@ -187,7 +187,7 @@ namespace jacdac {
 
             this.log(`start`);
             this.streamingState = SensorStateTODO.Streaming;
-            control.runInBackground(() => this.stream());
+            control.runInParallel(() => this.stream());
         }
 
         private stream() {

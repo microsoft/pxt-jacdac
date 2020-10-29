@@ -216,7 +216,7 @@ namespace jacdac {
 
             if (!ackAwaiters) {
                 ackAwaiters = []
-                control.runInBackground(() => {
+                control.runInParallel(() => {
                     while (1) {
                         pause(Math.randomRange(20, 50))
                         checkAckAwaiters()

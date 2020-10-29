@@ -2,7 +2,7 @@
 #define __JDLOW_H
 
 #include "jdprotocol.h"
-#include <hw.h>
+#include "hw.h"
 
 // this is timing overhead (in us) of starting transmission
 // see set_tick_timer() for how to calibrate this

@@ -1,5 +1,6 @@
 #include "pxt.h"
 #include "jdlow.h"
+#include "mbbridge.h"
 
 // #define COUNT_SERVICE 1
 
@@ -15,19 +16,13 @@
 
 namespace jacdac {
 
-#define LINKED_FRAME_HEADER_SIZE (sizeof(uint32_t) + sizeof(void *))
-
-struct LinkedFrame {
-    LinkedFrame *next;
-    uint32_t timestamp_ms;
-    jd_frame_t frame;
-};
-
 #define MAX_RX 10
 #define MAX_TX 10
+
 static LinkedFrame *volatile rxQ;
 static LinkedFrame *volatile txQ;
 static LinkedFrame *superFrameRX;
+
 
 extern "C" jd_frame_t *app_pull_frame() {
     target_disable_irq();
@@ -90,8 +85,7 @@ extern "C" void app_queue_annouce() {
     Event(DEVICE_ID, EVT_QUEUE_ANNOUNCE);
 }
 
-static int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max,
-                         uint8_t *data = NULL) {
+int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max, uint8_t *data) {
     auto buf = (LinkedFrame *)malloc(JD_FRAME_SIZE(frame) + LINKED_FRAME_HEADER_SIZE);
 
     buf->timestamp_ms = current_time_ms();
@@ -133,7 +127,6 @@ static int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max,
 extern "C" int app_handle_frame(jd_frame_t *frame) {
     // DMESG("PKT t:%d fl:%x %d cmd=%x", (int)current_time_ms(), frame->flags,
     //      ((jd_packet_t *)frame)->service_number, ((jd_packet_t *)frame)->service_command);
-
 
     if (((jd_packet_t *)frame)->service_number == 0x42) {
         handle_count_packet((jd_packet_t *)frame);
@@ -229,10 +222,14 @@ static void sendExtFrame(const uint8_t *data) {
     jd_packet_ready();
 }
 
+
 //%
 void __physStart() {
     jd_init();
     sendJDFrame = sendExtFrame;
+#ifdef MICROBIT_CODAL
+    mbbridge_init();
+#endif
 }
 
 //%

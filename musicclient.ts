@@ -54,7 +54,7 @@ namespace jacdac {
                 timestamp += duration
             }
             if (startPlay)
-                control.runInBackground(() => this.playLoop())
+                control.runInParallel(() => this.playLoop())
         }
     }
 

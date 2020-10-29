@@ -18,6 +18,9 @@
         "hw.cpp",
         "jdsim.ts",
         "hw.h",
+        "mbbridge.h",
+        "mbbridge.cpp",
+        "mbcompat.ts",
         "commands.ts",
         "config.ts",
         "routing.ts",
@@ -65,13 +68,17 @@
     "testFiles": [
         "test.ts"
     ],
+    "disablesVariants": [
+        "mbdal"
+    ],
     "testDependencies": {
         "net": "*",
         "nucleo-f411re": "*"
     },
     "fileDependencies": {
         "musicclient.ts": "mixer",
-        "wificlient.ts": "net"
+        "wificlient.ts": "net",
+        "mbcompat.ts": "radio"
     },
     "public": true,
     "targetVersions": {
