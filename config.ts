@@ -22,14 +22,6 @@ namespace jd_class {
     export const PROXIMITY = 0x14c1791b;
     export const TOUCH_BUTTONS = 0x1acb49d5;
     export const SERVOS = 0x182988d8;
-    export const ROTARY_ENCODER = 0x10fa29c9;
-    export const PWM_LIGHT = 0x1fb57453;
-    export const BOOTLOADER = 0x1ffa9948
-    export const ARCADE_CONTROLS = 0x1deaa06e
-    export const WIFI = 0x18aae1fa
-    export const MOTOR = 0x17004cd8
-    export const TCP = 0x1b43b70b
-    export const MULTITOUCH = 0x18d55e2b
     export const RGB_LED = 0x17aeb0fc
 
 
