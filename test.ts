@@ -1,4 +1,4 @@
-pins.A9.digitalWrite(false)
+// pins.A9.digitalWrite(false)
 jacdac.consolePriority = ConsolePriority.Log;
 jacdac.start()
 
