@@ -1,32 +1,7 @@
 namespace jd_class {
-    export const BATTERY = 0x1d2a2acd;
-    export const BUTTON = 0x1473a263;
-    export const TOUCHBUTTON = 0x130cf5be;
-    export const LIGHT_SENSOR = 0x15e7a0ff;
-    export const MICROPHONE = 0x1a5c5866;
-    export const THERMOMETER = 0x1421bac7;
-    export const SWITCH = 0x14218172;
-    export const PIXEL = 0x1768fbbf;
-    export const HAPTIC = 0x116b14a3;
-    export const LIGHT = 0x126f00e0;
-    export const KEYBOARD = 0x1ae4812d;
-    export const MOUSE = 0x14bc97bf;
-    export const GAMEPAD = 0x100527e8;
-    export const MUSIC = 0x1b57b1d7;
-    export const SERVO = 0x12fc9103;
+    // needs spec
     export const CONTROLLER = 0x188ae4b8;
-    export const LCD = 0x18d5284c;
-    export const MESSAGE_BUS = 0x115cabf5;
-    export const COLOR_SENSOR = 0x14d6dda2;
-    export const LIGHT_SPECTRUM_SENSOR = 0x16fa0c0d;
-    export const PROXIMITY = 0x14c1791b;
-    export const TOUCH_BUTTONS = 0x1acb49d5;
-    export const SERVOS = 0x182988d8;
     export const RGB_LED = 0x17aeb0fc
-
-
-    // to generate a new class number, head to https://microsoft.github.io/uf2/patcher/
-    // click link at the bottom and replace first digit with '1'
 }
 
 namespace jacdac {

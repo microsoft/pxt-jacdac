@@ -141,7 +141,7 @@ namespace jacdac {
     //% fixedInstances
     export class LightClient extends Client {
         constructor(requiredDevice: string = null) {
-            super("light", jd_class.LIGHT, requiredDevice);
+            super("light", SRV_LIGHT, requiredDevice);
         }
 
         _length = 10

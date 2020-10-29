@@ -2,7 +2,7 @@ namespace jacdac {
     //% fixedInstances
     export class ServoClient extends Client {
         constructor(requiredDevice: string = null) {
-            super("servo", jd_class.SERVO, requiredDevice);
+            super("servo", SRV_SERVO, requiredDevice);
         }
 
         private pulse: number

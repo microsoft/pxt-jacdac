@@ -38,8 +38,6 @@
         "consoleclient.ts",
         "buttonclient.ts",
         "accelerometerclient.ts",
-        "touchbuttonclient.ts",
-        "thermometerclient.ts",
         "lightclient.ts",
         "keyboardclient.ts",
         "mouseclient.ts",
@@ -70,7 +68,7 @@
     },
     "public": true,
     "targetVersions": {
-        "target": "0.13.60",
+        "target": "0.13.61",
         "targetId": "maker"
     },
     "supportedTargets": [

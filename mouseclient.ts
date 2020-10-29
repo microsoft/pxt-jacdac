@@ -11,7 +11,7 @@ namespace jacdac {
     //% fixedInstances
     export class MouseClient extends Client {
         constructor(requiredDevice: string = null) {
-            super("mous", jd_class.MOUSE, requiredDevice);
+            super("mous", SRV_MOUSE, requiredDevice);
         }
 
         /** 

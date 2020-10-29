@@ -102,7 +102,7 @@ namespace jacdac {
     //% fixedInstances
     export class KeyboardClient extends Client {
         constructor(requiredDevice: string = null) {
-            super("keyb", jd_class.KEYBOARD, requiredDevice);
+            super("keyb", SRV_KEYBOARD, requiredDevice);
         }
 
         /**
