@@ -122,6 +122,10 @@ namespace jacdac {
             })
         }
 
+        get isOpen() {
+            return !!this.port
+        }
+
         private writeEx(buf: Buffer, flags: number) {
             if (!this.port) return
             const pkt = JDPacket.from((this.nextCnt & COUNTER_MASK) | (this.port << PORT_SHIFT) | flags, buf)
@@ -129,8 +133,10 @@ namespace jacdac {
             if (flags & CLOSE_MASK)
                 this.port = null
             pkt.service_number = JD_SERVICE_NUMBER_PIPE
-            if (!pkt._sendWithAck(this.deviceId))
+            if (!pkt._sendWithAck(this.deviceId)) {
+                this.port = null
                 throw "No ACK (pipe)"
+            }
         }
 
         write(buf: Buffer) {
