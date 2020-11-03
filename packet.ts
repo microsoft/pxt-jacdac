@@ -16,7 +16,7 @@ namespace jacdac {
     // the device_identifier contains target service class number
     export const JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS = 0x04
 
-    const ACK_RETRIES = 3
+    const ACK_RETRIES = 4
     let ackAwaiters: AckAwaiter[]
 
 
@@ -54,6 +54,15 @@ namespace jacdac {
 
         static packed(service_command: number, fmt: string, nums: number[]) {
             return JDPacket.from(service_command, Buffer.pack(fmt, nums))
+        }
+
+        static segmentData(data: Buffer) {
+            if (data.length <= JD_SERIAL_MAX_PAYLOAD_SIZE)
+                return [data]
+            const res: Buffer[] = []
+            for (let i = 0; i < data.length; i += JD_SERIAL_MAX_PAYLOAD_SIZE)
+                res.push(data.slice(i, JD_SERIAL_MAX_PAYLOAD_SIZE))
+            return res
         }
 
         get device_identifier() {
@@ -207,7 +216,7 @@ namespace jacdac {
             this._sendCore()
         }
 
-        // returns true when sent and recieved
+        // returns true when sent and received
         _sendWithAck(devId: string) {
             if (!devId)
                 return false
@@ -226,14 +235,14 @@ namespace jacdac {
 
             const aw = new AckAwaiter(this, devId)
             ackAwaiters.push(aw)
-            while (aw.added > 0)
+            while (aw.nextRetry > 0)
                 control.waitForEvent(DAL.DEVICE_ID_NOTIFY, aw.eventId)
-            return aw.added == 0
+            return aw.nextRetry == 0
         }
     }
 
     class AckAwaiter {
-        added: number
+        nextRetry: number
         numTries = 1
         crc: number
         eventId: number
@@ -242,29 +251,29 @@ namespace jacdac {
             public srcId: string
         ) {
             this.crc = pkt.crc
-            this.added = control.millis()
+            this.nextRetry = control.millis() + 40
             this.eventId = control.allocateNotifyEvent()
         }
     }
 
     function checkAckAwaiters() {
         const now = control.millis()
-        const retryTime = now - 30
-        const toRetry = ackAwaiters.filter(a => a.added < retryTime)
+        const toRetry = ackAwaiters.filter(a => now > a.nextRetry)
         if (!toRetry.length)
             return
         for (let a of toRetry) {
-            if (a.added == 0)
+            if (a.nextRetry == 0)
                 continue // already got ack
             if (a.numTries >= ACK_RETRIES) {
-                a.added = -1
+                a.nextRetry = -1
                 control.raiseEvent(DAL.DEVICE_ID_NOTIFY, a.eventId)
             } else {
                 a.numTries++
+                a.nextRetry = now + a.numTries * 40
                 a.pkt._sendCore()
             }
         }
-        ackAwaiters = ackAwaiters.filter(a => a.added > 0)
+        ackAwaiters = ackAwaiters.filter(a => a.nextRetry > 0)
     }
 
     export function _gotAck(pkt: JDPacket) {
@@ -275,13 +284,13 @@ namespace jacdac {
         const crc = pkt.service_command
         for (let a of ackAwaiters) {
             if (a.crc == crc && a.srcId == srcId) {
-                a.added = 0
+                a.nextRetry = 0
                 control.raiseEvent(DAL.DEVICE_ID_NOTIFY, a.eventId)
                 numNotify++
             }
         }
         if (numNotify)
-            ackAwaiters = ackAwaiters.filter(a => a.added !== 0)
+            ackAwaiters = ackAwaiters.filter(a => a.nextRetry !== 0)
     }
 
     export function intOfBuffer(data: Buffer) {
