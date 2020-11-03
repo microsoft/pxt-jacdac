@@ -80,10 +80,9 @@ void jd_panic(void) {
 
 static void tim_callback(Event e) {
     cb_t f = tim_cb;
-    if (f) {
+    if (f && e.value == currEvent) {
         tim_cb = NULL;
-        if (e.value == currEvent)
-            f();
+        f();
     }
 }
 
@@ -103,7 +102,7 @@ uint64_t tim_get_micros(void) {
 // ATSAMD21  - +29us +20us
 
 void tim_set_timer(int delta, cb_t cb) {
-     // compensate for overheads
+    // compensate for overheads
     delta -= JD_TIM_OVERHEAD;
     if (delta < 20)
         delta = 20;
@@ -181,7 +180,7 @@ static void sws_done(uint16_t errCode) {
             jd_rx_completed(0);
         } else {
             LOG("double complete");
-            //target_panic(122);
+            // target_panic(122);
         }
         sws->abortDMA();
         break;
