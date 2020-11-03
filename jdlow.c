@@ -166,15 +166,17 @@ static void rx_timeout(void) {
 
 static void setup_rx_timeout(void) {
     uint32_t *p = (uint32_t *)rxFrame;
-    if (p[0] == 0 && p[1] == 0)
+    if (p[0] == 0 && p[1] == 0) {
         rx_timeout(); // didn't get any data after lo-pulse
-    // got the size - set timeout for whole packet
-    tim_set_timer(JD_FRAME_SIZE(rxFrame) * 12 + 60, rx_timeout);
+    } else {
+        // got the size - set timeout for whole packet
+        tim_set_timer(JD_FRAME_SIZE(rxFrame) * 12 + 60, rx_timeout);
+    }
 }
 
 void jd_line_falling() {
     LOG("line fall");
-    //log_pin_set(1, 1);
+    // log_pin_set(1, 1);
     pulse_log_pin();
     signal_read(1);
 
@@ -201,7 +203,7 @@ void jd_line_falling() {
     // target_wait_us(2);
 
     uart_start_rx(rxFrame, sizeof(*rxFrame));
-    //log_pin_set(1, 0);
+    // log_pin_set(1, 0);
 
     tim_set_timer(200, setup_rx_timeout);
 
