@@ -43,7 +43,7 @@ static void pushOutData(const jd_frame_t *frame) {
     if (!bp)
         target_panic(111);
     auto src = (uint32_t *)frame;
-    int len = (JD_FRAME_SIZE(frame) + 3) & ~3;
+    int len = (JD_FRAME_SIZE(frame) + 3) >> 2;
     for (int i = 1; i < len; ++i)
         bp[i] = src[i];
     bp[0] = src[0]; // first word copied last to ensure atomicity
