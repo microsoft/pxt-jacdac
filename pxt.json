@@ -64,7 +64,7 @@
     "fileDependencies": {
         "musicclient.ts": "mixer",
         "wificlient.ts": "net",
-        "mbcompat.ts": "radio"
+        "mbcompat.ts": "target:microbit"
     },
     "public": true,
     "targetVersions": {
