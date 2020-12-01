@@ -500,13 +500,12 @@ namespace jacdac {
 
     //% whenUsed
     export let onIdentifyRequest = () => {
-        const led = pins.pinByCfg(DAL.CFG_PIN_LED);
-        if (!led)
+        if (!pins.pinByCfg(DAL.CFG_PIN_LED))
             return
         for (let i = 0; i < 7; ++i) {
-            led.digitalWrite(true)
+            setPinByCfg(DAL.CFG_PIN_LED, true)
             pause(50)
-            led.digitalWrite(false)
+            setPinByCfg(DAL.CFG_PIN_LED, false)
             pause(150)
         }
     }
@@ -743,7 +742,25 @@ namespace jacdac {
             newDevice()
     }
 
-    const EVT_DATA_READY = 1;
+    const EVT_DATA_READY = 1
+    const CFG_PIN_JDPWR_OVERLOAD_LED = 1103
+    const CFG_PIN_JDPWR_ENABLE = 1104
+    const CFG_PIN_JDPWR_FAULT = 1105
+
+    function setPinByCfg(cfg: number, val: boolean) {
+        const pin = pins.pinByCfg(cfg)
+        if (!pin)
+            return
+        if (control.getConfigValue(cfg, 0) & DAL.CFG_PIN_CONFIG_ACTIVE_LO)
+            val = !val
+        pin.digitalWrite(val)
+    }
+
+    export function enablePower(enabled = true) {
+        // EN active-lo, AP2552A, AP22652A, TPS2552-1
+        // EN active-hi, AP2553A, AP22653A, TPS2553-1
+        setPinByCfg(CFG_PIN_JDPWR_ENABLE, enabled)
+    }
 
     export function start(): void {
         if (hostServices)
@@ -765,6 +782,27 @@ namespace jacdac {
             }
         });
         control.internalOnEvent(jacdac.__physId(), 100, queueAnnounce);
+
+        enablePower(true)
+        const faultpin = pins.pinByCfg(CFG_PIN_JDPWR_FAULT)
+        if (faultpin) {
+            // FAULT is always assumed to be active-low; no external pull-up is needed
+            // (and you should never pull it up to +5V!)
+            faultpin.setPull(PinPullMode.PullUp)
+            faultpin.digitalRead()
+            onAnnounce(() => {
+                if (faultpin.digitalRead() == false) {
+                    control.runInBackground(() => {
+                        control.dmesg("jacdac power overload; restarting power")
+                        enablePower(false)
+                        setPinByCfg(CFG_PIN_JDPWR_OVERLOAD_LED, true)
+                        pause(200) // wait some time for the LED to be noticed; also there's some de-glitch time on EN
+                        setPinByCfg(CFG_PIN_JDPWR_OVERLOAD_LED, false)
+                        enablePower(true)
+                    })
+                }
+            })
+        }
 
         console.addListener(function (pri, msg) {
             if (msg[0] != ":")
