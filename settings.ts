@@ -58,6 +58,15 @@ namespace jacdac {
                 }
             )
         }
+
+        /**
+         * Reads locally a setting, including secrets
+         */
+        getSetting(key: string) {
+            const id = SETTINGS_PREFIX + key;
+            const value = settings.readBuffer(id)
+            return value;
+        }
     }
 
     //% fixedInstance whenUsed
