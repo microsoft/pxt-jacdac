@@ -27,6 +27,11 @@ namespace jacdac {
         Calibrate = 0x2,
     }
 
+    export const enum SystemEvent {
+        /** Emit notifying that the internal state of the service changed. */
+        Change = 0x1,
+    }
+
     export const enum SystemReg {
         /** Read-write uint32_t. This is either binary on/off (0 or non-zero), or can be gradual (eg. brightness of an RGB LED strip). */
         Intensity = 0x1,
@@ -962,6 +967,11 @@ namespace jacdac {
 
         /** Argument: required_roles pipe (bytes). List all roles required by the current program. `device_id` is `0` if role is unbound. */
         ListRequiredRoles = 0x83,
+    }
+
+    export const enum RoleManagerReg {
+        /** Read-only bool (uint8_t). Indicates if all required roles have been allocated to devices. */
+        AllRolesAllocated = 0x181,
     }
 
     // pipe_report StoredRoles

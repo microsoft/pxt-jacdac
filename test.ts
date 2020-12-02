@@ -1,6 +1,7 @@
 // pins.A9.digitalWrite(false)
 jacdac.consolePriority = ConsolePriority.Log;
 jacdac.settingsHost.start()
+jacdac.roleManagerHost.start()
 jacdac.start()
 /*
 forever(function() {

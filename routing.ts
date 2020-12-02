@@ -31,9 +31,26 @@ namespace jacdac {
         protected supressLog: boolean;
         running: boolean
         serviceNumber: number
-        stateUpdated: boolean
+        stateUpdated: boolean;
+        private _statusCode: number = 0; // u16, 16
+
+        get statusCode() {
+            return this._statusCode;
+        }
+
+        setStatusCode(code: number, vendorCode: number) {
+            const c = ((code & 0xffff) << 16) | (vendorCode & 0xffff)
+            if (c !== this._statusCode) {
+                this._statusCode = c;
+                this.sendChangeEvent();
+            }
+        }
 
         handlePacketOuter(pkt: JDPacket) {
+            // status code support
+            if (this.handleStatusCode(pkt))
+                return;
+
             if (pkt.service_command == CMD_ADVERTISEMENT_DATA) {
                 this.sendReport(
                     JDPacket.from(CMD_ADVERTISEMENT_DATA, this.advertisementData()))
@@ -53,16 +70,32 @@ namespace jacdac {
             return Buffer.create(0)
         }
 
-        sendReport(pkt: JDPacket) {
+        protected sendReport(pkt: JDPacket) {
             pkt.service_number = this.serviceNumber
             pkt._sendReport(myDevice)
         }
 
-        handleRegBool(pkt: JDPacket, register: number, current: boolean): boolean {
+        protected sendChangeEvent(): void {
+            this.sendReport(JDPacket.packed(CMD_EVENT, "I", [SystemEvent.Change]))
+        }
+
+        private handleStatusCode(pkt: JDPacket): boolean {
+            const getset = pkt.service_command >> 12
+            const reg = pkt.service_command & 0xfff
+            if (reg == SystemReg.StatusCode && getset == 1) {
+                this.sendReport(JDPacket.packed(pkt.service_command, "i", 
+                    [this._statusCode >> 0]))
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        protected handleRegBool(pkt: JDPacket, register: number, current: boolean): boolean {
             return this.handleRegInt(pkt, register, current ? 1 : 0) != 0
         }
 
-        handleRegInt(pkt: JDPacket, register: number, current: number): number {
+        protected handleRegInt(pkt: JDPacket, register: number, current: number): number {
             const getset = pkt.service_command >> 12
             if (getset == 0 || getset > 2)
                 return current
@@ -85,7 +118,7 @@ namespace jacdac {
             return current
         }
 
-        handleRegBuffer(pkt: JDPacket, register: number, current: Buffer): Buffer {
+        protected handleRegBuffer(pkt: JDPacket, register: number, current: Buffer): Buffer {
             const getset = pkt.service_command >> 12
             if (getset == 0 || getset > 2)
                 return current

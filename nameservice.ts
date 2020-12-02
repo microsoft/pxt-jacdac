@@ -64,7 +64,7 @@ namespace jacdac {
         Device.clearNameCache()
     }
 
-    export class RoleManager extends Host {
+    export class RoleManagerHost extends Host {
         constructor() {
             super("rolemgr", SRV_ROLE_MANAGER)
         }
@@ -79,8 +79,10 @@ namespace jacdac {
                     }
                     break
                 case RoleManagerCmd.SetRole:
-                    if (packet.data.length >= 8)
+                    if (packet.data.length >= 8) {
                         setDevName(packet.data.slice(0, 8).toHex(), packet.data.slice(8).toString())
+                        this.sendChangeEvent();
+                    }
                     break
                 case RoleManagerCmd.ListStoredRoles:
                     OutPipe.respondForEach(packet, settings.list(devNameSettingPrefix), k =>
@@ -93,6 +95,7 @@ namespace jacdac {
                     break
                 case RoleManagerCmd.ClearAllRoles:
                     clearAllNames()
+                    this.sendChangeEvent();
                     break
             }
 
@@ -105,8 +108,8 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="device namer"
-    export const roleManager = new RoleManager()
+    //% fixedInstance whenUsed
+    export const roleManagerHost = new RoleManagerHost()
 
     export class RemoteRequestedDevice {
         services: number[] = [];
