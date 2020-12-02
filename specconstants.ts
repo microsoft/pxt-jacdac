@@ -1,75 +1,102 @@
 namespace jacdac {
     // Service: Common registers and commands
-    export const enum BaseCmd {
-    /**
-     * No args. Enumeration data for control service; service-specific advertisement data otherwise.
-     * Control broadcasts it automatically every 500ms, but other service have to be queried to provide it.
-     */
+    export const enum SystemCmd {
+        /**
+         * No args. Enumeration data for control service; service-specific advertisement data otherwise.
+         * Control broadcasts it automatically every 500ms, but other service have to be queried to provide it.
+         */
         Announce = 0x0,
-    
-    /**
-     * No args. Registers number `N` is fetched by issuing command `0x1000 | N`.
-     * The report format is the same as the format of the register.
-     */
+
+        /**
+         * No args. Registers number `N` is fetched by issuing command `0x1000 | N`.
+         * The report format is the same as the format of the register.
+         */
         GetRegister = 0x1000,
-    
-    /**
-     * No args. Registers number `N` is set by issuing command `0x2000 | N`, with the format
-     * the same as the format of the register.
-     */
+
+        /**
+         * No args. Registers number `N` is set by issuing command `0x2000 | N`, with the format
+         * the same as the format of the register.
+         */
         SetRegister = 0x2000,
-    
-    /** Event from sensor or a broadcast service. */
+
+        // const [eventId, eventArgument] = buf.unpack("LL")
+        /** Event from sensor or a broadcast service. */
         Event = 0x1,
-    
-    /** No args. Request to calibrate a sensor. The report indicates the calibration is done. */
+
+        /** No args. Request to calibrate a sensor. The report indicates the calibration is done. */
         Calibrate = 0x2,
-    
-    /** No args. Request human-readable description of service. */
-        Description = 0x3,
     }
 
-    export const enum BaseReg {
-    /** Read-write uint32_t. This is either binary on/off (0 or non-zero), or can be gradual (eg. brightness of an RGB LED strip). */
+    export const enum SystemReg {
+        /** Read-write uint32_t. This is either binary on/off (0 or non-zero), or can be gradual (eg. brightness of an RGB LED strip). */
         Intensity = 0x1,
-    
-    /** Read-write int32_t. The primary value of actuator (eg. servo pulse length, or motor duty cycle). */
+
+        /** Read-write int32_t. The primary value of actuator (eg. servo pulse length, or motor duty cycle). */
         Value = 0x2,
-    
-    /** Read-write mA uint16_t. Limit the power drawn by the service, in mA. */
+
+        /** Read-write mA uint16_t. Limit the power drawn by the service, in mA. */
         MaxPower = 0x7,
-    
-    /**
-     * Read-write uint8_t. Asks device to stream a given number of samples
-     * (clients will typically write `255` to this register every second or so, while streaming is required).
-     */
-        StreamSamples = 0x3,
-    
-    /** Read-write ms uint32_t. Period between packets of data when streaming in milliseconds. */
+
+        /**
+         * Read-write uint8_t. Asks device to stream a given number of samples
+         * (clients will typically write `255` to this register every second or so, while streaming is required).
+         */
+        StreamingSamples = 0x3,
+
+        /** Read-write ms uint32_t. Period between packets of data when streaming in milliseconds. */
         StreamingInterval = 0x4,
-    
-    /** Read-only int32_t. Read-only value of the sensor, also reported in streaming. */
+
+        /** Read-only int32_t. Read-only value of the sensor, also reported in streaming. */
         Reading = 0x101,
-    
-    /** Read-write int32_t. Thresholds for event generation for event generation for analog sensors. */
+
+        /** Read-write int32_t. Thresholds for event generation for event generation for analog sensors. */
         LowThreshold = 0x5,
-    
-    /** Read-write int32_t. Thresholds for event generation for event generation for analog sensors. */
+
+        /** Read-write int32_t. Thresholds for event generation for event generation for analog sensors. */
         HighThreshold = 0x6,
+
+        // const [code, vendorCode] = buf.unpack("HH")
+        /**
+         * Reports the current state or error status of the device. ``code`` is a standardized value from
+         * the JACDAC error codes. ``vendor_code`` is any vendor specific error code describing the device
+         * state. This report is typically not queried, when a device has an error, it will typically
+         * add this report in frame along with the anounce packet.
+         */
+        StatusCode = 0x7,
+
+        /** Constant ms uint32_t. Preferred default streaming interval for sensor in milliseconds. */
+        StreamingPreferredInterval = 0x102,
+    }
+
+}
+namespace jacdac {
+    // Service: Base service
+    export const enum BaseReg {
+        // const [code, vendorCode] = buf.unpack("HH")
+        /**
+         * Reports the current state or error status of the device. ``code`` is a standardized value from
+         * the JACDAC error codes. ``vendor_code`` is any vendor specific error code describing the device
+         * state. This report is typically not queried, when a device has an error, it will typically
+         * add this report in frame along with the anounce packet.
+         */
+        StatusCode = 0x7,
     }
 
 }
 namespace jacdac {
     // Service: Sensor
     export const enum SensorReg {
-    /**
-     * Read-write uint8_t. Asks device to stream a given number of samples
-     * (clients will typically write `255` to this register every second or so, while streaming is required).
-     */
-        StreamSamples = 0x3,
-    
-    /** Read-write ms uint32_t. Period between packets of data when streaming in milliseconds. */
+        /**
+         * Read-write uint8_t. Asks device to stream a given number of samples
+         * (clients will typically write `255` to this register every second or so, while streaming is required).
+         */
+        StreamingSamples = 0x3,
+
+        /** Read-write ms uint32_t. Period between packets of data when streaming in milliseconds. */
         StreamingInterval = 0x4,
+
+        /** Constant ms uint32_t. Preferred default streaming interval for sensor in milliseconds. */
+        StreamingPreferredInterval = 0x102,
     }
 
 }
@@ -77,45 +104,46 @@ namespace jacdac {
     // Service: Accelerometer
     export const SRV_ACCELEROMETER = 0x1f140409
     export const enum AccelReg {
-    /** Indicates the current forces acting on accelerometer. */
+        // const [x, y, z] = buf.unpack("hhh")
+        /** Indicates the current forces acting on accelerometer. */
         Forces = 0x101,
     }
 
     export const enum AccelEvent {
-    /** Emitted when accelerometer is tilted in the given direction. */
+        /** Emitted when accelerometer is tilted in the given direction. */
         TiltUp = 0x1,
-    
-    /** Emitted when accelerometer is tilted in the given direction. */
+
+        /** Emitted when accelerometer is tilted in the given direction. */
         TiltDown = 0x2,
-    
-    /** Emitted when accelerometer is tilted in the given direction. */
+
+        /** Emitted when accelerometer is tilted in the given direction. */
         TiltLeft = 0x3,
-    
-    /** Emitted when accelerometer is tilted in the given direction. */
+
+        /** Emitted when accelerometer is tilted in the given direction. */
         TiltRight = 0x4,
-    
-    /** Emitted when accelerometer is laying flat in the given direction. */
+
+        /** Emitted when accelerometer is laying flat in the given direction. */
         FaceUp = 0x5,
-    
-    /** Emitted when accelerometer is laying flat in the given direction. */
+
+        /** Emitted when accelerometer is laying flat in the given direction. */
         FaceDown = 0x6,
-    
-    /** Emitted when total force acting on accelerometer is much less than 1g. */
+
+        /** Emitted when total force acting on accelerometer is much less than 1g. */
         Freefall = 0x7,
-    
-    /** Emitted when forces change violently a few times. */
+
+        /** Emitted when forces change violently a few times. */
         Shake = 0xb,
-    
-    /** Emitted when force in any direction exceeds given threshold. */
+
+        /** Emitted when force in any direction exceeds given threshold. */
         Force_2g = 0xc,
-    
-    /** Emitted when force in any direction exceeds given threshold. */
+
+        /** Emitted when force in any direction exceeds given threshold. */
         Force_3g = 0x8,
-    
-    /** Emitted when force in any direction exceeds given threshold. */
+
+        /** Emitted when force in any direction exceeds given threshold. */
         Force_6g = 0x9,
-    
-    /** Emitted when force in any direction exceeds given threshold. */
+
+        /** Emitted when force in any direction exceeds given threshold. */
         Force_8g = 0xa,
     }
 
@@ -134,22 +162,24 @@ namespace jacdac {
     }
 
     export const enum SensorAggregatorReg {
-    /**
-     * Set automatic input collection.
-     * These settings are stored in flash.
-     */
+        // const [samplingInterval, samplesInWindow, reserved, serviceClass, serviceNum, sampleSize, sampleType, sampleShift] = buf.unpack("HHL8xLBBBb")
+        // const deviceId = buf.slice(8, 8)
+        /**
+         * Set automatic input collection.
+         * These settings are stored in flash.
+         */
         Inputs = 0x80,
-    
-    /** Read-only uint32_t. Number of input samples collected so far. */
+
+        /** Read-only uint32_t. Number of input samples collected so far. */
         NumSamples = 0x180,
-    
-    /** Read-only B uint8_t. Size of a single sample. */
+
+        /** Read-only B uint8_t. Size of a single sample. */
         SampleSize = 0x181,
-    
-    /** Read-write uint32_t. When set to `N`, will stream `N` samples as `current_sample` reading. */
+
+        /** Read-write uint32_t. When set to `N`, will stream `N` samples as `current_sample` reading. */
         StreamSamples = 0x81,
-    
-    /** Read-only bytes. Last collected sample. */
+
+        /** Read-only bytes. Last collected sample. */
         CurrentSample = 0x101,
     }
 
@@ -167,22 +197,28 @@ namespace jacdac {
     }
 
     export const enum BootloaderCmd {
-    /**
-     * No args. The `service_class` is always `0x1ffa9948`. The `firmware_identifier` identifies the kind of firmware
-     * that "fits" this device.
-     */
+        /**
+         * No args. The `service_class` is always `0x1ffa9948`. The `firmware_identifier` identifies the kind of firmware
+         * that "fits" this device.
+         */
         Info = 0x0,
-    
-    /** Argument: session_id uint32_t. The flashing host should generate a random id, and use this command to set it. */
+        // report Info
+        // const [serviceClass, pageSize, flashableSize, firmwareIdentifier] = buf.unpack("LLLL")
+
+        /** Argument: session_id uint32_t. The flashing host should generate a random id, and use this command to set it. */
         SetSession = 0x81,
-    
-    /**
-     * Use to send flashing data. A physical page is split into `chunk_max + 1` chunks, where `chunk_no = 0 ... chunk_max`.
-     * Each chunk is stored at `page_address + page_offset`. `page_address` has to be equal in all chunks,
-     * and is included in response.
-     * Only the last chunk causes writing to flash and elicits response.
-     */
+
+        // const [pageAddress, pageOffset, chunkNo, chunkMax, sessionId, reserved0, reserved1, reserved2, reserved3] = buf.unpack("LHBBLLLLL")
+        // const pageData = buf.slice(28)
+        /**
+         * Use to send flashing data. A physical page is split into `chunk_max + 1` chunks, where `chunk_no = 0 ... chunk_max`.
+         * Each chunk is stored at `page_address + page_offset`. `page_address` has to be equal in all chunks,
+         * and is included in response.
+         * Only the last chunk causes writing to flash and elicits response.
+         */
         PageData = 0x80,
+        // report PageData
+        // const [sessionId, pageError, pageAddress] = buf.unpack("LLL")
     }
 
 }
@@ -190,21 +226,21 @@ namespace jacdac {
     // Service: Button
     export const SRV_BUTTON = 0x1473a263
     export const enum ButtonReg {
-    /** Read-only bool (uint8_t). Indicates whether the button is currently active (pressed). */
+        /** Read-only bool (uint8_t). Indicates whether the button is currently active (pressed). */
         Pressed = 0x101,
     }
 
     export const enum ButtonEvent {
-    /** Emitted when button goes from inactive (`pressed == 0`) to active. */
+        /** Emitted when button goes from inactive (`pressed == 0`) to active. */
         Down = 0x1,
-    
-    /** Emitted when button goes from active (`pressed == 1`) to inactive. */
+
+        /** Emitted when button goes from active (`pressed == 1`) to inactive. */
         Up = 0x2,
-    
-    /** Emitted together with `up` when the press time was not longer than 500ms. */
+
+        /** Emitted together with `up` when the press time was not longer than 500ms. */
         Click = 0x3,
-    
-    /** Emitted together with `up` when the press time was more than 500ms. */
+
+        /** Emitted together with `up` when the press time was more than 500ms. */
         LongClick = 0x4,
     }
 
@@ -213,7 +249,8 @@ namespace jacdac {
     // Service: CODAL Message Bus
     export const SRV_CODAL_MESSAGE_BUS = 0x16ad7cd5
     export const enum CODALMessageBusCmd {
-    /** Sends a new event on the message bus. */
+        // const [id, event] = buf.unpack("HH")
+        /** Sends a new event on the message bus. */
         Send = 0x80,
     }
 
@@ -227,44 +264,52 @@ namespace jacdac {
     }
 
     export const enum CtrlCmd {
-    /**
-     * No args. The `restart_counter` starts at `0x1` and increments by one until it reaches `0xf`, then it stays at `0xf`.
-     * If this number ever goes down, it indicates that the device restarted.
-     * The upper 4 bits of `restart_counter` are reserved.
-     * `service_class` indicates class identifier for each service number (service number `0` is always control, so it's
-     * skipped in this enumeration).
-     * The command form can be used to induce report, which is otherwise broadcast every 500ms.
-     */
+        /**
+         * No args. The `restart_counter` starts at `0x1` and increments by one until it reaches `0xf`, then it stays at `0xf`.
+         * If this number ever goes down, it indicates that the device restarted.
+         * The upper 4 bits of `restart_counter` are reserved.
+         * `service_class` indicates class identifier for each service index (service index `0` is always control, so it's
+         * skipped in this enumeration).
+         * The command form can be used to induce report, which is otherwise broadcast every 500ms.
+         */
         Services = 0x0,
-    
-    /** No args. Do nothing. Always ignored. Can be used to test ACKs. */
+        // report Services
+        // const [restartCounter, flags, reserved, serviceClass] = buf.unpack("BBHL")
+
+        /** No args. Do nothing. Always ignored. Can be used to test ACKs. */
         Noop = 0x80,
-    
-    /** No args. Blink an LED or otherwise draw user's attention. */
+
+        /** No args. Blink an LED or otherwise draw user's attention. */
         Identify = 0x81,
-    
-    /** No args. Reset device. ACK may or may not be sent. */
+
+        /** No args. Reset device. ACK may or may not be sent. */
         Reset = 0x82,
     }
 
     export const enum CtrlReg {
-    /** Constant string (bytes). Identifies the type of hardware (eg., ACME Corp. Servo X-42 Rev C) */
+        /** Constant string (bytes). Identifies the type of hardware (eg., ACME Corp. Servo X-42 Rev C) */
         DeviceDescription = 0x180,
-    
-    /** Constant uint32_t. A numeric code for the string above; used to identify firmware images and devices. */
+
+        /** Constant uint32_t. A numeric code for the string above; used to identify firmware images and devices. */
         FirmwareIdentifier = 0x181,
-    
-    /** Constant uint32_t. Typically the same as `firmware_identifier` unless device was flashed by hand; the bootloader will respond to that code. */
+
+        /** Constant uint32_t. Typically the same as `firmware_identifier` unless device was flashed by hand; the bootloader will respond to that code. */
         BootloaderFirmwareIdentifier = 0x184,
-    
-    /** Constant string (bytes). A string describing firmware version; typically semver. */
+
+        /** Constant string (bytes). A string describing firmware version; typically semver. */
         FirmwareVersion = 0x185,
-    
-    /** Read-only °C int16_t. MCU temperature in degrees Celsius (approximate). */
-        Temperature = 0x182,
-    
-    /** Read-only μs uint64_t. Number of microseconds since boot. */
+
+        /** Read-only °C int16_t. MCU temperature in degrees Celsius (approximate). */
+        McuTemperature = 0x182,
+
+        /** Read-only μs uint64_t. Number of microseconds since boot. */
         Uptime = 0x186,
+
+        /** Constant string (bytes). Request the information web site for this device */
+        DeviceUrl = 0x187,
+
+        /** Constant string (bytes). URL with machine-readable metadata information about updating device firmware */
+        FirmwareUrl = 0x188,
     }
 
 }
@@ -272,13 +317,13 @@ namespace jacdac {
     // Service: Rotary encoder
     export const SRV_ROTARY_ENCODER = 0x10fa29c9
     export const enum RotaryEncoderReg {
-    /**
-     * Read-only # int32_t. Upon device reset starts at `0` (regardless of the shaft position).
-     * Increases by `1` for a clockwise "click", by `-1` for counter-clockwise.
-     */
+        /**
+         * Read-only # int32_t. Upon device reset starts at `0` (regardless of the shaft position).
+         * Increases by `1` for a clockwise "click", by `-1` for counter-clockwise.
+         */
         Position = 0x101,
-    
-    /** Constant # uint16_t. This specifies by how much `position` changes when the crank does 360 degree turn. Typically 12 or 24. */
+
+        /** Constant # uint16_t. This specifies by how much `position` changes when the crank does 360 degree turn. Typically 12 or 24. */
         ClicksPerTurn = 0x180,
     }
 
@@ -301,23 +346,28 @@ namespace jacdac {
     }
 
     export const enum GamepadCmd {
-    /** No args. Indicates number of players supported and which buttons are present on the controller. */
+        /** No args. Indicates number of players supported and which buttons are present on the controller. */
         Announce = 0x0,
+        // report Announce
+        // const [flags, numPlayers, buttonPresent] = buf.unpack("BBH")
     }
 
     export const enum GamepadReg {
-    /**
-     * Indicates which buttons are currently active (pressed).
-     * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
-     */
+        // const [button, playerIndex, pressure] = buf.unpack("HBB")
+        /**
+         * Indicates which buttons are currently active (pressed).
+         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
+         */
         Buttons = 0x101,
     }
 
     export const enum GamepadEvent {
-    /** Emitted when button goes from inactive to active. */
+        // const [button, playerIndex] = buf.unpack("HH")
+        /** Emitted when button goes from inactive to active. */
         Down = 0x1,
-    
-    /** Emitted when button goes from active to inactive. */
+
+        // const [button, playerIndex] = buf.unpack("HH")
+        /** Emitted when button goes from active to inactive. */
         Up = 0x2,
     }
 
@@ -326,8 +376,116 @@ namespace jacdac {
     // Service: Humidity
     export const SRV_HUMIDITY = 0x16c810b8
     export const enum HumidityReg {
-    /** Read-only %RH u22.10 (uint32_t). The relative humidity in percentage of full water saturation. */
+        /** Read-only %RH u22.10 (uint32_t). The relative humidity in percentage of full water saturation. */
         Humidity = 0x101,
+    }
+
+}
+namespace jacdac {
+    // Service: Azure IoT Hub
+    export const SRV_AZURE_IOT_HUB = 0x19ed364c
+    export const enum IotHubCmd {
+        /**
+         * No args. Try connecting using currently set `connection_string`.
+         * The service normally preiodically tries to connect automatically.
+         */
+        Connect = 0x80,
+
+        /**
+         * No args. Disconnect from current Hub if any.
+         * This disables auto-connect behavior, until a `connect` command is issued.
+         */
+        Disconnect = 0x81,
+
+        // const msg = string0(buf, 0, 0)
+        // const propertyName = string0(buf, 0, 1)
+        // const propertyValue = string0(buf, 0, 2)
+        /** Sends a short message in string format (it's typically JSON-encoded). Multiple properties can be attached. */
+        SendStringMsg = 0x82,
+
+        /** No args. Sends an arbitrary, possibly binary, message. The size is only limited by RAM on the module. */
+        SendMsgExt = 0x83,
+
+        /** Argument: devicebound pipe (bytes). Subscribes for cloud to device messages, which will be sent over the specified pipe. */
+        Subscribe = 0x84,
+
+        /** Argument: twin_result pipe (bytes). Ask for current device digital twin. */
+        GetTwin = 0x85,
+
+        /** Argument: twin_updates pipe (bytes). Subscribe to updates to our twin. */
+        SubscribeTwin = 0x87,
+
+        /** No args. Start twin update. */
+        PatchTwin = 0x86,
+
+        /** Argument: method_call pipe (bytes). Subscribe to direct method calls. */
+        SubscribeMethod = 0x88,
+
+        // const [status] = buf.unpack("L")
+        // const requestId = string0(buf, 4, 0)
+        /** Respond to a direct method call (`request_id` comes from `subscribe_method` pipe). */
+        RespondToMethod = 0x89,
+    }
+
+    export const enum IotHubPipeCmd {
+        // const propertyName = string0(buf, 0, 0)
+        // const propertyValue = string0(buf, 0, 1)
+        /** Set properties on the message. Can be repeated multiple times. */
+        Properties = 0x1,
+
+        // const propertyName = string0(buf, 0, 0)
+        // const propertyValue = string0(buf, 0, 1)
+        /**
+         * If there are any properties, this meta-report is send one or more times.
+         * All properties of a given message are always sent before the body.
+         */
+        DeviceboundProperties = 0x1,
+
+        /** Argument: status_code uint32_t. This emitted if status is not 200. */
+        TwinError = 0x1,
+
+        // const methodName = string0(buf, 0, 0)
+        // const requestId = string0(buf, 0, 1)
+        /** This is sent after the last part of the `method_call_body`. */
+        MethodCall = 0x1,
+    }
+
+    export const enum IotHubReg {
+        /** Read-only string (bytes). Returns `"ok"` when connected, and an error description otherwise. */
+        ConnectionStatus = 0x180,
+
+        /**
+         * Read-write string (bytes). Connection string typically looks something like
+         * `HostName=my-iot-hub.azure-devices.net;DeviceId=my-dev-007;SharedAccessKey=xyz+base64key`.
+         * You can get it in `Shared access policies -> iothubowner -> Connection string-primary key` in the Azure Portal.
+         * This register is write-only.
+         * You can use `hub_name` and `device_id` to check if connection string is set, but you cannot get the shared access key.
+         */
+        ConnectionString = 0x80,
+
+        /** Read-only string (bytes). Something like `my-iot-hub.azure-devices.net`; empty string when `connection_string` is not set. */
+        HubName = 0x181,
+
+        /** Read-only string (bytes). Something like `my-dev-007`; empty string when `connection_string` is not set. */
+        DeviceId = 0x182,
+    }
+
+    export const enum IotHubEvent {
+        /** Emitted upon successful connection. */
+        Connected = 0x1,
+
+        /** Argument: reason string (bytes). Emitted when connection was lost. */
+        ConnectionError = 0x2,
+
+        // const msg = string0(buf, 0, 0)
+        // const propertyName = string0(buf, 0, 1)
+        // const propertyValue = string0(buf, 0, 2)
+        /**
+         * This event is emitted upon reception of a cloud to device message, that is a string
+         * (doesn't contain NUL bytes) and fits in a single event packet.
+         * For reliable reception, use the `subscribe` command above.
+         */
+        DeviceboundStr = 0x3,
     }
 
 }
@@ -354,10 +512,11 @@ namespace jacdac {
     }
 
     export const enum KeyboardCmd {
-    /** Presses a key or a sequence of keys down. */
+        // const [selector, modifiers, action] = buf.unpack("HBB")
+        /** Presses a key or a sequence of keys down. */
         Key = 0x80,
-    
-    /** No args. Clears all pressed keys. */
+
+        /** No args. Clears all pressed keys. */
         Clear = 0x81,
     }
 
@@ -366,27 +525,27 @@ namespace jacdac {
     // Service: LED Matrix Controller
     export const SRV_LED_MATRIX_CONTROLLER = 0x1d35e393
     export const enum LEDMatrixControllerReg {
-    /**
-     * Read-write bytes. Read or writes the state of the screen where pixel on/off state is 
-     * stored as a bit, column by column. The column should be byte aligned.
-     */
+        /**
+         * Read-write bytes. Read or writes the state of the screen where pixel on/off state is
+         * stored as a bit, column by column. The column should be byte aligned.
+         */
         Leds = 0x80,
-    
-    /** Read-write bool (uint8_t). Disables or enables the whole screen. */
+
+        /** Read-write bool (uint8_t). Disables or enables the whole screen. */
         Enabled = 0x81,
-    
-    /** Read-write uint8_t. Sets the general brightness of the LEDs. */
+
+        /** Read-write uint8_t. Sets the general brightness of the LEDs. */
         Brightness = 0x82,
-    
-    /** Constant # uint16_t. Number of rows on the screen */
+
+        /** Constant # uint16_t. Number of rows on the screen */
         Rows = 0x83,
-    
-    /** Constant # uint16_t. Number of columns on the screen */
+
+        /** Constant # uint16_t. Number of columns on the screen */
         Columns = 0x84,
     }
 
     export const enum LEDMatrixControllerCmd {
-    /** No args. Shorthand command to clear all the LEDs on the screen. */
+        /** No args. Shorthand command to clear all the LEDs on the screen. */
         Clear = 0x80,
     }
 
@@ -395,10 +554,10 @@ namespace jacdac {
     // Service: LED Matrix Display
     export const SRV_LED_MATRIX_DISPLAY = 0x110d154b
     export const enum LEDMatrixDisplayReg {
-    /**
-     * Read-only bytes. Streams the state of the screen where pixel on/off state is 
-     * stored as a bit, column by column. The column should be byte aligned.
-     */
+        /**
+         * Read-only bytes. Streams the state of the screen where pixel on/off state is
+         * stored as a bit, column by column. The column should be byte aligned.
+         */
         Leds = 0x101,
     }
 
@@ -414,40 +573,40 @@ namespace jacdac {
     }
 
     export const enum LightReg {
-    /**
-     * Read-write ratio uint8_t. Set the luminosity of the strip.
-     * At `0` the power to the strip is completely shut down.
-     */
+        /**
+         * Read-write ratio uint8_t. Set the luminosity of the strip.
+         * At `0` the power to the strip is completely shut down.
+         */
         Brightness = 0x1,
-    
-    /**
-     * Read-only ratio uint8_t. This is the luminosity actually applied to the strip.
-     * May be lower than `brightness` if power-limited by the `max_power` register.
-     * It will rise slowly (few seconds) back to `brightness` is limits are no longer required.
-     */
+
+        /**
+         * Read-only ratio uint8_t. This is the luminosity actually applied to the strip.
+         * May be lower than `brightness` if power-limited by the `max_power` register.
+         * It will rise slowly (few seconds) back to `brightness` is limits are no longer required.
+         */
         ActualBrightness = 0x180,
-    
-    /**
-     * Read-write LightType (uint8_t). Specifies the type of light strip connected to controller.
-     * Controllers which are sold with lights should default to the correct type
-     * and could not allow change.
-     */
+
+        /**
+         * Read-write LightType (uint8_t). Specifies the type of light strip connected to controller.
+         * Controllers which are sold with lights should default to the correct type
+         * and could not allow change.
+         */
         LightType = 0x80,
-    
-    /**
-     * Read-write uint16_t. Specifies the number of pixels in the strip.
-     * Controllers which are sold with lights should default to the correct length
-     * and could not allow change.
-     * Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
-     */
+
+        /**
+         * Read-write uint16_t. Specifies the number of pixels in the strip.
+         * Controllers which are sold with lights should default to the correct length
+         * and could not allow change.
+         * Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
+         */
         NumPixels = 0x81,
-    
-    /** Read-write mA uint16_t. Limit the power drawn by the light-strip (and controller). */
+
+        /** Read-write mA uint16_t. Limit the power drawn by the light-strip (and controller). */
         MaxPower = 0x7,
     }
 
     export const enum LightCmd {
-    /** Argument: program bytes. Run the given light "program". See service description for details. */
+        /** Argument: program bytes. Run the given light "program". See service description for details. */
         Run = 0x81,
     }
 
@@ -464,27 +623,27 @@ namespace jacdac {
     }
 
     export const enum LoggerReg {
-    /**
-     * Read-write Priority (uint8_t). Messages with level lower than this won't be emitted. The default setting may vary.
-     * Loggers should revert this to their default setting if the register has not been
-     * updated in 3000ms, and also keep the lowest setting they have seen in the last 1500ms.
-     * Thus, clients should write this register every 1000ms and ignore messages which are
-     * too verbose for them.
-     */
+        /**
+         * Read-write Priority (uint8_t). Messages with level lower than this won't be emitted. The default setting may vary.
+         * Loggers should revert this to their default setting if the register has not been
+         * updated in 3000ms, and also keep the lowest setting they have seen in the last 1500ms.
+         * Thus, clients should write this register every 1000ms and ignore messages which are
+         * too verbose for them.
+         */
         MinPriority = 0x80,
     }
 
     export const enum LoggerCmd {
-    /** Argument: message string (bytes). Report a message. */
+        /** Argument: message string (bytes). Report a message. */
         Debug = 0x80,
-    
-    /** Argument: message string (bytes). Report a message. */
+
+        /** Argument: message string (bytes). Report a message. */
         Log = 0x81,
-    
-    /** Argument: message string (bytes). Report a message. */
+
+        /** Argument: message string (bytes). Report a message. */
         Warn = 0x82,
-    
-    /** Argument: message string (bytes). Report a message. */
+
+        /** Argument: message string (bytes). Report a message. */
         Error = 0x83,
     }
 
@@ -493,20 +652,22 @@ namespace jacdac {
     // Service: Microphone
     export const SRV_MICROPHONE = 0x113dac86
     export const enum MicrophoneCmd {
-    /**
-     * The samples will be streamed back over the `samples` pipe.
-     * If `num_samples` is `0`, streaming will only stop when the pipe is closed.
-     * Otherwise the specified number of samples is streamed.
-     * Samples are sent as `i16`.
-     */
+        // const [numSamples] = buf.unpack("12xL")
+        // const samples = buf.slice(0, 12)
+        /**
+         * The samples will be streamed back over the `samples` pipe.
+         * If `num_samples` is `0`, streaming will only stop when the pipe is closed.
+         * Otherwise the specified number of samples is streamed.
+         * Samples are sent as `i16`.
+         */
         Sample = 0x81,
     }
 
     export const enum MicrophoneReg {
-    /**
-     * Read-write μs uint32_t. Get or set microphone sampling period.
-     * Sampling rate is `1_000_000 / sampling_period Hz`.
-     */
+        /**
+         * Read-write μs uint32_t. Get or set microphone sampling period.
+         * Sampling rate is `1_000_000 / sampling_period Hz`.
+         */
         SamplingPeriod = 0x80,
     }
 
@@ -522,66 +683,66 @@ namespace jacdac {
     }
 
     export const enum ModelRunnerCmd {
-    /**
-     * Argument: model_size B uint32_t. Open pipe for streaming in the model. The size of the model has to be declared upfront.
-     * The model is streamed over regular pipe data packets.
-     * The format supported by this instance of the service is specified in `format` register.
-     * When the pipe is closed, the model is written all into flash, and the device running the service may reset.
-     */
+        /**
+         * Argument: model_size B uint32_t. Open pipe for streaming in the model. The size of the model has to be declared upfront.
+         * The model is streamed over regular pipe data packets.
+         * The format supported by this instance of the service is specified in `format` register.
+         * When the pipe is closed, the model is written all into flash, and the device running the service may reset.
+         */
         SetModel = 0x80,
-    
-    /**
-     * Argument: outputs pipe (bytes). Open channel that can be used to manually invoke the model. When enough data is sent over the `inputs` pipe, the model is invoked,
-     * and results are send over the `outputs` pipe.
-     */
+
+        /**
+         * Argument: outputs pipe (bytes). Open channel that can be used to manually invoke the model. When enough data is sent over the `inputs` pipe, the model is invoked,
+         * and results are send over the `outputs` pipe.
+         */
         Predict = 0x81,
     }
 
     export const enum ModelRunnerReg {
-    /**
-     * Read-write uint16_t. When register contains `N > 0`, run the model automatically every time new `N` samples are collected.
-     * Model may be run less often if it takes longer to run than `N * sampling_interval`.
-     * The `outputs` register will stream its value after each run.
-     * This register is not stored in flash.
-     */
+        /**
+         * Read-write uint16_t. When register contains `N > 0`, run the model automatically every time new `N` samples are collected.
+         * Model may be run less often if it takes longer to run than `N * sampling_interval`.
+         * The `outputs` register will stream its value after each run.
+         * This register is not stored in flash.
+         */
         AutoInvokeEvery = 0x80,
-    
-    /** Read-only output f32 (uint32_t). Results of last model invocation as `float32` array. */
+
+        /** Read-only output f32 (uint32_t). Results of last model invocation as `float32` array. */
         Outputs = 0x101,
-    
-    /** Read-only dimension uint16_t. The shape of the input tensor. */
+
+        /** Read-only dimension uint16_t. The shape of the input tensor. */
         InputShape = 0x180,
-    
-    /** Read-only dimension uint16_t. The shape of the output tensor. */
+
+        /** Read-only dimension uint16_t. The shape of the output tensor. */
         OutputShape = 0x181,
-    
-    /** Read-only μs uint32_t. The time consumed in last model execution. */
+
+        /** Read-only μs uint32_t. The time consumed in last model execution. */
         LastRunTime = 0x182,
-    
-    /** Read-only B uint32_t. Number of RAM bytes allocated for model execution. */
+
+        /** Read-only B uint32_t. Number of RAM bytes allocated for model execution. */
         AllocatedArenaSize = 0x183,
-    
-    /** Read-only B uint32_t. The size of the model in bytes. */
+
+        /** Read-only B uint32_t. The size of the model in bytes. */
         ModelSize = 0x184,
-    
-    /** Read-only string (bytes). Textual description of last error when running or loading model (if any). */
+
+        /** Read-only string (bytes). Textual description of last error when running or loading model (if any). */
         LastError = 0x185,
-    
-    /**
-     * Constant ModelFormat (uint32_t). The type of ML models supported by this service.
-     * `TFLite` is flatbuffer `.tflite` file.
-     * `ML4F` is compiled machine code model for Cortex-M4F.
-     * The format is typically present as first or second little endian word of model file.
-     */
+
+        /**
+         * Constant ModelFormat (uint32_t). The type of ML models supported by this service.
+         * `TFLite` is flatbuffer `.tflite` file.
+         * `ML4F` is compiled machine code model for Cortex-M4F.
+         * The format is typically present as first or second little endian word of model file.
+         */
         Format = 0x186,
-    
-    /** Constant uint32_t. A version number for the format. */
+
+        /** Constant uint32_t. A version number for the format. */
         FormatVersion = 0x187,
-    
-    /**
-     * Constant bool (uint8_t). If present and true this service can run models independently of other
-     * instances of this service on the device.
-     */
+
+        /**
+         * Constant bool (uint8_t). If present and true this service can run models independently of other
+         * instances of this service on the device.
+         */
         Parallel = 0x188,
     }
 
@@ -590,13 +751,13 @@ namespace jacdac {
     // Service: Motor
     export const SRV_MOTOR = 0x17004cd8
     export const enum MotorReg {
-    /**
-     * Read-write ratio int16_t. PWM duty cycle of the motor. Use negative/positive values to run the motor forwards and backwards.
-     * Positive is recommended to be clockwise rotation and negative counterclockwise.
-     */
+        /**
+         * Read-write ratio int16_t. PWM duty cycle of the motor. Use negative/positive values to run the motor forwards and backwards.
+         * Positive is recommended to be clockwise rotation and negative counterclockwise.
+         */
         Duty = 0x2,
-    
-    /** Read-write bool (uint8_t). Turn the power to the motor on/off. */
+
+        /** Read-write bool (uint8_t). Turn the power to the motor on/off. */
         Enabled = 0x1,
     }
 
@@ -620,23 +781,26 @@ namespace jacdac {
     }
 
     export const enum MouseCmd {
-    /**
-     * Sets the up/down state of one or more buttons.
-     * A ``Click`` is the same as ``Down`` followed by ``Up`` after 100ms.
-     * A ``DoubleClick`` is two clicks with ``150ms`` gap between them (that is, ``100ms`` first click, ``150ms`` gap, ``100ms`` second click).
-     */
+        // const [buttons, event] = buf.unpack("HB")
+        /**
+         * Sets the up/down state of one or more buttons.
+         * A ``Click`` is the same as ``Down`` followed by ``Up`` after 100ms.
+         * A ``DoubleClick`` is two clicks with ``150ms`` gap between them (that is, ``100ms`` first click, ``150ms`` gap, ``100ms`` second click).
+         */
         SetButton = 0x80,
-    
-    /**
-     * Moves the mouse by the distance specified.
-     * If the time is positive, it specifies how long to make the move.
-     */
+
+        // const [dx, dy, time] = buf.unpack("hhH")
+        /**
+         * Moves the mouse by the distance specified.
+         * If the time is positive, it specifies how long to make the move.
+         */
         Move = 0x81,
-    
-    /**
-     * Turns the wheel up or down. Positive if scrolling up.
-     * If the time is positive, it specifies how long to make the move.
-     */
+
+        // const [dy, time] = buf.unpack("hH")
+        /**
+         * Turns the wheel up or down. Positive if scrolling up.
+         * If the time is positive, it specifies how long to make the move.
+         */
         Wheel = 0x82,
     }
 
@@ -645,31 +809,31 @@ namespace jacdac {
     // Service: Multitouch
     export const SRV_MULTITOUCH = 0x18d55e2b
     export const enum MultitouchReg {
-    /**
-     * Read-only capacitance int32_t. Capacitance of channels. The capacitance is continuously calibrated, and a value of `0` indicates
-     * no touch, wheres a value of around `100` or more indicates touch.
-     * It's best to ignore this (unless debugging), and use events.
-     */
+        /**
+         * Read-only capacitance int32_t. Capacitance of channels. The capacitance is continuously calibrated, and a value of `0` indicates
+         * no touch, wheres a value of around `100` or more indicates touch.
+         * It's best to ignore this (unless debugging), and use events.
+         */
         Capacity = 0x101,
     }
 
     export const enum MultitouchEvent {
-    /** Argument: channel uint32_t. Emitted when an input is touched. */
+        /** Argument: channel uint32_t. Emitted when an input is touched. */
         Touch = 0x1,
-    
-    /** Argument: channel uint32_t. Emitted when an input is no longer touched. */
+
+        /** Argument: channel uint32_t. Emitted when an input is no longer touched. */
         Release = 0x2,
-    
-    /** Argument: channel uint32_t. Emitted when an input is briefly touched. TODO Not implemented. */
+
+        /** Argument: channel uint32_t. Emitted when an input is briefly touched. TODO Not implemented. */
         Tap = 0x3,
-    
-    /** Argument: channel uint32_t. Emitted when an input is touched for longer than 500ms. TODO Not implemented. */
+
+        /** Argument: channel uint32_t. Emitted when an input is touched for longer than 500ms. TODO Not implemented. */
         LongPress = 0x4,
-    
-    /** Emitted when input channels are successively touched in order of increasing channel numbers. */
+
+        /** Emitted when input channels are successively touched in order of increasing channel numbers. */
         SwipePos = 0x10,
-    
-    /** Emitted when input channels are successively touched in order of decreasing channel numbers. */
+
+        /** Emitted when input channels are successively touched in order of decreasing channel numbers. */
         SwipeNeg = 0x11,
     }
 
@@ -678,17 +842,18 @@ namespace jacdac {
     // Service: Music
     export const SRV_MUSIC = 0x1b57b1d7
     export const enum MusicReg {
-    /** Read-write ratio uint8_t. The volume (duty cycle) of the buzzer. */
+        /** Read-write ratio uint8_t. The volume (duty cycle) of the buzzer. */
         Volume = 0x1,
     }
 
     export const enum MusicCmd {
-    /**
-     * Play a PWM tone with given period and duty for given duration.
-     * The duty is scaled down with `volume` register.
-     * To play tone at frequency `F` Hz and volume `V` (in `0..1`) you will want
-     * to send `P = 1000000 / F` and `D = P * V / 2`.
-     */
+        // const [period, duty, duration] = buf.unpack("HHH")
+        /**
+         * Play a PWM tone with given period and duty for given duration.
+         * The duty is scaled down with `volume` register.
+         * To play tone at frequency `F` Hz and volume `V` (in `0..1`) you will want
+         * to send `P = 1000000 / F` and `D = P * V / 2`.
+         */
         PlayTone = 0x80,
     }
 
@@ -697,45 +862,45 @@ namespace jacdac {
     // Service: Power
     export const SRV_POWER = 0x1fa4c95a
     export const enum PowerReg {
-    /** Read-write bool (uint8_t). Turn the power to the bus on/off. */
+        /** Read-write bool (uint8_t). Turn the power to the bus on/off. */
         Enabled = 0x1,
-    
-    /**
-     * Read-write mA uint16_t. Limit the power provided by the service. The actual maximum limit will depend on hardware.
-     * This field may be read-only in some implementations - you should read it back after setting.
-     */
+
+        /**
+         * Read-write mA uint16_t. Limit the power provided by the service. The actual maximum limit will depend on hardware.
+         * This field may be read-only in some implementations - you should read it back after setting.
+         */
         MaxPower = 0x7,
-    
-    /** Read-only bool (uint8_t). Indicates whether the power has been shut down due to overdraw. */
+
+        /** Read-only bool (uint8_t). Indicates whether the power has been shut down due to overdraw. */
         Overload = 0x181,
-    
-    /** Read-only mA uint16_t. Present current draw from the bus. */
+
+        /** Read-only mA uint16_t. Present current draw from the bus. */
         CurrentDraw = 0x101,
-    
-    /** Read-only mV uint16_t. Voltage on input. */
+
+        /** Read-only mV uint16_t. Voltage on input. */
         BatteryVoltage = 0x180,
-    
-    /** Read-only ratio uint16_t. Fraction of charge in the battery. */
+
+        /** Read-only ratio uint16_t. Fraction of charge in the battery. */
         BatteryCharge = 0x182,
-    
-    /**
-     * Constant mWh uint32_t. Energy that can be delivered to the bus when battery is fully charged.
-     * This excludes conversion overheads if any.
-     */
+
+        /**
+         * Constant mWh uint32_t. Energy that can be delivered to the bus when battery is fully charged.
+         * This excludes conversion overheads if any.
+         */
         BatteryCapacity = 0x183,
-    
-    /**
-     * Read-write ms uint16_t. Many USB power packs need current to be drawn from time to time to prevent shutdown.
-     * This regulates how often and for how long such current is drawn.
-     * Typically a 1/8W 22 ohm resistor is used as load. This limits the duty cycle to 10%.
-     */
+
+        /**
+         * Read-write ms uint16_t. Many USB power packs need current to be drawn from time to time to prevent shutdown.
+         * This regulates how often and for how long such current is drawn.
+         * Typically a 1/8W 22 ohm resistor is used as load. This limits the duty cycle to 10%.
+         */
         KeepOnPulseDuration = 0x80,
-    
-    /**
-     * Read-write ms uint16_t. Many USB power packs need current to be drawn from time to time to prevent shutdown.
-     * This regulates how often and for how long such current is drawn.
-     * Typically a 1/8W 22 ohm resistor is used as load. This limits the duty cycle to 10%.
-     */
+
+        /**
+         * Read-write ms uint16_t. Many USB power packs need current to be drawn from time to time to prevent shutdown.
+         * This regulates how often and for how long such current is drawn.
+         * Typically a 1/8W 22 ohm resistor is used as load. This limits the duty cycle to 10%.
+         */
         KeepOnPulsePeriod = 0x81,
     }
 
@@ -744,31 +909,32 @@ namespace jacdac {
     // Service: PWM Light
     export const SRV_PWM_LIGHT = 0x1fb57453
     export const enum PwmLightReg {
-    /**
-     * Read-write ratio uint16_t. Set the luminosity of the strip. The value is used to scale `start_intensity` in `steps` register.
-     * At `0` the power to the strip is completely shut down.
-     */
+        /**
+         * Read-write ratio uint16_t. Set the luminosity of the strip. The value is used to scale `start_intensity` in `steps` register.
+         * At `0` the power to the strip is completely shut down.
+         */
         Brightness = 0x1,
-    
-    /** Read-write mA uint16_t. Limit the power drawn by the light-strip (and controller). */
+
+        /** Read-write mA uint16_t. Limit the power drawn by the light-strip (and controller). */
         MaxPower = 0x7,
-    
-    /** Constant uint8_t. Maximum number of steps allowed in animation definition. This determines the size of the `steps` register. */
+
+        /** Constant uint8_t. Maximum number of steps allowed in animation definition. This determines the size of the `steps` register. */
         MaxSteps = 0x180,
-    
-    /**
-     * The steps of current animation. Setting this also sets `current_iteration` to `0`.
-     * Step with `duration == 0` is treated as an end marker.
-     */
+
+        // const [startIntensity, duration] = buf.unpack("HH")
+        /**
+         * The steps of current animation. Setting this also sets `current_iteration` to `0`.
+         * Step with `duration == 0` is treated as an end marker.
+         */
         Steps = 0x82,
-    
-    /**
-     * Read-write uint16_t. Currently excecuting iteration of animation. Can be set to `0` to restart current animation.
-     * If `current_iteration > max_iterations`, then no animation is currently running.
-     */
+
+        /**
+         * Read-write uint16_t. Currently excecuting iteration of animation. Can be set to `0` to restart current animation.
+         * If `current_iteration > max_iterations`, then no animation is currently running.
+         */
         CurrentIteration = 0x80,
-    
-    /** Read-write uint16_t. The animation will be repeated `max_iterations + 1` times. */
+
+        /** Read-write uint16_t. The animation will be repeated `max_iterations + 1` times. */
         MaxIterations = 0x81,
     }
 
@@ -777,40 +943,85 @@ namespace jacdac {
     // Service: Role Manager
     export const SRV_ROLE_MANAGER = 0x119c3ad1
     export const enum RoleManagerCmd {
-    /** Argument: device_id uint64_t. Get the role corresponding to given device identifer. Returns empty string if unset. */
+        /** Argument: device_id uint64_t. Get the role corresponding to given device identifer. Returns empty string if unset. */
         GetRole = 0x80,
-    
-    /** Set role. Can set to empty to remove role binding. */
+        // report GetRole
+        // const deviceId = buf.slice(0, 8)
+        // const role = buf.slice(8).toString()
+
+        // const deviceId = buf.slice(0, 8)
+        // const role = buf.slice(8).toString()
+        /** Set role. Can set to empty to remove role binding. */
         SetRole = 0x81,
-    
-    /** No args. Remove all role bindings. */
+
+        /** No args. Remove all role bindings. */
         ClearAllRoles = 0x84,
-    
-    /** Argument: stored_roles pipe (bytes). Return all roles stored internally. */
+
+        /** Argument: stored_roles pipe (bytes). Return all roles stored internally. */
         ListStoredRoles = 0x82,
-    
-    /** Argument: required_roles pipe (bytes). List all roles required by the current program. `device_id` is `0` if role is unbound. */
+
+        /** Argument: required_roles pipe (bytes). List all roles required by the current program. `device_id` is `0` if role is unbound. */
         ListRequiredRoles = 0x83,
     }
+
+    // pipe_report StoredRoles
+    // const deviceId = buf.slice(0, 8)
+    // const role = buf.slice(8).toString()
+    // pipe_report RequiredRoles
+    // const [serviceClass] = buf.unpack("8xL")
+    // const deviceId = buf.slice(0, 8)
+    // const roles = buf.slice(12).toString()
+
 
 }
 namespace jacdac {
     // Service: Servo
     export const SRV_SERVO = 0x12fc9103
     export const enum ServoReg {
-    /** Read-write μs uint32_t. Specifies length of the pulse in microseconds. The period is always 20ms. */
+        /** Read-write μs uint32_t. Specifies length of the pulse in microseconds. The period is always 20ms. */
         Pulse = 0x2,
-    
-    /** Read-write bool (uint8_t). Turn the power to the servo on/off. */
+
+        /** Read-write bool (uint8_t). Turn the power to the servo on/off. */
         Enabled = 0x1,
     }
+
+}
+namespace jacdac {
+    // Service: Settings Storage
+    export const SRV_SETTINGS_STORAGE = 0x1107dc4a
+    export const enum SettingsCmd {
+        /** Argument: key string (bytes). Get the value of given setting. If no such entry exists, the value returned is empty. */
+        Get = 0x80,
+        // report Get
+        // const key = string0(buf, 0, 0)
+        // const value = buf.slice(0)
+
+        // const key = string0(buf, 0, 0)
+        // const value = buf.slice(0)
+        /** Set the value of a given setting. */
+        Set = 0x81,
+
+        /** Argument: key string (bytes). Delete a given setting. */
+        Delete = 0x84,
+
+        /** Argument: results pipe (bytes). Return keys of all settings. */
+        ListKeys = 0x82,
+
+        /** Argument: results pipe (bytes). Return keys and values of all settings. */
+        List = 0x83,
+    }
+
+    // pipe_report ListedEntry
+    // const key = string0(buf, 0, 0)
+    // const value = buf.slice(0)
+
 
 }
 namespace jacdac {
     // Service: Slider
     export const SRV_SLIDER = 0x1f274746
     export const enum SliderReg {
-    /** Read-only ratio uint16_t. The relative position of the slider between `0x0000` and `0xffff`. */
+        /** Read-only ratio uint16_t. The relative position of the slider between `0x0000` and `0xffff`. */
         Position = 0x101,
     }
 
@@ -825,19 +1036,21 @@ namespace jacdac {
     }
 
     export const enum TCPCmd {
-    /** Argument: inbound pipe (bytes). Open pair of pipes between network peripheral and a controlling device. In/outbound refers to direction from/to internet. */
+        /** Argument: inbound pipe (bytes). Open pair of pipes between network peripheral and a controlling device. In/outbound refers to direction from/to internet. */
         Open = 0x80,
     }
 
     export const enum TCPPipeCmd {
-    /**
-     * Open an SSL connection to a given host:port pair. Can be issued only once on given pipe.
-     * After the connection is established, an empty data report is sent.
-     * Connection is closed by closing the pipe.
-     */
+        // const [tcpPort] = buf.unpack("H")
+        // const hostname = buf.slice(2).toString()
+        /**
+         * Open an SSL connection to a given host:port pair. Can be issued only once on given pipe.
+         * After the connection is established, an empty data report is sent.
+         * Connection is closed by closing the pipe.
+         */
         OpenSsl = 0x1,
-    
-    /** Argument: error TcpError (int32_t). Reported when an error is encountered. Negative error codes come directly from the SSL implementation. */
+
+        /** Argument: error TcpError (int32_t). Reported when an error is encountered. Negative error codes come directly from the SSL implementation. */
         Error = 0x0,
     }
 
@@ -846,7 +1059,7 @@ namespace jacdac {
     // Service: Temperature
     export const SRV_TEMPERATURE = 0x1421bac7
     export const enum TemperatureReg {
-    /** Read-only °C u22.10 (uint32_t). The temperature. */
+        /** Read-only °C u22.10 (uint32_t). The temperature. */
         Temperature = 0x101,
     }
 
@@ -870,21 +1083,34 @@ namespace jacdac {
     }
 
     export const enum WifiCmd {
-    /** Argument: results pipe (bytes). Initiate search for WiFi networks. Results are returned via pipe, one entry per packet. */
+        /** Argument: results pipe (bytes). Initiate search for WiFi networks. Results are returned via pipe, one entry per packet. */
         Scan = 0x80,
-    
-    /** Argument: ssid string (bytes). Connect to named network. Password can be appended after ssid. Both strings have to be NUL-terminated. */
+
+        // const ssid = string0(buf, 0, 0)
+        // const password = string0(buf, 0, 1)
+        /** Connect to named network. */
         Connect = 0x81,
-    
-    /** No args. Disconnect from current WiFi network if any. */
+
+        /** No args. Disconnect from current WiFi network if any. */
         Disconnect = 0x82,
     }
 
+    // pipe_report Results
+    // const [flags, reserved, rssi, channel] = buf.unpack("LLbB")
+    // const bssid = buf.slice(10, 6)
+    // const ssid = buf.slice(16).toString()
+
+
+    export const enum WifiReg {
+        /** Read-only bool (uint8_t). Indicates whether or not we currently have an IP address assigned. */
+        Connected = 0x180,
+    }
+
     export const enum WifiEvent {
-    /** Emitted upon successful join and IP address assignment. */
+        /** Emitted upon successful join and IP address assignment. */
         GotIp = 0x1,
-    
-    /** Emitted when disconnected from network. */
+
+        /** Emitted when disconnected from network. */
         LostIp = 0x2,
     }
 
