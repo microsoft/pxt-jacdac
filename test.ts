@@ -2,7 +2,7 @@
 jacdac.consolePriority = ConsolePriority.Log;
 jacdac.settingsHost.start()
 jacdac.start()
-
+/*
 forever(function() {
     console.log("angle 45")
     jacdac.servoClient.setAngle(45)
@@ -11,3 +11,4 @@ forever(function() {
     jacdac.servoClient.setAngle(90)
     pause(400)
 })
+*/
