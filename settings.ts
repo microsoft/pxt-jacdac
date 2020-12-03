@@ -19,6 +19,7 @@ namespace jacdac {
         private handleClearCommand(packet: JDPacket) {
             console.log(`clear`)
             settings.clear();
+            this.sendChangeEvent();
         }
 
         private handleDeleteCommand(packet: JDPacket) {
@@ -26,6 +27,7 @@ namespace jacdac {
             const id = SETTINGS_PREFIX + key;
             console.log(`delete '${key}' -> '${id}'`)
             settings.remove(id);
+            this.sendChangeEvent();
         }
 
         private handleGetCommand(packet: JDPacket) {
@@ -48,6 +50,7 @@ namespace jacdac {
                 settings.remove(id)
             else
                 settings.writeBuffer(id, value)
+            this.sendChangeEvent();
         }
 
         private handleListKeys(packet: JDPacket) {
@@ -62,7 +65,7 @@ namespace jacdac {
             OutPipe.respondForEach(packet, settings.list(SETTINGS_PREFIX),
                 k => {
                     const key = k.slice(SETTINGS_PREFIX.length);
-                    const value = (key[0] === "$" ? Buffer.create(0) : settings.readBuffer(k)) 
+                    const value = (key[0] === "$" ? Buffer.create(0) : settings.readBuffer(k))
                         || Buffer.create(0)
                     return jdpack("z b", [key, value]);
                 }

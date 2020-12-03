@@ -188,7 +188,7 @@ namespace jacdac {
         handlePacket(packet: JDPacket) {
             this.handleRegInt(packet, SensorAggregatorReg.NumSamples, this.numSamples)
             this.handleRegInt(packet, SensorAggregatorReg.SampleSize, this.sampleSize)
-            this.streamSamples = this.handleRegInt(packet, SensorAggregatorReg.StreamSamples, this.streamSamples)
+            this.streamSamples = this.handleRegInt(packet, SensorAggregatorReg.StreamingSamples, this.streamSamples)
 
             switch (packet.service_command) {
                 case SensorAggregatorReg.Inputs | CMD_GET_REG:

@@ -76,7 +76,8 @@ namespace jacdac {
         }
 
         protected sendChangeEvent(): void {
-            this.sendReport(JDPacket.packed(SystemCmd.Event, "I", [SystemEvent.Change]))
+            // TODO not sure about this one.
+           // this.sendReport(JDPacket.packed(SystemCmd.Event, "I", [SystemEvent.Change]))
         }
 
         private handleStatusCode(pkt: JDPacket): boolean {
