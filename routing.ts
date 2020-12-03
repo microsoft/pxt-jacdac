@@ -709,7 +709,7 @@ namespace jacdac {
 
             let dev = devices_.find(d => d.deviceId == devId)
 
-            if (pkt.service_number == SRV_CONTROL) {
+            if (pkt.service_number == JD_SERVICE_NUMBER_CTRL) {
                 if (pkt.service_command == SystemCmd.Announce) {
                     if (dev && (dev.services[0] & 0xf) > (pkt.data[0] & 0xf)) {
                         // if the reset counter went down, it means the device resetted; treat it as new device
