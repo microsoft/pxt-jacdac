@@ -4,28 +4,27 @@ namespace jacdac {
      */
     export class SensorHost extends Host {
         public streamingInterval: number; // millis
-        public isStreaming: boolean;
+        public streamingSamples: number;
         protected lowThreshold: number
         protected highThreshold: number
 
         constructor(name: string, deviceClass: number) {
             super(name, deviceClass);
             this.streamingInterval = 100;
-            this.isStreaming = false;
+            this.streamingSamples = 0;
         }
 
         public handlePacket(packet: JDPacket) {
             this.log(`hpkt ${packet.service_command}`);
             this.stateUpdated = false
-            this.lowThreshold = this.handleRegInt(packet, REG_LOW_THRESHOLD, this.lowThreshold)
-            this.highThreshold = this.handleRegInt(packet, REG_HIGH_THRESHOLD, this.highThreshold)
-            this.streamingInterval = this.handleRegInt(packet, REG_STREAMING_INTERVAL, this.streamingInterval)
-            // TODO this should be integer counter
-            const newStr = this.handleRegBool(packet, REG_STREAMING_SAMPLES, this.isStreaming)
-            this.setStreaming(newStr)
+            this.lowThreshold = this.handleRegInt(packet, SystemReg.LowThreshold, this.lowThreshold)
+            this.highThreshold = this.handleRegInt(packet, SystemReg.HighThreshold, this.highThreshold)
+            this.streamingInterval = this.handleRegInt(packet, SystemReg.StreamingInterval, this.streamingInterval)
+            const samples = this.handleRegInt(packet, SystemReg.StreamingSamples, this.streamingSamples)
+            this.setStreaming(samples)
 
             switch (packet.service_command) {
-                case CMD_CALIBRATE:
+                case SystemCmd.Calibrate:
                     this.handleCalibrateCommand(packet);
                     break
                 default:
@@ -48,47 +47,53 @@ namespace jacdac {
         }
 
         protected raiseHostEvent(value: number) {
-            this.sendReport(JDPacket.packed(CMD_EVENT, "I", [value]))
+            this.sendReport(JDPacket.packed(SystemCmd.Event, "I", [value]))
         }
 
-        public setStreaming(on: boolean) {
-            if (on) this.startStreaming();
+        public setStreaming(samples: number) {
+            if (samples) this.startStreaming(samples);
             else this.stopStreaming();
         }
 
-        private startStreaming() {
-            if (this.isStreaming)
+        private startStreaming(samples: number) {
+            if (this.streamingSamples) {
+                // already running
+                this.streamingSamples = samples;
                 return;
+            }
 
             this.log(`start`);
-            this.isStreaming = true;
+            this.streamingSamples = samples;
             control.runInParallel(() => {
-                while (this.isStreaming) {
+                while (this.streamingSamples !== undefined && this.streamingSamples > 0) {
                     // run callback                    
                     const state = this.serializeState();
                     if (!!state) {
                         // did the state change?
                         if (this.isConnected()) {
                             // send state and record time
-                            this.sendReport(JDPacket.from(CMD_GET_REG | REG_READING, state))
+                            this.sendReport(JDPacket.from(CMD_GET_REG | SystemReg.Reading, state))
                         }
                     }
-                    // check streaming interval value
-                    if (this.streamingInterval < 0)
+                    // check streaming interval value or cancelled
+                    if (this.streamingInterval < 0 || this.streamingSamples === undefined)
                         break;
                     // waiting for a bit
                     pause(this.streamingInterval);
+                    // decrement counter
+                    if (this.streamingSamples !== undefined)
+                        this.streamingSamples--;
                 }
-                this.isStreaming = false
+                this.streamingSamples = 0;
                 this.log(`stopped`);
             })
         }
 
         private stopStreaming() {
-            if (this.isStreaming) {
+            if (this.streamingSamples > 0) {
                 this.log(`stopping`)
-                this.isStreaming = null
-                pauseUntil(() => this.isStreaming === false);
+                this.streamingSamples = undefined
+                pauseUntil(() => this.streamingSamples === 0);
             }
         }
     }

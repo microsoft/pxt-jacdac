@@ -14,10 +14,10 @@ namespace jacdac {
             if (n === this.pulse)
                 return
             if (n == null) {
-                this.setRegInt(REG_INTENSITY, 0)
+                this.setRegInt(SystemReg.Intensity, 0)
             } else {
-                this.setRegInt(REG_VALUE, n | 0)
-                this.setRegInt(REG_INTENSITY, 1)
+                this.setRegInt(SystemReg.Value, n | 0)
+                this.setRegInt(SystemReg.Intensity, 1)
             }
             this.pulse = n
         }

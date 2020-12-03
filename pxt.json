@@ -49,7 +49,6 @@
         "wificlient.ts",
         "pwmlightclient.ts",
         "multitouchclient.ts",
-        "rgbledclient.ts",
         "modelrunnerclient.ts",
         "sliderclient.ts",
         "specconstants.ts",

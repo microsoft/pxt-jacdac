@@ -35,7 +35,7 @@ namespace jacdac {
         }
 
         setBrightness(brightness: number): void {
-            this.setRegInt(REG_INTENSITY, brightness << 8)
+            this.setRegInt(SystemReg.Intensity, brightness << 8)
         }
 
         showAnimation(animation: MonoLightAnimation, speed = 100) {

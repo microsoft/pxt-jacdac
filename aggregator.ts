@@ -21,7 +21,7 @@ namespace jacdac {
         private sampleMult: number
 
         handlePacket(packet: JDPacket) {
-            if (packet.service_command == (CMD_GET_REG | REG_READING)) {
+            if (packet.service_command == (CMD_GET_REG | SystemReg.Reading)) {
                 this.parent._newData(packet.timestamp, false)
                 const arr = packet.data.toArray(numberFmt(this.sampleType))
                 for (let i = 0; i < arr.length; ++i)
@@ -37,7 +37,7 @@ namespace jacdac {
         }
 
         announceCallback() {
-            this.setRegInt(REG_STREAMING_SAMPLES, 255)
+            this.setRegInt(SensorReg.StreamingSamples, 255)
         }
 
         constructor(parent: SensorAggregatorHost, config: Buffer) {
@@ -169,8 +169,8 @@ namespace jacdac {
             let frameSz = 0
             while (off < config.length) {
                 const coll = new Collector(this, config.slice(off, entrySize))
-                coll.setRegInt(REG_STREAMING_INTERVAL, this.samplingInterval)
-                coll.setRegInt(REG_STREAMING_SAMPLES, 255)
+                coll.setRegInt(SensorReg.StreamingInterval, this.samplingInterval)
+                coll.setRegInt(SensorReg.StreamingSamples, 255)
                 this.collectors.push(coll)
                 frameSz += coll.lastSample.length
                 off += entrySize
@@ -189,7 +189,6 @@ namespace jacdac {
             this.handleRegInt(packet, SensorAggregatorReg.NumSamples, this.numSamples)
             this.handleRegInt(packet, SensorAggregatorReg.SampleSize, this.sampleSize)
             this.streamSamples = this.handleRegInt(packet, SensorAggregatorReg.StreamSamples, this.streamSamples)
-            this.streamSamples = this.handleRegInt(packet, REG_STREAMING_SAMPLES, this.streamSamples)
 
             switch (packet.service_command) {
                 case SensorAggregatorReg.Inputs | CMD_GET_REG:

@@ -150,7 +150,7 @@ namespace jacdac {
             this._length = numpixels
             this.setRegInt(JDLightReg.NumPixels, numpixels)
             this.setRegInt(JDLightReg.LightType, type)
-            this.setRegInt(REG_MAX_POWER, maxpower)
+            this.setRegInt(SystemReg.MaxPower, maxpower)
         }
 
         /**
@@ -162,7 +162,7 @@ namespace jacdac {
         //% weight=2 blockGap=8
         //% group="Light"
         setBrightness(brightness: number): void {
-            this.setRegInt(REG_INTENSITY, brightness)
+            this.setRegInt(SystemReg.Intensity, brightness)
         }
 
         runProgram(prog: Buffer) {
