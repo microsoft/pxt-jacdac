@@ -60,7 +60,7 @@
         "nucleo-f411re": "*"
     },
     "fileDependencies": {
-        "musicclient.ts": "mixer",
+        "buzzerclient.ts": "mixer",
         "wificlient.ts": "net",
         "mbcompat.ts": "target:microbit"
     },
