@@ -1,4 +1,19 @@
-# JACDAC
+# JACDAC Services for MakeCode
+
+This project contains [JACDAC](https://aka.ms/jacdac) host and client services for MakeCode editors.
+
+**This project is still under construction.**
+
+## Using this extensions
+
+* Open your MakeCode editor (see supported editors)
+* Go to the extension dialog and search for https://github.com/microsoft/pxt-jacdac-services
+* Import the extension.
+
+### Supported editors
+
+* Maker, https://maker.makecode.com
+* Arcade BETA, https://arcade.makecoe.com/beta
 
 ## Contributing
 
