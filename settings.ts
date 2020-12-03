@@ -1,5 +1,5 @@
 namespace jacdac {
-    export const SETTINGS_PREFIX = "$jdsettings:"
+    export const SETTINGS_PREFIX = "jdsts:"
     export class SettingsHost extends Host {
         constructor(name: string) {
             super(name, SRV_SETTINGS_STORAGE);
@@ -12,31 +12,38 @@ namespace jacdac {
                 case SettingsCmd.List: this.handleList(packet); break;
                 case SettingsCmd.Set: this.handleSetCommand(packet); break;
                 case SettingsCmd.Get: this.handleGetCommand(packet); break;
+                case SettingsCmd.Clear: this.handleClearCommand(packet); break;
             }
         }
 
+        private handleClearCommand(packet: JDPacket) {
+            console.log(`clear`)
+            settings.clear();
+        }
+
         private handleDeleteCommand(packet: JDPacket) {
-            const key = packet.data.toString();
+            const key = packet.stringData;
             const id = SETTINGS_PREFIX + key;
-            console.log(`delete ${key} -> ${id}`)
+            console.log(`delete '${key}' -> '${id}'`)
             settings.remove(id);
         }
 
         private handleGetCommand(packet: JDPacket) {
-            const key = packet.data.toString();
+            const key = packet.stringData;
             const id = SETTINGS_PREFIX + key;
             let value: Buffer = undefined;
             if (key[0] !== "$") // don't leak secrets
                 value = settings.readBuffer(id);
             // return empty buffer if not found
             if (!value) value = Buffer.create(0)
-            console.log(`get ${key} -> ${id} ${value.toHex()}`)
+            console.log(`get '${key}' -> '${id}' ${value.toHex()}`)
             this.sendReport(JDPacket.from(SettingsCmd.Get, packet.data.concat(value)));
         }
 
         private handleSetCommand(packet: JDPacket) {
             const [key, value] = packet.unpack("z b") as [string, Buffer]
-            const id = SETTINGS_PREFIX + key;
+            const id = SETTINGS_PREFIX + key.trim();
+            console.log(`set '${key}' -> '${id}' '${value}'`)
             if (value.length == 0)
                 settings.remove(id)
             else
@@ -60,15 +67,6 @@ namespace jacdac {
                     return jdpack("z b", [key, value]);
                 }
             )
-        }
-
-        /**
-         * Reads locally a setting, including secrets
-         */
-        getSetting(key: string): Buffer {
-            const id = SETTINGS_PREFIX + key;
-            const value = settings.readBuffer(id)
-            return value;
         }
     }
 

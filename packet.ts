@@ -139,6 +139,10 @@ namespace jacdac {
             return intOfBuffer(this._data)
         }
 
+        get stringData() {
+            return this._data && this._data.toString();
+        }
+
         unpack(fmt: string): any[] {
             const p = this._data && fmt && jdunpack(this._data, fmt);
             return p || [];
