@@ -32,7 +32,7 @@
         "actuator.ts",
         "controllerclient.ts",
         "ns.ts",
-        "nameservice.ts",
+        "rolemanager.ts",
         "aggregator.ts",
         "sensorclient.ts",
         "consoleclient.ts",
