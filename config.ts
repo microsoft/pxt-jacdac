@@ -41,37 +41,10 @@ const enum JDKeyboardCommand {
     FunctionKey = 0x83,
 }
 
-const enum JDMouseCommand {
-    Button = 0x80,
-    Move = 0x81,
-    TurnWheel = 0x82,
-}
-
 const enum JDGamepadCommand {
     Button = 0x80,
     Move = 0x81,
     Throttle = 0x82,
-}
-
-const enum JDMusicCommand {
-    PlayTone = 0x80,
-}
-
-const enum JDConsoleReg {
-    MinPriority = 0x80
-}
-
-const enum JDConsoleCommand {
-    MessageDbg = 0x80,
-    SetMinPriority = 0x2000 | JDConsoleReg.MinPriority,
-}
-
-const enum JDConsolePriority {
-    Debug = 0,
-    Log = 1,
-    Warning = 2,
-    Error = 3,
-    Silent = 4
 }
 
 const enum JDGesture {

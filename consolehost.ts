@@ -1,7 +1,7 @@
 namespace jacdac {
     export class ConsoleHost extends Host {
         private _lastListenerTime: number = 0;
-        minPriority = JDConsolePriority.Silent;
+        minPriority = LoggerPriority.Error + 1;
 
         constructor() {
             super("conh", SRV_LOGGER);
@@ -9,8 +9,10 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
+            // TODO: is this a command?
+            const SetMinPriority = 0x2000 | LoggerReg.MinPriority
             switch (packet.service_command) {
-                case JDConsoleCommand.SetMinPriority:
+                case SetMinPriority:
                     const now = control.millis()
                     // lower the priority immediately, but tighten it only when no one 
                     // was asking for lower one for some time
@@ -27,19 +29,19 @@ namespace jacdac {
         }
 
         debug(message: string): void {
-            this.add(JDConsolePriority.Debug, message);
+            this.add(LoggerPriority.Debug, message);
         }
         log(message: string): void {
-            this.add(JDConsolePriority.Log, message);
+            this.add(LoggerPriority.Log, message);
         }
         warn(message: string): void {
-            this.add(JDConsolePriority.Warning, message);
+            this.add(LoggerPriority.Warning, message);
         }
         error(message: string): void {
-            this.add(JDConsolePriority.Error, message);
+            this.add(LoggerPriority.Error, message);
         }
 
-        add(priority: JDConsolePriority, message: string): void {
+        add(priority: LoggerPriority, message: string): void {
             if (!message || !message.length || priority < this.minPriority || !this._lastListenerTime)
                 return;
 
@@ -50,7 +52,7 @@ namespace jacdac {
             }
 
             for (let buf of Buffer.chunkedFromUTF8(message, JD_SERIAL_MAX_PAYLOAD_SIZE)) {
-                this.sendReport(JDPacket.from(JDConsoleCommand.MessageDbg + priority, buf))
+                this.sendReport(JDPacket.from(LoggerPriority.Debug + priority, buf))
             }
         }
     }

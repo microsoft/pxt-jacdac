@@ -45,7 +45,7 @@
         "motorclient.ts",
         "rotaryencoderclient.ts",
         "arcadecontrolsclient.ts",
-        "musicclient.ts",
+        "buzzerclient.ts",
         "wificlient.ts",
         "pwmlightclient.ts",
         "multitouchclient.ts",
