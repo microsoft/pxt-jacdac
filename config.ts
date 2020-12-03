@@ -1,7 +1,6 @@
 namespace jd_class {
     // needs spec
     export const CONTROLLER = 0x188ae4b8;
-    export const RGB_LED = 0x17aeb0fc
 }
 
 namespace jacdac {
