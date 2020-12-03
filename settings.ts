@@ -18,6 +18,7 @@ namespace jacdac {
         private handleDeleteCommand(packet: JDPacket) {
             const key = packet.data.toString();
             const id = SETTINGS_PREFIX + key;
+            console.log(`delete ${key} -> ${id}`)
             settings.remove(id);
         }
 
@@ -29,12 +30,12 @@ namespace jacdac {
                 value = settings.readBuffer(id);
             // return empty buffer if not found
             if (!value) value = Buffer.create(0)
+            console.log(`get ${key} -> ${id} ${value.toHex()}`)
             this.sendReport(JDPacket.from(SettingsCmd.Get, packet.data.concat(value)));
         }
 
         private handleSetCommand(packet: JDPacket) {
-            const key = packet.data.toString().split("\u0000")[0];
-            const value = packet.data.slice(8); // todo
+            const [key, value] = packet.unpack("z b") as [string, Buffer]
             const id = SETTINGS_PREFIX + key;
             if (value.length == 0)
                 settings.remove(id)
@@ -43,18 +44,20 @@ namespace jacdac {
         }
 
         private handleListKeys(packet: JDPacket) {
-            OutPipe.respondForEach<string>(packet, settings.list(SETTINGS_PREFIX),
-                k => Buffer.fromUTF8(k.slice(SETTINGS_PREFIX.length))
-            )
+            const keys = settings.list(SETTINGS_PREFIX)
+                .map(k => k.slice(SETTINGS_PREFIX.length));
+            console.log('list keys')
+            console.log(keys)
+            OutPipe.respondForEach(packet, keys, k => Buffer.fromUTF8(k))
         }
 
         private handleList(packet: JDPacket) {
-            OutPipe.respondForEach<string>(packet, settings.list(SETTINGS_PREFIX),
+            OutPipe.respondForEach(packet, settings.list(SETTINGS_PREFIX),
                 k => {
                     const key = k.slice(SETTINGS_PREFIX.length);
                     const value = (key[0] === "$" ? Buffer.create(0) : settings.readBuffer(k)) 
                         || Buffer.create(0)
-                    return Buffer.fromUTF8(key).concat(value);
+                    return jdpack("z b", [key, value]);
                 }
             )
         }
