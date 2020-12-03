@@ -57,7 +57,8 @@
     ],
     "testDependencies": {
         "net": "*",
-        "nucleo-f411re": "*"
+        "nucleo-f411re": "*",
+        "mixer": "*"
     },
     "fileDependencies": {
         "buzzerclient.ts": "mixer",
