@@ -73,12 +73,8 @@ namespace jacdac {
          */
         //% blockId=jacadacacconevent block="jacdac %accelerometer on %gesture"
         //% group="Accelerometer"
-        onEvent(gesture: JDGesture, handler: () => void) {
+        onEvent(gesture: AccelEvent, handler: () => void) {
             this.registerEvent(gesture, handler);
-        }
-
-        onCustomGesture(id: number, handler: () => void) {
-            this.registerEvent(JDGesture.Shake + id, handler);
         }
     }
 
