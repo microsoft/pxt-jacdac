@@ -48,7 +48,7 @@ namespace jacdac {
          */
         //% blockId=jacadacrotaryencoderonevent block="jacdac %client on %event"
         //% group="Light sensor"
-        onEvent(event: JDRotaryEncoderEvent, handler: () => void) {
+        onEvent(event: RoleManagerEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }
     }

@@ -73,7 +73,3 @@ const enum JDControllerButton {
     Down = 4,
     Menu = 7
 }
-
-const enum JDRotaryEncoderEvent {
-    Changed = 0x2233 /* ROT_EV_CHANGED */
-}
