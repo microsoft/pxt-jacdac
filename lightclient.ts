@@ -148,8 +148,8 @@ namespace jacdac {
 
         setStrip(numpixels: number, type = LightType.WS2812B_GRB, maxpower = 500): void {
             this._length = numpixels
-            this.setRegInt(JDLightReg.NumPixels, numpixels)
-            this.setRegInt(JDLightReg.LightType, type)
+            this.setRegInt(LightReg.NumPixels, numpixels)
+            this.setRegInt(LightReg.LightType, type)
             this.setRegInt(SystemReg.MaxPower, maxpower)
         }
 
@@ -167,13 +167,13 @@ namespace jacdac {
 
         runProgram(prog: Buffer) {
             this.currAnimation++
-            this.sendCommandWithAck(JDPacket.from(JDLightCommand.Run, prog))
+            this.sendCommandWithAck(JDPacket.from(LightCmd.Run, prog))
         }
 
         runEncoded(prog: string, args?: number[]) {
             if (!args) args = []
             this.currAnimation++
-            this.sendCommand(JDPacket.from(JDLightCommand.Run, lightEncode(prog, args)))
+            this.sendCommand(JDPacket.from(LightCmd.Run, lightEncode(prog, args)))
         }
 
         set(idx: number, rgb: number) {

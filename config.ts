@@ -34,37 +34,6 @@ namespace jacdac {
     ];
 }
 
-const enum JDRGBLEDCommand {
-    SetColor = 0x80
-}
-
-const enum JDLightReg {
-    LightType = 0x80,
-    NumPixels = 0x81,
-    Duration = 0x82,
-    Color = 0x83,
-}
-
-const enum JDLightCommand {
-    StartAnimation = 0x80, // deprecated
-    Run = 0x81,
-}
-
-enum JDLightAnimation {
-    //% block="rainbow"
-    Rainbow = 2,
-    //% block="running lights"
-    RunningLights = 3,
-    //% block="color wipe"
-    ColorWipe = 4,
-    //% block="comet"
-    Comet = 5,
-    //% block="theater chase"
-    TheaterChase = 6,
-    //% block="sparkle"
-    Sparkle = 7
-}
-
 const enum JDKeyboardCommand {
     Type = 0x80,
     Key = 0x81,
