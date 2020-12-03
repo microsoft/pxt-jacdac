@@ -1,4 +1,11 @@
 namespace jacdac {
+    const enum JDLCDFlags {
+        None,
+        Display = 1 << 0,
+        Blink = 1 << 1,
+        Cursor = 1 << 2
+    }
+    
     //% fixedInstances
     export class LCDClient extends ActuatorClient {
         constructor(requiredDevice: string = null) {

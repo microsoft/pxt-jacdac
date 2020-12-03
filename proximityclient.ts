@@ -1,4 +1,9 @@
 namespace jacdac {
+    const enum JDPromixityEvent {
+        Close = DAL.LEVEL_THRESHOLD_LOW,
+        Far = DAL.LEVEL_THRESHOLD_HIGH
+    }
+    
     //% fixedInstances
     export class ProximityClient extends SensorClient {
         constructor(requiredDevice: string = null) {

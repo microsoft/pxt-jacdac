@@ -58,24 +58,6 @@ const enum JDDimension {
     Strength = 3
 }
 
-const enum JDButtonEvent {
-    //% block="click"
-    Click = DAL.DEVICE_BUTTON_EVT_CLICK,
-    //% block="long click"
-    LongClick = DAL.DEVICE_BUTTON_EVT_LONG_CLICK,
-    //% block="up"
-    Up = DAL.DEVICE_BUTTON_EVT_UP,
-    //% block="down"
-    Down = DAL.DEVICE_BUTTON_EVT_DOWN
-}
-
-const enum JDSwitchDirection {
-    //% block="left"
-    Left = DAL.DEVICE_BUTTON_EVT_UP,
-    //% block="right"
-    Right = DAL.DEVICE_BUTTON_EVT_DOWN,
-}
-
 const enum JDControllerCommand {
     ClientButtons = 1,
     ControlServer = 2,
@@ -90,40 +72,6 @@ const enum JDControllerButton {
     Right = 3,
     Down = 4,
     Menu = 7
-}
-
-const enum JDLCDFlags {
-    None,
-    Display = 1 << 0,
-    Blink = 1 << 1,
-    Cursor = 1 << 2
-}
-
-const enum JDLightSpectrumRange {
-    Full = 10,
-    Infrared = 20,
-    Visible = 40
-}
-
-const enum JDLightCondition {
-    //% block="dark"
-    Dark = DAL.SENSOR_THRESHOLD_LOW,
-    //% block="bright"
-    Bright = DAL.SENSOR_THRESHOLD_HIGH
-}
-
-const enum JDLightSpectrumEvent {
-    FullBright = JDLightSpectrumRange.Full | DAL.LEVEL_THRESHOLD_HIGH,
-    FullDark = JDLightSpectrumRange.Full | DAL.LEVEL_THRESHOLD_LOW,
-    InfraredBright = JDLightSpectrumRange.Infrared | DAL.LEVEL_THRESHOLD_HIGH,
-    InfraredDark = JDLightSpectrumRange.Infrared | DAL.LEVEL_THRESHOLD_LOW,
-    VisibleBright = JDLightSpectrumRange.Visible | DAL.LEVEL_THRESHOLD_HIGH,
-    VisibleDark = JDLightSpectrumRange.Visible | DAL.LEVEL_THRESHOLD_LOW
-}
-
-const enum JDPromixityEvent {
-    Close = DAL.LEVEL_THRESHOLD_LOW,
-    Far = DAL.LEVEL_THRESHOLD_HIGH
 }
 
 const enum JDRotaryEncoderEvent {

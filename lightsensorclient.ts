@@ -1,4 +1,11 @@
 namespace jacdac {
+    const enum JDLightCondition {
+        //% block="dark"
+        Dark = DAL.SENSOR_THRESHOLD_LOW,
+        //% block="bright"
+        Bright = DAL.SENSOR_THRESHOLD_HIGH
+    }
+
     //% fixedInstances
     export class LightSensorClient extends SensorClient {
         constructor(requiredDevice: string = null) {

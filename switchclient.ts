@@ -2,7 +2,7 @@ namespace jacdac {
     //% fixedInstances
     export class SwitchClient extends SensorClient {
         constructor(requiredDevice: string = null) {
-            super("switch", jd_class.SWITCH, requiredDevice);
+            super("switch", SRV_SWITCH, requiredDevice);
         }
 
         /**
@@ -23,7 +23,7 @@ namespace jacdac {
          */
         //% blockId=jacdacswitchonevent block="jacdac %switch on %event"
         //% group="Switch"
-        onEvent(event: JDSwitchDirection, handler: () => void) {
+        onEvent(event: SwitchDirection, handler: () => void) {
             this.registerEvent(event, handler);
         }
     }
