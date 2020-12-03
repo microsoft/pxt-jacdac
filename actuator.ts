@@ -12,8 +12,8 @@ namespace jacdac {
         public handlePacket(packet: JDPacket) {
             this.stateUpdated = false
 
-            this.intensity = this.handleRegInt(packet, REG_INTENSITY, this.intensity)
-            this.state = this.handleRegBuffer(packet, REG_VALUE, this.state)
+            this.intensity = this.handleRegInt(packet, SystemReg.Intensity, this.intensity)
+            this.state = this.handleRegBuffer(packet, SystemReg.Value, this.state)
 
             if (this.stateUpdated)
                 this.handleStateChanged();
@@ -45,7 +45,7 @@ namespace jacdac {
         }
 
         protected notifyChange() {
-            this.sendCommand(JDPacket.from(CMD_SET_REG | REG_VALUE, this.state))
+            this.sendCommand(JDPacket.from(CMD_SET_REG | SystemReg.Value, this.state))
         }
     }
 }

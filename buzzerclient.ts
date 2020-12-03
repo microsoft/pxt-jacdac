@@ -12,7 +12,7 @@ namespace jacdac {
     class JDMelodyPlayer extends music.MelodyPlayer {
         private queue: ToneToPlay[]
 
-        constructor(m: music.Melody, private musicClient: MusicClient) {
+        constructor(m: music.Melody, private musicClient: BuzzerClient) {
             super(m)
         }
 
@@ -34,7 +34,7 @@ namespace jacdac {
                 const delta = e.timestamp - now
                 if (delta > 0)
                     pause(delta)
-                this.musicClient.sendCommand(JDPacket.from(JDMusicCommand.PlayTone, e.payload))
+                this.musicClient.sendCommand(JDPacket.from(BuzzerCmd.PlayTone, e.payload))
             }
         }
 
@@ -59,9 +59,9 @@ namespace jacdac {
     }
 
     //% fixedInstances
-    export class MusicClient extends Client {
+    export class BuzzerClient extends Client {
         constructor(requiredDevice: string = null) {
-            super("mus", SRV_MUSIC, requiredDevice);
+            super("mus", SRV_BUZZER, requiredDevice);
         }
 
         private player: JDMelodyPlayer
@@ -83,10 +83,10 @@ namespace jacdac {
         //% weight=76 blockGap=8
         //% group="Music"
         playTone(frequency: number, ms: number, volume = 255): void {
-            this.sendCommand(JDPacket.from(JDMusicCommand.PlayTone, tonePayload(frequency, ms, volume << 2)))
+            this.sendCommand(JDPacket.from(BuzzerCmd.PlayTone, tonePayload(frequency, ms, volume << 2)))
         }
     }
 
-    //% fixedInstance whenUsed block="music client"
-    export const musicClient = new MusicClient();
+    //% fixedInstance whenUsed
+    export const buzzerClient = new BuzzerClient();
 }

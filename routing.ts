@@ -51,9 +51,9 @@ namespace jacdac {
             if (this.handleStatusCode(pkt))
                 return;
 
-            if (pkt.service_command == CMD_ADVERTISEMENT_DATA) {
+            if (pkt.service_command == SystemCmd.Announce) {
                 this.sendReport(
-                    JDPacket.from(CMD_ADVERTISEMENT_DATA, this.advertisementData()))
+                    JDPacket.from(SystemCmd.Announce, this.advertisementData()))
             } else {
                 this.stateUpdated = false
                 this.handlePacket(pkt)
@@ -76,7 +76,7 @@ namespace jacdac {
         }
 
         protected sendChangeEvent(): void {
-            this.sendReport(JDPacket.packed(CMD_EVENT, "I", [SystemEvent.Change]))
+            this.sendReport(JDPacket.packed(SystemCmd.Event, "I", [SystemEvent.Change]))
         }
 
         private handleStatusCode(pkt: JDPacket): boolean {
@@ -269,14 +269,14 @@ namespace jacdac {
         }
 
         requestAdvertisementData() {
-            this.sendCommand(JDPacket.onlyHeader(CMD_ADVERTISEMENT_DATA))
+            this.sendCommand(JDPacket.onlyHeader(SystemCmd.Announce))
         }
 
         handlePacketOuter(pkt: JDPacket) {
-            if (pkt.service_command == CMD_ADVERTISEMENT_DATA)
+            if (pkt.service_command == SystemCmd.Announce)
                 this.advertisementData = pkt.data
 
-            if (pkt.service_command == CMD_EVENT)
+            if (pkt.service_command == SystemCmd.Event)
                 this.raiseEvent(pkt.intData, pkt.data.length >= 8 ? pkt.getNumber(NumberFormat.Int32LE, 4) : undefined)
 
             this.handlePacket(pkt)
@@ -473,24 +473,24 @@ namespace jacdac {
             return q.value
         }
 
-        get classDescription() {
-            const v = this.query(REG_CTRL_DEVICE_DESCRIPTION, null)
-            if (v) return v.toString()
-            else {
-                const num = this.query(REG_CTRL_DEVICE_CLASS, null)
-                if (num)
-                    return "0x" + num.toHex()
-                else
-                    return ""
-            }
-        }
-
-        get temperature() {
-            return this.queryInt(REG_CTRL_TEMPERATURE)
+        get mcuTemperature() {
+            return this.queryInt(CtrlReg.McuTemperature)
         }
 
         get firmwareVersion() {
-            const b = this.query(REG_CTRL_FIRMWARE_VERSION, null)
+            const b = this.query(CtrlReg.FirmwareVersion, null)
+            if (b) return b.toString()
+            else return ""
+        }
+
+        get firmwareUrl() {
+            const b = this.query(CtrlReg.FirmwareUrl, null)
+            if (b) return b.toString()
+            else return ""
+        }
+
+        get deviceUrl() {
+            const b = this.query(CtrlReg.DeviceUrl, null)
             if (b) return b.toString()
             else return ""
         }
@@ -549,16 +549,16 @@ namespace jacdac {
         }
         handlePacketOuter(pkt: JDPacket) {
             switch (pkt.service_command) {
-                case CMD_ADVERTISEMENT_DATA:
+                case SystemCmd.Announce:
                     queueAnnounce()
                     break
-                case CMD_CTRL_IDENTIFY:
+                case CtrlCmd.Identify:
                     control.runInParallel(onIdentifyRequest)
                     break
-                case CMD_CTRL_RESET:
+                case CtrlCmd.Reset:
                     control.reset()
                     break
-                case CMD_GET_REG | REG_CTRL_DEVICE_DESCRIPTION:
+                case CMD_GET_REG | CtrlReg.DeviceDescription:
                     this.sendReport(JDPacket.from(pkt.service_command, Buffer.fromUTF8("PXT: " + control.programName())))
                     break
             }
@@ -595,7 +595,7 @@ namespace jacdac {
         const ids = hostServices.map(h => h.running ? h.serviceClass : -1)
         if (restartCounter < 0xf) restartCounter++
         ids[0] = restartCounter | 0x100
-        JDPacket.packed(CMD_ADVERTISEMENT_DATA, fmt, ids)
+        JDPacket.packed(SystemCmd.Announce, fmt, ids)
             ._sendReport(selfDevice())
         announceCallbacks.forEach(f => f())
         for (const cl of _allClients)
@@ -710,7 +710,7 @@ namespace jacdac {
             let dev = devices_.find(d => d.deviceId == devId)
 
             if (pkt.service_number == JD_SERVICE_NUMBER_CTRL) {
-                if (pkt.service_command == CMD_ADVERTISEMENT_DATA) {
+                if (pkt.service_command == SystemCmd.Announce) {
                     if (dev && (dev.services[0] & 0xf) > (pkt.data[0] & 0xf)) {
                         // if the reset counter went down, it means the device resetted; treat it as new device
                         devices_.removeElement(dev)

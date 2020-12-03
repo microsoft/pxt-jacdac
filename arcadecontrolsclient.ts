@@ -9,7 +9,7 @@ namespace jacdac {
         }
 
         handlePacket(pkt: JDPacket) {
-            if (pkt.service_command == CMD_EVENT) {
+            if (pkt.service_command == jacdac.SystemCmd.Event) {
                 const [evid, key] = pkt.data.unpack("II")
                 let evsrc = 0
                 if (evid == 1)

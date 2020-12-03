@@ -21,7 +21,7 @@ namespace jacdac {
 
         announceCallback() {
             if (this.isStreaming)
-                this.setRegInt(REG_STREAMING_SAMPLES, this.isStreaming ? 255 : 0)
+                this.setRegInt(SystemReg.StreamingSamples, this.isStreaming ? 255 : 0)
         }
 
         /**
@@ -34,16 +34,16 @@ namespace jacdac {
         public setStreaming(on: boolean, interval?: number) {
             this.start();
             this.isStreaming = on
-            this.setRegInt(REG_STREAMING_SAMPLES, this.isStreaming ? 255 : 0)
+            this.setRegInt(SystemReg.StreamingSamples, this.isStreaming ? 255 : 0)
             if (interval != undefined)
-                this.setRegInt(REG_STREAMING_INTERVAL, interval)
+                this.setRegInt(SystemReg.StreamingInterval, interval)
         }
 
         /**
          * Requests the sensor to calibrate
          */
         public calibrate() {
-            this.sendCommand(JDPacket.onlyHeader(CMD_CALIBRATE))
+            this.sendCommand(JDPacket.onlyHeader(SystemCmd.Calibrate))
         }
 
         public onStateChanged(handler: () => void) {
@@ -54,7 +54,7 @@ namespace jacdac {
         handlePacket(packet: JDPacket) {
             // this.log(`vpkt ${packet.service_command}`)
             switch (packet.service_command) {
-                case CMD_GET_REG | REG_READING: {
+                case CMD_GET_REG | SystemReg.Reading: {
                     const state = packet.data
                     const changed = !state.equals(this._lastState);
                     this.handleVirtualState(state);
@@ -77,7 +77,7 @@ namespace jacdac {
         }
 
         protected setThreshold(low: boolean, value: number) {
-            this.setRegInt(low ? REG_LOW_THRESHOLD : REG_HIGH_THRESHOLD, value)
+            this.setRegInt(low ? SystemReg.LowThreshold : SystemReg.HighThreshold, value)
         }
     }
 
@@ -109,7 +109,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            if (this._samples && packet.service_command == (CMD_GET_REG | REG_READING)) {
+            if (this._samples && packet.service_command == (CMD_GET_REG | SystemReg.Reading)) {
                 const v = this.parseSample(packet)
                 if (v != null) {
                     let num = 1

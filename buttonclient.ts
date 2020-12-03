@@ -10,9 +10,9 @@ namespace jacdac {
 
         connectControllerButton(controllerButton: number) {
             this.start()
-            control.internalOnEvent(this.eventId, JDButtonEvent.Down,
+            control.internalOnEvent(this.eventId, ButtonEvent.Down,
                 () => control.raiseEvent(INTERNAL_KEY_DOWN, controllerButton))
-            control.internalOnEvent(this.eventId, JDButtonEvent.Up,
+            control.internalOnEvent(this.eventId, ButtonEvent.Up,
                 () => control.raiseEvent(INTERNAL_KEY_UP, controllerButton))
         }
 
@@ -34,7 +34,7 @@ namespace jacdac {
          */
         //% blockId=jacadacbtnonevent block="jacdac %button on %event"
         //% group="Buttons"
-        onEvent(event: JDButtonEvent, handler: () => void) {
+        onEvent(event: ButtonEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }
     }

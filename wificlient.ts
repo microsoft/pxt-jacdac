@@ -29,7 +29,7 @@ namespace jacdac {
         }
 
         handlePacket(p: JDPacket) {
-            if (p.service_command == CMD_EVENT) {
+            if (p.service_command == SystemCmd.Event) {
                 switch (p.data[0]) {
                     case EV_GOT_IP:
                         this.gotIP = true
