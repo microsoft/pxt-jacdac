@@ -34,13 +34,6 @@ namespace jacdac {
     ];
 }
 
-const enum JDKeyboardCommand {
-    Type = 0x80,
-    Key = 0x81,
-    MediaKey = 0x82,
-    FunctionKey = 0x83,
-}
-
 const enum JDGamepadCommand {
     Button = 0x80,
     Move = 0x81,

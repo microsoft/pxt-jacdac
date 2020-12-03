@@ -39,8 +39,6 @@
         "buttonclient.ts",
         "accelerometerclient.ts",
         "lightclient.ts",
-        "keyboardclient.ts",
-        "mouseclient.ts",
         "servoclient.ts",
         "motorclient.ts",
         "rotaryencoderclient.ts",
