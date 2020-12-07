@@ -52,7 +52,6 @@
         "nucleo-f411re": "*"
     },
     "fileDependencies": {
-        "wificlient.ts": "net",
         "mbcompat.ts": "target:microbit"
     },
     "public": true,
