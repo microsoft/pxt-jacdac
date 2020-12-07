@@ -39,13 +39,11 @@
         "lightclient.ts",
         "servoclient.ts",
         "motorclient.ts",
-        "rotaryencoderclient.ts",
         "arcadecontrolsclient.ts",
         "wificlient.ts",
         "pwmlightclient.ts",
         "multitouchclient.ts",
         "modelrunnerclient.ts",
-        "sliderclient.ts",
         "specconstants.ts",
         "settings.ts",
         "pack.ts"
