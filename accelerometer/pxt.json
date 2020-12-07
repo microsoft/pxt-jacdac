@@ -1,0 +1,19 @@
+{
+    "name": "jacdac-accelerometer",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC Accelerometer service",
+    "files": [
+        "accelerometerclient.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services"
+    },
+    "meta": {
+        "jacdac": {
+            "services": [
+                521405449
+            ]
+        }
+    }
+}

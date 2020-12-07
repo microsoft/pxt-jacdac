@@ -36,8 +36,6 @@
         "aggregator.ts",
         "sensorclient.ts",
         "consoleclient.ts",
-        "buttonclient.ts",
-        "accelerometerclient.ts",
         "lightclient.ts",
         "servoclient.ts",
         "motorclient.ts",
