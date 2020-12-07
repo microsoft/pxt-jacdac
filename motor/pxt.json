@@ -1,0 +1,20 @@
+{
+    "name": "jacdac-motor",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC Motor service",
+    "files": [
+        "motorclient.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "mixer": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services"
+    },
+    "meta": {
+        "jacdac": {
+            "services": [
+                385895640
+            ]
+        }
+    }
+}
