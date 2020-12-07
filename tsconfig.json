@@ -11,6 +11,6 @@
         "pxt_modules/**/*test.ts",
         "../pxt-common-packages/libs/*/*.ts",
         "../pxt/libs/pxt-common/*.ts",
-        "../pxt-arcade/libs/*/*.ts", "legacy/gamepadclient.ts", "accelerometer/accelerometerclient.ts", "button/buttonclient.ts"
+        "../pxt-arcade/libs/*/*.ts", "legacy/gamepadclient.ts", "accelerometer/accelerometerclient.ts", "button/buttonclient.ts", "slider/sliderclient.ts", "legacy/keyboardclient.ts", "legacy/mouseclient.ts", "light/lightclient.ts"
     ]
 }

@@ -1,19 +1,18 @@
 {
-    "name": "jacdac-buzzer",
+    "name": "jacdac-light",
     "version": "0.1.7",
-    "description": "MakeCode support for JACDAC Buzzer service",
+    "description": "MakeCode support for JACDAC Light service",
     "files": [
-        "buzzerclient.ts"
+        "lightclient.ts"
     ],
     "dependencies": {
         "core": "*",
-        "mixer": "*",
         "jacdac": "github:microsoft/pxt-jacdac-services"
     },
     "meta": {
         "jacdac": {
             "services": [
-                458731991
+                309264608
             ]
         }
     }
