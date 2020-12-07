@@ -11,6 +11,6 @@
         "pxt_modules/**/*test.ts",
         "../pxt-common-packages/libs/*/*.ts",
         "../pxt/libs/pxt-common/*.ts",
-        "../pxt-arcade/libs/*/*.ts"
+        "../pxt-arcade/libs/*/*.ts", "servo/servoclient.ts", "pwm-light/pwmlightclient.ts"
     ]
 }

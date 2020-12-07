@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-motor",
+    "name": "jacdac-servo",
     "version": "0.1.7",
-    "description": "MakeCode support for JACDAC Motor service",
+    "description": "MakeCode support for JACDAC Servo service",
     "files": [
         "motorclient.ts"
     ],
@@ -12,7 +12,7 @@
     "meta": {
         "jacdac": {
             "services": [
-                385895640
+                318542083
             ]
         }
     }

@@ -1,9 +1,9 @@
 {
-    "name": "jacdac-motor",
+    "name": "jacdac-pwm-light",
     "version": "0.1.7",
-    "description": "MakeCode support for JACDAC Motor service",
+    "description": "MakeCode support for JACDAC PWM Light service",
     "files": [
-        "motorclient.ts"
+        "pwmlightclient.ts"
     ],
     "dependencies": {
         "core": "*",
@@ -12,7 +12,7 @@
     "meta": {
         "jacdac": {
             "services": [
-                385895640
+                531985491
             ]
         }
     }
