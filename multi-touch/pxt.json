@@ -1,0 +1,19 @@
+{
+    "name": "jacdac-multi-touch",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC Multi Touch service",
+    "files": [
+        "multitouchclient.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services"
+    },
+    "meta": {
+        "jacdac": {
+            "services": [
+                416636459
+            ]
+        }
+    }
+}

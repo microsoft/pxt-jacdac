@@ -37,8 +37,6 @@
         "sensorclient.ts",
         "consoleclient.ts",
         "arcadecontrolsclient.ts",
-        "wificlient.ts",
-        "multitouchclient.ts",
         "modelrunnerclient.ts",
         "specconstants.ts",
         "settings.ts",
