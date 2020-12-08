@@ -25,6 +25,7 @@
         "config.ts",
         "routing.ts",
         "packet.ts",
+        "pack.ts",
         "consolehost.ts",
         "service.ts",
         "pipes.ts",
@@ -36,9 +37,7 @@
         "sensorclient.ts",
         "consoleclient.ts",
         "arcadecontrolsclient.ts",
-        "specconstants.ts",
-        "settings.ts",
-        "pack.ts"
+        "specconstants.ts"
     ],
     "testFiles": [
         "test.ts"
