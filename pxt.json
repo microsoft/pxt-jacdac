@@ -41,7 +41,9 @@
         "sensor/client.ts",
         "sensor/host.ts",
         "role-manager/constants.ts",
-        "role-manager-host/host.ts"
+        "role-manager-host/host.ts",
+        "proto-test/constants.ts",
+        "proto-test/host.ts"
     ],
     "testFiles": [
         "test.ts"
