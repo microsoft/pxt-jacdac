@@ -2,7 +2,7 @@ namespace jacdac {
     export const SETTINGS_PREFIX = "jdsts:"
     export class SettingsHost extends Host {
         constructor(name: string) {
-            super(name, SRV_SETTINGS_STORAGE);
+            super(name, SRV_SETTINGS);
         }
 
         handlePacket(packet: JDPacket) {
