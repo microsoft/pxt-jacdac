@@ -1,6 +1,6 @@
 {
     "name": "jacdac-services",
-    "version": "0.1.8",
+    "version": "0.2.0",
     "description": "Plug and play single wire serial protocol v1 - beta",
     "dependencies": {
         "core": "*",
