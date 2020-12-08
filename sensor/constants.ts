@@ -1,8 +1,5 @@
 namespace jacdac {
     // Service: Sensor
-    export const SRV_SENSOR_STREAMING_SAMPLES_RW_PACK_FORMAT = "u8"
-    export const SRV_SENSOR_STREAMING_INTERVAL_RW_PACK_FORMAT = "u32"
-    export const SRV_SENSOR_STREAMING_PREFERRED_INTERVAL_CONST_PACK_FORMAT = "u32"
     export const enum SensorReg {
         /**
          * Read-write uint8_t. Asks device to stream a given number of samples

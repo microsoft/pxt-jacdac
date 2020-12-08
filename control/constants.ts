@@ -6,15 +6,6 @@ namespace jacdac {
         SupportsACK = 0x1,
     }
 
-    export const SRV_CONTROL_SERVICES_REPORT_PACK_FORMAT = "u8 u8 u16 r: u32"
-    export const SRV_CONTROL_DEVICE_DESCRIPTION_CONST_PACK_FORMAT = "s"
-    export const SRV_CONTROL_FIRMWARE_IDENTIFIER_CONST_PACK_FORMAT = "u32"
-    export const SRV_CONTROL_BOOTLOADER_FIRMWARE_IDENTIFIER_CONST_PACK_FORMAT = "u32"
-    export const SRV_CONTROL_FIRMWARE_VERSION_CONST_PACK_FORMAT = "s"
-    export const SRV_CONTROL_MCU_TEMPERATURE_RO_PACK_FORMAT = "i16"
-    export const SRV_CONTROL_UPTIME_RO_PACK_FORMAT = "u64"
-    export const SRV_CONTROL_DEVICE_URL_CONST_PACK_FORMAT = "s"
-    export const SRV_CONTROL_FIRMWARE_URL_CONST_PACK_FORMAT = "s"
     export const enum ControlCmd {
         /**
          * No args. The `restart_counter` starts at `0x1` and increments by one until it reaches `0xf`, then it stays at `0xf`.

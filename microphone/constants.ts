@@ -1,8 +1,6 @@
 namespace jacdac {
     // Service: Microphone
     export const SRV_MICROPHONE = 0x113dac86
-    export const SRV_MICROPHONE_SAMPLE_COMMAND_PACK_FORMAT = "b[12] u32"
-    export const SRV_MICROPHONE_SAMPLING_PERIOD_RW_PACK_FORMAT = "u32"
     export const enum MicrophoneCmd {
         /**
          * The samples will be streamed back over the `samples` pipe.

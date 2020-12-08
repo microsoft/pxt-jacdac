@@ -1,12 +1,6 @@
 namespace jacdac {
     // Service: PWM Light
     export const SRV_PWM_LIGHT = 0x1fb57453
-    export const SRV_PWM_LIGHT_BRIGHTNESS_RW_PACK_FORMAT = "u16"
-    export const SRV_PWM_LIGHT_MAX_POWER_RW_PACK_FORMAT = "u16"
-    export const SRV_PWM_LIGHT_MAX_STEPS_CONST_PACK_FORMAT = "u8"
-    export const SRV_PWM_LIGHT_STEPS_RW_PACK_FORMAT = "r: u16 u16"
-    export const SRV_PWM_LIGHT_CURRENT_ITERATION_RW_PACK_FORMAT = "u16"
-    export const SRV_PWM_LIGHT_MAX_ITERATIONS_RW_PACK_FORMAT = "u16"
     export const enum PwmLightReg {
         /**
          * Read-write ratio uint16_t. Set the luminosity of the strip. The value is used to scale `start_intensity` in `steps` register.

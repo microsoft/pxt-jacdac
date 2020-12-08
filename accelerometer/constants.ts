@@ -1,7 +1,6 @@
 namespace jacdac {
     // Service: Accelerometer
     export const SRV_ACCELEROMETER = 0x1f140409
-    export const SRV_ACCELEROMETER_FORCES_RO_PACK_FORMAT = "i6.10 i6.10 i6.10"
     export const enum AccelerometerReg {
         /**
          * Indicates the current forces acting on accelerometer.

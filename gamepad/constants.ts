@@ -15,10 +15,6 @@ namespace jacdac {
         Exit = 0xa,
     }
 
-    export const SRV_GAMEPAD_ANNOUNCE_REPORT_PACK_FORMAT = "u8 u8 r: u16"
-    export const SRV_GAMEPAD_BUTTONS_RO_PACK_FORMAT = "r: u16 u8 u8"
-    export const SRV_GAMEPAD_DOWN_EVENT_PACK_FORMAT = "u16 u16"
-    export const SRV_GAMEPAD_UP_EVENT_PACK_FORMAT = "u16 u16"
     export const enum GamepadCmd {
         /**
          * No args. Indicates number of players supported and which buttons are present on the controller.

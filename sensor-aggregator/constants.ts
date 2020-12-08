@@ -11,11 +11,6 @@ namespace jacdac {
         I32 = 0xa0,
     }
 
-    export const SRV_SENSOR_AGGREGATOR_INPUTS_RW_PACK_FORMAT = "u16 u16 u32 r: b[8] u32 u8 u8 u8 i8"
-    export const SRV_SENSOR_AGGREGATOR_NUM_SAMPLES_RO_PACK_FORMAT = "u32"
-    export const SRV_SENSOR_AGGREGATOR_SAMPLE_SIZE_RO_PACK_FORMAT = "u8"
-    export const SRV_SENSOR_AGGREGATOR_STREAMING_SAMPLES_RW_PACK_FORMAT = "u32"
-    export const SRV_SENSOR_AGGREGATOR_CURRENT_SAMPLE_RO_PACK_FORMAT = "b"
     export const enum SensorAggregatorReg {
         /**
          * Set automatic input collection.

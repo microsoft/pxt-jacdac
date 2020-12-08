@@ -1,11 +1,6 @@
 namespace jacdac {
     // Service: Multitouch
     export const SRV_MULTITOUCH = 0x18d55e2b
-    export const SRV_MULTITOUCH_CAPACITY_RO_PACK_FORMAT = "r: i32"
-    export const SRV_MULTITOUCH_TOUCH_EVENT_PACK_FORMAT = "u32"
-    export const SRV_MULTITOUCH_RELEASE_EVENT_PACK_FORMAT = "u32"
-    export const SRV_MULTITOUCH_TAP_EVENT_PACK_FORMAT = "u32"
-    export const SRV_MULTITOUCH_LONG_PRESS_EVENT_PACK_FORMAT = "u32"
     export const enum MultitouchReg {
         /**
          * Read-only. Capacitance of channels. The capacitance is continuously calibrated, and a value of `0` indicates

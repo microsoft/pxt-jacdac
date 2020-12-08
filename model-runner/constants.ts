@@ -8,21 +8,6 @@ namespace jacdac {
         EdgeImpulseCompiled = 0x30564945,
     }
 
-    export const SRV_MODEL_RUNNER_SET_MODEL_COMMAND_PACK_FORMAT = "u32"
-    export const SRV_MODEL_RUNNER_SET_MODEL_REPORT_PACK_FORMAT = "u16"
-    export const SRV_MODEL_RUNNER_PREDICT_COMMAND_PACK_FORMAT = "b[12]"
-    export const SRV_MODEL_RUNNER_PREDICT_REPORT_PACK_FORMAT = "u16"
-    export const SRV_MODEL_RUNNER_AUTO_INVOKE_EVERY_RW_PACK_FORMAT = "u16"
-    export const SRV_MODEL_RUNNER_OUTPUTS_RO_PACK_FORMAT = "r: f32"
-    export const SRV_MODEL_RUNNER_INPUT_SHAPE_RO_PACK_FORMAT = "r: u16"
-    export const SRV_MODEL_RUNNER_OUTPUT_SHAPE_RO_PACK_FORMAT = "r: u16"
-    export const SRV_MODEL_RUNNER_LAST_RUN_TIME_RO_PACK_FORMAT = "u32"
-    export const SRV_MODEL_RUNNER_ALLOCATED_ARENA_SIZE_RO_PACK_FORMAT = "u32"
-    export const SRV_MODEL_RUNNER_MODEL_SIZE_RO_PACK_FORMAT = "u32"
-    export const SRV_MODEL_RUNNER_LAST_ERROR_RO_PACK_FORMAT = "s"
-    export const SRV_MODEL_RUNNER_FORMAT_CONST_PACK_FORMAT = "u32"
-    export const SRV_MODEL_RUNNER_FORMAT_VERSION_CONST_PACK_FORMAT = "u32"
-    export const SRV_MODEL_RUNNER_PARALLEL_CONST_PACK_FORMAT = "u8"
     export const enum ModelRunnerCmd {
         /**
          * Argument: model_size B uint32_t. Open pipe for streaming in the model. The size of the model has to be declared upfront.

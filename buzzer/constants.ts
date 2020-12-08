@@ -1,8 +1,6 @@
 namespace jacdac {
     // Service: Buzzer
     export const SRV_BUZZER = 0x1b57b1d7
-    export const SRV_BUZZER_VOLUME_RW_PACK_FORMAT = "u8"
-    export const SRV_BUZZER_PLAY_TONE_COMMAND_PACK_FORMAT = "u16 u16 u16"
     export const enum BuzzerReg {
         /**
          * Read-write ratio uint8_t. The volume (duty cycle) of the buzzer.

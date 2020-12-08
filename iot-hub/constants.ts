@@ -1,32 +1,6 @@
 namespace jacdac {
     // Service: Azure IoT Hub
     export const SRV_IOT_HUB = 0x19ed364c
-    export const SRV_IOT_HUB_SEND_STRING_MSG_COMMAND_PACK_FORMAT = "z r: z z"
-    export const SRV_IOT_HUB_SEND_MSG_EXT_REPORT_PACK_FORMAT = "u16"
-    export const SRV_IOT_HUB_MESSAGE_PIPE_COMMAND_PACK_FORMAT = "b"
-    export const SRV_IOT_HUB_PROPERTIES_META_PIPE_COMMAND_PACK_FORMAT = "r: z z"
-    export const SRV_IOT_HUB_SUBSCRIBE_COMMAND_PACK_FORMAT = "b[12]"
-    export const SRV_IOT_HUB_DEVICEBOUND_PROPERTIES_META_PIPE_REPORT_PACK_FORMAT = "r: z z"
-    export const SRV_IOT_HUB_DEVICEBOUND_PIPE_REPORT_PACK_FORMAT = "b"
-    export const SRV_IOT_HUB_GET_TWIN_COMMAND_PACK_FORMAT = "b[12]"
-    export const SRV_IOT_HUB_TWIN_JSON_PIPE_REPORT_PACK_FORMAT = "b"
-    export const SRV_IOT_HUB_TWIN_ERROR_META_PIPE_REPORT_PACK_FORMAT = "u32"
-    export const SRV_IOT_HUB_SUBSCRIBE_TWIN_COMMAND_PACK_FORMAT = "b[12]"
-    export const SRV_IOT_HUB_TWIN_UPDATE_JSON_PIPE_REPORT_PACK_FORMAT = "b"
-    export const SRV_IOT_HUB_PATCH_TWIN_REPORT_PACK_FORMAT = "u16"
-    export const SRV_IOT_HUB_TWIN_PATCH_JSON_PIPE_COMMAND_PACK_FORMAT = "b"
-    export const SRV_IOT_HUB_SUBSCRIBE_METHOD_COMMAND_PACK_FORMAT = "b[12]"
-    export const SRV_IOT_HUB_METHOD_CALL_BODY_PIPE_REPORT_PACK_FORMAT = "b"
-    export const SRV_IOT_HUB_METHOD_CALL_META_PIPE_REPORT_PACK_FORMAT = "z z"
-    export const SRV_IOT_HUB_RESPOND_TO_METHOD_COMMAND_PACK_FORMAT = "u32 z"
-    export const SRV_IOT_HUB_RESPOND_TO_METHOD_REPORT_PACK_FORMAT = "u16"
-    export const SRV_IOT_HUB_METHOD_RESPONSE_PIPE_COMMAND_PACK_FORMAT = "b"
-    export const SRV_IOT_HUB_CONNECTION_STATUS_RO_PACK_FORMAT = "s"
-    export const SRV_IOT_HUB_CONNECTION_STRING_RW_PACK_FORMAT = "s"
-    export const SRV_IOT_HUB_HUB_NAME_RO_PACK_FORMAT = "s"
-    export const SRV_IOT_HUB_DEVICE_ID_RO_PACK_FORMAT = "s"
-    export const SRV_IOT_HUB_CONNECTION_ERROR_EVENT_PACK_FORMAT = "s"
-    export const SRV_IOT_HUB_DEVICEBOUND_STR_EVENT_PACK_FORMAT = "z r: z z"
     export const enum IotHubCmd {
         /**
          * No args. Try connecting using currently set `connection_string`.

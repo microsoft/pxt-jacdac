@@ -1,6 +1,5 @@
 namespace jacdac {
     // Service: Base service
-    export const SRV_BASE_STATUS_CODE_RO_PACK_FORMAT = "u16 u16"
     export const enum BaseReg {
         /**
          * Reports the current state or error status of the device. ``code`` is a standardized value from
@@ -12,7 +11,7 @@ namespace jacdac {
          * const [code, vendorCode] = jdunpack<[number, number]>(buf, "u16 u16")
          * ```
          */
-        StatusCode = 0x7,
+        StatusCode = 0x103,
     }
 
 }

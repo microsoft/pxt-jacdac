@@ -1,14 +1,6 @@
 namespace jacdac {
     // Service: Settings
     export const SRV_SETTINGS = 0x1107dc4a
-    export const SRV_SETTINGS_GET_COMMAND_PACK_FORMAT = "s"
-    export const SRV_SETTINGS_GET_REPORT_PACK_FORMAT = "z b"
-    export const SRV_SETTINGS_SET_COMMAND_PACK_FORMAT = "z b"
-    export const SRV_SETTINGS_DELETE_COMMAND_PACK_FORMAT = "s"
-    export const SRV_SETTINGS_LIST_KEYS_COMMAND_PACK_FORMAT = "b[12]"
-    export const SRV_SETTINGS_LISTED_KEY_PIPE_REPORT_PACK_FORMAT = "s"
-    export const SRV_SETTINGS_LIST_COMMAND_PACK_FORMAT = "b[12]"
-    export const SRV_SETTINGS_LISTED_ENTRY_PIPE_REPORT_PACK_FORMAT = "z b"
     export const enum SettingsCmd {
         /**
          * Argument: key string (bytes). Get the value of given setting. If no such entry exists, the value returned is empty.

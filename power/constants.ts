@@ -1,15 +1,6 @@
 namespace jacdac {
     // Service: Power
     export const SRV_POWER = 0x1fa4c95a
-    export const SRV_POWER_ENABLED_RW_PACK_FORMAT = "u8"
-    export const SRV_POWER_MAX_POWER_RW_PACK_FORMAT = "u16"
-    export const SRV_POWER_OVERLOAD_RO_PACK_FORMAT = "u8"
-    export const SRV_POWER_CURRENT_DRAW_RO_PACK_FORMAT = "u16"
-    export const SRV_POWER_BATTERY_VOLTAGE_RO_PACK_FORMAT = "u16"
-    export const SRV_POWER_BATTERY_CHARGE_RO_PACK_FORMAT = "u16"
-    export const SRV_POWER_BATTERY_CAPACITY_CONST_PACK_FORMAT = "u32"
-    export const SRV_POWER_KEEP_ON_PULSE_DURATION_RW_PACK_FORMAT = "u16"
-    export const SRV_POWER_KEEP_ON_PULSE_PERIOD_RW_PACK_FORMAT = "u16"
     export const enum PowerReg {
         /**
          * Read-write bool (uint8_t). Turn the power to the bus on/off.

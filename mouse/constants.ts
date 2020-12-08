@@ -16,9 +16,6 @@ namespace jacdac {
         DoubleClick = 0x4,
     }
 
-    export const SRV_MOUSE_SET_BUTTON_COMMAND_PACK_FORMAT = "u16 u8"
-    export const SRV_MOUSE_MOVE_COMMAND_PACK_FORMAT = "i16 i16 u16"
-    export const SRV_MOUSE_WHEEL_COMMAND_PACK_FORMAT = "i16 u16"
     export const enum MouseCmd {
         /**
          * Sets the up/down state of one or more buttons.

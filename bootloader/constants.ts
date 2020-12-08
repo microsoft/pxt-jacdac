@@ -10,11 +10,6 @@ namespace jacdac {
         NotPageAligned = 0x4,
     }
 
-    export const SRV_BOOTLOADER_INFO_REPORT_PACK_FORMAT = "u32 u32 u32 u32"
-    export const SRV_BOOTLOADER_SET_SESSION_COMMAND_PACK_FORMAT = "u32"
-    export const SRV_BOOTLOADER_SET_SESSION_REPORT_PACK_FORMAT = "u32"
-    export const SRV_BOOTLOADER_PAGE_DATA_COMMAND_PACK_FORMAT = "u32 u16 u8 u8 u32 u32 u32 u32 u32 b[208]"
-    export const SRV_BOOTLOADER_PAGE_DATA_REPORT_PACK_FORMAT = "u32 u32 u32"
     export const enum BootloaderCmd {
         /**
          * No args. The `service_class` is always `0x1ffa9948`. The `firmware_identifier` identifies the kind of firmware
