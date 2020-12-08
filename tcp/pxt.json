@@ -1,12 +1,14 @@
 {
-    "name": "jacdac-settings",
+    "name": "jacdac-tcp",
     "version": "0.1.7",
-    "description": "MakeCode support for JACDAC Settings service",
+    "description": "MakeCode support for JACDAC TCP service",
     "files": [
-        "constants.ts"
+        "constants.ts",
+        "client.ts"
     ],
     "dependencies": {
         "core": "*",
+        "net": "*",
         "jacdac": "github:microsoft/pxt-jacdac-services"
     }
 }

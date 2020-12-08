@@ -2,6 +2,7 @@
     "targetWebsite": "https://maker.makecode.com",
     "links": {
         "jacdac": ".",
-        "jacdac-settings": "./settings"
+        "jacdac-settings": "./settings",
+        "jacdac-tcp": "./tcp"
     }
 }
