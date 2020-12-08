@@ -1,3 +1,7 @@
 {
-    "targetWebsite": "https://maker.makecode.com"
+    "targetWebsite": "https://maker.makecode.com",
+    "links": {
+        "jacdac": ".",
+        "jacdac-settings": "./settings"
+    }
 }
