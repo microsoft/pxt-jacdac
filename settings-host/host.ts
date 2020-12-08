@@ -43,7 +43,7 @@ namespace jacdac {
         }
 
         private handleSetCommand(packet: JDPacket) {
-            const [key, value] = packet.unpack("z b") as [string, Buffer]
+            const [key, value] = packet.unjdpack("z b") as [string, Buffer]
             const id = SETTINGS_PREFIX + key.trim();
             console.log(`set '${key}' -> '${id}' '${value}'`)
             if (value.length == 0)

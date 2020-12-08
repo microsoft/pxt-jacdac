@@ -52,8 +52,19 @@ namespace jacdac {
             return JDPacket.from(service_command, Buffer.create(0))
         }
 
+        /**
+         * 
+         * @param service_command 
+         * @param fmt 
+         * @param nums 
+         * @deprecated use jdpacked instead
+         */
         static packed(service_command: number, fmt: string, nums: number[]) {
             return JDPacket.from(service_command, Buffer.pack(fmt, nums))
+        }
+
+        static jdpacked(service_command: number, fmt: string, nums: any[]) {
+            return JDPacket.from(service_command, jdpack(fmt, nums))
         }
 
         static segmentData(data: Buffer) {
@@ -139,11 +150,15 @@ namespace jacdac {
             return intOfBuffer(this._data)
         }
 
+        get uintData() {
+            return uintOfBuffer(this._data)
+        }
+
         get stringData() {
             return this._data && this._data.toString();
         }
 
-        unpack(fmt: string): any[] {
+        unjdpack(fmt: string): any[] {
             const p = this._data && fmt && jdunpack(this._data, fmt);
             return p || [];
         }
@@ -174,8 +189,8 @@ namespace jacdac {
             return this._data.getNumber(fmt, offset)
         }
 
-        pack(fmt: string, nums: number[]) {
-            this._data = Buffer.pack(fmt, nums)
+        jdpack(fmt: string, nums: any[]) {
+            this._data = jdpack(fmt, nums)
         }
 
         get is_command() {
@@ -302,7 +317,7 @@ namespace jacdac {
             ackAwaiters = ackAwaiters.filter(a => a.nextRetry !== 0)
     }
 
-    export function intOfBuffer(data: Buffer) {
+    export function intOfBuffer(data: Buffer): number {
         let fmt: NumberFormat
         switch (data.length) {
             case 0:
@@ -315,6 +330,24 @@ namespace jacdac {
                 break
             default:
                 fmt = NumberFormat.Int32LE
+                break
+        }
+        return data.getNumber(fmt, 0)
+    }
+
+    export function uintOfBuffer(data: Buffer): number {
+        let fmt: NumberFormat
+        switch (data.length) {
+            case 0:
+            case 1:
+                fmt = NumberFormat.UInt8LE
+                break
+            case 2:
+            case 3:
+                fmt = NumberFormat.UInt16LE
+                break
+            default:
+                fmt = NumberFormat.UInt32LE
                 break
         }
         return data.getNumber(fmt, 0)

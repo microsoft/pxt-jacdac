@@ -32,7 +32,7 @@ namespace jacdac {
         running: boolean
         serviceNumber: number
         stateUpdated: boolean;
-        private _statusCode: number = 0; // u16, 16
+        private _statusCode: number = 0; // u16, u16
 
         get statusCode() {
             return this._statusCode;
@@ -84,7 +84,7 @@ namespace jacdac {
             const getset = pkt.service_command >> 12
             const reg = pkt.service_command & 0xfff
             if (reg == SystemReg.StatusCode && getset == 1) {
-                this.sendReport(JDPacket.packed(pkt.service_command, "i", 
+                this.sendReport(JDPacket.jdpacked(pkt.service_command, "u32", 
                     [this._statusCode >> 0]))
                 return true;
             } else {
