@@ -6,10 +6,17 @@
         "constants.ts",
         "settingshost.ts"
     ],
+    "testFiles": [
+        "test.ts"
+    ],
     "dependencies": {
         "core": "*",
         "settings": "*",
         "jacdac": "github:microsoft/pxt-jacdac-services"
+    },
+    "testDependencies": {
+        "net": "*",
+        "nucleo-f411re": "*"
     },
     "meta": {
         "jacdac": {
