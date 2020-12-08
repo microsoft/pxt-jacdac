@@ -1,6 +1,6 @@
 namespace jacdac {
     // Service: Protocol Test
-    export const SRV_PROTOCOL_TEST = 0x16c7466a
+    export const SRV_PROTO_TEST = 0x16c7466a
     export const enum ProtoTestReg {
         /**
          * Read-write bool (uint8_t). A read write bool register.

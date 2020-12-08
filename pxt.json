@@ -39,11 +39,9 @@
         "logger-host/host.ts",
         "sensor/constants.ts",
         "sensor/client.ts",
-        "sensor-host/host.ts",
+        "sensor/host.ts",
         "role-manager/constants.ts",
-        "role-manager-host/host.ts",
-        "aggregator/constants.ts",
-        "aggregator/client.ts"
+        "role-manager-host/host.ts"
     ],
     "testFiles": [
         "test.ts"

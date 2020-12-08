@@ -10,12 +10,5 @@
         "core": "*",
         "mixer": "*",
         "jacdac": "github:microsoft/pxt-jacdac-services"
-    },
-    "meta": {
-        "jacdac": {
-            "services": [
-                458731991
-            ]
-        }
     }
 }

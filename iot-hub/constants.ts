@@ -1,6 +1,6 @@
 namespace jacdac {
     // Service: Azure IoT Hub
-    export const SRV_AZURE_IOT_HUB = 0x19ed364c
+    export const SRV_IOT_HUB = 0x19ed364c
     export const enum IotHubCmd {
         /**
          * No args. Try connecting using currently set `connection_string`.

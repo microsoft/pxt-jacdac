@@ -9,12 +9,5 @@
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac-services"
-    },
-    "meta": {
-        "jacdac": {
-            "services": [
-                531985491
-            ]
-        }
     }
 }

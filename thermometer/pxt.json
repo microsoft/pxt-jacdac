@@ -16,12 +16,5 @@
     "testDependencies": {
         "net": "*",
         "nucleo-f411re": "*"
-    },
-    "meta": {
-        "jacdac": {
-            "services": [
-                337754823
-            ]
-        }
     }
 }
