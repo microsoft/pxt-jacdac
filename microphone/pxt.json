@@ -1,9 +1,10 @@
 {
-    "name": "jacdac-multi-touch",
+    "name": "jacdac-microphone",
     "version": "0.1.7",
-    "description": "MakeCode support for JACDAC Multi Touch service",
+    "description": "MakeCode support for JACDAC Microphone service",
     "files": [
-        "multitouchclient.ts"
+        "constants.ts",
+        "client.ts"
     ],
     "dependencies": {
         "core": "*",
@@ -12,7 +13,7 @@
     "meta": {
         "jacdac": {
             "services": [
-                416636459
+                289254534
             ]
         }
     }

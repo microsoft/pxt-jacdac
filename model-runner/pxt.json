@@ -3,7 +3,8 @@
     "version": "0.1.7",
     "description": "MakeCode support for JACDAC Model runner service",
     "files": [
-        "modelrunnerclient.ts"
+        "constants.ts",
+        "client.ts"
     ],
     "dependencies": {
         "core": "*",

@@ -7,4 +7,5 @@ namespace jacdac {
          */
         Temperature = 0x101,
     }
+
 }

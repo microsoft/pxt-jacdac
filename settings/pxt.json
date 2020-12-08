@@ -3,20 +3,14 @@
     "version": "0.1.7",
     "description": "MakeCode support for JACDAC Settings service",
     "files": [
-        "constants.ts",
-        "settingshost.ts"
+        "constants.ts"
     ],
     "testFiles": [
         "test.ts"
     ],
     "dependencies": {
         "core": "*",
-        "settings": "*",
         "jacdac": "github:microsoft/pxt-jacdac-services"
-    },
-    "testDependencies": {
-        "net": "*",
-        "nucleo-f411re": "*"
     },
     "meta": {
         "jacdac": {

@@ -1,0 +1,28 @@
+{
+    "name": "jacdac-settings-host",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC Settings host service",
+    "files": [
+        "host.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "settings": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services",
+        "jacdac-settings": "github:microsoft/pxt-jacdac-services/settings"
+    },
+    "testDependencies": {
+        "net": "*",
+        "nucleo-f411re": "*"
+    },
+    "meta": {
+        "jacdac": {
+            "services": [
+                285727818
+            ]
+        }
+    }
+}

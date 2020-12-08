@@ -3,7 +3,8 @@
     "version": "0.1.7",
     "description": "MakeCode support for JACDAC Accelerometer service",
     "files": [
-        "accelerometerclient.ts"
+        "constants.ts",
+        "client.ts"
     ],
     "dependencies": {
         "core": "*",

@@ -11,6 +11,6 @@
         "pxt_modules/**/*test.ts",
         "../pxt-common-packages/libs/*/*.ts",
         "../pxt/libs/pxt-common/*.ts",
-        "../pxt-arcade/libs/*/*.ts"
+        "../pxt-arcade/libs/*/*.ts"mulservo/client.tsientpwm-light/client.ts, "aggregator/aggregator.ts", "role-manager/rolem, "legacy/touchbuttonclient.ts", "legacy/lightsensorclient.ts", "gamepad/arcadecontrolsclient.ts", "microphone/microphoneclient.ts", "legacy/proximityclient.ts", "legacy/pixelclient.ts", "legacy/switchclient.ts", "legacy/rgbledclient.ts", "codal-message-bus/messagebus.ts", "legacy/lcdclient.ts", "legacy/colorsensorclient.ts", "sensor-host/sensordriver.ts", "sensor/sensorclient.ts", "logger-host/consolehost.ts", "logger/consoleclient.ts"anager.ts"
     ]
 }

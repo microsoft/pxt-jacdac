@@ -6,13 +6,13 @@
         "constants.ts",
         "client.ts"
     ],
-    "testFiles": [
-        "test.ts"
-    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac-services"
     },
+    "testFiles": [
+        "test.ts"
+    ],
     "testDependencies": {
         "net": "*",
         "nucleo-f411re": "*"
