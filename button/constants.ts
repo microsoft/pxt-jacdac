@@ -1,6 +1,7 @@
 namespace jacdac {
     // Service: Button
     export const SRV_BUTTON = 0x1473a263
+    export const SRV_BUTTON_PRESSED_RO_PACK_FORMAT = "u8"
     export const enum ButtonReg {
         /**
          * Read-only bool (uint8_t). Indicates whether the button is currently active (pressed).

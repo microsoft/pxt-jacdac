@@ -9,6 +9,11 @@ namespace jacdac {
         Error = 0x3,
     }
 
+    export const SRV_LOGGER_MIN_PRIORITY_RW_PACK_FORMAT = "u8"
+    export const SRV_LOGGER_DEBUG_REPORT_PACK_FORMAT = "s"
+    export const SRV_LOGGER_LOG_REPORT_PACK_FORMAT = "s"
+    export const SRV_LOGGER_WARN_REPORT_PACK_FORMAT = "s"
+    export const SRV_LOGGER_ERROR_REPORT_PACK_FORMAT = "s"
     export const enum LoggerReg {
         /**
          * Read-write Priority (uint8_t). Messages with level lower than this won't be emitted. The default setting may vary.

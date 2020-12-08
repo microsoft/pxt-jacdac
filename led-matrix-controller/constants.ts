@@ -1,6 +1,11 @@
 namespace jacdac {
     // Service: LED Matrix Controller
     export const SRV_LED_MATRIX_CONTROLLER = 0x1d35e393
+    export const SRV_LED_MATRIX_CONTROLLER_LEDS_RW_PACK_FORMAT = "b"
+    export const SRV_LED_MATRIX_CONTROLLER_ENABLED_RW_PACK_FORMAT = "u8"
+    export const SRV_LED_MATRIX_CONTROLLER_BRIGHTNESS_RW_PACK_FORMAT = "u8"
+    export const SRV_LED_MATRIX_CONTROLLER_ROWS_CONST_PACK_FORMAT = "u16"
+    export const SRV_LED_MATRIX_CONTROLLER_COLUMNS_CONST_PACK_FORMAT = "u16"
     export const enum LedMatrixControllerReg {
         /**
          * Read-write bytes. Read or writes the state of the screen where pixel on/off state is

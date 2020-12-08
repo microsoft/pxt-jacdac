@@ -8,6 +8,12 @@ namespace jacdac {
         SK9822 = 0x11,
     }
 
+    export const SRV_LIGHT_BRIGHTNESS_RW_PACK_FORMAT = "u8"
+    export const SRV_LIGHT_ACTUAL_BRIGHTNESS_RO_PACK_FORMAT = "u8"
+    export const SRV_LIGHT_LIGHT_TYPE_RW_PACK_FORMAT = "u8"
+    export const SRV_LIGHT_NUM_PIXELS_RW_PACK_FORMAT = "u16"
+    export const SRV_LIGHT_MAX_POWER_RW_PACK_FORMAT = "u16"
+    export const SRV_LIGHT_RUN_COMMAND_PACK_FORMAT = "b"
     export const enum LightReg {
         /**
          * Read-write ratio uint8_t. Set the luminosity of the strip.

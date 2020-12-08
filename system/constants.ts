@@ -1,5 +1,16 @@
 namespace jacdac {
     // Service: Common registers and commands
+    export const SRV_SYSTEM_EVENT_REPORT_PACK_FORMAT = "u32 u32"
+    export const SRV_SYSTEM_INTENSITY_RW_PACK_FORMAT = "u32"
+    export const SRV_SYSTEM_VALUE_RW_PACK_FORMAT = "i32"
+    export const SRV_SYSTEM_MAX_POWER_RW_PACK_FORMAT = "u16"
+    export const SRV_SYSTEM_STREAMING_SAMPLES_RW_PACK_FORMAT = "u8"
+    export const SRV_SYSTEM_STREAMING_INTERVAL_RW_PACK_FORMAT = "u32"
+    export const SRV_SYSTEM_READING_RO_PACK_FORMAT = "i32"
+    export const SRV_SYSTEM_LOW_THRESHOLD_RW_PACK_FORMAT = "i32"
+    export const SRV_SYSTEM_HIGH_THRESHOLD_RW_PACK_FORMAT = "i32"
+    export const SRV_SYSTEM_STATUS_CODE_RO_PACK_FORMAT = "u16 u16"
+    export const SRV_SYSTEM_STREAMING_PREFERRED_INTERVAL_CONST_PACK_FORMAT = "u32"
     export const enum SystemCmd {
         /**
          * No args. Enumeration data for control service; service-specific advertisement data otherwise.

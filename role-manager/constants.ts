@@ -1,6 +1,14 @@
 namespace jacdac {
     // Service: Role Manager
     export const SRV_ROLE_MANAGER = 0x119c3ad1
+    export const SRV_ROLE_MANAGER_ALL_ROLES_ALLOCATED_RO_PACK_FORMAT = "u8"
+    export const SRV_ROLE_MANAGER_GET_ROLE_COMMAND_PACK_FORMAT = "b[8]"
+    export const SRV_ROLE_MANAGER_GET_ROLE_REPORT_PACK_FORMAT = "b[8] s"
+    export const SRV_ROLE_MANAGER_SET_ROLE_COMMAND_PACK_FORMAT = "b[8] s"
+    export const SRV_ROLE_MANAGER_LIST_STORED_ROLES_COMMAND_PACK_FORMAT = "b[12]"
+    export const SRV_ROLE_MANAGER_STORED_ROLES_PIPE_REPORT_PACK_FORMAT = "b[8] s"
+    export const SRV_ROLE_MANAGER_LIST_REQUIRED_ROLES_COMMAND_PACK_FORMAT = "b[12]"
+    export const SRV_ROLE_MANAGER_REQUIRED_ROLES_PIPE_REPORT_PACK_FORMAT = "b[8] u32 s"
     export const enum RoleManagerReg {
         /**
          * Read-only bool (uint8_t). Indicates if all required roles have been allocated to devices.

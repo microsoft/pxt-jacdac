@@ -1,6 +1,8 @@
 namespace jacdac {
     // Service: Rotary encoder
     export const SRV_ROTARY_ENCODER = 0x10fa29c9
+    export const SRV_ROTARY_ENCODER_POSITION_RO_PACK_FORMAT = "i32"
+    export const SRV_ROTARY_ENCODER_CLICKS_PER_TURN_CONST_PACK_FORMAT = "u16"
     export const enum RotaryEncoderReg {
         /**
          * Read-only # int32_t. Upon device reset starts at `0` (regardless of the shaft position).

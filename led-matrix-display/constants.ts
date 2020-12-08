@@ -1,6 +1,7 @@
 namespace jacdac {
     // Service: LED Matrix Display
     export const SRV_LED_MATRIX_DISPLAY = 0x110d154b
+    export const SRV_LED_MATRIX_DISPLAY_LEDS_RO_PACK_FORMAT = "b"
     export const enum LedMatrixDisplayReg {
         /**
          * Read-only bytes. Streams the state of the screen where pixel on/off state is

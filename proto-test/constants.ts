@@ -1,6 +1,22 @@
 namespace jacdac {
     // Service: Protocol Test
     export const SRV_PROTO_TEST = 0x16c7466a
+    export const SRV_PROTO_TEST_RW_BOOL_RW_PACK_FORMAT = "u8"
+    export const SRV_PROTO_TEST_RO_BOOL_RO_PACK_FORMAT = "u8"
+    export const SRV_PROTO_TEST_RW_U32_RW_PACK_FORMAT = "u32"
+    export const SRV_PROTO_TEST_RO_U32_RO_PACK_FORMAT = "u32"
+    export const SRV_PROTO_TEST_RW_I32_RW_PACK_FORMAT = "i32"
+    export const SRV_PROTO_TEST_RO_I32_RO_PACK_FORMAT = "i32"
+    export const SRV_PROTO_TEST_RW_STRING_RW_PACK_FORMAT = "s"
+    export const SRV_PROTO_TEST_RO_STRING_RO_PACK_FORMAT = "s"
+    export const SRV_PROTO_TEST_RW_BYTES_RW_PACK_FORMAT = "b"
+    export const SRV_PROTO_TEST_RO_BYTES_RO_PACK_FORMAT = "b"
+    export const SRV_PROTO_TEST_E_BOOL_EVENT_PACK_FORMAT = "u8"
+    export const SRV_PROTO_TEST_E_U32_EVENT_PACK_FORMAT = "u32"
+    export const SRV_PROTO_TEST_E_I32_EVENT_PACK_FORMAT = "i32"
+    export const SRV_PROTO_TEST_C_BOOL_COMMAND_PACK_FORMAT = "u8"
+    export const SRV_PROTO_TEST_C_U32_COMMAND_PACK_FORMAT = "u32"
+    export const SRV_PROTO_TEST_C_I32_COMMAND_PACK_FORMAT = "i32"
     export const enum ProtoTestReg {
         /**
          * Read-write bool (uint8_t). A read write bool register.

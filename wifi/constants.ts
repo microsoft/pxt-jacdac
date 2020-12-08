@@ -16,6 +16,10 @@ namespace jacdac {
         IEEE_802_LongRange = 0x8000,
     }
 
+    export const SRV_WIFI_SCAN_COMMAND_PACK_FORMAT = "b[12]"
+    export const SRV_WIFI_RESULTS_PIPE_REPORT_PACK_FORMAT = "u32 u32 i8 u8 b[6] s[33]"
+    export const SRV_WIFI_CONNECT_COMMAND_PACK_FORMAT = "z z"
+    export const SRV_WIFI_CONNECTED_RO_PACK_FORMAT = "u8"
     export const enum WifiCmd {
         /**
          * Argument: results pipe (bytes). Initiate search for WiFi networks. Results are returned via pipe, one entry per packet.

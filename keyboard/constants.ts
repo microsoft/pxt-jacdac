@@ -20,6 +20,7 @@ namespace jacdac {
         Down = 0x2,
     }
 
+    export const SRV_KEYBOARD_KEY_COMMAND_PACK_FORMAT = "r: u16 u8 u8"
     export const enum KeyboardCmd {
         /**
          * Presses a key or a sequence of keys down.
