@@ -2,6 +2,7 @@
 jacdac.consolePriority = ConsolePriority.Log;
 jacdac.roleManagerHost.start()
 jacdac.start()
+//jacdac.jdpackTest()
 /*
 forever(function() {
     console.log("angle 45")

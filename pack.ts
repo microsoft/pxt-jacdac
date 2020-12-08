@@ -1,5 +1,5 @@
 namespace jacdac {
-
+    // ASCII codes of characters
     const ch_b = 98
     const ch_i = 105
     const ch_r = 114
@@ -10,6 +10,9 @@ namespace jacdac {
     const ch_0 = 48
     const ch_9 = 57
     const ch_colon = 58
+    const ch_sq_open = 91
+    const ch_sq_close = 93
+
 
     function numberFormatOfType(tp: string): NumberFormat {
         switch (tp) {
@@ -19,6 +22,10 @@ namespace jacdac {
             case "i8": return NumberFormat.Int8LE
             case "i16": return NumberFormat.Int16LE
             case "i32": return NumberFormat.Int32LE
+            case "f32": return NumberFormat.Float32LE
+            case "f64": return NumberFormat.Float64LE
+            //case "i64": return NumberFormat.Int64LE
+            //case "u64": return NumberFormat.UInt64LE
             default: return null
         }
     }
@@ -42,11 +49,13 @@ namespace jacdac {
         fp = 0
         nfmt: NumberFormat
         word: string
+        isArray: boolean
 
         constructor(public fmt: string) { }
 
         parse() {
             this.div = 1
+            this.isArray = false
 
             const fmt = this.fmt
             while (this.fp < fmt.length) {
@@ -69,10 +78,15 @@ namespace jacdac {
                 }
 
                 const c1 = word.charCodeAt(1)
-                if (ch_0 <= c1 && c1 <= ch_9) {
-                    this.size = parseInt(word.slice(1))
+                if (c1 == ch_sq_open) {
+                    this.size = parseInt(word.slice(2))
                 } else {
                     this.size = -1
+                }
+
+                if (word.charCodeAt(word.length - 1) == ch_sq_close && word.charCodeAt(word.length - 2) == ch_sq_open) {
+                    word = word.slice(0, -2)
+                    this.isArray = true
                 }
 
                 this.nfmt = numberFormatOfType(word)
@@ -92,7 +106,7 @@ namespace jacdac {
                         c0 = 0
                     }
                     if (c0 == 0)
-                        throw `invalid format: ${word}`
+                        throw (`invalid format: ${word}`)
                     this.c0 = c0
                 } else {
                     this.size = Buffer.sizeOfNumberFormat(this.nfmt)
@@ -105,12 +119,21 @@ namespace jacdac {
         }
     }
 
-    function jdunpackCore(buf: Buffer, fmt: string, repeat: boolean): any[] {
+    function jdunpackCore(buf: Buffer, fmt: string, repeat: number) {
         const repeatRes: any[][] = repeat ? [] : null
         let res: any[] = []
         let off = 0
+        let fp0 = 0
         const parser = new TokenParser(fmt)
+        if (repeat && buf.length == 0)
+            return []
         while (parser.parse()) {
+            if (parser.isArray && !repeat) {
+                res.push(jdunpackCore(bufferSlice(buf, off, buf.length), fmt.slice(fp0), 1))
+                return res
+            }
+
+            fp0 = parser.fp
             let sz = parser.size
             const c0 = parser.c0
             if (c0 == ch_z) {
@@ -139,26 +162,29 @@ namespace jacdac {
                 } else if (c0 == ch_x) {
                     // skip padding
                 } else if (c0 == ch_r) {
-                    res.push(jdunpackCore(subbuf, fmt.slice(parser.fp, fmt.length), true))
+                    res.push(jdunpackCore(subbuf, fmt.slice(fp0), 2))
+                    break
                 } else {
-                    throw `whoops`
+                    throw (`whoops`)
                 }
                 off += subbuf.length
                 if (c0 == ch_z)
                     off++
             }
 
-            if (off >= buf.length)
-                break
 
             if (repeat && parser.fp >= fmt.length) {
                 parser.fp = 0
-                repeatRes.push(res)
-                res = []
+                if (repeat == 2) {
+                    repeatRes.push(res)
+                    res = []
+                }
+                if (off >= buf.length)
+                    break
             }
         }
 
-        if (repeat) {
+        if (repeat == 2) {
             if (res.length)
                 repeatRes.push(res)
             return repeatRes
@@ -167,8 +193,8 @@ namespace jacdac {
         }
     }
 
-    export function jdunpack(buf: Buffer, fmt: string): any[] {
-        return jdunpackCore(buf, fmt, false)
+    export function jdunpack<T extends any[]>(buf: Buffer, fmt: string): T {
+        return jdunpackCore(buf, fmt, 0) as T
     }
 
     function jdpackCore(trg: Buffer, fmt: string, data: any[], off: number) {
@@ -176,98 +202,119 @@ namespace jacdac {
         const parser = new TokenParser(fmt)
         while (parser.parse()) {
             const c0 = parser.c0
-            const v = data[idx++]
+
+            if (c0 == ch_x) {
+                // skip padding
+                off += parser.size
+                continue
+            }
+
+            let dataItem = data[idx++]
 
             if (c0 == ch_r) {
                 const fmt0 = fmt.slice(parser.fp)
-                for (const velt of (v as any[][])) {
+                for (const velt of (dataItem as any[][])) {
                     off = jdpackCore(trg, fmt0, velt, off)
                 }
                 break
             }
 
-            if (parser.nfmt !== null) {
-                if (typeof v != "number")
-                    throw `expecting number`
-                if (trg)
-                    trg.setNumber(parser.nfmt, off, (v * parser.div) | 0)
-                off += parser.size
-            } else {
-                let buf: Buffer;
-                if (typeof v == "string") {
-                    if (c0 == ch_z)
-                        buf = stringToBuffer(v + "\u0000")
-                    else if (c0 == ch_s)
-                        buf = stringToBuffer(v)
-                    else
-                        throw `unexpected string`
-                } else if (c0 == ch_b && v && typeof v == "object") {
-                    buf = v
-                } else {
-                    throw `expecting string or buffer`
-                }
+            // use temporary variable to avoid a Gatsby build bug
+            let arr: any[]
+            if (parser.isArray)
+                arr = dataItem
+            else
+                arr = [dataItem]
 
-                let sz = parser.size
-                if (sz >= 0) {
-                    if (buf.length > sz)
-                        buf = bufferSlice(buf, 0, sz)
+            for (const v of arr) {
+                if (parser.nfmt !== null) {
+                    if (typeof v != "number")
+                        throw (`expecting number`)
+                    if (trg)
+                        trg.setNumber(parser.nfmt, off, (v * parser.div) | 0)
+                    off += parser.size
                 } else {
-                    sz = buf.length
-                }
+                    let buf: Buffer
+                    if (typeof v == "string") {
+                        if (c0 == ch_z)
+                            buf = stringToBuffer(v + "\u0000")
+                        else if (c0 == ch_s)
+                            buf = stringToBuffer(v)
+                        else
+                            throw (`unexpected string`)
+                    } else if (v && typeof v == "object" && (v as Buffer).length != null) {
+                        // assume buffer
+                        if (c0 == ch_b)
+                            buf = v
+                        else
+                            throw (`unexpected buffer`)
+                    } else {
+                        throw (`expecting string or buffer`)
+                    }
 
-                if (trg)
-                    trg.write(off, buf)
-                off += sz
+                    let sz = parser.size
+                    if (sz >= 0) {
+                        if (buf.length > sz)
+                            buf = bufferSlice(buf, 0, sz)
+                    } else {
+                        sz = buf.length
+                    }
+
+                    if (trg)
+                        trg.write(off, buf)
+                    off += sz
+                }
             }
         }
 
         if (data.length > idx)
-            throw `format too short`
+            throw (`format too short`)
 
         return off
     }
 
-    export function jdpack(fmt: string, data: any[]): Buffer {
+    export function jdpack<T extends any[]>(fmt: string, data: T) {
         const len = jdpackCore(null, fmt, data, 0)
         const res = Buffer.create(len)
         jdpackCore(res, fmt, data, 0)
         return res
     }
 
-/*
+    /*
     export function jdpackTest() {
-        function checksame(a: any, b: any) {
-            const as = JSON.stringify(a, null, 2);
-            const bs = JSON.stringify(b, null, 2);
-            if (as !== bs) {
-                console.log(as)
-                console.log(bs)
-                throw "not the same"
-            }
-        }
-
         function testOne(fmt: string, data0: any[]) {
-            console.log(`format: ${fmt}`)
-            console.log(data0)
+            function checksame(a: any, b: any) {
+                function fail(msg: string): never {
+                    debugger
+                    throw (`jdpack test error: ${msg} (at ${fmt}; a=${JSON.stringify(a)}; b=${JSON.stringify(b)})`)
+                }
+
+                if (a === b || JSON.stringify(a) == JSON.stringify(b))
+                    return
+                fail("not the same")
+            }
+
             const buf = jdpack(fmt, data0)
-            console.log(buf.toHex())
             const data1 = jdunpack(buf, fmt)
-            console.log(data1)
+            console.log(`${fmt} ${buf.toHex()}`)
+            // console.log(fmt, data0, data1, toHex(buf))
             checksame(data0, data1)
-            console.log("---")
         }
 
-        testOne("z b", ["foo12", stringToBuffer("bar")])
         testOne("u16 u16 i16", [42, 77, -10])
         testOne("u16 z s", [42, "foo", "bar"])
         testOne("u32 z s", [42, "foo", "bar"])
         testOne("i8 z s", [42, "foo", "bar"])
         testOne("u8 z s", [42, "foo12", "bar"])
         testOne("u8 r: u8 z", [42, [[17, "xy"], [18, "xx"]]])
+        testOne("z b", ["foo12", stringToBuffer("bar")])
         testOne("u16 r: u16", [42, [[17], [18]]])
-        testOne("i8 s9 u16 s10 u8", [-100, "foo", 1000, "barbaz", 250])
+        testOne("i8 s[9] u16 s[10] u8", [-100, "foo", 1000, "barbaz", 250])
+        testOne("i8 x[4] s[9] u16 x[2] s[10] x[3] u8", [-100, "foo", 1000, "barbaz", 250])
+        testOne("u16 u16[]", [42, [17, 18]])
+        testOne("u16 u16[]", [42, [18]])
+        testOne("u16 u16[]", [42, []])
+        testOne("u16 z[]", [42, ["foo", "bar", "bz"]])
     }
-
-    jdpackTest()
     */
 }
