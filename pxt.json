@@ -30,7 +30,6 @@
         "pipes.ts",
         "sensordriver.ts",
         "actuator.ts",
-        "controllerclient.ts",
         "ns.ts",
         "rolemanager.ts",
         "aggregator.ts",
