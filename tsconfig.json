@@ -12,9 +12,6 @@
     "include": [
         "*.ts",
         "*/*.ts",
-        "pxt_modules/**/*.ts",
-        "../pxt-common-packages/libs/*/*.ts",
-        "../pxt/libs/pxt-common/*.ts",
-        "../pxt-arcade/libs/*/*.ts"
+        "pxt_modules/**/*.ts"
     ]
 }
