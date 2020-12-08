@@ -1,0 +1,27 @@
+{
+    "name": "jacdac-thermometer",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC Thermometer service",
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services"
+    },
+    "testDependencies": {
+        "net": "*",
+        "nucleo-f411re": "*"
+    },
+    "meta": {
+        "jacdac": {
+            "services": [
+                337754823
+            ]
+        }
+    }
+}
