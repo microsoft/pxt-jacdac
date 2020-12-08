@@ -1,0 +1,14 @@
+{
+    "name": "jacdac-wifi",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC Wifi service",
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services",
+        "jacdac-tcp": "github:microsoft/pxt-jacdac-services/tcp"
+    }
+}

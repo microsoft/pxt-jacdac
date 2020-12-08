@@ -475,23 +475,23 @@ namespace jacdac {
         }
 
         get mcuTemperature() {
-            return this.queryInt(CtrlReg.McuTemperature)
+            return this.queryInt(ControlReg.McuTemperature)
         }
 
         get firmwareVersion() {
-            const b = this.query(CtrlReg.FirmwareVersion, null)
+            const b = this.query(ControlReg.FirmwareVersion, null)
             if (b) return b.toString()
             else return ""
         }
 
         get firmwareUrl() {
-            const b = this.query(CtrlReg.FirmwareUrl, null)
+            const b = this.query(ControlReg.FirmwareUrl, null)
             if (b) return b.toString()
             else return ""
         }
 
         get deviceUrl() {
-            const b = this.query(CtrlReg.DeviceUrl, null)
+            const b = this.query(ControlReg.DeviceUrl, null)
             if (b) return b.toString()
             else return ""
         }
@@ -553,13 +553,13 @@ namespace jacdac {
                 case SystemCmd.Announce:
                     queueAnnounce()
                     break
-                case CtrlCmd.Identify:
+                case ControlCmd.Identify:
                     control.runInParallel(onIdentifyRequest)
                     break
-                case CtrlCmd.Reset:
+                case ControlCmd.Reset:
                     control.reset()
                     break
-                case CMD_GET_REG | CtrlReg.DeviceDescription:
+                case CMD_GET_REG | ControlReg.DeviceDescription:
                     this.sendReport(JDPacket.from(pkt.service_command, Buffer.fromUTF8("PXT: " + control.programName())))
                     break
             }
@@ -840,9 +840,9 @@ namespace jacdac {
 
         console.addListener(function (pri, msg) {
             if (msg[0] != ":")
-                consoleHost.add(pri as number, msg);
+                loggerHost.add(pri as number, msg);
         });
-        consoleHost.start()
+        loggerHost.start()
     }
 
     export function diagnostics(): jacdac.JDDiagnostics {

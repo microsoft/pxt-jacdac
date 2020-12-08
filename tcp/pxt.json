@@ -1,0 +1,14 @@
+{
+    "name": "jacdac-tcp",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC TCP service",
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "net": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services"
+    }
+}

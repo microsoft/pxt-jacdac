@@ -5,12 +5,13 @@
         "outDir": "built",
         "rootDir": "."
     },
-    "exclude": ["pxt_modules/**/*test.ts"],
+    "exclude": [
+        "*/*test.ts",
+        "pxt_modules/**/*test.ts"
+    ],
     "include": [
         "*.ts",
-        "pxt_modules/**/*test.ts",
-        "../pxt-common-packages/libs/*/*.ts",
-        "../pxt/libs/pxt-common/*.ts",
-        "../pxt-arcade/libs/*/*.ts"
+        "*/*.ts",
+        "pxt_modules/**/*.ts"
     ]
 }

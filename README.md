@@ -15,6 +15,12 @@ This project contains [JACDAC](https://aka.ms/jacdac) host and client services f
 * Maker, https://maker.makecode.com
 * Arcade BETA, https://arcade.makecoe.com/beta
 
+## Developer section
+
+To refresh the ``constants.ts`` files,
+* build jacdac-spec (``npm run buildspecs`` from jacdac-ts)
+* copy all files from ``jacdac-spec/services/generated/makecode`` to the root folder of this repo
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a

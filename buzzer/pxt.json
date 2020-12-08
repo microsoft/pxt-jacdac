@@ -1,0 +1,14 @@
+{
+    "name": "jacdac-buzzer",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC Buzzer service",
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "mixer": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services"
+    }
+}

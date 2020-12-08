@@ -17,7 +17,7 @@ namespace jacdac {
     //% fixedInstances
     export class ThermometerClient extends SensorClient {
         constructor(requiredDevice: string = null) {
-            super("temp", jd_class.THERMOMETER, requiredDevice);
+            super("temp", SRV_THERMOMETER, requiredDevice);
         }
 
         /**

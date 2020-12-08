@@ -22,10 +22,10 @@ namespace jacdac {
         run(speed: number): void {
             speed = Math.clamp(-100, 100, speed)
             if (speed == 0)
-                this.setRegInt(SystemReg.Intensity, 0)
+                this.setRegInt(MotorReg.Enabled, 0)
             else {
-                this.setRegInt(SystemReg.Value, Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0))
-                this.setRegInt(SystemReg.Intensity, 1)
+                this.setRegInt(MotorReg.Duty, Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0))
+                this.setRegInt(MotorReg.Enabled, 1)
             }
         }
     }
