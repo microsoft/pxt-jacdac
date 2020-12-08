@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-services",
+    "name": "jacdac",
     "version": "0.2.0",
-    "description": "Plug and play single wire serial protocol v1 - beta",
+    "description": "JACDAC for MakeCode",
     "dependencies": {
         "core": "*",
         "settings": "*"

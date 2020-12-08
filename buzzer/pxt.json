@@ -9,6 +9,6 @@
     "dependencies": {
         "core": "*",
         "mixer": "*",
-        "jacdac": "github:microsoft/pxt-jacdac-services"
+        "jacdac": "github:microsoft/pxt-jacdac"
     }
 }

@@ -7,7 +7,7 @@ This project contains [JACDAC](https://aka.ms/jacdac) host and client services f
 ## Using this extensions
 
 * Open your MakeCode editor (see supported editors)
-* Go to the extension dialog and search for https://github.com/microsoft/pxt-jacdac-services
+* Go to the extension dialog and search for https://github.com/microsoft/pxt-jacdac
 * Import the extension.
 
 ### Supported editors

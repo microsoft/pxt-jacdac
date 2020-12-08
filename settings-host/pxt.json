@@ -11,8 +11,8 @@
     "dependencies": {
         "core": "*",
         "settings": "*",
-        "jacdac": "github:microsoft/pxt-jacdac-services",
-        "jacdac-settings": "github:microsoft/pxt-jacdac-services/settings"
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-settings": "github:microsoft/pxt-jacdac/settings"
     },
     "testDependencies": {
         "net": "*",

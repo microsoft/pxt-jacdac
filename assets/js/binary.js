@@ -1,4 +1,4 @@
-// meta={"simUrl":"/sim/simulator.html","cdnUrl":"/cdn/","version":"0.0.1","target":"arcade","targetVersion":"0.18.1","repo":"microsoft/pxt-jacdac-services"}
+// meta={"simUrl":"/sim/simulator.html","cdnUrl":"/cdn/","version":"0.0.1","target":"arcade","targetVersion":"0.18.1","repo":"microsoft/pxt-jacdac"}
 // total=42965 new=17.59% cached=68.76% other=13.65%
 (function (ectx) {
 'use strict';
