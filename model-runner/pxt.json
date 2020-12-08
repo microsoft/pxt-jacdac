@@ -1,0 +1,19 @@
+{
+    "name": "jacdac-model-runner",
+    "version": "0.1.7",
+    "description": "MakeCode support for JACDAC Model runner service",
+    "files": [
+        "modelrunnerclient.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac-services"
+    },
+    "meta": {
+        "jacdac": {
+            "services": [
+                336566904
+            ]
+        }
+    }
+}

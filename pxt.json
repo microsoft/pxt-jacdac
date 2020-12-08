@@ -36,7 +36,6 @@
         "sensorclient.ts",
         "consoleclient.ts",
         "arcadecontrolsclient.ts",
-        "modelrunnerclient.ts",
         "specconstants.ts",
         "settings.ts",
         "pack.ts"
