@@ -5,22 +5,22 @@ namespace jacdac {
         }
 
         bool: boolean = false;
-        int: number = 0;
-        uint: number = 0;
+        i32: number = 0;
+        ui32: number = 0;
         bytes: Buffer = Buffer.create(0);
 
         handlePacket(pkt: JDPacket) {
-            this.bool = this.handleRegBool(pkt, ProtoTestReg.RwBool, this.bool);
-            this.handleRegBool(pkt, ProtoTestReg.RoBool, this.bool);
+            this.bool = this.handleRegValue(pkt, ProtoTestReg.RwBool, "u8", this.bool);
+            this.handleRegValue(pkt, ProtoTestReg.RoBool, "u8", this.bool);
 
-            this.int = this.handleRegInt(pkt, ProtoTestReg.RwI32, this.int);
-            this.handleRegInt(pkt, ProtoTestReg.RoI32, this.int);
+            this.i32 = this.handleRegValue(pkt, ProtoTestReg.RwI32, "i32", this.i32);
+            this.handleRegValue(pkt, ProtoTestReg.RoI32, "i32", this.i32);
 
-            this.uint = this.handleRegInt(pkt, ProtoTestReg.RwU32, this.int);
-            this.handleRegInt(pkt, ProtoTestReg.RoU32, this.uint);
+            this.ui32 = this.handleRegValue(pkt, ProtoTestReg.RwU32, "u32", this.ui32);
+            this.handleRegValue(pkt, ProtoTestReg.RoU32, "u32", this.ui32);
 
-            this.bytes = this.handleRegBuffer(pkt, ProtoTestReg.RwBytes, this.bytes);
-            this.handleRegBuffer(pkt, ProtoTestReg.RoBytes, this.bytes);
+            this.bytes = this.handleRegValue(pkt, ProtoTestReg.RwBytes, "b", this.bytes);
+            this.handleRegValue(pkt, ProtoTestReg.RoBytes, "b", this.bytes);
         }
     }
 

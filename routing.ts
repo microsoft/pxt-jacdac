@@ -92,6 +92,31 @@ namespace jacdac {
             }
         }
 
+        /**
+         * Single value register helper
+         */
+        protected handleRegValue<T>(pkt: JDPacket, register: number, fmt: string, current: T): T {
+            const getset = pkt.service_command >> 12
+            if (getset == 0 || getset > 2)
+                return current
+            const reg = pkt.service_command & 0xfff
+            if (reg != register)
+                return current
+            // make sure there's no null/undefined
+            if (getset == 1) {
+                this.sendReport(JDPacket.jdpacked(pkt.service_command, fmt, [current]))
+            } else {
+                if (register >> 8 == 0x1)
+                    return current // read-only
+                const v = pkt.unjdpack(fmt);
+                if (v[0] !== current) {
+                    this.stateUpdated = true
+                    current = v[0]
+                }
+            }
+            return current
+        }
+
         protected handleRegBool(pkt: JDPacket, register: number, current: boolean): boolean {
             return this.handleRegInt(pkt, register, current ? 1 : 0) != 0
         }
@@ -118,7 +143,7 @@ namespace jacdac {
             }
             return current
         }
-
+        
         protected handleRegBuffer(pkt: JDPacket, register: number, current: Buffer): Buffer {
             const getset = pkt.service_command >> 12
             if (getset == 0 || getset > 2)
