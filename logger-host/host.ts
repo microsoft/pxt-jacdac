@@ -9,6 +9,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
+            this.minPriority = this.handleRegValue(packet, LoggerReg.MinPriority, "u8", this.minPriority);
             // TODO: is this a command?
             const SetMinPriority = 0x2000 | LoggerReg.MinPriority
             switch (packet.service_command) {
