@@ -11,6 +11,8 @@ namespace jacdac {
         bytes: Buffer = Buffer.create(0);
 
         handlePacket(pkt: JDPacket) {
+            this.log(`pkt: ${pkt}`)
+
             const oldBool = this.bool;
             const oldi32 = this.i32;
             const oldu32 = this.u32;
