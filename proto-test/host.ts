@@ -42,6 +42,12 @@ namespace jacdac {
                 case ProtoTestReg.RwU32:
                     this.u32 = jdunpack(pkt.data, "u32")[0];
                     break;
+                case ProtoTestReg.RwString:
+                    this.s = jdunpack(pkt.data, "s")[0];
+                    break;
+                case ProtoTestReg.RwBytes:
+                    this.bytes = jdunpack(pkt.data, "b")[0];
+                    break;
             }
 
             // events: TODO

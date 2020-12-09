@@ -229,7 +229,7 @@ namespace jacdac {
             for (const v of arr) {
                 if (parser.nfmt !== null) {
                     if (typeof v != "number")
-                        throw (`expecting number`)
+                        throw (`expecting number, got ` + typeof v)
                     if (trg)
                         trg.setNumber(parser.nfmt, off, (v * parser.div) | 0)
                     off += parser.size
