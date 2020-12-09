@@ -14,7 +14,7 @@ namespace jacdac {
      **/
     //% shim=jacdac::__physSendPacket
     export function __physSendPacket(header: Buffer, data: Buffer): void {
-        control.simmessages.send("jacdac", header.concat(data))
+        control.simmessages.send("jacdac", header.concat(data), true)
     }
 
     /**
