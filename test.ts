@@ -1,6 +1,5 @@
 // pins.A9.digitalWrite(false)
 jacdac.consolePriority = ConsolePriority.Log;
-jacdac.roleManagerHost.start()
 jacdac.protoTestHost.start()
 jacdac.start()
 //jacdac.jdpackTest()
