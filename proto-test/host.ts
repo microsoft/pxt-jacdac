@@ -53,16 +53,18 @@ namespace jacdac {
             }
 
             // events
-            if (oldBool !== this.bool)
-                this.sendEvent(ProtoTestReg.RwBool, jdpack("u8", [this.bool ? 1 : 0]))
-            if (oldi32 !== this.i32)
-                this.sendEvent(ProtoTestReg.RwI32, jdpack("i32", [this.i32]))
-            if (oldu32 !== this.u32)
-                this.sendEvent(ProtoTestReg.RwU32, jdpack("u32", [this.i32]))
-            if (olds !== this.s)
-                this.sendEvent(ProtoTestReg.RwU32, jdpack("s", [this.s]))
-            if (oldbytes !== this.bytes)
-                this.sendEvent(ProtoTestReg.RwU32, jdpack("b", [this.bytes]))
+            if (pkt.is_reg_set) {
+                if (pkt.reg_identifier === ProtoTestReg.RwBool)
+                    this.sendEvent(ProtoTestReg.RwBool, jdpack("u8", [this.bool ? 1 : 0]))
+                else if (pkt.reg_identifier === ProtoTestReg.RwI32)
+                    this.sendEvent(ProtoTestReg.RwI32, jdpack("i32", [this.i32]))
+                else if (pkt.reg_identifier === ProtoTestReg.RwU32)
+                    this.sendEvent(ProtoTestReg.RwU32, jdpack("u32", [this.i32]))
+                else if (pkt.reg_identifier === ProtoTestReg.RwString)
+                    this.sendEvent(ProtoTestReg.RwString, jdpack("s", [this.s]))
+                else if (pkt.reg_identifier === ProtoTestReg.RwBytes)
+                    this.sendEvent(ProtoTestReg.RwBytes, jdpack("b", [this.bytes]))
+            }
         }
     }
 

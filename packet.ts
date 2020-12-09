@@ -135,6 +135,10 @@ namespace jacdac {
             return (this.service_command >> 12) == (CMD_GET_REG >> 12)
         }
 
+        get reg_identifier() {
+            return this.service_command & 0xfff
+        }
+
         get data(): Buffer {
             return this._data
         }
