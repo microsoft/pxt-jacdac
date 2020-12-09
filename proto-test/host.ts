@@ -11,11 +11,11 @@ namespace jacdac {
         bytes: Buffer = Buffer.create(0);
 
         handlePacket(pkt: JDPacket) {
-            this.bool = this.handleRegValue(pkt, ProtoTestReg.RwBool, "u8", this.bool);
-            this.handleRegValue(pkt, ProtoTestReg.RoBool, "u8", this.bool);
+            this.bool = this.handleRegBool(pkt, ProtoTestReg.RwBool, this.bool);
+            this.handleRegBool(pkt, ProtoTestReg.RoBool, this.bool);
 
-            this.i32 = this.handleRegValue(pkt, ProtoTestReg.RwI32, "i32", this.i32);
-            this.handleRegValue(pkt, ProtoTestReg.RoI32, "i32", this.i32);
+            this.i32 = this.handleRegInt(pkt, ProtoTestReg.RwI32, this.i32);
+            this.handleRegInt(pkt, ProtoTestReg.RoI32, this.i32);
 
             this.ui32 = this.handleRegValue(pkt, ProtoTestReg.RwU32, "u32", this.ui32);
             this.handleRegValue(pkt, ProtoTestReg.RoU32, "u32", this.ui32);
