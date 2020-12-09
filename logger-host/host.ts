@@ -14,8 +14,6 @@ namespace jacdac {
             const SetMinPriority = 0x2000 | LoggerReg.MinPriority
             switch (packet.service_command) {
                 case SetMinPriority:
-                    console.log(`logger setminpriority`)
-                    debugger;
                     const now = control.millis()
                     // lower the priority immediately, but tighten it only when no one 
                     // was asking for lower one for some time
@@ -25,8 +23,6 @@ namespace jacdac {
                         elapsed > 1500) {
                         this.minPriority = d
                         this._lastListenerTime = now
-                        console.log(`logger listener ${this._lastListenerTime}`)
-                        console.log(`logger connected`)
                     }
                     break;
                 default:
