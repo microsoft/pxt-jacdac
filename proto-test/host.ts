@@ -14,6 +14,8 @@ namespace jacdac {
             const oldBool = this.bool;
             const oldi32 = this.i32;
             const oldu32 = this.u32;
+            const olds = this.s;
+            const oldbytes = this.bytes;
 
             this.bool = this.handleRegBool(pkt, ProtoTestReg.RwBool, this.bool);
             this.handleRegBool(pkt, ProtoTestReg.RoBool, this.bool);
@@ -50,7 +52,17 @@ namespace jacdac {
                     break;
             }
 
-            // events: TODO
+            // events
+            if (oldBool !== this.bool)
+                this.sendEvent(ProtoTestReg.RwBool, jdpack("u8", [this.bool ? 1 : 0]))
+            if (oldi32 !== this.i32)
+                this.sendEvent(ProtoTestReg.RwI32, jdpack("i32", [this.i32]))
+            if (oldu32 !== this.u32)
+                this.sendEvent(ProtoTestReg.RwU32, jdpack("u32", [this.i32]))
+            if (olds !== this.s)
+                this.sendEvent(ProtoTestReg.RwU32, jdpack("s", [this.s]))
+            if (oldbytes !== this.bytes)
+                this.sendEvent(ProtoTestReg.RwU32, jdpack("b", [this.bytes]))
         }
     }
 

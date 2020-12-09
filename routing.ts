@@ -75,16 +75,23 @@ namespace jacdac {
             pkt._sendReport(myDevice)
         }
 
+        protected sendEvent(event: number, data?: Buffer) {
+            const payload = Buffer.create(4 + (data ? data.length : 0))
+            payload.setNumber(NumberFormat.UInt32LE, 0, event);
+            if (data)
+                payload.write(4, data);
+            this.sendReport(JDPacket.from(SystemCmd.Event, payload))
+        }
+
         protected sendChangeEvent(): void {
-            // TODO not sure about this one.
-           // this.sendReport(JDPacket.packed(SystemCmd.Event, "I", [SystemEvent.Change]))
+            this.sendEvent(SystemEvent.Change);
         }
 
         private handleStatusCode(pkt: JDPacket): boolean {
             const getset = pkt.service_command >> 12
             const reg = pkt.service_command & 0xfff
             if (reg == SystemReg.StatusCode && getset == 1) {
-                this.sendReport(JDPacket.jdpacked(pkt.service_command, "u32", 
+                this.sendReport(JDPacket.jdpacked(pkt.service_command, "u32",
                     [this._statusCode >> 0]))
                 return true;
             } else {
@@ -143,7 +150,7 @@ namespace jacdac {
             }
             return current
         }
-        
+
         protected handleRegBuffer(pkt: JDPacket, register: number, current: Buffer): Buffer {
             const getset = pkt.service_command >> 12
             if (getset == 0 || getset > 2)
