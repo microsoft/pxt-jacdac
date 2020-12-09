@@ -1,6 +1,6 @@
 {
     "name": "jacdac-motor",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "MakeCode support for JACDAC Motor service",
     "files": [
         "constants.ts",
