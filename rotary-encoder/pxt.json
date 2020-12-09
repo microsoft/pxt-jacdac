@@ -1,6 +1,6 @@
 {
     "name": "jacdac-rotary-encoder",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "MakeCode support for JACDAC Rotary encoder service",
     "files": [
         "constants.ts",
