@@ -1,6 +1,6 @@
 {
     "name": "jacdac-pwm-light",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "MakeCode support for JACDAC PWM Light service",
     "files": [
         "constants.ts",

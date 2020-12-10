@@ -1,6 +1,6 @@
 {
     "name": "jacdac-settings",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "MakeCode support for JACDAC Settings service",
     "files": [
         "constants.ts"
