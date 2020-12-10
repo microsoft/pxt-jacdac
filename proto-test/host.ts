@@ -73,5 +73,3 @@ namespace jacdac {
     //% whenUsed
     export const protoTestHost = new ProtoTestHost();
 }
-
-jacdac.protoTestHost.start();
