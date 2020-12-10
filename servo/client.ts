@@ -84,7 +84,7 @@ namespace jacdac {
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
-        //% parts=microservo trackArgs=0
+        //% trackArgs=0
         setPulse(micros: number) {
             micros = micros | 0;
             micros = Math.clamp(500, 2500, micros);
