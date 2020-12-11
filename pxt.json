@@ -57,8 +57,8 @@
     },
     "public": true,
     "targetVersions": {
-        "target": "0.14.1",
-        "targetId": "maker"
+        "target": "1.3.20",
+        "targetId": "arcade"
     },
     "supportedTargets": [
         "arcade",

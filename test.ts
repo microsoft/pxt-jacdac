@@ -41,8 +41,3 @@ jacdac.protoTestHost.start()
 jacdac.start()
 jacdac.loggerHost.log("test started")
 jdpackTest()
-forever(function() {
-    pause(5000)
-    console.log("ping")
-})
-
