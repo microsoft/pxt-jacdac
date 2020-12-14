@@ -4,7 +4,7 @@
     "description": "MakeCode support for JACDAC Slider service",
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac-sensor": "github:microsoft/pxt-jacdac/sensor"
     },
     "files": [
         "constants.ts",

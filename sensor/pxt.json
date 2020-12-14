@@ -1,0 +1,14 @@
+{
+    "name": "jacdac-sensor",
+    "version": "0.2.3",
+    "description": "MakeCode support for JACDAC sensors",
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "host.ts"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
