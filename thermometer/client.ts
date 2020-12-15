@@ -13,11 +13,11 @@ enum JDTemperatureUnit {
     Fahrenheit = 1,
 }
 
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class ThermometerClient extends SensorClient {
+    export class ThermometerClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
-            super("temp", SRV_THERMOMETER, requiredDevice);
+            super("temp", jacdac.SRV_THERMOMETER, requiredDevice);
         }
 
         /**

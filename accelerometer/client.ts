@@ -1,11 +1,11 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class AccelerometerClient extends BufferedSensorClient<number[]> {
+    export class AccelerometerClient extends jacdac.BufferedSensorClient<number[]> {
         constructor(requiredDevice: string = null) {
-            super("acc", SRV_ACCELEROMETER, requiredDevice);
+            super("acc", jacdac.SRV_ACCELEROMETER, requiredDevice);
         }
 
-        protected parseSample(packet: JDPacket) {
+        protected parseSample(packet: jacdac.JDPacket) {
             return packet.jdunpack<[number, number, number]>("i6.10 i6.10 i6.10")
         }
 
@@ -69,7 +69,7 @@ namespace jacdac {
          */
         //% blockId=jacadacacconevent block="jacdac %accelerometer on %gesture"
         //% group="Accelerometer"
-        onEvent(gesture: AccelerometerEvent, handler: () => void) {
+        onEvent(gesture: jacdac.AccelerometerEvent, handler: () => void) {
             this.registerEvent(gesture, handler);
         }
     }

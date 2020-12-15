@@ -34,4 +34,3 @@ namespace jacdac {
         LongClick = 0x4,
     }
 
-}

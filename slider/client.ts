@@ -1,8 +1,8 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class SliderClient extends SensorClient {
+    export class SliderClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
-            super("slider", SRV_SLIDER, requiredDevice);
+            super("slider", jacdac.SRV_SLIDER, requiredDevice);
         }
 
         /**

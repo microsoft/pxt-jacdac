@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     class ToneToPlay {
         constructor(public payload: Buffer, public timestamp: number) { }
     }
@@ -59,9 +59,9 @@ namespace jacdac {
     }
 
     //% fixedInstances
-    export class BuzzerClient extends Client {
+    export class BuzzerClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
-            super("mus", SRV_BUZZER, requiredDevice);
+            super("mus", jacdac.SRV_BUZZER, requiredDevice);
         }
 
         private player: JDMelodyPlayer
@@ -83,7 +83,7 @@ namespace jacdac {
         //% weight=76 blockGap=8
         //% group="Music"
         playTone(frequency: number, ms: number, volume = 255): void {
-            this.sendCommand(JDPacket.from(BuzzerCmd.PlayTone, tonePayload(frequency, ms, volume << 2)))
+            this.sendCommand(jacdac.JDPacket.from(jacdac.BuzzerCmd.PlayTone, tonePayload(frequency, ms, volume << 2)))
         }
     }
 

@@ -1,6 +1,6 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class RotaryEncoderClient extends SensorClient {
+    export class RotaryEncoderClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
             super("crank", SRV_ROTARY_ENCODER, requiredDevice);
         }
@@ -48,7 +48,7 @@ namespace jacdac {
          */
         //% blockId=jacadacrotaryencoderonevent block="jacdac %client on %event"
         //% group="Light sensor"
-        onEvent(event: RoleManagerEvent, handler: () => void) {
+        onEvent(event: jacdac.RoleManagerEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }
     }

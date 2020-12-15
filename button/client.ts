@@ -1,9 +1,9 @@
-namespace jacdac {
+namespace modules {
     const INTERNAL_KEY_UP = 2050;
     const INTERNAL_KEY_DOWN = 2051;
 
     //% fixedInstances
-    export class ButtonClient extends SensorClient {
+    export class ButtonClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
             super("btn", SRV_BUTTON, requiredDevice);
         }
@@ -34,12 +34,11 @@ namespace jacdac {
          */
         //% blockId=jacadacbtnonevent block="jacdac %button on %event"
         //% group="Buttons"
-        onEvent(event: ButtonEvent, handler: () => void) {
+        onEvent(event: jacdac.ButtonEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }
     }
 
     //% fixedInstance whenUsed block="button client"
     export const buttonClient = new ButtonClient();
-
 }
