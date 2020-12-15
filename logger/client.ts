@@ -1,6 +1,5 @@
 namespace jacdac {
-
-    export class ConsoleClient extends Client {
+    export class LoggerClient extends Client {
         minPriority = LoggerPriority.Error + 1; // drop all packets by default
 
         onMessageReceived: (priority: number, dev: Device, message: string) => void;

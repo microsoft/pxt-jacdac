@@ -1,8 +1,8 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class MicrophoneClient extends SensorClient {
+    export class MicrophoneClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
-            super("mic", SRV_MICROPHONE, requiredDevice);
+            super("mic", jacdac.SRV_MICROPHONE, requiredDevice);
         }
 
         /**
@@ -39,6 +39,6 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="microphone client"
-    export const microphoneClient = new MicrophoneClient();
+    //% fixedInstance whenUsed
+    export const microphone = new MicrophoneClient();
 }
