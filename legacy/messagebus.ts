@@ -93,7 +93,7 @@ namespace jacdac {
      * @param msg 
      * @param handler 
      */
-    //% blockId=jacdacOnMessageReceived block="on jacdac $msg received"
+    //% blockId=jacdacOnMessageReceived block="on $msg received"
     //% msg.shadow=jacdacMessageCode draggableParameters
     //% weight=199
     //% help=jacdac/on-received-message
