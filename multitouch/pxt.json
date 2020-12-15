@@ -1,6 +1,6 @@
 {
     "name": "jacdac-multitouch",
-    "version": "0.2.3",
+    "version": "0.2.6",
     "description": "MakeCode support for JACDAC Multi Touch service",
     "files": [
         "constants.ts",

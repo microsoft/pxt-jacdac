@@ -1,6 +1,6 @@
 {
     "name": "jacdac-accelerometer",
-    "version": "0.2.3",
+    "version": "0.2.6",
     "description": "MakeCode support for JACDAC Accelerometer service",
     "files": [
         "constants.ts",
