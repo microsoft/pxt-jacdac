@@ -119,17 +119,16 @@ namespace jacdac {
         }
     }
 
-    function jdunpackCore(buf: Buffer, fmt: string, repeat: number) {
+    function jdunpackCore(buf: Buffer, fmt: string, off: number, repeat: number) {
         const repeatRes: any[][] = repeat ? [] : null
         let res: any[] = []
-        let off = 0
         let fp0 = 0
         const parser = new TokenParser(fmt)
         if (repeat && buf.length == 0)
             return []
         while (parser.parse()) {
             if (parser.isArray && !repeat) {
-                res.push(jdunpackCore(bufferSlice(buf, off, buf.length), fmt.slice(fp0), 1))
+                res.push(jdunpackCore(bufferSlice(buf, off, buf.length), fmt.slice(fp0), 0, 1))
                 return res
             }
 
@@ -162,7 +161,7 @@ namespace jacdac {
                 } else if (c0 == ch_x) {
                     // skip padding
                 } else if (c0 == ch_r) {
-                    res.push(jdunpackCore(subbuf, fmt.slice(fp0), 2))
+                    res.push(jdunpackCore(subbuf, fmt.slice(fp0), 0, 2))
                     break
                 } else {
                     throw (`whoops`)
@@ -193,16 +192,15 @@ namespace jacdac {
         }
     }
 
-    export function jdunpack<T extends any[]>(buf: Buffer, fmt: string): T {
-        if (!buf || !fmt)
+    export function jdunpack<T extends any[]>(buf: Buffer, fmt: string, offset: number = 0): T {
+        if (!buf || !fmt || offset < 0)
             return [] as T;
-
+            
         // shortcut: crashes makecode
         //const storage = numberFormatOfType(fmt);
         //if (storage)
         //    return [buf.getNumber(storage, 0)] as T;
-
-        return jdunpackCore(buf, fmt, 0) as T
+        return jdunpackCore(buf, fmt, offset, 0) as T
     }
 
     function jdpackCore(trg: Buffer, fmt: string, data: any[], off: number) {
