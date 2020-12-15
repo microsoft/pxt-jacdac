@@ -8,8 +8,7 @@
     ],
     "supportedTargets": [
         "arcade",
-        "maker",
-        "microbit"
+        "maker"
     ],
     "dependencies": {
         "core": "*",
