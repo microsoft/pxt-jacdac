@@ -16,6 +16,10 @@ namespace jacdac {
          * updated in 3000ms, and also keep the lowest setting they have seen in the last 1500ms.
          * Thus, clients should write this register every 1000ms and ignore messages which are
          * too verbose for them.
+         *
+         * ```
+         * const [minPriority] = jdunpack<[LoggerPriority]>(buf, "u8")
+         * ```
          */
         MinPriority = 0x80,
     }
@@ -23,21 +27,37 @@ namespace jacdac {
     export const enum LoggerCmd {
         /**
          * Argument: message string (bytes). Report a message.
+         *
+         * ```
+         * const [message] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         Debug = 0x80,
 
         /**
          * Argument: message string (bytes). Report a message.
+         *
+         * ```
+         * const [message] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         Log = 0x81,
 
         /**
          * Argument: message string (bytes). Report a message.
+         *
+         * ```
+         * const [message] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         Warn = 0x82,
 
         /**
          * Argument: message string (bytes). Report a message.
+         *
+         * ```
+         * const [message] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         Error = 0x83,
     }

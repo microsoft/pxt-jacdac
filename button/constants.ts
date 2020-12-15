@@ -4,6 +4,10 @@ namespace jacdac {
     export const enum ButtonReg {
         /**
          * Read-only bool (uint8_t). Indicates whether the button is currently active (pressed).
+         *
+         * ```
+         * const [pressed] = jdunpack<[number]>(buf, "u8")
+         * ```
          */
         Pressed = 0x101,
     }

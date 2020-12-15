@@ -10,8 +10,19 @@ namespace jacdac {
     export const enum TcpCmd {
         /**
          * Argument: inbound pipe (bytes). Open pair of pipes between network peripheral and a controlling device. In/outbound refers to direction from/to internet.
+         *
+         * ```
+         * const [inbound] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
          */
         Open = 0x80,
+
+        /**
+         * report Open
+         * ```
+         * const [outboundPort] = jdunpack<[number]>(buf, "u16")
+         * ```
+         */
     }
 
     export const enum TcpPipeCmd {
@@ -28,8 +39,28 @@ namespace jacdac {
 
         /**
          * Argument: error TcpError (int32_t). Reported when an error is encountered. Negative error codes come directly from the SSL implementation.
+         *
+         * ```
+         * const [error] = jdunpack<[TcpTcpError]>(buf, "i32")
+         * ```
          */
         Error = 0x0,
     }
+
+
+    /**
+     * pipe_command Outdata
+     * ```
+     * const [data] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
+    /**
+     * pipe_report Indata
+     * ```
+     * const [data] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
 
 }
