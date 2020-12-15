@@ -19,6 +19,10 @@ namespace jacdac {
         /**
          * Read-write μs uint32_t. Get or set microphone sampling period.
          * Sampling rate is `1_000_000 / sampling_period Hz`.
+         *
+         * ```
+         * const [samplingPeriod] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         SamplingPeriod = 0x80,
     }

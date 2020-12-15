@@ -4,6 +4,10 @@ namespace jacdac {
     export const enum RoleManagerReg {
         /**
          * Read-only bool (uint8_t). Indicates if all required roles have been allocated to devices.
+         *
+         * ```
+         * const [allRolesAllocated] = jdunpack<[number]>(buf, "u8")
+         * ```
          */
         AllRolesAllocated = 0x181,
     }
@@ -11,6 +15,10 @@ namespace jacdac {
     export const enum RoleManagerCmd {
         /**
          * Argument: device_id devid (uint64_t). Get the role corresponding to given device identifer. Returns empty string if unset.
+         *
+         * ```
+         * const [deviceId] = jdunpack<[Buffer]>(buf, "b[8]")
+         * ```
          */
         GetRole = 0x80,
 
@@ -37,11 +45,19 @@ namespace jacdac {
 
         /**
          * Argument: stored_roles pipe (bytes). Return all roles stored internally.
+         *
+         * ```
+         * const [storedRoles] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
          */
         ListStoredRoles = 0x82,
 
         /**
          * Argument: required_roles pipe (bytes). List all roles required by the current program. `device_id` is `0` if role is unbound.
+         *
+         * ```
+         * const [requiredRoles] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
          */
         ListRequiredRoles = 0x83,
     }

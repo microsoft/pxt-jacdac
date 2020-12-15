@@ -25,21 +25,37 @@ namespace jacdac {
 
         /**
          * Read-only uint32_t. Number of input samples collected so far.
+         *
+         * ```
+         * const [numSamples] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         NumSamples = 0x180,
 
         /**
          * Read-only B uint8_t. Size of a single sample.
+         *
+         * ```
+         * const [sampleSize] = jdunpack<[number]>(buf, "u8")
+         * ```
          */
         SampleSize = 0x181,
 
         /**
          * Read-write uint32_t. When set to `N`, will stream `N` samples as `current_sample` reading.
+         *
+         * ```
+         * const [streamingSamples] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         StreamingSamples = 0x81,
 
         /**
          * Read-only bytes. Last collected sample.
+         *
+         * ```
+         * const [currentSample] = jdunpack<[Buffer]>(buf, "b")
+         * ```
          */
         CurrentSample = 0x101,
     }

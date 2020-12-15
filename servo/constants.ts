@@ -4,11 +4,19 @@ namespace jacdac {
     export const enum ServoReg {
         /**
          * Read-write μs uint32_t. Specifies length of the pulse in microseconds. The period is always 20ms.
+         *
+         * ```
+         * const [pulse] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         Pulse = 0x2,
 
         /**
          * Read-write bool (uint8_t). Turn the power to the servo on/off.
+         *
+         * ```
+         * const [enabled] = jdunpack<[number]>(buf, "u8")
+         * ```
          */
         Enabled = 0x1,
     }
