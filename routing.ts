@@ -120,7 +120,7 @@ namespace jacdac {
             } else {
                 if (register >> 8 == 0x1)
                     return current // read-only
-                const v = pkt.unjdpack(fmt);
+                const v = pkt.jdunpack(fmt);
                 if (v[0] !== current) {
                     this.stateUpdated = true
                     current = v[0]
