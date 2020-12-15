@@ -13,7 +13,7 @@ enum JDTemperatureUnit {
     Fahrenheit = 1,
 }
 
-namespace modules {
+namespace jacdac {
     //% fixedInstances
     export class ThermometerClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
@@ -50,7 +50,8 @@ namespace modules {
             this.registerEvent(condition, handler)
         }
     }
-
+}
+namespace modules {
     //% fixedInstance whenUsed block="thermometer client"
-    export const thermometerClient = new ThermometerClient();
+    export const thermometerClient = new jacdac.ThermometerClient();
 }

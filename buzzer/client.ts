@@ -1,4 +1,4 @@
-namespace modules {
+namespace jacdac {
     class ToneToPlay {
         constructor(public payload: Buffer, public timestamp: number) { }
     }
@@ -86,7 +86,8 @@ namespace modules {
             this.sendCommand(jacdac.JDPacket.from(jacdac.BuzzerCmd.PlayTone, tonePayload(frequency, ms, volume << 2)))
         }
     }
-
+}
+namespace modules {
     //% fixedInstance whenUsed
-    export const buzzer = new BuzzerClient();
+    export const buzzer = new jacdac.BuzzerClient();
 }

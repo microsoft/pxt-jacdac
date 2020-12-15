@@ -1,4 +1,4 @@
-namespace modules {
+namespace jacdac {
     //% fixedInstances
     export class MicrophoneClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
@@ -38,7 +38,8 @@ namespace modules {
             this.setThreshold(false, value);
         }
     }
-
+}
+namespace modules {
     //% fixedInstance whenUsed
-    export const microphone = new MicrophoneClient();
+    export const microphone = new jacdac.MicrophoneClient();
 }

@@ -1,4 +1,4 @@
-namespace modules {
+namespace jacdac {
     //% fixedInstances
     export class AccelerometerClient extends jacdac.BufferedSensorClient<number[]> {
         constructor(requiredDevice: string = null) {
@@ -73,7 +73,8 @@ namespace modules {
             this.registerEvent(gesture, handler);
         }
     }
-
+}
+namespace modules {
     //% fixedInstance whenUsed
-    export const accelerometer = new AccelerometerClient();
+    export const accelerometer = new jacdac.AccelerometerClient();
 }

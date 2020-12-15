@@ -1,4 +1,4 @@
-namespace modules {
+namespace jacdac {
     //% fixedInstances
     export class RotaryEncoderClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
@@ -52,10 +52,11 @@ namespace modules {
             this.registerEvent(event, handler);
         }
     }
-
+}
+namespace modules {
     /**
      * Default rotary encoder
      */
     //% fixedInstance
-    export const rotaryEncoder = new RotaryEncoderClient();
+    export const rotaryEncoder = new jacdac.RotaryEncoderClient();
 }

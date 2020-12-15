@@ -1,4 +1,4 @@
-namespace modules {
+namespace jacdac {
     //% fixedInstances
     export class MotorClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
@@ -29,7 +29,8 @@ namespace modules {
             }
         }
     }
-
+}
+namespace modules {
     //% fixedInstance whenUsed
-    export const motor = new MotorClient();
+    export const motor = new jacdac.MotorClient();
 }
