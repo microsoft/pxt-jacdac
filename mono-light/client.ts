@@ -13,17 +13,10 @@ namespace modules {
         export const blink = new MonoLightAnimation(hex`ffff f401 ffff 0100 0000 fd01`)
     }
 
-    enum PwmReg {
-        CurrIteration = 0x80,
-        MaxIterations = 0x81,
-        Steps = 0x82,
-        MaxSteps = 0x180,
-    }
-
     //% fixedInstances
     export class MonoLightClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
-            super("pwml", jacdac.SRV_PWM_LIGHT, requiredDevice);
+            super("pwml", jacdac.SRV_MONO_LIGHT, requiredDevice);
         }
 
         // set to negative for infinity
@@ -31,11 +24,11 @@ namespace modules {
             numIters |= 0
             if (numIters < 0 || numIters >= 0xffff) numIters = 0xffffffff
             else if (numIters) numIters--
-            this.setRegInt(PwmReg.MaxIterations, numIters)
+            this.setRegInt(jacdac.MonoLightReg.MaxIterations, numIters)
         }
 
         setBrightness(brightness: number): void {
-            this.setRegInt(jacdac.SystemReg.Intensity, brightness << 8)
+            this.setRegInt(jacdac.MonoLightReg.Brightness, brightness << 8)
         }
 
         showAnimation(animation: MonoLightAnimation, speed = 100) {
@@ -48,7 +41,7 @@ namespace modules {
                     anim.setNumber(NumberFormat.UInt16LE, i + 2, adj)
                 }
             }
-            this.setRegBuffer(PwmReg.Steps, anim)
+            this.setRegBuffer(jacdac.MonoLightReg.Steps, anim)
         }
     }
 

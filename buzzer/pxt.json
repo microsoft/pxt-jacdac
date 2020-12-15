@@ -6,6 +6,10 @@
         "constants.ts",
         "client.ts"
     ],
+    "supportedTargets": [
+        "arcade",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "mixer": "*",

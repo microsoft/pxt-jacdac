@@ -18,7 +18,9 @@
         "targetId": "maker"
     },
     "supportedTargets": [
-        "maker"
+        "arcade",
+        "maker",
+        "microbit"
     ],
     "preferredEditor": "tsprj"
 }

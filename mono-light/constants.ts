@@ -1,7 +1,7 @@
 namespace jacdac {
-    // Service: PWM Light
-    export const SRV_PWM_LIGHT = 0x1fb57453
-    export const enum PwmLightReg {
+    // Service: Mono Light
+    export const SRV_MONO_LIGHT = 0x1fb57453
+    export const enum MonoLightReg {
         /**
          * Read-write ratio uint16_t. Set the luminosity of the strip. The value is used to scale `start_intensity` in `steps` register.
          * At `0` the power to the strip is completely shut down.
