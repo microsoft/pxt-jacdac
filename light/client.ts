@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     function cmdCode(cmd: string) {
         switch (cmd) {
             case "setall": return 0xD0
@@ -414,8 +414,8 @@ namespace jacdac {
             }
         }
     }
-}
-namespace modules {
+
+
     //% fixedInstance whenUsed block="light client"
-    export const lightClient = new jacdac.LightClient();
+    export const lightClient = new LightClient();
 }

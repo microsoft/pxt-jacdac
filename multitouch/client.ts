@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     /**
      * A client of multiple buttons
      */
@@ -29,8 +29,7 @@ namespace jacdac {
             this.registerHandler(event, handler);
         }
     }
-}
-namespace modules {
+
     //% fixedInstance whenUsed
-    export const multiTouch = new jacdac.MultiTouchClient();
+    export const multiTouch = new MultiTouchClient();
 }

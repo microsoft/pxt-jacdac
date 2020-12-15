@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
     export class SliderClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
@@ -20,11 +20,10 @@ namespace jacdac {
             return v / 0x10000
         }
     }
-}
-namespace modules {
+
     /**
      * Default slider
      */
     //% fixedInstance
-    export const slider = new jacdac.SliderClient();
+    export const slider = new SliderClient();
 }

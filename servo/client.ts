@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
     export class ServoClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
@@ -91,8 +91,7 @@ namespace jacdac {
             this.sync(micros)
         }
     }
-}
-namespace modules {
+
     //% fixedInstance whenUsed
-    export const servo = new jacdac.ServoClient();
+    export const servo = new ServoClient();
 }

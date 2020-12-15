@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
     export class MonoLightAnimation {
         constructor(public buffer: Buffer) { }
@@ -51,8 +51,7 @@ namespace jacdac {
             this.setRegBuffer(PwmReg.Steps, anim)
         }
     }
-}
-namespace modules {
+
     //% fixedInstance whenUsed
-    export const monoLight = new jacdac.MonoLightClient();
+    export const monoLight = new MonoLightClient();
 }

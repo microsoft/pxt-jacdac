@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     const INTERNAL_KEY_UP = 2050;
     const INTERNAL_KEY_DOWN = 2051;
 
@@ -39,8 +39,6 @@ namespace jacdac {
         }
     }
 
-}
-namespace modules {
     //% fixedInstance whenUsed
-    export const button = new jacdac.ButtonClient();
+    export const button = new ButtonClient();
 }
