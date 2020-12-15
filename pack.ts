@@ -197,10 +197,10 @@ namespace jacdac {
         if (!buf || !fmt)
             return [] as T;
 
-        // shortcut
-        const storage = numberFormatOfType(fmt);
-        if (storage)
-            return [buf.getNumber(storage, 0)] as T;
+        // shortcut: crashes makecode
+        //const storage = numberFormatOfType(fmt);
+        //if (storage)
+        //    return [buf.getNumber(storage, 0)] as T;
 
         return jdunpackCore(buf, fmt, 0) as T
     }
@@ -284,20 +284,19 @@ namespace jacdac {
     export function jdpack<T extends any[]>(fmt: string, data: T): Buffer {
         if (!fmt || !data)
             return undefined;
-        
-        // shortcut
-        const storage = numberFormatOfType(fmt);
-        if (storage) {
-            const len = Buffer.sizeOfNumberFormat(storage)
-            const buf = Buffer.create(len)
-            buf.setNumber(storage, 0, data[0] || 0);
-            return buf;
-        }
-        else {
-            const len = jdpackCore(null, fmt, data, 0)
-            const res = Buffer.create(len)
-            jdpackCore(res, fmt, data, 0)
-            return res
-        }
+
+        // shortcut crashes makecode
+        //const storage = numberFormatOfType(fmt);
+        //if (storage) {
+        //    const len = Buffer.sizeOfNumberFormat(storage)
+        //    const buf = Buffer.create(len)
+        //    buf.setNumber(storage, 0, data[0] || 0);
+        //    return buf;
+        //}
+
+        const len = jdpackCore(null, fmt, data, 0)
+        const res = Buffer.create(len)
+        jdpackCore(res, fmt, data, 0)
+        return res
     }
 }
