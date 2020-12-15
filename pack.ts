@@ -128,7 +128,7 @@ namespace jacdac {
             return []
         while (parser.parse()) {
             if (parser.isArray && !repeat) {
-                res.push(jdunpackCore(bufferSlice(buf, off, buf.length), fmt.slice(fp0), 0, 1))
+                res.push(jdunpackCore(buf, fmt.slice(fp0), off, 1))
                 return res
             }
 
