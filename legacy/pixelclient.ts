@@ -22,7 +22,7 @@ namespace jacdac {
          * Set the on-board pixel to a given color.
          * @param color RGB color of the LED
          */
-        //% blockId="jadacpixelsetcolor" block="jacdac set %pixel color %rgb=colorNumberPicker"
+        //% blockId="jadacpixelsetcolor" block="set %pixel color %rgb=colorNumberPicker"
         //% weight=99
         //% blockGap=8
         //% group="Pixel"

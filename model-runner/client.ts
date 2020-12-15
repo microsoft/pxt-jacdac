@@ -48,7 +48,7 @@ namespace jacdac {
          * Run code when a specific even is detected in input data.
          */
         //% group="Machine Learning"
-        //% blockId=jacadacmrundetect block="jacdac %client on ML class %classId detected"
+        //% blockId=jacadacmrundetect block="%client on ML class %classId detected"
         onDetection(classId: number, handler: () => void) {
             this.autoStart()
             this.registerEvent(classId + 1000, handler);

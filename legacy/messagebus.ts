@@ -77,7 +77,7 @@ namespace jacdac {
      * Broadcasts a message over JacDac
      * @param msg 
      */
-    //% blockId=jacdacBroadcastMessage block="jacdac send $msg"
+    //% blockId=jacdacBroadcastMessage block="send $msg"
     //% msg.shadow=jacdacMessageCode draggableParameters
     //% weight=200
     //% blockGap=8

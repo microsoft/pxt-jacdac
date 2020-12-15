@@ -41,7 +41,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacthermoonevent block="jacdac %lightsensor on %lightCondition"
+        //% blockId=jacadacthermoonevent block="$client on $condition at $temperature $unit"
         //% group="Thermometer"
         onTemperatureConditionChanged(condition: JDTemperatureCondition, temperature: number, unit: JDTemperatureUnit, handler: () => void): void {
             if (unit == JDTemperatureUnit.Fahrenheit)

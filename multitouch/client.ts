@@ -10,7 +10,7 @@ namespace modules {
         /**
          * Reads the current capacitance
          */
-        //% blockId=jdmultitouchvalue block="jacdac %button value"
+        //% blockId=jdmultitouchvalue block="%button value"
         //% group="Touch"
         value(index: number): number {
             const s = this.state;
@@ -23,7 +23,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jdmulittouchevent block="jacdac %client on %event"
+        //% blockId=jdmulittouchevent block="%client on %event"
         //% group="Touch"
         onEvent(event: jacdac.MultitouchEvent, handler: (idx: number) => void) {
             this.registerHandler(event, handler);

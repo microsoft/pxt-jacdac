@@ -15,7 +15,7 @@ namespace jacdac {
         /**
          * Reads the current x value from the sensor
          */
-        //% blockId=jacdaclightsensorlevel block="jacdac %lightsensor light level"
+        //% blockId=jacdaclightsensorlevel block="%lightsensor light level"
         //% group="Light sensor"
         get lightLevel(): number {
             const s = this.state;
@@ -28,7 +28,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadaclightsensoronevent block="jacdac %client on %event"
+        //% blockId=jacadaclightsensoronevent block="%client on %event"
         //% group="Light sensor"
         onEvent(event: JDLightCondition, handler: () => void) {
             this.registerEvent(event, handler);
@@ -39,7 +39,7 @@ namespace jacdac {
          * @param level 
          * @param value 
          */
-        //% blockId=jacdaclightsetthrshold block="jacdac %lightsensor set threshold %level to %value"
+        //% blockId=jacdaclightsetthrshold block="%lightsensor set threshold %level to %value"
         //% group="Light sensor"
         setLightConditionThreshold(level: JDLightCondition, value: number) {
             this.setThreshold(level == JDLightCondition.Dark, value);

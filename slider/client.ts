@@ -8,7 +8,7 @@ namespace modules {
         /**
          * Gets the position of the slider
          */
-        //% blockId=jacdacsliderposition block="jacdac %slider position"
+        //% blockId=jacdacsliderposition block="%slider position"
         //% group="Slider"
         get position(): number {
             if (!this.started) {
