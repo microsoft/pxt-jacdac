@@ -8,7 +8,7 @@ namespace jacdac {
         /**
          * Reads the current x value from the sensor
          */
-        //% blockId=jacdacswitchright block="jacdac %switch right"
+        //% blockId=jacdacswitchright block="%switch right"
         //% group="Switch"
         right(): boolean {
             const s = this.state;
@@ -21,7 +21,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacdacswitchonevent block="jacdac %switch on %event"
+        //% blockId=jacdacswitchonevent block="%switch on %event"
         //% group="Switch"
         onEvent(event: SwitchDirection, handler: () => void) {
             this.registerEvent(event, handler);

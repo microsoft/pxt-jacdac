@@ -6,6 +6,11 @@
         "constants.ts",
         "client.ts"
     ],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit"
+    ],
     "dependencies": {
         "core": "*",
         "net": "*",

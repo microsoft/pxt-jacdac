@@ -42,7 +42,7 @@ namespace modules {
          * Reads a value of the sensor
          * @param dimension which channel to read
          */
-        //% blockId=jacdacaccget block="jacdac %accelerometer %dimension"
+        //% blockId=jacdacaccget block="%accelerometer %dimension"
         //% group="Accelerometer" weight=5
         get(dimension: JDDimension): number {
             const s = this.state;
@@ -67,7 +67,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacacconevent block="jacdac %accelerometer on %gesture"
+        //% blockId=jacadacacconevent block="%accelerometer on %gesture"
         //% group="Accelerometer"
         onEvent(gesture: jacdac.AccelerometerEvent, handler: () => void) {
             this.registerEvent(gesture, handler);

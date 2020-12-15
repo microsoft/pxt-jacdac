@@ -5,6 +5,11 @@
     "files": [
         "constants.ts"
     ],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"

@@ -8,7 +8,7 @@ namespace jacdac {
         /**
          * Reads the current x value from the sensor
          */
-        //% blockId=jacadactouchispressed block="jacdac %button value"
+        //% blockId=jacadactouchispressed block="%button value"
         //% group="Touch"
         value(): number {
             const s = this.state;
@@ -21,7 +21,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadactouchonevent block="jacdac %button on %event"
+        //% blockId=jacadactouchonevent block="%button on %event"
         //% group="Touch"
         onEvent(event: JDButtonEvent, handler: () => void) {
             this.registerEvent(event, handler);
@@ -42,7 +42,7 @@ namespace jacdac {
         /**
          * Reads the current x value from the sensor
          */
-        //% blockId=jdtoubhbuttonsvalue block="jacdac %button value"
+        //% blockId=jdtoubhbuttonsvalue block="%button value"
         //% group="Touch"
         value(index: number): number {
             const s = this.state;
@@ -55,7 +55,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jdtouchbuttonsevent block="jacdac %client %index on %event"
+        //% blockId=jdtouchbuttonsevent block="%client %index on %event"
         //% group="Touch"
         onEvent(index: number, event: JDButtonEvent, handler: () => void) {
             const j = jacdac.BUTTON_EVENTS.indexOf(<number>event);
