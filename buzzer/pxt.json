@@ -10,5 +10,9 @@
         "core": "*",
         "mixer": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "mixer---stm32": "*",
+        "nucleo-f411re": "*"
     }
 }
