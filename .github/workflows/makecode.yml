@@ -23,7 +23,9 @@ jobs:
           path: |
             ~/.npm
             ~/.pxt/mkc-cache
-          key: ${{ runner.os }}-${{ hashFiles('package.json') }}-${{ hashFiles('mkc*json') }}
+          key: ${{ runner.os }}-${{ hashFiles('pxt.json') }}-${{ hashFiles('mkc*json') }}
+          restore-keys: |
+            ${{ runner.os }}-
       - name: npm install
         run: |
           npm install -g makecode
