@@ -1,6 +1,6 @@
 {
     "name": "jacdac-light",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "description": "MakeCode support for JACDAC Light service",
     "files": [
         "constants.ts",

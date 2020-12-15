@@ -1,6 +1,6 @@
 {
     "name": "jacdac-model-runner",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "description": "MakeCode support for JACDAC Model runner service",
     "files": [
         "constants.ts",
