@@ -177,9 +177,8 @@ namespace jacdac {
             const devs: RemoteRequestedDevice[] = []
 
             inp.readList(buf => {
-                const [devidbuf, service_class] = jdunpack(buf, "b[8] u32")
+                const [devidbuf, service_class, name] = jdunpack<[Buffer, number, string]>(buf, "b[8] u32 s")
                 const devid = devidbuf.toHex();
-                const name = buf.slice(12).toString()
                 const r = addRequested(devs, name, service_class, this)
                 const dev = localDevs.find(d => d.deviceId == devid)
                 if (dev)
