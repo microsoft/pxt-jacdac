@@ -34,7 +34,7 @@ namespace modules {
                 const delta = e.timestamp - now
                 if (delta > 0)
                     pause(delta)
-                this.musicClient.sendCommand(JDPacket.from(BuzzerCmd.PlayTone, e.payload))
+                this.musicClient.sendCommand(jacdac.JDPacket.from(jacdac.BuzzerCmd.PlayTone, e.payload))
             }
         }
 
