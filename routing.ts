@@ -104,9 +104,28 @@ namespace jacdac {
             }
         }
 
-        /**
-         * Single value register helper
-         */
+        protected handleRegFormat<T extends any[]>(pkt: JDPacket, register: number, fmt: string, current: T): T {
+            const getset = pkt.service_command >> 12
+            if (getset == 0 || getset > 2)
+                return current
+            const reg = pkt.service_command & 0xfff
+            if (reg != register)
+                return current
+            if (getset == 1) {
+                this.sendReport(JDPacket.jdpacked(pkt.service_command, fmt, current))
+            } else {
+                if (register >> 8 == 0x1)
+                    return current // read-only
+                const v = pkt.jdunpack<T>(fmt)
+                if (!jdpackEqual<T>(fmt, v, current)) {
+                    this.stateUpdated = true
+                    current = v
+                }
+            }
+            return current
+        }
+
+        // only use for numbers
         protected handleRegValue<T>(pkt: JDPacket, register: number, fmt: string, current: T): T {
             const getset = pkt.service_command >> 12
             if (getset == 0 || getset > 2)
@@ -129,53 +148,19 @@ namespace jacdac {
             return current
         }
 
-        protected handleRegFormat<T extends any[]>(pkt: JDPacket, register: number, fmt: string, current: T): T {
-            const getset = pkt.service_command >> 12
-            if (getset == 0 || getset > 2)
-                return current
-            const reg = pkt.service_command & 0xfff
-            if (reg != register)
-                return current
-            if (getset == 1) {
-                this.sendReport(JDPacket.jdpacked(pkt.service_command, fmt, current))
-            } else {
-                if (register >> 8 == 0x1)
-                    return current // read-only
-                const v = pkt.jdunpack<T>(fmt)
-                if (!jdpackEqual<T>(fmt, v, current)) {
-                    this.stateUpdated = true
-                    current = v
-                }
-            }
-            return current
-        }
-
         protected handleRegBool(pkt: JDPacket, register: number, current: boolean): boolean {
-            const [res] = this.handleRegFormat(pkt, register, "u8", [current ? 1 : 0]);
+            const res = this.handleRegValue(pkt, register, "u8", current ? 1 : 0);
             return !!res;
         }
 
-        protected handleRegInt(pkt: JDPacket, register: number, current: number): number {
-            const getset = pkt.service_command >> 12
-            if (getset == 0 || getset > 2)
-                return current
-            const reg = pkt.service_command & 0xfff
-            if (reg != register)
-                return current
-            if (!current)
-                current = 0 // make sure there's no null/undefined
-            if (getset == 1) {
-                this.sendReport(JDPacket.packed(pkt.service_command, "i", [current >> 0]))
-            } else {
-                if (register >> 8 == 0x1)
-                    return current // read-only
-                const v = pkt.intData
-                if (v != current) {
-                    this.stateUpdated = true
-                    current = v
-                }
-            }
-            return current
+        protected handleRegInt32(pkt: JDPacket, register: number, current: number): number {
+            const res = this.handleRegValue(pkt, register, "i32", current >> 0);
+            return res;
+        }
+
+        protected handleRegUInt32(pkt: JDPacket, register: number, current: number): number {
+            const res = this.handleRegValue(pkt, register, "u32", current >> 0);
+            return res;
         }
 
         protected handleRegBuffer(pkt: JDPacket, register: number, current: Buffer): Buffer {
@@ -386,15 +371,10 @@ namespace jacdac {
                 throw "No ACK"
         }
 
-        sendPackedCommand(service_command: number, fmt: string, nums: number[]) {
-            const pkt = JDPacket.packed(service_command, fmt, nums)
-            this.sendCommand(pkt)
-        }
-
         // this will be re-sent on (re)attach
         setRegInt(reg: number, value: number) {
             this.start()
-            this.config.send(JDPacket.packed(CMD_SET_REG | reg, "i", [value]))
+            this.config.send(JDPacket.jdpacked(CMD_SET_REG | reg, "i32", [value]))
         }
 
         setRegBuffer(reg: number, value: Buffer) {

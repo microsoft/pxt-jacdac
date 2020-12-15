@@ -41,8 +41,8 @@ namespace jacdac {
         }
 
         constructor(parent: SensorAggregatorHost, config: Buffer) {
-            const [serviceClass, serviceNum, sampleSize, sampleType, sampleShift] = config.unpack("IBBBb", 8)
-            const devId = config.getNumber(NumberFormat.Int32LE, 0) == 0 ? null : config.slice(0, 8).toHex()
+            const [devIdBuf, serviceClass, serviceNum, sampleSize, sampleType, sampleShift] = jdunpack(config, "b[8] u32 u8 u8 u8 b")
+            const devId = devIdBuf.getNumber(NumberFormat.Int32LE, 0) == 0 ? null : devIdBuf.toHex()
             super("aggcoll", serviceClass, devId)
             this.requiredServiceNum = serviceNum
             this.sampleType = sampleType
@@ -160,7 +160,7 @@ namespace jacdac {
             }
             */
 
-            [this.samplingInterval] = config.unpack("H")
+            [this.samplingInterval] = jdunpack(config, "u16")
             const entrySize = 16
             let off = 8
             for (const coll of this.collectors || [])
@@ -186,9 +186,9 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            this.handleRegInt(packet, SensorAggregatorReg.NumSamples, this.numSamples)
-            this.handleRegInt(packet, SensorAggregatorReg.SampleSize, this.sampleSize)
-            this.streamSamples = this.handleRegInt(packet, SensorAggregatorReg.StreamingSamples, this.streamSamples)
+            this.handleRegUInt32(packet, SensorAggregatorReg.NumSamples, this.numSamples)
+            this.handleRegValue(packet, SensorAggregatorReg.SampleSize, "u8", this.sampleSize)
+            this.streamSamples = this.handleRegUInt32(packet, SensorAggregatorReg.StreamingSamples, this.streamSamples)
 
             switch (packet.service_command) {
                 case SensorAggregatorReg.Inputs | CMD_GET_REG:

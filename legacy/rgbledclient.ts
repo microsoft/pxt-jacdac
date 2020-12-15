@@ -27,7 +27,7 @@ namespace jacdac {
         //% weight=2 blockGap=8
         //% group="RGBLED"
         setColor(colorCode: number): void {
-            this.sendCommand(JDPacket.packed(JDRGBLEDCommand.SetColor, "I", [colorCode]))
+            this.sendCommand(JDPacket.jdpacked(JDRGBLEDCommand.SetColor, "u32", [colorCode]))
         }
     }
     //% fixedInstance whenUsed block="light client"

@@ -52,17 +52,6 @@ namespace jacdac {
             return JDPacket.from(service_command, Buffer.create(0))
         }
 
-        /**
-         * 
-         * @param service_command 
-         * @param fmt 
-         * @param nums 
-         * @deprecated use jdpacked instead
-         */
-        static packed(service_command: number, fmt: string, nums: number[]) {
-            return JDPacket.from(service_command, Buffer.pack(fmt, nums))
-        }
-
         static jdpacked(service_command: number, fmt: string, nums: any[]) {
             return JDPacket.from(service_command, jdpack(fmt, nums))
         }

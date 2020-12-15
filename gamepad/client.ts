@@ -10,7 +10,7 @@ namespace jacdac {
 
         handlePacket(pkt: JDPacket) {
             if (pkt.service_command == jacdac.SystemCmd.Event) {
-                const [evid, key] = pkt.data.unpack("II")
+                const [evid, key] = jdunpack<[number, number]>(pkt.data, "u32 u32");
                 let evsrc = 0
                 if (evid == 1)
                     evsrc = INTERNAL_KEY_DOWN

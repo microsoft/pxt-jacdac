@@ -6,7 +6,7 @@ namespace modules {
     function tonePayload(frequency: number, ms: number, volume: number) {
         const period = Math.idiv(1000000, frequency)
         const duty = (period * volume) >> 11
-        return Buffer.pack("HHH", [period, duty, ms])
+        return jacdac.jdpack<[number, number, number]>("u16 u16 u16", [period, duty, ms])
     }
 
     class JDMelodyPlayer extends music.MelodyPlayer {
@@ -47,7 +47,8 @@ namespace modules {
                 startPlay = true
             }
             for (let off = 0; off < buf.length - (isize - 1); off += isize) {
-                const [soundWave, flags, frequency, duration, startVolume, endVolume, endFrequency] = buf.unpack("BBHHHHH", off)
+                const [soundWave, flags, frequency, duration, startVolume, endVolume, endFrequency] =
+                    buf.unpack<[number, number, number, number, number, number, number]>("u8 u8 u16 u16 u16 u16 u16", off)
                 const freq = (frequency + endFrequency) >> 1
                 const vol = (startVolume + endVolume) >> 1
                 this.queue.push(new ToneToPlay(tonePayload(freq, duration, vol), timestamp))
