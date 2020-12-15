@@ -26,8 +26,19 @@ namespace jacdac {
 
         /**
          * Argument: session_id uint32_t. The flashing host should generate a random id, and use this command to set it.
+         *
+         * ```
+         * const [sessionId] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         SetSession = 0x81,
+
+        /**
+         * report SetSession
+         * ```
+         * const [sessionId] = jdunpack<[number]>(buf, "u32")
+         * ```
+         */
 
         /**
          * Use to send flashing data. A physical page is split into `chunk_max + 1` chunks, where `chunk_no = 0 ... chunk_max`.

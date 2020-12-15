@@ -1,6 +1,6 @@
 {
     "name": "jacdac",
-    "version": "0.2.3",
+    "version": "0.2.5",
     "description": "JACDAC for MakeCode",
     "dependencies": {
         "core": "*",
@@ -9,7 +9,6 @@
     "files": [
         "README.md",
         "jacdac.svg",
-        "pxtparts.json",
         "jdlow.c",
         "jdlow.h",
         "jdprotocol.h",
@@ -57,12 +56,13 @@
     },
     "public": true,
     "targetVersions": {
-        "target": "0.14.1",
-        "targetId": "maker"
+        "target": "3.1.39",
+        "targetId": "microbit"
     },
     "supportedTargets": [
         "arcade",
-        "maker"
+        "maker",
+        "microbit"
     ],
     "preferredEditor": "tsprj",
     "disablesVariants": [

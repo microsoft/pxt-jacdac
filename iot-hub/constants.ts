@@ -30,17 +30,36 @@ namespace jacdac {
         SendMsgExt = 0x83,
 
         /**
+         * report SendMsgExt
+         * ```
+         * const [message] = jdunpack<[number]>(buf, "u16")
+         * ```
+         */
+
+        /**
          * Argument: devicebound pipe (bytes). Subscribes for cloud to device messages, which will be sent over the specified pipe.
+         *
+         * ```
+         * const [devicebound] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
          */
         Subscribe = 0x84,
 
         /**
          * Argument: twin_result pipe (bytes). Ask for current device digital twin.
+         *
+         * ```
+         * const [twinResult] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
          */
         GetTwin = 0x85,
 
         /**
          * Argument: twin_updates pipe (bytes). Subscribe to updates to our twin.
+         *
+         * ```
+         * const [twinUpdates] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
          */
         SubscribeTwin = 0x87,
 
@@ -50,7 +69,18 @@ namespace jacdac {
         PatchTwin = 0x86,
 
         /**
+         * report PatchTwin
+         * ```
+         * const [patchPort] = jdunpack<[number]>(buf, "u16")
+         * ```
+         */
+
+        /**
          * Argument: method_call pipe (bytes). Subscribe to direct method calls.
+         *
+         * ```
+         * const [methodCall] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
          */
         SubscribeMethod = 0x88,
 
@@ -62,7 +92,65 @@ namespace jacdac {
          * ```
          */
         RespondToMethod = 0x89,
+
+        /**
+         * report RespondToMethod
+         * ```
+         * const [responseBody] = jdunpack<[number]>(buf, "u16")
+         * ```
+         */
     }
+
+
+    /**
+     * pipe_command Message
+     * ```
+     * const [body] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
+    /**
+     * pipe_report Devicebound
+     * ```
+     * const [body] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
+    /**
+     * pipe_report TwinJson
+     * ```
+     * const [json] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
+    /**
+     * pipe_report TwinUpdateJson
+     * ```
+     * const [json] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
+    /**
+     * pipe_command TwinPatchJson
+     * ```
+     * const [json] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
+    /**
+     * pipe_report MethodCallBody
+     * ```
+     * const [json] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
+    /**
+     * pipe_command MethodResponse
+     * ```
+     * const [json] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
 
     export const enum IotHubPipeCmd {
         /**
@@ -88,6 +176,10 @@ namespace jacdac {
 
         /**
          * Argument: status_code uint32_t. This emitted if status is not 200.
+         *
+         * ```
+         * const [statusCode] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         TwinError = 0x1,
 
@@ -104,6 +196,10 @@ namespace jacdac {
     export const enum IotHubReg {
         /**
          * Read-only string (bytes). Returns `"ok"` when connected, and an error description otherwise.
+         *
+         * ```
+         * const [connectionStatus] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         ConnectionStatus = 0x180,
 
@@ -113,16 +209,28 @@ namespace jacdac {
          * You can get it in `Shared access policies -> iothubowner -> Connection string-primary key` in the Azure Portal.
          * This register is write-only.
          * You can use `hub_name` and `device_id` to check if connection string is set, but you cannot get the shared access key.
+         *
+         * ```
+         * const [connectionString] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         ConnectionString = 0x80,
 
         /**
          * Read-only string (bytes). Something like `my-iot-hub.azure-devices.net`; empty string when `connection_string` is not set.
+         *
+         * ```
+         * const [hubName] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         HubName = 0x181,
 
         /**
          * Read-only string (bytes). Something like `my-dev-007`; empty string when `connection_string` is not set.
+         *
+         * ```
+         * const [deviceId] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         DeviceId = 0x182,
     }
@@ -135,6 +243,10 @@ namespace jacdac {
 
         /**
          * Argument: reason string (bytes). Emitted when connection was lost.
+         *
+         * ```
+         * const [reason] = jdunpack<[string]>(buf, "s")
+         * ```
          */
         ConnectionError = 0x2,
 

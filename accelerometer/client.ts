@@ -6,11 +6,7 @@ namespace jacdac {
         }
 
         protected parseSample(packet: JDPacket) {
-            return [
-                packet.getNumber(NumberFormat.Int16LE, 0),
-                packet.getNumber(NumberFormat.Int16LE, 2),
-                packet.getNumber(NumberFormat.Int16LE, 4),
-            ]
+            return packet.jdunpack<[number, number, number]>("i6.10 i6.10 i6.10")
         }
 
         /**

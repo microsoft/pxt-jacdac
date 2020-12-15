@@ -34,6 +34,11 @@ namespace jacdac {
         stateUpdated: boolean;
         private _statusCode: number = 0; // u16, u16
 
+        constructor(
+            public name: string,
+            public readonly serviceClass: number
+        ) { }
+
         get statusCode() {
             return this._statusCode;
         }
@@ -115,7 +120,7 @@ namespace jacdac {
             } else {
                 if (register >> 8 == 0x1)
                     return current // read-only
-                const v = pkt.unjdpack(fmt);
+                const v = pkt.jdunpack(fmt);
                 if (v[0] !== current) {
                     this.stateUpdated = true
                     current = v[0]
@@ -179,12 +184,6 @@ namespace jacdac {
             }
             return current
         }
-
-
-        constructor(
-            public name: string,
-            public serviceClass: number
-        ) { }
 
         /**
          * Registers and starts the driver

@@ -162,9 +162,9 @@ namespace jacdac {
             return this._data && this._data.toString();
         }
 
-        unjdpack(fmt: string): any[] {
-            const p = this._data && fmt && jdunpack(this._data, fmt);
-            return p || [];
+        jdunpack<T extends any[]>(fmt: string): T {
+            const p = this._data && fmt && jdunpack<T>(this._data, fmt);
+            return (p || []) as T;
         }
 
         compress(stripped: Buffer[]) {

@@ -1,13 +1,24 @@
 {
     "name": "jacdac-slider",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "MakeCode support for JACDAC Slider service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
     "files": [
         "constants.ts",
         "client.ts"
     ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    },
+    "targetVersions": {
+        "target": "0.14.2",
+        "targetId": "maker"
+    },
+    "supportedTargets": [
+        "maker"
+    ],
+    "preferredEditor": "tsprj"
 }

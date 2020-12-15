@@ -17,21 +17,37 @@ namespace jacdac {
     export const enum MultitouchEvent {
         /**
          * Argument: channel uint32_t. Emitted when an input is touched.
+         *
+         * ```
+         * const [channel] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         Touch = 0x1,
 
         /**
          * Argument: channel uint32_t. Emitted when an input is no longer touched.
+         *
+         * ```
+         * const [channel] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         Release = 0x2,
 
         /**
          * Argument: channel uint32_t. Emitted when an input is briefly touched. TODO Not implemented.
+         *
+         * ```
+         * const [channel] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         Tap = 0x3,
 
         /**
          * Argument: channel uint32_t. Emitted when an input is touched for longer than 500ms. TODO Not implemented.
+         *
+         * ```
+         * const [channel] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         LongPress = 0x4,
 
