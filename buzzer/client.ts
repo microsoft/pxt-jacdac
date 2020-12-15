@@ -88,5 +88,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const buzzerClient = new BuzzerClient();
+    export const buzzer = new BuzzerClient();
 }

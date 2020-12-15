@@ -1,8 +1,8 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class ServoClient extends Client {
+    export class ServoClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
-            super("servo", SRV_SERVO, requiredDevice);
+            super("servo", jacdac.SRV_SERVO, requiredDevice);
         }
 
         private pulse: number
@@ -14,10 +14,10 @@ namespace jacdac {
             if (n === this.pulse)
                 return
             if (n == null) {
-                this.setRegInt(SystemReg.Intensity, 0)
+                this.setRegInt(jacdac.SystemReg.Intensity, 0)
             } else {
-                this.setRegInt(SystemReg.Value, n | 0)
-                this.setRegInt(SystemReg.Intensity, 1)
+                this.setRegInt(jacdac.SystemReg.Value, n | 0)
+                this.setRegInt(jacdac.SystemReg.Intensity, 1)
             }
             this.pulse = n
         }
@@ -92,6 +92,6 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="servo client"
-    export const servoClient = new ServoClient();
+    //% fixedInstance whenUsed
+    export const servo = new ServoClient();
 }

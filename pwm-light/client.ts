@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
     export class MonoLightAnimation {
         constructor(public buffer: Buffer) { }
@@ -21,9 +21,9 @@ namespace jacdac {
     }
 
     //% fixedInstances
-    export class MonoLightClient extends Client {
+    export class MonoLightClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
-            super("pwml", SRV_PWM_LIGHT, requiredDevice);
+            super("pwml", jacdac.SRV_PWM_LIGHT, requiredDevice);
         }
 
         // set to negative for infinity
@@ -35,7 +35,7 @@ namespace jacdac {
         }
 
         setBrightness(brightness: number): void {
-            this.setRegInt(SystemReg.Intensity, brightness << 8)
+            this.setRegInt(jacdac.SystemReg.Intensity, brightness << 8)
         }
 
         showAnimation(animation: MonoLightAnimation, speed = 100) {
@@ -53,5 +53,5 @@ namespace jacdac {
     }
 
     //% fixedInstance whenUsed
-    export const monoLightClient = new MonoLightClient();
+    export const monoLight = new MonoLightClient();
 }

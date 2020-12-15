@@ -1,8 +1,8 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class MotorClient extends Client {
+    export class MotorClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
-            super("motor", SRV_MOTOR, requiredDevice);
+            super("motor", jacdac.SRV_MOTOR, requiredDevice);
         }
 
         break() {
@@ -22,14 +22,14 @@ namespace jacdac {
         run(speed: number): void {
             speed = Math.clamp(-100, 100, speed)
             if (speed == 0)
-                this.setRegInt(MotorReg.Enabled, 0)
+                this.setRegInt(jacdac.MotorReg.Enabled, 0)
             else {
-                this.setRegInt(MotorReg.Duty, Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0))
-                this.setRegInt(MotorReg.Enabled, 1)
+                this.setRegInt(jacdac.MotorReg.Duty, Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0))
+                this.setRegInt(jacdac.MotorReg.Enabled, 1)
             }
         }
     }
 
-    //% fixedInstance whenUsed block="motor client"
-    export const motorClient = new MotorClient();
+    //% fixedInstance whenUsed
+    export const motor = new MotorClient();
 }

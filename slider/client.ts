@@ -24,6 +24,6 @@ namespace modules {
     /**
      * Default slider
      */
-    //% fixedInstance block="slider client"
-    export const sliderClient = new SliderClient();
+    //% fixedInstance
+    export const slider = new SliderClient();
 }
