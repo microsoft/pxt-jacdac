@@ -625,11 +625,13 @@ namespace jacdac {
     }
 
     function queueAnnounce() {
-        const fmt = "<" + hostServices.length + "I"
         const ids = hostServices.map(h => h.running ? h.serviceClass : -1)
         if (restartCounter < 0xf) restartCounter++
         ids[0] = restartCounter | 0x100
-        JDPacket.packed(SystemCmd.Announce, fmt, ids)
+        const buf = Buffer.create(ids.length * 4)
+        for (let i = 0; i < ids.length; ++i)
+            buf.setNumber(NumberFormat.UInt32LE, i * 4, ids[i]);
+        JDPacket.from(SystemCmd.Announce, buf)
             ._sendReport(selfDevice())
         announceCallbacks.forEach(f => f())
         for (const cl of _allClients)
