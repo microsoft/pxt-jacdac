@@ -6,6 +6,9 @@
         "constants.ts",
         "client.ts"
     ],
+    "supportedTargets": [
+        "arcade"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
