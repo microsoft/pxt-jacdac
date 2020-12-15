@@ -37,42 +37,74 @@ namespace jacdac {
     export const enum SystemReg {
         /**
          * Read-write uint32_t. This is either binary on/off (0 or non-zero), or can be gradual (eg. brightness of an RGB LED strip).
+         *
+         * ```
+         * const [intensity] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         Intensity = 0x1,
 
         /**
          * Read-write int32_t. The primary value of actuator (eg. servo pulse length, or motor duty cycle).
+         *
+         * ```
+         * const [value] = jdunpack<[number]>(buf, "i32")
+         * ```
          */
         Value = 0x2,
 
         /**
          * Read-write mA uint16_t. Limit the power drawn by the service, in mA.
+         *
+         * ```
+         * const [maxPower] = jdunpack<[number]>(buf, "u16")
+         * ```
          */
         MaxPower = 0x7,
 
         /**
          * Read-write uint8_t. Asks device to stream a given number of samples
          * (clients will typically write `255` to this register every second or so, while streaming is required).
+         *
+         * ```
+         * const [streamingSamples] = jdunpack<[number]>(buf, "u8")
+         * ```
          */
         StreamingSamples = 0x3,
 
         /**
          * Read-write ms uint32_t. Period between packets of data when streaming in milliseconds.
+         *
+         * ```
+         * const [streamingInterval] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         StreamingInterval = 0x4,
 
         /**
          * Read-only int32_t. Read-only value of the sensor, also reported in streaming.
+         *
+         * ```
+         * const [reading] = jdunpack<[number]>(buf, "i32")
+         * ```
          */
         Reading = 0x101,
 
         /**
          * Read-write int32_t. Thresholds for event generation for event generation for analog sensors.
+         *
+         * ```
+         * const [lowThreshold] = jdunpack<[number]>(buf, "i32")
+         * ```
          */
         LowThreshold = 0x5,
 
         /**
          * Read-write int32_t. Thresholds for event generation for event generation for analog sensors.
+         *
+         * ```
+         * const [highThreshold] = jdunpack<[number]>(buf, "i32")
+         * ```
          */
         HighThreshold = 0x6,
 
@@ -90,6 +122,10 @@ namespace jacdac {
 
         /**
          * Constant ms uint32_t. Preferred default streaming interval for sensor in milliseconds.
+         *
+         * ```
+         * const [streamingPreferredInterval] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         StreamingPreferredInterval = 0x102,
     }

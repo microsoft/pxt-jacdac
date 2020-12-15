@@ -19,6 +19,10 @@ namespace jacdac {
     export const enum WifiCmd {
         /**
          * Argument: results pipe (bytes). Initiate search for WiFi networks. Results are returned via pipe, one entry per packet.
+         *
+         * ```
+         * const [results] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
          */
         Scan = 0x80,
 
@@ -49,6 +53,10 @@ namespace jacdac {
     export const enum WifiReg {
         /**
          * Read-only bool (uint8_t). Indicates whether or not we currently have an IP address assigned.
+         *
+         * ```
+         * const [connected] = jdunpack<[number]>(buf, "u8")
+         * ```
          */
         Connected = 0x180,
     }

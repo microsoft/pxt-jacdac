@@ -4,6 +4,10 @@ namespace jacdac {
     export const enum HumidityReg {
         /**
          * Read-only %RH u22.10 (uint32_t). The relative humidity in percentage of full water saturation.
+         *
+         * ```
+         * const [humidity] = jdunpack<[number]>(buf, "u22.10")
+         * ```
          */
         Humidity = 0x101,
     }

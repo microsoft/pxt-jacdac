@@ -4,6 +4,10 @@ namespace jacdac {
     export const enum SliderReg {
         /**
          * Read-only ratio uint16_t. The relative position of the slider between `0x0000` and `0xffff`.
+         *
+         * ```
+         * const [position] = jdunpack<[number]>(buf, "u16")
+         * ```
          */
         Position = 0x101,
     }

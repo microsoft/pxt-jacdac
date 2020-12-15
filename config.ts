@@ -1,8 +1,3 @@
-namespace jd_class {
-    // needs spec
-    export const CONTROLLER = 0x188ae4b8;
-}
-
 namespace jacdac {
     // common logging level for jacdac services
     export let consolePriority = ConsolePriority.Debug;

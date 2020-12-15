@@ -34,6 +34,11 @@ namespace jacdac {
         stateUpdated: boolean;
         private _statusCode: number = 0; // u16, u16
 
+        constructor(
+            public name: string,
+            public readonly serviceClass: number
+        ) { }
+
         get statusCode() {
             return this._statusCode;
         }
@@ -179,12 +184,6 @@ namespace jacdac {
             }
             return current
         }
-
-
-        constructor(
-            public name: string,
-            public serviceClass: number
-        ) { }
 
         /**
          * Registers and starts the driver
