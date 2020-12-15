@@ -2,24 +2,25 @@
     "name": "jacdac-thermometer",
     "version": "0.2.7",
     "description": "MakeCode support for JACDAC Thermometer service",
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker",
-        "microbit"
-    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
     "testFiles": [
         "test.ts"
     ],
     "testDependencies": {
         "net": "*",
         "nucleo-f411re": "*"
-    }
+    },
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
 }

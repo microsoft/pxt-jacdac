@@ -1,5 +1,6 @@
 namespace modules {
     //% fixedInstances
+    //% group="Accelerometer"
     export class AccelerometerClient extends jacdac.BufferedSensorClient<number[]> {
         constructor(requiredDevice: string = null) {
             super("acc", jacdac.SRV_ACCELEROMETER, requiredDevice);
@@ -12,6 +13,7 @@ namespace modules {
         /**
          * Reads the current x value from the sensor
          */
+        //% blockCombine
         get x(): number {
             return this.get(JDDimension.X);
         }
@@ -19,6 +21,7 @@ namespace modules {
         /**
          * Reads the current y value from the sensor
          */
+        //% blockCombine
         get y(): number {
             return this.get(JDDimension.Y);
         }
@@ -26,6 +29,7 @@ namespace modules {
         /**
          * Reads the current z value from the sensor
          */
+        //% blockCombine
         get z(): number {
             return this.get(JDDimension.Z);
         }
@@ -33,18 +37,12 @@ namespace modules {
         /**
          * Reads the current strength value from the sensor
          */
+        //% blockCombine
         get strength(): number {
             return this.get(JDDimension.Strength);
         }
 
-
-        /**
-         * Reads a value of the sensor
-         * @param dimension which channel to read
-         */
-        //% blockId=jacdacaccget block="%accelerometer %dimension"
-        //% group="Accelerometer" weight=5
-        get(dimension: JDDimension): number {
+        private get(dimension: JDDimension): number {
             const s = this.state;
             if (!s || s.length < 6) return 0;
             switch (dimension) {
@@ -67,10 +65,9 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacacconevent block="%accelerometer on %gesture"
-        //% group="Accelerometer"
-        onEvent(gesture: jacdac.AccelerometerEvent, handler: () => void) {
-            this.registerEvent(gesture, handler);
+        //% blockId=jacadacacconevent block="$accelerometer on $event"
+        onEvent(event: AccelerometerEvent, handler: () => void) {
+            this.registerEvent(event, handler);
         }
     }
 

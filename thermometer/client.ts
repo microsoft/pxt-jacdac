@@ -1,12 +1,11 @@
-enum JDTemperatureCondition {
+const enum TemperatureEvent {
     //% block="hot"
     Hot = DAL.SENSOR_THRESHOLD_HIGH,  // ANALOG_THRESHOLD_HIGH
     //% block="cold"
     Cold = DAL.SENSOR_THRESHOLD_LOW  // ANALOG_THRESHOLD_LOW
 }
 
-
-enum JDTemperatureUnit {
+const enum TemperatureUnit {
     //% block="°C"
     Celsius = 0,
     //% block="°F"
@@ -23,15 +22,15 @@ namespace modules {
         /**
          * Reads the current x value from the sensor
          */
-        //% blockId=jddevice_temperature block="temperature in %unit"
+        //% blockId=jddevice_temperature block="$thermometer temperature in $unit"
         //% group="Thermometer"
         //% weight=26
-        temperature(unit: JDTemperatureUnit): number {
+        temperature(unit?: TemperatureUnit): number {
             const s = this.state;
             if (!s || s.length < 2) return 0;
             const t = s.getNumber(NumberFormat.Int16LE, 0);
             switch (unit) {
-                case JDTemperatureUnit.Fahrenheit: (t * 18) / 10 + 32;
+                case TemperatureUnit.Fahrenheit: (t * 18) / 10 + 32;
                 default: return t;
             }
         }
@@ -41,16 +40,13 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacthermoonevent block="$client on $condition at $temperature $unit"
+        //% blockId=jacadacthermoonevent block="$thermometer on $condition"
         //% group="Thermometer"
-        onTemperatureConditionChanged(condition: JDTemperatureCondition, temperature: number, unit: JDTemperatureUnit, handler: () => void): void {
-            if (unit == JDTemperatureUnit.Fahrenheit)
-                temperature = (temperature - 32) * 5 / 9;
-            this.setThreshold(condition == JDTemperatureCondition.Cold, temperature);
+        onEvent(condition: TemperatureEvent, handler: () => void): void {
             this.registerEvent(condition, handler)
         }
     }
 
-    //% fixedInstance whenUsed block="thermometer client"
-    export const thermometerClient = new ThermometerClient();
+    //% fixedInstance whenUsed
+    export const thermometer = new ThermometerClient();
 }

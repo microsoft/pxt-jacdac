@@ -2,6 +2,10 @@
     "name": "jacdac-button",
     "version": "0.2.7",
     "description": "MakeCode support for JACDAC Button service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
     "files": [
         "constants.ts",
         "client.ts"
@@ -11,8 +15,5 @@
         "maker",
         "microbit"
     ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+    "preferredEditor": "tsprj"
 }

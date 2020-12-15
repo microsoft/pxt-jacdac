@@ -22,7 +22,7 @@ namespace modules {
         /**
          * Gets the position of the rotary encoder
          */
-        //% blockId=jacdacrotaryencoderposition block="%encoder position"
+        //% blockId=jacdacrotaryencoderposition block="$rotaryEncoder position"
         //% group="Rotary Encoder"
         get position(): number {
             const st = this.state;
@@ -46,8 +46,8 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacrotaryencoderonevent block="%client on %event"
-        //% group="Light sensor"
+        //% blockId=jacadacrotaryencoderonevent block="$rotaryEncoder on $event"
+        //% group="Rotary Encoder"
         onEvent(event: jacdac.RoleManagerEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }
@@ -56,6 +56,6 @@ namespace modules {
     /**
      * Default rotary encoder
      */
-    //% fixedInstance
-    export const rotaryEncoder = new RotaryEncoderClient();
+    //% fixedInstance whenUsed
+    export const rotary = new RotaryEncoderClient();
 }

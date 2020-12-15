@@ -6,9 +6,9 @@ namespace modules {
         }
 
         /**
-         * Gets the position of the slider
+         * Gets the position of the slider between 0 and 1
          */
-        //% blockId=jacdacsliderposition block="%slider position"
+        //% blockId=jacdacsliderposition block="$slider position"
         //% group="Slider"
         get position(): number {
             if (!this.started) {
@@ -24,6 +24,6 @@ namespace modules {
     /**
      * Default slider
      */
-    //% fixedInstance
+    //% fixedInstance whenUsed
     export const slider = new SliderClient();
 }
