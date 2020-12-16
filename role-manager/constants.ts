@@ -82,6 +82,7 @@ namespace jacdac {
         /**
          * Emit notifying that the internal state of the service changed.
          */
+        //% block="change"
         Change = 0x2,
     }
 

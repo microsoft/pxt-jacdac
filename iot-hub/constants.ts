@@ -239,6 +239,7 @@ namespace jacdac {
         /**
          * Emitted upon successful connection.
          */
+        //% block="connected"
         Connected = 0x1,
 
         /**
@@ -248,6 +249,7 @@ namespace jacdac {
          * const [reason] = jdunpack<[string]>(buf, "s")
          * ```
          */
+        //% block="connection error"
         ConnectionError = 0x2,
 
         /**
@@ -260,6 +262,7 @@ namespace jacdac {
          * const [propertyName, propertyValue] = rest[0]
          * ```
          */
+        //% block="devicebound str"
         DeviceboundStr = 0x3,
     }
 

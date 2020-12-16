@@ -16,21 +16,25 @@ namespace jacdac {
         /**
          * Emitted when button goes from inactive (`pressed == 0`) to active.
          */
+        //% block="down"
         Down = 0x1,
 
         /**
          * Emitted when button goes from active (`pressed == 1`) to inactive.
          */
+        //% block="up"
         Up = 0x2,
 
         /**
          * Emitted together with `up` when the press time was not longer than 500ms.
          */
+        //% block="click"
         Click = 0x3,
 
         /**
          * Emitted together with `up` when the press time was more than 500ms.
          */
+        //% block="long click"
         LongClick = 0x4,
     }
 
