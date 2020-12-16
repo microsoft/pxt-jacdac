@@ -8,6 +8,7 @@ namespace jacdac {
     }
 
     //% fixedInstances
+    //% blockGap=8
     export class ModelRunnerClient extends Client {
         constructor(requiredDevice: string = null) {
             super("mrun", SRV_MODEL_RUNNER, requiredDevice);
@@ -48,7 +49,7 @@ namespace jacdac {
          * Run code when a specific even is detected in input data.
          */
         //% group="Machine Learning"
-        //% blockId=jacadacmrundetect block="%client on ML class %classId detected"
+        //% blockId=jacadacmrundetect block="on %modelRunner ML class %classId detected"
         onDetection(classId: number, handler: () => void) {
             this.autoStart()
             this.registerEvent(classId + 1000, handler);
@@ -58,6 +59,6 @@ namespace jacdac {
     /**
      * Default model runner
      */
-    //% fixedInstance block="model runner client"
-    export const modelRunnerClient = new ModelRunnerClient();
+    //% fixedInstance
+    export const modelRunner = new ModelRunnerClient();
 }

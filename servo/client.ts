@@ -1,5 +1,6 @@
 namespace modules {
     //% fixedInstances
+    //% blockGap=8        
     export class ServoClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
             super("servo", jacdac.SRV_SERVO, requiredDevice);
@@ -44,12 +45,11 @@ namespace modules {
          */
         //% group="Servos"
         //% weight=100
-        //% blockId=jdservoservosetangle block="set $servo angle to $degrees=protractorPicker °"
+        //% blockId=jdservoservosetangle block="set %servo angle to $degrees=protractorPicker °"
         //% degrees.defl=90
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
-        //% blockGap=8        
         setAngle(degrees: number) {
             // this isn't exactly what the internets say, but it's what codal does
             const center = 1500
@@ -65,7 +65,7 @@ namespace modules {
          */
         //% group="Servos"
         //% weight=99
-        //% blockId=jdservoservorun block="continuous $servo run at $speed=speedPicker \\%"
+        //% blockId=jdservoservorun block="run continuous %servo at $speed=speedPicker \\%"
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
@@ -78,13 +78,12 @@ namespace modules {
          */
         //% group="Servos"
         //% weight=10 help=servos/set-pulse
-        //% blockId=jdservoservosetpulse block="set $servo pulse to $micros μs"
+        //% blockId=jdservoservosetpulse block="set %servo pulse to $micros μs"
         //% micros.min=500 micros.max=2500
         //% micros.defl=1500
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
-        //% trackArgs=0
         setPulse(micros: number) {
             micros = micros | 0;
             micros = Math.clamp(500, 2500, micros);

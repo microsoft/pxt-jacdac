@@ -53,7 +53,7 @@ namespace jacdac {
      * Gets the message code
      */
     //% blockHidden=1 shim=ENUM_GET
-    //% blockId=jacdacMessageCode block="$msg" enumInitialMembers="message1"
+    //% blockId=jacdacMessageCode block="%msg" enumInitialMembers="message1"
     //% enumName=JacDacMessage enumMemberName=msg enumPromptHint="e.g. Start, Stop, Jump..."
     //% group="Broadcast"
     //% enumIsHash

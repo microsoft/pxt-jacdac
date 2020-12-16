@@ -22,6 +22,6 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="arcade controls client"
-    export const arcadeControlsClient = new ArcadeControlsClient();
+    //% fixedInstance whenUsed
+    export const arcadeControls = new ArcadeControlsClient();
 }

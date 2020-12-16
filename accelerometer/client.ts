@@ -1,6 +1,5 @@
 namespace modules {
     //% fixedInstances
-    //% group="Accelerometer"
     export class AccelerometerClient extends jacdac.BufferedSensorClient<number[]> {
         constructor(requiredDevice: string = null) {
             super("acc", jacdac.SRV_ACCELEROMETER, requiredDevice);
@@ -14,6 +13,8 @@ namespace modules {
          * Reads the current x value from the sensor
          */
         //% blockCombine
+        //% group="Accelerometer"
+        //% blockSetVariable="accelerometer"
         get x(): number {
             return this.get(JDDimension.X);
         }
@@ -22,6 +23,8 @@ namespace modules {
          * Reads the current y value from the sensor
          */
         //% blockCombine
+        //% group="Accelerometer"
+        //% blockSetVariable="accelerometer"
         get y(): number {
             return this.get(JDDimension.Y);
         }
@@ -30,6 +33,8 @@ namespace modules {
          * Reads the current z value from the sensor
          */
         //% blockCombine
+        //% group="Accelerometer"
+        //% blockSetVariable="accelerometer"
         get z(): number {
             return this.get(JDDimension.Z);
         }
@@ -38,6 +43,8 @@ namespace modules {
          * Reads the current strength value from the sensor
          */
         //% blockCombine
+        //% group="Accelerometer"
+        //% blockSetVariable="accelerometer"
         get strength(): number {
             return this.get(JDDimension.Strength);
         }
@@ -65,7 +72,8 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacacconevent block="$accelerometer on $event"
+        //% blockId=jacadacacconevent block="on %accelerometer $event"
+        //% group="Accelerometer"
         onEvent(event: jacdac.AccelerometerEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }

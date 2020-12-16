@@ -1,6 +1,6 @@
 {
     "name": "jacdac-thermometer",
-    "version": "0.2.8",
+    "version": "0.2.10",
     "description": "MakeCode support for JACDAC Thermometer service",
     "dependencies": {
         "core": "*",

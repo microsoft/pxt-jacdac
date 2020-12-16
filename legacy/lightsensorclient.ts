@@ -28,7 +28,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadaclightsensoronevent block="%client on %event"
+        //% blockId=jacadaclightsensoronevent block="on %lightSensor %event"
         //% group="Light sensor"
         onEvent(event: JDLightCondition, handler: () => void) {
             this.registerEvent(event, handler);

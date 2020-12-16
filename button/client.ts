@@ -19,7 +19,7 @@ namespace modules {
         /**
          * Reads the current x value from the sensor
          */
-        //% blockId=jacadacbtispressed block="$button is pressed"
+        //% blockId=jacadacbtispressed block="%button is pressed"
         //% group="Buttons"
         isPressed(): boolean {
             const s = this.state;
@@ -32,7 +32,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacbtnonevent block="$button on $event"
+        //% blockId=jacadacbtnonevent block="on %button $event"
         //% group="Buttons"
         onEvent(event: jacdac.ButtonEvent, handler: () => void) {
             this.registerEvent(event, handler);

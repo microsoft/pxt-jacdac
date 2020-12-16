@@ -1,7 +1,11 @@
 {
     "name": "jacdac-light",
-    "version": "0.2.8",
+    "version": "0.2.10",
     "description": "MakeCode support for JACDAC Light service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
     "files": [
         "constants.ts",
         "client.ts"
@@ -11,8 +15,5 @@
         "maker",
         "microbit"
     ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+    "preferredEditor": "tsprj"
 }

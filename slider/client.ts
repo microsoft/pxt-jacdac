@@ -1,5 +1,6 @@
 namespace modules {
     //% fixedInstances
+    //% blockGap=8
     export class SliderClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
             super("slider", jacdac.SRV_SLIDER, requiredDevice);
@@ -8,7 +9,7 @@ namespace modules {
         /**
          * Gets the position of the slider between 0 and 1
          */
-        //% blockId=jacdacsliderposition block="$slider position"
+        //% blockId=jacdacsliderposition block="%slider position"
         //% group="Slider"
         get position(): number {
             if (!this.started) {

@@ -21,7 +21,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacdacswitchonevent block="%switch on %event"
+        //% blockId=jacdacswitchonevent block="on %switch %event"
         //% group="Switch"
         onEvent(event: SwitchDirection, handler: () => void) {
             this.registerEvent(event, handler);

@@ -1,12 +1,13 @@
 namespace modules {
     //% fixedInstances
+    //% blockGap=8
     export class MicrophoneClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
             super("mic", jacdac.SRV_MICROPHONE, requiredDevice);
         }
 
         /**
-         * Reads the current x value from the sensor
+         * Reads the microphone level between 0 (silent) and 255 (loud)
          */
         //% blockId=jacdacmicrophonevent block="%microphone sound level"
         //% group="Microphone"
@@ -14,28 +15,6 @@ namespace modules {
             const s = this.state;
             if (!s || s.length < 1) return 0;
             return s.getNumber(NumberFormat.UInt8LE, 0);
-        }
-
-        /**
-         * Runs code when an event happens on the sensor
-         * @param gesture 
-         * @param handler 
-         */
-        //% blockId=jacadacmicrophoneonevent block="%microphone on loud sound"
-        //% group="Microphone"
-        onLoudSound(handler: () => void) {
-            this.registerEvent(DAL.SENSOR_THRESHOLD_HIGH, handler);
-        }
-
-        /**
-         * Sets the threshold value for the event
-         * @param level 
-         * @param value 
-         */
-        //% blockId=jacdacmicrophonesetthreshold block="%microphone set loud sound threshold to %value"
-        //% group="Microphone"
-        setLoudSoundThreshold(value: number) {
-            this.setThreshold(false, value);
         }
     }
 
