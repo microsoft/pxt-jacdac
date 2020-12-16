@@ -66,7 +66,7 @@ namespace modules {
          * @param handler 
          */
         //% blockId=jacadacacconevent block="$accelerometer on $event"
-        onEvent(event: AccelerometerEvent, handler: () => void) {
+        onEvent(event: jacdac.AccelerometerEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }
     }
