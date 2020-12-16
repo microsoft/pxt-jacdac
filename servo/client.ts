@@ -1,5 +1,6 @@
 namespace modules {
     //% fixedInstances
+    //% blockGap=8        
     export class ServoClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
             super("servo", jacdac.SRV_SERVO, requiredDevice);
@@ -49,7 +50,6 @@ namespace modules {
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
-        //% blockGap=8        
         setAngle(degrees: number) {
             // this isn't exactly what the internets say, but it's what codal does
             const center = 1500
@@ -84,7 +84,6 @@ namespace modules {
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
-        //% trackArgs=0
         setPulse(micros: number) {
             micros = micros | 0;
             micros = Math.clamp(500, 2500, micros);

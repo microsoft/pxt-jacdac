@@ -2,6 +2,8 @@ namespace modules {
     /**
      * A client of multiple buttons
      */
+    //% fixedInstances
+    //% blockGap=8
     export class MultiTouchClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
             super("multitouch", jacdac.SRV_MULTITOUCH, requiredDevice);
