@@ -2,7 +2,14 @@
     "targetWebsite": "https://maker.makecode.com",
     "links": {
         "jacdac": ".",
+        "jacdac-accelerometer": "./accelerometer",
+        "jacdac-button": "./button",
+        "jacdac-servo": "./servo",
+        "jacdac-rotary-encoder": "./rotary-encoder",
         "jacdac-settings": "./settings",
-        "jacdac-tcp": "./tcp"
+        "jacdac-slider": "./slider",
+        "jacdac-tcp": "./tcp",
+        "jacdac-wifi": "./wifi"
+
     }
 }
