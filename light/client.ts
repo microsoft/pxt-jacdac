@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace modules {
     function cmdCode(cmd: string) {
         switch (cmd) {
             case "setall": return 0xD0
@@ -139,18 +139,18 @@ namespace jacdac {
     }
 
     //% fixedInstances
-    export class LightClient extends Client {
+    export class LightClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
-            super("light", SRV_LIGHT, requiredDevice);
+            super("light", jacdac.SRV_LIGHT, requiredDevice);
         }
 
         _length = 10
 
         setStrip(numpixels: number, type = LightType.WS2812B_GRB, maxpower = 500): void {
             this._length = numpixels
-            this.setRegInt(LightReg.NumPixels, numpixels)
-            this.setRegInt(LightReg.LightType, type)
-            this.setRegInt(SystemReg.MaxPower, maxpower)
+            this.setRegInt(jacdac.LightReg.NumPixels, numpixels)
+            this.setRegInt(jacdac.LightReg.LightType, type)
+            this.setRegInt(jacdac.SystemReg.MaxPower, maxpower)
         }
 
         /**
@@ -162,18 +162,18 @@ namespace jacdac {
         //% weight=2 blockGap=8
         //% group="Light"
         setBrightness(brightness: number): void {
-            this.setRegInt(SystemReg.Intensity, brightness)
+            this.setRegInt(jacdac.SystemReg.Intensity, brightness)
         }
 
         runProgram(prog: Buffer) {
             this.currAnimation++
-            this.sendCommandWithAck(JDPacket.from(LightCmd.Run, prog))
+            this.sendCommandWithAck(jacdac.JDPacket.from(jacdac.LightCmd.Run, prog))
         }
 
         runEncoded(prog: string, args?: number[]) {
             if (!args) args = []
             this.currAnimation++
-            this.sendCommand(JDPacket.from(LightCmd.Run, lightEncode(prog, args)))
+            this.sendCommand(jacdac.JDPacket.from(jacdac.LightCmd.Run, lightEncode(prog, args)))
         }
 
         set(idx: number, rgb: number) {

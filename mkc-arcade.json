@@ -5,5 +5,10 @@
             "net": "*",
             "device": "*"
         }
+    },
+    "links": {
+        "jacdac": ".",
+        "jacdac-settings": "./settings",
+        "jacdac-tcp": "./tcp"
     }
 }

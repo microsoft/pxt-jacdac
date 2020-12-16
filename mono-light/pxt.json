@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-thermometer",
+    "name": "jacdac-pwm-light",
     "version": "0.2.8",
-    "description": "MakeCode support for JACDAC Thermometer service",
+    "description": "MakeCode support for JACDAC PWM Light service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
@@ -10,13 +10,6 @@
         "constants.ts",
         "client.ts"
     ],
-    "testFiles": [
-        "test.ts"
-    ],
-    "testDependencies": {
-        "net": "*",
-        "nucleo-f411re": "*"
-    },
     "supportedTargets": [
         "arcade",
         "maker",

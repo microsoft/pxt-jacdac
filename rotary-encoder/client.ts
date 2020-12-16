@@ -1,8 +1,8 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class RotaryEncoderClient extends SensorClient {
+    export class RotaryEncoderClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
-            super("crank", SRV_ROTARY_ENCODER, requiredDevice);
+            super("crank", jacdac.SRV_ROTARY_ENCODER, requiredDevice);
         }
 
         scale = 1
@@ -22,7 +22,7 @@ namespace jacdac {
         /**
          * Gets the position of the rotary encoder
          */
-        //% blockId=jacdacrotaryencoderposition block="jacdac %encoder position"
+        //% blockId=jacdacrotaryencoderposition block="$rotaryEncoder position"
         //% group="Rotary Encoder"
         get position(): number {
             const st = this.state;
@@ -46,9 +46,9 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacrotaryencoderonevent block="jacdac %client on %event"
-        //% group="Light sensor"
-        onEvent(event: RoleManagerEvent, handler: () => void) {
+        //% blockId=jacadacrotaryencoderonevent block="$rotaryEncoder on $event"
+        //% group="Rotary Encoder"
+        onEvent(event: jacdac.RoleManagerEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }
     }
@@ -56,6 +56,6 @@ namespace jacdac {
     /**
      * Default rotary encoder
      */
-    //% fixedInstance block="rotary encoder client"
-    export const rotaryEncoderClient = new RotaryEncoderClient();
+    //% fixedInstance whenUsed
+    export const rotary = new RotaryEncoderClient();
 }

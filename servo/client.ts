@@ -1,8 +1,8 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class ServoClient extends Client {
+    export class ServoClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
-            super("servo", SRV_SERVO, requiredDevice);
+            super("servo", jacdac.SRV_SERVO, requiredDevice);
         }
 
         private pulse: number
@@ -14,10 +14,10 @@ namespace jacdac {
             if (n === this.pulse)
                 return
             if (n == null) {
-                this.setRegInt(SystemReg.Intensity, 0)
+                this.setRegInt(jacdac.SystemReg.Intensity, 0)
             } else {
-                this.setRegInt(SystemReg.Value, n | 0)
-                this.setRegInt(SystemReg.Intensity, 1)
+                this.setRegInt(jacdac.SystemReg.Value, n | 0)
+                this.setRegInt(jacdac.SystemReg.Intensity, 1)
             }
             this.pulse = n
         }
@@ -44,7 +44,7 @@ namespace jacdac {
          */
         //% group="Servos"
         //% weight=100
-        //% blockId=jdservoservosetangle block="jacdac set %servo angle to %degrees=protractorPicker °"
+        //% blockId=jdservoservosetangle block="set $servo angle to $degrees=protractorPicker °"
         //% degrees.defl=90
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
@@ -65,7 +65,7 @@ namespace jacdac {
          */
         //% group="Servos"
         //% weight=99
-        //% blockId=jdservoservorun block="jacdac continuous %servo run at %speed=speedPicker \\%"
+        //% blockId=jdservoservorun block="continuous $servo run at $speed=speedPicker \\%"
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
@@ -78,7 +78,7 @@ namespace jacdac {
          */
         //% group="Servos"
         //% weight=10 help=servos/set-pulse
-        //% blockId=jdservoservosetpulse block="jacdac set %servo pulse to %micros μs"
+        //% blockId=jdservoservosetpulse block="set $servo pulse to $micros μs"
         //% micros.min=500 micros.max=2500
         //% micros.defl=1500
         //% servo.fieldEditor="gridpicker"
@@ -92,6 +92,6 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="servo client"
-    export const servoClient = new ServoClient();
+    //% fixedInstance whenUsed
+    export const servo = new ServoClient();
 }

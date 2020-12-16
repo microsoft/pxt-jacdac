@@ -1,14 +1,22 @@
 {
     "name": "jacdac-buzzer",
-    "version": "0.2.3",
+    "version": "0.2.8",
     "description": "MakeCode support for JACDAC Buzzer service",
     "files": [
         "constants.ts",
         "client.ts"
     ],
+    "supportedTargets": [
+        "arcade",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "mixer": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "mixer---stm32": "*",
+        "nucleo-f411re": "*"
     }
 }

@@ -1,17 +1,19 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class AccelerometerClient extends BufferedSensorClient<number[]> {
+    //% group="Accelerometer"
+    export class AccelerometerClient extends jacdac.BufferedSensorClient<number[]> {
         constructor(requiredDevice: string = null) {
-            super("acc", SRV_ACCELEROMETER, requiredDevice);
+            super("acc", jacdac.SRV_ACCELEROMETER, requiredDevice);
         }
 
-        protected parseSample(packet: JDPacket) {
+        protected parseSample(packet: jacdac.JDPacket) {
             return packet.jdunpack<[number, number, number]>("i6.10 i6.10 i6.10")
         }
 
         /**
          * Reads the current x value from the sensor
          */
+        //% blockCombine
         get x(): number {
             return this.get(JDDimension.X);
         }
@@ -19,6 +21,7 @@ namespace jacdac {
         /**
          * Reads the current y value from the sensor
          */
+        //% blockCombine
         get y(): number {
             return this.get(JDDimension.Y);
         }
@@ -26,6 +29,7 @@ namespace jacdac {
         /**
          * Reads the current z value from the sensor
          */
+        //% blockCombine
         get z(): number {
             return this.get(JDDimension.Z);
         }
@@ -33,18 +37,12 @@ namespace jacdac {
         /**
          * Reads the current strength value from the sensor
          */
+        //% blockCombine
         get strength(): number {
             return this.get(JDDimension.Strength);
         }
 
-
-        /**
-         * Reads a value of the sensor
-         * @param dimension which channel to read
-         */
-        //% blockId=jacdacaccget block="jacdac %accelerometer %dimension"
-        //% group="Accelerometer" weight=5
-        get(dimension: JDDimension): number {
+        private get(dimension: JDDimension): number {
             const s = this.state;
             if (!s || s.length < 6) return 0;
             switch (dimension) {
@@ -67,13 +65,12 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacacconevent block="jacdac %accelerometer on %gesture"
-        //% group="Accelerometer"
-        onEvent(gesture: AccelerometerEvent, handler: () => void) {
-            this.registerEvent(gesture, handler);
+        //% blockId=jacadacacconevent block="$accelerometer on $event"
+        onEvent(event: AccelerometerEvent, handler: () => void) {
+            this.registerEvent(event, handler);
         }
     }
 
-    //% fixedInstance whenUsed block="accelerometer client"
-    export const accelerometerClient = new AccelerometerClient();
+    //% fixedInstance whenUsed
+    export const accelerometer = new AccelerometerClient();
 }

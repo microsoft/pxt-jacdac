@@ -1,32 +1,16 @@
-const enum JDMultiTouchEvent {
-    //% block="swipe positive"
-    SwipePos = 0x10,
-    //% block="swipe negative"
-    SwipeNeg = 0x11,
-    //% block=""
-    Tap = 3,
-    //% block="long press"
-    LongPress = 4,
-    //% block="release"
-    Release = 2,
-    //% block="touch"
-    Touch = 1,
-}
-
-
-namespace jacdac {
+namespace modules {
     /**
      * A client of multiple buttons
      */
-    export class MultiTouchClient extends SensorClient {
+    export class MultiTouchClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
-            super("multitouch", SRV_MULTITOUCH, requiredDevice);
+            super("multitouch", jacdac.SRV_MULTITOUCH, requiredDevice);
         }
 
         /**
          * Reads the current capacitance
          */
-        //% blockId=jdmultitouchvalue block="jacdac %button value"
+        //% blockId=jdmultitouchvalue block="$multiTouch value at $index"
         //% group="Touch"
         value(index: number): number {
             const s = this.state;
@@ -39,13 +23,13 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jdmulittouchevent block="jacdac %client on %event"
+        //% blockId=jdmulittouchevent block="$multiTouch on $event at"
         //% group="Touch"
-        onEvent(event: JDMultiTouchEvent, handler: (idx: number) => void) {
+        onEvent(event: jacdac.MultitouchEvent, handler: (index: number) => void) {
             this.registerHandler(event, handler);
         }
     }
 
-    //% fixedInstance whenUsed block="multi touch client"
-    export const multiTouchClient = new MultiTouchClient();
+    //% fixedInstance whenUsed
+    export const multiTouch = new MultiTouchClient();
 }

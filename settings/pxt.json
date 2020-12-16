@@ -1,9 +1,14 @@
 {
     "name": "jacdac-settings",
-    "version": "0.2.3",
+    "version": "0.2.8",
     "description": "MakeCode support for JACDAC Settings service",
     "files": [
         "constants.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit"
     ],
     "dependencies": {
         "core": "*",

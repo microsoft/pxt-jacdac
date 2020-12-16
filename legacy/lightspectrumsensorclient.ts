@@ -22,7 +22,7 @@ namespace jacdac {
         /**
          * Reads the full spectrum 
          */
-        //% blockId=jdlightspectrumfull block="jacdac %client full"
+        //% blockId=jdlightspectrumfull block="%client full"
         //% group="Light spectrum sensor"
         get full(): number {
             const s = this.state;
@@ -33,7 +33,7 @@ namespace jacdac {
         /**
          * Reads the full spectrum 
          */
-        //% blockId=jdlightspectruminfrared block="jacdac %client infrared"
+        //% blockId=jdlightspectruminfrared block="%client infrared"
         //% group="Light spectrum sensor"
         get infrared(): number {
             const s = this.state;
@@ -44,7 +44,7 @@ namespace jacdac {
         /**
          * Reads the full spectrum 
          */
-        //% blockId=jdlightspectrumvisible block="jacdac %client visible"
+        //% blockId=jdlightspectrumvisible block="%client visible"
         //% group="Light spectrum sensor"
         get visible(): number {
             const s = this.state;
@@ -57,7 +57,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadaclightsensorspectrumonevent block="jacdac %client on %event"
+        //% blockId=jacadaclightsensorspectrumonevent block="%client on %event"
         //% group="Light sensor"
         onEvent(event: JDLightSpectrumEvent, handler: () => void) {
             this.registerEvent(event, handler);

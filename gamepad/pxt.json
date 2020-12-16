@@ -1,10 +1,13 @@
 {
     "name": "jacdac-gamepad",
-    "version": "0.2.3",
+    "version": "0.2.8",
     "description": "MakeCode support for JACDAC Gamepad service",
     "files": [
         "constants.ts",
         "client.ts"
+    ],
+    "supportedTargets": [
+        "arcade"
     ],
     "dependencies": {
         "core": "*",

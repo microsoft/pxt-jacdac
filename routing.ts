@@ -129,8 +129,30 @@ namespace jacdac {
             return current
         }
 
+        protected handleRegFormat<T extends any[]>(pkt: JDPacket, register: number, fmt: string, current: T): T {
+            const getset = pkt.service_command >> 12
+            if (getset == 0 || getset > 2)
+                return current
+            const reg = pkt.service_command & 0xfff
+            if (reg != register)
+                return current
+            if (getset == 1) {
+                this.sendReport(JDPacket.jdpacked(pkt.service_command, fmt, current))
+            } else {
+                if (register >> 8 == 0x1)
+                    return current // read-only
+                const v = pkt.jdunpack<T>(fmt)
+                if (!jdpackEqual<T>(fmt, v, current)) {
+                    this.stateUpdated = true
+                    current = v
+                }
+            }
+            return current
+        }
+
         protected handleRegBool(pkt: JDPacket, register: number, current: boolean): boolean {
-            return this.handleRegInt(pkt, register, current ? 1 : 0) != 0
+            const [res] = this.handleRegFormat(pkt, register, "u8", [current ? 1 : 0]);
+            return !!res;
         }
 
         protected handleRegInt(pkt: JDPacket, register: number, current: number): number {

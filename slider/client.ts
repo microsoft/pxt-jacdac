@@ -1,14 +1,14 @@
-namespace jacdac {
+namespace modules {
     //% fixedInstances
-    export class SliderClient extends SensorClient {
+    export class SliderClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
-            super("slider", SRV_SLIDER, requiredDevice);
+            super("slider", jacdac.SRV_SLIDER, requiredDevice);
         }
 
         /**
-         * Gets the position of the slider
+         * Gets the position of the slider between 0 and 1
          */
-        //% blockId=jacdacsliderposition block="jacdac %slider position"
+        //% blockId=jacdacsliderposition block="$slider position"
         //% group="Slider"
         get position(): number {
             if (!this.started) {
@@ -24,6 +24,6 @@ namespace jacdac {
     /**
      * Default slider
      */
-    //% fixedInstance block="slider client"
-    export const sliderClient = new SliderClient();
+    //% fixedInstance whenUsed
+    export const slider = new SliderClient();
 }

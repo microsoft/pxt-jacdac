@@ -28,9 +28,6 @@ namespace jacdac {
          * Enables or disable streaming the sensor internal state
          * @param on streaming enabled
          */
-        //% blockid=jacdacsensorstreaming block="jacdac %sensor set streaming %on"
-        //% on.shadow=toggleOnOff weight=1
-        //% group="Services"
         public setStreaming(on: boolean, interval?: number) {
             this.start();
             this.isStreaming = on
