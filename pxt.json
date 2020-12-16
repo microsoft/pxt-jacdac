@@ -68,5 +68,9 @@
     "disablesVariants": [
         "mbdal"
     ],
-    "binaryonly": true
+    "binaryonly": true,
+    "extension": {
+        "label": "Configure",
+        "localUrl": "http://localhost:8000/tools/makecode-editor-extension"
+    }
 }
