@@ -12,7 +12,7 @@ namespace jacdac {
         public handlePacket(packet: JDPacket) {
             this.stateUpdated = false
 
-            this.intensity = this.handleRegInt(packet, SystemReg.Intensity, this.intensity)
+            this.intensity = this.handleRegUInt32(packet, SystemReg.Intensity, this.intensity)
             this.state = this.handleRegBuffer(packet, SystemReg.Value, this.state)
 
             if (this.stateUpdated)

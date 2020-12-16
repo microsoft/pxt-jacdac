@@ -22,11 +22,11 @@ namespace jacdac {
             this.bool = this.handleRegBool(pkt, ProtoTestReg.RwBool, this.bool);
             this.handleRegBool(pkt, ProtoTestReg.RoBool, this.bool);
 
-            this.i32 = this.handleRegInt(pkt, ProtoTestReg.RwI32, this.i32);
-            this.handleRegInt(pkt, ProtoTestReg.RoI32, this.i32);
+            this.i32 = this.handleRegInt32(pkt, ProtoTestReg.RwI32, this.i32);
+            this.handleRegInt32(pkt, ProtoTestReg.RoI32, this.i32);
 
-            this.u32 = this.handleRegValue(pkt, ProtoTestReg.RwU32, "u32", this.u32);
-            this.handleRegValue(pkt, ProtoTestReg.RoU32, "u32", this.u32);
+            this.u32 = this.handleRegUInt32(pkt, ProtoTestReg.RwU32, this.u32);
+            this.handleRegUInt32(pkt, ProtoTestReg.RoU32, this.u32);
 
             this.s = this.handleRegValue(pkt, ProtoTestReg.RwString, "s", this.s);
             this.handleRegValue(pkt, ProtoTestReg.RoString, "s", this.s);

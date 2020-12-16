@@ -17,10 +17,10 @@ namespace jacdac {
         public handlePacket(packet: JDPacket) {
             this.log(`hpkt ${packet.service_command}`);
             this.stateUpdated = false
-            this.lowThreshold = this.handleRegInt(packet, SystemReg.LowThreshold, this.lowThreshold)
-            this.highThreshold = this.handleRegInt(packet, SystemReg.HighThreshold, this.highThreshold)
-            this.streamingInterval = this.handleRegInt(packet, SystemReg.StreamingInterval, this.streamingInterval)
-            const samples = this.handleRegInt(packet, SystemReg.StreamingSamples, this.streamingSamples)
+            this.lowThreshold = this.handleRegInt32(packet, SystemReg.LowThreshold, this.lowThreshold)
+            this.highThreshold = this.handleRegInt32(packet, SystemReg.HighThreshold, this.highThreshold)
+            this.streamingInterval = this.handleRegUInt32(packet, SystemReg.StreamingInterval, this.streamingInterval)
+            const samples = this.handleRegValue(packet, SystemReg.StreamingSamples, "u8", this.streamingSamples)
             this.setStreaming(samples)
 
             switch (packet.service_command) {
@@ -47,7 +47,7 @@ namespace jacdac {
         }
 
         protected raiseHostEvent(value: number) {
-            this.sendReport(JDPacket.packed(SystemCmd.Event, "I", [value]))
+            this.sendReport(JDPacket.jdpacked(SystemCmd.Event, "u32", [value]))
         }
 
         public setStreaming(samples: number) {

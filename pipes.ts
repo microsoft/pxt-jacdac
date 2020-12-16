@@ -36,8 +36,8 @@ namespace jacdac {
         }
 
         openCommand(cmd: number) {
-            const b = Buffer.pack("IIHH", [0, 0, this.port, 0])
-            b.write(0, Buffer.fromHex(selfDevice().deviceId))
+            const b = jdpack<[Buffer, number, number]>("b[8] u16 u16",
+                [Buffer.fromHex(selfDevice().deviceId), this.port, 0])
             return JDPacket.from(cmd, b)
         }
 
@@ -104,8 +104,8 @@ namespace jacdac {
         constructor(public deviceId: string, public port: number) { }
 
         static from(pkt: JDPacket) {
-            const id = pkt.data.slice(0, 8).toHex()
-            const [port] = pkt.data.unpack("H", 8)
+            const [idbuf, port] = jdunpack<[Buffer, number]>(pkt.data, "b[8] u16");
+            const id = idbuf.toHex();
             return new OutPipe(id, port)
         }
 

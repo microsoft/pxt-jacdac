@@ -12,7 +12,7 @@ namespace jacdac {
                 // everyone to log
                 if (this.minPriority <= LoggerPriority.Error) {
                     const SetMinPriority = 0x2000 | LoggerReg.MinPriority
-                    JDPacket.packed(SetMinPriority, "i", [this.minPriority])
+                    JDPacket.jdpacked(SetMinPriority, "i32", [this.minPriority])
                         .sendAsMultiCommand(this.serviceClass)
                 }
             })

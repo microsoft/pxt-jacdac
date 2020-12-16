@@ -101,9 +101,7 @@ namespace jacdac {
 
             function packName(c: Client) {
                 const devid = c.device ? Buffer.fromHex(c.device.deviceId) : Buffer.create(8)
-                const name = Buffer.fromUTF8(c.requiredDeviceName)
-                const devdesc = Buffer.pack("I", [c.serviceClass])
-                return devid.concat(devdesc).concat(name)
+                return jdpack("b[8] u32 s", [devid, c.serviceClass, c.requiredDeviceName])
             }
         }
     }
@@ -179,9 +177,8 @@ namespace jacdac {
             const devs: RemoteRequestedDevice[] = []
 
             inp.readList(buf => {
-                const devid = buf.slice(0, 8).toHex()
-                const [service_class] = buf.unpack("I", 8)
-                const name = buf.slice(12).toString()
+                const [devidbuf, service_class, name] = jdunpack<[Buffer, number, string]>(buf, "b[8] u32 s")
+                const devid = devidbuf.toHex();
                 const r = addRequested(devs, name, service_class, this)
                 const dev = localDevs.find(d => d.deviceId == devid)
                 if (dev)

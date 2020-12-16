@@ -26,7 +26,7 @@ namespace jacdac {
         connectSSL(hostname: string, port: number) {
             if (this.isConnected)
                 throw "already connected"
-            this.outp.writeMeta(Buffer.pack("IH", [1, port]).concat(Buffer.fromUTF8(hostname + "\u0000")))
+            this.outp.writeMeta(jdpack("u32 u16 z", [1, port, hostname]));
             const buf = this.inp.read()
             if (buf && buf.length == 0) {
                 this.isConnected = true

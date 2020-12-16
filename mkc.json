@@ -4,5 +4,6 @@
         "jacdac": ".",
         "jacdac-settings": "./settings",
         "jacdac-tcp": "./tcp"
+
     }
 }
