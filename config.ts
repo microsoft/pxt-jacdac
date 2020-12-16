@@ -2,25 +2,6 @@ namespace jacdac {
     // common logging level for jacdac services
     export let consolePriority = ConsolePriority.Debug;
 
-    export function toHex(n: number): string {
-        const hexBuf = control.createBuffer(4);
-        hexBuf.setNumber(NumberFormat.UInt32LE, 0, n);
-        return hexBuf.toHex();
-    }
-    export function toHex16(n: number): string {
-        const hexBuf = control.createBuffer(2);
-        hexBuf.setNumber(NumberFormat.UInt16LE, 0, n);
-        return hexBuf.toHex();
-    }
-    export function toHex8(n: number): string {
-        const hexBuf = control.createBuffer(1);
-        hexBuf.setNumber(NumberFormat.UInt8LE, 0, n);
-        return hexBuf.toHex();
-    }
-
-    // events are send with this device ID
-    export const JD_MESSAGE_BUS_ID = 2000;
-
     export const BUTTON_EVENTS: number[] = [
         DAL.DEVICE_BUTTON_EVT_CLICK,
         DAL.DEVICE_BUTTON_EVT_LONG_CLICK,

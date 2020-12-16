@@ -1,9 +1,13 @@
 namespace modules {
     /**
-     * Connects to any JACDAC modules.
+     * Starts the JACDAC bus and looks for modules.
      */
-    //% blockId=jacdacmodulesstart block="connect modules"
-    export function connect() {
+    //% blockId=jacdacmodulesstart block="start modules"
+    //% group="Services" weight=0
+    export function start() {
         jacdac.start();
+    }
+
+    export function setLoggerVerbosity(verbosity: jacdac.LoggerPriority) {
     }
 }

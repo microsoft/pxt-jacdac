@@ -1,4 +1,6 @@
 namespace jacdac {
+    // events are send with this device ID
+    export const JD_MESSAGE_BUS_ID = 2000;
 
     /**
      * A driver that listens for message bus events

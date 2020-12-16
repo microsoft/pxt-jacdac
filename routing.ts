@@ -10,21 +10,15 @@ identification service - led blinking
 namespace jacdac {
     const devNameSettingPrefix = "#jddev:"
 
-    //% whenUsed
     let _hostServices: Host[]
-    //% whenUsed
     let _unattachedClients: Client[]
-    //% whenUsed
     let _allClients: Client[]
-    //% whenUsed
     let _myDevice: Device
     //% whenUsed
     let _devices: Device[] = []
     //% whenUsed
     let _announceCallbacks: (() => void)[] = [];
-    //% whenUsed
     let _newDeviceCallbacks: (() => void)[];
-    //% whenUsed
     let _pktCallbacks: ((p: JDPacket) => void)[];
     let restartCounter = 0
 
