@@ -70,6 +70,7 @@
     ],
     "binaryonly": true,
     "extension": {
+        "namespace": "modules",
         "label": "Configure",
         "localUrl": "http://localhost:8000/tools/makecode-editor-extension"
     }
