@@ -22,7 +22,7 @@ namespace modules {
         /**
          * Reads the current x value from the sensor
          */
-        //% blockId=jddevice_temperature block="$thermometer temperature in $unit"
+        //% blockId=jddevice_temperature block="%thermometer temperature in $unit"
         //% group="Thermometer"
         //% weight=26
         temperature(unit?: TemperatureUnit): number {
@@ -40,7 +40,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacthermoonevent block="$thermometer on $condition"
+        //% blockId=jacadacthermoonevent block="%thermometer on $condition"
         //% group="Thermometer"
         onEvent(condition: TemperatureEvent, handler: () => void): void {
             this.registerEvent(condition, handler)

@@ -55,7 +55,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jdtouchbuttonsevent block="%client %index on %event"
+        //% blockId=jdtouchbuttonsevent block="%touchButton %index on %event"
         //% group="Touch"
         onEvent(index: number, event: JDButtonEvent, handler: () => void) {
             const j = jacdac.BUTTON_EVENTS.indexOf(<number>event);

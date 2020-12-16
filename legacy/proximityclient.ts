@@ -13,7 +13,7 @@ namespace jacdac {
         /**
          * Gets the distance measure by the sensor. Negative if missing
          */
-        //% blockId=jdproximtitydistance block="%client distance"
+        //% blockId=jdproximtitydistance block="%proximity distance"
         //% group="Promixity"
         get distance(): number {
             const s = this.state;
@@ -26,7 +26,7 @@ namespace jacdac {
          * @param gesture
          * @param handler
          */
-        //% blockId=jdproximityevent block="%client on %event"
+        //% blockId=jdproximityevent block="%proximity on %event"
         //% group="Promixity"
         onEvent(event: JDPromixityEvent, handler: () => void) {
             this.registerEvent(event, handler);
@@ -34,6 +34,6 @@ namespace jacdac {
 
     }
 
-    //% fixedInstance whenUsed block="light sensor client"
+    //% fixedInstance whenUsed
     export const proximityClient = new ProximityClient();
 }

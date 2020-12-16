@@ -11,7 +11,7 @@ namespace modules {
          */
         //% group="Servos"
         //% weight=99
-        //% blockId=jdmotorrun block="$motor run at $speed=speedPicker \\%"
+        //% blockId=jdmotorrun block="%motor run at $speed=speedPicker \\%"
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
