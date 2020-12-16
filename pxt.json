@@ -28,6 +28,7 @@
         "service.ts",
         "pipes.ts",
         "actuator.ts",
+        "diagnostics.ts",
         "ns.ts",
         "system/constants.ts",
         "base/constants.ts",

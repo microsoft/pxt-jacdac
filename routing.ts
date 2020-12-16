@@ -879,32 +879,4 @@ namespace jacdac {
         });
         loggerHost.start()
     }
-
-    export function diagnostics(): jacdac.JDDiagnostics {
-        return new jacdac.JDDiagnostics(jacdac.__physGetDiagnostics());
-    }
-
-    export class JDDiagnostics {
-        bus_state: number;
-        bus_lo_error: number;
-        bus_uart_error: number;
-        bus_timeout_error: number;
-        packets_sent: number;
-        packets_received: number;
-        packets_dropped: number;
-
-        constructor(buf: Buffer) {
-            if (!buf) return;
-
-            [
-                this.bus_state,
-                this.bus_lo_error,
-                this.bus_uart_error,
-                this.bus_timeout_error,
-                this.packets_sent,
-                this.packets_received,
-                this.packets_dropped
-            ] = pins.unpackBuffer("7I", buf)
-        }
-    }
 }
