@@ -35,7 +35,7 @@ function jdpackTest() {
 }
     
 // pins.A9.digitalWrite(false)
-jacdac.consolePriority = ConsolePriority.Warning;
+jacdac.consolePriority = ConsolePriority.Log;
 jacdac.roleManagerHost.start()
 jacdac.protoTestHost.start()
 jacdac.start()

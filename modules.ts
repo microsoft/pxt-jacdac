@@ -7,7 +7,4 @@ namespace modules {
     export function start() {
         jacdac.start();
     }
-
-    export function setLoggerVerbosity(verbosity: jacdac.LoggerPriority) {
-    }
 }

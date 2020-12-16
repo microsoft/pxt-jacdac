@@ -1,7 +1,7 @@
 namespace jacdac {
     export class LoggerHost extends Host {
         private _lastListenerTime: number = 0;
-        minPriority = LoggerPriority.Error + 1;
+        minPriority = LoggerPriority.Silent;
 
         constructor() {
             super("conh", SRV_LOGGER);
@@ -44,7 +44,8 @@ namespace jacdac {
         }
 
         add(priority: LoggerPriority, message: string): void {
-            if (!message || !message.length || priority < this.minPriority || !this._lastListenerTime)
+            if (!message || !message.length || priority < this.minPriority
+                || !this._lastListenerTime)
                 return;
 
             // no one listening?

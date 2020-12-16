@@ -9,6 +9,8 @@ identification service - led blinking
 
 namespace jacdac {
     const devNameSettingPrefix = "#jddev:"
+    // common logging level for jacdac services
+    export let consolePriority = ConsolePriority.Debug;
 
     let _hostServices: Host[]
     let _unattachedClients: Client[]
@@ -23,7 +25,7 @@ namespace jacdac {
     let restartCounter = 0
 
     function log(msg: string) {
-        console.add(jacdac.consolePriority, msg);
+        console.add(consolePriority, msg);
     }
 
     //% fixedInstances
@@ -220,10 +222,10 @@ namespace jacdac {
         }
 
         protected log(text: string) {
-            if (this.supressLog || jacdac.consolePriority < console.minPriority)
+            if (this.supressLog || consolePriority < console.minPriority)
                 return
             let dev = selfDevice().toString()
-            console.add(jacdac.consolePriority, `${dev}:${this.serviceClass}>${this.name}>${text}`);
+            console.add(consolePriority, `${dev}:${this.serviceClass}>${this.name}>${text}`);
         }
     }
 
@@ -403,11 +405,11 @@ namespace jacdac {
         }
 
         protected log(text: string) {
-            if (this.supressLog || jacdac.consolePriority < console.minPriority)
+            if (this.supressLog || consolePriority < console.minPriority)
                 return
             let dev = selfDevice().toString()
             let other = this.device ? this.device.toString() : "<unbound>"
-            console.add(jacdac.consolePriority, `${dev}/${other}:${this.serviceClass}>${this.name}>${text}`);
+            console.add(consolePriority, `${dev}/${other}:${this.serviceClass}>${this.name}>${text}`);
         }
 
         start() {
@@ -896,6 +898,7 @@ namespace jacdac {
                 loggerHost.add(pri as number, msg);
         });
         loggerHost.start()
+        log("jacdac started")
     }
 
     export function autoBind() {

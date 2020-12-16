@@ -1,6 +1,6 @@
 namespace jacdac {
     export class LoggerClient extends Client {
-        minPriority = LoggerPriority.Error + 1; // drop all packets by default
+        minPriority = LoggerPriority.Silent; // drop all packets by default
 
         onMessageReceived: (priority: number, dev: Device, message: string) => void;
 
@@ -10,7 +10,7 @@ namespace jacdac {
             onAnnounce(() => {
                 // on every announce, if we're listening to anything, tell
                 // everyone to log
-                if (this.minPriority <= LoggerPriority.Error) {
+                if (this.minPriority < LoggerPriority.Silent) {
                     const SetMinPriority = 0x2000 | LoggerReg.MinPriority
                     JDPacket.jdpacked(SetMinPriority, "i32", [this.minPriority])
                         .sendAsMultiCommand(this.serviceClass)

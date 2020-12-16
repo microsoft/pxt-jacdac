@@ -1,7 +1,4 @@
 namespace jacdac {
-    // common logging level for jacdac services
-    export let consolePriority = ConsolePriority.Debug;
-
     export const BUTTON_EVENTS: number[] = [
         DAL.DEVICE_BUTTON_EVT_CLICK,
         DAL.DEVICE_BUTTON_EVT_LONG_CLICK,
