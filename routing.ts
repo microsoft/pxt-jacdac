@@ -159,7 +159,7 @@ namespace jacdac {
         }
 
         protected handleRegUInt32(pkt: JDPacket, register: number, current: number): number {
-            const res = this.handleRegValue(pkt, register, "u32", current >> 0);
+            const res = this.handleRegValue(pkt, register, "u32", current >>> 0);
             return res;
         }
 
