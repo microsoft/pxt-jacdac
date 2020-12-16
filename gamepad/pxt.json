@@ -2,6 +2,10 @@
     "name": "jacdac-gamepad",
     "version": "0.2.9",
     "description": "MakeCode support for JACDAC Gamepad service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
     "files": [
         "constants.ts",
         "client.ts"
@@ -9,8 +13,5 @@
     "supportedTargets": [
         "arcade"
     ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+    "preferredEditor": "tsprj"
 }

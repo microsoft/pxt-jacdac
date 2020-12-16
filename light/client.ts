@@ -139,6 +139,7 @@ namespace modules {
     }
 
     //% fixedInstances
+    //% blockGap=8
     export class LightClient extends jacdac.Client {
         constructor(requiredDevice: string = null) {
             super("light", jacdac.SRV_LIGHT, requiredDevice);
@@ -146,9 +147,18 @@ namespace modules {
 
         _length = 10
 
-        setStrip(numpixels: number, type = LightType.WS2812B_GRB, maxpower = 500): void {
-            this._length = numpixels
-            this.setRegInt(jacdac.LightReg.NumPixels, numpixels)
+        /**
+         * Configure the light strip
+         */
+        //% blockId=jacdaclightsetstrip
+        //% block="configure %light with $numpixels LEDs $type||$maxpower"
+        //% group="Light"
+        //% weight=0
+        //% numpixels.min=0
+        //% numpixels.defl=30
+        configure(numpixels: number, type = LightType.WS2812B_GRB, maxpower = 500): void {
+            this._length = numpixels >> 0;
+            this.setRegInt(jacdac.LightReg.NumPixels, this._length)
             this.setRegInt(jacdac.LightReg.LightType, type)
             this.setRegInt(jacdac.SystemReg.MaxPower, maxpower)
         }
@@ -201,62 +211,69 @@ namespace modules {
         //% blockId=jdlight_show_animation block="show %strip animation %animation for %duration=timePicker ms"
         //% weight=90 blockGap=8
         //% group="Light"
-        showAnimation(animation: lightanimation.Base, duration: number, color = 0) {
+        showAnimation(animation: lightanimation.Animation, duration: number, color = 0) {
             const currAnim = ++this.currAnimation
             control.runInParallel(() => {
-                animation.length = this._length
-                animation.clear()
-                let buf: Buffer = null
-                let totTime = 0
-                let last = false
-                this.currAnimation--
-                this.runEncoded("setall #000000") // clear first
-                const frameTime = 50
+                const instance = animation.create(this._length)
+                instance.clear()
+                this.backgroundAnimate(currAnim, instance, duration, color);
+            })
+        }
+
+        private backgroundAnimate(currAnim: number, animation: lightanimation.Animation, duration: number, color = 0) {
+            let buf: Buffer = null
+            let totTime = 0
+            let last = false
+            this.currAnimation--
+            this.runEncoded("setall #000000") // clear first
+            const frameTime = 50
+            for (; ;) {
+                if (currAnim != this.currAnimation)
+                    return
+                let framelen = 0
+                let frames: Buffer[] = []
+                let waitTime = 0
+                const wait = lightEncode("wait %", [frameTime])
                 for (; ;) {
-                    if (currAnim != this.currAnimation)
-                        return
-                    let framelen = 0
-                    let frames: Buffer[] = []
-                    let waitTime = 0
-                    const wait = lightEncode("wait %", [frameTime])
-                    for (; ;) {
-                        if (!buf)
-                            buf = animation.nextFrame()
-                        if (!buf || !buf.length) {
-                            last = true
-                            animation.clear()
-                            break
-                        }
-                        if (framelen + buf.length > 220)
-                            break
-                        framelen += buf.length + wait.length
-                        frames.push(buf)
-                        frames.push(wait)
-                        buf = null
-                        waitTime += frameTime
-                        totTime += frameTime
-                        if (waitTime > 500 || (duration > 0 && totTime >= duration))
-                            break
+                    if (!buf)
+                        buf = animation.nextFrame()
+                    if (!buf || !buf.length) {
+                        last = true
+                        animation.clear()
+                        break
                     }
-                    if (framelen) {
-                        this.currAnimation--
-                        this.runProgram(Buffer.concat(frames))
-                    }
-                    pause(waitTime)
-                    if ((duration > 0 && totTime >= duration) || (duration <= 0 && last))
+                    if (framelen + buf.length > 220)
+                        break
+                    framelen += buf.length + wait.length
+                    frames.push(buf)
+                    frames.push(wait)
+                    buf = null
+                    waitTime += frameTime
+                    totTime += frameTime
+                    if (waitTime > 500 || (duration > 0 && totTime >= duration))
                         break
                 }
-            })
+                if (framelen) {
+                    this.currAnimation--
+                    this.runProgram(Buffer.concat(frames))
+                }
+                pause(waitTime)
+                if ((duration > 0 && totTime >= duration) || (duration <= 0 && last))
+                    break
+            }
         }
     }
 
     export namespace lightanimation {
-
-        export class Base {
-            length: number
-            step: number
-            color = 0xffffff
+        //% fixedInstances
+        export abstract class Animation {
+            protected length: number
+            protected step: number
+            protected color = 0xffffff
             constructor() { }
+
+            abstract create(length: number): Animation;
+
             clear() {
                 this.step = 0
             }
@@ -265,7 +282,13 @@ namespace modules {
             }
         }
 
-        export class RainbowCycle extends Base {
+        class RainbowCycle extends Animation {
+            create(length: number) {
+                const anim = new RainbowCycle()
+                anim.length = length;
+                return anim;
+            }
+
             nextFrame() {
                 // we want to move by half step each frame, so we generate slightly shifted fade on odd steps
                 const off = Math.idiv(128, this.length) << 16
@@ -286,10 +309,16 @@ namespace modules {
                 (((col & 0xff) * level) >> 8)
         }
 
-        export class RunningLights extends Base {
+        class RunningLights extends Animation {
             constructor() {
                 super()
                 this.color = 0xff0000
+            }
+
+            create(length: number) {
+                const anim = new RunningLights()
+                anim.length = length;
+                return anim;
             }
 
             // you need lots of pixels to see this one
@@ -307,10 +336,16 @@ namespace modules {
             }
         }
 
-        export class Comet extends Base {
+        class Comet extends Animation {
             constructor() {
                 super()
                 this.color = 0xff00ff
+            }
+
+            create(length: number) {
+                const anim = new Comet()
+                anim.length = length;
+                return anim;
             }
 
             nextFrame() {
@@ -322,10 +357,16 @@ namespace modules {
         }
 
 
-        export class Sparkle extends Base {
+        class Sparkle extends Animation {
             constructor() {
                 super()
                 this.color = 0xffffff
+            }
+
+            create(length: number) {
+                const anim = new Sparkle()
+                anim.length = length;
+                return anim;
             }
 
             private lastpix = -1
@@ -347,10 +388,16 @@ namespace modules {
             }
         }
 
-        export class ColorWipe extends Base {
+        class ColorWipe extends Animation {
             constructor() {
                 super()
                 this.color = 0x0000ff
+            }
+
+            create(length: number) {
+                const anim = new ColorWipe()
+                anim.length = length;
+                return anim;
             }
 
             nextFrame() {
@@ -363,10 +410,16 @@ namespace modules {
             }
         }
 
-        export class TheaterChase extends Base {
+        class TheaterChase extends Animation {
             constructor() {
                 super()
                 this.color = 0x0000ff
+            }
+
+            create(length: number) {
+                const anim = new TheaterChase()
+                anim.length = length;
+                return anim;
             }
 
             nextFrame() {
@@ -381,11 +434,17 @@ namespace modules {
             }
         }
 
-        export class Fireflys extends Base {
+        class Fireflys extends Animation {
             positions: number[]
             constructor() {
                 super()
                 this.color = 0xffff00
+            }
+
+            create(length: number) {
+                const anim = new Fireflys()
+                anim.length = length;
+                return anim;
             }
 
             clear() {
@@ -413,9 +472,10 @@ namespace modules {
                 return lightEncode(cmd, args)
             }
         }
+        //% fixedInstance whenUsed
+        export const firefly: Animation = new Fireflys();
     }
 
-
-    //% fixedInstance whenUsed block="light client"
-    export const lightClient = new LightClient();
+    //% fixedInstance whenUsed
+    export const light = new LightClient();
 }

@@ -8,6 +8,7 @@ namespace jacdac {
     }
 
     //% fixedInstances
+    //% blockGap=8
     export class ModelRunnerClient extends Client {
         constructor(requiredDevice: string = null) {
             super("mrun", SRV_MODEL_RUNNER, requiredDevice);

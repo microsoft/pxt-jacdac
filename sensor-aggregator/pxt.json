@@ -2,6 +2,10 @@
     "name": "jacdac-sensor-aggregator",
     "version": "0.2.9",
     "description": "MakeCode support for JACDAC Sensor aggregator service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
     "files": [
         "constants.ts",
         "host.ts"
@@ -11,8 +15,5 @@
         "maker",
         "microbit"
     ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+    "preferredEditor": "tsprj"
 }
