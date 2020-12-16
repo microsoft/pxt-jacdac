@@ -1,5 +1,6 @@
 namespace modules {
     //% fixedInstances
+    //% blockGap=8
     export class RotaryEncoderClient extends jacdac.SensorClient {
         constructor(requiredDevice: string = null) {
             super("crank", jacdac.SRV_ROTARY_ENCODER, requiredDevice);
@@ -40,22 +41,11 @@ namespace modules {
                 return curr
             }
         }
-
-        /**
-         * Runs code when an event happens on the sensor
-         * @param gesture 
-         * @param handler 
-         */
-        //% blockId=jacadacrotaryencoderonevent block="on %rotaryEncoder $event"
-        //% group="Rotary Encoder"
-        onEvent(event: jacdac.RoleManagerEvent, handler: () => void) {
-            this.registerEvent(event, handler);
-        }
     }
 
     /**
      * Default rotary encoder
      */
     //% fixedInstance whenUsed
-    export const rotary = new RotaryEncoderClient();
+    export const rotaryEncoder = new RotaryEncoderClient();
 }

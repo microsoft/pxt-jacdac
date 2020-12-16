@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-pwm-light",
+    "name": "jacdac-mono-light",
     "version": "0.2.9",
-    "description": "MakeCode support for JACDAC PWM Light service",
+    "description": "MakeCode support for JACDAC Mono Light service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
