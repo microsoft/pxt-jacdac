@@ -23,7 +23,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jdmulittouchevent block="%multiTouch on $event at"
+        //% blockId=jdmulittouchevent block="on %multiTouch $event at"
         //% group="Touch"
         onEvent(event: jacdac.MultitouchEvent, handler: (index: number) => void) {
             this.registerHandler(event, handler);

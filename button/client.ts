@@ -32,7 +32,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacbtnonevent block="%button on $event"
+        //% blockId=jacadacbtnonevent block="on %button $event"
         //% group="Buttons"
         onEvent(event: jacdac.ButtonEvent, handler: () => void) {
             this.registerEvent(event, handler);

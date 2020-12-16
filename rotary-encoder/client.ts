@@ -46,7 +46,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacrotaryencoderonevent block="%rotaryEncoder on $event"
+        //% blockId=jacadacrotaryencoderonevent block="on %rotaryEncoder $event"
         //% group="Rotary Encoder"
         onEvent(event: jacdac.RoleManagerEvent, handler: () => void) {
             this.registerEvent(event, handler);

@@ -40,7 +40,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacthermoonevent block="%thermometer on $condition"
+        //% blockId=jacadacthermoonevent block="on %thermometer $condition"
         //% group="Thermometer"
         onEvent(condition: TemperatureEvent, handler: () => void): void {
             this.registerEvent(condition, handler)

@@ -21,7 +21,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacmicrophoneonevent block="%microphone on loud sound"
+        //% blockId=jacadacmicrophoneonevent block="on %microphone loud sound"
         //% group="Microphone"
         onLoudSound(handler: () => void) {
             this.registerEvent(DAL.SENSOR_THRESHOLD_HIGH, handler);

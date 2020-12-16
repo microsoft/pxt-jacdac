@@ -21,7 +21,7 @@ namespace jacdac {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadactouchonevent block="%button on %event"
+        //% blockId=jacadactouchonevent block="on %button %event"
         //% group="Touch"
         onEvent(event: JDButtonEvent, handler: () => void) {
             this.registerEvent(event, handler);

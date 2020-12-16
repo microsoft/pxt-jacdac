@@ -72,7 +72,7 @@ namespace modules {
          * @param gesture 
          * @param handler 
          */
-        //% blockId=jacadacacconevent block="%accelerometer on $event"
+        //% blockId=jacadacacconevent block="on %accelerometer $event"
         //% group="Accelerometer"
         onEvent(event: jacdac.AccelerometerEvent, handler: () => void) {
             this.registerEvent(event, handler);

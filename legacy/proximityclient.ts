@@ -26,7 +26,7 @@ namespace jacdac {
          * @param gesture
          * @param handler
          */
-        //% blockId=jdproximityevent block="%proximity on %event"
+        //% blockId=jdproximityevent block="on %proximity %event"
         //% group="Promixity"
         onEvent(event: JDPromixityEvent, handler: () => void) {
             this.registerEvent(event, handler);
