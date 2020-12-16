@@ -210,7 +210,7 @@ namespace jacdac {
         }
 
         /**
-         * Unregister and stops the driver
+         * Unregister and stops the service
          */
         //% blockId=jacdachoststop block="stop %service"
         //% group="Services" blockGap=8
@@ -229,7 +229,7 @@ namespace jacdac {
         }
     }
 
-    export class ClientPacketQueue {
+    class ClientPacketQueue {
         private pkts: Buffer[] = []
 
         constructor(public readonly parent: Client) { }
@@ -953,7 +953,7 @@ namespace jacdac {
         }
     }
 
-    export function clearAllNames() {
+    function clearAllNames() {
         settings.list(devNameSettingPrefix).forEach(settings.remove)
     }
 
@@ -1008,7 +1008,7 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="role manager"
     export const roleManagerHost = new RoleManagerHost()
 
     export class RemoteRequestedDevice {
