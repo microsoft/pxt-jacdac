@@ -47,8 +47,9 @@ namespace modules {
                 startPlay = true
             }
             for (let off = 0; off < buf.length - (isize - 1); off += isize) {
+                const ibuf = buf.slice(off, isize)
                 const [soundWave, flags, frequency, duration, startVolume, endVolume, endFrequency] =
-                    jacdac.jdunpack<[number, number, number, number, number, number, number]>(buf, "u8 u8 u16 u16 u16 u16 u16", off)
+                    jacdac.jdunpack<[number, number, number, number, number, number, number]>(ibuf, "u8 u8 u16 u16 u16 u16 u16")
                 const freq = (frequency + endFrequency) >> 1
                 const vol = (startVolume + endVolume) >> 1
                 this.queue.push(new ToneToPlay(tonePayload(freq, duration, vol), timestamp))
