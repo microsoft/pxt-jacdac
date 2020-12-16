@@ -9,7 +9,7 @@
         "jacdac-button": "file:../button",
         "jacdac-servo": "file:../servo",
         "jacdac-rotary-encoder": "file:../rotary-encoder",
-        "jacdac-settings": "./settings",
+        "jacdac-settings": "file:../settings",
         "jacdac-slider": "file:../slider",
         "jacdac-tcp": "file:../tcp",
         "jacdac-wifi": "file:../wifi"
