@@ -1,6 +1,6 @@
 {
     "name": "jacdac-gamepad",
-    "version": "0.2.8",
+    "version": "0.2.9",
     "description": "MakeCode support for JACDAC Gamepad service",
     "files": [
         "constants.ts",
