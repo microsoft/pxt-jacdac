@@ -8,18 +8,24 @@ identification service - led blinking
 */
 
 namespace jacdac {
-    export const devNameSettingPrefix = "#jddev:"
+    const devNameSettingPrefix = "#jddev:"
 
-    let hostServices: Host[]
-    export let _unattachedClients: Client[]
-    export let _allClients: Client[]
-    let myDevice: Device
     //% whenUsed
-    let devices_: Device[] = []
+    let _hostServices: Host[]
     //% whenUsed
-    let announceCallbacks: (() => void)[] = [];
-    let newDeviceCallbacks: (() => void)[];
-    let pktCallbacks: ((p: JDPacket) => void)[];
+    let _unattachedClients: Client[]
+    //% whenUsed
+    let _allClients: Client[]
+    //% whenUsed
+    let _myDevice: Device
+    //% whenUsed
+    let _devices: Device[] = []
+    //% whenUsed
+    let _announceCallbacks: (() => void)[] = [];
+    //% whenUsed
+    let _newDeviceCallbacks: (() => void)[];
+    //% whenUsed
+    let _pktCallbacks: ((p: JDPacket) => void)[];
     let restartCounter = 0
 
     function log(msg: string) {
@@ -31,7 +37,7 @@ namespace jacdac {
         protected supressLog: boolean;
         running: boolean
         serviceNumber: number
-        stateUpdated: boolean;
+        protected stateUpdated: boolean;
         private _statusCode: number = 0; // u16, u16
 
         constructor(
@@ -77,7 +83,7 @@ namespace jacdac {
 
         protected sendReport(pkt: JDPacket) {
             pkt.service_number = this.serviceNumber
-            pkt._sendReport(myDevice)
+            pkt._sendReport(_myDevice)
         }
 
         protected sendEvent(event: number, data?: Buffer) {
@@ -202,8 +208,8 @@ namespace jacdac {
                 return
             this.running = true
             jacdac.start();
-            this.serviceNumber = hostServices.length
-            hostServices.push(this)
+            this.serviceNumber = _hostServices.length
+            _hostServices.push(this)
             this.log("start");
         }
 
@@ -230,7 +236,7 @@ namespace jacdac {
     export class ClientPacketQueue {
         private pkts: Buffer[] = []
 
-        constructor(public parent: Client) { }
+        constructor(public readonly parent: Client) { }
 
         private updateQueue(pkt: JDPacket) {
             const cmd = pkt.service_command
@@ -280,19 +286,19 @@ namespace jacdac {
     export class Client {
         device: Device
         currentDevice: Device
-        eventId: number
+        protected readonly eventId: number
         broadcast: boolean // when true, this.device is never set
         serviceNumber: number;
         protected supressLog: boolean;
         started: boolean;
-        advertisementData: Buffer;
+        protected advertisementData: Buffer;
         private handlers: SMap<(idx?: number) => void>;
 
-        config: ClientPacketQueue
+        protected readonly config: ClientPacketQueue
 
         constructor(
             public name: string,
-            public serviceClass: number,
+            public readonly serviceClass: number,
             public requiredDeviceName: string
         ) {
             this.eventId = control.allocateNotifyEvent();
@@ -456,7 +462,7 @@ namespace jacdac {
         private queries: RegQuery[]
 
         constructor(public deviceId: string) {
-            devices_.push(this)
+            _devices.push(this)
         }
 
         get isConnected() {
@@ -552,7 +558,7 @@ namespace jacdac {
         }
 
         static clearNameCache() {
-            for (let d of devices_)
+            for (let d of _devices)
                 d._name = undefined
             clearAttachCache()
         }
@@ -565,6 +571,9 @@ namespace jacdac {
         }
     }
 
+    /**
+     * Raised when an identity command request is received
+     */
     //% whenUsed
     export let onIdentifyRequest = () => {
         if (!pins.pinByCfg(DAL.CFG_PIN_LED))
@@ -598,34 +607,49 @@ namespace jacdac {
             }
         }
     }
+
+    /**
+     * Gets the list of devices currently detected on the bus
+     */
     export function devices() {
-        return devices_.slice()
+        return _devices.slice()
     }
 
+    /**
+     * Gets the JACDAC device representing the running device
+     */
     export function selfDevice() {
-        if (!myDevice) {
-            myDevice = new Device(control.deviceLongSerialNumber().toHex())
-            myDevice.services = Buffer.create(4)
+        if (!_myDevice) {
+            _myDevice = new Device(control.deviceLongSerialNumber().toHex())
+            _myDevice.services = Buffer.create(4)
         }
-        return myDevice
+        return _myDevice
     }
 
+    /**
+     * Raised when services from a device are announced
+     * @param cb 
+     */
     export function onAnnounce(cb: () => void) {
-        announceCallbacks.push(cb)
+        _announceCallbacks.push(cb)
     }
 
+    /**
+     * Raised when a new device is detected on the bus
+     * @param cb 
+     */
     export function onNewDevice(cb: () => void) {
-        if (!newDeviceCallbacks) newDeviceCallbacks = []
-        newDeviceCallbacks.push(cb)
+        if (!_newDeviceCallbacks) _newDeviceCallbacks = []
+        _newDeviceCallbacks.push(cb)
     }
 
     export function onRawPacket(cb: (pkt: JDPacket) => void) {
-        if (!pktCallbacks) pktCallbacks = []
-        pktCallbacks.push(cb)
+        if (!_pktCallbacks) _pktCallbacks = []
+        _pktCallbacks.push(cb)
     }
 
     function queueAnnounce() {
-        const ids = hostServices.map(h => h.running ? h.serviceClass : -1)
+        const ids = _hostServices.map(h => h.running ? h.serviceClass : -1)
         if (restartCounter < 0xf) restartCounter++
         ids[0] = restartCounter | 0x100
         const buf = Buffer.create(ids.length * 4)
@@ -633,14 +657,14 @@ namespace jacdac {
             buf.setNumber(NumberFormat.UInt32LE, i * 4, ids[i]);
         JDPacket.from(SystemCmd.Announce, buf)
             ._sendReport(selfDevice())
-        announceCallbacks.forEach(f => f())
+        _announceCallbacks.forEach(f => f())
         for (const cl of _allClients)
             cl.announceCallback()
         gcDevices()
     }
 
     function clearAttachCache() {
-        for (let d of devices_) {
+        for (let d of _devices) {
             // add a dummy byte at the end (if not done already), to force re-attach of services
             if (d.services && (d.services.length & 3) == 0)
                 d.services = d.services.concat(Buffer.create(1))
@@ -648,8 +672,8 @@ namespace jacdac {
     }
 
     function newDevice() {
-        if (newDeviceCallbacks)
-            for (let f of newDeviceCallbacks)
+        if (_newDeviceCallbacks)
+            for (let f of _newDeviceCallbacks)
                 f()
     }
 
@@ -717,14 +741,14 @@ namespace jacdac {
             }
         }
 
-        if (pktCallbacks)
-            for (let f of pktCallbacks)
+        if (_pktCallbacks)
+            for (let f of _pktCallbacks)
                 f(pkt)
 
         if (multiCommandClass != null) {
             if (!pkt.is_command)
                 return // only commands supported in multi-command
-            const h = hostServices.find(s => s.serviceClass == multiCommandClass);
+            const h = _hostServices.find(s => s.serviceClass == multiCommandClass);
             if (h && h.running) {
                 // pretend it's directly addressed to us
                 pkt.device_identifier = selfDevice().deviceId
@@ -734,7 +758,7 @@ namespace jacdac {
         } else if (devId == selfDevice().deviceId) {
             if (!pkt.is_command)
                 return // huh? someone's pretending to be us?
-            const h = hostServices[pkt.service_number]
+            const h = _hostServices[pkt.service_number]
             if (h && h.running) {
                 // log(`handle pkt at ${h.name} cmd=${pkt.service_command}`)
                 h.handlePacketOuter(pkt)
@@ -743,13 +767,13 @@ namespace jacdac {
             if (pkt.is_command)
                 return // it's a command, and it's not for us
 
-            let dev = devices_.find(d => d.deviceId == devId)
+            let dev = _devices.find(d => d.deviceId == devId)
 
             if (pkt.service_number == JD_SERVICE_NUMBER_CTRL) {
                 if (pkt.service_command == SystemCmd.Announce) {
                     if (dev && (dev.services[0] & 0xf) > (pkt.data[0] & 0xf)) {
                         // if the reset counter went down, it means the device resetted; treat it as new device
-                        devices_.removeElement(dev)
+                        _devices.removeElement(dev)
                         dev._destroy()
                         dev = null
                     }
@@ -798,10 +822,10 @@ namespace jacdac {
     function gcDevices() {
         const cutoff = control.millis() - 2000
         let numdel = 0
-        for (let i = 0; i < devices_.length; ++i) {
-            const dev = devices_[i]
+        for (let i = 0; i < _devices.length; ++i) {
+            const dev = _devices[i]
             if (dev.lastSeen < cutoff) {
-                devices_.splice(i, 1)
+                _devices.splice(i, 1)
                 i--
                 dev._destroy()
                 numdel++
@@ -825,19 +849,19 @@ namespace jacdac {
         pin.digitalWrite(val)
     }
 
-    export function enablePower(enabled = true) {
+    function enablePower(enabled = true) {
         // EN active-lo, AP2552A, AP22652A, TPS2552-1
         // EN active-hi, AP2553A, AP22653A, TPS2553-1
         setPinByCfg(CFG_PIN_JDPWR_ENABLE, enabled)
     }
 
     export function start(): void {
-        if (hostServices)
+        if (_hostServices)
             return // already started
 
         log("jacdac starting")
 
-        hostServices = []
+        _hostServices = []
         new ControlService().start()
         _unattachedClients = []
         _allClients = []
@@ -878,5 +902,215 @@ namespace jacdac {
                 loggerHost.add(pri as number, msg);
         });
         loggerHost.start()
+    }
+
+    export function autoBind() {
+        function log(msg: string) {
+            control.dmesg("autobind: " + msg)
+        }
+
+        function pending() {
+            return _allClients.filter(c => !!c.requiredDeviceName && !c.isConnected())
+        }
+
+        pauseUntil(() => pending().length == 0, 1000)
+
+        const plen = pending().length
+        log(`pending: ${plen}`)
+        if (plen == 0) return
+
+        pause(1000) // wait for everyone to enumerate
+
+        const requested: RemoteRequestedDevice[] = []
+
+        for (const client of _allClients) {
+            if (client.requiredDeviceName) {
+                const r = addRequested(requested, client.requiredDeviceName, client.serviceClass, null)
+                r.boundTo = client.device
+            }
+        }
+
+        if (!requested.length)
+            return
+
+        function nameFree(d: Device) {
+            return !d.name || requested.every(r => r.boundTo != d)
+        }
+
+        requested.sort((a, b) => a.name.compare(b.name))
+
+        let numSel = 0
+        recomputeCandidates(requested)
+        for (const r of requested) {
+            if (r.boundTo)
+                continue
+            const cand = r.candidates.filter(nameFree)
+            log(`name: ${r.name}, ${cand.length} candidate(s)`)
+            if (cand.length > 0) {
+                // take ones without existing names first
+                cand.sort((a, b) => (a.name || "").compare(b.name || "") || a.deviceId.compare(b.deviceId))
+                log(`setting to ${cand[0].toString()}`)
+                r.select(cand[0])
+                numSel++
+            }
+        }
+    }
+
+    export function clearAllNames() {
+        settings.list(devNameSettingPrefix).forEach(settings.remove)
+    }
+
+    function setDevName(id: string, name: string) {
+        const devid = devNameSettingPrefix + id
+        if (name.length == 0)
+            settings.remove(devid)
+        else
+            settings.writeString(devid, name)
+        Device.clearNameCache()
+    }
+
+    export class RoleManagerHost extends Host {
+        constructor() {
+            super("rolemgr", SRV_ROLE_MANAGER)
+        }
+
+        public handlePacket(packet: JDPacket) {
+            switch (packet.service_command) {
+                case RoleManagerCmd.GetRole:
+                    if (packet.data.length == 8) {
+                        let name = settings.readBuffer(devNameSettingPrefix + packet.data.toHex())
+                        if (!name) name = Buffer.create(0)
+                        this.sendReport(JDPacket.from(RoleManagerCmd.GetRole, packet.data.concat(name)))
+                    }
+                    break
+                case RoleManagerCmd.SetRole:
+                    if (packet.data.length >= 8) {
+                        setDevName(packet.data.slice(0, 8).toHex(), packet.data.slice(8).toString())
+                        this.sendChangeEvent();
+                    }
+                    break
+                case RoleManagerCmd.ListStoredRoles:
+                    OutPipe.respondForEach(packet, settings.list(devNameSettingPrefix), k =>
+                        Buffer.fromHex(k.slice(devNameSettingPrefix.length))
+                            .concat(settings.readBuffer(k)))
+                    break
+                case RoleManagerCmd.ListRequiredRoles:
+                    const namedClients = _allClients.filter(c => !!c.requiredDeviceName)
+                    OutPipe.respondForEach(packet, namedClients, packName)
+                    break
+                case RoleManagerCmd.ClearAllRoles:
+                    clearAllNames()
+                    this.sendChangeEvent();
+                    break
+            }
+
+            function packName(c: Client) {
+                const devid = c.device ? Buffer.fromHex(c.device.deviceId) : Buffer.create(8)
+                return jdpack("b[8] u32 s", [devid, c.serviceClass, c.requiredDeviceName])
+            }
+        }
+    }
+
+    //% fixedInstance whenUsed
+    export const roleManagerHost = new RoleManagerHost()
+
+    export class RemoteRequestedDevice {
+        services: number[] = [];
+        boundTo: Device;
+        candidates: Device[] = [];
+
+        constructor(
+            public parent: RoleManagerClient,
+            public name: string
+        ) { }
+
+        isCandidate(ldev: Device) {
+            return this.services.every(s => ldev.hasService(s))
+        }
+
+        select(dev: Device) {
+            if (dev == this.boundTo)
+                return
+            if (this.parent == null) {
+                setDevName(dev.deviceId, this.name)
+            } else {
+                if (this.boundTo)
+                    this.parent.setName(this.boundTo, "")
+                this.parent.setName(dev, this.name)
+            }
+            this.boundTo = dev
+        }
+    }
+
+    function recomputeCandidates(remotes: RemoteRequestedDevice[]) {
+        const localDevs = devices()
+        for (let dev of remotes)
+            dev.candidates = localDevs.filter(ldev => dev.isCandidate(ldev))
+    }
+
+    function addRequested(devs: RemoteRequestedDevice[], name: string, service_class: number,
+        parent: RoleManagerClient) {
+        let r = devs.find(d => d.name == name)
+        if (!r)
+            devs.push(r = new RemoteRequestedDevice(parent, name))
+        r.services.push(service_class)
+        return r
+    }
+
+
+    export class RoleManagerClient extends Client {
+        public remoteRequestedDevices: RemoteRequestedDevice[] = []
+
+        constructor(requiredDevice: string = null) {
+            super("rolemgrc", SRV_ROLE_MANAGER, requiredDevice)
+
+            onNewDevice(() => {
+                recomputeCandidates(this.remoteRequestedDevices)
+            })
+
+            onAnnounce(() => {
+                if (this.isConnected())
+                    control.runInParallel(() => this.scanCore())
+            })
+        }
+
+        private scanCore() {
+            const inp = new InPipe()
+            this.sendCommand(inp.openCommand(RoleManagerCmd.ListRequiredRoles))
+
+            const localDevs = devices()
+            const devs: RemoteRequestedDevice[] = []
+
+            inp.readList(buf => {
+                const [devidbuf, service_class, name] = jdunpack<[Buffer, number, string]>(buf, "b[8] u32 s")
+                const devid = devidbuf.toHex();
+                const r = addRequested(devs, name, service_class, this)
+                const dev = localDevs.find(d => d.deviceId == devid)
+                if (dev)
+                    r.boundTo = dev
+            })
+
+            devs.sort((a, b) => a.name.compare(b.name))
+
+            this.remoteRequestedDevices = devs
+            recomputeCandidates(this.remoteRequestedDevices)
+        }
+
+        scan() {
+            pauseUntil(() => this.isConnected())
+            this.scanCore()
+        }
+
+        clearNames() {
+            this.sendCommandWithAck(JDPacket.onlyHeader(RoleManagerCmd.ClearAllRoles))
+        }
+
+        setName(dev: Device, name: string) {
+            this.sendCommandWithAck(JDPacket.from(RoleManagerCmd.SetRole,
+                Buffer.fromHex(dev.deviceId).concat(Buffer.fromUTF8(name))))
+        }
+
+        handlePacket(pkt: JDPacket) {
+        }
     }
 }

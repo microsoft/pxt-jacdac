@@ -29,6 +29,7 @@
         "pipes.ts",
         "actuator.ts",
         "diagnostics.ts",
+        "modules.ts",
         "ns.ts",
         "system/constants.ts",
         "base/constants.ts",
@@ -41,7 +42,6 @@
         "sensor/client.ts",
         "sensor/host.ts",
         "role-manager/constants.ts",
-        "role-manager-host/host.ts",
         "proto-test/constants.ts",
         "proto-test/host.ts"
     ],
