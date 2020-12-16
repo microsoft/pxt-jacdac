@@ -34,9 +34,7 @@
         body {
             background: black;
             color: white;
-            font-family: monospace;
             overflow: hidden;
-            font-size: 14pt;
         }
 
         .embed {
@@ -154,15 +152,21 @@
     <iframe id="simframe" allowfullscreen="allowfullscreen"
         sandbox="allow-popups allow-forms allow-scripts allow-same-origin">
     </iframe>
-    <footer id="footer">
-        <a target="blank" rel="nofollow noopener" href="https://{{ site.github.owner_name }}.github.io/{{ site.github.repository_name }}/README">Manual</a>
-        <a target="blank" rel="nofollow noopener" href="https://arcade.makecode.com/#pub:github:{{ site.github.owner_name }}/{{ site.github.repository_name }}">Edit</a>
-        <a target="blank" rel="nofollow noopener" href="https://github.com/{{ site.github.owner_name }}/{{ site.github.repository_name }}">GitHub</a>
-        <span id="version"></span>
-        <div id="fullscreen">⇲</div>
-    </footer>
     <script type="text/javascript">
-        makeCodeRun({ js: "./assets/js/binary.js?v={{ site.github.build_revision }}" });
+        var frame = document.getElementById("simframe")
+        frame.url = "https://microsoft.github.io/jacdac-ts/tools/makecode-editor-extension"
+        window.addEventListener("message", function (msg) {
+            var loader = document.getElementById("loader");
+            if (loader)
+                loader.remove();
+            frame.contentWindow.postMessage(msg, "*");
+        })
+        frame.contentWindow.addEventListener("message", msg => {
+            const parentWindow = window.parent && window.parent !== window.window
+                ? window.parent : window.opener;
+            if (parentWindow)
+                parentWindow.postMessage(msg, "*");
+        })
 
         if (window.location && window.location.search) {
             var noFooter = /nofooter=1/i.test(window.location.search);
