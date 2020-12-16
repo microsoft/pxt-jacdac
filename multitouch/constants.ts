@@ -22,6 +22,7 @@ namespace jacdac {
          * const [channel] = jdunpack<[number]>(buf, "u32")
          * ```
          */
+        //% block="touch"
         Touch = 0x1,
 
         /**
@@ -31,6 +32,7 @@ namespace jacdac {
          * const [channel] = jdunpack<[number]>(buf, "u32")
          * ```
          */
+        //% block="release"
         Release = 0x2,
 
         /**
@@ -40,6 +42,7 @@ namespace jacdac {
          * const [channel] = jdunpack<[number]>(buf, "u32")
          * ```
          */
+        //% block="tap"
         Tap = 0x3,
 
         /**
@@ -49,16 +52,19 @@ namespace jacdac {
          * const [channel] = jdunpack<[number]>(buf, "u32")
          * ```
          */
+        //% block="long press"
         LongPress = 0x4,
 
         /**
          * Emitted when input channels are successively touched in order of increasing channel numbers.
          */
+        //% block="swipe pos"
         SwipePos = 0x10,
 
         /**
          * Emitted when input channels are successively touched in order of decreasing channel numbers.
          */
+        //% block="swipe neg"
         SwipeNeg = 0x11,
     }
 

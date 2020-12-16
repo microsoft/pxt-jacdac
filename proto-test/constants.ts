@@ -101,6 +101,7 @@ namespace jacdac {
          * const [bool] = jdunpack<[number]>(buf, "u8")
          * ```
          */
+        //% block="e bool"
         EBool = 0x81,
 
         /**
@@ -110,6 +111,7 @@ namespace jacdac {
          * const [u32] = jdunpack<[number]>(buf, "u32")
          * ```
          */
+        //% block="e u32"
         EU32 = 0x82,
 
         /**
@@ -119,6 +121,7 @@ namespace jacdac {
          * const [i32] = jdunpack<[number]>(buf, "i32")
          * ```
          */
+        //% block="e i32"
         EI32 = 0x83,
 
         /**
@@ -128,6 +131,7 @@ namespace jacdac {
          * const [string] = jdunpack<[string]>(buf, "s")
          * ```
          */
+        //% block="e string"
         EString = 0x84,
 
         /**
@@ -137,6 +141,7 @@ namespace jacdac {
          * const [bytes] = jdunpack<[Buffer]>(buf, "b")
          * ```
          */
+        //% block="e bytes"
         EBytes = 0x85,
     }
 

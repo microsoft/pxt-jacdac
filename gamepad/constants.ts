@@ -50,6 +50,7 @@ namespace jacdac {
          * const [button, playerIndex] = jdunpack<[GamepadButton, number]>(buf, "u16 u16")
          * ```
          */
+        //% block="down"
         Down = 0x1,
 
         /**
@@ -59,6 +60,7 @@ namespace jacdac {
          * const [button, playerIndex] = jdunpack<[GamepadButton, number]>(buf, "u16 u16")
          * ```
          */
+        //% block="up"
         Up = 0x2,
     }
 

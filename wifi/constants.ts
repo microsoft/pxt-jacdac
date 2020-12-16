@@ -65,11 +65,13 @@ namespace jacdac {
         /**
          * Emitted upon successful join and IP address assignment.
          */
+        //% block="got ip"
         GotIp = 0x1,
 
         /**
          * Emitted when disconnected from network.
          */
+        //% block="lost ip"
         LostIp = 0x2,
     }
 
