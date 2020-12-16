@@ -14,6 +14,7 @@ namespace modules {
          */
         //% blockCombine
         //% group="Accelerometer"
+        //% blockSetVariable="accelerometer"
         get x(): number {
             return this.get(JDDimension.X);
         }
@@ -23,6 +24,7 @@ namespace modules {
          */
         //% blockCombine
         //% group="Accelerometer"
+        //% blockSetVariable="accelerometer"
         get y(): number {
             return this.get(JDDimension.Y);
         }
@@ -32,6 +34,7 @@ namespace modules {
          */
         //% blockCombine
         //% group="Accelerometer"
+        //% blockSetVariable="accelerometer"
         get z(): number {
             return this.get(JDDimension.Z);
         }
@@ -41,6 +44,7 @@ namespace modules {
          */
         //% blockCombine
         //% group="Accelerometer"
+        //% blockSetVariable="accelerometer"
         get strength(): number {
             return this.get(JDDimension.Strength);
         }
