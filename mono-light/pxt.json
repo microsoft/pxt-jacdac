@@ -1,6 +1,6 @@
 {
     "name": "jacdac-mono-light",
-    "version": "0.2.13",
+    "version": "0.2.14",
     "description": "MakeCode support for JACDAC Mono Light service",
     "dependencies": {
         "core": "*",

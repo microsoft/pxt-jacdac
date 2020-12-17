@@ -1,6 +1,6 @@
 {
     "name": "jacdac-gamepad",
-    "version": "0.2.13",
+    "version": "0.2.14",
     "description": "MakeCode support for JACDAC Gamepad service",
     "dependencies": {
         "core": "*",
