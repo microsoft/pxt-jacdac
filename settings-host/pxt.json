@@ -1,6 +1,6 @@
 {
     "name": "jacdac-settings-host",
-    "version": "0.2.17",
+    "version": "0.2.18",
     "description": "MakeCode support for JACDAC Settings host service",
     "files": [
         "host.ts"
