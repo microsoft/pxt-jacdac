@@ -1,6 +1,6 @@
 {
     "name": "jacdac-light",
-    "version": "0.2.18",
+    "version": "0.2.19",
     "description": "MakeCode support for JACDAC Light service",
     "dependencies": {
         "core": "*",
