@@ -1,6 +1,6 @@
 {
     "name": "jacdac-servo",
-    "version": "0.2.19",
+    "version": "0.2.20",
     "description": "MakeCode support for JACDAC Servo service",
     "dependencies": {
         "core": "*",
