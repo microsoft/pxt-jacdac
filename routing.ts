@@ -851,7 +851,10 @@ namespace jacdac {
         setPinByCfg(CFG_PIN_JDPWR_ENABLE, enabled)
     }
 
-    export function start(): void {
+    /**
+     * Starts the JACDAC service
+     */
+    export function start(options?: { disableLogger?: boolean, disableRoleManager?: boolean }): void {
         if (_hostServices)
             return // already started
 
@@ -893,12 +896,18 @@ namespace jacdac {
             })
         }
 
-        console.addListener(function (pri, msg) {
-            if (msg[0] != ":")
-                loggerHost.add(pri as number, msg);
-        });
-        loggerHost.start()
-        log("jacdac started")
+        if (options && options.disableLogger) {
+            console.addListener(function (pri, msg) {
+                if (msg[0] != ":")
+                    loggerHost.add(pri as number, msg);
+            });
+            loggerHost.start()
+        }
+        if (options && options.disableRoleManager)
+            roleManagerHost.start();
+        
+        // and we're done
+        log("jacdac started");
     }
 
     export function autoBind() {
