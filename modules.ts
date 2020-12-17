@@ -6,6 +6,7 @@ namespace modules {
     //% blockId=jacdacselfidentify block="identify"
     //% group="Services"
     export function identify() {
+        jacdac.start();
         jacdac.onIdentifyRequest();
     }
 }
