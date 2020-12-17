@@ -1,6 +1,6 @@
 {
     "name": "jacdac-microphone",
-    "version": "0.2.14",
+    "version": "0.2.15",
     "description": "MakeCode support for JACDAC Microphone service",
     "dependencies": {
         "core": "*",

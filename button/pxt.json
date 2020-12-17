@@ -1,6 +1,6 @@
 {
     "name": "jacdac-button",
-    "version": "0.2.14",
+    "version": "0.2.15",
     "description": "MakeCode support for JACDAC Button service",
     "dependencies": {
         "core": "*",
