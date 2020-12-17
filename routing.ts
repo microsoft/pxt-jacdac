@@ -854,11 +854,15 @@ namespace jacdac {
     /**
      * Starts the JACDAC service
      */
-    export function start(options?: { disableLogger?: boolean, disableRoleManager?: boolean }): void {
+    export function start(options?: {
+        disableLogger?: boolean,
+        disableRoleManager?: boolean
+    }): void {
         if (_hostServices)
             return // already started
 
         log("jacdac starting")
+        options = options || {};
 
         _hostServices = []
         new ControlService().start()
@@ -896,16 +900,15 @@ namespace jacdac {
             })
         }
 
-        if (options && options.disableLogger) {
+        if (!options.disableLogger) {
             console.addListener(function (pri, msg) {
                 if (msg[0] != ":")
                     loggerHost.add(pri as number, msg);
             });
             loggerHost.start()
         }
-        if (options && options.disableRoleManager)
+        if (!options.disableRoleManager)
             roleManagerHost.start();
-        
         // and we're done
         log("jacdac started");
     }
