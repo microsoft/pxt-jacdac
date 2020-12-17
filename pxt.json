@@ -73,6 +73,7 @@
     "extension": {
         "namespace": "modules",
         "label": "Configure",
+        "group": "Services",
         "url": "https://microsoft.github.io/jacdac-ts/tools/makecode-editor-extension",
         "localUrl": "http://localhost:8000/tools/makecode-editor-extension"
     }
