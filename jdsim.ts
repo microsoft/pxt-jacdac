@@ -9,12 +9,29 @@ namespace jacdac {
         return 30
     }
 
+    function jd_crc16(p: Buffer) {
+        let crc = 0xffff;
+        for (let i = 0; i < p.length; ++i) {
+            const data = p[i];
+            let x = (crc >> 8) ^ data;
+            x ^= x >> 4;
+            crc = (crc << 8) ^ (x << 12) ^ (x << 5) ^ x;
+            crc &= 0xffff;
+        }
+        return crc;
+    }
+
     /**
      * Write a buffer to the jacdac physical layer.
      **/
     //% shim=jacdac::__physSendPacket
     export function __physSendPacket(header: Buffer, data: Buffer): void {
-        control.simmessages.send("jacdac", header.concat(data))
+        // the sim transport layer computes the CRC
+        const payload = header.concat(data);
+        const crc = jd_crc16(payload.slice(2));
+        header[0] = (crc >> 0) & 0xff;
+        header[1] = (crc >> 8) & 0xff
+        control.simmessages.send("jacdac", payload)
     }
 
     /**

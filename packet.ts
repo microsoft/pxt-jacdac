@@ -261,11 +261,11 @@ namespace jacdac {
     class AckAwaiter {
         nextRetry: number
         numTries = 1
-        crc: number
-        eventId: number
+        readonly crc: number
+        readonly eventId: number
         constructor(
-            public pkt: JDPacket,
-            public srcId: string
+            public readonly pkt: JDPacket,
+            public readonly srcId: string
         ) {
             this.crc = pkt.crc
             this.nextRetry = control.millis() + 40
