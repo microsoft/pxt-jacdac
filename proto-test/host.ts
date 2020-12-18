@@ -59,6 +59,13 @@ namespace jacdac {
                 case ProtoTestCmd.CI8U8U16I32:
                     this.i8u8u16i32 = jdunpack(pkt.data, "i8 u8 u16 i32");
                     break;
+                case ProtoTestCmd.CReportPipe:
+                    // pipe back bytes as indidivual pipe packets
+                    const bs: number[] = [];
+                    for (let i = 0; i < this.bytes.length; ++i)
+                        bs.push(this.bytes[i]);
+                    OutPipe.respondForEach(pkt, bs, b => jdpack("u8", [b]));
+                    break;
             }
 
             // events
