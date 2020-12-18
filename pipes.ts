@@ -101,7 +101,8 @@ namespace jacdac {
     export class OutPipe {
         private nextCnt = 0
 
-        constructor(public deviceId: string, public port: number) { }
+        constructor(public readonly deviceId: string, public port: number) {
+        }
 
         static from(pkt: JDPacket) {
             const [idbuf, port] = jdunpack<[Buffer, number]>(pkt.data, "b[8] u16");
@@ -140,6 +141,7 @@ namespace jacdac {
         }
 
         write(buf: Buffer) {
+            this.log(`write ${buf.toHex()}`)
             this.writeEx(buf, 0)
         }
 
@@ -153,6 +155,10 @@ namespace jacdac {
 
         writeMeta(buf: Buffer) {
             this.writeEx(buf, METADATA_MASK)
+        }
+
+        private log(msg: string) {
+            console.log(`op:${this.deviceId}:${this.port}> ` + msg)
         }
     }
 }
