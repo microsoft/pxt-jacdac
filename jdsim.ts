@@ -30,7 +30,7 @@ namespace jacdac {
         const payload = header.concat(data);
         const crc = jd_crc16(payload.slice(2));
         header[0] = (crc >> 0) & 0xff;
-        header[1] = (crc >> 8) && 0xff
+        header[1] = (crc >> 8) & 0xff
         control.simmessages.send("jacdac", payload)
     }
 
