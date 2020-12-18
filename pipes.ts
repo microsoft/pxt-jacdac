@@ -141,7 +141,6 @@ namespace jacdac {
         }
 
         write(buf: Buffer) {
-            this.log(`write ${buf.toHex()}`)
             this.writeEx(buf, 0)
         }
 
@@ -155,10 +154,6 @@ namespace jacdac {
 
         writeMeta(buf: Buffer) {
             this.writeEx(buf, METADATA_MASK)
-        }
-
-        private log(msg: string) {
-            console.log(`op:${this.deviceId}:${this.port}> ` + msg)
         }
     }
 }
