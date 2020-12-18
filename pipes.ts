@@ -117,7 +117,7 @@ namespace jacdac {
                         outp.write(f(e))
                     outp.close()
                 } catch (e) {
-                    console.logValue("respondForEach", e)
+                    console.error("respondForEach " + e)
                 }
             })
         }
@@ -135,7 +135,7 @@ namespace jacdac {
             pkt.service_number = JD_SERVICE_NUMBER_PIPE
             if (!pkt._sendWithAck(this.deviceId)) {
                 this.port = null
-                throw "No ACK (pipe)"
+                throw "out pipe error: no ACK"
             }
         }
 
