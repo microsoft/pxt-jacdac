@@ -161,6 +161,16 @@ namespace jacdac {
          */
         //% block="e bytes"
         EBytes = 0x85,
+
+        /**
+         * An event raised when rw_i8_u8_u16_i32 is modified
+         *
+         * ```
+         * const [i8, u8, u16, i32] = jdunpack<[number, number, number, number]>(buf, "i8 u8 u16 i32")
+         * ```
+         */
+        //% block="e i8 u8 u16 i32"
+        EI8U8U16I32 = 0x86,
     }
 
     export const enum ProtoTestCmd {
@@ -201,7 +211,7 @@ namespace jacdac {
         CString = 0x84,
 
         /**
-         * Argument: bytes bytes. A command to set rw_bytes. Returns the value.
+         * Argument: bytes bytes. A command to set rw_string. Returns the value.
          *
          * ```
          * const [bytes] = jdunpack<[Buffer]>(buf, "b")
@@ -210,13 +220,22 @@ namespace jacdac {
         CBytes = 0x85,
 
         /**
+         * A command to set rw_bytes. Returns the value.
+         *
+         * ```
+         * const [i8, u8, u16, i32] = jdunpack<[number, number, number, number]>(buf, "i8 u8 u16 i32")
+         * ```
+         */
+        CI8U8U16I32 = 0x86,
+
+        /**
          * Argument: p_bytes pipe (bytes). A command to read the rw_bytes as a pipe.
          *
          * ```
          * const [pBytes] = jdunpack<[Buffer]>(buf, "b[12]")
          * ```
          */
-        CReportPipe = 0x86,
+        CReportPipe = 0x87,
     }
 
 
