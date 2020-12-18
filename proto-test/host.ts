@@ -9,6 +9,7 @@ namespace jacdac {
         u32: number = 0;
         s: string = "";
         bytes: Buffer = Buffer.create(0);
+        i8u8u16i32: number[] = [];
 
         handlePacket(pkt: JDPacket) {
             this.log(`pkt: ${pkt}`)
@@ -18,6 +19,7 @@ namespace jacdac {
             const oldu32 = this.u32;
             const olds = this.s;
             const oldbytes = this.bytes;
+            const oldi8u8u16i32 = this.i8u8u16i32;
 
             this.bool = this.handleRegBool(pkt, ProtoTestReg.RwBool, this.bool);
             this.handleRegBool(pkt, ProtoTestReg.RoBool, this.bool);
@@ -34,6 +36,8 @@ namespace jacdac {
             this.bytes = this.handleRegValue(pkt, ProtoTestReg.RwBytes, "b", this.bytes);
             this.handleRegValue(pkt, ProtoTestReg.RoBytes, "b", this.bytes);
 
+            this.i8u8u16i32 = this.handleRegFormat<number[]>(pkt, ProtoTestReg.RwI8U8U16I32, "i8 u8 u16 i32", this.i8u8u16i32);
+            this.handleRegValue<number[]>(pkt, ProtoTestReg.RoI8U8U16I32, "i8 u8 u16 i32", this.i8u8u16i32);
 
             // commands
             switch (pkt.service_command) {

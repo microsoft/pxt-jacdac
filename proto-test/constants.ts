@@ -91,6 +91,24 @@ namespace jacdac {
          * ```
          */
         RoBytes = 0x185,
+
+        /**
+         * A read write i8, u8, u16, i32 register.
+         *
+         * ```
+         * const [i8, u8, u16, i32] = jdunpack<[number, number, number, number]>(buf, "i8 u8 u16 i32")
+         * ```
+         */
+        RwI8U8U16I32 = 0x86,
+
+        /**
+         * A read only i8, u8, u16, i32 register.. Mirrors rw_i8_u8_u16_i32.
+         *
+         * ```
+         * const [i8, u8, u16, i32] = jdunpack<[number, number, number, number]>(buf, "i8 u8 u16 i32")
+         * ```
+         */
+        RoI8U8U16I32 = 0x186,
     }
 
     export const enum ProtoTestEvent {
@@ -190,6 +208,24 @@ namespace jacdac {
          * ```
          */
         CBytes = 0x85,
+
+        /**
+         * Argument: p_bytes pipe (bytes). A command to read the rw_bytes as a pipe.
+         *
+         * ```
+         * const [pBytes] = jdunpack<[Buffer]>(buf, "b[12]")
+         * ```
+         */
+        CReportPipe = 0x86,
     }
+
+
+    /**
+     * pipe_report PBytes
+     * ```
+     * const [bytes] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
+
 
 }
