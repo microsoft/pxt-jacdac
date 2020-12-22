@@ -1,143 +1,4 @@
 namespace modules {
-    function cmdCode(cmd: string) {
-        switch (cmd) {
-            case "setall": return 0xD0
-            case "fade": return 0xD1
-            case "fadehsv": return 0xD2
-            case "rotfwd": return 0xD3
-            case "rotback": return 0xD4
-            case "show":
-            case "wait": return 0xD5
-            case "range": return 0xD6
-            case "mode": return 0xD7
-            case "tmpmode": return 0xD8
-            case "setone": return 0xCF
-            case "mult": return 0x100
-            default: return undefined
-        }
-    }
-
-    function isWhiteSpace(code: number) {
-        return code == 32 || code == 13 || code == 10 || code == 9
-    }
-
-    function lightEncode(format: string, args: (number | number[])[]) {
-        // tokens are white-space separated
-        // % - number from args[]
-        // # - color from args[]
-        // #0123ff - color
-        // 123 - number
-        // commands: set, fade, fadehsv, rotfwd, rotback, pause
-        // fadehsv 0 12 #00ffff #ffffff
-
-        const outarr: number[] = []
-        let colors: number[] = []
-        let pos = 0
-        let currcmd = 0
-
-        function pushNumber(n: number) {
-            if (n == null || (n | 0) != n || n < 0 || n >= 16383)
-                throw "light: number out of range: " + n
-            if (n < 128)
-                outarr.push(n)
-            else {
-                outarr.push(0x80 | (n >> 8))
-                outarr.push(n & 0xff)
-            }
-        }
-
-        function flush() {
-            if (currcmd == 0xCF) {
-                if (colors.length != 1)
-                    throw "setone requires 1 color"
-            } else {
-                if (colors.length == 0)
-                    return
-                if (colors.length <= 3)
-                    outarr.push(0xC0 | colors.length)
-                else {
-                    outarr.push(0xC0)
-                    outarr.push(colors.length)
-                }
-            }
-            for (let c of colors) {
-                outarr.push((c >> 16) & 0xff)
-                outarr.push((c >> 8) & 0xff)
-                outarr.push((c >> 0) & 0xff)
-            }
-            colors = []
-        }
-
-        function nextToken() {
-            while (isWhiteSpace(format.charCodeAt(pos)))
-                pos++;
-            const beg = pos
-            while (pos < format.length && !isWhiteSpace(format.charCodeAt(pos)))
-                pos++
-            return format.slice(beg, pos)
-
-        }
-
-        while (pos < format.length) {
-            const token = nextToken()
-            const t0 = token.charCodeAt(0)
-            if (97 <= t0 && t0 <= 122) { // a-z
-                flush()
-                currcmd = cmdCode(token)
-                if (currcmd == undefined)
-                    throw "Unknown light command: " + token
-                if (currcmd == 0x100) {
-                    const f = parseFloat(nextToken())
-                    if (isNaN(f) || f < 0 || f > 2)
-                        throw "expecting scale"
-                    outarr.push(0xD8) // tmpmode
-                    outarr.push(3) // mult
-                    outarr.push(0xD0) // setall
-                    const mm = Math.clamp(0, 255, Math.round(128 * f))
-                    outarr.push(0xC1)
-                    outarr.push(mm)
-                    outarr.push(mm)
-                    outarr.push(mm)
-                } else {
-                    outarr.push(currcmd)
-                }
-            } else if (48 <= t0 && t0 <= 57) { // 0-9
-                pushNumber(parseInt(token))
-            } else if (t0 == 37) { // %
-                if (args.length == 0) throw "Out of args, %"
-                const v = args.shift()
-                if (typeof v != "number")
-                    throw "Expecting number"
-                pushNumber(v)
-            } else if (t0 == 35) { // #
-                if (token.length == 1) {
-                    if (args.length == 0) throw "Out of args, #"
-                    const v = args.shift()
-                    if (typeof v == "number")
-                        colors.push(v)
-                    else
-                        for (let vv of v) colors.push(vv)
-                } else {
-                    if (token.length == 7) {
-                        const b = Buffer.fromHex("00" + token.slice(1))
-                        colors.push(b.getNumber(NumberFormat.UInt32BE, 0))
-                    } else {
-                        throw "Invalid color: " + token
-                    }
-                }
-            }
-        }
-        flush()
-
-        return Buffer.fromArray(outarr)
-    }
-
-    export const enum LightType {
-        WS2812B_GRB = 0x00,
-        APA102 = 0x10,
-        SK9822 = 0x11,
-    }
-
     //% fixedInstances
     //% blockGap=8
     export class LightClient extends jacdac.Client {
@@ -156,11 +17,11 @@ namespace modules {
         //% weight=0
         //% numpixels.min=0
         //% numpixels.defl=30
-        configure(numpixels: number, type = LightType.WS2812B_GRB, maxpower = 500): void {
+        configure(numpixels: number, type = jacdac.LightLightType.WS2812B_GRB, maxpower = 500): void {
             this._length = numpixels >> 0;
             this.setRegInt(jacdac.LightReg.NumPixels, this._length)
             this.setRegInt(jacdac.LightReg.LightType, type)
-            this.setRegInt(jacdac.SystemReg.MaxPower, maxpower)
+            this.setRegInt(jacdac.LightReg.MaxPower, maxpower)
         }
 
         /**
@@ -172,7 +33,7 @@ namespace modules {
         //% weight=2 blockGap=8
         //% group="Light"
         setBrightness(brightness: number): void {
-            this.setRegInt(jacdac.SystemReg.Intensity, brightness)
+            this.setRegInt(jacdac.LightReg.Brightness, brightness)
         }
 
         runProgram(prog: Buffer) {
@@ -183,7 +44,7 @@ namespace modules {
         runEncoded(prog: string, args?: number[]) {
             if (!args) args = []
             this.currAnimation++
-            this.sendCommand(jacdac.JDPacket.from(jacdac.LightCmd.Run, lightEncode(prog, args)))
+            this.sendCommand(jacdac.JDPacket.from(jacdac.LightCmd.Run, jacdac.lightEncode(prog, args)))
         }
 
         set(idx: number, rgb: number) {
@@ -233,7 +94,7 @@ namespace modules {
                 let framelen = 0
                 let frames: Buffer[] = []
                 let waitTime = 0
-                const wait = lightEncode("wait %", [frameTime])
+                const wait = jacdac.lightEncode("wait %", [frameTime])
                 for (; ;) {
                     if (!buf)
                         buf = animation.nextFrame()
@@ -283,7 +144,11 @@ namespace modules {
         }
 
         class RainbowCycle extends Animation {
-            create(length: number) {
+            constructor() {
+                super();
+            }
+
+            create(length: number): Animation {
                 const anim = new RainbowCycle()
                 anim.length = length;
                 return anim;
@@ -298,9 +163,11 @@ namespace modules {
                 else c1 -= off
                 if (this.step > (this.length << 1))
                     return null
-                return lightEncode("fadehsv # # rotback %", [c0, c1, this.step++ >> 1])
+                return jacdac.lightEncode("fadehsv # # rotback %", [c0, c1, this.step++ >> 1])
             }
         }
+        //% fixedInstance whenUsed
+        export const rainbowCycle: Animation = new RainbowCycle();
 
         function scale(col: number, level: number) {
             level = Math.clamp(0, 0xff, level)
@@ -332,9 +199,12 @@ namespace modules {
                 if (this.step >= 256)
                     return null
 
-                return lightEncode("fade #", [stopVals])
+                return jacdac.lightEncode("fade #", [stopVals])
             }
         }
+
+        //% fixedInstance whenUsed
+        export const runningLights: Animation = new RunningLights();
 
         class Comet extends Animation {
             constructor() {
@@ -352,10 +222,12 @@ namespace modules {
                 const off = (this.step * this.step) % this.length
                 if (this.step++ >= 20)
                     return null
-                return lightEncode("fade # # rotback %", [this.color, this.color & 0x00ffff, off])
+                return jacdac.lightEncode("fade # # rotback %", [this.color, this.color & 0x00ffff, off])
             }
         }
 
+        //% fixedInstance whenUsed
+        export const comet: Animation = new Comet();
 
         class Sparkle extends Animation {
             constructor() {
@@ -373,20 +245,23 @@ namespace modules {
 
             nextFrame() {
                 if (this.step++ == 0)
-                    return lightEncode("setall #000000", [])
+                    return jacdac.lightEncode("setall #000000", [])
 
                 if (this.step >= 50)
                     return null
                 const p = this.lastpix
                 if (p < 0) {
                     this.lastpix = Math.randomRange(0, this.length - 1)
-                    return lightEncode("setone % #", [this.lastpix, this.color])
+                    return jacdac.lightEncode("setone % #", [this.lastpix, this.color])
                 } else {
                     this.lastpix = -1
-                    return lightEncode("setone % #000000", [p])
+                    return jacdac.lightEncode("setone % #000000", [p])
                 }
             }
         }
+
+        //% fixedInstance whenUsed
+        export const sparkle: Animation = new Sparkle();
 
         class ColorWipe extends Animation {
             constructor() {
@@ -406,9 +281,12 @@ namespace modules {
                 if (idx >= this.length) idx -= this.length
                 if (idx >= this.length)
                     return null
-                return lightEncode("setone % #", [idx, col])
+                return jacdac.lightEncode("setone % #", [idx, col])
             }
         }
+
+        //% fixedInstance whenUsed
+        export const colorWipe: Animation = new ColorWipe();
 
         class TheaterChase extends Animation {
             constructor() {
@@ -426,13 +304,16 @@ namespace modules {
                 if (this.step++ >= this.length)
                     return null
                 let idx = this.step % 3
-                return lightEncode("setall # # #", [
+                return jacdac.lightEncode("setall # # #", [
                     idx == 0 ? this.color : 0,
                     idx == 1 ? this.color : 0,
                     idx == 2 ? this.color : 0
                 ])
             }
         }
+
+        //% fixedInstance whenUsed
+        export const theatherChase: Animation = new TheaterChase();
 
         class Fireflys extends Animation {
             positions: number[]
@@ -441,7 +322,7 @@ namespace modules {
                 this.color = 0xffff00
             }
 
-            create(length: number) {
+            create(length: number): Animation {
                 const anim = new Fireflys()
                 anim.length = length;
                 return anim;
@@ -469,7 +350,7 @@ namespace modules {
                     args.push(this.positions[i])
                     args.push(this.color)
                 }
-                return lightEncode(cmd, args)
+                return jacdac.lightEncode(cmd, args)
             }
         }
         //% fixedInstance whenUsed

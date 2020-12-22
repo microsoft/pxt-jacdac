@@ -8,6 +8,7 @@
     },
     "files": [
         "constants.ts",
+        "encoder.ts",
         "client.ts"
     ],
     "supportedTargets": [
