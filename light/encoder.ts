@@ -11,6 +11,7 @@ namespace jacdac {
             case "range": return 0xD6
             case "mode": return 0xD7
             case "tmpmode": return 0xD8
+            case "set1":
             case "setone": return 0xCF
             case "mult": return 0x100
             default: return undefined
@@ -22,14 +23,6 @@ namespace jacdac {
     }
 
     export function lightEncode(format: string, args: (number | number[])[]) {
-        // tokens are white-space separated
-        // % - number from args[]
-        // # - color from args[]
-        // #0123ff - color
-        // 123 - number
-        // commands: set, fade, fadehsv, rotfwd, rotback, pause
-        // fadehsv 0 12 #00ffff #ffffff
-
         const outarr: number[] = []
         let colors: number[] = []
         let pos = 0
