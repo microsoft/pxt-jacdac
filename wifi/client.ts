@@ -29,12 +29,12 @@ namespace jacdac {
         }
 
         handlePacket(p: JDPacket) {
-            if (p.service_command == SystemCmd.Event) {
-                switch (p.data[0]) {
-                    case EV_GOT_IP:
+            if (p.isEvent) {
+                switch (p.eventCode) {
+                    case WifiEvent.GotIp:
                         this.gotIP = true
                         break
-                    case EV_LOST_IP:
+                    case WifiEvent.LostIp:
                         this.gotIP = false
                         break
                 }
