@@ -116,6 +116,18 @@ namespace jacdac {
             this._header.setNumber(NumberFormat.UInt16LE, 14, cmd)
         }
 
+        get isEvent() {
+            return this.is_report && (this.service_command & CMD_EVENT_MASK) != 0
+        }
+
+        get eventCode() {
+            return this.isEvent ? this.service_command & CMD_EVENT_CODE_MASK : undefined
+        }
+
+        get eventCounter() {
+            return this.isEvent ? (this.service_command >> CMD_EVENT_COUNTER_POS) & CMD_EVENT_COUNTER_MASK : undefined
+        }
+
         get is_reg_set() {
             return (this.service_command >> 12) == (CMD_SET_REG >> 12)
         }

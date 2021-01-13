@@ -28,6 +28,15 @@ namespace jacdac {
         console.add(consolePriority, msg);
     }
 
+    function mkEventCmd(evCode: number) {
+        if (!_myDevice._eventCounter)
+            _myDevice._eventCounter = 0
+        _myDevice._eventCounter = (_myDevice._eventCounter + 1) & CMD_EVENT_COUNTER_MASK
+        if (evCode >> 8)
+            throw "invalid evcode"
+        return CMD_EVENT_MASK | (_myDevice._eventCounter << CMD_EVENT_COUNTER_POS) | evCode
+    }
+
     //% fixedInstances
     export class Host {
         protected supressLog: boolean;
@@ -82,12 +91,10 @@ namespace jacdac {
             pkt._sendReport(_myDevice)
         }
 
-        protected sendEvent(event: number, data?: Buffer) {
-            const payload = Buffer.create(4 + (data ? data.length : 0))
-            payload.setNumber(NumberFormat.UInt32LE, 0, event);
-            if (data)
-                payload.write(4, data);
-            this.sendReport(JDPacket.from(SystemCmd.Event, payload))
+        protected sendEvent(eventCode: number, data?: Buffer) {
+            const pkt = JDPacket.from(mkEventCmd(eventCode), data || Buffer.create(0))
+            // TODO add triplicate queue
+            this.sendReport(pkt)
         }
 
         protected sendChangeEvent(): void {
@@ -446,6 +453,7 @@ namespace jacdac {
         services: Buffer
         lastSeen: number
         clients: Client[] = []
+        _eventCounter: number
         private _name: string
         private _shortId: string
         private queries: RegQuery[]
