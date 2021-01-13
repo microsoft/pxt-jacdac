@@ -95,15 +95,8 @@ namespace jacdac {
         }
 
         private handleStatusCode(pkt: JDPacket): boolean {
-            const getset = pkt.service_command >> 12
-            const reg = pkt.service_command & 0xfff
-            if (reg == SystemReg.StatusCode && getset == 1) {
-                this.sendReport(JDPacket.jdpacked(pkt.service_command, "u32",
-                    [this._statusCode >> 0]))
-                return true;
-            } else {
-                return false;
-            }
+            this.handleRegUInt32(pkt, SystemReg.StatusCode, this._statusCode)
+            return pkt.service_command == (SystemReg.StatusCode | SystemCmd.GetRegister)
         }
 
         protected handleRegFormat<T extends any[]>(pkt: JDPacket, register: number, fmt: string, current: T): T {
