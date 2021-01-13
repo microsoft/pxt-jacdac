@@ -240,7 +240,7 @@ namespace jacdac {
          * Emitted upon successful connection.
          */
         //% block="connected"
-        Connected = 0x1,
+        Connected = 0x80,
 
         /**
          * Argument: reason string (bytes). Emitted when connection was lost.
@@ -250,7 +250,7 @@ namespace jacdac {
          * ```
          */
         //% block="connection error"
-        ConnectionError = 0x2,
+        ConnectionError = 0x81,
 
         /**
          * This event is emitted upon reception of a cloud to device message, that is a string
@@ -263,7 +263,7 @@ namespace jacdac {
          * ```
          */
         //% block="devicebound str"
-        DeviceboundStr = 0x3,
+        DeviceboundStr = 0x82,
     }
 
 }

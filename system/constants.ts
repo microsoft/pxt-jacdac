@@ -91,6 +91,34 @@ namespace jacdac {
         Reading = 0x101,
 
         /**
+         * Constant int32_t. The lowest value that can be reported by the sensor.
+         *
+         * ```
+         * const [minReading] = jdunpack<[number]>(buf, "i32")
+         * ```
+         */
+        MinReading = 0x104,
+
+        /**
+         * Constant int32_t. The highest value that can be reported by the sensor.
+         *
+         * ```
+         * const [maxReading] = jdunpack<[number]>(buf, "i32")
+         * ```
+         */
+        MaxReading = 0x105,
+
+        /**
+         * Read-only int32_t. The real value of whatever is measured is between `reading - reading_error` and `reading + reading_error`.
+         * This register is often, but not always `const`.
+         *
+         * ```
+         * const [readingError] = jdunpack<[number]>(buf, "i32")
+         * ```
+         */
+        ReadingError = 0x106,
+
+        /**
          * Read-write int32_t. Thresholds for event generation for event generation for analog sensors.
          *
          * ```
@@ -112,7 +140,7 @@ namespace jacdac {
          * Reports the current state or error status of the device. ``code`` is a standardized value from
          * the JACDAC error codes. ``vendor_code`` is any vendor specific error code describing the device
          * state. This report is typically not queried, when a device has an error, it will typically
-         * add this report in frame along with the anounce packet.
+         * add this report in frame along with the announce packet.
          *
          * ```
          * const [code, vendorCode] = jdunpack<[number, number]>(buf, "u16 u16")
@@ -128,14 +156,36 @@ namespace jacdac {
          * ```
          */
         StreamingPreferredInterval = 0x102,
+
+        /**
+         * Constant uint32_t. The hardware variant of the service.
+         * For services which support this, there's an enum defining the meaning.
+         *
+         * ```
+         * const [variant] = jdunpack<[number]>(buf, "u32")
+         * ```
+         */
+        Variant = 0x107,
     }
 
     export const enum SystemEvent {
         /**
-         * Emit notifying that the internal state of the service changed.
+         * Notifies that the service has been activated (eg. button pressed, network connected, etc.)
+         */
+        //% block="active"
+        Active = 0x1,
+
+        /**
+         * Notifies that the service has been dis-activated.
+         */
+        //% block="inactive"
+        Inactive = 0x2,
+
+        /**
+         * Notifies that the internal state of the service changed.
          */
         //% block="change"
-        Change = 0x2,
+        Change = 0x3,
     }
 
 }
