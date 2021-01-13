@@ -18,27 +18,12 @@ namespace jacdac {
     }
 
     export class WifiClient extends Client {
-        private gotIP = false
-
         constructor(requiredDevice: string = null) {
             super("wifi", SRV_WIFI, requiredDevice);
         }
 
         get hasIP() {
-            return this.gotIP
-        }
-
-        handlePacket(p: JDPacket) {
-            if (p.isEvent) {
-                switch (p.eventCode) {
-                    case WifiEvent.GotIp:
-                        this.gotIP = true
-                        break
-                    case WifiEvent.LostIp:
-                        this.gotIP = false
-                        break
-                }
-            }
+            return this.systemActive
         }
 
         scan() {
@@ -53,8 +38,8 @@ namespace jacdac {
         connect(ssid: string, password?: string) {
             const data = ssid + "\u0000" + (password ? password + "\u0000" : "")
             this.sendCommandWithAck(JDPacket.from(CMD_CONNECT, Buffer.fromUTF8(data)))
-            pauseUntil(() => this.gotIP, 15000)
-            if (!this.gotIP)
+            pauseUntil(() => this.hasIP, 15000)
+            if (!this.hasIP)
                 throw "Can't connect"
         }
     }

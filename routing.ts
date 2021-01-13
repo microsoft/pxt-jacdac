@@ -291,6 +291,7 @@ namespace jacdac {
         started: boolean;
         protected advertisementData: Buffer;
         private handlers: SMap<(idx?: number) => void>;
+        protected systemActive = false;
 
         protected readonly config: ClientPacketQueue
 
@@ -319,8 +320,12 @@ namespace jacdac {
             if (pkt.service_command == SystemCmd.Announce)
                 this.advertisementData = pkt.data
 
-            if (pkt.service_command == SystemCmd.Event)
-                this.raiseEvent(pkt.intData, pkt.data.length >= 8 ? pkt.getNumber(NumberFormat.Int32LE, 4) : undefined)
+            if (pkt.isEvent) {
+                const code = pkt.eventCode
+                if (code == SystemEvent.Active) this.systemActive = true
+                else if (code == SystemEvent.Inactive) this.systemActive = false
+                this.raiseEvent(code, pkt.intData)
+            }
 
             this.handlePacket(pkt)
         }
