@@ -93,8 +93,10 @@ namespace jacdac {
 
         protected sendEvent(eventCode: number, data?: Buffer) {
             const pkt = JDPacket.from(mkEventCmd(eventCode), data || Buffer.create(0))
-            // TODO add triplicate queue
             this.sendReport(pkt)
+            const now = control.millis()
+            delayedSend(pkt, now + 20)
+            delayedSend(pkt, now + 100)
         }
 
         protected sendChangeEvent(): void {
