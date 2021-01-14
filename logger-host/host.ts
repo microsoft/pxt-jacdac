@@ -12,7 +12,7 @@ namespace jacdac {
             this.minPriority = this.handleRegValue(packet, LoggerReg.MinPriority, "u8", this.minPriority);
             // TODO: is this a command?
             const SetMinPriority = 0x2000 | LoggerReg.MinPriority
-            switch (packet.service_command) {
+            switch (packet.serviceCommand) {
                 case SetMinPriority:
                     const now = control.millis()
                     // lower the priority immediately, but tighten it only when no one 

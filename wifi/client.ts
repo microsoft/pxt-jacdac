@@ -82,13 +82,13 @@ namespace jacdac {
             return this.sockets.length - 1
         }
 
-        public socketConnect(socket_num: number, dest: string | Buffer, port: number, conn_mode = net.TCP_MODE): boolean {
-            if (conn_mode != net.TLS_MODE)
+        public socketConnect(socketNum: number, dest: string | Buffer, port: number, connMode = net.TCP_MODE): boolean {
+            if (connMode != net.TLS_MODE)
                 throw "only SSL supported now"
             if (typeof dest != "string")
                 throw "only string hostnames supported"
 
-            const s = this.sockets[socket_num]
+            const s = this.sockets[socketNum]
             if (!s)
                 throw "no such socket"
 
@@ -100,26 +100,26 @@ namespace jacdac {
             }
         }
 
-        public socketWrite(socket_num: number, buffer: Buffer): void {
-            const s = this.sockets[socket_num]
+        public socketWrite(socketNum: number, buffer: Buffer): void {
+            const s = this.sockets[socketNum]
             if (!s) return
             s.write(buffer)
         }
 
-        public socketAvailable(socket_num: number): number {
-            const s = this.sockets[socket_num]
+        public socketAvailable(socketNum: number): number {
+            const s = this.sockets[socketNum]
             if (!s) return 0
             return s.bytesAvailable()
         }
 
-        public socketRead(socket_num: number, size: number): Buffer {
-            const s = this.sockets[socket_num]
+        public socketRead(socketNum: number, size: number): Buffer {
+            const s = this.sockets[socketNum]
             if (!s) return undefined
             return s.read()
         }
 
-        public socketClose(socket_num: number): void {
-            const s = this.sockets[socket_num]
+        public socketClose(socketNum: number): void {
+            const s = this.sockets[socketNum]
             if (!s) return
             s.close()
         }

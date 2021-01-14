@@ -82,9 +82,9 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket): void {
-            const address = packet.device_identifier
+            const address = packet.deviceIdentifier
             const data = packet.data
-            switch (packet.service_command) {
+            switch (packet.serviceCommand) {
                 case JDControllerCommand.ControlClient:
                     this.connectClient(address, data.slice(0, 8).toHex(), data[8]);
                     return

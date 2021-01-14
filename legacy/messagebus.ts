@@ -30,7 +30,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            if (packet.service_command == CMD_EVENT) {
+            if (packet.serviceCommand == CMD_EVENT) {
                 const [id, value] = jdunpack<[number, number]>(packet.data, "u32 u32")
                 this.suppressForwarding = true;
                 control.raiseEvent(id, value);

@@ -1,13 +1,13 @@
 namespace jacdac {
     export const JD_SERIAL_HEADER_SIZE = 16
     export const JD_SERIAL_MAX_PAYLOAD_SIZE = 236
-    export const JD_SERVICE_NUMBER_MASK = 0x3f
-    export const JD_SERVICE_NUMBER_INV_MASK = 0xc0
-    export const JD_SERVICE_NUMBER_CRC_ACK = 0x3f
-    export const JD_SERVICE_NUMBER_PIPE = 0x3e
-    export const JD_SERVICE_NUMBER_CTRL = 0x00
+    export const JD_SERVICE_INDEX_MASK = 0x3f
+    export const JD_SERVICE_INDEX_INV_MASK = 0xc0
+    export const JD_SERVICE_INDEX_CRC_ACK = 0x3f
+    export const JD_SERVICE_INDEX_PIPE = 0x3e
+    export const JD_SERVICE_INDEX_CTRL = 0x00
 
-    // the COMMAND flag signifies that the device_identifier is the recipent
+    // the COMMAND flag signifies that the device_identifier is the recipient
     // (i.e., it's a command for the peripheral); the bit clear means device_identifier is the source
     // (i.e., it's a report from peripheral or a broadcast message)
     export const JD_FRAME_FLAG_COMMAND = 0x01
@@ -40,20 +40,20 @@ namespace jacdac {
             return p
         }
 
-        static from(service_command: number, data: Buffer) {
+        static from(serviceCommand: number, data: Buffer) {
             const p = new JDPacket()
             p._header = Buffer.create(JD_SERIAL_HEADER_SIZE)
             p.data = data
-            p.service_command = service_command
+            p.serviceCommand = serviceCommand
             return p
         }
 
-        static onlyHeader(service_command: number) {
-            return JDPacket.from(service_command, Buffer.create(0))
+        static onlyHeader(serviceCommand: number) {
+            return JDPacket.from(serviceCommand, Buffer.create(0))
         }
 
-        static jdpacked(service_command: number, fmt: string, nums: any[]) {
-            return JDPacket.from(service_command, jdpack(fmt, nums))
+        static jdpacked(serviceCommand: number, fmt: string, nums: any[]) {
+            return JDPacket.from(serviceCommand, jdpack(fmt, nums))
         }
 
         static segmentData(data: Buffer) {
@@ -65,21 +65,21 @@ namespace jacdac {
             return res
         }
 
-        get device_identifier() {
+        get deviceIdentifier() {
             // 8 is length!
             return this._header.slice(4, 8).toHex()
         }
-        set device_identifier(id: string) {
+        set deviceIdentifier(id: string) {
             const idb = Buffer.fromHex(id)
             if (idb.length != 8)
                 error("Invalid id")
             this._header.write(4, idb)
         }
 
-        get packet_flags() { return this._header[3] }
+        get packetFlags() { return this._header[3] }
 
-        get multicommand_class() {
-            if (this.packet_flags & JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS)
+        get multicommandClass() {
+            if (this.packetFlags & JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS)
                 return this._header.getNumber(NumberFormat.UInt32LE, 4)
             return undefined
         }
@@ -88,56 +88,56 @@ namespace jacdac {
             return this._header[12];
         }
 
-        get requires_ack(): boolean {
-            return (this.packet_flags & JD_FRAME_FLAG_ACK_REQUESTED) ? true : false;
+        get requiresAck(): boolean {
+            return (this.packetFlags & JD_FRAME_FLAG_ACK_REQUESTED) ? true : false;
         }
-        set requires_ack(ack: boolean) {
-            if (ack != this.requires_ack)
+        set requiresAck(ack: boolean) {
+            if (ack != this.requiresAck)
                 this._header[3] ^= JD_FRAME_FLAG_ACK_REQUESTED
         }
 
-        get service_number(): number {
-            return this._header[13] & JD_SERVICE_NUMBER_MASK;
+        get serviceIndex(): number {
+            return this._header[13] & JD_SERVICE_INDEX_MASK;
         }
-        set service_number(service_number: number) {
-            if (service_number == null)
-                throw "service_number not set"
-            this._header[13] = (this._header[13] & JD_SERVICE_NUMBER_INV_MASK) | service_number;
+        set serviceIndex(serviceIdx: number) {
+            if (serviceIdx == null)
+                throw "serviceIndex not set"
+            this._header[13] = (this._header[13] & JD_SERVICE_INDEX_INV_MASK) | serviceIdx;
         }
 
         get crc(): number {
             return this._header.getNumber(NumberFormat.UInt16LE, 0)
         }
 
-        get service_command(): number {
+        get serviceCommand(): number {
             return this._header.getNumber(NumberFormat.UInt16LE, 14)
         }
-        set service_command(cmd: number) {
+        set serviceCommand(cmd: number) {
             this._header.setNumber(NumberFormat.UInt16LE, 14, cmd)
         }
 
         get isEvent() {
-            return this.is_report && (this.service_command & CMD_EVENT_MASK) != 0
+            return this.isReport && (this.serviceCommand & CMD_EVENT_MASK) != 0
         }
 
         get eventCode() {
-            return this.isEvent ? this.service_command & CMD_EVENT_CODE_MASK : undefined
+            return this.isEvent ? this.serviceCommand & CMD_EVENT_CODE_MASK : undefined
         }
 
         get eventCounter() {
-            return this.isEvent ? (this.service_command >> CMD_EVENT_COUNTER_POS) & CMD_EVENT_COUNTER_MASK : undefined
+            return this.isEvent ? (this.serviceCommand >> CMD_EVENT_COUNTER_POS) & CMD_EVENT_COUNTER_MASK : undefined
         }
 
-        get is_reg_set() {
-            return (this.service_command >> 12) == (CMD_SET_REG >> 12)
+        get isRegSet() {
+            return (this.serviceCommand >> 12) == (CMD_SET_REG >> 12)
         }
 
-        get is_reg_get() {
-            return (this.service_command >> 12) == (CMD_GET_REG >> 12)
+        get isRegGet() {
+            return (this.serviceCommand >> 12) == (CMD_GET_REG >> 12)
         }
 
-        get reg_identifier() {
-            return this.service_command & 0xfff
+        get regCode() {
+            return this.serviceCommand & 0xfff
         }
 
         get data(): Buffer {
@@ -198,16 +198,16 @@ namespace jacdac {
             this._data = jdpack(fmt, nums)
         }
 
-        get is_command() {
-            return !!(this.packet_flags & JD_FRAME_FLAG_COMMAND)
+        get isCommand() {
+            return !!(this.packetFlags & JD_FRAME_FLAG_COMMAND)
         }
 
-        get is_report() {
-            return !(this.packet_flags & JD_FRAME_FLAG_COMMAND)
+        get isReport() {
+            return !(this.packetFlags & JD_FRAME_FLAG_COMMAND)
         }
 
         toString(): string {
-            let msg = `${jacdac.shortDeviceId(this.device_identifier)}/${this.service_number}[${this.packet_flags}]: ${this.service_command} sz=${this.size}`
+            let msg = `${jacdac.shortDeviceId(this.deviceIdentifier)}/${this.serviceIndex}[${this.packetFlags}]: ${this.serviceCommand} sz=${this.size}`
             if (this.size < 20) msg += ": " + this.data.toHex()
             else msg += ": " + this.data.slice(0, 20).toHex() + "..."
             return msg
@@ -220,7 +220,7 @@ namespace jacdac {
         _sendReport(dev: Device) {
             if (!dev)
                 return
-            this.device_identifier = dev.deviceId
+            this.deviceIdentifier = dev.deviceId
             this._sendCore()
         }
 
@@ -233,14 +233,14 @@ namespace jacdac {
         _sendCmdId(devId: string) {
             if (!devId)
                 return
-            this.device_identifier = devId
+            this.deviceIdentifier = devId
             this._header[3] |= JD_FRAME_FLAG_COMMAND
             this._sendCore()
         }
 
-        sendAsMultiCommand(service_class: number) {
+        sendAsMultiCommand(serviceClass: number) {
             this._header[3] |= JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS | JD_FRAME_FLAG_COMMAND
-            this._header.setNumber(NumberFormat.UInt32LE, 4, service_class)
+            this._header.setNumber(NumberFormat.UInt32LE, 4, serviceClass)
             this._header.setNumber(NumberFormat.UInt32LE, 8, 0)
             this._sendCore()
         }
@@ -249,7 +249,7 @@ namespace jacdac {
         _sendWithAck(devId: string) {
             if (!devId)
                 return false
-            this.requires_ack = true
+            this.requiresAck = true
             this._sendCmdId(devId)
 
             if (!ackAwaiters) {
@@ -309,8 +309,8 @@ namespace jacdac {
         if (!ackAwaiters)
             return
         let numNotify = 0
-        const srcId = pkt.device_identifier
-        const crc = pkt.service_command
+        const srcId = pkt.deviceIdentifier
+        const crc = pkt.serviceCommand
         for (let a of ackAwaiters) {
             if (a.crc == crc && a.srcId == srcId) {
                 a.nextRetry = 0

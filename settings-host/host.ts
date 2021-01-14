@@ -6,7 +6,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            switch (packet.service_command) {
+            switch (packet.serviceCommand) {
                 case SettingsCmd.Delete: this.handleDeleteCommand(packet); break;
                 case SettingsCmd.ListKeys: this.handleListKeys(packet); break;
                 case SettingsCmd.List: this.handleList(packet); break;

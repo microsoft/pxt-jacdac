@@ -15,7 +15,7 @@ namespace jacdac {
         }
 
         public handlePacket(packet: JDPacket) {
-            this.log(`hpkt ${packet.service_command}`);
+            this.log(`hpkt ${packet.serviceCommand}`);
             this.stateUpdated = false
             this.lowThreshold = this.handleRegInt32(packet, SystemReg.LowThreshold, this.lowThreshold)
             this.highThreshold = this.handleRegInt32(packet, SystemReg.HighThreshold, this.highThreshold)
@@ -23,7 +23,7 @@ namespace jacdac {
             const samples = this.handleRegValue(packet, SystemReg.StreamingSamples, "u8", this.streamingSamples)
             this.setStreaming(samples)
 
-            switch (packet.service_command) {
+            switch (packet.serviceCommand) {
                 case SystemCmd.Calibrate:
                     this.handleCalibrateCommand(packet);
                     break

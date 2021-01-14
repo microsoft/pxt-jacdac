@@ -31,7 +31,7 @@ namespace jacdac {
         }
 
         handlePacket(pkt: JDPacket) {
-            if (pkt.service_command == (ModelRunnerReg.Outputs | CMD_GET_REG)) {
+            if (pkt.serviceCommand == (ModelRunnerReg.Outputs | CMD_GET_REG)) {
                 const scores = unpackArray(pkt.data, NumberFormat.Float32LE)
                 for (let i = 0; i < scores.length; ++i) {
                     if (scores[i] > this._minScore) {

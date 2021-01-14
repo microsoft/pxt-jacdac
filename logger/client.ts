@@ -19,7 +19,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            let pri = packet.service_command - LoggerCmd.Debug
+            let pri = packet.serviceCommand - LoggerCmd.Debug
             if (0 <= pri && pri <= LoggerPriority.Error) {
                 if (pri < this.minPriority)
                     return;

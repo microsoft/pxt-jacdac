@@ -54,7 +54,7 @@ namespace jacdac {
         }
 
         handlePacket(pkt: JDPacket) {
-            if (pkt.service_command == CMD_OPEN) {
+            if (pkt.serviceCommand == CMD_OPEN) {
                 this._retPort = pkt.intData
             }
         }

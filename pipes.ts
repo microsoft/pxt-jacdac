@@ -6,9 +6,9 @@ namespace jacdac {
 
     let pipes: InPipe[]
     function handlePipeData(pkt: JDPacket) {
-        if (pkt.service_number != JD_SERVICE_NUMBER_PIPE || pkt.device_identifier != selfDevice().deviceId)
+        if (pkt.serviceIndex != JD_SERVICE_INDEX_PIPE || pkt.deviceIdentifier != selfDevice().deviceId)
             return
-        const port = pkt.service_command >> PORT_SHIFT
+        const port = pkt.serviceCommand >> PORT_SHIFT
         const s = pipes.find(s => s.port == port)
         if (s) s._handle(pkt)
     }
@@ -73,7 +73,7 @@ namespace jacdac {
         meta(buf: Buffer) { }
 
         _handle(pkt: JDPacket) {
-            let cmd = pkt.service_command
+            let cmd = pkt.serviceCommand
             if ((cmd & COUNTER_MASK) != (this.nextCnt & COUNTER_MASK))
                 return
             this.nextCnt++
@@ -133,7 +133,7 @@ namespace jacdac {
             this.nextCnt++
             if (flags & CLOSE_MASK)
                 this.port = null
-            pkt.service_number = JD_SERVICE_NUMBER_PIPE
+            pkt.serviceIndex = JD_SERVICE_INDEX_PIPE
             if (!pkt._sendWithAck(this.deviceId)) {
                 this.port = null
                 throw "out pipe error: no ACK"
