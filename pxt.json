@@ -30,6 +30,7 @@
         "actuator.ts",
         "diagnostics.ts",
         "modules.ts",
+        "eventqueue.ts",
         "ns.ts",
         "system/constants.ts",
         "base/constants.ts",

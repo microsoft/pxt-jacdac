@@ -9,15 +9,15 @@ namespace jacdac {
         }
 
         handlePacket(pkt: JDPacket) {
-            if (pkt.service_command == jacdac.SystemCmd.Event) {
-                const [evid, key] = jdunpack<[number, number]>(pkt.data, "u32 u32");
+            if (pkt.isEvent) {
+                const evid = pkt.eventCode
                 let evsrc = 0
-                if (evid == 1)
+                if (evid == GamepadEvent.Down)
                     evsrc = INTERNAL_KEY_DOWN
-                else if (evid == 2)
+                else if (evid == GamepadEvent.Up)
                     evsrc = INTERNAL_KEY_UP
                 if (!evsrc) return
-                control.raiseEvent(evsrc, key)
+                control.raiseEvent(evsrc, pkt.intData)
             }
         }
     }

@@ -29,13 +29,13 @@ namespace jacdac {
          * Emitted together with `up` when the press time was not longer than 500ms.
          */
         //% block="click"
-        Click = 0x3,
+        Click = 0x80,
 
         /**
          * Emitted together with `up` when the press time was more than 500ms.
          */
         //% block="long click"
-        LongClick = 0x4,
+        LongClick = 0x81,
     }
 
 }

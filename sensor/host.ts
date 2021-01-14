@@ -47,7 +47,7 @@ namespace jacdac {
         }
 
         protected raiseHostEvent(value: number) {
-            this.sendReport(JDPacket.jdpacked(SystemCmd.Event, "u32", [value]))
+            this.sendEvent(value)
         }
 
         public setStreaming(samples: number) {

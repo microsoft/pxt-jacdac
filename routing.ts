@@ -28,6 +28,15 @@ namespace jacdac {
         console.add(consolePriority, msg);
     }
 
+    function mkEventCmd(evCode: number) {
+        if (!_myDevice._eventCounter)
+            _myDevice._eventCounter = 0
+        _myDevice._eventCounter = (_myDevice._eventCounter + 1) & CMD_EVENT_COUNTER_MASK
+        if (evCode >> 8)
+            throw "invalid evcode"
+        return CMD_EVENT_MASK | (_myDevice._eventCounter << CMD_EVENT_COUNTER_POS) | evCode
+    }
+
     //% fixedInstances
     export class Host {
         protected supressLog: boolean;
@@ -82,12 +91,12 @@ namespace jacdac {
             pkt._sendReport(_myDevice)
         }
 
-        protected sendEvent(event: number, data?: Buffer) {
-            const payload = Buffer.create(4 + (data ? data.length : 0))
-            payload.setNumber(NumberFormat.UInt32LE, 0, event);
-            if (data)
-                payload.write(4, data);
-            this.sendReport(JDPacket.from(SystemCmd.Event, payload))
+        protected sendEvent(eventCode: number, data?: Buffer) {
+            const pkt = JDPacket.from(mkEventCmd(eventCode), data || Buffer.create(0))
+            this.sendReport(pkt)
+            const now = control.millis()
+            delayedSend(pkt, now + 20)
+            delayedSend(pkt, now + 100)
         }
 
         protected sendChangeEvent(): void {
@@ -282,6 +291,7 @@ namespace jacdac {
         started: boolean;
         protected advertisementData: Buffer;
         private handlers: SMap<(idx?: number) => void>;
+        protected systemActive = false;
 
         protected readonly config: ClientPacketQueue
 
@@ -310,8 +320,12 @@ namespace jacdac {
             if (pkt.service_command == SystemCmd.Announce)
                 this.advertisementData = pkt.data
 
-            if (pkt.service_command == SystemCmd.Event)
-                this.raiseEvent(pkt.intData, pkt.data.length >= 8 ? pkt.getNumber(NumberFormat.Int32LE, 4) : undefined)
+            if (pkt.isEvent) {
+                const code = pkt.eventCode
+                if (code == SystemEvent.Active) this.systemActive = true
+                else if (code == SystemEvent.Inactive) this.systemActive = false
+                this.raiseEvent(code, pkt.intData)
+            }
 
             this.handlePacket(pkt)
         }
@@ -446,6 +460,7 @@ namespace jacdac {
         services: Buffer
         lastSeen: number
         clients: Client[] = []
+        _eventCounter: number
         private _name: string
         private _shortId: string
         private queries: RegQuery[]
@@ -795,6 +810,24 @@ namespace jacdac {
             const service_class = dev.services.getNumber(NumberFormat.UInt32LE, pkt.service_number << 2)
             if (!service_class || service_class == 0xffffffff)
                 return
+
+            if (pkt.isEvent) {
+                let ec = dev._eventCounter
+                // if ec is undefined, it's the first event, so skip processing
+                if (ec !== undefined) {
+                    ec++
+                    // how many packets ahead and behind current are we?
+                    const ahead = (pkt.eventCounter - ec) & CMD_EVENT_COUNTER_MASK
+                    const behind = (ec - pkt.eventCounter) & CMD_EVENT_COUNTER_MASK
+                    // ahead == behind == 0 is the usual case, otherwise
+                    // behind < 60 means this is an old event (or retransmission of something we already processed)
+                    // ahead < 5 means we missed at most 5 events, so we ignore this one and rely on retransmission
+                    // of the missed events, and then eventually the current event
+                    if (ahead > 0 && (behind < 60 || ahead < 5))
+                        return
+                }
+                dev._eventCounter = pkt.eventCounter
+            }
 
             const client = dev.clients.find(c =>
                 c.broadcast
