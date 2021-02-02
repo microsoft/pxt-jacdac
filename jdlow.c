@@ -231,6 +231,12 @@ void jd_rx_completed(int dataLeft) {
         return;
     }
 
+    if (frame->flags & 0x80) {
+        // reserved for JACDAC vNext
+        ERROR("vNext frame");
+        return;
+    }
+
     uint32_t txSize = sizeof(*frame) - dataLeft;
     uint32_t declaredSize = JD_FRAME_SIZE(frame);
     if (txSize < declaredSize) {
@@ -238,6 +244,7 @@ void jd_rx_completed(int dataLeft) {
         jd_diagnostics.bus_uart_error++;
         return;
     }
+
     uint16_t crc = jd_crc16((uint8_t *)frame + 2, declaredSize - 2);
     if (crc != frame->crc) {
         ERROR("crc mismatch");

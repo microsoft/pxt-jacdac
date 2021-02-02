@@ -21,7 +21,7 @@ namespace jacdac {
         private sampleMult: number
 
         handlePacket(packet: JDPacket) {
-            if (packet.service_command == (CMD_GET_REG | SystemReg.Reading)) {
+            if (packet.serviceCommand == (CMD_GET_REG | SystemReg.Reading)) {
                 this.parent._newData(packet.timestamp, false)
                 const arr = packet.data.toArray(numberFmt(this.sampleType))
                 for (let i = 0; i < arr.length; ++i)
@@ -190,9 +190,9 @@ namespace jacdac {
             this.handleRegValue(packet, SensorAggregatorReg.SampleSize, "u8", this.sampleSize)
             this.streamSamples = this.handleRegUInt32(packet, SensorAggregatorReg.StreamingSamples, this.streamSamples)
 
-            switch (packet.service_command) {
+            switch (packet.serviceCommand) {
                 case SensorAggregatorReg.Inputs | CMD_GET_REG:
-                    this.sendReport(JDPacket.from(packet.service_command, this.inputSettings))
+                    this.sendReport(JDPacket.from(packet.serviceCommand, this.inputSettings))
                     break
                 case SensorAggregatorReg.Inputs | CMD_SET_REG:
                     if (this.inputSettings && packet.data.equals(this.inputSettings))

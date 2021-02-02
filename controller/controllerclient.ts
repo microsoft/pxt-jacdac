@@ -150,7 +150,7 @@ namespace jacdac {
             const cmd: JDControllerCommand = data[0];
             // received a packet from the server
             if (cmd == JDControllerCommand.ControlServer) {
-                this.log(`server ${packet.device_identifier}`)
+                this.log(`server ${packet.deviceIdentifier}`)
                 /* JDTODO
                 for (let i = 1; i <= 4; ++i) {
                     if (data[i] == address) {

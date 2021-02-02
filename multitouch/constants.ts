@@ -43,7 +43,7 @@ namespace jacdac {
          * ```
          */
         //% block="tap"
-        Tap = 0x3,
+        Tap = 0x80,
 
         /**
          * Argument: channel uint32_t. Emitted when an input is touched for longer than 500ms. TODO Not implemented.
@@ -53,19 +53,19 @@ namespace jacdac {
          * ```
          */
         //% block="long press"
-        LongPress = 0x4,
+        LongPress = 0x81,
 
         /**
          * Emitted when input channels are successively touched in order of increasing channel numbers.
          */
         //% block="swipe pos"
-        SwipePos = 0x10,
+        SwipePos = 0x90,
 
         /**
          * Emitted when input channels are successively touched in order of decreasing channel numbers.
          */
         //% block="swipe neg"
-        SwipeNeg = 0x11,
+        SwipeNeg = 0x91,
     }
 
 }

@@ -9,7 +9,7 @@ namespace jacdac {
         return 30
     }
 
-    function jd_crc16(p: Buffer) {
+    function jdCrc16(p: Buffer) {
         let crc = 0xffff;
         for (let i = 0; i < p.length; ++i) {
             const data = p[i];
@@ -28,7 +28,7 @@ namespace jacdac {
     export function __physSendPacket(header: Buffer, data: Buffer): void {
         // the sim transport layer computes the CRC
         const payload = header.concat(data);
-        const crc = jd_crc16(payload.slice(2));
+        const crc = jdCrc16(payload.slice(2));
         header[0] = (crc >> 0) & 0xff;
         header[1] = (crc >> 8) & 0xff
         control.simmessages.send("jacdac", payload)

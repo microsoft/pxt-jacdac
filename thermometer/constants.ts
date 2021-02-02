@@ -1,6 +1,14 @@
 namespace jacdac {
     // Service: Thermometer
     export const SRV_THERMOMETER = 0x1421bac7
+
+    export const enum ThermometerVariant { // uint32_t
+        Outdoor = 0x1,
+        Indoor = 0x2,
+        Body = 0x3,
+        HeatProbe = 0x4,
+    }
+
     export const enum ThermometerReg {
         /**
          * Read-only °C u22.10 (uint32_t). The temperature.
@@ -10,6 +18,42 @@ namespace jacdac {
          * ```
          */
         Temperature = 0x101,
+
+        /**
+         * Constant °C u22.10 (uint32_t). Lowest temperature that can be reported.
+         *
+         * ```
+         * const [minTemperature] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        MinTemperature = 0x104,
+
+        /**
+         * Constant °C u22.10 (uint32_t). Highest temperature that can be reported.
+         *
+         * ```
+         * const [maxTemperature] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        MaxTemperature = 0x105,
+
+        /**
+         * Read-only °C u22.10 (uint32_t). The real temperature is between `temperature - temperature_error` and `temperature + temperature_error`.
+         *
+         * ```
+         * const [temperatureError] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        TemperatureError = 0x106,
+
+        /**
+         * Constant Variant (uint32_t). Specifies the type of thermometer.
+         *
+         * ```
+         * const [variant] = jdunpack<[ThermometerVariant]>(buf, "u32")
+         * ```
+         */
+        Variant = 0x107,
     }
 
 }

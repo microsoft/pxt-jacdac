@@ -50,7 +50,7 @@ namespace jacdac {
 
         handlePacket(packet: JDPacket) {
             // this.log(`vpkt ${packet.service_command}`)
-            switch (packet.service_command) {
+            switch (packet.serviceCommand) {
                 case CMD_GET_REG | SystemReg.Reading: {
                     const state = packet.data
                     const changed = !state.equals(this._lastState);
@@ -106,7 +106,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            if (this._samples && packet.service_command == (CMD_GET_REG | SystemReg.Reading)) {
+            if (this._samples && packet.serviceCommand == (CMD_GET_REG | SystemReg.Reading)) {
                 const v = this.parseSample(packet)
                 if (v != null) {
                     let num = 1
