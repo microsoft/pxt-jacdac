@@ -3,7 +3,7 @@ namespace jacdac {
     export let consolePriority = ConsolePriority.Debug;
 
     let _hostServices: Host[]
-    let _unattachedClients: Client[]
+    export let _unattachedClients: Client[]
     export let _allClients: Client[]
     let _myDevice: Device
     //% whenUsed
@@ -292,6 +292,10 @@ namespace jacdac {
         ) {
             this.eventId = control.allocateNotifyEvent();
             this.config = new ClientPacketQueue(this)
+            if (!this.name)
+                throw "no name"
+            if (!this.requiredDeviceName)
+                this.requiredDeviceName = this.name
         }
 
         broadcastDevices() {
@@ -325,7 +329,7 @@ namespace jacdac {
         _attach(dev: Device, serviceNum: number) {
             if (this.device) throw "Invalid attach"
             if (!this.broadcast) {
-                if (!dev.matchesNameAt(this.requiredDeviceName, serviceNum))
+                if (!dev.matchesRoleAt(this.requiredDeviceName, serviceNum))
                     return false // don't attach
                 this.device = dev
                 this.serviceIndex = serviceNum
@@ -453,6 +457,7 @@ namespace jacdac {
         _eventCounter: number
         private _shortId: string
         private queries: RegQuery[]
+        _score: number
 
         constructor(public deviceId: string) {
             _devices.push(this)
@@ -473,18 +478,16 @@ namespace jacdac {
             return this.shortId
         }
 
-        matchesNameAt(name: string, serviceNum: number) {
-            if (!name)
+        matchesRoleAt(role: string, serviceIdx: number) {
+            if (!role)
                 return true
 
-            if (name == this.deviceId)
+            if (role == this.deviceId)
                 return true
-            if (name == this.deviceId + ":" + serviceNum)
+            if (role == this.deviceId + ":" + serviceIdx)
                 return true
 
-            const id = name + ":" + serviceNum
-            const name2 = settings.readString(id)
-            return name == name2
+            return jacdac._rolemgr.getRole(this.deviceId, serviceIdx) == role
         }
 
         private lookupQuery(reg: number) {
@@ -549,6 +552,14 @@ namespace jacdac {
                 if (this.services.getNumber(NumberFormat.UInt32LE, i) == serviceClass)
                     return true
             return false
+        }
+
+        clientAtServiceIndex(serviceIndex: number) {
+            for (const c of this.clients) {
+                if (c.device == this && c.serviceIndex == serviceIndex)
+                    return c
+            }
+            return null
         }
 
         sendCtrlCommand(cmd: number, payload: Buffer = null) {
@@ -684,8 +695,8 @@ namespace jacdac {
                 c._detach()
                 continue // will re-attach
             }
-            const newClass = dev.services.getNumber(NumberFormat.UInt32LE, c.serviceNumber << 2)
-            if (newClass == c.serviceClass && dev.matchesNameAt(c.requiredDeviceName, c.serviceNumber)) {
+            const newClass = dev.services.getNumber(NumberFormat.UInt32LE, c.serviceIndex << 2)
+            if (newClass == c.serviceClass && dev.matchesRoleAt(c.requiredDeviceName, c.serviceIndex)) {
                 newClients.push(c)
                 occupied[c.serviceIndex] = 1
             } else {

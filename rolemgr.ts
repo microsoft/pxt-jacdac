@@ -1,27 +1,41 @@
-namespace jacdac {
+    /*
+Auto-assignment
+
+Run every second, if there are pending clients and there have been new announce.
+First run, after a second since seeing first announce packet.
+
+Make sure to add register to rolemgr to disable this.
+*/
+
+
+namespace jacdac._rolemgr {
     const roleSettingPrefix = "#jdr:"
 
-    export class ServiceDescriptor {
-        constructor(
-            public device: Device,
-            public serviceNumber: number
-        ) { }
-
-        serialize() {
-            return jdpack("b[8] u8", [Buffer.fromHex(this.device.deviceId), this.serviceNumber])
-        }
+    function clearAllNames() {
+        settings.list(roleSettingPrefix).forEach(settings.remove)
     }
 
-    export class RoleBinding {
+    export function getRole(devid: string, servIdx: number) {
+        return settings.readString(roleSettingPrefix + devid + ":" + servIdx)
+    }
+
+    export function setRole(devid: string, servIdx: number, role: string) {
+        const key = roleSettingPrefix + devid + ":" + servIdx
+        if (role)
+            settings.writeString(key, role)
+        else
+            settings.remove(key)
+        Device.clearNameCache()
+    }
+
+    class RoleBinding {
         serviceClass: number
-        boundTo: ServiceDescriptor
-        candidates: ServiceDescriptor[]
+        boundToDev: Device
+        boundToServiceIdx: number
 
         constructor(
-            public parent: RoleManagerClient,
             public role: string
         ) { }
-
 
         host() {
             const slashIdx = this.role.indexOf("/")
@@ -29,21 +43,15 @@ namespace jacdac {
             else return this.role.slice(0, slashIdx - 1)
         }
 
-        isCandidate(ldev: Device) {
-            return this.serviceClasses.every(s => ldev.hasService(s))
-        }
-
-        select(dev: ServiceDescriptor) {
-            if (dev == this.boundTo)
+        select(dev: Device, serviceIdx: number) {
+            if (dev == this.boundToDev && serviceIdx == this.boundToServiceIdx)
                 return
-            if (this.parent == null) {
-                setDevName(dev.deviceId, this.role)
-            } else {
-                if (this.boundTo)
-                    this.parent.setName(this.boundTo, "")
-                this.parent.setName(dev, this.role)
-            }
-            this.boundTo = dev
+            if (this.boundToDev)
+                setRole(this.boundToDev.deviceId, this.boundToServiceIdx, null)
+
+            setRole(dev.deviceId, serviceIdx, this.role)
+            this.boundToDev = dev
+            this.boundToServiceIdx = serviceIdx
         }
     }
 
@@ -53,32 +61,90 @@ namespace jacdac {
             public host: string
         ) { }
 
-        isCandidate(dev: Device) {
-            // multi-set inclusion test; assumes this.bindings is sorted by serviceClass
-            let prevServ = 0
-            let prevIdx = 4
-            const sbuf = dev.services
-            for (const binding of this.bindings) {
-                // new service? go back to the beginning
-                if (prevServ != binding.serviceClass)
-                    prevIdx = 4
-                prevServ = binding.serviceClass
-                while (prevIdx < sbuf.length) {
-                    if (sbuf.getNumber(NumberFormat.UInt32LE, prevIdx) == prevServ)
-                        break
-                    prevIdx += 4
+        get fullyBound() {
+            return this.bindings.every(b => b.boundToDev != null)
+        }
+
+        // candidate devices are ordered by [numBound, numPossible, device_id]
+        // where numBound is number of clients already bound to this device
+        // and numPossible is number of clients that can possibly be additionally bound
+        scoreFor(dev: Device, select = false) {
+            let numBound = 0
+            let numPossible = 0
+            const missing: RoleBinding[] = []
+            for (const b of this.bindings) {
+                if (b.boundToDev) {
+                    if (b.boundToDev == dev)
+                        numBound++
+                } else {
+                    missing.push(b)
                 }
-                if (prevIdx >= sbuf.length)
-                    return false
-                prevIdx += 4
             }
-            return true
+
+            const sbuf = dev.services
+            for (let idx = 4; idx < sbuf.length; idx += 4) {
+                const serviceIndex = idx >> 2
+                // if service is already bound to some client, move on
+                if (dev.clientAtServiceIndex(serviceIndex) != null)
+                    continue
+
+                const serviceClass = sbuf.getNumber(NumberFormat.UInt32LE, idx)
+                for (let i = 0; i < missing.length; ++i) {
+                    if (missing[i].serviceClass == serviceClass) {
+                        // we've got a match!
+                        numPossible++ // this can be assigned
+                        // in fact, assign if requested
+                        if (select) {
+                            control.dmesg("autobind: " + missing[i].role + " -> " + dev.shortId + ":" + serviceIndex)
+                            missing[i].select(dev, serviceIndex)
+                        }
+                        // this one is no longer missing
+                        missing.splice(i, 1)
+                        // move on to the next service in announce
+                        break
+                    }
+                }
+            }
+
+            // if nothing can be assigned, the score is zero
+            if (numPossible == 0)
+                return 0
+
+            // otherwise the score is [numBound, numPossible], lexicographic
+            // numPossible can't be larger than ~64, leave it a few more bits
+            return (numBound << 8) | numPossible
         }
     }
 
-    function recomputeCandidates(bindings: RoleBinding[]) {
-        const hosts: HostBindings[] = []
+    function maxIn<T>(arr: T[], cmp: (a: T, b: T) => number) {
+        let maxElt = arr[0]
+        for (let i = 1; i < arr.length; ++i) {
+            if (cmp(maxElt, arr[i]) < 0)
+                maxElt = arr[i]
+        }
+        return maxElt
+    }
 
+    export function autoBind() {
+        if (_devices.length == 0 || _unattachedClients.length == 0)
+            return
+
+        const bindings: RoleBinding[] = []
+
+        for (const cl of _allClients) {
+            if (!cl.broadcast && cl.requiredDeviceName) {
+                const b = new RoleBinding(cl.requiredDeviceName)
+                if (cl.device) {
+                    b.boundToDev = cl.device
+                    b.boundToServiceIdx = cl.serviceIndex
+                }
+                bindings.push(b)
+            }
+        }
+
+        let hosts: HostBindings[] = []
+
+        // Group all clients by host
         for (const b of bindings) {
             const hn = b.host()
             let h = hosts.find(h => h.host == hn)
@@ -89,85 +155,49 @@ namespace jacdac {
             h.bindings.push(b)
         }
 
-        for (const h of hosts) {
-            h.bindings.sort((a, b) => a.serviceClass - b.serviceClass)
-            const candidateDevices = _devices.filter(d => h.isCandidate(d))
-            for (const binding of h.bindings) {
-                binding.candidates = []
-                for (const dev of candidateDevices) {
-                    const sbuf = dev.services
-                    for (let i = 4; i <= sbuf.length; i += 4) {
-                        if (sbuf.getNumber(NumberFormat.UInt32LE, i) == binding.serviceClass)
-                            binding.candidates.push(new ServiceDescriptor(dev, i >> 2))
-                    }
+        // exclude hosts that have already everything bound
+        hosts = hosts.filter(h => !h.fullyBound)
+
+        while (hosts.length > 0) {
+            // Get host with maximum number of clients (resolve ties by name)
+            // This gives priority to assignment of "more complicated" hosts, which are generally more difficult to assign
+            const h = maxIn(hosts, (a, b) => a.bindings.length - b.bindings.length || a.host.compare(b.host))
+
+            // now find device with highest score (see comment on scoreFor())
+            let maxScore = h.scoreFor(_devices[0])
+            let maxIdx = 0
+            for (let i = 1; i < _devices.length; ++i) {
+                const score = h.scoreFor(_devices[i])
+                if (score == 0) continue
+                if (score > maxScore || (score == maxScore && _devices[i].deviceId.compare(_devices[maxIdx].deviceId) < 0)) {
+                    maxScore = score
+                    maxIdx = i
                 }
             }
-        }
-    }
 
-    export function autoBind() {
-        function log(msg: string) {
-            control.dmesg("autobind: " + msg)
-        }
-
-        function pending() {
-            return _allClients.filter(c => !!c.requiredDeviceName && !c.isConnected())
-        }
-
-        pauseUntil(() => pending().length == 0, 1000)
-
-        const plen = pending().length
-        log(`pending: ${plen}`)
-        if (plen == 0) return
-
-        pause(1000) // wait for everyone to enumerate
-
-        const requested: RoleBinding[] = []
-
-        for (const client of _allClients) {
-            if (client.requiredDeviceName) {
-                const r = addRequested(requested, client.requiredDeviceName, client.serviceClass, null)
-                r.boundTo = client.device
-            }
-        }
-
-        if (!requested.length)
-            return
-
-        function nameFree(d: Device) {
-            return !d.name || requested.every(r => r.boundTo != d)
-        }
-
-        requested.sort((a, b) => a.role.compare(b.role))
-
-        let numSel = 0
-        recomputeCandidates(requested)
-        for (const r of requested) {
-            if (r.boundTo)
+            if (maxScore == 0) {
+                // nothing can be assigned, on any device
+                hosts.removeElement(h)
                 continue
-            const cand = r.candidates.filter(nameFree)
-            log(`role: ${r.role}, ${cand.length} candidate(s)`)
-            if (cand.length > 0) {
-                // take ones without existing names first
-                cand.sort((a, b) => (a.name || "").compare(b.name || "") || a.deviceId.compare(b.deviceId))
-                log(`setting to ${cand[0].toString()}`)
-                r.select(cand[0])
-                numSel++
+            }
+
+            // assign services in order of names - this way foo/servo1 will be assigned before foo/servo2
+            // in list of advertised services
+            h.bindings.sort((a, b) => a.role.compare(b.role))
+
+            // "recompute" score, assigning names in process
+            const dev = _devices[maxIdx]
+            h.scoreFor(dev, true)
+
+            // if everything bound on this host, remove it from further consideration
+            if (h.fullyBound)
+                hosts.removeElement(h)
+            else {
+                // otherwise, remove bindings on the current device, to update sort order
+                // it's unclear we need this
+                h.bindings = h.bindings.filter(b => b.boundToDev != dev)
             }
         }
-    }
-
-    function clearAllNames() {
-        settings.list(roleSettingPrefix).forEach(settings.remove)
-    }
-
-    function setDevName(name: string, desc: ServiceDescriptor) {
-        const key = roleSettingPrefix + name
-        if (!desc)
-            settings.remove(key)
-        else
-            settings.writeBuffer(key, desc.serialize())
-        Device.clearNameCache()
     }
 
     export class RoleManagerHost extends Host {
@@ -176,24 +206,29 @@ namespace jacdac {
         }
 
         public handlePacket(packet: JDPacket) {
-            switch (packet.service_command) {
+            switch (packet.serviceCommand) {
                 case RoleManagerCmd.GetRole:
-                    if (packet.data.length == 8) {
-                        let name = settings.readBuffer(roleSettingPrefix + packet.data.toHex())
-                        if (!name) name = Buffer.create(0)
-                        this.sendReport(JDPacket.from(RoleManagerCmd.GetRole, packet.data.concat(name)))
+                    if (packet.data.length == 9) {
+                        let name = getRole(packet.data.slice(0, 8).toHex(), packet.data[8]) || ""
+                        this.sendReport(JDPacket.from(RoleManagerCmd.GetRole, packet.data.concat(Buffer.fromUTF8(name))))
                     }
                     break
                 case RoleManagerCmd.SetRole:
-                    if (packet.data.length >= 8) {
-                        setDevName(packet.data.slice(0, 8).toHex(), packet.data.slice(8).toString())
+                    if (packet.data.length >= 9) {
+                        setRole(packet.data.slice(0, 8).toHex(), packet.data[8], packet.data.slice(9).toString())
                         this.sendChangeEvent();
                     }
                     break
                 case RoleManagerCmd.ListStoredRoles:
-                    OutPipe.respondForEach(packet, settings.list(roleSettingPrefix), k =>
-                        Buffer.fromHex(k.slice(roleSettingPrefix.length))
-                            .concat(settings.readBuffer(k)))
+                    OutPipe.respondForEach(packet, settings.list(roleSettingPrefix), k => {
+                        const name = settings.readString(k)
+                        const len = roleSettingPrefix.length
+                        return jdpack("b[8] u8 s", [
+                            Buffer.fromHex(k.slice(len, len + 16)),
+                            parseInt(k.slice(len + 16)),
+                            name
+                        ])
+                    })
                     break
                 case RoleManagerCmd.ListRequiredRoles:
                     OutPipe.respondForEach(packet, _allClients, packName)
@@ -206,13 +241,19 @@ namespace jacdac {
 
             function packName(c: Client) {
                 const devid = c.device ? Buffer.fromHex(c.device.deviceId) : Buffer.create(8)
-                return jdpack("b[8] u32 s", [devid, c.serviceClass, c.requiredDeviceName || ""])
+                const servidx = c.device ? c.serviceIndex : 0
+                return jdpack("b[8] u32 u8 s", [devid, c.serviceClass, servidx, c.requiredDeviceName || ""])
             }
         }
     }
+}
+
+namespace jacdac {
 
     //% fixedInstance whenUsed block="role manager"
-    export const roleManagerHost = new RoleManagerHost()
+    export const roleManagerHost = new _rolemgr.RoleManagerHost()
+
+    /*
 
     function addRequested(devs: RoleBinding[], name: string, service_class: number,
         parent: RoleManagerClient) {
@@ -222,7 +263,6 @@ namespace jacdac {
         r.serviceClasses.push(service_class)
         return r
     }
-
 
     export class RoleManagerClient extends Client {
         public remoteRequestedDevices: RoleBinding[] = []
@@ -273,7 +313,7 @@ namespace jacdac {
             this.sendCommandWithAck(JDPacket.onlyHeader(RoleManagerCmd.ClearAllRoles))
         }
 
-        setName(dev: Device, name: string) {
+        setName(sd: ServiceDescriptor, name: string) {
             this.sendCommandWithAck(JDPacket.from(RoleManagerCmd.SetRole,
                 Buffer.fromHex(dev.deviceId).concat(Buffer.fromUTF8(name))))
         }
@@ -281,4 +321,5 @@ namespace jacdac {
         handlePacket(pkt: JDPacket) {
         }
     }
+    */
 }
