@@ -1,6 +1,6 @@
 namespace jacdac {
     // Service: Role Manager
-    export const SRV_ROLE_MANAGER = 0x119c3ad1
+    export const SRV_ROLE_MANAGER = 0x1e4b7e66
     export const enum RoleManagerReg {
         /**
          * Read-only bool (uint8_t). Indicates if all required roles have been allocated to devices.
@@ -14,10 +14,10 @@ namespace jacdac {
 
     export const enum RoleManagerCmd {
         /**
-         * Argument: device_id devid (uint64_t). Get the role corresponding to given device identifer. Returns empty string if unset.
+         * Get the role corresponding to given device identifer. Returns empty string if unset.
          *
          * ```
-         * const [deviceId] = jdunpack<[Buffer]>(buf, "b[8]")
+         * const [deviceId, serviceIdx] = jdunpack<[Buffer, number]>(buf, "b[8] u8")
          * ```
          */
         GetRole = 0x80,
@@ -25,7 +25,7 @@ namespace jacdac {
         /**
          * report GetRole
          * ```
-         * const [deviceId, role] = jdunpack<[Buffer, string]>(buf, "b[8] s")
+         * const [deviceId, serviceIdx, role] = jdunpack<[Buffer, number, string]>(buf, "b[8] u8 s")
          * ```
          */
 
@@ -33,7 +33,7 @@ namespace jacdac {
          * Set role. Can set to empty to remove role binding.
          *
          * ```
-         * const [deviceId, role] = jdunpack<[Buffer, string]>(buf, "b[8] s")
+         * const [deviceId, serviceIdx, role] = jdunpack<[Buffer, number, string]>(buf, "b[8] u8 s")
          * ```
          */
         SetRole = 0x81,
@@ -53,7 +53,7 @@ namespace jacdac {
         ListStoredRoles = 0x82,
 
         /**
-         * Argument: required_roles pipe (bytes). List all roles required by the current program. `device_id` is `0` if role is unbound.
+         * Argument: required_roles pipe (bytes). List all roles required by the current program. `device_id` and `service_idx` are `0` if role is unbound.
          *
          * ```
          * const [requiredRoles] = jdunpack<[Buffer]>(buf, "b[12]")
@@ -66,14 +66,14 @@ namespace jacdac {
     /**
      * pipe_report StoredRoles
      * ```
-     * const [deviceId, role] = jdunpack<[Buffer, string]>(buf, "b[8] s")
+     * const [deviceId, serviceIdx, role] = jdunpack<[Buffer, number, string]>(buf, "b[8] u8 s")
      * ```
      */
 
     /**
      * pipe_report RequiredRoles
      * ```
-     * const [deviceId, serviceClass, roles] = jdunpack<[Buffer, number, string]>(buf, "b[8] u32 s")
+     * const [deviceId, serviceClass, serviceIdx, role] = jdunpack<[Buffer, number, number, string]>(buf, "b[8] u32 u8 s")
      * ```
      */
 
