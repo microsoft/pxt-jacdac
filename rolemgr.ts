@@ -1,4 +1,4 @@
-    /*
+/*
 Auto-assignment
 
 Run every second, if there are pending clients and there have been new announce.
@@ -11,7 +11,7 @@ Make sure to add register to rolemgr to disable this.
 namespace jacdac._rolemgr {
     const roleSettingPrefix = "#jdr:"
 
-    function clearAllNames() {
+    export function clearRoles() {
         settings.list(roleSettingPrefix).forEach(settings.remove)
     }
 
@@ -28,8 +28,15 @@ namespace jacdac._rolemgr {
         Device.clearNameCache()
     }
 
+    class DeviceWrapper {
+        bindings: RoleBinding[] = []
+        score = -1
+        constructor(
+            public device: Device
+        ) { }
+    }
+
     class RoleBinding {
-        
         boundToDev: Device
         boundToServiceIdx: number
 
@@ -44,12 +51,13 @@ namespace jacdac._rolemgr {
             else return this.role.slice(0, slashIdx - 1)
         }
 
-        select(dev: Device, serviceIdx: number) {
+        select(devwrap: DeviceWrapper, serviceIdx: number) {
+            const dev = devwrap.device
             if (dev == this.boundToDev && serviceIdx == this.boundToServiceIdx)
                 return
             if (this.boundToDev)
                 setRole(this.boundToDev.deviceId, this.boundToServiceIdx, null)
-
+            devwrap.bindings[serviceIdx] = this
             setRole(dev.deviceId, serviceIdx, this.role)
             this.boundToDev = dev
             this.boundToServiceIdx = serviceIdx
@@ -69,9 +77,10 @@ namespace jacdac._rolemgr {
         // candidate devices are ordered by [numBound, numPossible, device_id]
         // where numBound is number of clients already bound to this device
         // and numPossible is number of clients that can possibly be additionally bound
-        scoreFor(dev: Device, select = false) {
+        scoreFor(devwrap: DeviceWrapper, select = false) {
             let numBound = 0
             let numPossible = 0
+            const dev = devwrap.device
             const missing: RoleBinding[] = []
             for (const b of this.bindings) {
                 if (b.boundToDev) {
@@ -86,7 +95,7 @@ namespace jacdac._rolemgr {
             for (let idx = 4; idx < sbuf.length; idx += 4) {
                 const serviceIndex = idx >> 2
                 // if service is already bound to some client, move on
-                if (dev.clientAtServiceIndex(serviceIndex) != null)
+                if (devwrap.bindings[serviceIndex])
                     continue
 
                 const serviceClass = sbuf.getNumber(NumberFormat.UInt32LE, idx)
@@ -97,7 +106,7 @@ namespace jacdac._rolemgr {
                         // in fact, assign if requested
                         if (select) {
                             control.dmesg("autobind: " + missing[i].role + " -> " + dev.shortId + ":" + serviceIndex)
-                            missing[i].select(dev, serviceIndex)
+                            missing[i].select(devwrap, serviceIndex)
                         }
                         // this one is no longer missing
                         missing.splice(i, 1)
@@ -160,24 +169,19 @@ namespace jacdac._rolemgr {
         // exclude hosts that have already everything bound
         hosts = hosts.filter(h => !h.fullyBound)
 
+        const wraps = _devices.map(d => new DeviceWrapper(d))
+
         while (hosts.length > 0) {
             // Get host with maximum number of clients (resolve ties by name)
             // This gives priority to assignment of "more complicated" hosts, which are generally more difficult to assign
             const h = maxIn(hosts, (a, b) => a.bindings.length - b.bindings.length || a.host.compare(b.host))
 
-            // now find device with highest score (see comment on scoreFor())
-            let maxScore = h.scoreFor(_devices[0])
-            let maxIdx = 0
-            for (let i = 1; i < _devices.length; ++i) {
-                const score = h.scoreFor(_devices[i])
-                if (score == 0) continue
-                if (score > maxScore || (score == maxScore && _devices[i].deviceId.compare(_devices[maxIdx].deviceId) < 0)) {
-                    maxScore = score
-                    maxIdx = i
-                }
-            }
+            for (const d of wraps)
+                d.score = h.scoreFor(d)
 
-            if (maxScore == 0) {
+            const dev = maxIn(wraps, (a, b) => a.score - b.score || a.device.deviceId.compare(b.device.deviceId))
+
+            if (dev.score == 0) {
                 // nothing can be assigned, on any device
                 hosts.removeElement(h)
                 continue
@@ -188,7 +192,6 @@ namespace jacdac._rolemgr {
             h.bindings.sort((a, b) => a.role.compare(b.role))
 
             // "recompute" score, assigning names in process
-            const dev = _devices[maxIdx]
             h.scoreFor(dev, true)
 
             // if everything bound on this host, remove it from further consideration
@@ -197,7 +200,7 @@ namespace jacdac._rolemgr {
             else {
                 // otherwise, remove bindings on the current device, to update sort order
                 // it's unclear we need this
-                h.bindings = h.bindings.filter(b => b.boundToDev != dev)
+                h.bindings = h.bindings.filter(b => b.boundToDev != dev.device)
             }
         }
     }
@@ -236,7 +239,7 @@ namespace jacdac._rolemgr {
                     OutPipe.respondForEach(packet, _allClients, packName)
                     break
                 case RoleManagerCmd.ClearAllRoles:
-                    clearAllNames()
+                    clearRoles()
                     this.sendChangeEvent();
                     break
             }
