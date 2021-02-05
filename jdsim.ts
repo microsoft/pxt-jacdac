@@ -69,12 +69,30 @@ namespace jacdac {
         if (__physIsRunning()) return
         recvQ = []
         control.simmessages.onReceived("jacdac", buf => {
-            buf = buf.slice(0, buf[3] + 12)
+            if (buf[2] + 12 != buf.length) {
+                control.dmesg("bad size")
+                buf = buf.slice(0, buf[2] + 12)
+            }
             const crc = jdCrc16(buf.slice(2));
             if (buf.getNumber(NumberFormat.UInt16LE, 0) != crc) {
                 control.dmesg("bad crc in sim")
             } else {
-                recvQ.push(buf)
+                let num = 0
+                const b0 = buf.slice(0)
+                while (buf[2] >= 4) {
+                    const tmp = buf.slice(0, buf[12] + 16)
+                    if (num++ > 0) {
+                        if (num == 2) {
+                            control.dmesg("b0 " + b0.toHex())
+                            control.dmesg("split " + (num - 1) + " " + recvQ[recvQ.length - 1].toHex())
+                        }
+                        control.dmesg("split " + num + " " + tmp.toHex())
+                    }
+                    recvQ.push(tmp)
+                    const nextoff = (buf[12] + 16 + 3) & ~3
+                    buf.write(12, buf.slice(nextoff))
+                    buf[2] -= nextoff - 12
+                }
                 control.raiseEvent(__physId(), 1)
             }
         })

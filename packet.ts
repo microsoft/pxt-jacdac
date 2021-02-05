@@ -36,7 +36,7 @@ namespace jacdac {
         static fromBinary(buf: Buffer) {
             const p = new JDPacket()
             p._header = buf.slice(0, JD_SERIAL_HEADER_SIZE)
-            p._data = buf.slice(JD_SERIAL_HEADER_SIZE)
+            p._data = buf.slice(JD_SERIAL_HEADER_SIZE, p._header[12])
             return p
         }
 
