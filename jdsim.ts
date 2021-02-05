@@ -70,7 +70,7 @@ namespace jacdac {
         recvQ = []
         control.simmessages.onReceived("jacdac", buf => {
             if (buf[2] + 12 != buf.length) {
-                control.dmesg("bad size")
+                control.dmesg("bad size in sim jdpkt")
                 buf = buf.slice(0, buf[2] + 12)
             }
             const crc = jdCrc16(buf.slice(2));
@@ -81,17 +81,13 @@ namespace jacdac {
                 const b0 = buf.slice(0)
                 while (buf[2] >= 4) {
                     const tmp = buf.slice(0, buf[12] + 16)
-                    if (num++ > 0) {
-                        if (num == 2) {
-                            control.dmesg("b0 " + b0.toHex())
-                            control.dmesg("split " + (num - 1) + " " + recvQ[recvQ.length - 1].toHex())
-                        }
-                        control.dmesg("split " + num + " " + tmp.toHex())
-                    }
                     recvQ.push(tmp)
                     const nextoff = (buf[12] + 16 + 3) & ~3
                     buf.write(12, buf.slice(nextoff))
-                    buf[2] -= nextoff - 12
+                    const skip = nextoff - 12
+                    if (buf[2] <= skip)
+                        break
+                    buf[2] -= skip
                 }
                 control.raiseEvent(__physId(), 1)
             }
