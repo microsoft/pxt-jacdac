@@ -43,6 +43,7 @@
         "sensor/client.ts",
         "sensor/host.ts",
         "role-manager/constants.ts",
+        "rolemgr.ts",
         "proto-test/constants.ts",
         "proto-test/host.ts"
     ],
