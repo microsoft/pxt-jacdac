@@ -70,7 +70,7 @@ namespace jacdac {
         recvQ = []
         control.simmessages.onReceived("jacdac", buf => {
             if (buf[2] + 12 != buf.length) {
-                control.dmesg("bad size in sim jdpkt")
+                control.dmesg("bad size in sim jdpkt: " + buf.toHex())
                 buf = buf.slice(0, buf[2] + 12)
             }
             const crc = jdCrc16(buf.slice(2));
