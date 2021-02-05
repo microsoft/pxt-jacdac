@@ -765,8 +765,10 @@ namespace jacdac {
                 h.handlePacketOuter(pkt)
             }
         } else if (devId == selfDevice().deviceId) {
-            if (!pkt.isCommand)
+            if (!pkt.isCommand) {
+                // control.dmesg(`invalid echo ${pkt}`)
                 return // huh? someone's pretending to be us?
+            }
             const h = _hostServices[pkt.serviceIndex]
             if (h && h.running) {
                 // log(`handle pkt at ${h.name} cmd=${pkt.service_command}`)
