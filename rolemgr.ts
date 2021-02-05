@@ -174,12 +174,12 @@ namespace jacdac._rolemgr {
         while (hosts.length > 0) {
             // Get host with maximum number of clients (resolve ties by name)
             // This gives priority to assignment of "more complicated" hosts, which are generally more difficult to assign
-            const h = maxIn(hosts, (a, b) => a.bindings.length - b.bindings.length || a.host.compare(b.host))
+            const h = maxIn(hosts, (a, b) => a.bindings.length - b.bindings.length || b.host.compare(a.host))
 
             for (const d of wraps)
                 d.score = h.scoreFor(d)
 
-            const dev = maxIn(wraps, (a, b) => a.score - b.score || a.device.deviceId.compare(b.device.deviceId))
+            const dev = maxIn(wraps, (a, b) => a.score - b.score || b.device.deviceId.compare(a.device.deviceId))
 
             if (dev.score == 0) {
                 // nothing can be assigned, on any device
