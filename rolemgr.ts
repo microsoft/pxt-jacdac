@@ -29,12 +29,13 @@ namespace jacdac._rolemgr {
     }
 
     class RoleBinding {
-        serviceClass: number
+        
         boundToDev: Device
         boundToServiceIdx: number
 
         constructor(
-            public role: string
+            public role: string,
+            public serviceClass: number
         ) { }
 
         host() {
@@ -126,6 +127,7 @@ namespace jacdac._rolemgr {
     }
 
     export function autoBind() {
+        // console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
         if (_devices.length == 0 || _unattachedClients.length == 0)
             return
 
@@ -133,7 +135,7 @@ namespace jacdac._rolemgr {
 
         for (const cl of _allClients) {
             if (!cl.broadcast && cl.requiredDeviceName) {
-                const b = new RoleBinding(cl.requiredDeviceName)
+                const b = new RoleBinding(cl.requiredDeviceName, cl.serviceClass)
                 if (cl.device) {
                     b.boundToDev = cl.device
                     b.boundToServiceIdx = cl.serviceIndex

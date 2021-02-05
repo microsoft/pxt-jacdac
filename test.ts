@@ -35,9 +35,22 @@ function jdpackTest() {
 }
     
 // pins.A9.digitalWrite(false)
+
 jacdac.consolePriority = ConsolePriority.Log;
 jacdac.roleManagerHost.start()
 jacdac.protoTestHost.start()
 jacdac.start()
 jacdac.loggerHost.log("test started")
-jdpackTest()
+//jdpackTest()
+
+function addClient(cls:number,name:string) {
+    console.log(`client: ${name} (${cls})`)
+    new jacdac.Client(name,cls,name).start()
+}
+addClient(0x1f140409, "left_leg/acc1" )
+addClient(0x1473a263, "btn1" )
+
+//forever(function() {
+    pause(1500)
+    jacdac._rolemgr.autoBind()
+//})
