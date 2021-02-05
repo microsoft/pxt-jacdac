@@ -69,15 +69,21 @@ namespace jacdac {
         if (__physIsRunning()) return
         recvQ = []
         control.simmessages.onReceived("jacdac", buf => {
-            recvQ.push(buf)
-            control.raiseEvent(__physId(), 1)
+            buf = buf.slice(0, buf[3] + 12)
+            const crc = jdCrc16(buf.slice(2));
+            if (buf.getNumber(NumberFormat.UInt16LE, 0) != crc) {
+                control.dmesg("bad crc in sim")
+            } else {
+                recvQ.push(buf)
+                control.raiseEvent(__physId(), 1)
+            }
         })
         // announce packet, don't rely on forever
-        control.runInParallel(function() {
-            while(true) {
+        control.runInParallel(function () {
+            while (true) {
                 control.raiseEvent(__physId(), 100);
                 pause(500)
-            }            
+            }
         })
     }
 
