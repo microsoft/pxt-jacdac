@@ -220,7 +220,7 @@ namespace jacdac._rolemgr {
             switch (packet.serviceCommand) {
                 case RoleManagerReg.AllRolesAllocated | CMD_GET_REG:
                     this.sendReport(JDPacket.jdpacked(RoleManagerReg.AllRolesAllocated | CMD_GET_REG,
-                        "u8", [_allClients.every(c => c.broadcast || !!c.device)]))
+                        "u8", [_allClients.every(c => c.broadcast || !!c.device) ? 1 : 0]))
                     break
                 case RoleManagerCmd.GetRole:
                     if (packet.data.length == 9) {

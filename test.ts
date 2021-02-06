@@ -59,8 +59,3 @@ addClient(0x1421bac7, "xsmall/temp" )
 
 
 jacdac._rolemgr.clearRoles()
-
-//forever(function() {
-    pause(1500)
-    jacdac._rolemgr.autoBind()
-//})
