@@ -141,6 +141,7 @@ namespace jacdac._rolemgr {
             return
 
         const bindings: RoleBinding[] = []
+        const wraps = _devices.map(d => new DeviceWrapper(d))
 
         for (const cl of _allClients) {
             if (!cl.broadcast && cl.requiredDeviceName) {
@@ -148,6 +149,11 @@ namespace jacdac._rolemgr {
                 if (cl.device) {
                     b.boundToDev = cl.device
                     b.boundToServiceIdx = cl.serviceIndex
+                    for (const w of wraps)
+                        if (w.device == cl.device) {
+                            w.bindings[cl.serviceIndex] = b
+                            break
+                        }
                 }
                 bindings.push(b)
             }
@@ -168,8 +174,6 @@ namespace jacdac._rolemgr {
 
         // exclude hosts that have already everything bound
         hosts = hosts.filter(h => !h.fullyBound)
-
-        const wraps = _devices.map(d => new DeviceWrapper(d))
 
         while (hosts.length > 0) {
             // Get host with maximum number of clients (resolve ties by name)
