@@ -13,6 +13,8 @@ namespace jacdac {
     let _newDeviceCallbacks: (() => void)[];
     let _pktCallbacks: ((p: JDPacket) => void)[];
     let restartCounter = 0
+    let autoBindCnt = 0
+    export let autoBind = true
 
     function log(msg: string) {
         console.add(consolePriority, msg);
@@ -670,6 +672,16 @@ namespace jacdac {
         for (const cl of _allClients)
             cl.announceCallback()
         gcDevices()
+
+        // only try autoBind we see some devices online
+        if (autoBind && _devices.length > 1) {
+            autoBindCnt++
+            // also, only do it every two announces (TBD)
+            if (autoBindCnt >= 2) {
+                autoBindCnt = 0
+                _rolemgr.autoBind()
+            }
+        }
     }
 
     function clearAttachCache() {
@@ -849,7 +861,10 @@ namespace jacdac {
     }
 
     function gcDevices() {
-        const cutoff = control.millis() - 2000
+        const now = control.millis()
+        const cutoff = now - 2000
+        selfDevice().lastSeen = now // make sure not to gc self
+
         let numdel = 0
         for (let i = 0; i < _devices.length; ++i) {
             const dev = _devices[i]

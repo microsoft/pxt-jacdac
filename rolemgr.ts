@@ -211,7 +211,13 @@ namespace jacdac._rolemgr {
         }
 
         public handlePacket(packet: JDPacket) {
+            jacdac.autoBind = this.handleRegBool(packet, RoleManagerReg.AutoBind, jacdac.autoBind)
+
             switch (packet.serviceCommand) {
+                case RoleManagerReg.AllRolesAllocated | CMD_GET_REG:
+                    this.sendReport(JDPacket.jdpacked(RoleManagerReg.AllRolesAllocated | CMD_GET_REG,
+                        "u8", [_allClients.every(c => c.broadcast || !!c.device)]))
+                    break
                 case RoleManagerCmd.GetRole:
                     if (packet.data.length == 9) {
                         let name = getRole(packet.data.slice(0, 8).toHex(), packet.data[8]) || ""
