@@ -1,13 +1,3 @@
-/*
-Auto-assignment
-
-Run every second, if there are pending clients and there have been new announce.
-First run, after a second since seeing first announce packet.
-
-Make sure to add register to rolemgr to disable this.
-*/
-
-
 namespace jacdac._rolemgr {
     const roleSettingPrefix = "#jdr:"
 
