@@ -1,6 +1,6 @@
 {
     "name": "jacdac-settings",
-    "version": "0.2.23",
+    "version": "0.3.0",
     "description": "MakeCode support for JACDAC Settings service",
     "dependencies": {
         "core": "*",
