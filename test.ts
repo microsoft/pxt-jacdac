@@ -35,9 +35,27 @@ function jdpackTest() {
 }
     
 // pins.A9.digitalWrite(false)
+
 jacdac.consolePriority = ConsolePriority.Log;
 jacdac.roleManagerHost.start()
 jacdac.protoTestHost.start()
 jacdac.start()
 jacdac.loggerHost.log("test started")
-jdpackTest()
+//jdpackTest()
+
+function addClient(cls:number,name:string) {
+    console.log(`client: ${name} (${cls})`)
+    new jacdac.Client(name,cls,name).start()
+}
+addClient(0x1f140409, "left_leg/acc1" )
+addClient(0x1473a263, "btn1" )
+addClient(0x16c810b8, "small/hum" )
+addClient(0x1421bac7, "small/temp" )
+addClient(0x169c9dc6, "big/eco2" )
+addClient(0x16c810b8, "big/hum" )
+addClient(0x1421bac7, "big/temp" )
+addClient(0x16c810b8, "xsmall/hum" )
+addClient(0x1421bac7, "xsmall/temp" )
+
+
+jacdac._rolemgr.clearRoles()

@@ -36,7 +36,7 @@ namespace jacdac {
         static fromBinary(buf: Buffer) {
             const p = new JDPacket()
             p._header = buf.slice(0, JD_SERIAL_HEADER_SIZE)
-            p._data = buf.slice(JD_SERIAL_HEADER_SIZE)
+            p._data = buf.slice(JD_SERIAL_HEADER_SIZE, p._header[12])
             return p
         }
 
@@ -183,7 +183,7 @@ namespace jacdac {
                 data.write(sz, s)
                 sz += s.length
             }
-            this._data = data
+            this.data = data
         }
 
         withFrameStripped() {
@@ -195,7 +195,7 @@ namespace jacdac {
         }
 
         jdpack(fmt: string, nums: any[]) {
-            this._data = jdpack(fmt, nums)
+            this.data = jdpack(fmt, nums)
         }
 
         get isCommand() {
@@ -214,6 +214,8 @@ namespace jacdac {
         }
 
         _sendCore() {
+            if (this._data.length != this._header[12])
+                throw "jdsize mismatch"
             jacdac.__physSendPacket(this._header, this._data)
         }
 

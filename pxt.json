@@ -43,6 +43,7 @@
         "sensor/client.ts",
         "sensor/host.ts",
         "role-manager/constants.ts",
+        "rolemgr.ts",
         "proto-test/constants.ts",
         "proto-test/host.ts"
     ],
@@ -58,7 +59,7 @@
     },
     "public": true,
     "targetVersions": {
-        "target": "3.1.39",
+        "target": "3.1.50",
         "targetId": "microbit"
     },
     "supportedTargets": [
