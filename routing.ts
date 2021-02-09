@@ -679,7 +679,7 @@ namespace jacdac {
             // also, only do it every two announces (TBD)
             if (autoBindCnt >= 2) {
                 autoBindCnt = 0
-                _rolemgr.autoBind()
+                jacdac.roleManagerHost.autoBind();
             }
         }
     }

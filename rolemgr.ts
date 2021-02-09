@@ -29,6 +29,7 @@ namespace jacdac._rolemgr {
     class RoleBinding {
         boundToDev: Device
         boundToServiceIdx: number
+        changed = false;
 
         constructor(
             public role: string,
@@ -51,6 +52,7 @@ namespace jacdac._rolemgr {
             setRole(dev.deviceId, serviceIdx, this.role)
             this.boundToDev = dev
             this.boundToServiceIdx = serviceIdx
+            this.changed = true;
         }
     }
 
@@ -125,80 +127,6 @@ namespace jacdac._rolemgr {
         return maxElt
     }
 
-    export function autoBind() {
-        // console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
-        if (_devices.length == 0 || _unattachedClients.length == 0)
-            return
-
-        const bindings: RoleBinding[] = []
-        const wraps = _devices.map(d => new DeviceWrapper(d))
-
-        for (const cl of _allClients) {
-            if (!cl.broadcast && cl.requiredDeviceName) {
-                const b = new RoleBinding(cl.requiredDeviceName, cl.serviceClass)
-                if (cl.device) {
-                    b.boundToDev = cl.device
-                    b.boundToServiceIdx = cl.serviceIndex
-                    for (const w of wraps)
-                        if (w.device == cl.device) {
-                            w.bindings[cl.serviceIndex] = b
-                            break
-                        }
-                }
-                bindings.push(b)
-            }
-        }
-
-        let hosts: HostBindings[] = []
-
-        // Group all clients by host
-        for (const b of bindings) {
-            const hn = b.host()
-            let h = hosts.find(h => h.host == hn)
-            if (!h) {
-                h = new HostBindings(hn)
-                hosts.push(h)
-            }
-            h.bindings.push(b)
-        }
-
-        // exclude hosts that have already everything bound
-        hosts = hosts.filter(h => !h.fullyBound)
-
-        while (hosts.length > 0) {
-            // Get host with maximum number of clients (resolve ties by name)
-            // This gives priority to assignment of "more complicated" hosts, which are generally more difficult to assign
-            const h = maxIn(hosts, (a, b) => a.bindings.length - b.bindings.length || b.host.compare(a.host))
-
-            for (const d of wraps)
-                d.score = h.scoreFor(d)
-
-            const dev = maxIn(wraps, (a, b) => a.score - b.score || b.device.deviceId.compare(a.device.deviceId))
-
-            if (dev.score == 0) {
-                // nothing can be assigned, on any device
-                hosts.removeElement(h)
-                continue
-            }
-
-            // assign services in order of names - this way foo/servo1 will be assigned before foo/servo2
-            // in list of advertised services
-            h.bindings.sort((a, b) => a.role.compare(b.role))
-
-            // "recompute" score, assigning names in process
-            h.scoreFor(dev, true)
-
-            // if everything bound on this host, remove it from further consideration
-            if (h.fullyBound)
-                hosts.removeElement(h)
-            else {
-                // otherwise, remove bindings on the current device, to update sort order
-                // it's unclear we need this
-                h.bindings = h.bindings.filter(b => b.boundToDev != dev.device)
-            }
-        }
-    }
-
     export class RoleManagerHost extends Host {
         constructor() {
             super("rolemgr", SRV_ROLE_MANAGER)
@@ -249,6 +177,84 @@ namespace jacdac._rolemgr {
                 const servidx = c.device ? c.serviceIndex : 0
                 return jdpack("b[8] u32 u8 s", [devid, c.serviceClass, servidx, c.requiredDeviceName || ""])
             }
+        }
+
+        autoBind() {
+            // console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
+            if (_devices.length == 0 || _unattachedClients.length == 0)
+                return
+
+            const bindings: RoleBinding[] = []
+            const wraps = _devices.map(d => new DeviceWrapper(d))
+
+            for (const cl of _allClients) {
+                if (!cl.broadcast && cl.requiredDeviceName) {
+                    const b = new RoleBinding(cl.requiredDeviceName, cl.serviceClass)
+                    if (cl.device) {
+                        b.boundToDev = cl.device
+                        b.boundToServiceIdx = cl.serviceIndex
+                        for (const w of wraps)
+                            if (w.device == cl.device) {
+                                w.bindings[cl.serviceIndex] = b
+                                break
+                            }
+                    }
+                    bindings.push(b)
+                }
+            }
+
+            let hosts: HostBindings[] = []
+
+            // Group all clients by host
+            for (const b of bindings) {
+                const hn = b.host()
+                let h = hosts.find(h => h.host == hn)
+                if (!h) {
+                    h = new HostBindings(hn)
+                    hosts.push(h)
+                }
+                h.bindings.push(b)
+            }
+
+            // exclude hosts that have already everything bound
+            hosts = hosts.filter(h => !h.fullyBound)
+
+            while (hosts.length > 0) {
+                // Get host with maximum number of clients (resolve ties by name)
+                // This gives priority to assignment of "more complicated" hosts, which are generally more difficult to assign
+                const h = maxIn(hosts, (a, b) => a.bindings.length - b.bindings.length || b.host.compare(a.host))
+
+                for (const d of wraps)
+                    d.score = h.scoreFor(d)
+
+                const dev = maxIn(wraps, (a, b) => a.score - b.score || b.device.deviceId.compare(a.device.deviceId))
+
+                if (dev.score == 0) {
+                    // nothing can be assigned, on any device
+                    hosts.removeElement(h)
+                    continue
+                }
+
+                // assign services in order of names - this way foo/servo1 will be assigned before foo/servo2
+                // in list of advertised services
+                h.bindings.sort((a, b) => a.role.compare(b.role))
+
+                // "recompute" score, assigning names in process
+                h.scoreFor(dev, true)
+
+                // if everything bound on this host, remove it from further consideration
+                if (h.fullyBound)
+                    hosts.removeElement(h)
+                else {
+                    // otherwise, remove bindings on the current device, to update sort order
+                    // it's unclear we need this
+                    h.bindings = h.bindings.filter(b => b.boundToDev != dev.device)
+                }
+            }
+
+            // notify clients that something changed
+            if (bindings.some(binding => binding.changed))
+                this.sendChangeEvent()
         }
     }
 }
