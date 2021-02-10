@@ -2,8 +2,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8        
     export class ServoClient extends jacdac.Client {
-        constructor(requiredDevice: string) {
-            super(jacdac.SRV_SERVO, requiredDevice);
+        constructor(role: string) {
+            super(jacdac.SRV_SERVO, role);
         }
 
         private pulse: number

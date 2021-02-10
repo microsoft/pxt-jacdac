@@ -2,8 +2,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class MicrophoneClient extends jacdac.SensorClient {
-        constructor(requiredDevice: string) {
-            super(jacdac.SRV_MICROPHONE, requiredDevice);
+        constructor(role: string) {
+            super(jacdac.SRV_MICROPHONE, role);
         }
 
         /**

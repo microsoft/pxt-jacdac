@@ -62,8 +62,8 @@ namespace modules {
 
     //% fixedInstances
     export class BuzzerClient extends jacdac.Client {
-        constructor(requiredDevice: string) {
-            super(jacdac.SRV_BUZZER, requiredDevice);
+        constructor(role: string) {
+            super(jacdac.SRV_BUZZER, role);
         }
 
         private player: JDMelodyPlayer

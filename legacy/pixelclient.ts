@@ -1,8 +1,8 @@
 namespace jacdac {
     //% fixedInstances
     export class PixelClient extends ActuatorClient {
-        constructor(requiredDevice: string) {
-            super("pixel", jd_class.PIXEL, 4, requiredDevice);
+        constructor(role: string) {
+            super("pixel", jd_class.PIXEL, 4, role);
         }
 
         /**

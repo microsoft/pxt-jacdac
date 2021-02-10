@@ -9,8 +9,8 @@ namespace jacdac {
 
         public isStreaming = false
 
-        constructor(deviceClass: number, requiredDevice: string) {
-            super(deviceClass, requiredDevice);
+        constructor(deviceClass: number, role: string) {
+            super(deviceClass, role);
             this._lastState = control.createBuffer(0);
         }
 
@@ -84,8 +84,8 @@ namespace jacdac {
         protected _interval: number
         protected _lastTimestamp: number
 
-        constructor(deviceClass: number, requiredDevice: string) {
-            super(deviceClass, requiredDevice);
+        constructor(deviceClass: number, role: string) {
+            super(deviceClass, role);
         }
 
         enableBuffer(numSamples: number, interval: number) {

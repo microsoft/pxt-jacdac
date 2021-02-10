@@ -18,8 +18,8 @@ namespace jacdac {
     }
 
     export class WifiClient extends Client {
-        constructor(requiredDevice: string) {
-            super(SRV_WIFI, requiredDevice);
+        constructor(role: string) {
+            super(SRV_WIFI, role);
         }
 
         get hasIP() {

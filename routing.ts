@@ -289,11 +289,11 @@ namespace jacdac {
 
         constructor(
             public readonly serviceClass: number,
-            public requiredDeviceName: string
+            public role: string
         ) {
             this.eventId = control.allocateNotifyEvent();
             this.config = new ClientPacketQueue(this)
-            if (!this.requiredDeviceName)
+            if (!this.role)
                 throw "no role"
         }
 
@@ -328,13 +328,13 @@ namespace jacdac {
         _attach(dev: Device, serviceNum: number) {
             if (this.device) throw "Invalid attach"
             if (!this.broadcast) {
-                if (!dev.matchesRoleAt(this.requiredDeviceName, serviceNum))
+                if (!dev.matchesRoleAt(this.role, serviceNum))
                     return false // don't attach
                 this.device = dev
                 this.serviceIndex = serviceNum
                 _unattachedClients.removeElement(this)
             }
-            log(`attached ${dev.toString()}/${serviceNum} to client ${this.requiredDeviceName}`)
+            log(`attached ${dev.toString()}/${serviceNum} to client ${this.role}`)
             dev.clients.push(this)
             this.onAttach()
             this.config.resend()
@@ -342,7 +342,7 @@ namespace jacdac {
         }
 
         _detach() {
-            log(`dettached ${this.requiredDeviceName}`)
+            log(`dettached ${this.role}`)
             this.serviceIndex = null
             if (!this.broadcast) {
                 if (!this.device) throw "Invalid detach"
@@ -409,7 +409,7 @@ namespace jacdac {
                 return
             let dev = selfDevice().toString()
             let other = this.device ? this.device.toString() : "<unbound>"
-            console.add(consolePriority, `${dev}/${other}:${this.serviceClass}>${this.requiredDeviceName}>${text}`);
+            console.add(consolePriority, `${dev}/${other}:${this.serviceClass}>${this.role}>${text}`);
         }
 
         start() {
@@ -705,7 +705,7 @@ namespace jacdac {
                 continue // will re-attach
             }
             const newClass = dev.services.getNumber(NumberFormat.UInt32LE, c.serviceIndex << 2)
-            if (newClass == c.serviceClass && dev.matchesRoleAt(c.requiredDeviceName, c.serviceIndex)) {
+            if (newClass == c.serviceClass && dev.matchesRoleAt(c.role, c.serviceIndex)) {
                 newClients.push(c)
                 occupied[c.serviceIndex] = 1
             } else {

@@ -175,7 +175,7 @@ namespace jacdac._rolemgr {
             function packName(c: Client) {
                 const devid = c.device ? Buffer.fromHex(c.device.deviceId) : Buffer.create(8)
                 const servidx = c.device ? c.serviceIndex : 0
-                return jdpack("b[8] u32 u8 s", [devid, c.serviceClass, servidx, c.requiredDeviceName])
+                return jdpack("b[8] u32 u8 s", [devid, c.serviceClass, servidx, c.role])
             }
         }
 
@@ -188,8 +188,8 @@ namespace jacdac._rolemgr {
             const wraps = _devices.map(d => new DeviceWrapper(d))
 
             for (const cl of _allClients) {
-                if (!cl.broadcast && cl.requiredDeviceName) {
-                    const b = new RoleBinding(cl.requiredDeviceName, cl.serviceClass)
+                if (!cl.broadcast && cl.role) {
+                    const b = new RoleBinding(cl.role, cl.serviceClass)
                     if (cl.device) {
                         b.boundToDev = cl.device
                         b.boundToServiceIdx = cl.serviceIndex
@@ -278,8 +278,8 @@ namespace jacdac {
     export class RoleManagerClient extends Client {
         public remoteRequestedDevices: RoleBinding[] = []
 
-        constructor(requiredDevice: string) {
-            super("rolemgrc", SRV_ROLE_MANAGER, requiredDevice)
+        constructor(role: string) {
+            super("rolemgrc", SRV_ROLE_MANAGER, role)
 
             onNewDevice(() => {
                 recomputeCandidates(this.remoteRequestedDevices)

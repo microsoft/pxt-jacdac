@@ -2,8 +2,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class LightClient extends jacdac.Client {
-        constructor(requiredDevice: string) {
-            super(jacdac.SRV_LIGHT, requiredDevice);
+        constructor(role: string) {
+            super(jacdac.SRV_LIGHT, role);
         }
 
         _length = 10

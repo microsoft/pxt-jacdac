@@ -4,8 +4,8 @@ namespace modules {
 
     //% fixedInstances
     export class ButtonClient extends jacdac.SensorClient {
-        constructor(requiredDevice: string) {
-            super(jacdac.SRV_BUTTON, requiredDevice);
+        constructor(role: string) {
+            super(jacdac.SRV_BUTTON, role);
         }
 
         connectControllerButton(controllerButton: number) {

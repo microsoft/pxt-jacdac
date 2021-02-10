@@ -8,8 +8,8 @@ namespace jacdac {
 
     //% fixedInstances
     export class LightSensorClient extends SensorClient {
-        constructor(requiredDevice: string) {
-            super("lis", jd_class.LIGHT_SENSOR, requiredDevice);
+        constructor(role: string) {
+            super("lis", jd_class.LIGHT_SENSOR, role);
         }
 
         /**

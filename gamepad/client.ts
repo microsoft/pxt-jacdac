@@ -4,8 +4,8 @@ namespace jacdac {
 
     //% fixedInstances
     export class ArcadeControlsClient extends Client {
-        constructor(requiredDevice: string) {
-            super(SRV_GAMEPAD, requiredDevice);
+        constructor(role: string) {
+            super(SRV_GAMEPAD, role);
         }
 
         handlePacket(pkt: JDPacket) {

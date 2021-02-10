@@ -15,8 +15,8 @@ const enum TemperatureUnit {
 namespace modules {
     //% fixedInstances
     export class ThermometerClient extends jacdac.SensorClient {
-        constructor(requiredDevice: string) {
-            super(jacdac.SRV_THERMOMETER, requiredDevice);
+        constructor(role: string) {
+            super(jacdac.SRV_THERMOMETER, role);
         }
 
         /**

@@ -5,8 +5,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class MultiTouchClient extends jacdac.SensorClient {
-        constructor(requiredDevice: string) {
-            super(jacdac.SRV_MULTITOUCH, requiredDevice);
+        constructor(role: string) {
+            super(jacdac.SRV_MULTITOUCH, role);
         }
 
         /**

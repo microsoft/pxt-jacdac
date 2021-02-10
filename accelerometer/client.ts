@@ -1,8 +1,8 @@
 namespace modules {
     //% fixedInstances
     export class AccelerometerClient extends jacdac.BufferedSensorClient<number[]> {
-        constructor(requiredDevice: string) {
-            super(jacdac.SRV_ACCELEROMETER, requiredDevice);
+        constructor(role: string) {
+            super(jacdac.SRV_ACCELEROMETER, role);
         }
 
         protected parseSample(packet: jacdac.JDPacket) {
