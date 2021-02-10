@@ -229,7 +229,7 @@ namespace jacdac {
         CI8U8U16I32 = 0x86,
 
         /**
-         * Argument: p_bytes pipe (bytes). A command to read the rw_bytes, byte per byte, as a pipe.
+         * Argument: p_bytes pipe (bytes). A command to read the content of rw_bytes, byte per byte, as a pipe.
          *
          * ```
          * const [pBytes] = jdunpack<[Buffer]>(buf, "b[12]")
@@ -242,7 +242,7 @@ namespace jacdac {
     /**
      * pipe_report PBytes
      * ```
-     * const [bytes] = jdunpack<[Buffer]>(buf, "b")
+     * const [byte] = jdunpack<[number]>(buf, "u8")
      * ```
      */
 
