@@ -1,8 +1,8 @@
 namespace jacdac {
     export class BroadcastClient extends Client {
         // workaround for https://github.com/microsoft/pxt-arcade/issues/1831
-        constructor(public readonly parent: Broadcast) {
-            super(parent.name, parent.serviceClass, null)
+        constructor(public readonly parent: Broadcast, role: string) {
+            super(parent.serviceClass, role)
             this.broadcast = true
         }
 
@@ -16,13 +16,11 @@ namespace jacdac {
 
         constructor(name: string, serviceClass: number) {
             super(name, serviceClass)
-            this.client = new BroadcastClient(this)
+            this.client = new BroadcastClient(this, name)
         }
 
         handlePacketOuter(pkt: JDPacket) {
             // do nothing; we're not expecting any packets addressed directly to us
         }
     }
-
-
 }

@@ -15,7 +15,7 @@ namespace jacdac {
     }    
     //% fixedInstances
     export class LightSpectrumSensorClient extends SensorClient {
-        constructor(requiredDevice: string = null) {
+        constructor(requiredDevice: string) {
             super("lspec", jd_class.LIGHT_SPECTRUM_SENSOR, requiredDevice);
         }
 

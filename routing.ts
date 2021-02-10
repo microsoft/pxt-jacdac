@@ -288,16 +288,13 @@ namespace jacdac {
         protected readonly config: ClientPacketQueue
 
         constructor(
-            public name: string,
             public readonly serviceClass: number,
             public requiredDeviceName: string
         ) {
             this.eventId = control.allocateNotifyEvent();
             this.config = new ClientPacketQueue(this)
-            if (!this.name)
-                throw "no name"
             if (!this.requiredDeviceName)
-                this.requiredDeviceName = this.name
+                throw "no role"
         }
 
         broadcastDevices() {
@@ -337,7 +334,7 @@ namespace jacdac {
                 this.serviceIndex = serviceNum
                 _unattachedClients.removeElement(this)
             }
-            log(`attached ${dev.toString()}/${serviceNum} to client ${this.name}`)
+            log(`attached ${dev.toString()}/${serviceNum} to client ${this.requiredDeviceName}`)
             dev.clients.push(this)
             this.onAttach()
             this.config.resend()
@@ -345,7 +342,7 @@ namespace jacdac {
         }
 
         _detach() {
-            log(`dettached ${this.name}`)
+            log(`dettached ${this.requiredDeviceName}`)
             this.serviceIndex = null
             if (!this.broadcast) {
                 if (!this.device) throw "Invalid detach"
@@ -412,7 +409,7 @@ namespace jacdac {
                 return
             let dev = selfDevice().toString()
             let other = this.device ? this.device.toString() : "<unbound>"
-            console.add(consolePriority, `${dev}/${other}:${this.serviceClass}>${this.name}>${text}`);
+            console.add(consolePriority, `${dev}/${other}:${this.serviceClass}>${this.requiredDeviceName}>${text}`);
         }
 
         start() {

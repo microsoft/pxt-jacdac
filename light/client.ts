@@ -2,8 +2,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class LightClient extends jacdac.Client {
-        constructor(requiredDevice: string = null) {
-            super("light", jacdac.SRV_LIGHT, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_LIGHT, requiredDevice);
         }
 
         _length = 10
@@ -358,5 +358,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const light = new LightClient();
+    export const light = new LightClient("rgb_pixels");
 }

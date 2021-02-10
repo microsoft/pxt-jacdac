@@ -1,7 +1,7 @@
 namespace jacdac {
     //% fixedInstances
     export class SwitchClient extends SensorClient {
-        constructor(requiredDevice: string = null) {
+        constructor(requiredDevice: string) {
             super("switch", SRV_SWITCH, requiredDevice);
         }
 

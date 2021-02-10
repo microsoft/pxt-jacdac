@@ -2,8 +2,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class RotaryEncoderClient extends jacdac.SensorClient {
-        constructor(requiredDevice: string = null) {
-            super("crank", jacdac.SRV_ROTARY_ENCODER, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_ROTARY_ENCODER, requiredDevice);
         }
 
         scale = 1
@@ -47,5 +47,5 @@ namespace modules {
      * Default rotary encoder
      */
     //% fixedInstance whenUsed
-    export const rotaryEncoder = new RotaryEncoderClient();
+    export const rotaryEncoder = new RotaryEncoderClient("rotary_encoder");
 }

@@ -5,7 +5,7 @@ namespace jacdac {
         onMessageReceived: (priority: number, dev: Device, message: string) => void;
 
         constructor() {
-            super("conc", SRV_LOGGER, null);
+            super(SRV_LOGGER, "logger");
             this.broadcast = true
             onAnnounce(() => {
                 // on every announce, if we're listening to anything, tell

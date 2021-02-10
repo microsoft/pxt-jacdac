@@ -62,8 +62,8 @@ namespace modules {
 
     //% fixedInstances
     export class BuzzerClient extends jacdac.Client {
-        constructor(requiredDevice: string = null) {
-            super("mus", jacdac.SRV_BUZZER, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_BUZZER, requiredDevice);
         }
 
         private player: JDMelodyPlayer
@@ -90,5 +90,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const buzzer = new BuzzerClient();
+    export const buzzer = new BuzzerClient("buzzer");
 }

@@ -175,7 +175,7 @@ namespace jacdac._rolemgr {
             function packName(c: Client) {
                 const devid = c.device ? Buffer.fromHex(c.device.deviceId) : Buffer.create(8)
                 const servidx = c.device ? c.serviceIndex : 0
-                return jdpack("b[8] u32 u8 s", [devid, c.serviceClass, servidx, c.requiredDeviceName || ""])
+                return jdpack("b[8] u32 u8 s", [devid, c.serviceClass, servidx, c.requiredDeviceName])
             }
         }
 
@@ -278,7 +278,7 @@ namespace jacdac {
     export class RoleManagerClient extends Client {
         public remoteRequestedDevices: RoleBinding[] = []
 
-        constructor(requiredDevice: string = null) {
+        constructor(requiredDevice: string) {
             super("rolemgrc", SRV_ROLE_MANAGER, requiredDevice)
 
             onNewDevice(() => {

@@ -49,8 +49,8 @@ namespace jacdac {
     export class TcpClient extends Client {
         _retPort: number = null
 
-        constructor(requiredDevice: string = null) {
-            super("tcp", SRV_TCP, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(SRV_TCP, requiredDevice);
         }
 
         handlePacket(pkt: JDPacket) {

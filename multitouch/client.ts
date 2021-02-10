@@ -5,8 +5,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class MultiTouchClient extends jacdac.SensorClient {
-        constructor(requiredDevice: string = null) {
-            super("multitouch", jacdac.SRV_MULTITOUCH, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_MULTITOUCH, requiredDevice);
         }
 
         /**
@@ -33,5 +33,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const multiTouch = new MultiTouchClient();
+    export const multiTouch = new MultiTouchClient("multitouch");
 }

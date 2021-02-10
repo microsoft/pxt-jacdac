@@ -20,7 +20,7 @@ namespace jacdac {
         controlData: Buffer
 
         constructor() {
-            super("ctrl", jd_class.CONTROLLER);
+            super("controller", jd_class.CONTROLLER);
             this.controlData = Buffer.create(3)
             this.controlData[0] = JDControllerCommand.ControlClient;
             this.serverAddress = 0;

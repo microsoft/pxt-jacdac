@@ -2,8 +2,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class SliderClient extends jacdac.SensorClient {
-        constructor(requiredDevice: string = null) {
-            super("slider", jacdac.SRV_SLIDER, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_SLIDER, requiredDevice);
         }
 
         /**
@@ -26,5 +26,5 @@ namespace modules {
      * Default slider
      */
     //% fixedInstance whenUsed
-    export const slider = new SliderClient();
+    export const slider = new SliderClient("slider");
 }

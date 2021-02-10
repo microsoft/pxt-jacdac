@@ -10,8 +10,8 @@ namespace jacdac {
     //% fixedInstances
     //% blockGap=8
     export class ModelRunnerClient extends Client {
-        constructor(requiredDevice: string = null) {
-            super("mrun", SRV_MODEL_RUNNER, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(SRV_MODEL_RUNNER, requiredDevice);
         }
 
         private _autoInv: number
@@ -60,5 +60,5 @@ namespace jacdac {
      * Default model runner
      */
     //% fixedInstance
-    export const modelRunner = new ModelRunnerClient();
+    export const modelRunner = new ModelRunnerClient("model_runner");
 }

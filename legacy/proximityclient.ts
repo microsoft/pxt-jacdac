@@ -6,7 +6,7 @@ namespace jacdac {
     
     //% fixedInstances
     export class ProximityClient extends SensorClient {
-        constructor(requiredDevice: string = null) {
+        constructor(requiredDevice: string) {
             super("proxi", jd_class.PROXIMITY, requiredDevice);
         }
 

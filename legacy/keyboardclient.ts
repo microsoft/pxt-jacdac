@@ -101,7 +101,7 @@ enum JDKeyboardKeyEvent {
 namespace jacdac {
     //% fixedInstances
     export class KeyboardClient extends Client {
-        constructor(requiredDevice: string = null) {
+        constructor(requiredDevice: string) {
             super("keyb", SRV_KEYBOARD, requiredDevice);
         }
 

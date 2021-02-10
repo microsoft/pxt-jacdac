@@ -4,8 +4,8 @@ namespace modules {
 
     //% fixedInstances
     export class ButtonClient extends jacdac.SensorClient {
-        constructor(requiredDevice: string = null) {
-            super("btn", jacdac.SRV_BUTTON, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_BUTTON, requiredDevice);
         }
 
         connectControllerButton(controllerButton: number) {
@@ -40,5 +40,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const button = new ButtonClient();
+    export const button = new ButtonClient("btn");
 }

@@ -1,8 +1,8 @@
 namespace modules {
     //% fixedInstances
     export class MotorClient extends jacdac.Client {
-        constructor(requiredDevice: string = null) {
-            super("motor", jacdac.SRV_MOTOR, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_MOTOR, requiredDevice);
         }
 
         /**
@@ -27,5 +27,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const motor = new MotorClient();
+    export const motor = new MotorClient("motor");
 }

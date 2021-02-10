@@ -4,8 +4,8 @@ namespace jacdac {
 
     //% fixedInstances
     export class ArcadeControlsClient extends Client {
-        constructor(requiredDevice: string = null) {
-            super("apad", SRV_GAMEPAD, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(SRV_GAMEPAD, requiredDevice);
         }
 
         handlePacket(pkt: JDPacket) {
@@ -23,5 +23,5 @@ namespace jacdac {
     }
 
     //% fixedInstance whenUsed
-    export const arcadeControls = new ArcadeControlsClient();
+    export const arcadeControls = new ArcadeControlsClient("arcadepad");
 }

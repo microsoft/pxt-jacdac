@@ -43,7 +43,7 @@ namespace jacdac {
         constructor(parent: SensorAggregatorHost, config: Buffer) {
             const [devIdBuf, serviceClass, serviceNum, sampleSize, sampleType, sampleShift] = jdunpack(config, "b[8] u32 u8 u8 u8 i8")
             const devId = devIdBuf.getNumber(NumberFormat.Int32LE, 0) == 0 ? null : devIdBuf.toHex()
-            super("aggcoll", serviceClass, devId)
+            super(serviceClass, devId + ":" + serviceNum)
             this.requiredServiceNum = serviceNum
             this.sampleType = sampleType
 

@@ -1,7 +1,7 @@
 namespace jacdac {
     //% fixedInstances
     export class RGBLEDClient extends Client {
-        constructor(requiredDevice: string = null) {
+        constructor(requiredDevice: string) {
             super("RGBLED", jd_class.RGB_LED, requiredDevice);
         }
 

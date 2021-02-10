@@ -19,8 +19,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class MonoLightClient extends jacdac.Client {
-        constructor(requiredDevice: string = null) {
-            super("monol", jacdac.SRV_MONO_LIGHT, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_MONO_LIGHT, requiredDevice);
         }
 
         // set to negative for infinity
@@ -63,5 +63,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const monoLight = new MonoLightClient();
+    export const monoLight = new MonoLightClient("mono_light");
 }

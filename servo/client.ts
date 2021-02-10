@@ -2,8 +2,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8        
     export class ServoClient extends jacdac.Client {
-        constructor(requiredDevice: string = null) {
-            super("servo", jacdac.SRV_SERVO, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(jacdac.SRV_SERVO, requiredDevice);
         }
 
         private pulse: number
@@ -92,5 +92,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const servo = new ServoClient();
+    export const servo = new ServoClient("servo");
 }

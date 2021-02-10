@@ -18,8 +18,8 @@ namespace jacdac {
     }
 
     export class WifiClient extends Client {
-        constructor(requiredDevice: string = null) {
-            super("wifi", SRV_WIFI, requiredDevice);
+        constructor(requiredDevice: string) {
+            super(SRV_WIFI, requiredDevice);
         }
 
         get hasIP() {
@@ -58,9 +58,9 @@ namespace jacdac {
             if (this.wifiClient)
                 return
 
-            this.wifiClient = new WifiClient()
+            this.wifiClient = new WifiClient("wifi")
             this.wifiClient.start()
-            this.tcpClient = new TcpClient()
+            this.tcpClient = new TcpClient("tcp")
             this.tcpClient.start()
         }
 
