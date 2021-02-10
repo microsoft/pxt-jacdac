@@ -76,4 +76,12 @@ namespace jacdac {
      */
 
 
+    export const enum SettingsEvent {
+        /**
+         * Notifies that some setting have been modified.
+         */
+        //% block="change"
+        Change = 0x3,
+    }
+
 }

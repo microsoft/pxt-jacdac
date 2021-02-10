@@ -49,10 +49,10 @@ namespace jacdac {
         BatteryVoltage = 0x180,
 
         /**
-         * Read-only ratio uint16_t. Fraction of charge in the battery.
+         * Read-only ratio u0.16 (uint16_t). Fraction of charge in the battery.
          *
          * ```
-         * const [batteryCharge] = jdunpack<[number]>(buf, "u16")
+         * const [batteryCharge] = jdunpack<[number]>(buf, "u0.16")
          * ```
          */
         BatteryCharge = 0x182,

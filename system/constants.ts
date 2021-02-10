@@ -1,5 +1,22 @@
 namespace jacdac {
     // Service: Common registers and commands
+
+    export const enum SystemReadingThreshold { // uint8_t
+        Neutral = 0x1,
+        Low = 0x2,
+        High = 0x3,
+    }
+
+
+    export const enum SystemStatusCodes { // uint16_t
+        Ready = 0x0,
+        Initializing = 0x1,
+        Calibrating = 0x2,
+        Sleeping = 0x3,
+        WaitingForInput = 0x4,
+        CalibrationNeeded = 0x64,
+    }
+
     export const enum SystemCmd {
         /**
          * No args. Enumeration data for control service; service-specific advertisement data otherwise.
@@ -109,17 +126,26 @@ namespace jacdac {
         MaxReading = 0x105,
 
         /**
-         * Read-only int32_t. The real value of whatever is measured is between `reading - reading_error` and `reading + reading_error`.
-         * This register is often, but not always `const`.
+         * Read-only uint32_t. The real value of whatever is measured is between `reading - reading_error` and `reading + reading_error`. It should be computed from the internal state of the sensor. This register is often, but not always `const`. If the register value is modified,
+         * send a report in the same frame of the ``reading`` report.
          *
          * ```
-         * const [readingError] = jdunpack<[number]>(buf, "i32")
+         * const [readingError] = jdunpack<[number]>(buf, "u32")
          * ```
          */
         ReadingError = 0x106,
 
         /**
-         * Read-write int32_t. Thresholds for event generation for event generation for analog sensors.
+         * Constant uint32_t. Smallest, yet distinguishable change in reading.
+         *
+         * ```
+         * const [readingResolution] = jdunpack<[number]>(buf, "u32")
+         * ```
+         */
+        ReadingResolution = 0x108,
+
+        /**
+         * Read-write int32_t. Threshold when reading data gets low and triggers a ``low``.
          *
          * ```
          * const [lowThreshold] = jdunpack<[number]>(buf, "i32")
@@ -128,25 +154,13 @@ namespace jacdac {
         LowThreshold = 0x5,
 
         /**
-         * Read-write int32_t. Thresholds for event generation for event generation for analog sensors.
+         * Read-write int32_t. Thresholds when reading data gets high and triggers a ``high`` event.
          *
          * ```
          * const [highThreshold] = jdunpack<[number]>(buf, "i32")
          * ```
          */
         HighThreshold = 0x6,
-
-        /**
-         * Reports the current state or error status of the device. ``code`` is a standardized value from
-         * the JACDAC error codes. ``vendor_code`` is any vendor specific error code describing the device
-         * state. This report is typically not queried, when a device has an error, it will typically
-         * add this report in frame along with the announce packet.
-         *
-         * ```
-         * const [code, vendorCode] = jdunpack<[number, number]>(buf, "u16 u16")
-         * ```
-         */
-        StatusCode = 0x103,
 
         /**
          * Constant ms uint32_t. Preferred default streaming interval for sensor in milliseconds.
@@ -166,6 +180,27 @@ namespace jacdac {
          * ```
          */
         Variant = 0x107,
+
+        /**
+         * Reports the current state or error status of the device. ``code`` is a standardized value from
+         * the Jacdac status/error codes. ``vendor_code`` is any vendor specific error code describing the device
+         * state. This report is typically not queried, when a device has an error, it will typically
+         * add this report in frame along with the announce packet.
+         *
+         * ```
+         * const [code, vendorCode] = jdunpack<[SystemStatusCodes, number]>(buf, "u16 u16")
+         * ```
+         */
+        StatusCode = 0x103,
+
+        /**
+         * Constant string (bytes). A friendly name that describes the role of this service instance in the device.
+         *
+         * ```
+         * const [instanceName] = jdunpack<[string]>(buf, "s")
+         * ```
+         */
+        InstanceName = 0x109,
     }
 
     export const enum SystemEvent {
@@ -182,10 +217,38 @@ namespace jacdac {
         Inactive = 0x2,
 
         /**
-         * Notifies that the internal state of the service changed.
+         * Notifies that the some state of the service changed.
          */
         //% block="change"
         Change = 0x3,
+
+        /**
+         * Notifies that the status code of the service changed.
+         *
+         * ```
+         * const [code, vendorCode] = jdunpack<[SystemStatusCodes, number]>(buf, "u16 u16")
+         * ```
+         */
+        //% block="status code changed"
+        StatusCodeChanged = 0x4,
+
+        /**
+         * Notifies that the low threshold has been crossed
+         */
+        //% block="low"
+        Low = 0x5,
+
+        /**
+         * Notifies that the high threshold has been crossed
+         */
+        //% block="high"
+        High = 0x6,
+
+        /**
+         * Notifies that the threshold is back between ``low`` and ``high``.
+         */
+        //% block="neutral"
+        Neutral = 0x7,
     }
 
 }

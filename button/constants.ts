@@ -36,6 +36,12 @@ namespace jacdac {
          */
         //% block="long click"
         LongClick = 0x81,
+
+        /**
+         * Emitted after the button is held for 1500ms. Hold events are followed by a separate up event.
+         */
+        //% block="hold"
+        Hold = 0x82,
     }
 
 }

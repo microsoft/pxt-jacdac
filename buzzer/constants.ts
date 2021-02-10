@@ -3,10 +3,10 @@ namespace jacdac {
     export const SRV_BUZZER = 0x1b57b1d7
     export const enum BuzzerReg {
         /**
-         * Read-write ratio uint8_t. The volume (duty cycle) of the buzzer.
+         * Read-write ratio u0.8 (uint8_t). The volume (duty cycle) of the buzzer.
          *
          * ```
-         * const [volume] = jdunpack<[number]>(buf, "u8")
+         * const [volume] = jdunpack<[number]>(buf, "u0.8")
          * ```
          */
         Volume = 0x1,
