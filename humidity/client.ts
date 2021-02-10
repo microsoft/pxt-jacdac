@@ -15,17 +15,6 @@ namespace modules {
             const values = jacdac.jdunpack<[number]>(this.state, "u22.10")
             return values && values[0];
         }
-        /**
-        * The real humidity is between `humidity - humidity_error` and `humidity + humidity_error`.
-        */
-        //% blockId=jacdachumidity106 block="%sensor humidity error"
-        //% group="Humidity"
-        humidityError(): number {
-            // humidityError
-            const values = jacdac.jdunpack<[number]>(undefined, "u22.10")
-            return values && values[0];
-        }
-
     }
 
     //% fixedInstance whenUsed
