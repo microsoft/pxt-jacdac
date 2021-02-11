@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-slider",
+    "name": "jacdac-potentiometer",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Slider service",
+    "description": "Jacdac potentiometer service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
@@ -10,13 +10,6 @@
         "constants.ts",
         "client.ts"
     ],
-    "testDependencies": {
-        "nucleo-f411re": "*"
-    },
-    "targetVersions": {
-        "target": "0.14.2",
-        "targetId": "maker"
-    },
     "supportedTargets": [
         "arcade",
         "maker",

@@ -1,7 +1,7 @@
 namespace jacdac {
     //% fixedInstances
     //% weight=1
-    export class SensorClient extends Client {
+    export class SensorClient<TReading extends (string | number | Buffer)[]> extends Client {
         // virtual mode only
         protected _localTime: number;
         protected _lastState: Buffer;
@@ -9,7 +9,7 @@ namespace jacdac {
 
         public isStreaming = false
 
-        constructor(deviceClass: number, role: string) {
+        constructor(deviceClass: number, role: string, protected readonly stateFormat: string) {
             super(deviceClass, role);
             this._lastState = control.createBuffer(0);
         }
@@ -17,6 +17,10 @@ namespace jacdac {
         public get state() {
             this.start();
             return this._lastState;
+        }
+
+        public values(): TReading {
+            return jdunpack(this.state, this.stateFormat) as TReading;
         }
 
         announceCallback() {
@@ -74,14 +78,14 @@ namespace jacdac {
         }
     }
 
-    export class BufferedSensorClient<T> extends SensorClient {
-        protected _samples: T[]
+    export class BufferedSensorClient<TReading extends (string | number | Buffer)[]> extends SensorClient<TReading> {
+        protected _samples: TReading[]
         protected _numSamples: number
         protected _interval: number
         protected _lastTimestamp: number
 
-        constructor(deviceClass: number, role: string) {
-            super(deviceClass, role);
+        constructor(deviceClass: number, role: string, stateFormat: string) {
+            super(deviceClass, role, stateFormat);
         }
 
         enableBuffer(numSamples: number, interval: number) {
@@ -97,13 +101,9 @@ namespace jacdac {
             return this._samples.slice(-this._numSamples)
         }
 
-        protected parseSample(packet: JDPacket): T {
-            return null
-        }
-
         handlePacket(packet: JDPacket) {
             if (this._samples && packet.serviceCommand == (CMD_GET_REG | SystemReg.Reading)) {
-                const v = this.parseSample(packet)
+                const v = jdunpack(packet.data, this.stateFormat) as TReading;
                 if (v != null) {
                     let num = 1
                     if (this._lastTimestamp != undefined) {

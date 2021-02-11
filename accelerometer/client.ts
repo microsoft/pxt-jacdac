@@ -2,11 +2,7 @@ namespace modules {
     //% fixedInstances
     export class AccelerometerClient extends jacdac.BufferedSensorClient<[number, number, number]> {
         constructor(role: string) {
-            super(jacdac.SRV_ACCELEROMETER, role);
-        }
-
-        protected parseSample(packet: jacdac.JDPacket) {
-            return packet.jdunpack<[number, number, number]>("i6.10 i6.10 i6.10")
+            super(jacdac.SRV_ACCELEROMETER, role, "i6.10 i6.10 i6.10");
         }
 
         /**
@@ -50,17 +46,18 @@ namespace modules {
         }
 
         private get(dimension: JDDimension): number {
+            const values = this.values();
             const s = this.state;
             if (!s || s.length < 6) return 0;
             switch (dimension) {
                 case JDDimension.X:
                 case JDDimension.Y:
                 case JDDimension.Z:
-                    return s.getNumber(NumberFormat.Int16LE, dimension * 2);
+                    return values[dimension] * 1023;
                 default: // strength
                     let r = 0;
                     for (let i = 0; i < 3; ++i) {
-                        const x = s.getNumber(NumberFormat.Int16LE, i * 2);
+                        const x = values[i] * 1023;
                         r += x * x;
                     }
                     return Math.sqrt(r);
