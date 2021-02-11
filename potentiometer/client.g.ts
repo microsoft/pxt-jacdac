@@ -12,7 +12,7 @@ namespace modules {
         * The relative position of the slider between `0` and `1`.
         */
         //% blockId=jacdacpotentiometer_101_0
-        //% group="position" blockSetVariable=myModule
+        //% group="Potentiometer" blockSetVariable=myModule
         //% blockCombine block="position" callInDebugger
         get position(): number {
             const values = this.values() as any[];

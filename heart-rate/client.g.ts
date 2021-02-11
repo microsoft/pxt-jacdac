@@ -15,7 +15,7 @@ namespace modules {
         * The estimated heart rate.
         */
         //% blockId=jacdacheartrate_101_0
-        //% group="heart_rate" blockSetVariable=myModule
+        //% group="Heart Rate" blockSetVariable=myModule
         //% blockCombine block="heart_rate" callInDebugger
         get heartRate(): number {
             const values = this.values() as any[];

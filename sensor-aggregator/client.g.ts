@@ -13,7 +13,7 @@ namespace modules {
         * Last collected sample.
         */
         //% blockId=jacdacsensoraggregator_101_0
-        //% group="current_sample" blockSetVariable=myModule
+        //% group="Sensor Aggregator" blockSetVariable=myModule
         //% blockCombine block="current_sample" callInDebugger
         get currentSample(): Buffer {
             const values = this.values() as any[];

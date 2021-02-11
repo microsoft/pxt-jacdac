@@ -12,7 +12,7 @@ namespace modules {
         * The temperature.
         */
         //% blockId=jacdacthermocouple_101_0
-        //% group="temperature" blockSetVariable=myModule
+        //% group="Thermocouple" blockSetVariable=myModule
         //% blockCombine block="temperature" callInDebugger
         get temperature(): number {
             const values = this.values() as any[];

@@ -14,7 +14,7 @@ namespace modules {
         * It's best to ignore this (unless debugging), and use events.
         */
         //% blockId=jacdacmultitouch_101_0
-        //% group="capacitance" blockSetVariable=myModule
+        //% group="Multitouch" blockSetVariable=myModule
         //% blockCombine block="capacitance" callInDebugger
         get capacitance(): number[] {
             const values = this.values() as any[];

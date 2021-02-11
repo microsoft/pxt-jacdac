@@ -12,7 +12,7 @@ namespace modules {
         * The reported water level.
         */
         //% blockId=jacdacwaterlevel_101_0
-        //% group="level" blockSetVariable=myModule
+        //% group="Water level" blockSetVariable=myModule
         //% blockCombine block="level" callInDebugger
         get level(): number {
             const values = this.values() as any[];

@@ -15,7 +15,7 @@ namespace modules {
         * Default streaming period is 1 second.
         */
         //% blockId=jacdacrealtimeclock_101_0
-        //% group="year" blockSetVariable=myModule
+        //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="year" callInDebugger
         get year(): number {
             const values = this.values() as any[];
@@ -29,7 +29,7 @@ namespace modules {
         * Default streaming period is 1 second.
         */
         //% blockId=jacdacrealtimeclock_101_1
-        //% group="month" blockSetVariable=myModule
+        //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="month" callInDebugger
         get month(): number {
             const values = this.values() as any[];
@@ -43,7 +43,7 @@ namespace modules {
         * Default streaming period is 1 second.
         */
         //% blockId=jacdacrealtimeclock_101_2
-        //% group="day_of_month" blockSetVariable=myModule
+        //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="day_of_month" callInDebugger
         get dayOfMonth(): number {
             const values = this.values() as any[];
@@ -57,7 +57,7 @@ namespace modules {
         * Default streaming period is 1 second.
         */
         //% blockId=jacdacrealtimeclock_101_3
-        //% group="day_of_week" blockSetVariable=myModule
+        //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="day_of_week" callInDebugger
         get dayOfWeek(): number {
             const values = this.values() as any[];
@@ -71,7 +71,7 @@ namespace modules {
         * Default streaming period is 1 second.
         */
         //% blockId=jacdacrealtimeclock_101_4
-        //% group="hour" blockSetVariable=myModule
+        //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="hour" callInDebugger
         get hour(): number {
             const values = this.values() as any[];
@@ -85,7 +85,7 @@ namespace modules {
         * Default streaming period is 1 second.
         */
         //% blockId=jacdacrealtimeclock_101_5
-        //% group="min" blockSetVariable=myModule
+        //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="min" callInDebugger
         get min(): number {
             const values = this.values() as any[];
@@ -99,7 +99,7 @@ namespace modules {
         * Default streaming period is 1 second.
         */
         //% blockId=jacdacrealtimeclock_101_6
-        //% group="sec" blockSetVariable=myModule
+        //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="sec" callInDebugger
         get sec(): number {
             const values = this.values() as any[];

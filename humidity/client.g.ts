@@ -12,7 +12,7 @@ namespace modules {
         * The relative humidity in percentage of full water saturation.
         */
         //% blockId=jacdachumidity_101_0
-        //% group="humidity" blockSetVariable=myModule
+        //% group="Humidity" blockSetVariable=myModule
         //% blockCombine block="humidity" callInDebugger
         get humidity(): number {
             const values = this.values() as any[];

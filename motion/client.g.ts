@@ -12,7 +12,7 @@ namespace modules {
         * Reports is movement is currently detected by the sensor.
         */
         //% blockId=jacdacmotion_101_0
-        //% group="moving" blockSetVariable=myModule
+        //% group="Motion" blockSetVariable=myModule
         //% blockCombine block="moving" callInDebugger
         get moving(): number {
             const values = this.values() as any[];

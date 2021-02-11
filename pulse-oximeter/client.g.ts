@@ -14,7 +14,7 @@ namespace modules {
         * The estimated oxygen level in blood.
         */
         //% blockId=jacdacpulseoximeter_101_0
-        //% group="oxygen" blockSetVariable=myModule
+        //% group="Pulse Oximeter" blockSetVariable=myModule
         //% blockCombine block="oxygen" callInDebugger
         get oxygen(): number {
             const values = this.values() as any[];

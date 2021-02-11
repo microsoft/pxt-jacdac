@@ -13,7 +13,7 @@ namespace modules {
         * ``row = index / columns``, ``column = index % columns``.
         */
         //% blockId=jacdacmatrixkeypad_101_0
-        //% group="index" blockSetVariable=myModule
+        //% group="Matrix Keypad" blockSetVariable=myModule
         //% blockCombine block="index" callInDebugger
         get index(): number[] {
             const values = this.values() as any[];

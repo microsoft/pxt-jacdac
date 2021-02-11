@@ -12,7 +12,7 @@ namespace modules {
         * The heading with respect to the magnetic north.
         */
         //% blockId=jacdaccompass_101_0
-        //% group="heading" blockSetVariable=myModule
+        //% group="Compass" blockSetVariable=myModule
         //% blockCombine block="heading" callInDebugger
         get heading(): number {
             const values = this.values() as any[];

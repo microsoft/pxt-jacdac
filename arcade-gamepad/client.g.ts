@@ -13,7 +13,7 @@ namespace modules {
         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
         */
         //% blockId=jacdacarcadegamepad_101_0
-        //% group="button" blockSetVariable=myModule
+        //% group="Arcade Gamepad" blockSetVariable=myModule
         //% blockCombine block="button" callInDebugger
         get button(): ([ArcadeGamepadButton, number])[] {
             const values = this.values() as any[];
@@ -25,7 +25,7 @@ namespace modules {
         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
         */
         //% blockId=jacdacarcadegamepad_101_1
-        //% group="pressure" blockSetVariable=myModule
+        //% group="Arcade Gamepad" blockSetVariable=myModule
         //% blockCombine block="pressure" callInDebugger
         get pressure(): undefined {
             const values = this.values() as any[];

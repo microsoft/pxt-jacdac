@@ -14,7 +14,7 @@ namespace modules {
         * Use the ``vibrate`` command to control the register.
         */
         //% blockId=jacdacvibration_101_0
-        //% group="speed" blockSetVariable=myModule
+        //% group="Vibration motor" blockSetVariable=myModule
         //% blockCombine block="speed" callInDebugger
         get speed(): number {
             const values = this.values() as any[];

@@ -13,7 +13,7 @@ namespace modules {
         * For reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).
         */
         //% blockId=jacdacmagnetomer_101_0
-        //% group="x" blockSetVariable=myModule
+        //% group="Magnetometer" blockSetVariable=myModule
         //% blockCombine block="x" callInDebugger
         get x(): number {
             const values = this.values() as any[];
@@ -25,7 +25,7 @@ namespace modules {
         * For reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).
         */
         //% blockId=jacdacmagnetomer_101_1
-        //% group="y" blockSetVariable=myModule
+        //% group="Magnetometer" blockSetVariable=myModule
         //% blockCombine block="y" callInDebugger
         get y(): number {
             const values = this.values() as any[];
@@ -37,7 +37,7 @@ namespace modules {
         * For reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).
         */
         //% blockId=jacdacmagnetomer_101_2
-        //% group="z" blockSetVariable=myModule
+        //% group="Magnetometer" blockSetVariable=myModule
         //% blockCombine block="z" callInDebugger
         get z(): number {
             const values = this.values() as any[];

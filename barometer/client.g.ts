@@ -12,7 +12,7 @@ namespace modules {
         * The air pressure.
         */
         //% blockId=jacdacbarometer_101_0
-        //% group="pressure" blockSetVariable=myModule
+        //% group="Barometer" blockSetVariable=myModule
         //% blockCombine block="pressure" callInDebugger
         get pressure(): number {
             const values = this.values() as any[];

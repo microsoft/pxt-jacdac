@@ -12,7 +12,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdacgyroscope_101_0
-        //% group="x" blockSetVariable=myModule
+        //% group="Gyroscope" blockSetVariable=myModule
         //% blockCombine block="x" callInDebugger
         get x(): number {
             const values = this.values() as any[];
@@ -23,7 +23,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdacgyroscope_101_1
-        //% group="y" blockSetVariable=myModule
+        //% group="Gyroscope" blockSetVariable=myModule
         //% blockCombine block="y" callInDebugger
         get y(): number {
             const values = this.values() as any[];
@@ -34,7 +34,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdacgyroscope_101_2
-        //% group="z" blockSetVariable=myModule
+        //% group="Gyroscope" blockSetVariable=myModule
         //% blockCombine block="z" callInDebugger
         get z(): number {
             const values = this.values() as any[];
