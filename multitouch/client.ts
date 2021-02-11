@@ -4,9 +4,9 @@ namespace modules {
      */
     //% fixedInstances
     //% blockGap=8
-    export class MultiTouchClient extends jacdac.SensorClient {
+    export class MultiTouchClient extends jacdac.SensorClient<number[]> {
         constructor(role: string) {
-            super(jacdac.SRV_MULTITOUCH, role);
+            super(jacdac.SRV_MULTITOUCH, role, "i32[]");
         }
 
         /**
@@ -15,9 +15,9 @@ namespace modules {
         //% blockId=jdmultitouchvalue block="%multiTouch value at $index"
         //% group="Touch"
         value(index: number): number {
-            const s = this.state;
-            if (!s || s.length + 1 < 2 * index) return -1;
-            return s.getNumber(NumberFormat.UInt16LE, index * 2);
+            const values = this.values();
+            const value = values[index >> 0];
+            return value != null ? value : -1;
         }
 
         /**

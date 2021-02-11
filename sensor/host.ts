@@ -5,8 +5,6 @@ namespace jacdac {
     export class SensorHost extends Host {
         public streamingInterval: number; // millis
         public streamingSamples: number;
-        protected lowThreshold: number
-        protected highThreshold: number
 
         constructor(name: string, deviceClass: number) {
             super(name, deviceClass);
@@ -17,8 +15,6 @@ namespace jacdac {
         public handlePacket(packet: JDPacket) {
             this.log(`hpkt ${packet.serviceCommand}`);
             this.stateUpdated = false
-            this.lowThreshold = this.handleRegInt32(packet, SystemReg.LowThreshold, this.lowThreshold)
-            this.highThreshold = this.handleRegInt32(packet, SystemReg.HighThreshold, this.highThreshold)
             this.streamingInterval = this.handleRegUInt32(packet, SystemReg.StreamingInterval, this.streamingInterval)
             const samples = this.handleRegValue(packet, SystemReg.StreamingSamples, "u8", this.streamingSamples)
             this.setStreaming(samples)

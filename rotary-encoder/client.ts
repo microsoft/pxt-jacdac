@@ -1,9 +1,9 @@
 namespace modules {
     //% fixedInstances
     //% blockGap=8
-    export class RotaryEncoderClient extends jacdac.SensorClient {
+    export class RotaryEncoderClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
-            super(jacdac.SRV_ROTARY_ENCODER, role);
+            super(jacdac.SRV_ROTARY_ENCODER, role, "i32");
         }
 
         scale = 1
@@ -26,10 +26,8 @@ namespace modules {
         //% blockId=jacdacrotaryencoderposition block="%rotaryEncoder position"
         //% group="Rotary Encoder"
         get position(): number {
-            const st = this.state;
-            if (!st || st.length < 4) return 0;
-
-            const curr = st.getNumber(NumberFormat.Int32LE, 0) * this.scale
+            const [value = 0] = this.values();
+            const curr = value * this.scale
             if (this._offset != null) {
                 const p = curr + this._offset
                 if (p < this._min)

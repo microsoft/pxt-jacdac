@@ -3,9 +3,9 @@ namespace modules {
     const INTERNAL_KEY_DOWN = 2051;
 
     //% fixedInstances
-    export class ButtonClient extends jacdac.SensorClient {
+    export class ButtonClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
-            super(jacdac.SRV_BUTTON, role);
+            super(jacdac.SRV_BUTTON, role, "u8");
         }
 
         connectControllerButton(controllerButton: number) {
@@ -22,9 +22,8 @@ namespace modules {
         //% blockId=jacadacbtispressed block="%button is pressed"
         //% group="Buttons"
         isPressed(): boolean {
-            const s = this.state;
-            if (!s || s.length < 1) return false;
-            return !!s.getNumber(NumberFormat.UInt8LE, 0);
+            const [value] = this.values();
+            return !!value;
         }
 
         /**

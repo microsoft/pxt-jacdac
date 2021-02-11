@@ -1,22 +1,16 @@
 {
-    "name": "jacdac-slider",
+    "name": "jacdac-ledpixel",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Slider service",
+    "description": "MakeCode support for JACDAC LED pixel",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
     "files": [
         "constants.ts",
+        "encoder.ts",
         "client.ts"
     ],
-    "testDependencies": {
-        "nucleo-f411re": "*"
-    },
-    "targetVersions": {
-        "target": "0.14.2",
-        "targetId": "maker"
-    },
     "supportedTargets": [
         "arcade",
         "maker",

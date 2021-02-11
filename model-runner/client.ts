@@ -27,7 +27,7 @@ namespace jacdac {
 
         autoInvoke(numSamples = 10) {
             this._autoInv = numSamples
-            this.setRegInt(ModelRunnerReg.AutoInvokeEvery, numSamples)
+            this.setReg(ModelRunnerReg.AutoInvokeEvery, "u16", [numSamples])
         }
 
         handlePacket(pkt: JDPacket) {

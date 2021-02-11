@@ -1,14 +1,13 @@
 {
-    "name": "jacdac-light",
+    "name": "jacdac-potentiometer",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Light service",
+    "description": "Jacdac potentiometer service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
     "files": [
         "constants.ts",
-        "encoder.ts",
         "client.ts"
     ],
     "supportedTargets": [

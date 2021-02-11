@@ -18,10 +18,10 @@ namespace modules {
         run(speed: number): void {
             speed = Math.clamp(-100, 100, speed)
             if (speed == 0)
-                this.setRegInt(jacdac.MotorReg.Enabled, 0)
+                this.setReg(jacdac.MotorReg.Enabled, "u8", [0])
             else {
-                this.setRegInt(jacdac.MotorReg.Duty, Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0))
-                this.setRegInt(jacdac.MotorReg.Enabled, 1)
+                this.setReg(jacdac.MotorReg.Duty, "u1.15", [Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0)])
+                this.setReg(jacdac.MotorReg.Enabled, "u8", [1])
             }
         }
     }
