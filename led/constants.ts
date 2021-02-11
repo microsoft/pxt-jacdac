@@ -52,7 +52,7 @@ namespace jacdac {
          * const [ledCount] = jdunpack<[number]>(buf, "u16")
          * ```
          */
-        LedCount = 0x83,
+        LedCount = 0x180,
 
         /**
          * Constant nm uint16_t. If monochrome LED, specifies the wave length of the LED.
@@ -61,7 +61,7 @@ namespace jacdac {
          * const [waveLength] = jdunpack<[number]>(buf, "u16")
          * ```
          */
-        WaveLength = 0x84,
+        WaveLength = 0x181,
 
         /**
          * Constant mcd uint16_t. The luminous intensity of the LED, at full value, in micro candella.
@@ -70,7 +70,7 @@ namespace jacdac {
          * const [luminousIntensity] = jdunpack<[number]>(buf, "u16")
          * ```
          */
-        LuminousIntensity = 0x85,
+        LuminousIntensity = 0x182,
 
         /**
          * Constant Variant (uint32_t). The physical type of LED.
