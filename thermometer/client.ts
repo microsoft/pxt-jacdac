@@ -26,8 +26,9 @@ namespace modules {
         //% group="Thermometer"
         //% weight=26
         temperature(unit?: TemperatureUnit): number {
-            // TODO: no data then what?
-            const [value = 21] = this.values();
+            if (!this._reading.hasValues())
+                pauseUntil(() => this._reading.hasValues(), 2000)
+            const [value] = this._reading.values;
             if (unit === TemperatureUnit.Fahrenheit)
                 return (value * 18) / 10 + 32;
             else

@@ -21,8 +21,8 @@ namespace modules {
         */
         //% group="Character Screen" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {
-            const values = this._brightness.values() as any[];
+        get brightness(): number {            
+            const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -31,17 +31,17 @@ namespace modules {
         //% group="Character Screen" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
         set brightness(value: number) {
-            const values = this._brightness.values() as any[];
+            const values = this._brightness.values as any[];
             values[0] = value;
-            this._brightness.setValues(values as [number]);
+            this._brightness.values = values as [number];
         }
         /**
         * Text to show. Use `\n` to break lines.
         */
         //% group="Character Screen" blockSetVariable=myModule
         //% blockCombine block="message" callInDebugger
-        get message(): string {
-            const values = this._message.values() as any[];
+        get message(): string {            
+            const values = this._message.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -50,9 +50,9 @@ namespace modules {
         //% group="Character Screen" blockSetVariable=myModule
         //% blockCombine block="message" callInDebugger
         set message(value: string) {
-            const values = this._message.values() as any[];
+            const values = this._message.values as any[];
             values[0] = value;
-            this._message.setValues(values as [string]);
+            this._message.values = values as [string];
         } 
 
     }

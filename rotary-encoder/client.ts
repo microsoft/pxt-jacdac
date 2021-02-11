@@ -26,7 +26,7 @@ namespace modules {
         //% blockId=jacdacrotaryencoderposition block="%rotaryEncoder position"
         //% group="Rotary Encoder"
         get position(): number {
-            const [value = 0] = this.values();
+            const [value = 0] = this._reading.values;
             const curr = value * this.scale
             if (this._offset != null) {
                 const p = curr + this._offset

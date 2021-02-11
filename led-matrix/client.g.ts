@@ -21,8 +21,8 @@ namespace modules {
         */
         //% group="LED Matrix" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {
-            const values = this._brightness.values() as any[];
+        get brightness(): number {            
+            const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -31,9 +31,9 @@ namespace modules {
         //% group="LED Matrix" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
         set brightness(value: number) {
-            const values = this._brightness.values() as any[];
+            const values = this._brightness.values as any[];
             values[0] = value;
-            this._brightness.setValues(values as [number]);
+            this._brightness.values = values as [number];
         }
         /**
         * The state of the screen where pixel on/off state is 
@@ -41,8 +41,8 @@ namespace modules {
         */
         //% group="LED Matrix" blockSetVariable=myModule
         //% blockCombine block="leds" callInDebugger
-        get leds(): Buffer {
-            const values = this._leds.values() as any[];
+        get leds(): Buffer {            
+            const values = this._leds.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -52,9 +52,9 @@ namespace modules {
         //% group="LED Matrix" blockSetVariable=myModule
         //% blockCombine block="leds" callInDebugger
         set leds(value: Buffer) {
-            const values = this._leds.values() as any[];
+            const values = this._leds.values as any[];
             values[0] = value;
-            this._leds.setValues(values as [Buffer]);
+            this._leds.values = values as [Buffer];
         } 
 
     }

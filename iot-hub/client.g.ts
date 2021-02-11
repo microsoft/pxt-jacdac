@@ -16,16 +16,18 @@ namespace modules {
         /**
          * Emitted upon successful connection.
          */
+        //% blockId=jacdac_on_iothub_connected
         //% block="connected" blockSetVariable=myModule
-        //% group="Azure IoT Hub" blockCombine
+        //% group="Azure IoT Hub"
         onConnected(handler: () => void) {
             this.registerEvent(jacdac.IotHubEvent.Connected, handler);
         }
         /**
          * Emitted when connection was lost.
          */
+        //% blockId=jacdac_on_iothub_connection_error
         //% block="connection error" blockSetVariable=myModule
-        //% group="Azure IoT Hub" blockCombine
+        //% group="Azure IoT Hub"
         onConnectionError(handler: () => void) {
             this.registerEvent(jacdac.IotHubEvent.ConnectionError, handler);
         }
@@ -34,8 +36,9 @@ namespace modules {
         * (doesn't contain NUL bytes) and fits in a single event packet.
         * For reliable reception, use the `subscribe` command above.
          */
+        //% blockId=jacdac_on_iothub_devicebound_str
         //% block="devicebound str" blockSetVariable=myModule
-        //% group="Azure IoT Hub" blockCombine
+        //% group="Azure IoT Hub"
         onDeviceboundStr(handler: () => void) {
             this.registerEvent(jacdac.IotHubEvent.DeviceboundStr, handler);
         }

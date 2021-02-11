@@ -286,11 +286,24 @@ namespace jacdac {
             this._localTime = control.millis()
         }
 
-        values(): TValues {
+        hasValues(): boolean {
+            this.service.start();
+            return !!this.data;
+        }
+
+        pauseUntilValues(timeOut?: number) {
+            if (!this.hasValues())
+                pauseUntil(() => this.hasValues(), timeOut || 2000)
+            return this.values;
+        }
+
+        get values(): TValues {
+            this.service.start();
             return jdunpack(this.data, this.packFormat) as TValues;
         }
 
-        setValues(values: TValues) {
+        set values(values: TValues) {
+            this.service.start();
             const d = jdpack(this.packFormat, values);
             this.data = d;
             // send set request to the service

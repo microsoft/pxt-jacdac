@@ -20,7 +20,8 @@ namespace modules {
         //% group="Illuminance" blockSetVariable=myModule
         //% blockCombine block="light" callInDebugger
         get light(): number {
-            const values = this.values() as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

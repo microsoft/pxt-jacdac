@@ -16,16 +16,18 @@ namespace modules {
         /**
          * Emitted upon successful join and IP address assignment.
          */
+        //% blockId=jacdac_on_wifi_got_ip
         //% block="got ip" blockSetVariable=myModule
-        //% group="WIFI" blockCombine
+        //% group="WIFI"
         onGotIp(handler: () => void) {
             this.registerEvent(jacdac.WifiEvent.GotIp, handler);
         }
         /**
          * Emitted when disconnected from network.
          */
+        //% blockId=jacdac_on_wifi_lost_ip
         //% block="lost ip" blockSetVariable=myModule
-        //% group="WIFI" blockCombine
+        //% group="WIFI"
         onLostIp(handler: () => void) {
             this.registerEvent(jacdac.WifiEvent.LostIp, handler);
         }

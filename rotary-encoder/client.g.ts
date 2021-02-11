@@ -19,7 +19,8 @@ namespace modules {
         //% group="Rotary encoder" blockSetVariable=myModule
         //% blockCombine block="position" callInDebugger
         get position(): number {
-            const values = this.values() as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

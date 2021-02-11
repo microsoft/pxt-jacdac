@@ -1,39 +1,3 @@
-namespace jacdac {
-    export const SRV_HUMIDITY = 0x16c810b8
-}
-namespace modules {
-    /**
-     * A sensor measuring humidity of outside environment.
-     **/
-    //% fixedInstances blockGap=8
-    export class HumidityClient extends jacdac.SensorClient<[number]> {
-        constructor(role: string) {
-            super(jacdac.SRV_HUMIDITY, role, "u22.10");
-        }
-    
-        /**
-        * The relative humidity in percentage of full water saturation.
-        */
-        //% blockId=jacdachumidity_101_0
-        //% group="humidity"
-        //% blockCombine block="humidity" callInDebugger
-        get humidity(): number {
-            const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }
-    }
-
-    //% fixedInstance whenUsed
-    export const humidity = new HumidityClient("humidity");
-}
-
-function humidityTest() {
-    for(let i = 0; i < 3; ++i) {
-        const h = modules.humidity.humidity;
-        console.log("humidity -> " + h)
-    }
-}
-
 function jdpackTest() {
     function testOne(fmt: string, data0: any[]) {
         function checksame(a: any, b: any) {
@@ -81,7 +45,6 @@ jacdac.start()
 jacdac.loggerHost.log("test started")
 
 jdpackTest()
-humidityTest()
 
 function addClient(cls: number, name: string) {
     console.log(`client: ${name} (${cls})`)

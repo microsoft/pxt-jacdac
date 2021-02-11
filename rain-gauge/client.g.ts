@@ -18,7 +18,8 @@ namespace modules {
         //% group="Rain gauge" blockSetVariable=myModule
         //% blockCombine block="precipitation" callInDebugger
         get precipitation(): number {
-            const values = this.values() as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

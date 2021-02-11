@@ -18,7 +18,8 @@ namespace modules {
         //% group="Equivalent CO₂" blockSetVariable=myModule
         //% blockCombine block="e CO2" callInDebugger
         get eCO2(): number {
-            const values = this.values() as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

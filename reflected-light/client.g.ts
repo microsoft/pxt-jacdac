@@ -18,23 +18,26 @@ namespace modules {
         //% group="Reflected light" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
         get brightness(): number {
-            const values = this.values() as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 
         /**
          * The sensor detected a transition from light to dark
          */
+        //% blockId=jacdac_on_reflectedlight_dark
         //% block="dark" blockSetVariable=myModule
-        //% group="Reflected light" blockCombine
+        //% group="Reflected light"
         onDark(handler: () => void) {
             this.registerEvent(jacdac.ReflectedLightEvent.Dark, handler);
         }
         /**
          * The sensor detected a transition from dark to light
          */
+        //% blockId=jacdac_on_reflectedlight_light
         //% block="light" blockSetVariable=myModule
-        //% group="Reflected light" blockCombine
+        //% group="Reflected light"
         onLight(handler: () => void) {
             this.registerEvent(jacdac.ReflectedLightEvent.Light, handler);
         }

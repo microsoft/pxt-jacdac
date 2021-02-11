@@ -21,8 +21,8 @@ namespace modules {
         */
         //% group="Motor" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {
-            const values = this._enabled.values() as any[];
+        get enabled(): boolean {            
+            const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
@@ -31,9 +31,9 @@ namespace modules {
         //% group="Motor" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
         set enabled(value: boolean) {
-            const values = this._enabled.values() as any[];
+            const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
-            this._enabled.setValues(values as [boolean]);
+            this._enabled.values = values as [boolean];
         }
         /**
         * PWM duty cycle of the motor. Use negative/positive values to run the motor forwards and backwards.
@@ -42,8 +42,8 @@ namespace modules {
         */
         //% group="Motor" blockSetVariable=myModule
         //% blockCombine block="duty" callInDebugger
-        get duty(): number {
-            const values = this._duty.values() as any[];
+        get duty(): number {            
+            const values = this._duty.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -54,9 +54,9 @@ namespace modules {
         //% group="Motor" blockSetVariable=myModule
         //% blockCombine block="duty" callInDebugger
         set duty(value: number) {
-            const values = this._duty.values() as any[];
+            const values = this._duty.values as any[];
             values[0] = value;
-            this._duty.setValues(values as [number]);
+            this._duty.values = values as [number];
         } 
 
     }
