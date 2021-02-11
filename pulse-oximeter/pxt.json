@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-humidity",
+    "name": "jacdac-pulseoximeter",
     "version": "0.0.0",
-    "description": "A sensor measuring humidity of outside environment.",
+    "description": "A sensor approximating the oxygen level. \n\n**Jacdac is not suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**",
     "files": [
         "constants.ts",
         "client.g.ts"

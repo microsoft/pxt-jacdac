@@ -1,7 +1,7 @@
 namespace jacdac {
     // Service: Magnetometer
-    export const SRV_MAGNETO = 0x13029088
-    export const enum MagnetoReg {
+    export const SRV_MAGNETOMETER = 0x13029088
+    export const enum MagnetometerReg {
         /**
          * Indicates the current magnetic field on magnetometer.
          * For reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).
@@ -22,7 +22,7 @@ namespace jacdac {
         ForcesError = 0x106,
     }
 
-    export const enum MagnetoCmd {
+    export const enum MagnetometerCmd {
         /**
          * No args. Forces a calibration sequence where the user/device
          * might have to rotate to be calibrated.

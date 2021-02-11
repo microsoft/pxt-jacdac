@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-humidity",
+    "name": "jacdac-barometer",
     "version": "0.0.0",
-    "description": "A sensor measuring humidity of outside environment.",
+    "description": "A sensor measuring air pressure of outside environment.",
     "files": [
         "constants.ts",
         "client.g.ts"

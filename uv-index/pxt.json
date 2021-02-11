@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-humidity",
+    "name": "jacdac-uvindex",
     "version": "0.0.0",
-    "description": "A sensor measuring humidity of outside environment.",
+    "description": "The UV Index is a measure of the intensity of ultraviolet (UV) rays from the Sun.",
     "files": [
         "constants.ts",
         "client.g.ts"

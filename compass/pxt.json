@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-humidity",
+    "name": "jacdac-compass",
     "version": "0.0.0",
-    "description": "A sensor measuring humidity of outside environment.",
+    "description": "A sensor that measures the heading.",
     "files": [
         "constants.ts",
         "client.g.ts"

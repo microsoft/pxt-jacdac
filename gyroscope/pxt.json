@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-humidity",
+    "name": "jacdac-gyroscope",
     "version": "0.0.0",
-    "description": "A sensor measuring humidity of outside environment.",
+    "description": "A 3-axis gyroscope.",
     "files": [
         "constants.ts",
         "client.g.ts"

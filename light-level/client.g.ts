@@ -13,7 +13,7 @@ namespace modules {
         */
         //% blockId=jacdaclightlevel_101_0
         //% group="Light level" blockSetVariable=myModule
-        //% blockCombine block="light_level" callInDebugger
+        //% blockCombine block="light level" callInDebugger
         get lightLevel(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];

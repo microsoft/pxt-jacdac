@@ -13,7 +13,7 @@ namespace modules {
         */
         //% blockId=jacdacwinddirection_101_0
         //% group="Wind direction" blockSetVariable=myModule
-        //% blockCombine block="wind_direction" callInDebugger
+        //% blockCombine block="wind direction" callInDebugger
         get windDirection(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];

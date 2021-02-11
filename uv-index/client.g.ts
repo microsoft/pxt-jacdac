@@ -13,7 +13,7 @@ namespace modules {
         */
         //% blockId=jacdacuvindex_101_0
         //% group="UV index" blockSetVariable=myModule
-        //% blockCombine block="uv_index" callInDebugger
+        //% blockCombine block="uv index" callInDebugger
         get uvIndex(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];

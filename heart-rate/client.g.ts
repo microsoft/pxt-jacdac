@@ -16,7 +16,7 @@ namespace modules {
         */
         //% blockId=jacdacheartrate_101_0
         //% group="Heart Rate" blockSetVariable=myModule
-        //% blockCombine block="heart_rate" callInDebugger
+        //% blockCombine block="heart rate" callInDebugger
         get heartRate(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];

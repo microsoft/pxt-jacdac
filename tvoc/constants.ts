@@ -1,7 +1,7 @@
 namespace jacdac {
     // Service: Total Volatile organic compound
     export const SRV_TVOC = 0x12a5b597
-    export const enum TVOCReg {
+    export const enum TvocReg {
         /**
          * Read-only ppb u22.10 (uint32_t). Total volatile organic compound readings in parts per billion.
          *
@@ -24,19 +24,19 @@ namespace jacdac {
          * Constant ppb u22.10 (uint32_t). Minimum measurable value
          *
          * ```
-         * const [min_TVOC] = jdunpack<[number]>(buf, "u22.10")
+         * const [minTVOC] = jdunpack<[number]>(buf, "u22.10")
          * ```
          */
-        Min_TVOC = 0x104,
+        MinTVOC = 0x104,
 
         /**
          * Constant ppb u22.10 (uint32_t). Minimum measurable value
          *
          * ```
-         * const [max_TVOC] = jdunpack<[number]>(buf, "u22.10")
+         * const [maxTVOC] = jdunpack<[number]>(buf, "u22.10")
          * ```
          */
-        Max_TVOC = 0x105,
+        MaxTVOC = 0x105,
 
         /**
          * Constant s uint32_t. Time required to achieve good sensor stability before measuring after long idle period.

@@ -3,9 +3,9 @@ namespace modules {
      * A 3-axis magnetometer.
      **/
     //% fixedInstances blockGap=8
-    export class MagnetoClient extends jacdac.SensorClient<[number,number,number]> {
+    export class MagnetometerClient extends jacdac.SensorClient<[number,number,number]> {
         constructor(role: string) {
-            super(jacdac.SRV_MAGNETO, role, "i32 i32 i32");
+            super(jacdac.SRV_MAGNETOMETER, role, "i32 i32 i32");
         }
     
         /**
@@ -48,5 +48,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const magneto = new MagnetoClient("magneto");
+    export const magnetometer = new MagnetometerClient("magnetometer");
 }

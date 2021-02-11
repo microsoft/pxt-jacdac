@@ -3,7 +3,7 @@ namespace modules {
      * Measures equivalent Total Volatile Organic Compound levels.
      **/
     //% fixedInstances blockGap=8
-    export class TVOCClient extends jacdac.SensorClient<[number]> {
+    export class TvocClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_TVOC, role, "u22.10");
         }
@@ -23,5 +23,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const TVOC = new TVOCClient("TVOC");
+    export const tvoc = new TvocClient("tvoc");
 }

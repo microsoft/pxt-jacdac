@@ -1,13 +1,12 @@
 {
-    "name": "jacdac-windspeed",
+    "name": "jacdac-joystick",
     "version": "0.0.0",
-    "description": "A sensor that measures wind speed.",
+    "description": "A two axis directional joystick",
     "files": [
         "constants.ts",
         "client.g.ts"
     ],
     "testFiles": [
-        "test.ts"
     ],
     "supportedTargets": [
         "arcade",

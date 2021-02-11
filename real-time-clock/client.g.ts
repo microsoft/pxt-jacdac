@@ -44,7 +44,7 @@ namespace modules {
         */
         //% blockId=jacdacrealtimeclock_101_2
         //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="day_of_month" callInDebugger
+        //% blockCombine block="day of month" callInDebugger
         get dayOfMonth(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[2];
@@ -58,7 +58,7 @@ namespace modules {
         */
         //% blockId=jacdacrealtimeclock_101_3
         //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="day_of_week" callInDebugger
+        //% blockCombine block="day of week" callInDebugger
         get dayOfWeek(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[3];

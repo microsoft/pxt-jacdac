@@ -1,13 +1,12 @@
 {
-    "name": "jacdac-waterlevel",
+    "name": "jacdac-thermocouple",
     "version": "0.0.0",
-    "description": "A sensor that measures liquid/water level.",
+    "description": "A thermocouple using a heat probe to gather temperatures.",
     "files": [
         "constants.ts",
         "client.g.ts"
     ],
     "testFiles": [
-        "test.ts"
     ],
     "supportedTargets": [
         "arcade",

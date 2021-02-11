@@ -13,7 +13,7 @@ namespace modules {
         */
         //% blockId=jacdacsoundlevel_101_0
         //% group="Sound level" blockSetVariable=myModule
-        //% blockCombine block="sound_level" callInDebugger
+        //% blockCombine block="sound level" callInDebugger
         get soundLevel(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];

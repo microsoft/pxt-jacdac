@@ -13,8 +13,8 @@ namespace modules {
         */
         //% blockId=jacdaceco2_101_0
         //% group="Equivalent CO₂" blockSetVariable=myModule
-        //% blockCombine block="e_CO2" callInDebugger
-        get e_CO2(): number {
+        //% blockCombine block="e CO2" callInDebugger
+        get eCO2(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
         }

@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-humidity",
+    "name": "jacdac-realtimeclock",
     "version": "0.0.0",
-    "description": "A sensor measuring humidity of outside environment.",
+    "description": "Real time clock to support collecting data with precise time stamps.",
     "files": [
         "constants.ts",
         "client.g.ts"

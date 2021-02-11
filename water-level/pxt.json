@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-humidity",
+    "name": "jacdac-waterlevel",
     "version": "0.0.0",
-    "description": "A sensor measuring humidity of outside environment.",
+    "description": "A sensor that measures liquid/water level.",
     "files": [
         "constants.ts",
         "client.g.ts"

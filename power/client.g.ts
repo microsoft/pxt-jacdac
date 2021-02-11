@@ -13,7 +13,7 @@ namespace modules {
         */
         //% blockId=jacdacpower_101_0
         //% group="Power" blockSetVariable=myModule
-        //% blockCombine block="current_draw" callInDebugger
+        //% blockCombine block="current draw" callInDebugger
         get currentDraw(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
