@@ -1,9 +1,9 @@
 namespace modules {
     //% fixedInstances
     //% blockGap=8
-    export class SliderClient extends jacdac.SensorClient {
+    export class PotentiometerClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
-            super(jacdac.SRV_SLIDER, role);
+            super(jacdac.SRV_POTENTIOMETER, role, "u0.16");
         }
 
         /**
@@ -15,10 +15,9 @@ namespace modules {
             if (!this.started) {
                 this.setStreaming(true, 100)
             }
-            if (!this.state || this.state.length < 2)
-                return 0
-            const v = this.state.getNumber(NumberFormat.UInt16LE, 0)
-            return v / 0x10000
+
+            const [value = 0] = this.values();
+            return value;
         }
     }
 
@@ -26,5 +25,5 @@ namespace modules {
      * Default slider
      */
     //% fixedInstance whenUsed
-    export const slider = new SliderClient("slider");
+    export const potentiometer = new PotentiometerClient("potentiometer");
 }

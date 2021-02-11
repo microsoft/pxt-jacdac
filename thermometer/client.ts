@@ -14,9 +14,9 @@ const enum TemperatureUnit {
 
 namespace modules {
     //% fixedInstances
-    export class ThermometerClient extends jacdac.SensorClient {
+    export class ThermometerClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
-            super(jacdac.SRV_THERMOMETER, role);
+            super(jacdac.SRV_THERMOMETER, role, "i22.10");
         }
 
         /**
@@ -26,13 +26,12 @@ namespace modules {
         //% group="Thermometer"
         //% weight=26
         temperature(unit?: TemperatureUnit): number {
-            const s = this.state;
-            if (!s || s.length < 2) return 0;
-            const t = s.getNumber(NumberFormat.Int16LE, 0);
-            switch (unit) {
-                case TemperatureUnit.Fahrenheit: (t * 18) / 10 + 32;
-                default: return t;
-            }
+            // TODO: no data then what?
+            const [value = 21] = this.values();
+            if (unit === TemperatureUnit.Fahrenheit)
+                return (value * 18) / 10 + 32;
+            else
+                return value;
         }
 
         /**
