@@ -18,8 +18,8 @@ namespace modules {
         //% group="heart_rate"
         //% blockCombine block="heart_rate" callInDebugger
         get heartRate(): number {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
             

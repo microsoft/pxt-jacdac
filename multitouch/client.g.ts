@@ -17,8 +17,8 @@ namespace modules {
         //% group="capacitance"
         //% blockCombine block="capacitance" callInDebugger
         get capacitance(): number[] {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
             

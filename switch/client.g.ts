@@ -15,8 +15,8 @@ namespace modules {
         //% group="active"
         //% blockCombine block="active" callInDebugger
         get active(): number {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
             

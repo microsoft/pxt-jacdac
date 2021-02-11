@@ -16,8 +16,8 @@ namespace modules {
         //% group="current_sample"
         //% blockCombine block="current_sample" callInDebugger
         get currentSample(): Buffer {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
             

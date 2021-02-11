@@ -16,8 +16,8 @@ namespace modules {
         //% group="x"
         //% blockCombine block="x" callInDebugger
         get x(): number {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
         /**
@@ -28,8 +28,8 @@ namespace modules {
         //% group="y"
         //% blockCombine block="y" callInDebugger
         get y(): number {
-            const values = this.values();
-            return values && values[1];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[1];
         }
 
         /**
@@ -40,8 +40,8 @@ namespace modules {
         //% group="z"
         //% blockCombine block="z" callInDebugger
         get z(): number {
-            const values = this.values();
-            return values && values[2];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[2];
         }
 
             

@@ -15,8 +15,8 @@ namespace modules {
         //% group="e_CO2"
         //% blockCombine block="e_CO2" callInDebugger
         get e_CO2(): number {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
             

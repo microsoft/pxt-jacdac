@@ -18,8 +18,8 @@ namespace modules {
         //% group="year"
         //% blockCombine block="year" callInDebugger
         get year(): number {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
         /**
@@ -32,8 +32,8 @@ namespace modules {
         //% group="month"
         //% blockCombine block="month" callInDebugger
         get month(): number {
-            const values = this.values();
-            return values && values[1];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[1];
         }
 
         /**
@@ -46,8 +46,8 @@ namespace modules {
         //% group="day_of_month"
         //% blockCombine block="day_of_month" callInDebugger
         get dayOfMonth(): number {
-            const values = this.values();
-            return values && values[2];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[2];
         }
 
         /**
@@ -60,8 +60,8 @@ namespace modules {
         //% group="day_of_week"
         //% blockCombine block="day_of_week" callInDebugger
         get dayOfWeek(): number {
-            const values = this.values();
-            return values && values[3];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[3];
         }
 
         /**
@@ -74,8 +74,8 @@ namespace modules {
         //% group="hour"
         //% blockCombine block="hour" callInDebugger
         get hour(): number {
-            const values = this.values();
-            return values && values[4];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[4];
         }
 
         /**
@@ -88,8 +88,8 @@ namespace modules {
         //% group="min"
         //% blockCombine block="min" callInDebugger
         get min(): number {
-            const values = this.values();
-            return values && values[5];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[5];
         }
 
         /**
@@ -102,8 +102,8 @@ namespace modules {
         //% group="sec"
         //% blockCombine block="sec" callInDebugger
         get sec(): number {
-            const values = this.values();
-            return values && values[6];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[6];
         }
 
             

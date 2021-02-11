@@ -15,8 +15,8 @@ namespace modules {
         //% group="red"
         //% blockCombine block="red" callInDebugger
         get red(): number {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
         /**
@@ -26,8 +26,8 @@ namespace modules {
         //% group="green"
         //% blockCombine block="green" callInDebugger
         get green(): number {
-            const values = this.values();
-            return values && values[1];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[1];
         }
 
         /**
@@ -37,8 +37,8 @@ namespace modules {
         //% group="blue"
         //% blockCombine block="blue" callInDebugger
         get blue(): number {
-            const values = this.values();
-            return values && values[2];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[2];
         }
 
             

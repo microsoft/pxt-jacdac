@@ -16,8 +16,8 @@ namespace modules {
         //% group="button"
         //% blockCombine block="button" callInDebugger
         get button(): ([ArcadeGamepadButton, number])[] {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
         /**
@@ -28,8 +28,8 @@ namespace modules {
         //% group="pressure"
         //% blockCombine block="pressure" callInDebugger
         get pressure(): undefined {
-            const values = this.values();
-            return values && values[1];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[1];
         }
 
             

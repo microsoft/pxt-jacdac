@@ -15,8 +15,8 @@ namespace modules {
         //% group="current_draw"
         //% blockCombine block="current_draw" callInDebugger
         get currentDraw(): number {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
             

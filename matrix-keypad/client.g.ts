@@ -16,8 +16,8 @@ namespace modules {
         //% group="index"
         //% blockCombine block="index" callInDebugger
         get index(): number[] {
-            const values = this.values();
-            return values && values[0];
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
         }
 
             
