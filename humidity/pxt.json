@@ -4,7 +4,7 @@
     "description": "A sensor measuring humidity of outside environment.",
     "files": [
         "constants.ts",
-        "client.ts"
+        "client.g.ts"
     ],
     "testFiles": [
         "test.ts"

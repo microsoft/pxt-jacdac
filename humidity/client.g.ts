@@ -4,7 +4,7 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_HUMIDITY, role, "u22.10");
         }
-
+    
         /**
         * The relative humidity in percentage of full water saturation.
         */
@@ -15,6 +15,8 @@ namespace modules {
             const values = this.values();
             return values && values[0];
         }
+
+            
     }
 
     //% fixedInstance whenUsed
