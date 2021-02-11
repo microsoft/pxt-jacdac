@@ -19,9 +19,8 @@ namespace modules {
         //% blockCombine block="brightness" callInDebugger
         get brightness(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-     
+            return values[0];
+        } 
 
         /**
          * The sensor detected a transition from light to dark

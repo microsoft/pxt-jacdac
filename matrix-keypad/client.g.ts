@@ -20,9 +20,8 @@ namespace modules {
         //% blockCombine block="index" callInDebugger
         get index(): number[] {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-     
+            return values[0];
+        } 
 
         /**
          * Emitted when a key, at the given index, goes from inactive (`pressed == 0`) to active.

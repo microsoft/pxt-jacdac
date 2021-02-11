@@ -12,8 +12,7 @@ namespace modules {
             
         }
     
-     
-     
+ 
 
         /**
          * An event raised when rw_bool is modified

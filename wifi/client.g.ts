@@ -11,8 +11,7 @@ namespace modules {
             
         }
     
-     
-     
+ 
 
         /**
          * Emitted upon successful join and IP address assignment.

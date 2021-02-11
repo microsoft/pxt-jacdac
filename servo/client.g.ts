@@ -5,14 +5,14 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ServoClient extends jacdac.Client {
 
-            private readonly _enabled : jacdac.RegisterClient<[number]>;
+            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
             private readonly _angle : jacdac.RegisterClient<[number]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_SERVO, role);
 
-            this._enabled = this.addRegister(jacdac.ServoReg.Enabled, "u8");
-            this._angle = this.addRegister(jacdac.ServoReg.Angle, "i16.16");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.ServoReg.Enabled, "u8");
+            this._angle = this.addRegister<[number]>(jacdac.ServoReg.Angle, "i16.16");            
         }
     
 
@@ -21,9 +21,19 @@ namespace modules {
         */
         //% group="Servo" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
-        get enabled(): number {
+        get enabled(): boolean {
             const values = this._enabled.values() as any[];
-            return values && values.length > 0 && values[0];
+            return !!values[0];
+        }
+        /**
+        * Turn the power to the servo on/off.
+        */
+        //% group="Servo" blockSetVariable=myModule
+        //% blockCombine block="enabled" callInDebugger
+        set enabled(value: boolean) {
+            const values = this._enabled.values() as any[];
+            values[0] = value ? 1 : 0;
+            this._enabled.setValues(values as [boolean]);
         }
         /**
         * Specifies the angle of the arm.
@@ -32,18 +42,7 @@ namespace modules {
         //% blockCombine block="angle" callInDebugger
         get angle(): number {
             const values = this._angle.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-
-        /**
-        * Turn the power to the servo on/off.
-        */
-        //% group="Servo" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: number) {
-            const values = this._enabled.values() as any[];
-            values[0] = value;
-            this._enabled.setValues(values as [number]);
+            return values[0];
         }
         /**
         * Specifies the angle of the arm.
@@ -54,7 +53,7 @@ namespace modules {
             const values = this._angle.values() as any[];
             values[0] = value;
             this._angle.setValues(values as [number]);
-        }     
+        } 
 
     }
     //% fixedInstance whenUsed

@@ -20,7 +20,7 @@ namespace modules {
         //% blockCombine block="button" callInDebugger
         get button(): ([ArcadeGamepadButton, number])[] {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
+            return values[0];
         }
         /**
         * Indicates which buttons are currently active (pressed).
@@ -30,9 +30,8 @@ namespace modules {
         //% blockCombine block="pressure" callInDebugger
         get pressure(): undefined {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[1];
-        }     
-     
+            return values[1];
+        } 
 
         /**
          * Emitted when button goes from inactive to active.

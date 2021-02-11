@@ -19,9 +19,8 @@ namespace modules {
         //% blockCombine block="level" callInDebugger
         get level(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-     
+            return values[0];
+        } 
 
     }
     //% fixedInstance whenUsed

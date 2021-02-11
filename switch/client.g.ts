@@ -3,7 +3,7 @@ namespace modules {
      * A switch, which keeps its position.
      **/
     //% fixedInstances blockGap=8
-    export class SwitchClient extends jacdac.SensorClient<[number]> {
+    export class SwitchClient extends jacdac.SensorClient<[boolean]> {
             
 
             constructor(role: string) {
@@ -17,11 +17,10 @@ namespace modules {
         */
         //% group="Switch" blockSetVariable=myModule
         //% blockCombine block="active" callInDebugger
-        get active(): number {
+        get active(): boolean {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-     
+            return !!values[0];
+        } 
 
         /**
          * Emitted when switch goes from ``off`` to ``on``.

@@ -10,7 +10,7 @@ namespace modules {
             constructor(role: string) {
             super(jacdac.SRV_LED, role);
 
-            this._brightness = this.addRegister(jacdac.LedReg.Brightness, "u0.16");            
+            this._brightness = this.addRegister<[number]>(jacdac.LedReg.Brightness, "u0.16");            
         }
     
 
@@ -22,9 +22,8 @@ namespace modules {
         //% blockCombine block="brightness" callInDebugger
         get brightness(): number {
             const values = this._brightness.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-
+            return values[0];
+        }
         /**
         * Set the luminosity of the strip. The value is used to scale `value` in `steps` register.
         * At `0` the power to the strip is completely shut down.
@@ -35,7 +34,7 @@ namespace modules {
             const values = this._brightness.values() as any[];
             values[0] = value;
             this._brightness.setValues(values as [number]);
-        }     
+        } 
 
     }
     //% fixedInstance whenUsed

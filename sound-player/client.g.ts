@@ -10,7 +10,7 @@ namespace modules {
             constructor(role: string) {
             super(jacdac.SRV_SOUND_PLAYER, role);
 
-            this._volume = this.addRegister(jacdac.SoundPlayerReg.Volume, "u0.16");            
+            this._volume = this.addRegister<[number]>(jacdac.SoundPlayerReg.Volume, "u0.16");            
         }
     
 
@@ -21,9 +21,8 @@ namespace modules {
         //% blockCombine block="volume" callInDebugger
         get volume(): number {
             const values = this._volume.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-
+            return values[0];
+        }
         /**
         * Global volume of the output. ``0`` means completely off. This volume is mixed with each play volumes.
         */
@@ -33,7 +32,7 @@ namespace modules {
             const values = this._volume.values() as any[];
             values[0] = value;
             this._volume.setValues(values as [number]);
-        }     
+        } 
 
     }
     //% fixedInstance whenUsed

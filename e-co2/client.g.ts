@@ -19,9 +19,8 @@ namespace modules {
         //% blockCombine block="e CO2" callInDebugger
         get eCO2(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-     
+            return values[0];
+        } 
 
     }
     //% fixedInstance whenUsed

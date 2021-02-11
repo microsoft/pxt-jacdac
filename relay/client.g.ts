@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class RelayClient extends jacdac.Client {
 
-            private readonly _closed : jacdac.RegisterClient<[number]>;            
+            private readonly _closed : jacdac.RegisterClient<[boolean]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_RELAY, role);
 
-            this._closed = this.addRegister(jacdac.RelayReg.Closed, "u8");            
+            this._closed = this.addRegister<[boolean]>(jacdac.RelayReg.Closed, "u8");            
         }
     
 
@@ -19,21 +19,20 @@ namespace modules {
         */
         //% group="Relay" blockSetVariable=myModule
         //% blockCombine block="closed" callInDebugger
-        get closed(): number {
+        get closed(): boolean {
             const values = this._closed.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-
+            return !!values[0];
+        }
         /**
         * Indicates whether the relay circuit is currently on (closed) or off (closed).
         */
         //% group="Relay" blockSetVariable=myModule
         //% blockCombine block="closed" callInDebugger
-        set closed(value: number) {
+        set closed(value: boolean) {
             const values = this._closed.values() as any[];
-            values[0] = value;
-            this._closed.setValues(values as [number]);
-        }     
+            values[0] = value ? 1 : 0;
+            this._closed.setValues(values as [boolean]);
+        } 
 
         /**
          * Emitted when relay goes from ``off`` to ``on`` state.

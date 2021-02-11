@@ -19,7 +19,7 @@ namespace modules {
         //% blockCombine block="red" callInDebugger
         get red(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
+            return values[0];
         }
         /**
         * Detected color in the RGB color space.
@@ -28,7 +28,7 @@ namespace modules {
         //% blockCombine block="green" callInDebugger
         get green(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[1];
+            return values[1];
         }
         /**
         * Detected color in the RGB color space.
@@ -37,9 +37,8 @@ namespace modules {
         //% blockCombine block="blue" callInDebugger
         get blue(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[2];
-        }     
-     
+            return values[2];
+        } 
 
     }
     //% fixedInstance whenUsed

@@ -1,7 +1,7 @@
 namespace jacdac {
     //% fixedInstances
     //% weight=1
-    export class SensorClient<TReading extends (string | number | Buffer)[]> extends Client {
+    export class SensorClient<TReading extends PackSimpleDataType[]> extends Client {
         readonly reading: RegisterClient<TReading>
         private _stateChangedHandler: () => void;
 

@@ -3,7 +3,7 @@ namespace modules {
      * A push-button, which returns to inactive position when not operated anymore.
      **/
     //% fixedInstances blockGap=8
-    export class ButtonClient extends jacdac.SensorClient<[number]> {
+    export class ButtonClient extends jacdac.SensorClient<[boolean]> {
             
 
             constructor(role: string) {
@@ -17,11 +17,10 @@ namespace modules {
         */
         //% group="Button" blockSetVariable=myModule
         //% blockCombine block="pressed" callInDebugger
-        get pressed(): number {
+        get pressed(): boolean {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-     
+            return !!values[0];
+        } 
 
         /**
          * Emitted when button goes from inactive (`pressed == 0`) to active.

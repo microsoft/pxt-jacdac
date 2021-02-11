@@ -3,7 +3,7 @@ namespace modules {
      * A sensor, typically PIR, that detects object motion within a certain range
      **/
     //% fixedInstances blockGap=8
-    export class MotionClient extends jacdac.SensorClient<[number]> {
+    export class MotionClient extends jacdac.SensorClient<[boolean]> {
             
 
             constructor(role: string) {
@@ -17,11 +17,10 @@ namespace modules {
         */
         //% group="Motion" blockSetVariable=myModule
         //% blockCombine block="moving" callInDebugger
-        get moving(): number {
+        get moving(): boolean {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-     
+            return !!values[0];
+        } 
 
     }
     //% fixedInstance whenUsed

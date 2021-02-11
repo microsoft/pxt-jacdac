@@ -22,7 +22,7 @@ namespace modules {
         //% blockCombine block="year" callInDebugger
         get year(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
+            return values[0];
         }
         /**
         * Current time in 24h representation. 
@@ -34,7 +34,7 @@ namespace modules {
         //% blockCombine block="month" callInDebugger
         get month(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[1];
+            return values[1];
         }
         /**
         * Current time in 24h representation. 
@@ -46,7 +46,7 @@ namespace modules {
         //% blockCombine block="day of month" callInDebugger
         get dayOfMonth(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[2];
+            return values[2];
         }
         /**
         * Current time in 24h representation. 
@@ -58,7 +58,7 @@ namespace modules {
         //% blockCombine block="day of week" callInDebugger
         get dayOfWeek(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[3];
+            return values[3];
         }
         /**
         * Current time in 24h representation. 
@@ -70,7 +70,7 @@ namespace modules {
         //% blockCombine block="hour" callInDebugger
         get hour(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[4];
+            return values[4];
         }
         /**
         * Current time in 24h representation. 
@@ -82,7 +82,7 @@ namespace modules {
         //% blockCombine block="min" callInDebugger
         get min(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[5];
+            return values[5];
         }
         /**
         * Current time in 24h representation. 
@@ -94,9 +94,8 @@ namespace modules {
         //% blockCombine block="sec" callInDebugger
         get sec(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[6];
-        }     
-     
+            return values[6];
+        } 
 
     }
     //% fixedInstance whenUsed

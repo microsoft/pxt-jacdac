@@ -10,7 +10,7 @@ namespace modules {
             constructor(role: string) {
             super(jacdac.SRV_BUZZER, role);
 
-            this._volume = this.addRegister(jacdac.BuzzerReg.Volume, "u0.8");            
+            this._volume = this.addRegister<[number]>(jacdac.BuzzerReg.Volume, "u0.8");            
         }
     
 
@@ -21,9 +21,8 @@ namespace modules {
         //% blockCombine block="volume" callInDebugger
         get volume(): number {
             const values = this._volume.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-
+            return values[0];
+        }
         /**
         * The volume (duty cycle) of the buzzer.
         */
@@ -33,7 +32,7 @@ namespace modules {
             const values = this._volume.values() as any[];
             values[0] = value;
             this._volume.setValues(values as [number]);
-        }     
+        } 
 
     }
     //% fixedInstance whenUsed

@@ -23,9 +23,8 @@ namespace modules {
         //% blockCombine block="output" callInDebugger
         get output(): number[] {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-     
+            return values[0];
+        } 
 
     }
     //% fixedInstance whenUsed

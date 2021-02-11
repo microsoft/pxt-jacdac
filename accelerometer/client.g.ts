@@ -19,7 +19,7 @@ namespace modules {
         //% blockCombine block="x" callInDebugger
         get x(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
+            return values[0];
         }
         /**
         * Indicates the current forces acting on accelerometer.
@@ -28,7 +28,7 @@ namespace modules {
         //% blockCombine block="y" callInDebugger
         get y(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[1];
+            return values[1];
         }
         /**
         * Indicates the current forces acting on accelerometer.
@@ -37,9 +37,8 @@ namespace modules {
         //% blockCombine block="z" callInDebugger
         get z(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[2];
-        }     
-     
+            return values[2];
+        } 
 
         /**
          * Emitted when accelerometer is tilted in the given direction.

@@ -20,7 +20,7 @@ namespace modules {
         //% blockCombine block="x" callInDebugger
         get x(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[0];
+            return values[0];
         }
         /**
         * The direction of the joystick measure in two direction.
@@ -30,9 +30,8 @@ namespace modules {
         //% blockCombine block="y" callInDebugger
         get y(): number {
             const values = this.values() as any[];
-            return values && values.length > 0 && values[1];
-        }     
-     
+            return values[1];
+        } 
 
     }
     //% fixedInstance whenUsed

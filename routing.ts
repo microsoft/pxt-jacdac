@@ -272,7 +272,7 @@ namespace jacdac {
         [index: string]: T;
     }
 
-    export class RegisterClient<TValues extends (string | number | Buffer)[]> {
+    export class RegisterClient<TValues extends PackSimpleDataType[]> {
         private data: Buffer;
         private _localTime: number;
         private _dataChangedHandler: () => void;
@@ -331,7 +331,7 @@ namespace jacdac {
         protected systemActive = false;
 
         protected readonly config: ClientPacketQueue
-        private readonly registers: RegisterClient<(string | number | Buffer)[]>[] = [];
+        private readonly registers: RegisterClient<PackSimpleDataType[]>[] = [];
 
         constructor(
             public readonly serviceClass: number,
@@ -343,7 +343,7 @@ namespace jacdac {
                 throw "no role"
         }
 
-        protected addRegister<TValues extends (string | number | Buffer)[]>(code: number, packFormat: string, defaultValues?: TValues): RegisterClient<TValues> {
+        protected addRegister<TValues extends PackSimpleDataType[]>(code: number, packFormat: string, defaultValues?: TValues): RegisterClient<TValues> {
             let reg = this.registers.find(reg => reg.code === code);
             if (!reg) {
                 reg = new RegisterClient<TValues>(this, code, packFormat, defaultValues);
@@ -435,7 +435,7 @@ namespace jacdac {
         }
 
         // this will be re-sent on (re)attach
-        setReg(reg: number, format: string, values: (string | number | Buffer)[]) {
+        setReg(reg: number, format: string, values: PackSimpleDataType[]) {
             this.start();
             const payload = JDPacket.jdpacked(CMD_SET_REG | reg, format, values);
             this.config.send(payload);

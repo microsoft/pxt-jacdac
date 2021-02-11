@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class MidiOutputClient extends jacdac.Client {
 
-            private readonly _enabled : jacdac.RegisterClient<[number]>;            
+            private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_MIDI_OUTPUT, role);
 
-            this._enabled = this.addRegister(jacdac.MidiOutputReg.Enabled, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.MidiOutputReg.Enabled, "u8");            
         }
     
 
@@ -19,21 +19,20 @@ namespace modules {
         */
         //% group="MIDI output" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
-        get enabled(): number {
+        get enabled(): boolean {
             const values = this._enabled.values() as any[];
-            return values && values.length > 0 && values[0];
-        }     
-
+            return !!values[0];
+        }
         /**
         * Opens or closes the port to the MIDI device
         */
         //% group="MIDI output" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
-        set enabled(value: number) {
+        set enabled(value: boolean) {
             const values = this._enabled.values() as any[];
-            values[0] = value;
-            this._enabled.setValues(values as [number]);
-        }     
+            values[0] = value ? 1 : 0;
+            this._enabled.setValues(values as [boolean]);
+        } 
 
     }
     //% fixedInstance whenUsed
