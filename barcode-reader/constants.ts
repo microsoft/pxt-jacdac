@@ -35,7 +35,7 @@ namespace jacdac {
          * const [format] = jdunpack<[BarcodeReaderFormat[]]>(buf, "u8[]")
          * ```
          */
-        Formats = 0x80,
+        Formats = 0x180,
     }
 
     export const enum BarcodeReaderEvent {

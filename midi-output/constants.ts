@@ -1,7 +1,7 @@
 namespace jacdac {
     // Service: MIDI output
-    export const SRV_M_IDIOUTPUT = 0x1a848cd7
-    export const enum MIDIOutputReg {
+    export const SRV_MIDI_OUTPUT = 0x1a848cd7
+    export const enum MidiOutputReg {
         /**
          * Read-write bool (uint8_t). Opens or closes the port to the MIDI device
          *
@@ -12,7 +12,7 @@ namespace jacdac {
         Enabled = 0x1,
     }
 
-    export const enum MIDIOutputCmd {
+    export const enum MidiOutputCmd {
         /**
          * No args. Clears any pending send data that has not yet been sent from the MIDIOutput's queue.
          */
