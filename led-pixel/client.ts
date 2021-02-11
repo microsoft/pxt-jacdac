@@ -33,7 +33,8 @@ namespace modules {
         //% weight=2 blockGap=8
         //% group="Light"
         setBrightness(brightness: number): void {
-            this.setReg(jacdac.LedPixelReg.Brightness, "u0.8", [brightness])
+            // jacdac expects brightness between 0...1, MakeCode usually uses 0..255
+            this.setReg(jacdac.LedPixelReg.Brightness, "u0.8", [brightness / 0xff])
         }
 
         runProgram(prog: Buffer) {
