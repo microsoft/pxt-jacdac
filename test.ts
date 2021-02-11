@@ -1,3 +1,39 @@
+namespace jacdac {
+    export const SRV_HUMIDITY = 0x16c810b8
+}
+namespace modules {
+    /**
+     * A sensor measuring humidity of outside environment.
+     **/
+    //% fixedInstances blockGap=8
+    export class HumidityClient extends jacdac.SensorClient<[number]> {
+        constructor(role: string) {
+            super(jacdac.SRV_HUMIDITY, role, "u22.10");
+        }
+    
+        /**
+        * The relative humidity in percentage of full water saturation.
+        */
+        //% blockId=jacdachumidity_101_0
+        //% group="humidity"
+        //% blockCombine block="humidity" callInDebugger
+        get humidity(): number {
+            const values = this.values() as any[];
+            return values && values.length > 0 && values[0];
+        }
+    }
+
+    //% fixedInstance whenUsed
+    export const humidity = new HumidityClient("humidity");
+}
+
+function humidityTest() {
+    for(let i = 0; i < 3; ++i) {
+        const h = modules.humidity.humidity;
+        console.log("humidity -> " + h)
+    }
+}
+
 function jdpackTest() {
     function testOne(fmt: string, data0: any[]) {
         function checksame(a: any, b: any) {
@@ -13,11 +49,13 @@ function jdpackTest() {
 
         const buf = jacdac.jdpack(fmt, data0)
         const data1 = jacdac.jdunpack(buf, fmt)
-        console.log(`${fmt} ${buf.toHex()}`)
+        console.log(`${JSON.stringify(data0)}->${fmt}->${buf.toHex()}->${JSON.stringify(data1)}`)
         // console.log(fmt, data0, data1, toHex(buf))
         checksame(data0, data1)
     }
 
+    testOne("i8", [-42])
+    testOne("u16", [42])
     testOne("u16 u16 i16", [42, 77, -10])
     testOne("u16 z s", [42, "foo", "bar"])
     testOne("u32 z s", [42, "foo", "bar"])
@@ -41,7 +79,9 @@ jacdac.roleManagerHost.start()
 jacdac.protoTestHost.start()
 jacdac.start()
 jacdac.loggerHost.log("test started")
-//jdpackTest()
+
+jdpackTest()
+humidityTest()
 
 function addClient(cls: number, name: string) {
     console.log(`client: ${name} (${cls})`)

@@ -20,7 +20,8 @@ namespace jacdac {
         }
 
         public values(): TReading {
-            return jdunpack(this.state, this.stateFormat) as TReading;
+            const unpacked = jdunpack(this.state, this.stateFormat) as TReading;
+            return unpacked;
         }
 
         announceCallback() {
