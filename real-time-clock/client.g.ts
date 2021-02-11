@@ -1,0 +1,114 @@
+namespace modules {
+    /**
+     * Real time clock to support collecting data with precise time stamps.
+     **/
+    //% fixedInstances blockGap=8
+    export class RealTimeClockClient extends jacdac.SensorClient<[number,number,number,number,number,number,number]> {
+        constructor(role: string) {
+            super(jacdac.SRV_REAL_TIME_CLOCK, role, "u16 u8 u8 u8 u8 u8 u8");
+        }
+    
+        /**
+        * Current time in 24h representation. 
+        * * ``day_of_month`` is day of the month, starting at ``1``
+        * * ``day_of_week`` is day of the week, starting at ``1`` as monday
+        * Default streaming period is 1 second.
+        */
+        //% blockId=jacdacrealtimeclock_101_0
+        //% group="year"
+        //% blockCombine block="year" callInDebugger
+        get year(): number {
+            const values = this.values();
+            return values && values[0];
+        }
+
+        /**
+        * Current time in 24h representation. 
+        * * ``day_of_month`` is day of the month, starting at ``1``
+        * * ``day_of_week`` is day of the week, starting at ``1`` as monday
+        * Default streaming period is 1 second.
+        */
+        //% blockId=jacdacrealtimeclock_101_1
+        //% group="month"
+        //% blockCombine block="month" callInDebugger
+        get month(): number {
+            const values = this.values();
+            return values && values[1];
+        }
+
+        /**
+        * Current time in 24h representation. 
+        * * ``day_of_month`` is day of the month, starting at ``1``
+        * * ``day_of_week`` is day of the week, starting at ``1`` as monday
+        * Default streaming period is 1 second.
+        */
+        //% blockId=jacdacrealtimeclock_101_2
+        //% group="day_of_month"
+        //% blockCombine block="day_of_month" callInDebugger
+        get dayOfMonth(): number {
+            const values = this.values();
+            return values && values[2];
+        }
+
+        /**
+        * Current time in 24h representation. 
+        * * ``day_of_month`` is day of the month, starting at ``1``
+        * * ``day_of_week`` is day of the week, starting at ``1`` as monday
+        * Default streaming period is 1 second.
+        */
+        //% blockId=jacdacrealtimeclock_101_3
+        //% group="day_of_week"
+        //% blockCombine block="day_of_week" callInDebugger
+        get dayOfWeek(): number {
+            const values = this.values();
+            return values && values[3];
+        }
+
+        /**
+        * Current time in 24h representation. 
+        * * ``day_of_month`` is day of the month, starting at ``1``
+        * * ``day_of_week`` is day of the week, starting at ``1`` as monday
+        * Default streaming period is 1 second.
+        */
+        //% blockId=jacdacrealtimeclock_101_4
+        //% group="hour"
+        //% blockCombine block="hour" callInDebugger
+        get hour(): number {
+            const values = this.values();
+            return values && values[4];
+        }
+
+        /**
+        * Current time in 24h representation. 
+        * * ``day_of_month`` is day of the month, starting at ``1``
+        * * ``day_of_week`` is day of the week, starting at ``1`` as monday
+        * Default streaming period is 1 second.
+        */
+        //% blockId=jacdacrealtimeclock_101_5
+        //% group="min"
+        //% blockCombine block="min" callInDebugger
+        get min(): number {
+            const values = this.values();
+            return values && values[5];
+        }
+
+        /**
+        * Current time in 24h representation. 
+        * * ``day_of_month`` is day of the month, starting at ``1``
+        * * ``day_of_week`` is day of the week, starting at ``1`` as monday
+        * Default streaming period is 1 second.
+        */
+        //% blockId=jacdacrealtimeclock_101_6
+        //% group="sec"
+        //% blockCombine block="sec" callInDebugger
+        get sec(): number {
+            const values = this.values();
+            return values && values[6];
+        }
+
+            
+    }
+
+    //% fixedInstance whenUsed
+    export const realTimeClock = new RealTimeClockClient("real Time Clock");
+}

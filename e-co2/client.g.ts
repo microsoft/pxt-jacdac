@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * Measures equivalent CO₂ levels.
+     **/
+    //% fixedInstances blockGap=8
     export class ECO2Client extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_E_CO2, role, "u22.10");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * Equivalent CO₂ (eCO₂) readings.
         */
-        //% blockId=jacdaceco2101 block="%sensor e co2"
+        //% blockId=jacdaceco2_101_0
         //% group="e_CO2"
+        //% blockCombine block="e_CO2" callInDebugger
         get e_CO2(): number {
-            // e_CO2
             const values = this.values();
             return values && values[0];
         }

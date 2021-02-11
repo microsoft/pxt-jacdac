@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * Measures the amount of liquid precipitation over an area in a predefined period of time.
+     **/
+    //% fixedInstances blockGap=8
     export class RainGaugeClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_RAIN_GAUGE, role, "u16.16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * Total precipitation recorded so far.
         */
-        //% blockId=jacdacraingauge101 block="%sensor precipitation"
+        //% blockId=jacdacraingauge_101_0
         //% group="precipitation"
+        //% blockCombine block="precipitation" callInDebugger
         get precipitation(): number {
-            // precipitation
             const values = this.values();
             return values && values[0];
         }

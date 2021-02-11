@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A simple buzzer.
+     **/
+    //% fixedInstances blockGap=8
     export class BuzzerClient extends jacdac.Client {
         constructor(role: string) {
             super(jacdac.SRV_BUZZER, role);

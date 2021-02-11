@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A switch, which keeps its position.
+     **/
+    //% fixedInstances blockGap=8
     export class SwitchClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_SWITCH, role, "u8");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * Indicates whether the switch is currently active (on).
         */
-        //% blockId=jacdacswitch101 block="%sensor active"
+        //% blockId=jacdacswitch_101_0
         //% group="active"
+        //% blockCombine block="active" callInDebugger
         get active(): number {
-            // active
             const values = this.values();
             return values && values[0];
         }

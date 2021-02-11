@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A sensor that measures luminosity level.
+     **/
+    //% fixedInstances blockGap=8
     export class LightLevelClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_LIGHT_LEVEL, role, "u0.16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * Detect light level
         */
-        //% blockId=jacdaclightlevel101 block="%sensor light level"
-        //% group="reading"
-        get reading(): number {
-            // lightLevel
+        //% blockId=jacdaclightlevel_101_0
+        //% group="light_level"
+        //% blockCombine block="light_level" callInDebugger
+        get lightLevel(): number {
             const values = this.values();
             return values && values[0];
         }

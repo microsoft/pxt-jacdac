@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A thermometer measuring outside or inside environment.
+     **/
+    //% fixedInstances blockGap=8
     export class ThermometerClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_THERMOMETER, role, "i22.10");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The temperature.
         */
-        //% blockId=jacdacthermometer101 block="%sensor temperature"
+        //% blockId=jacdacthermometer_101_0
         //% group="temperature"
+        //% blockCombine block="temperature" callInDebugger
         get temperature(): number {
-            // temperature
             const values = this.values();
             return values && values[0];
         }

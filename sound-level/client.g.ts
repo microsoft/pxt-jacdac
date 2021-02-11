@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A sound level detector sensor, gives a relative indication of the sound level.
+     **/
+    //% fixedInstances blockGap=8
     export class SoundLevelClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_SOUND_LEVEL, role, "u0.16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The sound level detected by the microphone
         */
-        //% blockId=jacdacsoundlevel101 block="%sensor sound level"
-        //% group="reading"
-        get reading(): number {
-            // soundLevel
+        //% blockId=jacdacsoundlevel_101_0
+        //% group="sound_level"
+        //% blockCombine block="sound_level" callInDebugger
+        get soundLevel(): number {
             const values = this.values();
             return values && values[0];
         }

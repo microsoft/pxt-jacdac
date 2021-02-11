@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A capacitive touch sensor with multiple inputs.
+     **/
+    //% fixedInstances blockGap=8
     export class MultitouchClient extends jacdac.SensorClient<[number[]]> {
         constructor(role: string) {
             super(jacdac.SRV_MULTITOUCH, role, "r: i32");
@@ -10,10 +13,10 @@ namespace modules {
         * no touch, wheres a value of around `100` or more indicates touch.
         * It's best to ignore this (unless debugging), and use events.
         */
-        //% blockId=jacdacmultitouch101 block="%sensor capacity"
-        //% group="capacity"
-        get capacity(): number[] {
-            // capacitance
+        //% blockId=jacdacmultitouch_101_0
+        //% group="capacitance"
+        //% blockCombine block="capacitance" callInDebugger
+        get capacitance(): number[] {
             const values = this.values();
             return values && values[0];
         }

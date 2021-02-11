@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A push-button, which returns to inactive position when not operated anymore.
+     **/
+    //% fixedInstances blockGap=8
     export class ButtonClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_BUTTON, role, "u8");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * Indicates whether the button is currently active (pressed).
         */
-        //% blockId=jacdacbutton101 block="%sensor pressed"
+        //% blockId=jacdacbutton_101_0
         //% group="pressed"
+        //% blockCombine block="pressed" callInDebugger
         get pressed(): number {
-            // pressed
             const values = this.values();
             return values && values[0];
         }

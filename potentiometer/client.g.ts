@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A slider or rotary potentiometer.
+     **/
+    //% fixedInstances blockGap=8
     export class PotentiometerClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_POTENTIOMETER, role, "u0.16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The relative position of the slider between `0` and `1`.
         */
-        //% blockId=jacdacpotentiometer101 block="%sensor position"
+        //% blockId=jacdacpotentiometer_101_0
         //% group="position"
+        //% blockCombine block="position" callInDebugger
         get position(): number {
-            // position
             const values = this.values();
             return values && values[0];
         }

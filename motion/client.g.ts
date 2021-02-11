@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A sensor, typically PIR, that detects object motion within a certain range
+     **/
+    //% fixedInstances blockGap=8
     export class MotionClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_MOTION, role, "u8");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * Reports is movement is currently detected by the sensor.
         */
-        //% blockId=jacdacmotion101 block="%sensor moving"
+        //% blockId=jacdacmotion_101_0
         //% group="moving"
+        //% blockCombine block="moving" callInDebugger
         get moving(): number {
-            // moving
             const values = this.values();
             return values && values[0];
         }

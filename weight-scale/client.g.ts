@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A weight measuring sensor.
+     **/
+    //% fixedInstances blockGap=8
     export class WeightScaleClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_WEIGHT_SCALE, role, "u16.16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The reported weight.
         */
-        //% blockId=jacdacweightscale101 block="%sensor weight"
+        //% blockId=jacdacweightscale_101_0
         //% group="weight"
+        //% blockCombine block="weight" callInDebugger
         get weight(): number {
-            // weight
             const values = this.values();
             return values && values[0];
         }

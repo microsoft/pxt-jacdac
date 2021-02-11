@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A sensor measuring humidity of outside environment.
+     **/
+    //% fixedInstances blockGap=8
     export class HumidityClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_HUMIDITY, role, "u22.10");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The relative humidity in percentage of full water saturation.
         */
-        //% blockId=jacdachumidity101 block="%sensor humidity"
-        //% group="reading"
-        get reading(): number {
-            // humidity
+        //% blockId=jacdachumidity_101_0
+        //% group="humidity"
+        //% blockCombine block="humidity" callInDebugger
+        get humidity(): number {
             const values = this.values();
             return values && values[0];
         }

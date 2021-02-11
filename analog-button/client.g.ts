@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A simple pressure sensitive push-button.
+     **/
+    //% fixedInstances blockGap=8
     export class AnalogButtonClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_ANALOG_BUTTON, role, "u0.16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * Indicates the current pressure (``force``) on the button.
         */
-        //% blockId=jacdacanalogbutton101 block="%sensor pressure"
+        //% blockId=jacdacanalogbutton_101_0
         //% group="pressure"
+        //% blockCombine block="pressure" callInDebugger
         get pressure(): number {
-            // pressure
             const values = this.values();
             return values && values[0];
         }

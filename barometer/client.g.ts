@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A sensor measuring air pressure of outside environment.
+     **/
+    //% fixedInstances blockGap=8
     export class BarometerClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_BAROMETER, role, "u22.10");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The air pressure.
         */
-        //% blockId=jacdacbarometer101 block="%sensor pressure"
+        //% blockId=jacdacbarometer_101_0
         //% group="pressure"
+        //% blockCombine block="pressure" callInDebugger
         get pressure(): number {
-            // pressure
             const values = this.values();
             return values && values[0];
         }

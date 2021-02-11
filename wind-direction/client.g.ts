@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A sensor that measures wind direction.
+     **/
+    //% fixedInstances blockGap=8
     export class WindDirectionClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_WIND_DIRECTION, role, "u16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The direction of the wind.
         */
-        //% blockId=jacdacwinddirection101 block="%sensor wind direction"
-        //% group="reading"
-        get reading(): number {
-            // windDirection
+        //% blockId=jacdacwinddirection_101_0
+        //% group="wind_direction"
+        //% blockCombine block="wind_direction" callInDebugger
+        get windDirection(): number {
             const values = this.values();
             return values && values[0];
         }

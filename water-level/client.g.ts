@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A sensor that measures liquid/water level.
+     **/
+    //% fixedInstances blockGap=8
     export class WaterLevelClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_WATER_LEVEL, role, "u0.16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The reported water level.
         */
-        //% blockId=jacdacwaterlevel101 block="%sensor level"
+        //% blockId=jacdacwaterlevel_101_0
         //% group="level"
+        //% blockCombine block="level" callInDebugger
         get level(): number {
-            // level
             const values = this.values();
             return values && values[0];
         }

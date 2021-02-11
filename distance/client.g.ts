@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A sensor that determines the distance of an object without any physical contact involved.
+     **/
+    //% fixedInstances blockGap=8
     export class DistanceClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_DISTANCE, role, "u16.16");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * Current distance from the object
         */
-        //% blockId=jacdacdistance101 block="%sensor distance"
-        //% group="reading"
-        get reading(): number {
-            // distance
+        //% blockId=jacdacdistance_101_0
+        //% group="distance"
+        //% blockCombine block="distance" callInDebugger
+        get distance(): number {
             const values = this.values();
             return values && values[0];
         }

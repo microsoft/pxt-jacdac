@@ -1,5 +1,12 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * Runs machine learning models.
+     * 
+     * Only models with a single input tensor and a single output tensor are supported at the moment.
+     * Input is provided by Sensor Aggregator service on the same device.
+     * Multiple instances of this service may be present, if more than one model format is supported by a device.
+     **/
+    //% fixedInstances blockGap=8
     export class ModelRunnerClient extends jacdac.SensorClient<[number[]]> {
         constructor(role: string) {
             super(jacdac.SRV_MODEL_RUNNER, role, "r: f32");
@@ -8,10 +15,10 @@ namespace modules {
         /**
         * Results of last model invocation as `float32` array.
         */
-        //% blockId=jacdacmodelrunner101 block="%sensor outputs"
-        //% group="outputs"
-        get outputs(): number[] {
-            // output
+        //% blockId=jacdacmodelrunner_101_0
+        //% group="output"
+        //% blockCombine block="output" callInDebugger
+        get output(): number[] {
             const values = this.values();
             return values && values[0];
         }

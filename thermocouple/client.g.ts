@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A thermocouple using a heat probe to gather temperatures.
+     **/
+    //% fixedInstances blockGap=8
     export class ThermocoupleClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
             super(jacdac.SRV_THERMOCOUPLE, role, "i22.10");
@@ -8,10 +11,10 @@ namespace modules {
         /**
         * The temperature.
         */
-        //% blockId=jacdacthermocouple101 block="%sensor temperature"
+        //% blockId=jacdacthermocouple_101_0
         //% group="temperature"
+        //% blockCombine block="temperature" callInDebugger
         get temperature(): number {
-            // temperature
             const values = this.values();
             return values && values[0];
         }

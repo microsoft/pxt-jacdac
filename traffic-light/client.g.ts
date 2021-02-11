@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * Controls a mini traffic with a red, orange and green LED.
+     **/
+    //% fixedInstances blockGap=8
     export class TrafficLightClient extends jacdac.Client {
         constructor(role: string) {
             super(jacdac.SRV_TRAFFIC_LIGHT, role);

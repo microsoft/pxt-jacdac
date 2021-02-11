@@ -1,5 +1,8 @@
 namespace modules {
-    //% fixedInstances
+    /**
+     * A switching relay.
+     **/
+    //% fixedInstances blockGap=8
     export class RelayClient extends jacdac.Client {
         constructor(role: string) {
             super(jacdac.SRV_RELAY, role);

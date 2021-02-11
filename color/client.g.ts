@@ -1,0 +1,49 @@
+namespace modules {
+    /**
+     * Senses RGB colors
+     **/
+    //% fixedInstances blockGap=8
+    export class ColorClient extends jacdac.SensorClient<[number,number,number]> {
+        constructor(role: string) {
+            super(jacdac.SRV_COLOR, role, "u0.16 u0.16 u0.16");
+        }
+    
+        /**
+        * Detected color in the RGB color space.
+        */
+        //% blockId=jacdaccolor_101_0
+        //% group="red"
+        //% blockCombine block="red" callInDebugger
+        get red(): number {
+            const values = this.values();
+            return values && values[0];
+        }
+
+        /**
+        * Detected color in the RGB color space.
+        */
+        //% blockId=jacdaccolor_101_1
+        //% group="green"
+        //% blockCombine block="green" callInDebugger
+        get green(): number {
+            const values = this.values();
+            return values && values[1];
+        }
+
+        /**
+        * Detected color in the RGB color space.
+        */
+        //% blockId=jacdaccolor_101_2
+        //% group="blue"
+        //% blockCombine block="blue" callInDebugger
+        get blue(): number {
+            const values = this.values();
+            return values && values[2];
+        }
+
+            
+    }
+
+    //% fixedInstance whenUsed
+    export const color = new ColorClient("color");
+}
