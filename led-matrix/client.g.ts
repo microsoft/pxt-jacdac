@@ -21,9 +21,8 @@ namespace modules {
         */
         //% group="LED Matrix" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {
-            this._brightness.pauseUntilValues();
-            const values = this._brightness.values as any[];
+        get brightness(): number {            
+            const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -42,9 +41,8 @@ namespace modules {
         */
         //% group="LED Matrix" blockSetVariable=myModule
         //% blockCombine block="leds" callInDebugger
-        get leds(): Buffer {
-            this._leds.pauseUntilValues();
-            const values = this._leds.values as any[];
+        get leds(): Buffer {            
+            const values = this._leds.pauseUntilValues() as any[];
             return values[0];
         }
         /**

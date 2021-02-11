@@ -18,8 +18,8 @@ namespace modules {
         //% group="Analog Button" blockSetVariable=myModule
         //% blockCombine block="pressure" callInDebugger
         get pressure(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

@@ -18,8 +18,8 @@ namespace modules {
         //% group="Switch" blockSetVariable=myModule
         //% blockCombine block="active" callInDebugger
         get active(): boolean {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return !!values[0];
         } 
 

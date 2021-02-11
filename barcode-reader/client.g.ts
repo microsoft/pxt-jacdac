@@ -19,9 +19,8 @@ namespace modules {
         */
         //% group="Barcode reader" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {
-            this._enabled.pauseUntilValues();
-            const values = this._enabled.values as any[];
+        get enabled(): boolean {            
+            const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**

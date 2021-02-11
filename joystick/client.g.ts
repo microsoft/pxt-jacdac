@@ -19,8 +19,8 @@ namespace modules {
         //% group="Joystick" blockSetVariable=myModule
         //% blockCombine block="x" callInDebugger
         get x(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -30,8 +30,8 @@ namespace modules {
         //% group="Joystick" blockSetVariable=myModule
         //% blockCombine block="y" callInDebugger
         get y(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[1];
         } 
 

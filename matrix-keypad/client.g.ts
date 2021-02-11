@@ -19,8 +19,8 @@ namespace modules {
         //% group="Matrix Keypad" blockSetVariable=myModule
         //% blockCombine block="index" callInDebugger
         get index(): number[] {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

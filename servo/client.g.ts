@@ -21,9 +21,8 @@ namespace modules {
         */
         //% group="Servo" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {
-            this._enabled.pauseUntilValues();
-            const values = this._enabled.values as any[];
+        get enabled(): boolean {            
+            const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
@@ -41,9 +40,8 @@ namespace modules {
         */
         //% group="Servo" blockSetVariable=myModule
         //% blockCombine block="angle" callInDebugger
-        get angle(): number {
-            this._angle.pauseUntilValues();
-            const values = this._angle.values as any[];
+        get angle(): number {            
+            const values = this._angle.pauseUntilValues() as any[];
             return values[0];
         }
         /**

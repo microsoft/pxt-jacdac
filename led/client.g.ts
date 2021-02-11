@@ -20,9 +20,8 @@ namespace modules {
         */
         //% group="LED" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {
-            this._brightness.pauseUntilValues();
-            const values = this._brightness.values as any[];
+        get brightness(): number {            
+            const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**

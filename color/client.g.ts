@@ -18,8 +18,8 @@ namespace modules {
         //% group="Color" blockSetVariable=myModule
         //% blockCombine block="red" callInDebugger
         get red(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -28,8 +28,8 @@ namespace modules {
         //% group="Color" blockSetVariable=myModule
         //% blockCombine block="green" callInDebugger
         get green(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[1];
         }
         /**
@@ -38,8 +38,8 @@ namespace modules {
         //% group="Color" blockSetVariable=myModule
         //% blockCombine block="blue" callInDebugger
         get blue(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[2];
         } 
 

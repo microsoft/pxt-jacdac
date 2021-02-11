@@ -18,8 +18,8 @@ namespace modules {
         //% group="Light level" blockSetVariable=myModule
         //% blockCombine block="light level" callInDebugger
         get lightLevel(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

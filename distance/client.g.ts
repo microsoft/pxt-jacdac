@@ -18,8 +18,8 @@ namespace modules {
         //% group="Distance" blockSetVariable=myModule
         //% blockCombine block="distance" callInDebugger
         get distance(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

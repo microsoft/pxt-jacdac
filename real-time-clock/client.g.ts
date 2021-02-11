@@ -21,8 +21,8 @@ namespace modules {
         //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="year" callInDebugger
         get year(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -34,8 +34,8 @@ namespace modules {
         //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="month" callInDebugger
         get month(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[1];
         }
         /**
@@ -47,8 +47,8 @@ namespace modules {
         //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="day of month" callInDebugger
         get dayOfMonth(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[2];
         }
         /**
@@ -60,8 +60,8 @@ namespace modules {
         //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="day of week" callInDebugger
         get dayOfWeek(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[3];
         }
         /**
@@ -73,8 +73,8 @@ namespace modules {
         //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="hour" callInDebugger
         get hour(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[4];
         }
         /**
@@ -86,8 +86,8 @@ namespace modules {
         //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="min" callInDebugger
         get min(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[5];
         }
         /**
@@ -99,8 +99,8 @@ namespace modules {
         //% group="Real time clock" blockSetVariable=myModule
         //% blockCombine block="sec" callInDebugger
         get sec(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[6];
         } 
 

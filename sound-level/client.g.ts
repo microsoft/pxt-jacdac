@@ -18,8 +18,8 @@ namespace modules {
         //% group="Sound level" blockSetVariable=myModule
         //% blockCombine block="sound level" callInDebugger
         get soundLevel(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

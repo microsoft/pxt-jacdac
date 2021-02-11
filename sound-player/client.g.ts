@@ -19,9 +19,8 @@ namespace modules {
         */
         //% group="Sound player" blockSetVariable=myModule
         //% blockCombine block="volume" callInDebugger
-        get volume(): number {
-            this._volume.pauseUntilValues();
-            const values = this._volume.values as any[];
+        get volume(): number {            
+            const values = this._volume.pauseUntilValues() as any[];
             return values[0];
         }
         /**

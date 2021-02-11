@@ -19,9 +19,8 @@ namespace modules {
         */
         //% group="Relay" blockSetVariable=myModule
         //% blockCombine block="closed" callInDebugger
-        get closed(): boolean {
-            this._closed.pauseUntilValues();
-            const values = this._closed.values as any[];
+        get closed(): boolean {            
+            const values = this._closed.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**

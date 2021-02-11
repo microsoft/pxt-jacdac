@@ -21,9 +21,8 @@ namespace modules {
         */
         //% group="Character Screen" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {
-            this._brightness.pauseUntilValues();
-            const values = this._brightness.values as any[];
+        get brightness(): number {            
+            const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -41,9 +40,8 @@ namespace modules {
         */
         //% group="Character Screen" blockSetVariable=myModule
         //% blockCombine block="message" callInDebugger
-        get message(): string {
-            this._message.pauseUntilValues();
-            const values = this._message.values as any[];
+        get message(): string {            
+            const values = this._message.pauseUntilValues() as any[];
             return values[0];
         }
         /**

@@ -21,9 +21,8 @@ namespace modules {
         */
         //% group="Motor" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {
-            this._enabled.pauseUntilValues();
-            const values = this._enabled.values as any[];
+        get enabled(): boolean {            
+            const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
@@ -43,9 +42,8 @@ namespace modules {
         */
         //% group="Motor" blockSetVariable=myModule
         //% blockCombine block="duty" callInDebugger
-        get duty(): number {
-            this._duty.pauseUntilValues();
-            const values = this._duty.values as any[];
+        get duty(): number {            
+            const values = this._duty.pauseUntilValues() as any[];
             return values[0];
         }
         /**

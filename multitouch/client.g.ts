@@ -20,8 +20,8 @@ namespace modules {
         //% group="Multitouch" blockSetVariable=myModule
         //% blockCombine block="capacitance" callInDebugger
         get capacitance(): number[] {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 

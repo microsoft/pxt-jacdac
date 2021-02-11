@@ -21,9 +21,8 @@ namespace modules {
         */
         //% group="7-segment display" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {
-            this._brightness.pauseUntilValues();
-            const values = this._brightness.values as any[];
+        get brightness(): number {            
+            const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -54,9 +53,8 @@ namespace modules {
         */
         //% group="7-segment display" blockSetVariable=myModule
         //% blockCombine block="digits" callInDebugger
-        get digits(): Buffer {
-            this._digits.pauseUntilValues();
-            const values = this._digits.values as any[];
+        get digits(): Buffer {            
+            const values = this._digits.pauseUntilValues() as any[];
             return values[0];
         }
         /**

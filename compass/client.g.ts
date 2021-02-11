@@ -20,8 +20,8 @@ namespace modules {
         //% group="Compass" blockSetVariable=myModule
         //% blockCombine block="heading" callInDebugger
         get heading(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
         /**
@@ -29,9 +29,8 @@ namespace modules {
         */
         //% group="Compass" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {
-            this._enabled.pauseUntilValues();
-            const values = this._enabled.values as any[];
+        get enabled(): boolean {            
+            const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**

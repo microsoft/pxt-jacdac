@@ -20,8 +20,8 @@ namespace modules {
         //% group="Pulse Oximeter" blockSetVariable=myModule
         //% blockCombine block="oxygen" callInDebugger
         get oxygen(): number {
-            this._reading.pauseUntilValues();
-            const values = this._reading.values as any[];
+            this.setStreaming(true);            
+            const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         } 
 
