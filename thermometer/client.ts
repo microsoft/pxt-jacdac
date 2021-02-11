@@ -48,5 +48,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const thermometer = new ThermometerClient("temp");
+    export const thermometer = new ThermometerClient("thermometer");
 }
