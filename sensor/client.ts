@@ -21,7 +21,7 @@ namespace jacdac {
 
         announceCallback() {
             if (this.isStreaming)
-                this.setRegInt(SystemReg.StreamingSamples, this.isStreaming ? 255 : 0)
+                this.setReg(SystemReg.StreamingSamples, "u8", [this.isStreaming ? 255 : 0])
         }
 
         /**
@@ -31,9 +31,9 @@ namespace jacdac {
         public setStreaming(on: boolean, interval?: number) {
             this.start();
             this.isStreaming = on
-            this.setRegInt(SystemReg.StreamingSamples, this.isStreaming ? 255 : 0)
+            this.setReg(SystemReg.StreamingSamples, "u8", [this.isStreaming ? 255 : 0])
             if (interval != undefined)
-                this.setRegInt(SystemReg.StreamingInterval, interval)
+                this.setReg(SystemReg.StreamingInterval, "u32", [interval])
         }
 
         /**
@@ -71,10 +71,6 @@ namespace jacdac {
         }
 
         protected handleVirtualState(state: Buffer) {
-        }
-
-        protected setThreshold(low: boolean, value: number) {
-            this.setRegInt(low ? SystemReg.LowThreshold : SystemReg.HighThreshold, value)
         }
     }
 

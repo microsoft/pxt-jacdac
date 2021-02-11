@@ -1,26 +1,26 @@
 namespace modules {
     //% fixedInstances
-    export class MonoLightAnimation {
+    export class LEDAnimation {
         constructor(public buffer: Buffer) { }
     }
 
-    export namespace mono {
+    export namespace ledAnimations {
         //% fixedInstance whenUsed
         //% block="slow glow"
-        export const slowGlow = new MonoLightAnimation(hex`000f dc05 ffff dc05 000f 0100`)
+        export const slowGlow = new LEDAnimation(hex`000f dc05 ffff dc05 000f 0100`)
         //% fixedInstance whenUsed
         //% block="stable"
-        export const stable = new MonoLightAnimation(hex`ffff e803 ffff 0000`)
+        export const stable = new LEDAnimation(hex`ffff e803 ffff 0000`)
         //% fixedInstance whenUsed
         //% block="blink"
-        export const blink = new MonoLightAnimation(hex`ffff f401 ffff 0100 0000 fd01`)
+        export const blink = new LEDAnimation(hex`ffff f401 ffff 0100 0000 fd01`)
     }
 
     //% fixedInstances
     //% blockGap=8
-    export class MonoLightClient extends jacdac.Client {
+    export class LEDClient extends jacdac.Client {
         constructor(role: string) {
-            super(jacdac.SRV_MONO_LIGHT, role);
+            super(jacdac.SRV_LED, role);
         }
 
         // set to negative for infinity
@@ -28,7 +28,8 @@ namespace modules {
             numIters |= 0
             if (numIters < 0 || numIters >= 0xffff) numIters = 0xffffffff
             else if (numIters) numIters--
-            this.setRegInt(jacdac.MonoLightReg.MaxIterations, numIters)
+         //   this.setReg(jacdac.LedReg.MaxIterations, numIters)
+            throw "TODO"
         }
 
         /**
@@ -40,7 +41,7 @@ namespace modules {
         //% brightness.max=255
         //% group="Mono Light"
         setBrightness(brightness: number): void {
-            this.setRegInt(jacdac.MonoLightReg.Brightness, brightness << 8)
+            this.setReg(jacdac.LedReg.Brightness, "u0.16", [brightness])
         }
 
         /**
@@ -48,7 +49,7 @@ namespace modules {
          */
         //% blockId=jacdacmonolightshowanimation block="%monoLight show $animation animation"
         //% group="Mono Light"
-        showAnimation(animation: MonoLightAnimation, speed = 100) {
+        showAnimation(animation: LEDAnimation, speed = 100) {
             const anim = animation.buffer.slice()
             if (speed != 100) {
                 for (let i = 0; i < anim.length; i += 4) {
@@ -58,10 +59,10 @@ namespace modules {
                     anim.setNumber(NumberFormat.UInt16LE, i + 2, adj)
                 }
             }
-            this.setRegBuffer(jacdac.MonoLightReg.Steps, anim)
+            this.setRegBuffer(jacdac.LedReg.Steps, anim)
         }
     }
 
     //% fixedInstance whenUsed
-    export const monoLight = new MonoLightClient("mono_light");
+    export const led = new LEDClient("led");
 }

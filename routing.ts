@@ -374,9 +374,10 @@ namespace jacdac {
         }
 
         // this will be re-sent on (re)attach
-        setRegInt(reg: number, value: number) {
-            this.start()
-            this.config.send(JDPacket.jdpacked(CMD_SET_REG | reg, "i32", [value]))
+        setReg(reg: number, format: string, values: (string | number | Buffer)[]) {
+            this.start();
+            const payload = JDPacket.jdpacked(CMD_SET_REG | reg, format, values);
+            this.config.send(payload);
         }
 
         setRegBuffer(reg: number, value: Buffer) {

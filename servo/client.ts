@@ -15,10 +15,10 @@ namespace modules {
             if (n === this.pulse)
                 return
             if (n == null) {
-                this.setRegInt(jacdac.SystemReg.Intensity, 0)
+                this.setReg(jacdac.ServoReg.Enabled, "u8", [0])
             } else {
-                this.setRegInt(jacdac.SystemReg.Value, n | 0)
-                this.setRegInt(jacdac.SystemReg.Intensity, 1)
+                this.setReg(jacdac.ServoReg.Angle, "u8", [n | 0])
+                this.setReg(jacdac.ServoReg.Enabled, "u8", [1])
             }
             this.pulse = n
         }

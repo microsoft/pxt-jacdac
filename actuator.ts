@@ -1,31 +1,4 @@
 namespace jacdac {
-    export class ActuatorService extends Host {
-        state: Buffer;
-        intensity: number;
-
-        constructor(name: string, deviceClass: number, stateLength: number) {
-            super(name, deviceClass);
-            this.state = control.createBuffer(stateLength);
-            this.intensity = 0
-        }
-
-        public handlePacket(packet: JDPacket) {
-            this.stateUpdated = false
-
-            this.intensity = this.handleRegUInt32(packet, SystemReg.Intensity, this.intensity)
-            this.state = this.handleRegBuffer(packet, SystemReg.Value, this.state)
-
-            if (this.stateUpdated)
-                this.handleStateChanged();
-            else
-                this.handleCustomCommand(packet)
-        }
-
-        protected handleCustomCommand(pkt: JDPacket): void { }
-
-        protected handleStateChanged(): void { }
-    }
-
     export class ActuatorClient extends Client {
         protected state: Buffer;
 

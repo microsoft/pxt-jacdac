@@ -37,7 +37,7 @@ namespace jacdac {
         }
 
         announceCallback() {
-            this.setRegInt(SensorReg.StreamingSamples, 255)
+            this.setReg(SensorReg.StreamingSamples, "u8", [255])
         }
 
         constructor(parent: SensorAggregatorHost, config: Buffer) {
@@ -169,8 +169,8 @@ namespace jacdac {
             let frameSz = 0
             while (off < config.length) {
                 const coll = new Collector(this, config.slice(off, entrySize))
-                coll.setRegInt(SensorReg.StreamingInterval, this.samplingInterval)
-                coll.setRegInt(SensorReg.StreamingSamples, 255)
+                coll.setReg(SensorReg.StreamingInterval, "u32", [this.samplingInterval])
+                coll.setReg(SensorReg.StreamingSamples, "u8", [255])
                 this.collectors.push(coll)
                 frameSz += coll.lastSample.length
                 off += entrySize

@@ -40,5 +40,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const button = new ButtonClient("btn");
+    export const button = new ButtonClient("button");
 }
