@@ -14,7 +14,7 @@ namespace modules {
         * The amount of illuminance, as lumens per square metre.
         */
         //% blockId=jacdacilluminance_101_0
-        //% group="light"
+        //% group="light" blockSetVariable=myModule
         //% blockCombine block="light" callInDebugger
         get light(): number {
             const values = this.values() as any[];

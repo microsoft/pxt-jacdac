@@ -12,7 +12,7 @@ namespace modules {
         * Indicates the wetness of the soil, from ``dry`` to ``wet``.
         */
         //% blockId=jacdacsoilmoisture_101_0
-        //% group="moisture"
+        //% group="moisture" blockSetVariable=myModule
         //% blockCombine block="moisture" callInDebugger
         get moisture(): number {
             const values = this.values() as any[];

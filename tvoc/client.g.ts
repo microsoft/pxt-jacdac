@@ -12,7 +12,7 @@ namespace modules {
         * Total volatile organic compound readings in parts per billion.
         */
         //% blockId=jacdactvoc_101_0
-        //% group="TVOC"
+        //% group="TVOC" blockSetVariable=myModule
         //% blockCombine block="TVOC" callInDebugger
         get tVOC(): number {
             const values = this.values() as any[];

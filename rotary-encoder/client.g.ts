@@ -13,7 +13,7 @@ namespace modules {
         * Increases by `1` for a clockwise "click", by `-1` for counter-clockwise.
         */
         //% blockId=jacdacrotaryencoder_101_0
-        //% group="position"
+        //% group="position" blockSetVariable=myModule
         //% blockCombine block="position" callInDebugger
         get position(): number {
             const values = this.values() as any[];

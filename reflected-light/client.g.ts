@@ -12,7 +12,7 @@ namespace modules {
         * Reports the reflected brightness. It may be a digital value or, for some sensor, analog value.
         */
         //% blockId=jacdacreflectedlight_101_0
-        //% group="brightness"
+        //% group="brightness" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
         get brightness(): number {
             const values = this.values() as any[];

@@ -12,7 +12,7 @@ namespace modules {
         * Indicates whether the button is currently active (pressed).
         */
         //% blockId=jacdacbutton_101_0
-        //% group="pressed"
+        //% group="pressed" blockSetVariable=myModule
         //% blockCombine block="pressed" callInDebugger
         get pressed(): number {
             const values = this.values() as any[];

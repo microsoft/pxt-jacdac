@@ -12,7 +12,7 @@ namespace modules {
         * Indicates the current pressure (``force``) on the button.
         */
         //% blockId=jacdacanalogbutton_101_0
-        //% group="pressure"
+        //% group="pressure" blockSetVariable=myModule
         //% blockCombine block="pressure" callInDebugger
         get pressure(): number {
             const values = this.values() as any[];

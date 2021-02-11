@@ -12,7 +12,7 @@ namespace modules {
         * Ultraviolet index, typically refreshed every second.
         */
         //% blockId=jacdacuvindex_101_0
-        //% group="uv_index"
+        //% group="uv_index" blockSetVariable=myModule
         //% blockCombine block="uv_index" callInDebugger
         get uvIndex(): number {
             const values = this.values() as any[];

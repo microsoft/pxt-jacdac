@@ -12,7 +12,7 @@ namespace modules {
         * Indicates whether the switch is currently active (on).
         */
         //% blockId=jacdacswitch_101_0
-        //% group="active"
+        //% group="active" blockSetVariable=myModule
         //% blockCombine block="active" callInDebugger
         get active(): number {
             const values = this.values() as any[];

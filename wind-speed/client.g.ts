@@ -12,7 +12,7 @@ namespace modules {
         * The velocity of the wind.
         */
         //% blockId=jacdacwindspeed_101_0
-        //% group="wind_speed"
+        //% group="wind_speed" blockSetVariable=myModule
         //% blockCombine block="wind_speed" callInDebugger
         get windSpeed(): number {
             const values = this.values() as any[];

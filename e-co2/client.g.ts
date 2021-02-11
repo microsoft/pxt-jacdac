@@ -12,7 +12,7 @@ namespace modules {
         * Equivalent CO₂ (eCO₂) readings.
         */
         //% blockId=jacdaceco2_101_0
-        //% group="e_CO2"
+        //% group="e_CO2" blockSetVariable=myModule
         //% blockCombine block="e_CO2" callInDebugger
         get e_CO2(): number {
             const values = this.values() as any[];

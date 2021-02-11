@@ -12,7 +12,7 @@ namespace modules {
         * Detected color in the RGB color space.
         */
         //% blockId=jacdaccolor_101_0
-        //% group="red"
+        //% group="red" blockSetVariable=myModule
         //% blockCombine block="red" callInDebugger
         get red(): number {
             const values = this.values() as any[];
@@ -23,7 +23,7 @@ namespace modules {
         * Detected color in the RGB color space.
         */
         //% blockId=jacdaccolor_101_1
-        //% group="green"
+        //% group="green" blockSetVariable=myModule
         //% blockCombine block="green" callInDebugger
         get green(): number {
             const values = this.values() as any[];
@@ -34,7 +34,7 @@ namespace modules {
         * Detected color in the RGB color space.
         */
         //% blockId=jacdaccolor_101_2
-        //% group="blue"
+        //% group="blue" blockSetVariable=myModule
         //% blockCombine block="blue" callInDebugger
         get blue(): number {
             const values = this.values() as any[];

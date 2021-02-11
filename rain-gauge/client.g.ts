@@ -12,7 +12,7 @@ namespace modules {
         * Total precipitation recorded so far.
         */
         //% blockId=jacdacraingauge_101_0
-        //% group="precipitation"
+        //% group="precipitation" blockSetVariable=myModule
         //% blockCombine block="precipitation" callInDebugger
         get precipitation(): number {
             const values = this.values() as any[];

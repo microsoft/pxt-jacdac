@@ -12,7 +12,7 @@ namespace modules {
         * Present current draw from the bus.
         */
         //% blockId=jacdacpower_101_0
-        //% group="current_draw"
+        //% group="current_draw" blockSetVariable=myModule
         //% blockCombine block="current_draw" callInDebugger
         get currentDraw(): number {
             const values = this.values() as any[];

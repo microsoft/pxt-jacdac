@@ -13,7 +13,7 @@ namespace modules {
         * If joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.
         */
         //% blockId=jacdacjoystick_101_0
-        //% group="x"
+        //% group="x" blockSetVariable=myModule
         //% blockCombine block="x" callInDebugger
         get x(): number {
             const values = this.values() as any[];
@@ -25,7 +25,7 @@ namespace modules {
         * If joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.
         */
         //% blockId=jacdacjoystick_101_1
-        //% group="y"
+        //% group="y" blockSetVariable=myModule
         //% blockCombine block="y" callInDebugger
         get y(): number {
             const values = this.values() as any[];

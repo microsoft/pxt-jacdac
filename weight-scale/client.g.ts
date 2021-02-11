@@ -12,7 +12,7 @@ namespace modules {
         * The reported weight.
         */
         //% blockId=jacdacweightscale_101_0
-        //% group="weight"
+        //% group="weight" blockSetVariable=myModule
         //% blockCombine block="weight" callInDebugger
         get weight(): number {
             const values = this.values() as any[];

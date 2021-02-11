@@ -16,7 +16,7 @@ namespace modules {
         * Results of last model invocation as `float32` array.
         */
         //% blockId=jacdacmodelrunner_101_0
-        //% group="output"
+        //% group="output" blockSetVariable=myModule
         //% blockCombine block="output" callInDebugger
         get output(): number[] {
             const values = this.values() as any[];

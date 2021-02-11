@@ -12,7 +12,7 @@ namespace modules {
         * The sound level detected by the microphone
         */
         //% blockId=jacdacsoundlevel_101_0
-        //% group="sound_level"
+        //% group="sound_level" blockSetVariable=myModule
         //% blockCombine block="sound_level" callInDebugger
         get soundLevel(): number {
             const values = this.values() as any[];

@@ -12,7 +12,7 @@ namespace modules {
         * Current distance from the object
         */
         //% blockId=jacdacdistance_101_0
-        //% group="distance"
+        //% group="distance" blockSetVariable=myModule
         //% blockCombine block="distance" callInDebugger
         get distance(): number {
             const values = this.values() as any[];
