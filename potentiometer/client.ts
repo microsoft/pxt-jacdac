@@ -16,7 +16,7 @@ namespace modules {
                 this.setStreaming(true, 100)
             }
 
-            const [value = 0] = this.values();
+            const [value = 0] = this.values;
             return value;
         }
     }

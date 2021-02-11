@@ -15,7 +15,9 @@ namespace modules {
         //% blockId=jdmultitouchvalue block="%multiTouch value at $index"
         //% group="Touch"
         value(index: number): number {
-            const values = this.values();
+            if (!this._reading.hasValues())
+                pauseUntil(() => this._reading.hasValues(), 2000)
+            const values = this._reading.values;
             const value = values[index >> 0];
             return value != null ? value : -1;
         }

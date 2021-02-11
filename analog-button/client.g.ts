@@ -18,23 +18,26 @@ namespace modules {
         //% group="Analog Button" blockSetVariable=myModule
         //% blockCombine block="pressure" callInDebugger
         get pressure(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 
         /**
          * Emitted when button goes from inactive (pressure less than threshold) to active.
          */
+        //% blockId=jacdac_on_analogbutton_active
         //% block="active" blockSetVariable=myModule
-        //% group="Analog Button" blockCombine
+        //% group="Analog Button"
         onActive(handler: () => void) {
             this.registerEvent(jacdac.AnalogButtonEvent.Active, handler);
         }
         /**
          * Emitted when button goes from active (pressure higher than threshold) to inactive.
          */
+        //% blockId=jacdac_on_analogbutton_inactive
         //% block="inactive" blockSetVariable=myModule
-        //% group="Analog Button" blockCombine
+        //% group="Analog Button"
         onInactive(handler: () => void) {
             this.registerEvent(jacdac.AnalogButtonEvent.Inactive, handler);
         }

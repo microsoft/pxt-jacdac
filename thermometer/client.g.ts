@@ -18,7 +18,8 @@ namespace modules {
         //% group="Thermometer" blockSetVariable=myModule
         //% blockCombine block="temperature" callInDebugger
         get temperature(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

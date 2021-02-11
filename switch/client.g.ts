@@ -18,23 +18,26 @@ namespace modules {
         //% group="Switch" blockSetVariable=myModule
         //% blockCombine block="active" callInDebugger
         get active(): boolean {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return !!values[0];
         } 
 
         /**
          * Emitted when switch goes from ``off`` to ``on``.
          */
+        //% blockId=jacdac_on_switch_on
         //% block="on" blockSetVariable=myModule
-        //% group="Switch" blockCombine
+        //% group="Switch"
         onOn(handler: () => void) {
             this.registerEvent(jacdac.SwitchEvent.On, handler);
         }
         /**
          * Emitted when switch goes from ``on`` to ``off``.
          */
+        //% blockId=jacdac_on_switch_off
         //% block="off" blockSetVariable=myModule
-        //% group="Switch" blockCombine
+        //% group="Switch"
         onOff(handler: () => void) {
             this.registerEvent(jacdac.SwitchEvent.Off, handler);
         }

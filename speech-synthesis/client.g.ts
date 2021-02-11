@@ -20,7 +20,8 @@ namespace modules {
         //% group="Speech synthesis" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
         get enabled(): boolean {
-            const values = this._enabled.values() as any[];
+            this._enabled.pauseUntilValues();
+            const values = this._enabled.values as any[];
             return !!values[0];
         }
         /**
@@ -29,9 +30,9 @@ namespace modules {
         //% group="Speech synthesis" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
         set enabled(value: boolean) {
-            const values = this._enabled.values() as any[];
+            const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
-            this._enabled.setValues(values as [boolean]);
+            this._enabled.values = values as [boolean];
         } 
 
     }

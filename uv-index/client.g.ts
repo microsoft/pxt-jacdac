@@ -18,7 +18,8 @@ namespace modules {
         //% group="UV index" blockSetVariable=myModule
         //% blockCombine block="uv index" callInDebugger
         get uvIndex(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

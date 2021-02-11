@@ -18,7 +18,8 @@ namespace modules {
         //% group="Water level" blockSetVariable=myModule
         //% blockCombine block="level" callInDebugger
         get level(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

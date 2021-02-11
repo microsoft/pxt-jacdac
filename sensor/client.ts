@@ -2,19 +2,14 @@ namespace jacdac {
     //% fixedInstances
     //% weight=1
     export class SensorClient<TReading extends PackSimpleDataType[]> extends Client {
-        readonly reading: RegisterClient<TReading>
+        protected readonly _reading: RegisterClient<TReading>
         private _stateChangedHandler: () => void;
 
         public isStreaming = false
 
         constructor(deviceClass: number, role: string, stateFormat: string) {
             super(deviceClass, role);
-            this.reading = this.addRegister(SystemReg.Reading, stateFormat)
-        }
-
-        public values(): TReading {
-            this.start();
-            return this.reading.values()
+            this._reading = this.addRegister(SystemReg.Reading, stateFormat)
         }
 
         announceCallback() {
@@ -42,7 +37,7 @@ namespace jacdac {
         }
 
         public onStateChanged(handler: () => void) {
-            this.reading.onDataChanged(handler);
+            this._reading.onDataChanged(handler);
             this.start();
         }
     }
@@ -72,7 +67,7 @@ namespace jacdac {
 
         handlePacket(packet: JDPacket) {
             if (this._samples && packet.serviceCommand == (CMD_GET_REG | SystemReg.Reading)) {
-                const v = jdunpack(packet.data, this.reading.packFormat) as TReading;
+                const v = jdunpack(packet.data, this._reading.packFormat) as TReading;
                 if (v != null) {
                     let num = 1
                     if (this._lastTimestamp != undefined) {

@@ -18,7 +18,8 @@ namespace modules {
         //% group="Gyroscope" blockSetVariable=myModule
         //% blockCombine block="x" callInDebugger
         get x(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         }
         /**
@@ -27,7 +28,8 @@ namespace modules {
         //% group="Gyroscope" blockSetVariable=myModule
         //% blockCombine block="y" callInDebugger
         get y(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[1];
         }
         /**
@@ -36,7 +38,8 @@ namespace modules {
         //% group="Gyroscope" blockSetVariable=myModule
         //% blockCombine block="z" callInDebugger
         get z(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[2];
         } 
 

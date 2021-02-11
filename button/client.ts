@@ -22,7 +22,9 @@ namespace modules {
         //% blockId=jacadacbtispressed block="%button is pressed"
         //% group="Buttons"
         isPressed(): boolean {
-            const [value] = this.values();
+            if (!this._reading.hasValues())
+                pauseUntil(() => this._reading.hasValues(), 2000)
+            const [value] = this._reading.values;
             return !!value;
         }
 

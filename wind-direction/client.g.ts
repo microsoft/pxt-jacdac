@@ -18,7 +18,8 @@ namespace modules {
         //% group="Wind direction" blockSetVariable=myModule
         //% blockCombine block="wind direction" callInDebugger
         get windDirection(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

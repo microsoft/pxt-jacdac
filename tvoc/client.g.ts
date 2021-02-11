@@ -18,7 +18,8 @@ namespace modules {
         //% group="Total Volatile organic compound" blockSetVariable=myModule
         //% blockCombine block="TVOC" callInDebugger
         get tVOC(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

@@ -20,7 +20,8 @@ namespace modules {
         //% group="Sound player" blockSetVariable=myModule
         //% blockCombine block="volume" callInDebugger
         get volume(): number {
-            const values = this._volume.values() as any[];
+            this._volume.pauseUntilValues();
+            const values = this._volume.values as any[];
             return values[0];
         }
         /**
@@ -29,9 +30,9 @@ namespace modules {
         //% group="Sound player" blockSetVariable=myModule
         //% blockCombine block="volume" callInDebugger
         set volume(value: number) {
-            const values = this._volume.values() as any[];
+            const values = this._volume.values as any[];
             values[0] = value;
-            this._volume.setValues(values as [number]);
+            this._volume.values = values as [number];
         } 
 
     }

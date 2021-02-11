@@ -18,7 +18,8 @@ namespace modules {
         //% group="Soil moisture" blockSetVariable=myModule
         //% blockCombine block="moisture" callInDebugger
         get moisture(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

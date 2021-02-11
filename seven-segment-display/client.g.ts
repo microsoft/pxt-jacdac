@@ -22,7 +22,8 @@ namespace modules {
         //% group="7-segment display" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
         get brightness(): number {
-            const values = this._brightness.values() as any[];
+            this._brightness.pauseUntilValues();
+            const values = this._brightness.values as any[];
             return values[0];
         }
         /**
@@ -31,9 +32,9 @@ namespace modules {
         //% group="7-segment display" blockSetVariable=myModule
         //% blockCombine block="brightness" callInDebugger
         set brightness(value: number) {
-            const values = this._brightness.values() as any[];
+            const values = this._brightness.values as any[];
             values[0] = value;
-            this._brightness.setValues(values as [number]);
+            this._brightness.values = values as [number];
         }
         /**
         * Each byte encodes the display status of a digit using, 
@@ -54,7 +55,8 @@ namespace modules {
         //% group="7-segment display" blockSetVariable=myModule
         //% blockCombine block="digits" callInDebugger
         get digits(): Buffer {
-            const values = this._digits.values() as any[];
+            this._digits.pauseUntilValues();
+            const values = this._digits.values as any[];
             return values[0];
         }
         /**
@@ -76,9 +78,9 @@ namespace modules {
         //% group="7-segment display" blockSetVariable=myModule
         //% blockCombine block="digits" callInDebugger
         set digits(value: Buffer) {
-            const values = this._digits.values() as any[];
+            const values = this._digits.values as any[];
             values[0] = value;
-            this._digits.setValues(values as [Buffer]);
+            this._digits.values = values as [Buffer];
         } 
 
     }

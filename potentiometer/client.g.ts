@@ -18,7 +18,8 @@ namespace modules {
         //% group="Potentiometer" blockSetVariable=myModule
         //% blockCombine block="position" callInDebugger
         get position(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

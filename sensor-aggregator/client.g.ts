@@ -19,7 +19,8 @@ namespace modules {
         //% group="Sensor Aggregator" blockSetVariable=myModule
         //% blockCombine block="current sample" callInDebugger
         get currentSample(): Buffer {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

@@ -18,23 +18,26 @@ namespace modules {
         //% group="Sound level" blockSetVariable=myModule
         //% blockCombine block="sound level" callInDebugger
         get soundLevel(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 
         /**
          * Raised when a loud sound is detected
          */
+        //% blockId=jacdac_on_soundlevel_loud
         //% block="loud" blockSetVariable=myModule
-        //% group="Sound level" blockCombine
+        //% group="Sound level"
         onLoud(handler: () => void) {
             this.registerEvent(jacdac.SoundLevelEvent.Loud, handler);
         }
         /**
          * Raised when a period of quietness is detected
          */
+        //% blockId=jacdac_on_soundlevel_quiet
         //% block="quiet" blockSetVariable=myModule
-        //% group="Sound level" blockCombine
+        //% group="Sound level"
         onQuiet(handler: () => void) {
             this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler);
         }

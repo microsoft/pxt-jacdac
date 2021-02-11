@@ -27,8 +27,9 @@ namespace modules {
         /**
          * Emit notifying that the internal state of the service changed.
          */
+        //% blockId=jacdac_on_rolemanager_change
         //% block="change" blockSetVariable=myModule
-        //% group="Role Manager" blockCombine
+        //% group="Role Manager"
         onChange(handler: () => void) {
             this.registerEvent(jacdac.RoleManagerEvent.Change, handler);
         }

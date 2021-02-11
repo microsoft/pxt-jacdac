@@ -21,7 +21,8 @@ namespace modules {
         //% group="Heart Rate" blockSetVariable=myModule
         //% blockCombine block="heart rate" callInDebugger
         get heartRate(): number {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 

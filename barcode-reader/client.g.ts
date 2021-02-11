@@ -20,7 +20,8 @@ namespace modules {
         //% group="Barcode reader" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
         get enabled(): boolean {
-            const values = this._enabled.values() as any[];
+            this._enabled.pauseUntilValues();
+            const values = this._enabled.values as any[];
             return !!values[0];
         }
         /**
@@ -29,17 +30,18 @@ namespace modules {
         //% group="Barcode reader" blockSetVariable=myModule
         //% blockCombine block="enabled" callInDebugger
         set enabled(value: boolean) {
-            const values = this._enabled.values() as any[];
+            const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
-            this._enabled.setValues(values as [boolean]);
+            this._enabled.values = values as [boolean];
         } 
 
         /**
          * Raised when a bar code is detected and decoded. If the reader detects multiple codes, it will issue multiple events.
         * In case of numeric barcodes, the `data` field should contain the ASCII (which is the same as UTF8 in that case) representation of the number.
          */
+        //% blockId=jacdac_on_barcodereader_detect
         //% block="detect" blockSetVariable=myModule
-        //% group="Barcode reader" blockCombine
+        //% group="Barcode reader"
         onDetect(handler: () => void) {
             this.registerEvent(jacdac.BarcodeReaderEvent.Detect, handler);
         }

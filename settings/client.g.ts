@@ -16,8 +16,9 @@ namespace modules {
         /**
          * Notifies that some setting have been modified.
          */
+        //% blockId=jacdac_on_settings_change
         //% block="change" blockSetVariable=myModule
-        //% group="Settings" blockCombine
+        //% group="Settings"
         onChange(handler: () => void) {
             this.registerEvent(jacdac.SettingsEvent.Change, handler);
         }

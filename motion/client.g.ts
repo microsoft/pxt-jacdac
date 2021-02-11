@@ -18,7 +18,8 @@ namespace modules {
         //% group="Motion" blockSetVariable=myModule
         //% blockCombine block="moving" callInDebugger
         get moving(): boolean {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return !!values[0];
         } 
 

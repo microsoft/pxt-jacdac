@@ -22,7 +22,8 @@ namespace modules {
         //% group="Model Runner" blockSetVariable=myModule
         //% blockCombine block="output" callInDebugger
         get output(): number[] {
-            const values = this.values() as any[];
+            this._reading.pauseUntilValues();
+            const values = this._reading.values as any[];
             return values[0];
         } 
 
