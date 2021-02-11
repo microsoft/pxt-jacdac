@@ -4,24 +4,26 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class UvIndexClient extends jacdac.SensorClient<[number]> {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_UV_INDEX, role, "u16.16");
+            
         }
     
+
         /**
         * Ultraviolet index, typically refreshed every second.
         */
-        //% blockId=jacdacuvindex_101_0
         //% group="UV index" blockSetVariable=myModule
         //% blockCombine block="uv index" callInDebugger
         get uvIndex(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
-        }
+        }     
+     
 
-            
     }
-
     //% fixedInstance whenUsed
     export const uvIndex = new UvIndexClient("uv Index");
 }

@@ -8,24 +8,26 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class ModelRunnerClient extends jacdac.SensorClient<[number[]]> {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_MODEL_RUNNER, role, "r: f32");
+            
         }
     
+
         /**
         * Results of last model invocation as `float32` array.
         */
-        //% blockId=jacdacmodelrunner_101_0
         //% group="Model Runner" blockSetVariable=myModule
         //% blockCombine block="output" callInDebugger
         get output(): number[] {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
-        }
+        }     
+     
 
-            
     }
-
     //% fixedInstance whenUsed
     export const modelRunner = new ModelRunnerClient("model Runner");
 }

@@ -272,6 +272,51 @@ namespace jacdac {
         [index: string]: T;
     }
 
+    export class RegisterClient<TValues extends (string | number | Buffer)[]> {
+        private data: Buffer;
+        private _localTime: number;
+        private _dataChangedHandler: () => void;
+
+        constructor(
+            public readonly service: Client,
+            public readonly code: number,
+            public readonly packFormat: string,
+            defaultValue?: TValues) {
+            this.data = defaultValue && jdpack(this.packFormat, defaultValue) || Buffer.create(0);
+            this._localTime = control.millis()
+        }
+
+        values(): TValues {
+            return jdunpack(this.data, this.packFormat) as TValues;
+        }
+
+        setValues(values: TValues) {
+            const d = jdpack(this.packFormat, values);
+            this.data = d;
+            // send set request to the service
+            this.service.setReg(this.code, this.packFormat, values);
+        }
+
+        get lastGetTime() {
+            return this._localTime;
+        }
+
+        onDataChanged(handler: () => void) {
+            this._dataChangedHandler = handler;
+        }        
+
+        handlePacket(packet: JDPacket): void {
+            if (packet.isRegGet && this.code !== packet.regCode) {
+                const d = packet.data
+                const changed = !d.equals(this.data);
+                this.data = d;
+                this._localTime = control.millis();
+                if (changed && this._dataChangedHandler)
+                    this._dataChangedHandler();
+            }
+        }
+    }
+
     //% fixedInstances
     export class Client {
         device: Device
@@ -286,6 +331,7 @@ namespace jacdac {
         protected systemActive = false;
 
         protected readonly config: ClientPacketQueue
+        private readonly registers: RegisterClient<(string | number | Buffer)[]>[] = [];
 
         constructor(
             public readonly serviceClass: number,
@@ -295,6 +341,19 @@ namespace jacdac {
             this.config = new ClientPacketQueue(this)
             if (!this.role)
                 throw "no role"
+        }
+
+        protected addRegister<TValues extends (string | number | Buffer)[]>(code: number, packFormat: string, defaultValues?: TValues): RegisterClient<TValues> {
+            let reg = this.registers.find(reg => reg.code === code);
+            if (!reg) {
+                reg = new RegisterClient<TValues>(this, code, packFormat, defaultValues);
+                this.registers.push(reg);
+            }
+            return reg as RegisterClient<TValues>;
+        }
+
+        register(code: number) {
+            return this.registers.find(reg => reg.code === code);
         }
 
         broadcastDevices() {
@@ -320,6 +379,8 @@ namespace jacdac {
                 this.raiseEvent(code, pkt.intData)
             }
 
+            for(const register of this.registers)
+                register.handlePacket(pkt);
             this.handlePacket(pkt)
         }
 

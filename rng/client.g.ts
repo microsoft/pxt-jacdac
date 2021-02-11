@@ -7,13 +7,17 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class RngClient extends jacdac.Client {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_RNG, role);
+            
         }
     
-            
-    }
+     
+     
 
+    }
     //% fixedInstance whenUsed
     export const rng = new RngClient("rng");
 }

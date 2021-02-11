@@ -2,26 +2,19 @@ namespace jacdac {
     //% fixedInstances
     //% weight=1
     export class SensorClient<TReading extends (string | number | Buffer)[]> extends Client {
-        // virtual mode only
-        protected _localTime: number;
-        protected _lastState: Buffer;
+        readonly reading: RegisterClient<TReading>
         private _stateChangedHandler: () => void;
 
         public isStreaming = false
 
-        constructor(deviceClass: number, role: string, protected readonly stateFormat: string) {
+        constructor(deviceClass: number, role: string, stateFormat: string) {
             super(deviceClass, role);
-            this._lastState = control.createBuffer(0);
-        }
-
-        public get state() {
-            this.start();
-            return this._lastState;
+            this.reading = this.addRegister(SystemReg.Reading, stateFormat)
         }
 
         public values(): TReading {
-            const unpacked = jdunpack(this.state, this.stateFormat) as TReading;
-            return unpacked;
+            this.start();
+            return this.reading.values()
         }
 
         announceCallback() {
@@ -49,33 +42,8 @@ namespace jacdac {
         }
 
         public onStateChanged(handler: () => void) {
-            this._stateChangedHandler = handler;
+            this.reading.onDataChanged(handler);
             this.start();
-        }
-
-        handlePacket(packet: JDPacket) {
-            // this.log(`vpkt ${packet.service_command}`)
-            switch (packet.serviceCommand) {
-                case CMD_GET_REG | SystemReg.Reading: {
-                    const state = packet.data
-                    const changed = !state.equals(this._lastState);
-                    this.handleVirtualState(state);
-                    this._lastState = state;
-                    this._localTime = control.millis();
-                    if (changed && this._stateChangedHandler)
-                        this._stateChangedHandler();
-                    break
-                }
-                default:
-                    this.handleCustomCommand(packet);
-                    break
-            }
-        }
-
-        protected handleCustomCommand(pkt: JDPacket) {
-        }
-
-        protected handleVirtualState(state: Buffer) {
         }
     }
 
@@ -104,7 +72,7 @@ namespace jacdac {
 
         handlePacket(packet: JDPacket) {
             if (this._samples && packet.serviceCommand == (CMD_GET_REG | SystemReg.Reading)) {
-                const v = jdunpack(packet.data, this.stateFormat) as TReading;
+                const v = jdunpack(packet.data, this.reading.packFormat) as TReading;
                 if (v != null) {
                     let num = 1
                     if (this._lastTimestamp != undefined) {

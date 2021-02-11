@@ -7,24 +7,26 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class HeartRateClient extends jacdac.SensorClient<[number]> {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_HEART_RATE, role, "u16.16");
+            
         }
     
+
         /**
         * The estimated heart rate.
         */
-        //% blockId=jacdacheartrate_101_0
         //% group="Heart Rate" blockSetVariable=myModule
         //% blockCombine block="heart rate" callInDebugger
         get heartRate(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
-        }
+        }     
+     
 
-            
     }
-
     //% fixedInstance whenUsed
     export const heartRate = new HeartRateClient("heart Rate");
 }

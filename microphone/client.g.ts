@@ -4,13 +4,17 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class MicrophoneClient extends jacdac.Client {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_MICROPHONE, role);
+            
         }
     
-            
-    }
+     
+     
 
+    }
     //% fixedInstance whenUsed
     export const microphone = new MicrophoneClient("microphone");
 }

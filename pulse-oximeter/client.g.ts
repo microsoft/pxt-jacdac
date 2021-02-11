@@ -6,24 +6,26 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class PulseOximeterClient extends jacdac.SensorClient<[number]> {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_PULSE_OXIMETER, role, "u8.8");
+            
         }
     
+
         /**
         * The estimated oxygen level in blood.
         */
-        //% blockId=jacdacpulseoximeter_101_0
         //% group="Pulse Oximeter" blockSetVariable=myModule
         //% blockCombine block="oxygen" callInDebugger
         get oxygen(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
-        }
+        }     
+     
 
-            
     }
-
     //% fixedInstance whenUsed
     export const pulseOximeter = new PulseOximeterClient("pulse Oximeter");
 }

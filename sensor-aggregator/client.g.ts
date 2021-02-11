@@ -5,24 +5,26 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class SensorAggregatorClient extends jacdac.SensorClient<[Buffer]> {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_SENSOR_AGGREGATOR, role, "b");
+            
         }
     
+
         /**
         * Last collected sample.
         */
-        //% blockId=jacdacsensoraggregator_101_0
         //% group="Sensor Aggregator" blockSetVariable=myModule
         //% blockCombine block="current sample" callInDebugger
         get currentSample(): Buffer {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
-        }
+        }     
+     
 
-            
     }
-
     //% fixedInstance whenUsed
     export const sensorAggregator = new SensorAggregatorClient("sensor Aggregator");
 }

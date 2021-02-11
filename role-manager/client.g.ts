@@ -15,13 +15,25 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class RoleManagerClient extends jacdac.Client {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_ROLE_MANAGER, role);
+            
         }
     
-            
-    }
+     
+     
 
+        /**
+         * Emit notifying that the internal state of the service changed.
+         */
+        //% block="change" blockSetVariable=myModule
+        //% group="Role Manager" blockCombine
+        onChange(handler: () => void) {
+            this.registerEvent(jacdac.RoleManagerEvent.Change, handler);
+        }
+    }
     //% fixedInstance whenUsed
     export const roleManager = new RoleManagerClient("role Manager");
 }

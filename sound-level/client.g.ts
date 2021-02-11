@@ -4,24 +4,42 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class SoundLevelClient extends jacdac.SensorClient<[number]> {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_SOUND_LEVEL, role, "u0.16");
+            
         }
     
+
         /**
         * The sound level detected by the microphone
         */
-        //% blockId=jacdacsoundlevel_101_0
         //% group="Sound level" blockSetVariable=myModule
         //% blockCombine block="sound level" callInDebugger
         get soundLevel(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
+        }     
+     
+
+        /**
+         * Raised when a loud sound is detected
+         */
+        //% block="loud" blockSetVariable=myModule
+        //% group="Sound level" blockCombine
+        onLoud(handler: () => void) {
+            this.registerEvent(jacdac.SoundLevelEvent.Loud, handler);
         }
-
-            
+        /**
+         * Raised when a period of quietness is detected
+         */
+        //% block="quiet" blockSetVariable=myModule
+        //% group="Sound level" blockCombine
+        onQuiet(handler: () => void) {
+            this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler);
+        }
     }
-
     //% fixedInstance whenUsed
     export const soundLevel = new SoundLevelClient("sound Level");
 }

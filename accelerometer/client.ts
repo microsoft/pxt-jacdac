@@ -47,7 +47,7 @@ namespace modules {
 
         private get(dimension: JDDimension): number {
             const values = this.values();
-            const s = this.state;
+            const s = this.values;
             if (!s || s.length < 6) return 0;
             switch (dimension) {
                 case JDDimension.X:

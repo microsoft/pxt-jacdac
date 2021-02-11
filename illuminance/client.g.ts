@@ -6,24 +6,26 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class IlluminanceClient extends jacdac.SensorClient<[number]> {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_ILLUMINANCE, role, "u22.10");
+            
         }
     
+
         /**
         * The amount of illuminance, as lumens per square metre.
         */
-        //% blockId=jacdacilluminance_101_0
         //% group="Illuminance" blockSetVariable=myModule
         //% blockCombine block="light" callInDebugger
         get light(): number {
             const values = this.values() as any[];
             return values && values.length > 0 && values[0];
-        }
+        }     
+     
 
-            
     }
-
     //% fixedInstance whenUsed
     export const illuminance = new IlluminanceClient("illuminance");
 }

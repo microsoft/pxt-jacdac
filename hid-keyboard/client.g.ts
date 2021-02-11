@@ -11,13 +11,17 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class HidKeyboardClient extends jacdac.Client {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_HID_KEYBOARD, role);
+            
         }
     
-            
-    }
+     
+     
 
+    }
     //% fixedInstance whenUsed
     export const hidKeyboard = new HidKeyboardClient("hid Keyboard");
 }

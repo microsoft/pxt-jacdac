@@ -4,13 +4,17 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class TrafficLightClient extends jacdac.Client {
-        constructor(role: string) {
+            
+
+            constructor(role: string) {
             super(jacdac.SRV_TRAFFIC_LIGHT, role);
+            
         }
     
-            
-    }
+     
+     
 
+    }
     //% fixedInstance whenUsed
     export const trafficLight = new TrafficLightClient("traffic Light");
 }

@@ -4,13 +4,38 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class BuzzerClient extends jacdac.Client {
-        constructor(role: string) {
+
+            private readonly _volume : jacdac.RegisterClient<[number]>;            
+
+            constructor(role: string) {
             super(jacdac.SRV_BUZZER, role);
+
+            this._volume = this.addRegister(jacdac.BuzzerReg.Volume, "u0.8");            
         }
     
-            
-    }
 
+        /**
+        * The volume (duty cycle) of the buzzer.
+        */
+        //% group="Buzzer" blockSetVariable=myModule
+        //% blockCombine block="volume" callInDebugger
+        get volume(): number {
+            const values = this._volume.values() as any[];
+            return values && values.length > 0 && values[0];
+        }     
+
+        /**
+        * The volume (duty cycle) of the buzzer.
+        */
+        //% group="Buzzer" blockSetVariable=myModule
+        //% blockCombine block="volume" callInDebugger
+        set volume(value: number) {
+            const values = this._volume.values() as any[];
+            values[0] = value;
+            this._volume.setValues(values as [number]);
+        }     
+
+    }
     //% fixedInstance whenUsed
     export const buzzer = new BuzzerClient("buzzer");
 }
