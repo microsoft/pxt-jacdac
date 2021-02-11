@@ -1,9 +1,9 @@
 namespace modules {
     //% fixedInstances
     //% blockGap=8
-    export class LightClient extends jacdac.Client {
+    export class LedPixelClient extends jacdac.Client {
         constructor(role: string) {
-            super(jacdac.SRV_LIGHT, role);
+            super(jacdac.SRV_LED_PIXEL, role);
         }
 
         _length = 10
@@ -17,11 +17,11 @@ namespace modules {
         //% weight=0
         //% numpixels.min=0
         //% numpixels.defl=30
-        configure(numpixels: number, type = jacdac.LightLightType.WS2812B_GRB, maxpower = 500): void {
+        configure(numpixels: number, type = jacdac.LedPixelLightType.WS2812B_GRB, maxpower = 500): void {
             this._length = numpixels >> 0;
-            this.setRegInt(jacdac.LightReg.NumPixels, this._length)
-            this.setRegInt(jacdac.LightReg.LightType, type)
-            this.setRegInt(jacdac.LightReg.MaxPower, maxpower)
+            this.setReg(jacdac.LedPixelReg.NumPixels, "u16", [this._length])
+            this.setReg(jacdac.LedPixelReg.LightType, "u8", [type])
+            this.setReg(jacdac.LedPixelReg.MaxPower, "u16", [maxpower])
         }
 
         /**
@@ -33,18 +33,18 @@ namespace modules {
         //% weight=2 blockGap=8
         //% group="Light"
         setBrightness(brightness: number): void {
-            this.setRegInt(jacdac.LightReg.Brightness, brightness)
+            this.setReg(jacdac.LedPixelReg.Brightness, "u0.8", [brightness])
         }
 
         runProgram(prog: Buffer) {
             this.currAnimation++
-            this.sendCommandWithAck(jacdac.JDPacket.from(jacdac.LightCmd.Run, prog))
+            this.sendCommandWithAck(jacdac.JDPacket.from(jacdac.LedPixelCmd.Run, prog))
         }
 
         runEncoded(prog: string, args?: number[]) {
             if (!args) args = []
             this.currAnimation++
-            this.sendCommand(jacdac.JDPacket.from(jacdac.LightCmd.Run, jacdac.lightEncode(prog, args)))
+            this.sendCommand(jacdac.JDPacket.from(jacdac.LedPixelCmd.Run, jacdac.lightEncode(prog, args)))
         }
 
         set(idx: number, rgb: number) {
@@ -358,5 +358,5 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed
-    export const light = new LightClient("rgb_pixels");
+    export const ledPixel = new LedPixelClient("ledPixel");
 }
