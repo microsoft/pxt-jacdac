@@ -14,12 +14,18 @@ This project contains [JACDAC](https://aka.ms/jacdac) host and client services f
 
 * Maker, https://maker.makecode.com
 * Arcade BETA, https://arcade.makecoe.com/beta
+* micro:bit Beta, https://makecode.microbit.org/beta
 
 ## Developer section
 
+To build all projects
+```
+sh mk.sh
+```
+
 To refresh the ``constants.ts`` files,
 * build jacdac-spec (``npm run buildspecs`` from jacdac-ts)
-* copy all files from ``jacdac-spec/services/generated/makecode`` to the root folder of this repo
+* copy all ``constants.ts`` files from ``jacdac-spec/services/generated/makecode`` to the root folder of this repo
 
 ## Contributing
 
