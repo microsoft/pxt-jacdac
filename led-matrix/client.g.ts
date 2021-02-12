@@ -19,18 +19,20 @@ namespace modules {
         /**
         * Reads the general brightness of the LEDs. ``0`` when the screen is off.
         */
-        //% group="LED Matrix" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {            
+        //% blockId=jacdac_ledmatrix_brightness___get
+        //% group="LED Matrix"
+        //% block="%ledmatrix brightness" callInDebugger
+        brightness(): number {            
             const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**
         * Reads the general brightness of the LEDs. ``0`` when the screen is off.
         */
-        //% group="LED Matrix" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        set brightness(value: number) {
+        //% blockId=jacdac_ledmatrix_brightness___set
+        //% group="LED Matrix" value.min=0 value.max=1
+        //% block="set %ledmatrix brightness to %value"
+        setBrightness(value: number) {
             const values = this._brightness.values as any[];
             values[0] = value;
             this._brightness.values = values as [number];
@@ -39,9 +41,10 @@ namespace modules {
         * The state of the screen where pixel on/off state is 
         * stored as a bit, column by column. The column should be byte aligned.
         */
-        //% group="LED Matrix" blockSetVariable=myModule
-        //% blockCombine block="leds" callInDebugger
-        get leds(): Buffer {            
+        //% blockId=jacdac_ledmatrix_leds___get
+        //% group="LED Matrix"
+        //% block="%ledmatrix leds" callInDebugger
+        leds(): Buffer {            
             const values = this._leds.pauseUntilValues() as any[];
             return values[0];
         }
@@ -49,9 +52,10 @@ namespace modules {
         * The state of the screen where pixel on/off state is 
         * stored as a bit, column by column. The column should be byte aligned.
         */
-        //% group="LED Matrix" blockSetVariable=myModule
-        //% blockCombine block="leds" callInDebugger
-        set leds(value: Buffer) {
+        //% blockId=jacdac_ledmatrix_leds___set
+        //% group="LED Matrix"
+        //% block="set %ledmatrix leds to %value"
+        setLeds(value: Buffer) {
             const values = this._leds.values as any[];
             values[0] = value;
             this._leds.values = values as [Buffer];

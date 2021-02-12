@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Detected color in the RGB color space.
         */
-        //% group="Color" blockSetVariable=myModule
-        //% blockCombine block="red" callInDebugger
-        get red(): number {
+        //% blockId=jacdac_color_color_red_get
+        //% group="Color"
+        //% block="%color red" callInDebugger
+        red(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -25,9 +26,10 @@ namespace modules {
         /**
         * Detected color in the RGB color space.
         */
-        //% group="Color" blockSetVariable=myModule
-        //% blockCombine block="green" callInDebugger
-        get green(): number {
+        //% blockId=jacdac_color_color_green_get
+        //% group="Color"
+        //% block="%color green" callInDebugger
+        green(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
@@ -35,9 +37,10 @@ namespace modules {
         /**
         * Detected color in the RGB color space.
         */
-        //% group="Color" blockSetVariable=myModule
-        //% blockCombine block="blue" callInDebugger
-        get blue(): number {
+        //% blockId=jacdac_color_color_blue_get
+        //% group="Color"
+        //% block="%color blue" callInDebugger
+        blue(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[2];

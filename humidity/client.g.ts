@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The relative humidity in percentage of full water saturation.
         */
-        //% group="Humidity" blockSetVariable=myModule
-        //% blockCombine block="humidity" callInDebugger
-        get humidity(): number {
+        //% blockId=jacdac_humidity_humidity___get
+        //% group="Humidity"
+        //% block="%humidity humidity" callInDebugger
+        humidity(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

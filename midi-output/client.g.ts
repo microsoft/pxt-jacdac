@@ -17,18 +17,20 @@ namespace modules {
         /**
         * Opens or closes the port to the MIDI device
         */
-        //% group="MIDI output" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {            
+        //% blockId=jacdac_midioutput_enabled___get
+        //% group="MIDI output"
+        //% block="%midioutput enabled" callInDebugger
+        enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Opens or closes the port to the MIDI device
         */
-        //% group="MIDI output" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: boolean) {
+        //% blockId=jacdac_midioutput_enabled___set
+        //% group="MIDI output"
+        //% block="set %midioutput %value=toggleOnOff"
+        setEnabled(value: boolean) {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];

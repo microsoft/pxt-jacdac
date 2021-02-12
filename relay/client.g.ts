@@ -17,18 +17,20 @@ namespace modules {
         /**
         * Indicates whether the relay circuit is currently on (closed) or off (closed).
         */
-        //% group="Relay" blockSetVariable=myModule
-        //% blockCombine block="closed" callInDebugger
-        get closed(): boolean {            
+        //% blockId=jacdac_relay_closed___get
+        //% group="Relay"
+        //% block="%relay closed" callInDebugger
+        closed(): boolean {            
             const values = this._closed.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Indicates whether the relay circuit is currently on (closed) or off (closed).
         */
-        //% group="Relay" blockSetVariable=myModule
-        //% blockCombine block="closed" callInDebugger
-        set closed(value: boolean) {
+        //% blockId=jacdac_relay_closed___set
+        //% group="Relay"
+        //% block="set %relay closed to %value"
+        setClosed(value: boolean) {
             const values = this._closed.values as any[];
             values[0] = value ? 1 : 0;
             this._closed.values = values as [boolean];

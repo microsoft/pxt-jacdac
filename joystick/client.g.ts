@@ -16,9 +16,10 @@ namespace modules {
         * The direction of the joystick measure in two direction.
         * If joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.
         */
-        //% group="Joystick" blockSetVariable=myModule
-        //% blockCombine block="x" callInDebugger
-        get x(): number {
+        //% blockId=jacdac_joystick_direction_x_get
+        //% group="Joystick"
+        //% block="%joystick x" callInDebugger
+        x(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -27,9 +28,10 @@ namespace modules {
         * The direction of the joystick measure in two direction.
         * If joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.
         */
-        //% group="Joystick" blockSetVariable=myModule
-        //% blockCombine block="y" callInDebugger
-        get y(): number {
+        //% blockId=jacdac_joystick_direction_y_get
+        //% group="Joystick"
+        //% block="%joystick y" callInDebugger
+        y(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];

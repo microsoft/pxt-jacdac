@@ -17,9 +17,10 @@ namespace modules {
         /**
         * The estimated oxygen level in blood.
         */
-        //% group="Pulse Oximeter" blockSetVariable=myModule
-        //% blockCombine block="oxygen" callInDebugger
-        get oxygen(): number {
+        //% blockId=jacdac_pulseoximeter_oxygen___get
+        //% group="Pulse Oximeter"
+        //% block="%pulseoximeter oxygen" callInDebugger
+        oxygen(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Reports is movement is currently detected by the sensor.
         */
-        //% group="Motion" blockSetVariable=myModule
-        //% blockCombine block="moving" callInDebugger
-        get moving(): boolean {
+        //% blockId=jacdac_motion_moving___get
+        //% group="Motion"
+        //% block="%motion moving" callInDebugger
+        moving(): boolean {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return !!values[0];

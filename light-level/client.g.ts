@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Detect light level
         */
-        //% group="Light level" blockSetVariable=myModule
-        //% blockCombine block="light level" callInDebugger
-        get lightLevel(): number {
+        //% blockId=jacdac_lightlevel_light_level___get
+        //% group="Light level"
+        //% block="%lightlevel light level" callInDebugger
+        lightLevel(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

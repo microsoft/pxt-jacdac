@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% group="Accelerometer" blockSetVariable=myModule
-        //% blockCombine block="x" callInDebugger
-        get x(): number {
+        //% blockId=jacdac_accelerometer_forces_x_get
+        //% group="Accelerometer"
+        //% block="%accelerometer x" callInDebugger
+        x(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -25,9 +26,10 @@ namespace modules {
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% group="Accelerometer" blockSetVariable=myModule
-        //% blockCombine block="y" callInDebugger
-        get y(): number {
+        //% blockId=jacdac_accelerometer_forces_y_get
+        //% group="Accelerometer"
+        //% block="%accelerometer y" callInDebugger
+        y(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
@@ -35,9 +37,10 @@ namespace modules {
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% group="Accelerometer" blockSetVariable=myModule
-        //% blockCombine block="z" callInDebugger
-        get z(): number {
+        //% blockId=jacdac_accelerometer_forces_z_get
+        //% group="Accelerometer"
+        //% block="%accelerometer z" callInDebugger
+        z(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[2];

@@ -19,18 +19,20 @@ namespace modules {
         /**
         * Controls the brightness of the LEDs. ``0`` means off.
         */
-        //% group="7-segment display" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {            
+        //% blockId=jacdac_sevensegmentdisplay_brightness___get
+        //% group="7-segment display"
+        //% block="%sevensegmentdisplay brightness" callInDebugger
+        brightness(): number {            
             const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**
         * Controls the brightness of the LEDs. ``0`` means off.
         */
-        //% group="7-segment display" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        set brightness(value: number) {
+        //% blockId=jacdac_sevensegmentdisplay_brightness___set
+        //% group="7-segment display" value.min=0 value.max=1
+        //% block="set %sevensegmentdisplay brightness to %value"
+        setBrightness(value: number) {
             const values = this._brightness.values as any[];
             values[0] = value;
             this._brightness.values = values as [number];
@@ -51,9 +53,10 @@ namespace modules {
         *  - D -   -
         * ```
         */
-        //% group="7-segment display" blockSetVariable=myModule
-        //% blockCombine block="digits" callInDebugger
-        get digits(): Buffer {            
+        //% blockId=jacdac_sevensegmentdisplay_digits___get
+        //% group="7-segment display"
+        //% block="%sevensegmentdisplay digits" callInDebugger
+        digits(): Buffer {            
             const values = this._digits.pauseUntilValues() as any[];
             return values[0];
         }
@@ -73,9 +76,10 @@ namespace modules {
         *  - D -   -
         * ```
         */
-        //% group="7-segment display" blockSetVariable=myModule
-        //% blockCombine block="digits" callInDebugger
-        set digits(value: Buffer) {
+        //% blockId=jacdac_sevensegmentdisplay_digits___set
+        //% group="7-segment display"
+        //% block="set %sevensegmentdisplay digits to %value"
+        setDigits(value: Buffer) {
             const values = this._digits.values as any[];
             values[0] = value;
             this._digits.values = values as [Buffer];

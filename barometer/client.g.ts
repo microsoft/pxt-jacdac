@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The air pressure.
         */
-        //% group="Barometer" blockSetVariable=myModule
-        //% blockCombine block="pressure" callInDebugger
-        get pressure(): number {
+        //% blockId=jacdac_barometer_pressure___get
+        //% group="Barometer"
+        //% block="%barometer pressure" callInDebugger
+        pressure(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

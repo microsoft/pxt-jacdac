@@ -17,9 +17,10 @@ namespace modules {
         * no touch, wheres a value of around `100` or more indicates touch.
         * It's best to ignore this (unless debugging), and use events.
         */
-        //% group="Multitouch" blockSetVariable=myModule
-        //% blockCombine block="capacitance" callInDebugger
-        get capacitance(): number[] {
+        //% blockId=jacdac_multitouch_capacity_capacitance_get
+        //% group="Multitouch"
+        //% block="%multitouch capacitance" callInDebugger
+        capacitance(): number[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

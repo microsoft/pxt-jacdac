@@ -16,9 +16,10 @@ namespace modules {
         * Upon device reset starts at `0` (regardless of the shaft position).
         * Increases by `1` for a clockwise "click", by `-1` for counter-clockwise.
         */
-        //% group="Rotary encoder" blockSetVariable=myModule
-        //% blockCombine block="position" callInDebugger
-        get position(): number {
+        //% blockId=jacdac_rotaryencoder_position___get
+        //% group="Rotary encoder"
+        //% block="%rotaryencoder position" callInDebugger
+        position(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

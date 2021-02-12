@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Total precipitation recorded so far.
         */
-        //% group="Rain gauge" blockSetVariable=myModule
-        //% blockCombine block="precipitation" callInDebugger
-        get precipitation(): number {
+        //% blockId=jacdac_raingauge_precipitation___get
+        //% group="Rain gauge"
+        //% block="%raingauge precipitation" callInDebugger
+        precipitation(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The reported water level.
         */
-        //% group="Water level" blockSetVariable=myModule
-        //% blockCombine block="level" callInDebugger
-        get level(): number {
+        //% blockId=jacdac_waterlevel_level___get
+        //% group="Water level"
+        //% block="%waterlevel level" callInDebugger
+        level(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

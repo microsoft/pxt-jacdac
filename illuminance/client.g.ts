@@ -17,9 +17,10 @@ namespace modules {
         /**
         * The amount of illuminance, as lumens per square metre.
         */
-        //% group="Illuminance" blockSetVariable=myModule
-        //% blockCombine block="light" callInDebugger
-        get light(): number {
+        //% blockId=jacdac_illuminance_light___get
+        //% group="Illuminance"
+        //% block="%illuminance light" callInDebugger
+        light(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

@@ -19,18 +19,20 @@ namespace modules {
         /**
         * Turn the power to the servo on/off.
         */
-        //% group="Servo" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {            
+        //% blockId=jacdac_servo_enabled___get
+        //% group="Servo"
+        //% block="%servo enabled" callInDebugger
+        enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Turn the power to the servo on/off.
         */
-        //% group="Servo" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: boolean) {
+        //% blockId=jacdac_servo_enabled___set
+        //% group="Servo"
+        //% block="set %servo %value=toggleOnOff"
+        setEnabled(value: boolean) {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];
@@ -38,18 +40,20 @@ namespace modules {
         /**
         * Specifies the angle of the arm.
         */
-        //% group="Servo" blockSetVariable=myModule
-        //% blockCombine block="angle" callInDebugger
-        get angle(): number {            
+        //% blockId=jacdac_servo_angle___get
+        //% group="Servo"
+        //% block="%servo angle" callInDebugger
+        angle(): number {            
             const values = this._angle.pauseUntilValues() as any[];
             return values[0];
         }
         /**
         * Specifies the angle of the arm.
         */
-        //% group="Servo" blockSetVariable=myModule
-        //% blockCombine block="angle" callInDebugger
-        set angle(value: number) {
+        //% blockId=jacdac_servo_angle___set
+        //% group="Servo" value.min=-90 value.max=90
+        //% block="set %servo angle to %value"
+        setAngle(value: number) {
             const values = this._angle.values as any[];
             values[0] = value;
             this._angle.values = values as [number];

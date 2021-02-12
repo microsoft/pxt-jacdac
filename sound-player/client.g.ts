@@ -17,18 +17,20 @@ namespace modules {
         /**
         * Global volume of the output. ``0`` means completely off. This volume is mixed with each play volumes.
         */
-        //% group="Sound player" blockSetVariable=myModule
-        //% blockCombine block="volume" callInDebugger
-        get volume(): number {            
+        //% blockId=jacdac_soundplayer_volume___get
+        //% group="Sound player"
+        //% block="%soundplayer volume" callInDebugger
+        volume(): number {            
             const values = this._volume.pauseUntilValues() as any[];
             return values[0];
         }
         /**
         * Global volume of the output. ``0`` means completely off. This volume is mixed with each play volumes.
         */
-        //% group="Sound player" blockSetVariable=myModule
-        //% blockCombine block="volume" callInDebugger
-        set volume(value: number) {
+        //% blockId=jacdac_soundplayer_volume___set
+        //% group="Sound player" value.min=0 value.max=1
+        //% block="set %soundplayer volume to %value"
+        setVolume(value: number) {
             const values = this._volume.values as any[];
             values[0] = value;
             this._volume.values = values as [number];

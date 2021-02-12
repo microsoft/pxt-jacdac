@@ -17,9 +17,10 @@ namespace modules {
         /**
         * The heading with respect to the magnetic north.
         */
-        //% group="Compass" blockSetVariable=myModule
-        //% blockCombine block="heading" callInDebugger
-        get heading(): number {
+        //% blockId=jacdac_compass_heading___get
+        //% group="Compass"
+        //% block="%compass heading" callInDebugger
+        heading(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -27,18 +28,20 @@ namespace modules {
         /**
         * Turn on or off the sensor. Turning on the sensor may start a calibration sequence.
         */
-        //% group="Compass" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {            
+        //% blockId=jacdac_compass_enabled___get
+        //% group="Compass"
+        //% block="%compass enabled" callInDebugger
+        enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Turn on or off the sensor. Turning on the sensor may start a calibration sequence.
         */
-        //% group="Compass" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: boolean) {
+        //% blockId=jacdac_compass_enabled___set
+        //% group="Compass"
+        //% block="set %compass %value=toggleOnOff"
+        setEnabled(value: boolean) {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];

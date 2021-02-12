@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The sound level detected by the microphone
         */
-        //% group="Sound level" blockSetVariable=myModule
-        //% blockCombine block="sound level" callInDebugger
-        get soundLevel(): number {
+        //% blockId=jacdac_soundlevel_sound_level___get
+        //% group="Sound level"
+        //% block="%soundlevel sound level" callInDebugger
+        soundLevel(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

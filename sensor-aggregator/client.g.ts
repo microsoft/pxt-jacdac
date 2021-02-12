@@ -16,9 +16,10 @@ namespace modules {
         /**
         * Last collected sample.
         */
-        //% group="Sensor Aggregator" blockSetVariable=myModule
-        //% blockCombine block="current sample" callInDebugger
-        get currentSample(): Buffer {
+        //% blockId=jacdac_sensoraggregator_current_sample___get
+        //% group="Sensor Aggregator"
+        //% block="%sensoraggregator current sample" callInDebugger
+        currentSample(): Buffer {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

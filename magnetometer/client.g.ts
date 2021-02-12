@@ -16,9 +16,10 @@ namespace modules {
         * Indicates the current magnetic field on magnetometer.
         * For reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).
         */
-        //% group="Magnetometer" blockSetVariable=myModule
-        //% blockCombine block="x" callInDebugger
-        get x(): number {
+        //% blockId=jacdac_magnetomer_forces_x_get
+        //% group="Magnetometer"
+        //% block="%magnetomer x" callInDebugger
+        x(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -27,9 +28,10 @@ namespace modules {
         * Indicates the current magnetic field on magnetometer.
         * For reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).
         */
-        //% group="Magnetometer" blockSetVariable=myModule
-        //% blockCombine block="y" callInDebugger
-        get y(): number {
+        //% blockId=jacdac_magnetomer_forces_y_get
+        //% group="Magnetometer"
+        //% block="%magnetomer y" callInDebugger
+        y(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
@@ -38,9 +40,10 @@ namespace modules {
         * Indicates the current magnetic field on magnetometer.
         * For reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).
         */
-        //% group="Magnetometer" blockSetVariable=myModule
-        //% blockCombine block="z" callInDebugger
-        get z(): number {
+        //% blockId=jacdac_magnetomer_forces_z_get
+        //% group="Magnetometer"
+        //% block="%magnetomer z" callInDebugger
+        z(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[2];

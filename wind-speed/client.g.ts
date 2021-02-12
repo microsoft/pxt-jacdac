@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The velocity of the wind.
         */
-        //% group="Wind speed" blockSetVariable=myModule
-        //% blockCombine block="wind speed" callInDebugger
-        get windSpeed(): number {
+        //% blockId=jacdac_windspeed_wind_speed___get
+        //% group="Wind speed"
+        //% block="%windspeed wind speed" callInDebugger
+        windSpeed(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

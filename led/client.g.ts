@@ -18,9 +18,10 @@ namespace modules {
         * Set the luminosity of the strip. The value is used to scale `value` in `steps` register.
         * At `0` the power to the strip is completely shut down.
         */
-        //% group="LED" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {            
+        //% blockId=jacdac_led_brightness___get
+        //% group="LED"
+        //% block="%led brightness" callInDebugger
+        brightness(): number {            
             const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
@@ -28,9 +29,10 @@ namespace modules {
         * Set the luminosity of the strip. The value is used to scale `value` in `steps` register.
         * At `0` the power to the strip is completely shut down.
         */
-        //% group="LED" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        set brightness(value: number) {
+        //% blockId=jacdac_led_brightness___set
+        //% group="LED" value.min=0 value.max=1
+        //% block="set %led brightness to %value"
+        setBrightness(value: number) {
             const values = this._brightness.values as any[];
             values[0] = value;
             this._brightness.values = values as [number];

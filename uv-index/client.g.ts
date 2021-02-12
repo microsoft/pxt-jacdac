@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Ultraviolet index, typically refreshed every second.
         */
-        //% group="UV index" blockSetVariable=myModule
-        //% blockCombine block="uv index" callInDebugger
-        get uvIndex(): number {
+        //% blockId=jacdac_uvindex_uv_index___get
+        //% group="UV index"
+        //% block="%uvindex uv index" callInDebugger
+        uvIndex(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

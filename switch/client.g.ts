@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Indicates whether the switch is currently active (on).
         */
-        //% group="Switch" blockSetVariable=myModule
-        //% blockCombine block="active" callInDebugger
-        get active(): boolean {
+        //% blockId=jacdac_switch_active___get
+        //% group="Switch"
+        //% block="%switch active" callInDebugger
+        active(): boolean {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return !!values[0];

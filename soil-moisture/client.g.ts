@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Indicates the wetness of the soil, from ``dry`` to ``wet``.
         */
-        //% group="Soil moisture" blockSetVariable=myModule
-        //% blockCombine block="moisture" callInDebugger
-        get moisture(): number {
+        //% blockId=jacdac_soilmoisture_moisture___get
+        //% group="Soil moisture"
+        //% block="%soilmoisture moisture" callInDebugger
+        moisture(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

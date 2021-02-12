@@ -18,9 +18,10 @@ namespace modules {
         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
         * Default streaming period is 1 second.
         */
-        //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="year" callInDebugger
-        get year(): number {
+        //% blockId=jacdac_realtimeclock_local_time_year_get
+        //% group="Real time clock"
+        //% block="%realtimeclock year" callInDebugger
+        year(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -31,9 +32,10 @@ namespace modules {
         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
         * Default streaming period is 1 second.
         */
-        //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="month" callInDebugger
-        get month(): number {
+        //% blockId=jacdac_realtimeclock_local_time_month_get
+        //% group="Real time clock"
+        //% block="%realtimeclock month" callInDebugger
+        month(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
@@ -44,9 +46,10 @@ namespace modules {
         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
         * Default streaming period is 1 second.
         */
-        //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="day of month" callInDebugger
-        get dayOfMonth(): number {
+        //% blockId=jacdac_realtimeclock_local_time_day_of_month_get
+        //% group="Real time clock"
+        //% block="%realtimeclock day of month" callInDebugger
+        dayOfMonth(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[2];
@@ -57,9 +60,10 @@ namespace modules {
         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
         * Default streaming period is 1 second.
         */
-        //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="day of week" callInDebugger
-        get dayOfWeek(): number {
+        //% blockId=jacdac_realtimeclock_local_time_day_of_week_get
+        //% group="Real time clock"
+        //% block="%realtimeclock day of week" callInDebugger
+        dayOfWeek(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[3];
@@ -70,9 +74,10 @@ namespace modules {
         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
         * Default streaming period is 1 second.
         */
-        //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="hour" callInDebugger
-        get hour(): number {
+        //% blockId=jacdac_realtimeclock_local_time_hour_get
+        //% group="Real time clock"
+        //% block="%realtimeclock hour" callInDebugger
+        hour(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[4];
@@ -83,9 +88,10 @@ namespace modules {
         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
         * Default streaming period is 1 second.
         */
-        //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="min" callInDebugger
-        get min(): number {
+        //% blockId=jacdac_realtimeclock_local_time_min_get
+        //% group="Real time clock"
+        //% block="%realtimeclock min" callInDebugger
+        min(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[5];
@@ -96,9 +102,10 @@ namespace modules {
         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
         * Default streaming period is 1 second.
         */
-        //% group="Real time clock" blockSetVariable=myModule
-        //% blockCombine block="sec" callInDebugger
-        get sec(): number {
+        //% blockId=jacdac_realtimeclock_local_time_sec_get
+        //% group="Real time clock"
+        //% block="%realtimeclock sec" callInDebugger
+        sec(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[6];

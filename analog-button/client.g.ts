@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Indicates the current pressure (``force``) on the button.
         */
-        //% group="Analog Button" blockSetVariable=myModule
-        //% blockCombine block="pressure" callInDebugger
-        get pressure(): number {
+        //% blockId=jacdac_analogbutton_pressure___get
+        //% group="Analog Button"
+        //% block="%analogbutton pressure" callInDebugger
+        pressure(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

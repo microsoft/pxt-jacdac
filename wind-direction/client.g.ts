@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The direction of the wind.
         */
-        //% group="Wind direction" blockSetVariable=myModule
-        //% blockCombine block="wind direction" callInDebugger
-        get windDirection(): number {
+        //% blockId=jacdac_winddirection_wind_direction___get
+        //% group="Wind direction"
+        //% block="%winddirection wind direction" callInDebugger
+        windDirection(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

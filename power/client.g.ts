@@ -17,9 +17,10 @@ namespace modules {
         /**
         * Present current draw from the bus.
         */
-        //% group="Power" blockSetVariable=myModule
-        //% blockCombine block="current draw" callInDebugger
-        get currentDraw(): number {
+        //% blockId=jacdac_power_current_draw___get
+        //% group="Power"
+        //% block="%power current draw" callInDebugger
+        currentDraw(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -27,18 +28,20 @@ namespace modules {
         /**
         * Turn the power to the bus on/off.
         */
-        //% group="Power" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {            
+        //% blockId=jacdac_power_enabled___get
+        //% group="Power"
+        //% block="%power enabled" callInDebugger
+        enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Turn the power to the bus on/off.
         */
-        //% group="Power" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: boolean) {
+        //% blockId=jacdac_power_enabled___set
+        //% group="Power" value.defl=1
+        //% block="set %power %value=toggleOnOff"
+        setEnabled(value: boolean) {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];

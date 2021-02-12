@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Equivalent CO₂ (eCO₂) readings.
         */
-        //% group="Equivalent CO₂" blockSetVariable=myModule
-        //% blockCombine block="e CO2" callInDebugger
-        get eCO2(): number {
+        //% blockId=jacdac_eco2_e_CO2___get
+        //% group="Equivalent CO₂"
+        //% block="%eco2 e CO2" callInDebugger
+        eCO2(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

@@ -19,18 +19,20 @@ namespace modules {
         /**
         * Turn the power to the motor on/off.
         */
-        //% group="Motor" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {            
+        //% blockId=jacdac_motor_enabled___get
+        //% group="Motor"
+        //% block="%motor enabled" callInDebugger
+        enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Turn the power to the motor on/off.
         */
-        //% group="Motor" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: boolean) {
+        //% blockId=jacdac_motor_enabled___set
+        //% group="Motor"
+        //% block="set %motor %value=toggleOnOff"
+        setEnabled(value: boolean) {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];
@@ -40,9 +42,10 @@ namespace modules {
         * Positive is recommended to be clockwise rotation and negative counterclockwise. A duty of ``0`` 
         * while ``enabled`` acts as brake.
         */
-        //% group="Motor" blockSetVariable=myModule
-        //% blockCombine block="duty" callInDebugger
-        get duty(): number {            
+        //% blockId=jacdac_motor_duty___get
+        //% group="Motor"
+        //% block="%motor duty" callInDebugger
+        duty(): number {            
             const values = this._duty.pauseUntilValues() as any[];
             return values[0];
         }
@@ -51,9 +54,10 @@ namespace modules {
         * Positive is recommended to be clockwise rotation and negative counterclockwise. A duty of ``0`` 
         * while ``enabled`` acts as brake.
         */
-        //% group="Motor" blockSetVariable=myModule
-        //% blockCombine block="duty" callInDebugger
-        set duty(value: number) {
+        //% blockId=jacdac_motor_duty___set
+        //% group="Motor" value.min=-1 value.max=1
+        //% block="set %motor duty to %value"
+        setDuty(value: number) {
             const values = this._duty.values as any[];
             values[0] = value;
             this._duty.values = values as [number];

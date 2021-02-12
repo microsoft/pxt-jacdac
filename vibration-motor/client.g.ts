@@ -19,9 +19,10 @@ namespace modules {
         * then `0` shell be off, and any other number on. 
         * Use the ``vibrate`` command to control the register.
         */
-        //% group="Vibration motor" blockSetVariable=myModule
-        //% blockCombine block="speed" callInDebugger
-        get speed(): number {
+        //% blockId=jacdac_vibration_speed___get
+        //% group="Vibration motor"
+        //% block="%vibration speed" callInDebugger
+        speed(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -29,18 +30,20 @@ namespace modules {
         /**
         * Determines if the vibration motor responds to vibrate commands.
         */
-        //% group="Vibration motor" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {            
+        //% blockId=jacdac_vibration_enabled___get
+        //% group="Vibration motor"
+        //% block="%vibration enabled" callInDebugger
+        enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Determines if the vibration motor responds to vibrate commands.
         */
-        //% group="Vibration motor" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: boolean) {
+        //% blockId=jacdac_vibration_enabled___set
+        //% group="Vibration motor"
+        //% block="set %vibration %value=toggleOnOff"
+        setEnabled(value: boolean) {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];

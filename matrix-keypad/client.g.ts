@@ -16,9 +16,10 @@ namespace modules {
         * The coordinate of the button currently pressed. Keys are zero-indexed from left to right, top to bottom:
         * ``row = index / columns``, ``column = index % columns``.
         */
-        //% group="Matrix Keypad" blockSetVariable=myModule
-        //% blockCombine block="index" callInDebugger
-        get index(): number[] {
+        //% blockId=jacdac_matrixkeypad_pressed_index_get
+        //% group="Matrix Keypad"
+        //% block="%matrixkeypad index" callInDebugger
+        index(): number[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

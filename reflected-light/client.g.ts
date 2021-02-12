@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Reports the reflected brightness. It may be a digital value or, for some sensor, analog value.
         */
-        //% group="Reflected light" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {
+        //% blockId=jacdac_reflectedlight_brightness___get
+        //% group="Reflected light"
+        //% block="%reflectedlight brightness" callInDebugger
+        brightness(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

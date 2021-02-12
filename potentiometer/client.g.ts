@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The relative position of the slider between `0` and `1`.
         */
-        //% group="Potentiometer" blockSetVariable=myModule
-        //% blockCombine block="position" callInDebugger
-        get position(): number {
+        //% blockId=jacdac_potentiometer_position___get
+        //% group="Potentiometer"
+        //% block="%potentiometer position" callInDebugger
+        position(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

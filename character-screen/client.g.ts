@@ -19,18 +19,20 @@ namespace modules {
         /**
         * Brightness of the screen. `0` means off.
         */
-        //% group="Character Screen" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        get brightness(): number {            
+        //% blockId=jacdac_characterscreen_brightness___get
+        //% group="Character Screen"
+        //% block="%characterscreen brightness" callInDebugger
+        brightness(): number {            
             const values = this._brightness.pauseUntilValues() as any[];
             return values[0];
         }
         /**
         * Brightness of the screen. `0` means off.
         */
-        //% group="Character Screen" blockSetVariable=myModule
-        //% blockCombine block="brightness" callInDebugger
-        set brightness(value: number) {
+        //% blockId=jacdac_characterscreen_brightness___set
+        //% group="Character Screen" value.min=0 value.max=1
+        //% block="set %characterscreen brightness to %value"
+        setBrightness(value: number) {
             const values = this._brightness.values as any[];
             values[0] = value;
             this._brightness.values = values as [number];
@@ -38,18 +40,20 @@ namespace modules {
         /**
         * Text to show. Use `\n` to break lines.
         */
-        //% group="Character Screen" blockSetVariable=myModule
-        //% blockCombine block="message" callInDebugger
-        get message(): string {            
+        //% blockId=jacdac_characterscreen_message___get
+        //% group="Character Screen"
+        //% block="%characterscreen message" callInDebugger
+        message(): string {            
             const values = this._message.pauseUntilValues() as any[];
             return values[0];
         }
         /**
         * Text to show. Use `\n` to break lines.
         */
-        //% group="Character Screen" blockSetVariable=myModule
-        //% blockCombine block="message" callInDebugger
-        set message(value: string) {
+        //% blockId=jacdac_characterscreen_message___set
+        //% group="Character Screen"
+        //% block="set %characterscreen message to %value"
+        setMessage(value: string) {
             const values = this._message.values as any[];
             values[0] = value;
             this._message.values = values as [string];

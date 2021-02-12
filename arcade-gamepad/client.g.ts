@@ -16,9 +16,10 @@ namespace modules {
         * Indicates which buttons are currently active (pressed).
         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
         */
-        //% group="Arcade Gamepad" blockSetVariable=myModule
-        //% blockCombine block="button" callInDebugger
-        get button(): ([ArcadeGamepadButton, number])[] {
+        //% blockId=jacdac_arcadegamepad_buttons_button_get
+        //% group="Arcade Gamepad"
+        //% block="%arcadegamepad button" callInDebugger
+        button(): ([ArcadeGamepadButton, number])[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -27,9 +28,10 @@ namespace modules {
         * Indicates which buttons are currently active (pressed).
         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
         */
-        //% group="Arcade Gamepad" blockSetVariable=myModule
-        //% blockCombine block="pressure" callInDebugger
-        get pressure(): undefined {
+        //% blockId=jacdac_arcadegamepad_buttons_pressure_get
+        //% group="Arcade Gamepad"
+        //% block="%arcadegamepad pressure" callInDebugger
+        pressure(): undefined {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];

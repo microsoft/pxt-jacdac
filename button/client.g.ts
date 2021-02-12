@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Indicates whether the button is currently active (pressed).
         */
-        //% group="Button" blockSetVariable=myModule
-        //% blockCombine block="pressed" callInDebugger
-        get pressed(): boolean {
+        //% blockId=jacdac_button_pressed___get
+        //% group="Button"
+        //% block="%button pressed" callInDebugger
+        pressed(): boolean {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return !!values[0];

@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The reported weight.
         */
-        //% group="Weight Scale" blockSetVariable=myModule
-        //% blockCombine block="weight" callInDebugger
-        get weight(): number {
+        //% blockId=jacdac_weightscale_weight___get
+        //% group="Weight Scale"
+        //% block="%weightscale weight" callInDebugger
+        weight(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

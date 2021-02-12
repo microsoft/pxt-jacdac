@@ -17,18 +17,20 @@ namespace modules {
         /**
         * Determines if the speech engine is in a non-paused state.
         */
-        //% group="Speech synthesis" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {            
+        //% blockId=jacdac_speechsynthesis_enabled___get
+        //% group="Speech synthesis"
+        //% block="%speechsynthesis enabled" callInDebugger
+        enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Determines if the speech engine is in a non-paused state.
         */
-        //% group="Speech synthesis" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: boolean) {
+        //% blockId=jacdac_speechsynthesis_enabled___set
+        //% group="Speech synthesis"
+        //% block="set %speechsynthesis %value=toggleOnOff"
+        setEnabled(value: boolean) {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];

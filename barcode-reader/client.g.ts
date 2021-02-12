@@ -17,18 +17,20 @@ namespace modules {
         /**
         * Turns on or off the detection of barcodes.
         */
-        //% group="Barcode reader" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        get enabled(): boolean {            
+        //% blockId=jacdac_barcodereader_enabled___get
+        //% group="Barcode reader"
+        //% block="%barcodereader enabled" callInDebugger
+        enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
         /**
         * Turns on or off the detection of barcodes.
         */
-        //% group="Barcode reader" blockSetVariable=myModule
-        //% blockCombine block="enabled" callInDebugger
-        set enabled(value: boolean) {
+        //% blockId=jacdac_barcodereader_enabled___set
+        //% group="Barcode reader"
+        //% block="set %barcodereader %value=toggleOnOff"
+        setEnabled(value: boolean) {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];

@@ -19,9 +19,10 @@ namespace modules {
         /**
         * Results of last model invocation as `float32` array.
         */
-        //% group="Model Runner" blockSetVariable=myModule
-        //% blockCombine block="output" callInDebugger
-        get output(): number[] {
+        //% blockId=jacdac_modelrunner_outputs_output_get
+        //% group="Model Runner"
+        //% block="%modelrunner output" callInDebugger
+        output(): number[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

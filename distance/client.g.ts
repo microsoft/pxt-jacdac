@@ -15,9 +15,10 @@ namespace modules {
         /**
         * Current distance from the object
         */
-        //% group="Distance" blockSetVariable=myModule
-        //% blockCombine block="distance" callInDebugger
-        get distance(): number {
+        //% blockId=jacdac_distance_distance___get
+        //% group="Distance"
+        //% block="%distance distance" callInDebugger
+        distance(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

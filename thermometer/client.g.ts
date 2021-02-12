@@ -15,9 +15,10 @@ namespace modules {
         /**
         * The temperature.
         */
-        //% group="Thermometer" blockSetVariable=myModule
-        //% blockCombine block="temperature" callInDebugger
-        get temperature(): number {
+        //% blockId=jacdac_thermometer_temperature___get
+        //% group="Thermometer"
+        //% block="%thermometer temperature" callInDebugger
+        temperature(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];

@@ -17,18 +17,20 @@ namespace modules {
         /**
         * The volume (duty cycle) of the buzzer.
         */
-        //% group="Buzzer" blockSetVariable=myModule
-        //% blockCombine block="volume" callInDebugger
-        get volume(): number {            
+        //% blockId=jacdac_buzzer_volume___get
+        //% group="Buzzer"
+        //% block="%buzzer volume" callInDebugger
+        volume(): number {            
             const values = this._volume.pauseUntilValues() as any[];
             return values[0];
         }
         /**
         * The volume (duty cycle) of the buzzer.
         */
-        //% group="Buzzer" blockSetVariable=myModule
-        //% blockCombine block="volume" callInDebugger
-        set volume(value: number) {
+        //% blockId=jacdac_buzzer_volume___set
+        //% group="Buzzer" value.min=0 value.max=1 value.defl=1
+        //% block="set %buzzer volume to %value"
+        setVolume(value: number) {
             const values = this._volume.values as any[];
             values[0] = value;
             this._volume.values = values as [number];
