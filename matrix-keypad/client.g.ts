@@ -17,7 +17,7 @@ namespace modules {
         * ``row = index / columns``, ``column = index % columns``.
         */
         //% blockId=jacdac_matrixkeypad_pressed_index_get
-        //% group="Matrix Keypad"
+        //% group="Button"
         //% block="%matrixkeypad index" callInDebugger
         index(): number[] {
             this.setStreaming(true);            
@@ -30,7 +30,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_matrixkeypad_down
         //% block="down" blockSetVariable=myModule
-        //% group="Matrix Keypad"
+        //% group="Button"
         onDown(handler: () => void) {
             this.registerEvent(jacdac.MatrixKeypadEvent.Down, handler);
         }
@@ -39,7 +39,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_matrixkeypad_up
         //% block="up" blockSetVariable=myModule
-        //% group="Matrix Keypad"
+        //% group="Button"
         onUp(handler: () => void) {
             this.registerEvent(jacdac.MatrixKeypadEvent.Up, handler);
         }
@@ -48,7 +48,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_matrixkeypad_click
         //% block="click" blockSetVariable=myModule
-        //% group="Matrix Keypad"
+        //% group="Button"
         onClick(handler: () => void) {
             this.registerEvent(jacdac.MatrixKeypadEvent.Click, handler);
         }
@@ -57,7 +57,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_matrixkeypad_long_click
         //% block="long click" blockSetVariable=myModule
-        //% group="Matrix Keypad"
+        //% group="Button"
         onLongClick(handler: () => void) {
             this.registerEvent(jacdac.MatrixKeypadEvent.LongClick, handler);
         }

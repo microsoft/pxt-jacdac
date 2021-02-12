@@ -20,7 +20,7 @@ namespace modules {
         * Reads the general brightness of the LEDs. ``0`` when the screen is off.
         */
         //% blockId=jacdac_ledmatrix_brightness___get
-        //% group="LED Matrix"
+        //% group="Display"
         //% block="%ledmatrix brightness" callInDebugger
         brightness(): number {            
             const values = this._brightness.pauseUntilValues() as any[];
@@ -30,7 +30,7 @@ namespace modules {
         * Reads the general brightness of the LEDs. ``0`` when the screen is off.
         */
         //% blockId=jacdac_ledmatrix_brightness___set
-        //% group="LED Matrix" value.min=0 value.max=1
+        //% group="Display" value.min=0 value.max=1
         //% block="set %ledmatrix brightness to %value"
         setBrightness(value: number) {
             this.start();
@@ -43,7 +43,7 @@ namespace modules {
         * stored as a bit, column by column. The column should be byte aligned.
         */
         //% blockId=jacdac_ledmatrix_leds___get
-        //% group="LED Matrix"
+        //% group="Display"
         //% block="%ledmatrix leds" callInDebugger
         leds(): Buffer {            
             const values = this._leds.pauseUntilValues() as any[];
@@ -54,7 +54,7 @@ namespace modules {
         * stored as a bit, column by column. The column should be byte aligned.
         */
         //% blockId=jacdac_ledmatrix_leds___set
-        //% group="LED Matrix"
+        //% group="Display"
         //% block="set %ledmatrix leds to %value"
         setLeds(value: Buffer) {
             this.start();

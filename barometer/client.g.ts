@@ -16,7 +16,7 @@ namespace modules {
         * The air pressure.
         */
         //% blockId=jacdac_barometer_pressure___get
-        //% group="Barometer"
+        //% group="Environment"
         //% block="%barometer pressure" callInDebugger
         pressure(): number {
             this.setStreaming(true);            

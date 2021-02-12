@@ -16,7 +16,7 @@ namespace modules {
         * The sound level detected by the microphone
         */
         //% blockId=jacdac_soundlevel_sound_level___get
-        //% group="Sound level"
+        //% group="Sound"
         //% block="%soundlevel sound level" callInDebugger
         soundLevel(): number {
             this.setStreaming(true);            
@@ -29,7 +29,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_soundlevel_loud
         //% block="loud" blockSetVariable=myModule
-        //% group="Sound level"
+        //% group="Sound"
         onLoud(handler: () => void) {
             this.registerEvent(jacdac.SoundLevelEvent.Loud, handler);
         }
@@ -38,7 +38,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_soundlevel_quiet
         //% block="quiet" blockSetVariable=myModule
-        //% group="Sound level"
+        //% group="Sound"
         onQuiet(handler: () => void) {
             this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler);
         }

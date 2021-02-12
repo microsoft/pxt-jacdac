@@ -17,7 +17,7 @@ namespace modules {
         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
         */
         //% blockId=jacdac_arcadegamepad_buttons_button_get
-        //% group="Arcade Gamepad"
+        //% group="Button"
         //% block="%arcadegamepad button" callInDebugger
         button(): ([ArcadeGamepadButton, number])[] {
             this.setStreaming(true);            
@@ -29,7 +29,7 @@ namespace modules {
         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
         */
         //% blockId=jacdac_arcadegamepad_buttons_pressure_get
-        //% group="Arcade Gamepad"
+        //% group="Button"
         //% block="%arcadegamepad pressure" callInDebugger
         pressure(): undefined {
             this.setStreaming(true);            
@@ -42,7 +42,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_arcadegamepad_down
         //% block="down" blockSetVariable=myModule
-        //% group="Arcade Gamepad"
+        //% group="Button"
         onDown(handler: () => void) {
             this.registerEvent(jacdac.ArcadeGamepadEvent.Down, handler);
         }
@@ -51,7 +51,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_arcadegamepad_up
         //% block="up" blockSetVariable=myModule
-        //% group="Arcade Gamepad"
+        //% group="Button"
         onUp(handler: () => void) {
             this.registerEvent(jacdac.ArcadeGamepadEvent.Up, handler);
         }

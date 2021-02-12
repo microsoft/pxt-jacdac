@@ -16,7 +16,7 @@ namespace modules {
         * Ultraviolet index, typically refreshed every second.
         */
         //% blockId=jacdac_uvindex_uv_index___get
-        //% group="UV index"
+        //% group="Environment"
         //% block="%uvindex uv index" callInDebugger
         uvIndex(): number {
             this.setStreaming(true);            

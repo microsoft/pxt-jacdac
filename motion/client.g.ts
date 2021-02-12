@@ -16,7 +16,7 @@ namespace modules {
         * Reports is movement is currently detected by the sensor.
         */
         //% blockId=jacdac_motion_moving___get
-        //% group="Motion"
+        //% group="Movement"
         //% block="%motion moving" callInDebugger
         moving(): boolean {
             this.setStreaming(true);            

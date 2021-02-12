@@ -18,7 +18,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_iothub_connected
         //% block="connected" blockSetVariable=myModule
-        //% group="Azure IoT Hub"
+        //% group="Iot"
         onConnected(handler: () => void) {
             this.registerEvent(jacdac.IotHubEvent.Connected, handler);
         }
@@ -27,7 +27,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_iothub_connection_error
         //% block="connection error" blockSetVariable=myModule
-        //% group="Azure IoT Hub"
+        //% group="Iot"
         onConnectionError(handler: () => void) {
             this.registerEvent(jacdac.IotHubEvent.ConnectionError, handler);
         }
@@ -38,7 +38,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_iothub_devicebound_str
         //% block="devicebound str" blockSetVariable=myModule
-        //% group="Azure IoT Hub"
+        //% group="Iot"
         onDeviceboundStr(handler: () => void) {
             this.registerEvent(jacdac.IotHubEvent.DeviceboundStr, handler);
         }

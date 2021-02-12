@@ -18,7 +18,7 @@ namespace modules {
         * Opens or closes the port to the MIDI device
         */
         //% blockId=jacdac_midioutput_enabled___get
-        //% group="MIDI output"
+        //% group="Sound"
         //% block="%midioutput enabled" callInDebugger
         enabled(): boolean {            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -28,7 +28,7 @@ namespace modules {
         * Opens or closes the port to the MIDI device
         */
         //% blockId=jacdac_midioutput_enabled___set
-        //% group="MIDI output"
+        //% group="Sound"
         //% block="set %midioutput %value=toggleOnOff"
         setEnabled(value: boolean) {
             this.start();

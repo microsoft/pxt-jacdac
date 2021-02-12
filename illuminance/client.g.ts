@@ -18,7 +18,7 @@ namespace modules {
         * The amount of illuminance, as lumens per square metre.
         */
         //% blockId=jacdac_illuminance_light___get
-        //% group="Illuminance"
+        //% group="Imaging"
         //% block="%illuminance light" callInDebugger
         light(): number {
             this.setStreaming(true);            

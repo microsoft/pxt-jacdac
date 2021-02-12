@@ -20,7 +20,7 @@ namespace modules {
         * Brightness of the screen. `0` means off.
         */
         //% blockId=jacdac_characterscreen_brightness___get
-        //% group="Character Screen"
+        //% group="Display"
         //% block="%characterscreen brightness" callInDebugger
         brightness(): number {            
             const values = this._brightness.pauseUntilValues() as any[];
@@ -30,7 +30,7 @@ namespace modules {
         * Brightness of the screen. `0` means off.
         */
         //% blockId=jacdac_characterscreen_brightness___set
-        //% group="Character Screen" value.min=0 value.max=1
+        //% group="Display" value.min=0 value.max=1
         //% block="set %characterscreen brightness to %value"
         setBrightness(value: number) {
             this.start();
@@ -42,7 +42,7 @@ namespace modules {
         * Text to show. Use `\n` to break lines.
         */
         //% blockId=jacdac_characterscreen_message___get
-        //% group="Character Screen"
+        //% group="Display"
         //% block="%characterscreen message" callInDebugger
         message(): string {            
             const values = this._message.pauseUntilValues() as any[];
@@ -52,7 +52,7 @@ namespace modules {
         * Text to show. Use `\n` to break lines.
         */
         //% blockId=jacdac_characterscreen_message___set
-        //% group="Character Screen"
+        //% group="Display"
         //% block="set %characterscreen message to %value"
         setMessage(value: string) {
             this.start();

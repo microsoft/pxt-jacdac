@@ -16,7 +16,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdac_gyroscope_rotation_rates_x_get
-        //% group="Gyroscope"
+        //% group="Movement"
         //% block="%gyroscope x" callInDebugger
         x(): number {
             this.setStreaming(true);            
@@ -27,7 +27,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdac_gyroscope_rotation_rates_y_get
-        //% group="Gyroscope"
+        //% group="Movement"
         //% block="%gyroscope y" callInDebugger
         y(): number {
             this.setStreaming(true);            
@@ -38,7 +38,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdac_gyroscope_rotation_rates_z_get
-        //% group="Gyroscope"
+        //% group="Movement"
         //% block="%gyroscope z" callInDebugger
         z(): number {
             this.setStreaming(true);            

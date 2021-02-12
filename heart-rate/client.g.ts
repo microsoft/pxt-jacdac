@@ -19,7 +19,7 @@ namespace modules {
         * The estimated heart rate.
         */
         //% blockId=jacdac_heartrate_heart_rate___get
-        //% group="Heart Rate"
+        //% group="Biometric"
         //% block="%heartrate heart rate" callInDebugger
         heartRate(): number {
             this.setStreaming(true);            

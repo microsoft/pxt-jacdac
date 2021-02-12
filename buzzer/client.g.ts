@@ -18,7 +18,7 @@ namespace modules {
         * The volume (duty cycle) of the buzzer.
         */
         //% blockId=jacdac_buzzer_volume___get
-        //% group="Buzzer"
+        //% group="Sound"
         //% block="%buzzer volume" callInDebugger
         volume(): number {            
             const values = this._volume.pauseUntilValues() as any[];
@@ -28,7 +28,7 @@ namespace modules {
         * The volume (duty cycle) of the buzzer.
         */
         //% blockId=jacdac_buzzer_volume___set
-        //% group="Buzzer" value.min=0 value.max=1 value.defl=1
+        //% group="Sound" value.min=0 value.max=1 value.defl=1
         //% block="set %buzzer volume to %value"
         setVolume(value: number) {
             this.start();

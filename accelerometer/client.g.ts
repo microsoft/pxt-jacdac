@@ -16,7 +16,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdac_accelerometer_forces_x_get
-        //% group="Accelerometer"
+        //% group="Movement"
         //% block="%accelerometer x" callInDebugger
         x(): number {
             this.setStreaming(true);            
@@ -27,7 +27,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdac_accelerometer_forces_y_get
-        //% group="Accelerometer"
+        //% group="Movement"
         //% block="%accelerometer y" callInDebugger
         y(): number {
             this.setStreaming(true);            
@@ -38,7 +38,7 @@ namespace modules {
         * Indicates the current forces acting on accelerometer.
         */
         //% blockId=jacdac_accelerometer_forces_z_get
-        //% group="Accelerometer"
+        //% group="Movement"
         //% block="%accelerometer z" callInDebugger
         z(): number {
             this.setStreaming(true);            
@@ -51,7 +51,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_tilt_up
         //% block="tilt up" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onTiltUp(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.TiltUp, handler);
         }
@@ -60,7 +60,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_tilt_down
         //% block="tilt down" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onTiltDown(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.TiltDown, handler);
         }
@@ -69,7 +69,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_tilt_left
         //% block="tilt left" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onTiltLeft(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.TiltLeft, handler);
         }
@@ -78,7 +78,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_tilt_right
         //% block="tilt right" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onTiltRight(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.TiltRight, handler);
         }
@@ -87,7 +87,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_face_up
         //% block="face up" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onFaceUp(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.FaceUp, handler);
         }
@@ -96,7 +96,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_face_down
         //% block="face down" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onFaceDown(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.FaceDown, handler);
         }
@@ -105,7 +105,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_freefall
         //% block="freefall" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onFreefall(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.Freefall, handler);
         }
@@ -114,7 +114,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_shake
         //% block="shake" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onShake(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.Shake, handler);
         }
@@ -123,7 +123,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_force_2g
         //% block="force 2g" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onForce_2g(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.Force_2g, handler);
         }
@@ -132,7 +132,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_force_3g
         //% block="force 3g" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onForce_3g(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.Force_3g, handler);
         }
@@ -141,7 +141,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_force_6g
         //% block="force 6g" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onForce_6g(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.Force_6g, handler);
         }
@@ -150,7 +150,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_accelerometer_force_8g
         //% block="force 8g" blockSetVariable=myModule
-        //% group="Accelerometer"
+        //% group="Movement"
         onForce_8g(handler: () => void) {
             this.registerEvent(jacdac.AccelerometerEvent.Force_8g, handler);
         }

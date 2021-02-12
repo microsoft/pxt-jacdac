@@ -1,6 +1,6 @@
 namespace modules {
     /**
-     * A simple pressure sensitive push-button.
+     * A capacitive or pressure sensitive push-button.
      **/
     //% fixedInstances blockGap=8
     export class AnalogButtonClient extends jacdac.SensorClient<[number]> {
@@ -16,7 +16,7 @@ namespace modules {
         * Indicates the current pressure (``force``) on the button.
         */
         //% blockId=jacdac_analogbutton_pressure___get
-        //% group="Analog Button"
+        //% group="Button"
         //% block="%analogbutton pressure" callInDebugger
         pressure(): number {
             this.setStreaming(true);            
@@ -29,7 +29,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_analogbutton_active
         //% block="active" blockSetVariable=myModule
-        //% group="Analog Button"
+        //% group="Button"
         onActive(handler: () => void) {
             this.registerEvent(jacdac.AnalogButtonEvent.Active, handler);
         }
@@ -38,7 +38,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_analogbutton_inactive
         //% block="inactive" blockSetVariable=myModule
-        //% group="Analog Button"
+        //% group="Button"
         onInactive(handler: () => void) {
             this.registerEvent(jacdac.AnalogButtonEvent.Inactive, handler);
         }

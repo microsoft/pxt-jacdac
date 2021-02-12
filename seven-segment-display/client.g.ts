@@ -20,7 +20,7 @@ namespace modules {
         * Controls the brightness of the LEDs. ``0`` means off.
         */
         //% blockId=jacdac_sevensegmentdisplay_brightness___get
-        //% group="7-segment display"
+        //% group="Display"
         //% block="%sevensegmentdisplay brightness" callInDebugger
         brightness(): number {            
             const values = this._brightness.pauseUntilValues() as any[];
@@ -30,7 +30,7 @@ namespace modules {
         * Controls the brightness of the LEDs. ``0`` means off.
         */
         //% blockId=jacdac_sevensegmentdisplay_brightness___set
-        //% group="7-segment display" value.min=0 value.max=1
+        //% group="Display" value.min=0 value.max=1
         //% block="set %sevensegmentdisplay brightness to %value"
         setBrightness(value: number) {
             this.start();
@@ -55,7 +55,7 @@ namespace modules {
         * ```
         */
         //% blockId=jacdac_sevensegmentdisplay_digits___get
-        //% group="7-segment display"
+        //% group="Display"
         //% block="%sevensegmentdisplay digits" callInDebugger
         digits(): Buffer {            
             const values = this._digits.pauseUntilValues() as any[];
@@ -78,7 +78,7 @@ namespace modules {
         * ```
         */
         //% blockId=jacdac_sevensegmentdisplay_digits___set
-        //% group="7-segment display"
+        //% group="Display"
         //% block="set %sevensegmentdisplay digits to %value"
         setDigits(value: Buffer) {
             this.start();

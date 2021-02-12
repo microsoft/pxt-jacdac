@@ -16,7 +16,7 @@ namespace modules {
         * The relative humidity in percentage of full water saturation.
         */
         //% blockId=jacdac_humidity_humidity___get
-        //% group="Humidity"
+        //% group="Environment"
         //% block="%humidity humidity" callInDebugger
         humidity(): number {
             this.setStreaming(true);            

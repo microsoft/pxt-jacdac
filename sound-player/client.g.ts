@@ -18,7 +18,7 @@ namespace modules {
         * Global volume of the output. ``0`` means completely off. This volume is mixed with each play volumes.
         */
         //% blockId=jacdac_soundplayer_volume___get
-        //% group="Sound player"
+        //% group="Sound"
         //% block="%soundplayer volume" callInDebugger
         volume(): number {            
             const values = this._volume.pauseUntilValues() as any[];
@@ -28,7 +28,7 @@ namespace modules {
         * Global volume of the output. ``0`` means completely off. This volume is mixed with each play volumes.
         */
         //% blockId=jacdac_soundplayer_volume___set
-        //% group="Sound player" value.min=0 value.max=1
+        //% group="Sound" value.min=0 value.max=1
         //% block="set %soundplayer volume to %value"
         setVolume(value: number) {
             this.start();

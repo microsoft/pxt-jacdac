@@ -19,7 +19,7 @@ namespace modules {
         * At `0` the power to the strip is completely shut down.
         */
         //% blockId=jacdac_ledpixel_brightness___get
-        //% group="LED Pixel"
+        //% group="Light"
         //% block="%ledpixel brightness" callInDebugger
         brightness(): number {            
             const values = this._brightness.pauseUntilValues() as any[];
@@ -30,7 +30,7 @@ namespace modules {
         * At `0` the power to the strip is completely shut down.
         */
         //% blockId=jacdac_ledpixel_brightness___set
-        //% group="LED Pixel" value.min=0 value.max=1 value.defl=0.05
+        //% group="Light" value.min=0 value.max=1 value.defl=0.05
         //% block="set %ledpixel brightness to %value"
         setBrightness(value: number) {
             this.start();

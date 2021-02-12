@@ -16,7 +16,7 @@ namespace modules {
         * Total precipitation recorded so far.
         */
         //% blockId=jacdac_raingauge_precipitation___get
-        //% group="Rain gauge"
+        //% group="Environment"
         //% block="%raingauge precipitation" callInDebugger
         precipitation(): number {
             this.setStreaming(true);            

@@ -16,7 +16,7 @@ namespace modules {
         * Detected color in the RGB color space.
         */
         //% blockId=jacdac_color_color_red_get
-        //% group="Color"
+        //% group="Imaging"
         //% block="%color red" callInDebugger
         red(): number {
             this.setStreaming(true);            
@@ -27,7 +27,7 @@ namespace modules {
         * Detected color in the RGB color space.
         */
         //% blockId=jacdac_color_color_green_get
-        //% group="Color"
+        //% group="Imaging"
         //% block="%color green" callInDebugger
         green(): number {
             this.setStreaming(true);            
@@ -38,7 +38,7 @@ namespace modules {
         * Detected color in the RGB color space.
         */
         //% blockId=jacdac_color_color_blue_get
-        //% group="Color"
+        //% group="Imaging"
         //% block="%color blue" callInDebugger
         blue(): number {
             this.setStreaming(true);            

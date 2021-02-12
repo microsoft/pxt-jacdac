@@ -16,7 +16,7 @@ namespace modules {
         * Reports the reflected brightness. It may be a digital value or, for some sensor, analog value.
         */
         //% blockId=jacdac_reflectedlight_brightness___get
-        //% group="Reflected light"
+        //% group="Imaging"
         //% block="%reflectedlight brightness" callInDebugger
         brightness(): number {
             this.setStreaming(true);            
@@ -29,7 +29,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_reflectedlight_dark
         //% block="dark" blockSetVariable=myModule
-        //% group="Reflected light"
+        //% group="Imaging"
         onDark(handler: () => void) {
             this.registerEvent(jacdac.ReflectedLightEvent.Dark, handler);
         }
@@ -38,7 +38,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_reflectedlight_light
         //% block="light" blockSetVariable=myModule
-        //% group="Reflected light"
+        //% group="Imaging"
         onLight(handler: () => void) {
             this.registerEvent(jacdac.ReflectedLightEvent.Light, handler);
         }

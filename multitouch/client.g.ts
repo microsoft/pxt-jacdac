@@ -18,7 +18,7 @@ namespace modules {
         * It's best to ignore this (unless debugging), and use events.
         */
         //% blockId=jacdac_multitouch_capacity_capacitance_get
-        //% group="Multitouch"
+        //% group="Button"
         //% block="%multitouch capacitance" callInDebugger
         capacitance(): number[] {
             this.setStreaming(true);            
@@ -31,7 +31,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_multitouch_touch
         //% block="touch" blockSetVariable=myModule
-        //% group="Multitouch"
+        //% group="Button"
         onTouch(handler: () => void) {
             this.registerEvent(jacdac.MultitouchEvent.Touch, handler);
         }
@@ -40,7 +40,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_multitouch_release
         //% block="release" blockSetVariable=myModule
-        //% group="Multitouch"
+        //% group="Button"
         onRelease(handler: () => void) {
             this.registerEvent(jacdac.MultitouchEvent.Release, handler);
         }
@@ -49,7 +49,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_multitouch_tap
         //% block="tap" blockSetVariable=myModule
-        //% group="Multitouch"
+        //% group="Button"
         onTap(handler: () => void) {
             this.registerEvent(jacdac.MultitouchEvent.Tap, handler);
         }
@@ -58,7 +58,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_multitouch_long_press
         //% block="long press" blockSetVariable=myModule
-        //% group="Multitouch"
+        //% group="Button"
         onLongPress(handler: () => void) {
             this.registerEvent(jacdac.MultitouchEvent.LongPress, handler);
         }
@@ -67,7 +67,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_multitouch_swipe_pos
         //% block="swipe pos" blockSetVariable=myModule
-        //% group="Multitouch"
+        //% group="Button"
         onSwipePos(handler: () => void) {
             this.registerEvent(jacdac.MultitouchEvent.SwipePos, handler);
         }
@@ -76,7 +76,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_multitouch_swipe_neg
         //% block="swipe neg" blockSetVariable=myModule
-        //% group="Multitouch"
+        //% group="Button"
         onSwipeNeg(handler: () => void) {
             this.registerEvent(jacdac.MultitouchEvent.SwipeNeg, handler);
         }

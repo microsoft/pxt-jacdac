@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-analogbutton",
+    "name": "jacdac-switch",
     "version": "0.0.0",
-    "description": "A capacitive or pressure sensitive push-button.",
+    "description": "A switch, which keeps its position.",
     "files": [
         "constants.ts",
         "client.g.ts"

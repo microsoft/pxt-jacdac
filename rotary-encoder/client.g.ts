@@ -17,7 +17,7 @@ namespace modules {
         * Increases by `1` for a clockwise "click", by `-1` for counter-clockwise.
         */
         //% blockId=jacdac_rotaryencoder_position___get
-        //% group="Rotary encoder"
+        //% group="Slider"
         //% block="%rotaryencoder position" callInDebugger
         position(): number {
             this.setStreaming(true);            

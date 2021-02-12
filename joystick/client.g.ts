@@ -17,7 +17,7 @@ namespace modules {
         * If joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.
         */
         //% blockId=jacdac_joystick_direction_x_get
-        //% group="Joystick"
+        //% group="Button"
         //% block="%joystick x" callInDebugger
         x(): number {
             this.setStreaming(true);            
@@ -29,7 +29,7 @@ namespace modules {
         * If joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.
         */
         //% blockId=jacdac_joystick_direction_y_get
-        //% group="Joystick"
+        //% group="Button"
         //% block="%joystick y" callInDebugger
         y(): number {
             this.setStreaming(true);            

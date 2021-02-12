@@ -16,7 +16,7 @@ namespace modules {
         * Total volatile organic compound readings in parts per billion.
         */
         //% blockId=jacdac_tvoc_TVOC___get
-        //% group="Total Volatile organic compound"
+        //% group="Environment"
         //% block="%tvoc TVOC" callInDebugger
         tVOC(): number {
             this.setStreaming(true);            

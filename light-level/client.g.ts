@@ -16,7 +16,7 @@ namespace modules {
         * Detect light level
         */
         //% blockId=jacdac_lightlevel_light_level___get
-        //% group="Light level"
+        //% group="Imaging"
         //% block="%lightlevel light level" callInDebugger
         lightLevel(): number {
             this.setStreaming(true);            

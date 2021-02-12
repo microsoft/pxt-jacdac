@@ -16,7 +16,7 @@ namespace modules {
         * Indicates the wetness of the soil, from ``dry`` to ``wet``.
         */
         //% blockId=jacdac_soilmoisture_moisture___get
-        //% group="Soil moisture"
+        //% group="Environment"
         //% block="%soilmoisture moisture" callInDebugger
         moisture(): number {
             this.setStreaming(true);            

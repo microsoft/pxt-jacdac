@@ -16,7 +16,7 @@ namespace modules {
         * Equivalent CO₂ (eCO₂) readings.
         */
         //% blockId=jacdac_eco2_e_CO2___get
-        //% group="Equivalent CO₂"
+        //% group="Environment"
         //% block="%eco2 e CO2" callInDebugger
         eCO2(): number {
             this.setStreaming(true);            

@@ -16,7 +16,7 @@ namespace modules {
         * The temperature.
         */
         //% blockId=jacdac_thermocouple_temperature___get
-        //% group="Thermocouple"
+        //% group="Environment"
         //% block="%thermocouple temperature" callInDebugger
         temperature(): number {
             this.setStreaming(true);            

@@ -18,7 +18,7 @@ namespace modules {
         * The estimated oxygen level in blood.
         */
         //% blockId=jacdac_pulseoximeter_oxygen___get
-        //% group="Pulse Oximeter"
+        //% group="Biometric"
         //% block="%pulseoximeter oxygen" callInDebugger
         oxygen(): number {
             this.setStreaming(true);            

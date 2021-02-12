@@ -16,7 +16,7 @@ namespace modules {
         * The relative position of the slider between `0` and `1`.
         */
         //% blockId=jacdac_potentiometer_position___get
-        //% group="Potentiometer"
+        //% group="Slider"
         //% block="%potentiometer position" callInDebugger
         position(): number {
             this.setStreaming(true);            
