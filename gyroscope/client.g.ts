@@ -7,7 +7,7 @@ namespace modules {
             
 
             constructor(role: string) {
-            super(jacdac.SRV_GYROSCOPE, role, "i16.16 i16.16 i16.16");
+            super(jacdac.SRV_GYROSCOPE, role, "i12.20 i12.20 i12.20");
             
         }
     

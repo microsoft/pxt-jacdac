@@ -6,10 +6,29 @@ namespace jacdac {
          * Indicates the current forces acting on accelerometer.
          *
          * ```
-         * const [x, y, z] = jdunpack<[number, number, number]>(buf, "i6.10 i6.10 i6.10")
+         * const [x, y, z] = jdunpack<[number, number, number]>(buf, "i12.20 i12.20 i12.20")
          * ```
          */
         Forces = 0x101,
+
+        /**
+         * Read-only g i12.20 (int32_t). Error on the reading value.
+         *
+         * ```
+         * const [forcesError] = jdunpack<[number]>(buf, "i12.20")
+         * ```
+         */
+        ForcesError = 0x106,
+
+        /**
+         * Read-write g i12.20 (int32_t). Configures the range forces detected.
+         * Read-back after setting to get current value.
+         *
+         * ```
+         * const [maxForce] = jdunpack<[number]>(buf, "i12.20")
+         * ```
+         */
+        MaxForce = 0x80,
     }
 
     export const enum AccelerometerEvent {

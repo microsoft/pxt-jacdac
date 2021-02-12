@@ -7,7 +7,7 @@ namespace modules {
             
 
             constructor(role: string) {
-            super(jacdac.SRV_ACCELEROMETER, role, "i6.10 i6.10 i6.10");
+            super(jacdac.SRV_ACCELEROMETER, role, "i12.20 i12.20 i12.20");
             
         }
     
