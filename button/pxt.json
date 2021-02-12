@@ -1,7 +1,7 @@
 {
     "name": "jacdac-button",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Button service",
+    "description": "MakeCode support for Jacdac Button service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"

@@ -1,7 +1,7 @@
 {
     "name": "jacdac-motor",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Motor service",
+    "description": "MakeCode support for Jacdac Motor service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"

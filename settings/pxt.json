@@ -1,7 +1,7 @@
 {
     "name": "jacdac-settings",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Settings service",
+    "description": "MakeCode support for Jacdac Settings service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"

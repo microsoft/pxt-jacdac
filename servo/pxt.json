@@ -1,7 +1,7 @@
 {
     "name": "jacdac-servo",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Servo service",
+    "description": "MakeCode support for Jacdac Servo service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"

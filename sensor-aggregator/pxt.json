@@ -1,7 +1,7 @@
 {
     "name": "jacdac-sensor-aggregator",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Sensor aggregator service",
+    "description": "MakeCode support for Jacdac Sensor aggregator service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"

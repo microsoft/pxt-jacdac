@@ -1,7 +1,7 @@
 {
     "name": "jacdac-thermometer",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC Thermometer service",
+    "description": "MakeCode support for Jacdac Thermometer service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"

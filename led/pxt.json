@@ -1,7 +1,7 @@
 {
     "name": "jacdac-led",
     "version": "0.3.0",
-    "description": "MakeCode support for JACDAC LED service",
+    "description": "MakeCode support for Jacdac LED service",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
