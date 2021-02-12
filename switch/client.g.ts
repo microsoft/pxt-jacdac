@@ -16,7 +16,7 @@ namespace modules {
         * Indicates whether the switch is currently active (on).
         */
         //% blockId=jacdac_switch_active___get
-        //% group="Switch"
+        //% group="Button"
         //% block="%switch active" callInDebugger
         active(): boolean {
             this.setStreaming(true);            
@@ -29,7 +29,7 @@ namespace modules {
          */
         //% blockId=jacdac_on_switch_on
         //% block="on" blockSetVariable=myModule
-        //% group="Switch"
+        //% group="Button"
         onOn(handler: () => void) {
             this.registerEvent(jacdac.SwitchEvent.On, handler);
         }
@@ -38,11 +38,11 @@ namespace modules {
          */
         //% blockId=jacdac_on_switch_off
         //% block="off" blockSetVariable=myModule
-        //% group="Switch"
+        //% group="Button"
         onOff(handler: () => void) {
             this.registerEvent(jacdac.SwitchEvent.Off, handler);
         }
     }
     //% fixedInstance whenUsed
-    export const switch = new SwitchClient("switch");
+    export const switch_ = new SwitchClient("switch");
 }
