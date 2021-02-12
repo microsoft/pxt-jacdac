@@ -312,7 +312,7 @@ namespace jacdac {
 
         onDataChanged(handler: () => void) {
             this._dataChangedHandler = handler;
-        }        
+        }
 
         handlePacket(packet: JDPacket): void {
             if (packet.isRegGet && this.code !== packet.regCode) {
@@ -388,7 +388,7 @@ namespace jacdac {
                 this.raiseEvent(code, pkt.intData)
             }
 
-            for(const register of this.registers)
+            for (const register of this.registers)
                 register.handlePacket(pkt);
             this.handlePacket(pkt)
         }
@@ -837,12 +837,13 @@ namespace jacdac {
         if (multiCommandClass != null) {
             if (!pkt.isCommand)
                 return // only commands supported in multi-command
-            const h = _hostServices.find(s => s.serviceClass == multiCommandClass);
-            if (h && h.running) {
-                // pretend it's directly addressed to us
-                pkt.deviceIdentifier = selfDevice().deviceId
-                pkt.serviceIndex = h.serviceIndex
-                h.handlePacketOuter(pkt)
+            for (const h of _hostServices) {
+                if (h.serviceClass == multiCommandClass && h.running) {
+                    // pretend it's directly addressed to us
+                    pkt.deviceIdentifier = selfDevice().deviceId
+                    pkt.serviceIndex = h.serviceIndex
+                    h.handlePacketOuter(pkt)
+                }
             }
         } else if (devId == selfDevice().deviceId) {
             if (!pkt.isCommand) {
