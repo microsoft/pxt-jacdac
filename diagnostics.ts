@@ -1,6 +1,6 @@
 namespace jacdac {
     /**
-     * Gets the internal diagnostics data from the JACDAC transport layer
+     * Gets the internal diagnostics data from the Jacdac transport layer
      */
     export function diagnostics(): jacdac.JDDiagnostics {
         return new jacdac.JDDiagnostics(jacdac.__physGetDiagnostics());

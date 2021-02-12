@@ -695,7 +695,7 @@ namespace jacdac {
     }
 
     /**
-     * Gets the JACDAC device representing the running device
+     * Gets the Jacdac device representing the running device
      */
     export function selfDevice() {
         if (!_myDevice) {
@@ -968,7 +968,7 @@ namespace jacdac {
     }
 
     /**
-     * Starts the JACDAC service
+     * Starts the Jacdac service
      */
     export function start(options?: {
         disableLogger?: boolean,

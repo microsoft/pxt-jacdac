@@ -113,7 +113,7 @@ namespace pxsim.jacdac {
     }
 
     /**
-     * Returns the connection state of the JACDAC physical layer.
+     * Returns the connection state of the Jacdac physical layer.
      **/
     export function __physIsConnected(): boolean {
         const state = getJacDacState();
@@ -129,7 +129,7 @@ namespace pxsim.jacdac {
     }
 
     /**
-     * Starts the JACDAC physical layer.
+     * Starts the Jacdac physical layer.
      **/
     export function __physStart(): void {
         const state = getJacDacState();
@@ -138,7 +138,7 @@ namespace pxsim.jacdac {
     }
 
     /**
-     * Stops the JACDAC physical layer.
+     * Stops the Jacdac physical layer.
      **/
     export function __physStop(): void {
         const state = getJacDacState();

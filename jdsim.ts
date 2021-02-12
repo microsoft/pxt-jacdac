@@ -66,7 +66,7 @@ namespace jacdac {
     }
 
     /**
-     * Starts the JACDAC physical layer.
+     * Starts the Jacdac physical layer.
      **/
     //% shim=jacdac::__physStart
     export function __physStart(): void {

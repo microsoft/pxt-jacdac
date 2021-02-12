@@ -1,6 +1,6 @@
-# JACDAC Services for MakeCode
+# Jacdac Services for MakeCode
 
-This project contains [JACDAC](https://aka.ms/jacdac) host and client services for MakeCode editors.
+This project contains [Jacdac](https://aka.ms/jacdac) host and client services for MakeCode editors.
 
 **This project is still under construction.**
 
