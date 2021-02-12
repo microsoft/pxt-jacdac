@@ -31,6 +31,7 @@ namespace modules {
         //% group="Sound player" value.min=0 value.max=1
         //% block="set %soundplayer volume to %value"
         setVolume(value: number) {
+            this.start();
             const values = this._volume.values as any[];
             values[0] = value;
             this._volume.values = values as [number];

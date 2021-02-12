@@ -33,6 +33,7 @@ namespace modules {
         //% group="7-segment display" value.min=0 value.max=1
         //% block="set %sevensegmentdisplay brightness to %value"
         setBrightness(value: number) {
+            this.start();
             const values = this._brightness.values as any[];
             values[0] = value;
             this._brightness.values = values as [number];
@@ -80,6 +81,7 @@ namespace modules {
         //% group="7-segment display"
         //% block="set %sevensegmentdisplay digits to %value"
         setDigits(value: Buffer) {
+            this.start();
             const values = this._digits.values as any[];
             values[0] = value;
             this._digits.values = values as [Buffer];

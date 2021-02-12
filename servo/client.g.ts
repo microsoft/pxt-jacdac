@@ -33,6 +33,7 @@ namespace modules {
         //% group="Servo"
         //% block="set %servo %value=toggleOnOff"
         setEnabled(value: boolean) {
+            this.start();
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];
@@ -54,6 +55,7 @@ namespace modules {
         //% group="Servo" value.min=-90 value.max=90
         //% block="set %servo angle to %value"
         setAngle(value: number) {
+            this.start();
             const values = this._angle.values as any[];
             values[0] = value;
             this._angle.values = values as [number];

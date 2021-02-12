@@ -31,6 +31,7 @@ namespace modules {
         //% group="Buzzer" value.min=0 value.max=1 value.defl=1
         //% block="set %buzzer volume to %value"
         setVolume(value: number) {
+            this.start();
             const values = this._volume.values as any[];
             values[0] = value;
             this._volume.values = values as [number];

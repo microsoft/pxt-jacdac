@@ -33,6 +33,7 @@ namespace modules {
         //% group="Character Screen" value.min=0 value.max=1
         //% block="set %characterscreen brightness to %value"
         setBrightness(value: number) {
+            this.start();
             const values = this._brightness.values as any[];
             values[0] = value;
             this._brightness.values = values as [number];
@@ -54,6 +55,7 @@ namespace modules {
         //% group="Character Screen"
         //% block="set %characterscreen message to %value"
         setMessage(value: string) {
+            this.start();
             const values = this._message.values as any[];
             values[0] = value;
             this._message.values = values as [string];

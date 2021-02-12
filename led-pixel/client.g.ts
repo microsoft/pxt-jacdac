@@ -33,6 +33,7 @@ namespace modules {
         //% group="LED Pixel" value.min=0 value.max=1 value.defl=0.05
         //% block="set %ledpixel brightness to %value"
         setBrightness(value: number) {
+            this.start();
             const values = this._brightness.values as any[];
             values[0] = value;
             this._brightness.values = values as [number];

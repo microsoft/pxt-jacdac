@@ -33,6 +33,7 @@ namespace modules {
         //% group="Motor"
         //% block="set %motor %value=toggleOnOff"
         setEnabled(value: boolean) {
+            this.start();
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];
@@ -58,6 +59,7 @@ namespace modules {
         //% group="Motor" value.min=-1 value.max=1
         //% block="set %motor duty to %value"
         setDuty(value: number) {
+            this.start();
             const values = this._duty.values as any[];
             values[0] = value;
             this._duty.values = values as [number];

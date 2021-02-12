@@ -31,6 +31,7 @@ namespace modules {
         //% group="Relay"
         //% block="set %relay closed to %value"
         setClosed(value: boolean) {
+            this.start();
             const values = this._closed.values as any[];
             values[0] = value ? 1 : 0;
             this._closed.values = values as [boolean];

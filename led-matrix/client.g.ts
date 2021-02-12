@@ -33,6 +33,7 @@ namespace modules {
         //% group="LED Matrix" value.min=0 value.max=1
         //% block="set %ledmatrix brightness to %value"
         setBrightness(value: number) {
+            this.start();
             const values = this._brightness.values as any[];
             values[0] = value;
             this._brightness.values = values as [number];
@@ -56,6 +57,7 @@ namespace modules {
         //% group="LED Matrix"
         //% block="set %ledmatrix leds to %value"
         setLeds(value: Buffer) {
+            this.start();
             const values = this._leds.values as any[];
             values[0] = value;
             this._leds.values = values as [Buffer];

@@ -31,6 +31,7 @@ namespace modules {
         //% group="Speech synthesis"
         //% block="set %speechsynthesis %value=toggleOnOff"
         setEnabled(value: boolean) {
+            this.start();
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];
