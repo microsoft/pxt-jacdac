@@ -191,8 +191,6 @@ namespace jacdac {
         /**
          * Registers and starts the driver
          */
-        //% blockId=jacdachoststart block="start %service"
-        //% group="Services" blockGap=8
         start() {
             if (this.running)
                 return
@@ -206,8 +204,6 @@ namespace jacdac {
         /**
          * Unregister and stops the service
          */
-        //% blockId=jacdachoststop block="stop %service"
-        //% group="Services" blockGap=8
         stop() {
             if (!this.running)
                 return
@@ -1008,7 +1004,7 @@ namespace jacdac {
             faultpin.digitalRead()
             onAnnounce(() => {
                 if (faultpin.digitalRead() == false) {
-                    control.runInBackground(() => {
+                    control.runInParallel(() => {
                         control.dmesg("jacdac power overload; restarting power")
                         enablePower(false)
                         setPinByCfg(CFG_PIN_JDPWR_OVERLOAD_LED, true)
@@ -1032,4 +1028,7 @@ namespace jacdac {
         // and we're done
         log("jacdac started");
     }
+
+    // start after main
+    control.runInParallel(() => start());
 }
