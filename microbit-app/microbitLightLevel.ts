@@ -1,7 +1,7 @@
 namespace microbit {
     export class LightLevel extends jacdac.SensorHost {
         constructor() {
-            super("microbitLight", SRV_LIGHT_LEVEL)
+            super("microbitLight", jacdac.SRV_LIGHT_LEVEL)
         }
 
         public serializeState(): Buffer {
