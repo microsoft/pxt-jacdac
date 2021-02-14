@@ -1,0 +1,33 @@
+{
+    "name": "microbit-app",
+    "description": "An app that exposes micro:bit components as Jacdac hosts.",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "files": [
+        "main.ts",
+        "README.md",
+        "microbitAccel.ts",
+        "microbitButtons.ts",
+        "microbitSound.ts",
+        "microbitScreen.ts",
+        "microbitLightLevel.ts",
+        "microbitPlay.ts",
+        "microbitTemperature.ts",
+        "microbitCompass.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "3.1.50",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
+}
