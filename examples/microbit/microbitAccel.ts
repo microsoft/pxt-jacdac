@@ -22,20 +22,25 @@ namespace microbit {
         constructor() {
             super("microbitAccel", jacdac.SRV_ACCELEROMETER);
             control.onEvent(EventBusSource.MICROBIT_ID_ACCELEROMETER, EventBusValue.MICROBIT_EVT_ANY, 
-            () => {    
-                let e = mapEventValue(control.eventValue());
-                if (e != -1 && e != this.lastEvent) {
-                    this.lastEvent = e;
-                    this.sendEvent(e);
+                () => {    
+                    if (!this.running)
+                        return;
+                    let e = mapEventValue(control.eventValue());
+                    if (e != -1 && e != this.lastEvent) {
+                        this.lastEvent = e;
+                        // TODO: this results in a 980 error
+                        // this.sendEvent(e);
+                    }
                 }
-            })
+            )
         }
 
         public serializeState(): Buffer {
             let ax = input.acceleration(Dimension.X);
             let ay = input.acceleration(Dimension.Y);
             let az = input.acceleration(Dimension.Z);
-            return jacdac.jdpack("i16 i16 i16", [ax, ay, az]);
+            // TODO: proper conversion
+            return jacdac.jdpack("i12.20 i12.20 i12.20", [ax, ay, az]);
         }
     }
 }

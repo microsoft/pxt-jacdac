@@ -6,7 +6,7 @@
 // - edge connector (cap touch)
 
 function startAll() {
-    const accel = new microbit.Accelerometer();
+    let accel = new microbit.Accelerometer();
     let buttonA = new microbit.MButton("buttonA", Button.A);
     let buttonB = new microbit.MButton("buttonB", Button.B);
     let buttonAB = new microbit.MButton("buttonAB", Button.AB);
