@@ -7,10 +7,8 @@
         "microphone": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
         "jacdac-button": "github:microsoft/pxt-jacdac/button",
-        "jacdac-led-matrix": "github:microsoft/pxt-jacdac/led-matrix",
         "jacdac-compass": "github:microsoft/pxt-jacdac/compass",
-        "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
-        "jacdac-sound-level": "github:microsoft/pxt-jacdac/sound-level"
+        "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level"
     },
     "files": [
         "main.ts",

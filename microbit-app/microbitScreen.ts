@@ -1,12 +1,12 @@
 namespace microbit {
     export class Screen extends jacdac.Host {
         constructor() {
-            super("microbitScreen", SRV_LEDMATRIX)
+            super("microbitScreen", 0x110d154b)
         }
         
         handlePacket(packet: jacdac.JDPacket) {
-            if (packet.reg_identifier == LEDMatrixReg.Leds) {
-                if (packet.is_reg_set) {
+            if (packet.regCode == 0x02) {
+                if (packet.isRegSet) {
                     let x = 0, y = 0;
                     for (let i=0; i<25; i++) {
                         let byte = Math.floor(i/5);
@@ -27,11 +27,11 @@ namespace microbit {
                         }
                         x++; if (x == 5) { x=0; y++; }
                     }
-                    this.handleRegBuffer(packet, packet.reg_identifier, buf);
+                    this.handleRegBuffer(packet, packet.regCode, buf);
                 }
-            } else if (packet.reg_identifier == LEDMatrixReg.Rows || 
-                       packet.reg_identifier == LEDMatrixReg.Columns) {
-                this.handleRegValue(packet, packet.reg_identifier, "u16", 5);
+            } else if (packet.regCode == 0x181 || 
+                       packet.regCode == 0x182) {
+                this.handleRegValue(packet, packet.regCode, "u16", 5);
             }
         }
     }

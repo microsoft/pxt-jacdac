@@ -1,7 +1,7 @@
 namespace microbit {
     export class SoundLevel extends jacdac.SensorHost {
         constructor() {
-            super("microbitSound", SRV_SOUND_LEVEL)
+            super("microbitSound", 0x14ad1a5d)
         }
 
         public serializeState(): Buffer {
