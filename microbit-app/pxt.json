@@ -5,12 +5,12 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "jacdac": "../",
-        "jacdac-button": "../button",
-        "jacdac-led-matrix": "../led-matrix",
-        "jacdac-compass": "../compass",
-        "jacdac-light-level": "../light-level",
-        "jacdac-sound-level": "../sound-level"
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-button": "github:microsoft/pxt-jacdac/button",
+        "jacdac-led-matrix": "github:microsoft/pxt-jacdac/led-matrix",
+        "jacdac-compass": "github:microsoft/pxt-jacdac/compass",
+        "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
+        "jacdac-sound-level": "github:microsoft/pxt-jacdac/sound-level"
     },
     "files": [
         "main.ts",
