@@ -1,6 +1,8 @@
 namespace modules {
     /**
      * Servo is a small motor with arm that can be pointing at a specific direction.
+     * 
+     * The `min/max_angle/pulse` may be read-only if the servo is permanently affixed to its Jacdac controller.
      **/
     //% fixedInstances blockGap=8
     export class ServoClient extends jacdac.Client {

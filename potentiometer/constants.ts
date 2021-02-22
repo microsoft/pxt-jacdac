@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Potentiometer
     export const SRV_POTENTIOMETER = 0x1f274746
 
-    export const enum PotentiometerVariant { // uint32_t
+    export const enum PotentiometerVariant { // uint8_t
         Slider = 0x1,
         Rotary = 0x2,
     }
@@ -18,10 +18,10 @@ namespace jacdac {
         Position = 0x101,
 
         /**
-         * Constant Variant (uint32_t). Specifies the physical layout of the potentiometer.
+         * Constant Variant (uint8_t). Specifies the physical layout of the potentiometer.
          *
          * ```
-         * const [variant] = jdunpack<[PotentiometerVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[PotentiometerVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

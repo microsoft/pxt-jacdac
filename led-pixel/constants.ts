@@ -9,7 +9,7 @@ namespace jacdac {
     }
 
 
-    export const enum LedPixelVariant { // uint32_t
+    export const enum LedPixelVariant { // uint8_t
         Strip = 0x1,
         Ring = 0x2,
         Stick = 0x3,
@@ -102,10 +102,10 @@ namespace jacdac {
         NumRepeats = 0x82,
 
         /**
-         * Constant Variant (uint32_t). Specifies the shape of the light strip.
+         * Constant Variant (uint8_t). Specifies the shape of the light strip.
          *
          * ```
-         * const [variant] = jdunpack<[LedPixelVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[LedPixelVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

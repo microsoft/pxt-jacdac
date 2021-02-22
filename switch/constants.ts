@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Switch
     export const SRV_SWITCH = 0x1ad29402
 
-    export const enum SwitchVariant { // uint32_t
+    export const enum SwitchVariant { // uint8_t
         Slide = 0x1,
         Tilt = 0x2,
         PushButton = 0x3,
@@ -24,10 +24,10 @@ namespace jacdac {
         Active = 0x101,
 
         /**
-         * Constant Variant (uint32_t). Describes the type of switch used.
+         * Constant Variant (uint8_t). Describes the type of switch used.
          *
          * ```
-         * const [variant] = jdunpack<[SwitchVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[SwitchVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

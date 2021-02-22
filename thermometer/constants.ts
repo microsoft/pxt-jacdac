@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Thermometer
     export const SRV_THERMOMETER = 0x1421bac7
 
-    export const enum ThermometerVariant { // uint32_t
+    export const enum ThermometerVariant { // uint8_t
         Outdoor = 0x1,
         Indoor = 0x2,
         Body = 0x3,
@@ -46,10 +46,10 @@ namespace jacdac {
         TemperatureError = 0x106,
 
         /**
-         * Constant Variant (uint32_t). Specifies the type of thermometer.
+         * Constant Variant (uint8_t). Specifies the type of thermometer.
          *
          * ```
-         * const [variant] = jdunpack<[ThermometerVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[ThermometerVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

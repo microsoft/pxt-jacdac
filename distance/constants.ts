@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Distance
     export const SRV_DISTANCE = 0x141a6b8a
 
-    export const enum DistanceVariant { // uint32_t
+    export const enum DistanceVariant { // uint8_t
         Ultrasonic = 0x1,
         Infrared = 0x2,
         LiDAR = 0x3,
@@ -38,10 +38,10 @@ namespace jacdac {
         MaxRange = 0x105,
 
         /**
-         * Constant Variant (uint32_t). Determines the type of sensor used.
+         * Constant Variant (uint8_t). Determines the type of sensor used.
          *
          * ```
-         * const [variant] = jdunpack<[DistanceVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[DistanceVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

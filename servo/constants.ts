@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Servo
     export const SRV_SERVO = 0x12fc9103
 
-    export const enum ServoVariant { // uint32_t
+    export const enum ServoVariant { // uint8_t
         PositionalRotation = 0x1,
         Linear = 0x2,
     }
@@ -36,31 +36,49 @@ namespace jacdac {
         Offset = 0x81,
 
         /**
-         * Constant ° i16.16 (int32_t). Lowest angle that can be set.
+         * Read-write ° i16.16 (int32_t). Lowest angle that can be set.
          *
          * ```
          * const [minAngle] = jdunpack<[number]>(buf, "i16.16")
          * ```
          */
-        MinAngle = 0x104,
+        MinAngle = 0x82,
 
         /**
-         * Constant ° i16.16 (int32_t). Highest angle that can be set.
+         * Read-write μs uint16_t. The length of pulse corresponding to lowest angle.
+         *
+         * ```
+         * const [minPulse] = jdunpack<[number]>(buf, "u16")
+         * ```
+         */
+        MinPulse = 0x83,
+
+        /**
+         * Read-write ° i16.16 (int32_t). Highest angle that can be set.
          *
          * ```
          * const [maxAngle] = jdunpack<[number]>(buf, "i16.16")
          * ```
          */
-        MaxAngle = 0x105,
+        MaxAngle = 0x84,
 
         /**
-         * Constant Variant (uint32_t). Specifies the type of servo motor.
+         * Read-write μs uint16_t. The length of pulse corresponding to highest angle.
+         *
+         * ```
+         * const [maxPulse] = jdunpack<[number]>(buf, "u16")
+         * ```
+         */
+        MaxPulse = 0x85,
+
+        /**
+         * Constant Variant (uint8_t). Specifies the type of servo motor.
          * * Positional Rotation Servos: Positional servos can rotate the shaft in about half of the circle,
          * with features to avoid over-rotating. Most servo have a range of 180° but some allow 270° or 360°.
          * * Linear Servos: linear servos are also like a positional servo, but with additional gears to the adjust the output from circular to back-and-forth.
          *
          * ```
-         * const [variant] = jdunpack<[ServoVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[ServoVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

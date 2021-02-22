@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Relay
     export const SRV_RELAY = 0x183fe656
 
-    export const enum RelayVariant { // uint32_t
+    export const enum RelayVariant { // uint8_t
         Electromechanical = 0x1,
         SolidState = 0x2,
         Reed = 0x3,
@@ -19,10 +19,10 @@ namespace jacdac {
         Closed = 0x1,
 
         /**
-         * Constant Variant (uint32_t). Describes the type of relay used.
+         * Constant Variant (uint8_t). Describes the type of relay used.
          *
          * ```
-         * const [variant] = jdunpack<[RelayVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[RelayVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

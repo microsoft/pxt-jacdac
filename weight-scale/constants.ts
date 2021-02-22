@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Weight Scale
     export const SRV_WEIGHT_SCALE = 0x1f4d5040
 
-    export const enum WeightScaleVariant { // uint32_t
+    export const enum WeightScaleVariant { // uint8_t
         Body = 0x1,
         Food = 0x2,
         Jewelry = 0x3,
@@ -74,10 +74,10 @@ namespace jacdac {
         WeightResolution = 0x108,
 
         /**
-         * Constant Variant (uint32_t). The type of physical scale
+         * Constant Variant (uint8_t). The type of physical scale
          *
          * ```
-         * const [variant] = jdunpack<[WeightScaleVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[WeightScaleVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

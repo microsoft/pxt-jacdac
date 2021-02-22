@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Analog Button
     export const SRV_ANALOG_BUTTON = 0x1865adc9
 
-    export const enum AnalogButtonVariant { // uint32_t
+    export const enum AnalogButtonVariant { // uint8_t
         Pressure = 0x1,
         Capacitive = 0x2,
     }
@@ -36,10 +36,10 @@ namespace jacdac {
         ActiveThreshold = 0x6,
 
         /**
-         * Constant Variant (uint32_t). The type of physical button.
+         * Constant Variant (uint8_t). The type of physical button.
          *
          * ```
-         * const [variant] = jdunpack<[AnalogButtonVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[AnalogButtonVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Heart Rate
     export const SRV_HEART_RATE = 0x166c6dc4
 
-    export const enum HeartRateVariant { // uint32_t
+    export const enum HeartRateVariant { // uint8_t
         Finger = 0x1,
         Chest = 0x2,
         Wrist = 0x3,
@@ -30,10 +30,10 @@ namespace jacdac {
         HeartRateError = 0x106,
 
         /**
-         * Constant Variant (uint32_t). The type of physical sensor
+         * Constant Variant (uint8_t). The type of physical sensor
          *
          * ```
-         * const [variant] = jdunpack<[HeartRateVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[HeartRateVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

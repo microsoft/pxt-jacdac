@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Thermocouple
     export const SRV_THERMOCOUPLE = 0x143ac061
 
-    export const enum ThermocoupleVariant { // uint32_t
+    export const enum ThermocoupleVariant { // uint8_t
         TypeK = 0x1,
         TypeJ = 0x2,
         TypeT = 0x3,
@@ -51,10 +51,10 @@ namespace jacdac {
         TemperatureError = 0x106,
 
         /**
-         * Constant Variant (uint32_t). Specifies the type of thermometer.
+         * Constant Variant (uint8_t). Specifies the type of thermometer.
          *
          * ```
-         * const [variant] = jdunpack<[ThermocoupleVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[ThermocoupleVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

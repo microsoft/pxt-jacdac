@@ -52,7 +52,7 @@ namespace modules {
             this.registerEvent(jacdac.ButtonEvent.Click, handler);
         }
         /**
-         * Emitted together with `up` when the press time was more than 500ms.
+         * Emitted after button is held for 500ms. Long click events are followed by a separate up event.
          */
         //% blockId=jacdac_on_button_long_click
         //% block="long click" blockSetVariable=myModule

@@ -2,7 +2,7 @@ namespace jacdac {
     // Service: Matrix Keypad
     export const SRV_MATRIX_KEYPAD = 0x13062dc8
 
-    export const enum MatrixKeypadVariant { // uint32_t
+    export const enum MatrixKeypadVariant { // uint8_t
         Membrane = 0x1,
         Keyboard = 0x2,
         Elastomer = 0x3,
@@ -48,12 +48,12 @@ namespace jacdac {
         Labels = 0x182,
 
         /**
-         * Constant Variant (uint32_t). The type of physical keypad. If the variant is ``ElastomerLEDPixel``
+         * Constant Variant (uint8_t). The type of physical keypad. If the variant is ``ElastomerLEDPixel``
          * and the next service on the device is a ``LEDPixel`` service, it is considered
          * as the service controlling the LED pixel on the keypad.
          *
          * ```
-         * const [variant] = jdunpack<[MatrixKeypadVariant]>(buf, "u32")
+         * const [variant] = jdunpack<[MatrixKeypadVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,
