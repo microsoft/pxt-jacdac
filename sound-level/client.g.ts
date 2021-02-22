@@ -26,7 +26,7 @@ namespace modules {
             return values[0];
         }
         /**
-        * Turn on or off the sensor.
+        * Turn on or off the microphone.
         */
         //% blockId=jacdac_soundlevel_enabled___get
         //% group="Sound"
@@ -36,7 +36,7 @@ namespace modules {
             return !!values[0];
         }
         /**
-        * Turn on or off the sensor.
+        * Turn on or off the microphone.
         */
         //% blockId=jacdac_soundlevel_enabled___set
         //% group="Sound"
