@@ -59,7 +59,7 @@ namespace modules {
                     anim.setNumber(NumberFormat.UInt16LE, i + 2, adj)
                 }
             }
-            this.setRegBuffer(jacdac.LedReg.Steps, anim)
+            this.setRegBuffer(jacdac.LedReg.Animation, anim)
         }
     }
 
