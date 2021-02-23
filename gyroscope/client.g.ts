@@ -4,47 +4,92 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class GyroscopeClient extends jacdac.SensorClient<[number,number,number]> {
-            
+
+            private readonly _rotationRatesError : jacdac.RegisterClient<[number]>;
+            private readonly _maxRate : jacdac.RegisterClient<[number]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_GYROSCOPE, role, "i12.20 i12.20 i12.20");
-            
+
+            this._rotationRatesError = this.addRegister<[number]>(jacdac.GyroscopeReg.RotationRatesError, "i12.20");
+            this._maxRate = this.addRegister<[number]>(jacdac.GyroscopeReg.MaxRate, "i12.20");            
         }
     
 
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% blockId=jacdac_gyroscope_rotation_rates_x_get
+        //% callInDebugger
         //% group="Movement"
-        //% block="%gyroscope x" callInDebugger
+        //% block="%gyroscope x"
+        //% blockId=jacdac_gyroscope_rotation_rates_x_get
         x(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
+
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% blockId=jacdac_gyroscope_rotation_rates_y_get
+        //% callInDebugger
         //% group="Movement"
-        //% block="%gyroscope y" callInDebugger
+        //% block="%gyroscope y"
+        //% blockId=jacdac_gyroscope_rotation_rates_y_get
         y(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
         }
+
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% blockId=jacdac_gyroscope_rotation_rates_z_get
+        //% callInDebugger
         //% group="Movement"
-        //% block="%gyroscope z" callInDebugger
+        //% block="%gyroscope z"
+        //% blockId=jacdac_gyroscope_rotation_rates_z_get
         z(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[2];
-        } 
+        }
+
+        /**
+        * Error on the reading value.
+        */
+        //% callInDebugger
+        //% group="Movement"
+        rotationRatesError(): number {
+            this.start();            
+            const values = this._rotationRatesError.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Configures the range of range of rotation rates.
+        */
+        //% callInDebugger
+        //% group="Movement"
+        maxRate(): number {
+            this.start();            
+            const values = this._maxRate.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Configures the range of range of rotation rates.
+        */
+        //% 
+        //% group="Movement"
+        //% block="set %gyroscope max rate to %value"
+        setMaxRate(value: number) {
+            this.start();
+            const values = this._maxRate.values as any[];
+            values[0] = value;
+            this._maxRate.values = values as [number];
+        }
+ 
 
     }
     //% fixedInstance whenUsed

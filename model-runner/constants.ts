@@ -129,7 +129,7 @@ namespace jacdac {
          * The format is typically present as first or second little endian word of model file.
          *
          * ```
-         * const [format] = jdunpack<[ModelRunnerModelFormat]>(buf, "u32")
+         * const [format] = jdunpack<[jacdac.ModelRunnerModelFormat]>(buf, "u32")
          * ```
          */
         Format = 0x186,

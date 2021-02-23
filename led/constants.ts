@@ -76,7 +76,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The physical type of LED.
          *
          * ```
-         * const [variant] = jdunpack<[LedVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.LedVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

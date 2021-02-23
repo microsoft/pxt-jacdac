@@ -4,13 +4,26 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class WifiClient extends jacdac.Client {
-            
+
+            private readonly _connected : jacdac.RegisterClient<[boolean]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_WIFI, role);
-            
+
+            this._connected = this.addRegister<[boolean]>(jacdac.WifiReg.Connected, "u8");            
         }
     
+
+        /**
+        * Indicates whether or not we currently have an IP address assigned.
+        */
+        //% callInDebugger
+        //% group="Iot"
+        connected(): boolean {
+            this.start();            
+            const values = this._connected.pauseUntilValues() as any[];
+            return !!values[0];
+        }
  
 
         /**

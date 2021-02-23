@@ -53,7 +53,7 @@ namespace jacdac {
          * as the service controlling the LED pixel on the keypad.
          *
          * ```
-         * const [variant] = jdunpack<[MatrixKeypadVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.MatrixKeypadVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

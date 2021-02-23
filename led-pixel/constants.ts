@@ -45,7 +45,7 @@ namespace jacdac {
          * and could not allow change.
          *
          * ```
-         * const [lightType] = jdunpack<[LedPixelLightType]>(buf, "u8")
+         * const [lightType] = jdunpack<[jacdac.LedPixelLightType]>(buf, "u8")
          * ```
          */
         LightType = 0x80,
@@ -105,7 +105,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Specifies the shape of the light strip.
          *
          * ```
-         * const [variant] = jdunpack<[LedPixelVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.LedPixelVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

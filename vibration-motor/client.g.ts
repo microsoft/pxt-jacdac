@@ -17,13 +17,16 @@ namespace modules {
         /**
         * Determines if the vibration motor responds to vibrate commands.
         */
-        //% blockId=jacdac_vibration_enabled___get
+        //% callInDebugger
         //% group="Vibration motor"
-        //% block="%vibration enabled" callInDebugger
-        enabled(): boolean {            
+        //% block="%vibration enabled"
+        //% blockId=jacdac_vibration_enabled___get
+        enabled(): boolean {
+            this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
+
         /**
         * Determines if the vibration motor responds to vibrate commands.
         */
@@ -35,7 +38,8 @@ namespace modules {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];
-        } 
+        }
+ 
 
     }
     //% fixedInstance whenUsed

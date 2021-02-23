@@ -15,13 +15,62 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class RoleManagerClient extends jacdac.Client {
-            
+
+            private readonly _autoBind : jacdac.RegisterClient<[boolean]>;
+            private readonly _allRolesAllocated : jacdac.RegisterClient<[boolean]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_ROLE_MANAGER, role);
-            
+
+            this._autoBind = this.addRegister<[boolean]>(jacdac.RoleManagerReg.AutoBind, "u8");
+            this._allRolesAllocated = this.addRegister<[boolean]>(jacdac.RoleManagerReg.AllRolesAllocated, "u8");            
         }
     
+
+        /**
+        * Normally, if some roles are unfilled, and there are idle services that can fulfill them,
+        * the brain device will assign roles (bind) automatically.
+        * Such automatic assignment happens every second or so, and is trying to be smart about 
+        * co-locating roles that share "host" (part before first slash),
+        * as well as reasonably stable assignments.
+        * Once user start assigning roles manually using this service, auto-binding should be disabled to avoid confusion.
+        */
+        //% callInDebugger
+        //% group="Role Manager"
+        autoBind(): boolean {
+            this.start();            
+            const values = this._autoBind.pauseUntilValues() as any[];
+            return !!values[0];
+        }
+
+        /**
+        * Normally, if some roles are unfilled, and there are idle services that can fulfill them,
+        * the brain device will assign roles (bind) automatically.
+        * Such automatic assignment happens every second or so, and is trying to be smart about 
+        * co-locating roles that share "host" (part before first slash),
+        * as well as reasonably stable assignments.
+        * Once user start assigning roles manually using this service, auto-binding should be disabled to avoid confusion.
+        */
+        //% 
+        //% group="Role Manager" value.defl=1
+        //% block="set %rolemanager auto bind to %value"
+        setAutoBind(value: boolean) {
+            this.start();
+            const values = this._autoBind.values as any[];
+            values[0] = value ? 1 : 0;
+            this._autoBind.values = values as [boolean];
+        }
+
+        /**
+        * Indicates if all required roles have been allocated to devices.
+        */
+        //% callInDebugger
+        //% group="Role Manager"
+        allRolesAllocated(): boolean {
+            this.start();            
+            const values = this._allRolesAllocated.pauseUntilValues() as any[];
+            return !!values[0];
+        }
  
 
         /**

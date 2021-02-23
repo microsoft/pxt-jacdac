@@ -17,14 +17,16 @@ namespace modules {
         * no touch, wheres a value of around `100` or more indicates touch.
         * It's best to ignore this (unless debugging), and use events.
         */
-        //% blockId=jacdac_multitouch_capacity_capacitance_get
+        //% callInDebugger
         //% group="Button"
-        //% block="%multitouch capacitance" callInDebugger
+        //% block="%multitouch capacitance"
+        //% blockId=jacdac_multitouch_capacity_capacitance_get
         capacitance(): number[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
-        } 
+        }
+ 
 
         /**
          * Emitted when an input is touched.

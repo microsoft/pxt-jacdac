@@ -22,7 +22,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical sensor.
          *
          * ```
-         * const [variant] = jdunpack<[WaterLevelVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.WaterLevelVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

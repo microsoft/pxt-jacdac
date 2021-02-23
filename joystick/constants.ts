@@ -23,7 +23,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical joystick.
          *
          * ```
-         * const [variant] = jdunpack<[JoystickVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.JoystickVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

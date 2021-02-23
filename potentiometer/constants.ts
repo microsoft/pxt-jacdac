@@ -21,7 +21,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Specifies the physical layout of the potentiometer.
          *
          * ```
-         * const [variant] = jdunpack<[PotentiometerVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.PotentiometerVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

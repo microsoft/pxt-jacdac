@@ -21,7 +21,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Type of physical sensor used
          *
          * ```
-         * const [variant] = jdunpack<[ReflectedLightVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.ReflectedLightVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

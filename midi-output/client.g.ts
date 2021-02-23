@@ -17,13 +17,16 @@ namespace modules {
         /**
         * Opens or closes the port to the MIDI device
         */
-        //% blockId=jacdac_midioutput_enabled___get
+        //% callInDebugger
         //% group="Sound"
-        //% block="%midioutput enabled" callInDebugger
-        enabled(): boolean {            
+        //% block="%midioutput enabled"
+        //% blockId=jacdac_midioutput_enabled___get
+        enabled(): boolean {
+            this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
             return !!values[0];
         }
+
         /**
         * Opens or closes the port to the MIDI device
         */
@@ -35,7 +38,8 @@ namespace modules {
             const values = this._enabled.values as any[];
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];
-        } 
+        }
+ 
 
     }
     //% fixedInstance whenUsed

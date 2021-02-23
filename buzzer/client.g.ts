@@ -17,13 +17,16 @@ namespace modules {
         /**
         * The volume (duty cycle) of the buzzer.
         */
-        //% blockId=jacdac_buzzer_volume___get
+        //% callInDebugger
         //% group="Sound"
-        //% block="%buzzer volume" callInDebugger
-        volume(): number {            
+        //% block="%buzzer volume"
+        //% blockId=jacdac_buzzer_volume___get
+        volume(): number {
+            this.start();            
             const values = this._volume.pauseUntilValues() as any[];
             return values[0];
         }
+
         /**
         * The volume (duty cycle) of the buzzer.
         */
@@ -35,7 +38,8 @@ namespace modules {
             const values = this._volume.values as any[];
             values[0] = value;
             this._volume.values = values as [number];
-        } 
+        }
+ 
 
     }
     //% fixedInstance whenUsed

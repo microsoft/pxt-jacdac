@@ -43,7 +43,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical clock used by the sensor.
          *
          * ```
-         * const [variant] = jdunpack<[RealTimeClockVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.RealTimeClockVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

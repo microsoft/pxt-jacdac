@@ -4,25 +4,40 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class WaterLevelClient extends jacdac.SensorClient<[number]> {
-            
+
+            private readonly _variant : jacdac.RegisterClient<[jacdac.WaterLevelVariant]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_WATER_LEVEL, role, "u0.16");
-            
+
+            this._variant = this.addRegister<[jacdac.WaterLevelVariant]>(jacdac.WaterLevelReg.Variant, "u8");            
         }
     
 
         /**
         * The reported water level.
         */
-        //% blockId=jacdac_waterlevel_level___get
+        //% callInDebugger
         //% group="Water level"
-        //% block="%waterlevel level" callInDebugger
+        //% block="%waterlevel level"
+        //% blockId=jacdac_waterlevel_level___get
         level(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
-        } 
+        }
+
+        /**
+        * The type of physical sensor.
+        */
+        //% callInDebugger
+        //% group="Water level"
+        variant(): jacdac.WaterLevelVariant {
+            this.start();            
+            const values = this._variant.pauseUntilValues() as any[];
+            return values[0];
+        }
+ 
 
     }
     //% fixedInstance whenUsed

@@ -38,7 +38,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Type of physical sensor
          *
          * ```
-         * const [variant] = jdunpack<[MotionVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.MotionVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

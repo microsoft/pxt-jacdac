@@ -4,47 +4,94 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class AccelerometerClient extends jacdac.SensorClient<[number,number,number]> {
-            
+
+            private readonly _forcesError : jacdac.RegisterClient<[number]>;
+            private readonly _maxForce : jacdac.RegisterClient<[number]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_ACCELEROMETER, role, "i12.20 i12.20 i12.20");
-            
+
+            this._forcesError = this.addRegister<[number]>(jacdac.AccelerometerReg.ForcesError, "i12.20");
+            this._maxForce = this.addRegister<[number]>(jacdac.AccelerometerReg.MaxForce, "i12.20");            
         }
     
 
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% blockId=jacdac_accelerometer_forces_x_get
+        //% callInDebugger
         //% group="Movement"
-        //% block="%accelerometer x" callInDebugger
+        //% block="%accelerometer x"
+        //% blockId=jacdac_accelerometer_forces_x_get
         x(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
+
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% blockId=jacdac_accelerometer_forces_y_get
+        //% callInDebugger
         //% group="Movement"
-        //% block="%accelerometer y" callInDebugger
+        //% block="%accelerometer y"
+        //% blockId=jacdac_accelerometer_forces_y_get
         y(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
         }
+
         /**
         * Indicates the current forces acting on accelerometer.
         */
-        //% blockId=jacdac_accelerometer_forces_z_get
+        //% callInDebugger
         //% group="Movement"
-        //% block="%accelerometer z" callInDebugger
+        //% block="%accelerometer z"
+        //% blockId=jacdac_accelerometer_forces_z_get
         z(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[2];
-        } 
+        }
+
+        /**
+        * Error on the reading value.
+        */
+        //% callInDebugger
+        //% group="Movement"
+        forcesError(): number {
+            this.start();            
+            const values = this._forcesError.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Configures the range forces detected.
+        * Read-back after setting to get current value.
+        */
+        //% callInDebugger
+        //% group="Movement"
+        maxForce(): number {
+            this.start();            
+            const values = this._maxForce.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Configures the range forces detected.
+        * Read-back after setting to get current value.
+        */
+        //% 
+        //% group="Movement"
+        //% block="set %accelerometer max force to %value"
+        setMaxForce(value: number) {
+            this.start();
+            const values = this._maxForce.values as any[];
+            values[0] = value;
+            this._maxForce.values = values as [number];
+        }
+ 
 
         /**
          * Emitted when accelerometer is tilted in the given direction.

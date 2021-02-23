@@ -36,7 +36,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Describes the type of character LED screen.
          *
          * ```
-         * const [variant] = jdunpack<[CharacterScreenVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.CharacterScreenVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,
@@ -45,7 +45,7 @@ namespace jacdac {
          * Read-write TextDirection (uint8_t). Specifies the RTL or LTR direction of the text.
          *
          * ```
-         * const [textDirection] = jdunpack<[CharacterScreenTextDirection]>(buf, "u8")
+         * const [textDirection] = jdunpack<[jacdac.CharacterScreenTextDirection]>(buf, "u8")
          * ```
          */
         TextDirection = 0x82,

@@ -15,14 +15,16 @@ namespace modules {
         /**
         * Indicates whether the button is currently active (pressed).
         */
-        //% blockId=jacdac_button_pressed___get
+        //% callInDebugger
         //% group="Button"
-        //% block="%button pressed" callInDebugger
+        //% block="%button pressed"
+        //% blockId=jacdac_button_pressed___get
         pressed(): boolean {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return !!values[0];
-        } 
+        }
+ 
 
         /**
          * Emitted when button goes from inactive (`pressed == 0`) to active.

@@ -19,7 +19,7 @@ namespace jacdac {
          * too verbose for them.
          *
          * ```
-         * const [minPriority] = jdunpack<[LoggerPriority]>(buf, "u8")
+         * const [minPriority] = jdunpack<[jacdac.LoggerPriority]>(buf, "u8")
          * ```
          */
         MinPriority = 0x80,

@@ -25,7 +25,7 @@ namespace jacdac {
          * Presses a key or a sequence of keys down.
          *
          * ```
-         * const [rest] = jdunpack<[([number, HidKeyboardModifiers, HidKeyboardAction])[]]>(buf, "r: u16 u8 u8")
+         * const [rest] = jdunpack<[([number, jacdac.HidKeyboardModifiers, jacdac.HidKeyboardAction])[]]>(buf, "r: u16 u8 u8")
          * const [selector, modifiers, action] = rest[0]
          * ```
          */

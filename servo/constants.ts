@@ -78,7 +78,7 @@ namespace jacdac {
          * * Linear Servos: linear servos are also like a positional servo, but with additional gears to the adjust the output from circular to back-and-forth.
          *
          * ```
-         * const [variant] = jdunpack<[ServoVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.ServoVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

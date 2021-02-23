@@ -4,11 +4,15 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class JoystickClient extends jacdac.SensorClient<[number,number]> {
-            
+
+            private readonly _variant : jacdac.RegisterClient<[jacdac.JoystickVariant]>;
+            private readonly _digital : jacdac.RegisterClient<[boolean]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_JOYSTICK, role, "i1.15 i1.15");
-            
+
+            this._variant = this.addRegister<[jacdac.JoystickVariant]>(jacdac.JoystickReg.Variant, "u8");
+            this._digital = this.addRegister<[boolean]>(jacdac.JoystickReg.Digital, "u8");            
         }
     
 
@@ -16,26 +20,52 @@ namespace modules {
         * The direction of the joystick measure in two direction.
         * If joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.
         */
-        //% blockId=jacdac_joystick_direction_x_get
+        //% callInDebugger
         //% group="Button"
-        //% block="%joystick x" callInDebugger
+        //% block="%joystick x"
+        //% blockId=jacdac_joystick_direction_x_get
         x(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
+
         /**
         * The direction of the joystick measure in two direction.
         * If joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.
         */
-        //% blockId=jacdac_joystick_direction_y_get
+        //% callInDebugger
         //% group="Button"
-        //% block="%joystick y" callInDebugger
+        //% block="%joystick y"
+        //% blockId=jacdac_joystick_direction_y_get
         y(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
-        } 
+        }
+
+        /**
+        * The type of physical joystick.
+        */
+        //% callInDebugger
+        //% group="Button"
+        variant(): jacdac.JoystickVariant {
+            this.start();            
+            const values = this._variant.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Indicates if the joystick is digital, typically made of switches.
+        */
+        //% callInDebugger
+        //% group="Button"
+        digital(): boolean {
+            this.start();            
+            const values = this._digital.pauseUntilValues() as any[];
+            return !!values[0];
+        }
+ 
 
     }
     //% fixedInstance whenUsed

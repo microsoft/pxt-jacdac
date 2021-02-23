@@ -4,13 +4,91 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class TrafficLightClient extends jacdac.Client {
-            
+
+            private readonly _red : jacdac.RegisterClient<[boolean]>;
+            private readonly _orange : jacdac.RegisterClient<[boolean]>;
+            private readonly _green : jacdac.RegisterClient<[boolean]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_TRAFFIC_LIGHT, role);
-            
+
+            this._red = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Red, "u8");
+            this._orange = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Orange, "u8");
+            this._green = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Green, "u8");            
         }
     
+
+        /**
+        * The on/off state of the red light.
+        */
+        //% callInDebugger
+        //% group="Traffic Light"
+        red(): boolean {
+            this.start();            
+            const values = this._red.pauseUntilValues() as any[];
+            return !!values[0];
+        }
+
+        /**
+        * The on/off state of the red light.
+        */
+        //% 
+        //% group="Traffic Light"
+        //% block="set %trafficlight red to %value"
+        setRed(value: boolean) {
+            this.start();
+            const values = this._red.values as any[];
+            values[0] = value ? 1 : 0;
+            this._red.values = values as [boolean];
+        }
+
+        /**
+        * The on/off state of the red light.
+        */
+        //% callInDebugger
+        //% group="Traffic Light"
+        orange(): boolean {
+            this.start();            
+            const values = this._orange.pauseUntilValues() as any[];
+            return !!values[0];
+        }
+
+        /**
+        * The on/off state of the red light.
+        */
+        //% 
+        //% group="Traffic Light"
+        //% block="set %trafficlight orange to %value"
+        setOrange(value: boolean) {
+            this.start();
+            const values = this._orange.values as any[];
+            values[0] = value ? 1 : 0;
+            this._orange.values = values as [boolean];
+        }
+
+        /**
+        * The on/off state of the red light.
+        */
+        //% callInDebugger
+        //% group="Traffic Light"
+        green(): boolean {
+            this.start();            
+            const values = this._green.pauseUntilValues() as any[];
+            return !!values[0];
+        }
+
+        /**
+        * The on/off state of the red light.
+        */
+        //% 
+        //% group="Traffic Light"
+        //% block="set %trafficlight green to %value"
+        setGreen(value: boolean) {
+            this.start();
+            const values = this._green.values as any[];
+            values[0] = value ? 1 : 0;
+            this._green.values = values as [boolean];
+        }
  
 
     }

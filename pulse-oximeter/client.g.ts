@@ -6,25 +6,40 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class PulseOximeterClient extends jacdac.SensorClient<[number]> {
-            
+
+            private readonly _oxygenError : jacdac.RegisterClient<[number]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_PULSE_OXIMETER, role, "u8.8");
-            
+
+            this._oxygenError = this.addRegister<[number]>(jacdac.PulseOximeterReg.OxygenError, "u8.8");            
         }
     
 
         /**
         * The estimated oxygen level in blood.
         */
-        //% blockId=jacdac_pulseoximeter_oxygen___get
+        //% callInDebugger
         //% group="Biometric"
-        //% block="%pulseoximeter oxygen" callInDebugger
+        //% block="%pulseoximeter oxygen"
+        //% blockId=jacdac_pulseoximeter_oxygen___get
         oxygen(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
-        } 
+        }
+
+        /**
+        * The estimated error on the reported sensor data.
+        */
+        //% callInDebugger
+        //% group="Biometric"
+        oxygenError(): number {
+            this.start();            
+            const values = this._oxygenError.pauseUntilValues() as any[];
+            return values[0];
+        }
+ 
 
     }
     //% fixedInstance whenUsed

@@ -30,7 +30,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical sensor and capabilities.
          *
          * ```
-         * const [variant] = jdunpack<[UvIndexVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.UvIndexVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

@@ -15,36 +15,42 @@ namespace modules {
         /**
         * Detected color in the RGB color space.
         */
-        //% blockId=jacdac_color_color_red_get
+        //% callInDebugger
         //% group="Imaging"
-        //% block="%color red" callInDebugger
+        //% block="%color red"
+        //% blockId=jacdac_color_color_red_get
         red(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
+
         /**
         * Detected color in the RGB color space.
         */
-        //% blockId=jacdac_color_color_green_get
+        //% callInDebugger
         //% group="Imaging"
-        //% block="%color green" callInDebugger
+        //% block="%color green"
+        //% blockId=jacdac_color_color_green_get
         green(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
         }
+
         /**
         * Detected color in the RGB color space.
         */
-        //% blockId=jacdac_color_color_blue_get
+        //% callInDebugger
         //% group="Imaging"
-        //% block="%color blue" callInDebugger
+        //% block="%color blue"
+        //% blockId=jacdac_color_color_blue_get
         blue(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[2];
-        } 
+        }
+ 
 
     }
     //% fixedInstance whenUsed

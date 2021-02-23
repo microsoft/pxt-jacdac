@@ -3,12 +3,14 @@ namespace modules {
      * A gamepad with direction and action buttons for one player.
      **/
     //% fixedInstances blockGap=8
-    export class ArcadeGamepadClient extends jacdac.SensorClient<[([ArcadeGamepadButton, number])[]]> {
-            
+    export class ArcadeGamepadClient extends jacdac.SensorClient<[([jacdac.ArcadeGamepadButton, number])[]]> {
+
+            private readonly _availableButtons : jacdac.RegisterClient<[jacdac.ArcadeGamepadButton[]]>;            
 
             constructor(role: string) {
             super(jacdac.SRV_ARCADE_GAMEPAD, role, "r: u8 u0.8");
-            
+
+            this._availableButtons = this.addRegister<[jacdac.ArcadeGamepadButton[]]>(jacdac.ArcadeGamepadReg.AvailableButtons, "r: u8");            
         }
     
 
@@ -16,26 +18,41 @@ namespace modules {
         * Indicates which buttons are currently active (pressed).
         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
         */
-        //% blockId=jacdac_arcadegamepad_buttons_button_get
+        //% callInDebugger
         //% group="Button"
-        //% block="%arcadegamepad button" callInDebugger
-        button(): ([ArcadeGamepadButton, number])[] {
+        //% block="%arcadegamepad button"
+        //% blockId=jacdac_arcadegamepad_buttons_button_get
+        button(): ([jacdac.ArcadeGamepadButton, number])[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
         }
+
         /**
         * Indicates which buttons are currently active (pressed).
         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
         */
-        //% blockId=jacdac_arcadegamepad_buttons_pressure_get
+        //% callInDebugger
         //% group="Button"
-        //% block="%arcadegamepad pressure" callInDebugger
+        //% block="%arcadegamepad pressure"
+        //% blockId=jacdac_arcadegamepad_buttons_pressure_get
         pressure(): undefined {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[1];
-        } 
+        }
+
+        /**
+        * Indicates number of players supported and which buttons are present on the controller.
+        */
+        //% callInDebugger
+        //% group="Button"
+        button(): jacdac.ArcadeGamepadButton[] {
+            this.start();            
+            const values = this._availableButtons.pauseUntilValues() as any[];
+            return values[0];
+        }
+ 
 
         /**
          * Emitted when button goes from inactive to active.

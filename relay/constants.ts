@@ -22,7 +22,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Describes the type of relay used.
          *
          * ```
-         * const [variant] = jdunpack<[RelayVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.RelayVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

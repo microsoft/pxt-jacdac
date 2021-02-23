@@ -41,7 +41,7 @@ namespace jacdac {
          * Argument: error TcpError (int32_t). Reported when an error is encountered. Negative error codes come directly from the SSL implementation.
          *
          * ```
-         * const [error] = jdunpack<[TcpTcpError]>(buf, "i32")
+         * const [error] = jdunpack<[jacdac.TcpTcpError]>(buf, "i32")
          * ```
          */
         Error = 0x0,

@@ -41,7 +41,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Determines the type of sensor used.
          *
          * ```
-         * const [variant] = jdunpack<[DistanceVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.DistanceVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

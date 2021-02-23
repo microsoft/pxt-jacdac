@@ -49,7 +49,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Specifies the type of thermometer.
          *
          * ```
-         * const [variant] = jdunpack<[ThermometerVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.ThermometerVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,
