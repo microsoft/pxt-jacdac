@@ -65,7 +65,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=97
-        label(): string[] {
+        labelsLabel(): string[] {
             this.start();            
             const values = this._labels.pauseUntilValues() as any[];
             return values[0];

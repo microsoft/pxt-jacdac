@@ -70,7 +70,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=98
-        repetitions(): number {
+        animationRepetitions(): number {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
             return values[0];
@@ -87,7 +87,7 @@ namespace modules {
         */
         //% group="Light"
         //% weight=97
-        setRepetitions(value: number) {
+        setAnimationRepetitions(value: number) {
             this.start();
             const values = this._animation.values as any[];
             values[0] = value;
@@ -106,7 +106,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=96
-        hue(): ([number, number, number, number])[] {
+        animationHue(): ([number, number, number, number])[] {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
             return values[1];
@@ -123,7 +123,7 @@ namespace modules {
         */
         //% group="Light"
         //% weight=95
-        setHue(value: ([number, number, number, number])[]) {
+        setAnimationHue(value: ([number, number, number, number])[]) {
             this.start();
             const values = this._animation.values as any[];
             values[1] = value;
@@ -142,7 +142,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=94
-        saturation(): undefined {
+        animationSaturation(): undefined {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
             return values[2];
@@ -159,7 +159,7 @@ namespace modules {
         */
         //% group="Light"
         //% weight=93
-        setSaturation(value: undefined) {
+        setAnimationSaturation(value: undefined) {
             this.start();
             const values = this._animation.values as any[];
             values[2] = value;
@@ -178,7 +178,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=92
-        value(): undefined {
+        animationValue(): undefined {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
             return values[3];
@@ -195,7 +195,7 @@ namespace modules {
         */
         //% group="Light"
         //% weight=91
-        setValue(value: undefined) {
+        setAnimationValue(value: undefined) {
             this.start();
             const values = this._animation.values as any[];
             values[3] = value;
@@ -214,7 +214,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=90
-        duration(): undefined {
+        animationDuration(): undefined {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
             return values[4];
@@ -231,7 +231,7 @@ namespace modules {
         */
         //% group="Light"
         //% weight=89
-        setDuration(value: undefined) {
+        setAnimationDuration(value: undefined) {
             this.start();
             const values = this._animation.values as any[];
             values[4] = value;

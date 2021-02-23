@@ -223,7 +223,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=85
-        i8(): number {
+        rwI8U8U16I32I8(): number {
             this.start();            
             const values = this._rwI8U8U16I32.pauseUntilValues() as any[];
             return values[0];
@@ -234,7 +234,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% weight=84
-        setI8(value: number) {
+        setRwI8U8U16I32I8(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];
             values[0] = value;
@@ -247,7 +247,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=83
-        u8(): number {
+        rwI8U8U16I32U8(): number {
             this.start();            
             const values = this._rwI8U8U16I32.pauseUntilValues() as any[];
             return values[1];
@@ -258,7 +258,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% weight=82
-        setU8(value: number) {
+        setRwI8U8U16I32U8(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];
             values[1] = value;
@@ -271,7 +271,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=81
-        u16(): number {
+        rwI8U8U16I32U16(): number {
             this.start();            
             const values = this._rwI8U8U16I32.pauseUntilValues() as any[];
             return values[2];
@@ -282,7 +282,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% weight=80
-        setU16(value: number) {
+        setRwI8U8U16I32U16(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];
             values[2] = value;
@@ -295,7 +295,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=79
-        i32(): number {
+        rwI8U8U16I32I32(): number {
             this.start();            
             const values = this._rwI8U8U16I32.pauseUntilValues() as any[];
             return values[3];
@@ -306,7 +306,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% weight=78
-        setI32(value: number) {
+        setRwI8U8U16I32I32(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];
             values[3] = value;
@@ -319,7 +319,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=77
-        i8(): number {
+        roI8U8U16I32I8(): number {
             this.start();            
             const values = this._roI8U8U16I32.pauseUntilValues() as any[];
             return values[0];
@@ -331,7 +331,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=76
-        u8(): number {
+        roI8U8U16I32U8(): number {
             this.start();            
             const values = this._roI8U8U16I32.pauseUntilValues() as any[];
             return values[1];
@@ -343,7 +343,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=75
-        u16(): number {
+        roI8U8U16I32U16(): number {
             this.start();            
             const values = this._roI8U8U16I32.pauseUntilValues() as any[];
             return values[2];
@@ -355,7 +355,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=74
-        i32(): number {
+        roI8U8U16I32I32(): number {
             this.start();            
             const values = this._roI8U8U16I32.pauseUntilValues() as any[];
             return values[3];

@@ -50,7 +50,7 @@ namespace modules {
         //% callInDebugger
         //% group="Barcode reader"
         //% weight=98
-        format(): jacdac.BarcodeReaderFormat[] {
+        formatsFormat(): jacdac.BarcodeReaderFormat[] {
             this.start();            
             const values = this._formats.pauseUntilValues() as any[];
             return values[0];

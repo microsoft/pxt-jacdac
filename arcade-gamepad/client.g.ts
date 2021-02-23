@@ -50,7 +50,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=98
-        button(): jacdac.ArcadeGamepadButton[] {
+        availableButtonsButton(): jacdac.ArcadeGamepadButton[] {
             this.start();            
             const values = this._availableButtons.pauseUntilValues() as any[];
             return values[0];

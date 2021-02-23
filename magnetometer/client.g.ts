@@ -65,7 +65,7 @@ namespace modules {
         //% callInDebugger
         //% group="Magnetometer"
         //% weight=97
-        x(): number {
+        forcesErrorX(): number {
             this.start();            
             const values = this._forcesError.pauseUntilValues() as any[];
             return values[0];
@@ -77,7 +77,7 @@ namespace modules {
         //% callInDebugger
         //% group="Magnetometer"
         //% weight=96
-        y(): number {
+        forcesErrorY(): number {
             this.start();            
             const values = this._forcesError.pauseUntilValues() as any[];
             return values[1];
@@ -89,7 +89,7 @@ namespace modules {
         //% callInDebugger
         //% group="Magnetometer"
         //% weight=95
-        z(): number {
+        forcesErrorZ(): number {
             this.start();            
             const values = this._forcesError.pauseUntilValues() as any[];
             return values[2];

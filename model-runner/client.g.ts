@@ -86,7 +86,7 @@ namespace modules {
         //% callInDebugger
         //% group="Model Runner"
         //% weight=97
-        dimension(): number[] {
+        inputShapeDimension(): number[] {
             this.start();            
             const values = this._inputShape.pauseUntilValues() as any[];
             return values[0];
@@ -98,7 +98,7 @@ namespace modules {
         //% callInDebugger
         //% group="Model Runner"
         //% weight=96
-        dimension(): number[] {
+        outputShapeDimension(): number[] {
             this.start();            
             const values = this._outputShape.pauseUntilValues() as any[];
             return values[0];

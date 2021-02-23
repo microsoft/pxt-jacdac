@@ -28,7 +28,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=100
-        samplingInterval(): number {
+        inputsSamplingInterval(): number {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[0];
@@ -40,7 +40,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=99
-        setSamplingInterval(value: number) {
+        setInputsSamplingInterval(value: number) {
             this.start();
             const values = this._inputs.values as any[];
             values[0] = value;
@@ -54,7 +54,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=98
-        samplesInWindow(): number {
+        inputsSamplesInWindow(): number {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[1];
@@ -66,7 +66,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=97
-        setSamplesInWindow(value: number) {
+        setInputsSamplesInWindow(value: number) {
             this.start();
             const values = this._inputs.values as any[];
             values[1] = value;
@@ -80,7 +80,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=96
-        reserved(): ([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[] {
+        inputsReserved(): ([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[] {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[2];
@@ -92,7 +92,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=95
-        setReserved(value: ([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]) {
+        setInputsReserved(value: ([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]) {
             this.start();
             const values = this._inputs.values as any[];
             values[2] = value;
@@ -106,7 +106,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=94
-        deviceId(): undefined {
+        inputsDeviceId(): undefined {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[3];
@@ -118,7 +118,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=93
-        setDeviceId(value: undefined) {
+        setInputsDeviceId(value: undefined) {
             this.start();
             const values = this._inputs.values as any[];
             values[3] = value;
@@ -132,7 +132,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=92
-        serviceClass(): undefined {
+        inputsServiceClass(): undefined {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[4];
@@ -144,7 +144,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=91
-        setServiceClass(value: undefined) {
+        setInputsServiceClass(value: undefined) {
             this.start();
             const values = this._inputs.values as any[];
             values[4] = value;
@@ -158,7 +158,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=90
-        serviceNum(): undefined {
+        inputsServiceNum(): undefined {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[5];
@@ -170,7 +170,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=89
-        setServiceNum(value: undefined) {
+        setInputsServiceNum(value: undefined) {
             this.start();
             const values = this._inputs.values as any[];
             values[5] = value;
@@ -184,7 +184,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=88
-        sampleSize(): undefined {
+        inputsSampleSize(): undefined {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[6];
@@ -196,7 +196,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=87
-        setSampleSize(value: undefined) {
+        setInputsSampleSize(value: undefined) {
             this.start();
             const values = this._inputs.values as any[];
             values[6] = value;
@@ -210,7 +210,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=86
-        sampleType(): undefined {
+        inputsSampleType(): undefined {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[7];
@@ -222,7 +222,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=85
-        setSampleType(value: undefined) {
+        setInputsSampleType(value: undefined) {
             this.start();
             const values = this._inputs.values as any[];
             values[7] = value;
@@ -236,7 +236,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=84
-        sampleShift(): undefined {
+        inputsSampleShift(): undefined {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[8];
@@ -248,7 +248,7 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=83
-        setSampleShift(value: undefined) {
+        setInputsSampleShift(value: undefined) {
             this.start();
             const values = this._inputs.values as any[];
             values[8] = value;
