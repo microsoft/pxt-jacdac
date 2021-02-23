@@ -3,30 +3,17 @@ namespace modules {
      * A vibration motor.
      **/
     //% fixedInstances blockGap=8
-    export class VibrationMotorClient extends jacdac.SensorClient<[number]> {
+    export class VibrationMotorClient extends jacdac.Client {
 
             private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
             constructor(role: string) {
-            super(jacdac.SRV_VIBRATION_MOTOR, role, "u0.8");
+            super(jacdac.SRV_VIBRATION_MOTOR, role);
 
             this._enabled = this.addRegister<[boolean]>(jacdac.VibrationMotorReg.Enabled, "u8");            
         }
     
 
-        /**
-        * Rotation speed of the motor. If only one rotation speed is supported,
-        * then `0` shell be off, and any other number on. 
-        * Use the ``vibrate`` command to control the register.
-        */
-        //% blockId=jacdac_vibration_speed___get
-        //% group="Vibration motor"
-        //% block="%vibration speed" callInDebugger
-        speed(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
-        }
         /**
         * Determines if the vibration motor responds to vibrate commands.
         */
