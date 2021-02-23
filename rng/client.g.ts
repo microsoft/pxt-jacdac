@@ -8,9 +8,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class RngClient extends jacdac.Client {
 
-            private readonly _variant : jacdac.RegisterClient<[jacdac.RngVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.RngVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_RNG, role);
 
             this._variant = this.addRegister<[jacdac.RngVariant]>(jacdac.RngReg.Variant, "u8");            
@@ -25,6 +25,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Random Number Generator"
+        //% weight=100
         variant(): jacdac.RngVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -32,6 +33,20 @@ namespace modules {
         }
  
 
+
+        /**
+        * A command that generates a random buffer with the given length.
+        * This never blocks for a long time.
+        */
+        //% group="Random Number Generator"
+        //% blockId=jacdac_rng_random_cmd
+        //% block="%rng random"
+        //% weight=99
+        random(length: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.RngCmd.Random, "u8", [length]))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const rng = new RngClient("rng");

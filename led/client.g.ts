@@ -5,15 +5,15 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class LedClient extends jacdac.Client {
 
-            private readonly _brightness : jacdac.RegisterClient<[number]>;
-            private readonly _animation : jacdac.RegisterClient<[number,([number, number, number, number])[]]>;
-            private readonly _maxPower : jacdac.RegisterClient<[number]>;
-            private readonly _ledCount : jacdac.RegisterClient<[number]>;
-            private readonly _waveLength : jacdac.RegisterClient<[number]>;
-            private readonly _luminousIntensity : jacdac.RegisterClient<[number]>;
-            private readonly _variant : jacdac.RegisterClient<[jacdac.LedVariant]>;            
+        private readonly _brightness : jacdac.RegisterClient<[number]>;
+        private readonly _animation : jacdac.RegisterClient<[number,([number, number, number, number])[]]>;
+        private readonly _maxPower : jacdac.RegisterClient<[number]>;
+        private readonly _ledCount : jacdac.RegisterClient<[number]>;
+        private readonly _waveLength : jacdac.RegisterClient<[number]>;
+        private readonly _luminousIntensity : jacdac.RegisterClient<[number]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.LedVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_LED, role);
 
             this._brightness = this.addRegister<[number]>(jacdac.LedReg.Brightness, "u0.16");
@@ -34,6 +34,7 @@ namespace modules {
         //% group="Light"
         //% block="%led brightness"
         //% blockId=jacdac_led_brightness___get
+        //% weight=100
         brightness(): number {
             this.start();            
             const values = this._brightness.pauseUntilValues() as any[];
@@ -44,9 +45,12 @@ namespace modules {
         * Set the luminosity of the strip. The value is used to scale `value` in `steps` register.
         * At `0` the power to the strip is completely shut down.
         */
+        //% group="Light"
         //% blockId=jacdac_led_brightness___set
-        //% group="Light" value.min=0 value.max=1
         //% block="set %led brightness to %value"
+        //% weight=99
+        //% value.min=0
+        //% value.max=1
         setBrightness(value: number) {
             this.start();
             const values = this._brightness.values as any[];
@@ -65,6 +69,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=98
         repetitions(): number {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
@@ -80,9 +85,8 @@ namespace modules {
         * means to start with red, cross-fade to blue over 80ms, stay blue for 40ms,
         * change to yellow, and cross-fade back to red in 80ms.
         */
-        //% 
         //% group="Light"
-        //% block="set %led repetitions to %value"
+        //% weight=97
         setRepetitions(value: number) {
             this.start();
             const values = this._animation.values as any[];
@@ -101,6 +105,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=96
         hue(): ([number, number, number, number])[] {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
@@ -116,9 +121,8 @@ namespace modules {
         * means to start with red, cross-fade to blue over 80ms, stay blue for 40ms,
         * change to yellow, and cross-fade back to red in 80ms.
         */
-        //% 
         //% group="Light"
-        //% block="set %led hue to %value"
+        //% weight=95
         setHue(value: ([number, number, number, number])[]) {
             this.start();
             const values = this._animation.values as any[];
@@ -137,6 +141,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=94
         saturation(): undefined {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
@@ -152,9 +157,8 @@ namespace modules {
         * means to start with red, cross-fade to blue over 80ms, stay blue for 40ms,
         * change to yellow, and cross-fade back to red in 80ms.
         */
-        //% 
         //% group="Light"
-        //% block="set %led saturation to %value"
+        //% weight=93
         setSaturation(value: undefined) {
             this.start();
             const values = this._animation.values as any[];
@@ -173,6 +177,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=92
         value(): undefined {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
@@ -188,9 +193,8 @@ namespace modules {
         * means to start with red, cross-fade to blue over 80ms, stay blue for 40ms,
         * change to yellow, and cross-fade back to red in 80ms.
         */
-        //% 
         //% group="Light"
-        //% block="set %led value to %value"
+        //% weight=91
         setValue(value: undefined) {
             this.start();
             const values = this._animation.values as any[];
@@ -209,6 +213,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=90
         duration(): undefined {
             this.start();            
             const values = this._animation.pauseUntilValues() as any[];
@@ -224,9 +229,8 @@ namespace modules {
         * means to start with red, cross-fade to blue over 80ms, stay blue for 40ms,
         * change to yellow, and cross-fade back to red in 80ms.
         */
-        //% 
         //% group="Light"
-        //% block="set %led duration to %value"
+        //% weight=89
         setDuration(value: undefined) {
             this.start();
             const values = this._animation.values as any[];
@@ -239,6 +243,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=88
         maxPower(): number {
             this.start();            
             const values = this._maxPower.pauseUntilValues() as any[];
@@ -248,9 +253,9 @@ namespace modules {
         /**
         * Limit the power drawn by the light-strip (and controller).
         */
-        //% 
-        //% group="Light" value.defl=100
-        //% block="set %led max power to %value"
+        //% group="Light"
+        //% weight=87
+        //% value.defl=100
         setMaxPower(value: number) {
             this.start();
             const values = this._maxPower.values as any[];
@@ -263,6 +268,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=86
         ledCount(): number {
             this.start();            
             const values = this._ledCount.pauseUntilValues() as any[];
@@ -274,6 +280,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=85
         waveLength(): number {
             this.start();            
             const values = this._waveLength.pauseUntilValues() as any[];
@@ -285,6 +292,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=84
         luminousIntensity(): number {
             this.start();            
             const values = this._luminousIntensity.pauseUntilValues() as any[];
@@ -296,6 +304,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=83
         variant(): jacdac.LedVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -303,6 +312,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const led = new LedClient("led");

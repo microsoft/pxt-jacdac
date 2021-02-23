@@ -5,10 +5,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class CompassClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-            private readonly _headingError : jacdac.RegisterClient<[number]>;            
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _headingError : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_COMPASS, role, "u16.16");
 
             this._enabled = this.addRegister<[boolean]>(jacdac.CompassReg.Enabled, "u8");
@@ -23,6 +23,7 @@ namespace modules {
         //% group="Compass"
         //% block="%compass heading"
         //% blockId=jacdac_compass_heading___get
+        //% weight=100
         heading(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -36,6 +37,7 @@ namespace modules {
         //% group="Compass"
         //% block="%compass enabled"
         //% blockId=jacdac_compass_enabled___get
+        //% weight=99
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -45,9 +47,10 @@ namespace modules {
         /**
         * Turn on or off the sensor. Turning on the sensor may start a calibration sequence.
         */
-        //% blockId=jacdac_compass_enabled___set
         //% group="Compass"
+        //% blockId=jacdac_compass_enabled___set
         //% block="set %compass %value=toggleOnOff"
+        //% weight=98
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -60,6 +63,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Compass"
+        //% weight=97
         headingError(): number {
             this.start();            
             const values = this._headingError.pauseUntilValues() as any[];
@@ -67,6 +71,19 @@ namespace modules {
         }
  
 
+
+        /**
+        * Starts a calibration sequence for the compass.
+        */
+        //% group="Compass"
+        //% blockId=jacdac_compass_calibrate_cmd
+        //% block="%compass calibrate"
+        //% weight=96
+        calibrate(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.CompassCmd.Calibrate))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const compass = new CompassClient("compass");

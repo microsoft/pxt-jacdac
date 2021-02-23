@@ -16,10 +16,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class RoleManagerClient extends jacdac.Client {
 
-            private readonly _autoBind : jacdac.RegisterClient<[boolean]>;
-            private readonly _allRolesAllocated : jacdac.RegisterClient<[boolean]>;            
+        private readonly _autoBind : jacdac.RegisterClient<[boolean]>;
+        private readonly _allRolesAllocated : jacdac.RegisterClient<[boolean]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_ROLE_MANAGER, role);
 
             this._autoBind = this.addRegister<[boolean]>(jacdac.RoleManagerReg.AutoBind, "u8");
@@ -37,6 +37,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Role Manager"
+        //% weight=100
         autoBind(): boolean {
             this.start();            
             const values = this._autoBind.pauseUntilValues() as any[];
@@ -51,9 +52,9 @@ namespace modules {
         * as well as reasonably stable assignments.
         * Once user start assigning roles manually using this service, auto-binding should be disabled to avoid confusion.
         */
-        //% 
-        //% group="Role Manager" value.defl=1
-        //% block="set %rolemanager auto bind to %value"
+        //% group="Role Manager"
+        //% weight=99
+        //% value.defl=1
         setAutoBind(value: boolean) {
             this.start();
             const values = this._autoBind.values as any[];
@@ -66,6 +67,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Role Manager"
+        //% weight=98
         allRolesAllocated(): boolean {
             this.start();            
             const values = this._allRolesAllocated.pauseUntilValues() as any[];
@@ -76,12 +78,50 @@ namespace modules {
         /**
          * Emit notifying that the internal state of the service changed.
          */
-        //% blockId=jacdac_on_rolemanager_change
-        //% block="change" blockSetVariable=myModule
         //% group="Role Manager"
-        onChange(handler: () => void) {
+        //% blockId=jacdac_on_rolemanager_change
+        //% block="on %rolemanager change"
+        //% weight=97
+        onChange(handler: () => void): void {
             this.registerEvent(jacdac.RoleManagerEvent.Change, handler);
         }
+
+        /**
+        * Get the role corresponding to given device identifer. Returns empty string if unset.
+        */
+        //% group="Role Manager"
+        //% blockId=jacdac_rolemanager_get_role_cmd
+        //% block="%rolemanager get role"
+        //% weight=96
+        getRole(deviceId: Buffer, serviceIdx: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.RoleManagerCmd.GetRole, "b[8] u8", [deviceId, serviceIdx]))
+        }
+
+        /**
+        * Set role. Can set to empty to remove role binding.
+        */
+        //% group="Role Manager"
+        //% blockId=jacdac_rolemanager_set_role_cmd
+        //% block="%rolemanager set role"
+        //% weight=95
+        setRole(deviceId: Buffer, serviceIdx: number, role: string): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.RoleManagerCmd.SetRole, "b[8] u8 s", [deviceId, serviceIdx, role]))
+        }
+
+        /**
+        * Remove all role bindings.
+        */
+        //% group="Role Manager"
+        //% blockId=jacdac_rolemanager_clear_all_roles_cmd
+        //% block="%rolemanager clear all roles"
+        //% weight=94
+        clearAllRoles(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.RoleManagerCmd.ClearAllRoles))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const roleManager = new RoleManagerClient("role Manager");

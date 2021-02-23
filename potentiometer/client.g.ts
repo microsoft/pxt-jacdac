@@ -5,9 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class PotentiometerClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _variant : jacdac.RegisterClient<[jacdac.PotentiometerVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.PotentiometerVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_POTENTIOMETER, role, "u0.16");
 
             this._variant = this.addRegister<[jacdac.PotentiometerVariant]>(jacdac.PotentiometerReg.Variant, "u8");            
@@ -21,6 +21,7 @@ namespace modules {
         //% group="Slider"
         //% block="%potentiometer position"
         //% blockId=jacdac_potentiometer_position___get
+        //% weight=100
         position(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -32,6 +33,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Slider"
+        //% weight=99
         variant(): jacdac.PotentiometerVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -39,6 +41,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const potentiometer = new PotentiometerClient("potentiometer");

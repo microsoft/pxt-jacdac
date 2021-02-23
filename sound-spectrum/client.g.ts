@@ -5,13 +5,13 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SoundSpectrumClient extends jacdac.SensorClient<[Buffer]> {
 
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-            private readonly _fftPow2Size : jacdac.RegisterClient<[number]>;
-            private readonly _minDecibels : jacdac.RegisterClient<[number]>;
-            private readonly _maxDecibels : jacdac.RegisterClient<[number]>;
-            private readonly _smoothingTimeConstant : jacdac.RegisterClient<[number]>;            
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _fftPow2Size : jacdac.RegisterClient<[number]>;
+        private readonly _minDecibels : jacdac.RegisterClient<[number]>;
+        private readonly _maxDecibels : jacdac.RegisterClient<[number]>;
+        private readonly _smoothingTimeConstant : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_SOUND_SPECTRUM, role, "b");
 
             this._enabled = this.addRegister<[boolean]>(jacdac.SoundSpectrumReg.Enabled, "u8");
@@ -29,6 +29,7 @@ namespace modules {
         //% group="Sound"
         //% block="%soundspectrum frequency bins"
         //% blockId=jacdac_soundspectrum_frequency_bins___get
+        //% weight=100
         frequencyBins(): Buffer {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -42,6 +43,7 @@ namespace modules {
         //% group="Sound"
         //% block="%soundspectrum enabled"
         //% blockId=jacdac_soundspectrum_enabled___get
+        //% weight=99
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -51,9 +53,10 @@ namespace modules {
         /**
         * Turns on/off the micropohone.
         */
-        //% blockId=jacdac_soundspectrum_enabled___set
         //% group="Sound"
+        //% blockId=jacdac_soundspectrum_enabled___set
         //% block="set %soundspectrum %value=toggleOnOff"
+        //% weight=98
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -66,6 +69,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=97
         fftPow2Size(): number {
             this.start();            
             const values = this._fftPow2Size.pauseUntilValues() as any[];
@@ -75,9 +79,11 @@ namespace modules {
         /**
         * The power of 2 used as the size of the FFT to be used to determine the frequency domain.
         */
-        //% 
-        //% group="Sound" value.min=2 value.max=7 value.defl=5
-        //% block="set %soundspectrum fft pow2 size to %value"
+        //% group="Sound"
+        //% weight=96
+        //% value.min=2
+        //% value.max=7
+        //% value.defl=5
         setFftPow2Size(value: number) {
             this.start();
             const values = this._fftPow2Size.values as any[];
@@ -90,6 +96,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=95
         minDecibels(): number {
             this.start();            
             const values = this._minDecibels.pauseUntilValues() as any[];
@@ -99,9 +106,8 @@ namespace modules {
         /**
         * The minimum power value in the scaling range for the FFT analysis data
         */
-        //% 
         //% group="Sound"
-        //% block="set %soundspectrum min decibels to %value"
+        //% weight=94
         setMinDecibels(value: number) {
             this.start();
             const values = this._minDecibels.values as any[];
@@ -114,6 +120,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=93
         maxDecibels(): number {
             this.start();            
             const values = this._maxDecibels.pauseUntilValues() as any[];
@@ -123,9 +130,8 @@ namespace modules {
         /**
         * The maximum power value in the scaling range for the FFT analysis data
         */
-        //% 
         //% group="Sound"
-        //% block="set %soundspectrum max decibels to %value"
+        //% weight=92
         setMaxDecibels(value: number) {
             this.start();
             const values = this._maxDecibels.values as any[];
@@ -139,6 +145,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=91
         smoothingTimeConstant(): number {
             this.start();            
             const values = this._smoothingTimeConstant.pauseUntilValues() as any[];
@@ -149,9 +156,11 @@ namespace modules {
         * The averaging constant with the last analysis frame. 
         * If ``0`` is set, there is no averaging done, whereas a value of ``1`` means "overlap the previous and current buffer quite a lot while computing the value".
         */
-        //% 
-        //% group="Sound" value.min=0 value.max=1 value.defl=0.8
-        //% block="set %soundspectrum smoothing time constant to %value"
+        //% group="Sound"
+        //% weight=90
+        //% value.min=0
+        //% value.max=1
+        //% value.defl=0.8
         setSmoothingTimeConstant(value: number) {
             this.start();
             const values = this._smoothingTimeConstant.values as any[];
@@ -160,6 +169,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const soundSpectrum = new SoundSpectrumClient("sound Spectrum");

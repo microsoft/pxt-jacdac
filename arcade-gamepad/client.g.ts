@@ -5,9 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ArcadeGamepadClient extends jacdac.SensorClient<[([jacdac.ArcadeGamepadButton, number])[]]> {
 
-            private readonly _availableButtons : jacdac.RegisterClient<[jacdac.ArcadeGamepadButton[]]>;            
+        private readonly _availableButtons : jacdac.RegisterClient<[jacdac.ArcadeGamepadButton[]]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_ARCADE_GAMEPAD, role, "r: u8 u0.8");
 
             this._availableButtons = this.addRegister<[jacdac.ArcadeGamepadButton[]]>(jacdac.ArcadeGamepadReg.AvailableButtons, "r: u8");            
@@ -22,6 +22,7 @@ namespace modules {
         //% group="Button"
         //% block="%arcadegamepad button"
         //% blockId=jacdac_arcadegamepad_buttons_button_get
+        //% weight=100
         button(): ([jacdac.ArcadeGamepadButton, number])[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -36,6 +37,7 @@ namespace modules {
         //% group="Button"
         //% block="%arcadegamepad pressure"
         //% blockId=jacdac_arcadegamepad_buttons_pressure_get
+        //% weight=99
         pressure(): undefined {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -47,6 +49,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=98
         button(): jacdac.ArcadeGamepadButton[] {
             this.start();            
             const values = this._availableButtons.pauseUntilValues() as any[];
@@ -57,21 +60,24 @@ namespace modules {
         /**
          * Emitted when button goes from inactive to active.
          */
-        //% blockId=jacdac_on_arcadegamepad_down
-        //% block="down" blockSetVariable=myModule
         //% group="Button"
-        onDown(handler: () => void) {
+        //% blockId=jacdac_on_arcadegamepad_down
+        //% block="on %arcadegamepad down"
+        //% weight=97
+        onDown(handler: () => void): void {
             this.registerEvent(jacdac.ArcadeGamepadEvent.Down, handler);
         }
         /**
          * Emitted when button goes from active to inactive.
          */
-        //% blockId=jacdac_on_arcadegamepad_up
-        //% block="up" blockSetVariable=myModule
         //% group="Button"
-        onUp(handler: () => void) {
+        //% blockId=jacdac_on_arcadegamepad_up
+        //% block="on %arcadegamepad up"
+        //% weight=96
+        onUp(handler: () => void): void {
             this.registerEvent(jacdac.ArcadeGamepadEvent.Up, handler);
         }
+    
     }
     //% fixedInstance whenUsed
     export const arcadeGamepad = new ArcadeGamepadClient("arcade Gamepad");

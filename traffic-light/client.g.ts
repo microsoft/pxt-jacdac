@@ -5,11 +5,11 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class TrafficLightClient extends jacdac.Client {
 
-            private readonly _red : jacdac.RegisterClient<[boolean]>;
-            private readonly _orange : jacdac.RegisterClient<[boolean]>;
-            private readonly _green : jacdac.RegisterClient<[boolean]>;            
+        private readonly _red : jacdac.RegisterClient<[boolean]>;
+        private readonly _orange : jacdac.RegisterClient<[boolean]>;
+        private readonly _green : jacdac.RegisterClient<[boolean]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_TRAFFIC_LIGHT, role);
 
             this._red = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Red, "u8");
@@ -23,6 +23,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Traffic Light"
+        //% weight=100
         red(): boolean {
             this.start();            
             const values = this._red.pauseUntilValues() as any[];
@@ -32,9 +33,8 @@ namespace modules {
         /**
         * The on/off state of the red light.
         */
-        //% 
         //% group="Traffic Light"
-        //% block="set %trafficlight red to %value"
+        //% weight=99
         setRed(value: boolean) {
             this.start();
             const values = this._red.values as any[];
@@ -47,6 +47,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Traffic Light"
+        //% weight=98
         orange(): boolean {
             this.start();            
             const values = this._orange.pauseUntilValues() as any[];
@@ -56,9 +57,8 @@ namespace modules {
         /**
         * The on/off state of the red light.
         */
-        //% 
         //% group="Traffic Light"
-        //% block="set %trafficlight orange to %value"
+        //% weight=97
         setOrange(value: boolean) {
             this.start();
             const values = this._orange.values as any[];
@@ -71,6 +71,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Traffic Light"
+        //% weight=96
         green(): boolean {
             this.start();            
             const values = this._green.pauseUntilValues() as any[];
@@ -80,9 +81,8 @@ namespace modules {
         /**
         * The on/off state of the red light.
         */
-        //% 
         //% group="Traffic Light"
-        //% block="set %trafficlight green to %value"
+        //% weight=95
         setGreen(value: boolean) {
             this.start();
             const values = this._green.values as any[];
@@ -91,6 +91,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const trafficLight = new TrafficLightClient("traffic Light");

@@ -5,10 +5,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SwitchClient extends jacdac.SensorClient<[boolean]> {
 
-            private readonly _variant : jacdac.RegisterClient<[jacdac.SwitchVariant]>;
-            private readonly _autoOffDelay : jacdac.RegisterClient<[number]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.SwitchVariant]>;
+        private readonly _autoOffDelay : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_SWITCH, role, "u8");
 
             this._variant = this.addRegister<[jacdac.SwitchVariant]>(jacdac.SwitchReg.Variant, "u8");
@@ -23,6 +23,7 @@ namespace modules {
         //% group="Button"
         //% block="%switch active"
         //% blockId=jacdac_switch_active___get
+        //% weight=100
         active(): boolean {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -34,6 +35,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=99
         variant(): jacdac.SwitchVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -46,6 +48,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=98
         autoOffDelay(): number {
             this.start();            
             const values = this._autoOffDelay.pauseUntilValues() as any[];
@@ -56,21 +59,24 @@ namespace modules {
         /**
          * Emitted when switch goes from ``off`` to ``on``.
          */
-        //% blockId=jacdac_on_switch_on
-        //% block="on" blockSetVariable=myModule
         //% group="Button"
-        onOn(handler: () => void) {
+        //% blockId=jacdac_on_switch_on
+        //% block="on %switch on"
+        //% weight=97
+        onOn(handler: () => void): void {
             this.registerEvent(jacdac.SwitchEvent.On, handler);
         }
         /**
          * Emitted when switch goes from ``on`` to ``off``.
          */
-        //% blockId=jacdac_on_switch_off
-        //% block="off" blockSetVariable=myModule
         //% group="Button"
-        onOff(handler: () => void) {
+        //% blockId=jacdac_on_switch_off
+        //% block="on %switch off"
+        //% weight=96
+        onOff(handler: () => void): void {
             this.registerEvent(jacdac.SwitchEvent.Off, handler);
         }
+    
     }
     //% fixedInstance whenUsed
     export const switch_ = new SwitchClient("switch");

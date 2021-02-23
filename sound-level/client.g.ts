@@ -5,13 +5,13 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SoundLevelClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-            private readonly _minDecibels : jacdac.RegisterClient<[number]>;
-            private readonly _maxDecibels : jacdac.RegisterClient<[number]>;
-            private readonly _loudThreshold : jacdac.RegisterClient<[number]>;
-            private readonly _quietThreshold : jacdac.RegisterClient<[number]>;            
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _minDecibels : jacdac.RegisterClient<[number]>;
+        private readonly _maxDecibels : jacdac.RegisterClient<[number]>;
+        private readonly _loudThreshold : jacdac.RegisterClient<[number]>;
+        private readonly _quietThreshold : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_SOUND_LEVEL, role, "u0.16");
 
             this._enabled = this.addRegister<[boolean]>(jacdac.SoundLevelReg.Enabled, "u8");
@@ -29,6 +29,7 @@ namespace modules {
         //% group="Sound"
         //% block="%soundlevel sound level"
         //% blockId=jacdac_soundlevel_sound_level___get
+        //% weight=100
         soundLevel(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -42,6 +43,7 @@ namespace modules {
         //% group="Sound"
         //% block="%soundlevel enabled"
         //% blockId=jacdac_soundlevel_enabled___get
+        //% weight=99
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -51,9 +53,10 @@ namespace modules {
         /**
         * Turn on or off the microphone.
         */
-        //% blockId=jacdac_soundlevel_enabled___set
         //% group="Sound"
+        //% blockId=jacdac_soundlevel_enabled___set
         //% block="set %soundlevel %value=toggleOnOff"
+        //% weight=98
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -69,6 +72,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=97
         minDecibels(): number {
             this.start();            
             const values = this._minDecibels.pauseUntilValues() as any[];
@@ -81,9 +85,8 @@ namespace modules {
         * the volume in deciment can be linearly interpolated between
         * ``[min_decibels, max_decibels]``.
         */
-        //% 
         //% group="Sound"
-        //% block="set %soundlevel min decibels to %value"
+        //% weight=96
         setMinDecibels(value: number) {
             this.start();
             const values = this._minDecibels.values as any[];
@@ -99,6 +102,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=95
         maxDecibels(): number {
             this.start();            
             const values = this._maxDecibels.pauseUntilValues() as any[];
@@ -111,9 +115,8 @@ namespace modules {
         * the volume in deciment can be linearly interpolated between
         * ``[min_decibels, max_decibels]``.
         */
-        //% 
         //% group="Sound"
-        //% block="set %soundlevel max decibels to %value"
+        //% weight=94
         setMaxDecibels(value: number) {
             this.start();
             const values = this._maxDecibels.values as any[];
@@ -126,6 +129,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=93
         loudThreshold(): number {
             this.start();            
             const values = this._loudThreshold.pauseUntilValues() as any[];
@@ -135,9 +139,10 @@ namespace modules {
         /**
         * The sound level to trigger a loud event.
         */
-        //% 
-        //% group="Sound" value.min=0 value.max=1
-        //% block="set %soundlevel loud threshold to %value"
+        //% group="Sound"
+        //% weight=92
+        //% value.min=0
+        //% value.max=1
         setLoudThreshold(value: number) {
             this.start();
             const values = this._loudThreshold.values as any[];
@@ -150,6 +155,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=91
         quietThreshold(): number {
             this.start();            
             const values = this._quietThreshold.pauseUntilValues() as any[];
@@ -159,9 +165,10 @@ namespace modules {
         /**
         * The sound level to trigger a quite event.
         */
-        //% 
-        //% group="Sound" value.min=0 value.max=1
-        //% block="set %soundlevel quiet threshold to %value"
+        //% group="Sound"
+        //% weight=90
+        //% value.min=0
+        //% value.max=1
         setQuietThreshold(value: number) {
             this.start();
             const values = this._quietThreshold.values as any[];
@@ -173,21 +180,24 @@ namespace modules {
         /**
          * Raised when a loud sound is detected
          */
-        //% blockId=jacdac_on_soundlevel_loud
-        //% block="loud" blockSetVariable=myModule
         //% group="Sound"
-        onLoud(handler: () => void) {
+        //% blockId=jacdac_on_soundlevel_loud
+        //% block="on %soundlevel loud"
+        //% weight=89
+        onLoud(handler: () => void): void {
             this.registerEvent(jacdac.SoundLevelEvent.Loud, handler);
         }
         /**
          * Raised when a period of quietness is detected
          */
-        //% blockId=jacdac_on_soundlevel_quiet
-        //% block="quiet" blockSetVariable=myModule
         //% group="Sound"
-        onQuiet(handler: () => void) {
+        //% blockId=jacdac_on_soundlevel_quiet
+        //% block="on %soundlevel quiet"
+        //% weight=88
+        onQuiet(handler: () => void): void {
             this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler);
         }
+    
     }
     //% fixedInstance whenUsed
     export const soundLevel = new SoundLevelClient("sound Level");

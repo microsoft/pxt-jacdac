@@ -5,11 +5,11 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class MotionClient extends jacdac.SensorClient<[boolean]> {
 
-            private readonly _maxDistance : jacdac.RegisterClient<[number]>;
-            private readonly _angle : jacdac.RegisterClient<[number]>;
-            private readonly _variant : jacdac.RegisterClient<[jacdac.MotionVariant]>;            
+        private readonly _maxDistance : jacdac.RegisterClient<[number]>;
+        private readonly _angle : jacdac.RegisterClient<[number]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.MotionVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_MOTION, role, "u8");
 
             this._maxDistance = this.addRegister<[number]>(jacdac.MotionReg.MaxDistance, "u16.16");
@@ -25,6 +25,7 @@ namespace modules {
         //% group="Movement"
         //% block="%motion moving"
         //% blockId=jacdac_motion_moving___get
+        //% weight=100
         moving(): boolean {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -36,6 +37,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Movement"
+        //% weight=99
         maxDistance(): number {
             this.start();            
             const values = this._maxDistance.pauseUntilValues() as any[];
@@ -47,6 +49,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Movement"
+        //% weight=98
         angle(): number {
             this.start();            
             const values = this._angle.pauseUntilValues() as any[];
@@ -58,6 +61,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Movement"
+        //% weight=97
         variant(): jacdac.MotionVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -65,6 +69,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const motion = new MotionClient("motion");

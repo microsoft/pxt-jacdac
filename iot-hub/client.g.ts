@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class IotHubClient extends jacdac.Client {
 
-            private readonly _connectionStatus : jacdac.RegisterClient<[string]>;
-            private readonly _connectionString : jacdac.RegisterClient<[string]>;
-            private readonly _hubName : jacdac.RegisterClient<[string]>;
-            private readonly _deviceId : jacdac.RegisterClient<[string]>;            
+        private readonly _connectionStatus : jacdac.RegisterClient<[string]>;
+        private readonly _connectionString : jacdac.RegisterClient<[string]>;
+        private readonly _hubName : jacdac.RegisterClient<[string]>;
+        private readonly _deviceId : jacdac.RegisterClient<[string]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_IOT_HUB, role);
 
             this._connectionStatus = this.addRegister<[string]>(jacdac.IotHubReg.ConnectionStatus, "s");
@@ -25,6 +25,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
+        //% weight=100
         connectionStatus(): string {
             this.start();            
             const values = this._connectionStatus.pauseUntilValues() as any[];
@@ -40,6 +41,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
+        //% weight=99
         connectionString(): string {
             this.start();            
             const values = this._connectionString.pauseUntilValues() as any[];
@@ -53,9 +55,8 @@ namespace modules {
         * This register is write-only.
         * You can use `hub_name` and `device_id` to check if connection string is set, but you cannot get the shared access key.
         */
-        //% 
         //% group="Iot"
-        //% block="set %iothub connection string to %value"
+        //% weight=98
         setConnectionString(value: string) {
             this.start();
             const values = this._connectionString.values as any[];
@@ -68,6 +69,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
+        //% weight=97
         hubName(): string {
             this.start();            
             const values = this._hubName.pauseUntilValues() as any[];
@@ -79,6 +81,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
+        //% weight=96
         deviceId(): string {
             this.start();            
             const values = this._deviceId.pauseUntilValues() as any[];
@@ -89,19 +92,21 @@ namespace modules {
         /**
          * Emitted upon successful connection.
          */
-        //% blockId=jacdac_on_iothub_connected
-        //% block="connected" blockSetVariable=myModule
         //% group="Iot"
-        onConnected(handler: () => void) {
+        //% blockId=jacdac_on_iothub_connected
+        //% block="on %iothub connected"
+        //% weight=95
+        onConnected(handler: () => void): void {
             this.registerEvent(jacdac.IotHubEvent.Connected, handler);
         }
         /**
          * Emitted when connection was lost.
          */
-        //% blockId=jacdac_on_iothub_connection_error
-        //% block="connection error" blockSetVariable=myModule
         //% group="Iot"
-        onConnectionError(handler: () => void) {
+        //% blockId=jacdac_on_iothub_connection_error
+        //% block="on %iothub connection error"
+        //% weight=94
+        onConnectionError(handler: () => void): void {
             this.registerEvent(jacdac.IotHubEvent.ConnectionError, handler);
         }
         /**
@@ -109,12 +114,88 @@ namespace modules {
         * (doesn't contain NUL bytes) and fits in a single event packet.
         * For reliable reception, use the `subscribe` command above.
          */
-        //% blockId=jacdac_on_iothub_devicebound_str
-        //% block="devicebound str" blockSetVariable=myModule
         //% group="Iot"
-        onDeviceboundStr(handler: () => void) {
+        //% blockId=jacdac_on_iothub_devicebound_str
+        //% block="on %iothub devicebound str"
+        //% weight=93
+        onDeviceboundStr(handler: () => void): void {
             this.registerEvent(jacdac.IotHubEvent.DeviceboundStr, handler);
         }
+
+        /**
+        * Try connecting using currently set `connection_string`.
+        * The service normally preiodically tries to connect automatically.
+        */
+        //% group="Iot"
+        //% blockId=jacdac_iothub_connect_cmd
+        //% block="%iothub connect"
+        //% weight=92
+        connect(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.IotHubCmd.Connect))
+        }
+
+        /**
+        * Disconnect from current Hub if any.
+        * This disables auto-connect behavior, until a `connect` command is issued.
+        */
+        //% group="Iot"
+        //% blockId=jacdac_iothub_disconnect_cmd
+        //% block="%iothub disconnect"
+        //% weight=91
+        disconnect(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.IotHubCmd.Disconnect))
+        }
+
+        /**
+        * Sends a short message in string format (it's typically JSON-encoded). Multiple properties can be attached.
+        */
+        //% group="Iot"
+        //% blockId=jacdac_iothub_send_string_msg_cmd
+        //% block="%iothub send string msg"
+        //% weight=90
+        sendStringMsg(msg: string, propertyName: ([string, string])[], propertyValue: undefined): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.IotHubCmd.SendStringMsg, "z r: z z", [msg, propertyName, propertyValue]))
+        }
+
+        /**
+        * Sends an arbitrary, possibly binary, message. The size is only limited by RAM on the module.
+        */
+        //% group="Iot"
+        //% blockId=jacdac_iothub_send_msg_ext_cmd
+        //% block="%iothub send msg ext"
+        //% weight=89
+        sendMsgExt(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.IotHubCmd.SendMsgExt))
+        }
+
+        /**
+        * Start twin update.
+        */
+        //% group="Iot"
+        //% blockId=jacdac_iothub_patch_twin_cmd
+        //% block="%iothub patch twin"
+        //% weight=88
+        patchTwin(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.IotHubCmd.PatchTwin))
+        }
+
+        /**
+        * Respond to a direct method call (`request_id` comes from `subscribe_method` pipe).
+        */
+        //% group="Iot"
+        //% blockId=jacdac_iothub_respond_to_method_cmd
+        //% block="%iothub respond to method"
+        //% weight=87
+        respondToMethod(status: number, requestId: string): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.IotHubCmd.RespondToMethod, "u32 z", [status, requestId]))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const iotHub = new IotHubClient("iot Hub");

@@ -5,10 +5,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class WindSpeedClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _windSpeedError : jacdac.RegisterClient<[number]>;
-            private readonly _maxWindSpeed : jacdac.RegisterClient<[number]>;            
+        private readonly _windSpeedError : jacdac.RegisterClient<[number]>;
+        private readonly _maxWindSpeed : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_WIND_SPEED, role, "u16.16");
 
             this._windSpeedError = this.addRegister<[number]>(jacdac.WindSpeedReg.WindSpeedError, "u16.16");
@@ -23,6 +23,7 @@ namespace modules {
         //% group="Wind speed"
         //% block="%windspeed wind speed"
         //% blockId=jacdac_windspeed_wind_speed___get
+        //% weight=100
         windSpeed(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -34,6 +35,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Wind speed"
+        //% weight=99
         windSpeedError(): number {
             this.start();            
             const values = this._windSpeedError.pauseUntilValues() as any[];
@@ -45,6 +47,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Wind speed"
+        //% weight=98
         maxWindSpeed(): number {
             this.start();            
             const values = this._maxWindSpeed.pauseUntilValues() as any[];
@@ -52,6 +55,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const windSpeed = new WindSpeedClient("wind Speed");

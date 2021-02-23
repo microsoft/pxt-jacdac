@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class LedMatrixClient extends jacdac.Client {
 
-            private readonly _leds : jacdac.RegisterClient<[Buffer]>;
-            private readonly _brightness : jacdac.RegisterClient<[number]>;
-            private readonly _rows : jacdac.RegisterClient<[number]>;
-            private readonly _columns : jacdac.RegisterClient<[number]>;            
+        private readonly _leds : jacdac.RegisterClient<[Buffer]>;
+        private readonly _brightness : jacdac.RegisterClient<[number]>;
+        private readonly _rows : jacdac.RegisterClient<[number]>;
+        private readonly _columns : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_LED_MATRIX, role);
 
             this._leds = this.addRegister<[Buffer]>(jacdac.LedMatrixReg.Leds, "b");
@@ -28,6 +28,7 @@ namespace modules {
         //% group="Display"
         //% block="%ledmatrix leds"
         //% blockId=jacdac_ledmatrix_leds___get
+        //% weight=100
         leds(): Buffer {
             this.start();            
             const values = this._leds.pauseUntilValues() as any[];
@@ -38,9 +39,10 @@ namespace modules {
         * The state of the screen where pixel on/off state is 
         * stored as a bit, column by column. The column should be byte aligned.
         */
-        //% blockId=jacdac_ledmatrix_leds___set
         //% group="Display"
+        //% blockId=jacdac_ledmatrix_leds___set
         //% block="set %ledmatrix leds to %value"
+        //% weight=99
         setLeds(value: Buffer) {
             this.start();
             const values = this._leds.values as any[];
@@ -55,6 +57,7 @@ namespace modules {
         //% group="Display"
         //% block="%ledmatrix brightness"
         //% blockId=jacdac_ledmatrix_brightness___get
+        //% weight=98
         brightness(): number {
             this.start();            
             const values = this._brightness.pauseUntilValues() as any[];
@@ -64,9 +67,12 @@ namespace modules {
         /**
         * Reads the general brightness of the LEDs. ``0`` when the screen is off.
         */
+        //% group="Display"
         //% blockId=jacdac_ledmatrix_brightness___set
-        //% group="Display" value.min=0 value.max=1
         //% block="set %ledmatrix brightness to %value"
+        //% weight=97
+        //% value.min=0
+        //% value.max=1
         setBrightness(value: number) {
             this.start();
             const values = this._brightness.values as any[];
@@ -79,6 +85,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Display"
+        //% weight=96
         rows(): number {
             this.start();            
             const values = this._rows.pauseUntilValues() as any[];
@@ -90,6 +97,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Display"
+        //% weight=95
         columns(): number {
             this.start();            
             const values = this._columns.pauseUntilValues() as any[];
@@ -97,6 +105,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const ledMatrix = new LedMatrixClient("led Matrix");

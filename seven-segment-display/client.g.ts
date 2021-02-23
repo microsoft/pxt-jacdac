@@ -5,13 +5,13 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SevenSegmentDisplayClient extends jacdac.Client {
 
-            private readonly _digits : jacdac.RegisterClient<[Buffer]>;
-            private readonly _brightness : jacdac.RegisterClient<[number]>;
-            private readonly _doubleDots : jacdac.RegisterClient<[boolean]>;
-            private readonly _digitCount : jacdac.RegisterClient<[number]>;
-            private readonly _decimalPoint : jacdac.RegisterClient<[boolean]>;            
+        private readonly _digits : jacdac.RegisterClient<[Buffer]>;
+        private readonly _brightness : jacdac.RegisterClient<[number]>;
+        private readonly _doubleDots : jacdac.RegisterClient<[boolean]>;
+        private readonly _digitCount : jacdac.RegisterClient<[number]>;
+        private readonly _decimalPoint : jacdac.RegisterClient<[boolean]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_SEVEN_SEGMENT_DISPLAY, role);
 
             this._digits = this.addRegister<[Buffer]>(jacdac.SevenSegmentDisplayReg.Digits, "b");
@@ -42,6 +42,7 @@ namespace modules {
         //% group="Display"
         //% block="%sevensegmentdisplay digits"
         //% blockId=jacdac_sevensegmentdisplay_digits___get
+        //% weight=100
         digits(): Buffer {
             this.start();            
             const values = this._digits.pauseUntilValues() as any[];
@@ -64,9 +65,10 @@ namespace modules {
         *  - D -   -
         * ```
         */
-        //% blockId=jacdac_sevensegmentdisplay_digits___set
         //% group="Display"
+        //% blockId=jacdac_sevensegmentdisplay_digits___set
         //% block="set %sevensegmentdisplay digits to %value"
+        //% weight=99
         setDigits(value: Buffer) {
             this.start();
             const values = this._digits.values as any[];
@@ -81,6 +83,7 @@ namespace modules {
         //% group="Display"
         //% block="%sevensegmentdisplay brightness"
         //% blockId=jacdac_sevensegmentdisplay_brightness___get
+        //% weight=98
         brightness(): number {
             this.start();            
             const values = this._brightness.pauseUntilValues() as any[];
@@ -90,9 +93,12 @@ namespace modules {
         /**
         * Controls the brightness of the LEDs. ``0`` means off.
         */
+        //% group="Display"
         //% blockId=jacdac_sevensegmentdisplay_brightness___set
-        //% group="Display" value.min=0 value.max=1
         //% block="set %sevensegmentdisplay brightness to %value"
+        //% weight=97
+        //% value.min=0
+        //% value.max=1
         setBrightness(value: number) {
             this.start();
             const values = this._brightness.values as any[];
@@ -106,6 +112,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Display"
+        //% weight=96
         doubleDots(): boolean {
             this.start();            
             const values = this._doubleDots.pauseUntilValues() as any[];
@@ -116,9 +123,8 @@ namespace modules {
         * Turn on or off the column LEDs (separating minutes from hours, etc.) in of the segment.
         * If the column LEDs is not supported, the value remains false.
         */
-        //% 
         //% group="Display"
-        //% block="set %sevensegmentdisplay double dots to %value"
+        //% weight=95
         setDoubleDots(value: boolean) {
             this.start();
             const values = this._doubleDots.values as any[];
@@ -131,6 +137,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Display"
+        //% weight=94
         digitCount(): number {
             this.start();            
             const values = this._digitCount.pauseUntilValues() as any[];
@@ -142,6 +149,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Display"
+        //% weight=93
         decimalPoint(): boolean {
             this.start();            
             const values = this._decimalPoint.pauseUntilValues() as any[];
@@ -149,6 +157,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const sevenSegmentDisplay = new SevenSegmentDisplayClient("seven Segment Display");

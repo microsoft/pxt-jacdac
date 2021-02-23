@@ -5,15 +5,15 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class WeightScaleClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _weightError : jacdac.RegisterClient<[number]>;
-            private readonly _zeroOffset : jacdac.RegisterClient<[number]>;
-            private readonly _gain : jacdac.RegisterClient<[number]>;
-            private readonly _maxWeight : jacdac.RegisterClient<[number]>;
-            private readonly _minWeight : jacdac.RegisterClient<[number]>;
-            private readonly _weightResolution : jacdac.RegisterClient<[number]>;
-            private readonly _variant : jacdac.RegisterClient<[jacdac.WeightScaleVariant]>;            
+        private readonly _weightError : jacdac.RegisterClient<[number]>;
+        private readonly _zeroOffset : jacdac.RegisterClient<[number]>;
+        private readonly _gain : jacdac.RegisterClient<[number]>;
+        private readonly _maxWeight : jacdac.RegisterClient<[number]>;
+        private readonly _minWeight : jacdac.RegisterClient<[number]>;
+        private readonly _weightResolution : jacdac.RegisterClient<[number]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.WeightScaleVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_WEIGHT_SCALE, role, "u16.16");
 
             this._weightError = this.addRegister<[number]>(jacdac.WeightScaleReg.WeightError, "u16.16");
@@ -33,6 +33,7 @@ namespace modules {
         //% group="Weight Scale"
         //% block="%weightscale weight"
         //% blockId=jacdac_weightscale_weight___get
+        //% weight=100
         weight(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -44,6 +45,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Weight Scale"
+        //% weight=99
         weightError(): number {
             this.start();            
             const values = this._weightError.pauseUntilValues() as any[];
@@ -56,6 +58,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Weight Scale"
+        //% weight=98
         zeroOffset(): number {
             this.start();            
             const values = this._zeroOffset.pauseUntilValues() as any[];
@@ -66,9 +69,8 @@ namespace modules {
         * Calibrated zero offset error on the scale, i.e. the measured weight when nothing is on the scale.
         * You do not need to subtract that from the reading, it has already been done.
         */
-        //% 
         //% group="Weight Scale"
-        //% block="set %weightscale zero offset to %value"
+        //% weight=97
         setZeroOffset(value: number) {
             this.start();
             const values = this._zeroOffset.values as any[];
@@ -81,6 +83,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Weight Scale"
+        //% weight=96
         gain(): number {
             this.start();            
             const values = this._gain.pauseUntilValues() as any[];
@@ -90,9 +93,8 @@ namespace modules {
         /**
         * Calibrated gain on the weight scale error.
         */
-        //% 
         //% group="Weight Scale"
-        //% block="set %weightscale gain to %value"
+        //% weight=95
         setGain(value: number) {
             this.start();
             const values = this._gain.values as any[];
@@ -105,6 +107,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Weight Scale"
+        //% weight=94
         maxWeight(): number {
             this.start();            
             const values = this._maxWeight.pauseUntilValues() as any[];
@@ -116,6 +119,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Weight Scale"
+        //% weight=93
         minWeight(): number {
             this.start();            
             const values = this._minWeight.pauseUntilValues() as any[];
@@ -127,6 +131,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Weight Scale"
+        //% weight=92
         weightResolution(): number {
             this.start();            
             const values = this._weightResolution.pauseUntilValues() as any[];
@@ -138,6 +143,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Weight Scale"
+        //% weight=91
         variant(): jacdac.WeightScaleVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -145,6 +151,31 @@ namespace modules {
         }
  
 
+
+        /**
+        * Call this command when there is nothing on the scale. If supported, the module should save the calibration data.
+        */
+        //% group="Weight Scale"
+        //% blockId=jacdac_weightscale_calibrate_zero_offset_cmd
+        //% block="%weightscale calibrate zero offset"
+        //% weight=90
+        calibrateZeroOffset(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WeightScaleCmd.CalibrateZeroOffset))
+        }
+
+        /**
+        * Call this command with the weight of the thing on the scale.
+        */
+        //% group="Weight Scale"
+        //% blockId=jacdac_weightscale_calibrate_gain_cmd
+        //% block="%weightscale calibrate gain"
+        //% weight=89
+        calibrateGain(weight: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WeightScaleCmd.CalibrateGain, "u22.10", [weight]))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const weightScale = new WeightScaleClient("weight Scale");

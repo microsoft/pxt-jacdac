@@ -5,9 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class BarometerClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _pressureError : jacdac.RegisterClient<[number]>;            
+        private readonly _pressureError : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_BAROMETER, role, "u22.10");
 
             this._pressureError = this.addRegister<[number]>(jacdac.BarometerReg.PressureError, "u22.10");            
@@ -21,6 +21,7 @@ namespace modules {
         //% group="Environment"
         //% block="%barometer pressure"
         //% blockId=jacdac_barometer_pressure___get
+        //% weight=100
         pressure(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -32,6 +33,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Environment"
+        //% weight=99
         pressureError(): number {
             this.start();            
             const values = this._pressureError.pauseUntilValues() as any[];
@@ -39,6 +41,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const barometer = new BarometerClient("barometer");

@@ -5,10 +5,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class JoystickClient extends jacdac.SensorClient<[number,number]> {
 
-            private readonly _variant : jacdac.RegisterClient<[jacdac.JoystickVariant]>;
-            private readonly _digital : jacdac.RegisterClient<[boolean]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.JoystickVariant]>;
+        private readonly _digital : jacdac.RegisterClient<[boolean]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_JOYSTICK, role, "i1.15 i1.15");
 
             this._variant = this.addRegister<[jacdac.JoystickVariant]>(jacdac.JoystickReg.Variant, "u8");
@@ -24,6 +24,7 @@ namespace modules {
         //% group="Button"
         //% block="%joystick x"
         //% blockId=jacdac_joystick_direction_x_get
+        //% weight=100
         x(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -38,6 +39,7 @@ namespace modules {
         //% group="Button"
         //% block="%joystick y"
         //% blockId=jacdac_joystick_direction_y_get
+        //% weight=99
         y(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -49,6 +51,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=98
         variant(): jacdac.JoystickVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -60,6 +63,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=97
         digital(): boolean {
             this.start();            
             const values = this._digital.pauseUntilValues() as any[];
@@ -67,6 +71,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const joystick = new JoystickClient("joystick");

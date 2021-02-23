@@ -5,13 +5,13 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SpeechSynthesisClient extends jacdac.Client {
 
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-            private readonly _lang : jacdac.RegisterClient<[string]>;
-            private readonly _volume : jacdac.RegisterClient<[number]>;
-            private readonly _pitch : jacdac.RegisterClient<[number]>;
-            private readonly _rate : jacdac.RegisterClient<[number]>;            
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _lang : jacdac.RegisterClient<[string]>;
+        private readonly _volume : jacdac.RegisterClient<[number]>;
+        private readonly _pitch : jacdac.RegisterClient<[number]>;
+        private readonly _rate : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_SPEECH_SYNTHESIS, role);
 
             this._enabled = this.addRegister<[boolean]>(jacdac.SpeechSynthesisReg.Enabled, "u8");
@@ -29,6 +29,7 @@ namespace modules {
         //% group="Speech synthesis"
         //% block="%speechsynthesis enabled"
         //% blockId=jacdac_speechsynthesis_enabled___get
+        //% weight=100
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -38,9 +39,10 @@ namespace modules {
         /**
         * Determines if the speech engine is in a non-paused state.
         */
-        //% blockId=jacdac_speechsynthesis_enabled___set
         //% group="Speech synthesis"
+        //% blockId=jacdac_speechsynthesis_enabled___set
         //% block="set %speechsynthesis %value=toggleOnOff"
+        //% weight=99
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -53,6 +55,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Speech synthesis"
+        //% weight=98
         lang(): string {
             this.start();            
             const values = this._lang.pauseUntilValues() as any[];
@@ -62,9 +65,8 @@ namespace modules {
         /**
         * Language used for utterances as defined in https://www.ietf.org/rfc/bcp/bcp47.txt.
         */
-        //% 
         //% group="Speech synthesis"
-        //% block="set %speechsynthesis lang to %value"
+        //% weight=97
         setLang(value: string) {
             this.start();
             const values = this._lang.values as any[];
@@ -77,6 +79,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Speech synthesis"
+        //% weight=96
         volume(): number {
             this.start();            
             const values = this._volume.pauseUntilValues() as any[];
@@ -86,9 +89,11 @@ namespace modules {
         /**
         * Volume for utterances.
         */
-        //% 
-        //% group="Speech synthesis" value.min=0 value.max=1 value.defl=1
-        //% block="set %speechsynthesis volume to %value"
+        //% group="Speech synthesis"
+        //% weight=95
+        //% value.min=0
+        //% value.max=1
+        //% value.defl=1
         setVolume(value: number) {
             this.start();
             const values = this._volume.values as any[];
@@ -101,6 +106,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Speech synthesis"
+        //% weight=94
         pitch(): number {
             this.start();            
             const values = this._pitch.pauseUntilValues() as any[];
@@ -110,9 +116,11 @@ namespace modules {
         /**
         * Pitch for utterances
         */
-        //% 
-        //% group="Speech synthesis" value.min=0 value.max=2 value.defl=1
-        //% block="set %speechsynthesis pitch to %value"
+        //% group="Speech synthesis"
+        //% weight=93
+        //% value.min=0
+        //% value.max=2
+        //% value.defl=1
         setPitch(value: number) {
             this.start();
             const values = this._pitch.values as any[];
@@ -125,6 +133,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Speech synthesis"
+        //% weight=92
         rate(): number {
             this.start();            
             const values = this._rate.pauseUntilValues() as any[];
@@ -134,9 +143,11 @@ namespace modules {
         /**
         * Rate for utterances
         */
-        //% 
-        //% group="Speech synthesis" value.min=0.1 value.max=10 value.defl=1
-        //% block="set %speechsynthesis rate to %value"
+        //% group="Speech synthesis"
+        //% weight=91
+        //% value.min=0.1
+        //% value.max=10
+        //% value.defl=1
         setRate(value: number) {
             this.start();
             const values = this._rate.values as any[];
@@ -145,6 +156,31 @@ namespace modules {
         }
  
 
+
+        /**
+        * Adds an utterance to the utterance queue; it will be spoken when any other utterances queued before it have been spoken.
+        */
+        //% group="Speech synthesis"
+        //% blockId=jacdac_speechsynthesis_speak_cmd
+        //% block="%speechsynthesis speak"
+        //% weight=90
+        speak(text: string): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SpeechSynthesisCmd.Speak, "s", [text]))
+        }
+
+        /**
+        * Cancels current utterance and all utterances from the utterance queue.
+        */
+        //% group="Speech synthesis"
+        //% blockId=jacdac_speechsynthesis_cancel_cmd
+        //% block="%speechsynthesis cancel"
+        //% weight=89
+        cancel(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.SpeechSynthesisCmd.Cancel))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const speechSynthesis = new SpeechSynthesisClient("speech Synthesis");

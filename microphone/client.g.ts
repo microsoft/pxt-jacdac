@@ -5,9 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class MicrophoneClient extends jacdac.Client {
 
-            private readonly _samplingPeriod : jacdac.RegisterClient<[number]>;            
+        private readonly _samplingPeriod : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_MICROPHONE, role);
 
             this._samplingPeriod = this.addRegister<[number]>(jacdac.MicrophoneReg.SamplingPeriod, "u32");            
@@ -20,6 +20,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
+        //% weight=100
         samplingPeriod(): number {
             this.start();            
             const values = this._samplingPeriod.pauseUntilValues() as any[];
@@ -30,9 +31,8 @@ namespace modules {
         * Get or set microphone sampling period.
         * Sampling rate is `1_000_000 / sampling_period Hz`.
         */
-        //% 
         //% group="Sound"
-        //% block="set %microphone sampling period to %value"
+        //% weight=99
         setSamplingPeriod(value: number) {
             this.start();
             const values = this._samplingPeriod.values as any[];
@@ -41,6 +41,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const microphone = new MicrophoneClient("microphone");

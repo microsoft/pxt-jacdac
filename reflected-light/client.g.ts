@@ -5,9 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ReflectedLightClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _variant : jacdac.RegisterClient<[jacdac.ReflectedLightVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.ReflectedLightVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_REFLECTED_LIGHT, role, "u0.16");
 
             this._variant = this.addRegister<[jacdac.ReflectedLightVariant]>(jacdac.ReflectedLightReg.Variant, "u8");            
@@ -21,6 +21,7 @@ namespace modules {
         //% group="Imaging"
         //% block="%reflectedlight brightness"
         //% blockId=jacdac_reflectedlight_brightness___get
+        //% weight=100
         brightness(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -32,6 +33,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Imaging"
+        //% weight=99
         variant(): jacdac.ReflectedLightVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -42,21 +44,24 @@ namespace modules {
         /**
          * The sensor detected a transition from light to dark
          */
-        //% blockId=jacdac_on_reflectedlight_dark
-        //% block="dark" blockSetVariable=myModule
         //% group="Imaging"
-        onDark(handler: () => void) {
+        //% blockId=jacdac_on_reflectedlight_dark
+        //% block="on %reflectedlight dark"
+        //% weight=98
+        onDark(handler: () => void): void {
             this.registerEvent(jacdac.ReflectedLightEvent.Dark, handler);
         }
         /**
          * The sensor detected a transition from dark to light
          */
-        //% blockId=jacdac_on_reflectedlight_light
-        //% block="light" blockSetVariable=myModule
         //% group="Imaging"
-        onLight(handler: () => void) {
+        //% blockId=jacdac_on_reflectedlight_light
+        //% block="on %reflectedlight light"
+        //% weight=97
+        onLight(handler: () => void): void {
             this.registerEvent(jacdac.ReflectedLightEvent.Light, handler);
         }
+    
     }
     //% fixedInstance whenUsed
     export const reflectedLight = new ReflectedLightClient("reflected Light");

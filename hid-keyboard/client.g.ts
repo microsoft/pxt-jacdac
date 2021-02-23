@@ -13,13 +13,38 @@ namespace modules {
     export class HidKeyboardClient extends jacdac.Client {
             
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_HID_KEYBOARD, role);
             
         }
     
  
 
+
+        /**
+        * Presses a key or a sequence of keys down.
+        */
+        //% group="HID Keyboard"
+        //% blockId=jacdac_hidkeyboard_key_cmd
+        //% block="%hidkeyboard key"
+        //% weight=100
+        key(selector: ([number, jacdac.HidKeyboardModifiers, jacdac.HidKeyboardAction])[], modifiers: undefined, action: undefined): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidKeyboardCmd.Key, "r: u16 u8 u8", [selector, modifiers, action]))
+        }
+
+        /**
+        * Clears all pressed keys.
+        */
+        //% group="HID Keyboard"
+        //% blockId=jacdac_hidkeyboard_clear_cmd
+        //% block="%hidkeyboard clear"
+        //% weight=99
+        clear(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.HidKeyboardCmd.Clear))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const hidKeyboard = new HidKeyboardClient("hid Keyboard");

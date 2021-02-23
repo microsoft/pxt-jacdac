@@ -7,18 +7,18 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ServoClient extends jacdac.Client {
 
-            private readonly _angle : jacdac.RegisterClient<[number]>;
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-            private readonly _offset : jacdac.RegisterClient<[number]>;
-            private readonly _minAngle : jacdac.RegisterClient<[number]>;
-            private readonly _minPulse : jacdac.RegisterClient<[number]>;
-            private readonly _maxAngle : jacdac.RegisterClient<[number]>;
-            private readonly _maxPulse : jacdac.RegisterClient<[number]>;
-            private readonly _variant : jacdac.RegisterClient<[jacdac.ServoVariant]>;
-            private readonly _stallTorque : jacdac.RegisterClient<[number]>;
-            private readonly _responseSpeed : jacdac.RegisterClient<[number]>;            
+        private readonly _angle : jacdac.RegisterClient<[number]>;
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _offset : jacdac.RegisterClient<[number]>;
+        private readonly _minAngle : jacdac.RegisterClient<[number]>;
+        private readonly _minPulse : jacdac.RegisterClient<[number]>;
+        private readonly _maxAngle : jacdac.RegisterClient<[number]>;
+        private readonly _maxPulse : jacdac.RegisterClient<[number]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.ServoVariant]>;
+        private readonly _stallTorque : jacdac.RegisterClient<[number]>;
+        private readonly _responseSpeed : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_SERVO, role);
 
             this._angle = this.addRegister<[number]>(jacdac.ServoReg.Angle, "i16.16");
@@ -41,6 +41,7 @@ namespace modules {
         //% group="Servo"
         //% block="%servo angle"
         //% blockId=jacdac_servo_angle___get
+        //% weight=100
         angle(): number {
             this.start();            
             const values = this._angle.pauseUntilValues() as any[];
@@ -50,9 +51,12 @@ namespace modules {
         /**
         * Specifies the angle of the arm.
         */
+        //% group="Servo"
         //% blockId=jacdac_servo_angle___set
-        //% group="Servo" value.min=-90 value.max=90
         //% block="set %servo angle to %value"
+        //% weight=99
+        //% value.min=-90
+        //% value.max=90
         setAngle(value: number) {
             this.start();
             const values = this._angle.values as any[];
@@ -67,6 +71,7 @@ namespace modules {
         //% group="Servo"
         //% block="%servo enabled"
         //% blockId=jacdac_servo_enabled___get
+        //% weight=98
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -76,9 +81,10 @@ namespace modules {
         /**
         * Turn the power to the servo on/off.
         */
-        //% blockId=jacdac_servo_enabled___set
         //% group="Servo"
+        //% blockId=jacdac_servo_enabled___set
         //% block="set %servo %value=toggleOnOff"
+        //% weight=97
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -91,6 +97,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
+        //% weight=96
         offset(): number {
             this.start();            
             const values = this._offset.pauseUntilValues() as any[];
@@ -100,9 +107,8 @@ namespace modules {
         /**
         * Correction applied to the angle to account for the servo arm drift.
         */
-        //% 
         //% group="Servo"
-        //% block="set %servo offset to %value"
+        //% weight=95
         setOffset(value: number) {
             this.start();
             const values = this._offset.values as any[];
@@ -115,6 +121,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
+        //% weight=94
         minAngle(): number {
             this.start();            
             const values = this._minAngle.pauseUntilValues() as any[];
@@ -124,9 +131,9 @@ namespace modules {
         /**
         * Lowest angle that can be set.
         */
-        //% 
-        //% group="Servo" value.defl=-90
-        //% block="set %servo min angle to %value"
+        //% group="Servo"
+        //% weight=93
+        //% value.defl=-90
         setMinAngle(value: number) {
             this.start();
             const values = this._minAngle.values as any[];
@@ -139,6 +146,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
+        //% weight=92
         minPulse(): number {
             this.start();            
             const values = this._minPulse.pauseUntilValues() as any[];
@@ -148,9 +156,9 @@ namespace modules {
         /**
         * The length of pulse corresponding to lowest angle.
         */
-        //% 
-        //% group="Servo" value.defl=500
-        //% block="set %servo min pulse to %value"
+        //% group="Servo"
+        //% weight=91
+        //% value.defl=500
         setMinPulse(value: number) {
             this.start();
             const values = this._minPulse.values as any[];
@@ -163,6 +171,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
+        //% weight=90
         maxAngle(): number {
             this.start();            
             const values = this._maxAngle.pauseUntilValues() as any[];
@@ -172,9 +181,9 @@ namespace modules {
         /**
         * Highest angle that can be set.
         */
-        //% 
-        //% group="Servo" value.defl=90
-        //% block="set %servo max angle to %value"
+        //% group="Servo"
+        //% weight=89
+        //% value.defl=90
         setMaxAngle(value: number) {
             this.start();
             const values = this._maxAngle.values as any[];
@@ -187,6 +196,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
+        //% weight=88
         maxPulse(): number {
             this.start();            
             const values = this._maxPulse.pauseUntilValues() as any[];
@@ -196,9 +206,9 @@ namespace modules {
         /**
         * The length of pulse corresponding to highest angle.
         */
-        //% 
-        //% group="Servo" value.defl=2500
-        //% block="set %servo max pulse to %value"
+        //% group="Servo"
+        //% weight=87
+        //% value.defl=2500
         setMaxPulse(value: number) {
             this.start();
             const values = this._maxPulse.values as any[];
@@ -214,6 +224,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
+        //% weight=86
         variant(): jacdac.ServoVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -225,6 +236,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
+        //% weight=85
         stallTorque(): number {
             this.start();            
             const values = this._stallTorque.pauseUntilValues() as any[];
@@ -236,6 +248,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
+        //% weight=84
         responseSpeed(): number {
             this.start();            
             const values = this._responseSpeed.pauseUntilValues() as any[];
@@ -243,6 +256,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const servo = new ServoClient("servo");

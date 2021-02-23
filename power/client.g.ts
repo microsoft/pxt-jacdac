@@ -5,17 +5,17 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class PowerClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-            private readonly _maxPower : jacdac.RegisterClient<[number]>;
-            private readonly _overload : jacdac.RegisterClient<[boolean]>;
-            private readonly _batteryVoltage : jacdac.RegisterClient<[number]>;
-            private readonly _batteryCharge : jacdac.RegisterClient<[number]>;
-            private readonly _batteryCapacity : jacdac.RegisterClient<[number]>;
-            private readonly _keepOnPulseDuration : jacdac.RegisterClient<[number]>;
-            private readonly _keepOnPulsePeriod : jacdac.RegisterClient<[number]>;
-            private readonly _priorityOffset : jacdac.RegisterClient<[number]>;            
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _maxPower : jacdac.RegisterClient<[number]>;
+        private readonly _overload : jacdac.RegisterClient<[boolean]>;
+        private readonly _batteryVoltage : jacdac.RegisterClient<[number]>;
+        private readonly _batteryCharge : jacdac.RegisterClient<[number]>;
+        private readonly _batteryCapacity : jacdac.RegisterClient<[number]>;
+        private readonly _keepOnPulseDuration : jacdac.RegisterClient<[number]>;
+        private readonly _keepOnPulsePeriod : jacdac.RegisterClient<[number]>;
+        private readonly _priorityOffset : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_POWER, role, "u16");
 
             this._enabled = this.addRegister<[boolean]>(jacdac.PowerReg.Enabled, "u8");
@@ -37,6 +37,7 @@ namespace modules {
         //% group="Power"
         //% block="%power enabled"
         //% blockId=jacdac_power_enabled___get
+        //% weight=100
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -46,9 +47,11 @@ namespace modules {
         /**
         * Turn the power to the bus on/off.
         */
+        //% group="Power"
         //% blockId=jacdac_power_enabled___set
-        //% group="Power" value.defl=1
         //% block="set %power %value=toggleOnOff"
+        //% weight=99
+        //% value.defl=1
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -62,6 +65,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Power"
+        //% weight=98
         maxPower(): number {
             this.start();            
             const values = this._maxPower.pauseUntilValues() as any[];
@@ -72,9 +76,11 @@ namespace modules {
         * Limit the power provided by the service. The actual maximum limit will depend on hardware.
         * This field may be read-only in some implementations - you should read it back after setting.
         */
-        //% 
-        //% group="Power" value.min=0 value.max=500 value.defl=500
-        //% block="set %power max power to %value"
+        //% group="Power"
+        //% weight=97
+        //% value.min=0
+        //% value.max=500
+        //% value.defl=500
         setMaxPower(value: number) {
             this.start();
             const values = this._maxPower.values as any[];
@@ -87,6 +93,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Power"
+        //% weight=96
         overload(): boolean {
             this.start();            
             const values = this._overload.pauseUntilValues() as any[];
@@ -100,6 +107,7 @@ namespace modules {
         //% group="Power"
         //% block="%power current draw"
         //% blockId=jacdac_power_current_draw___get
+        //% weight=95
         currentDraw(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -111,6 +119,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Power"
+        //% weight=94
         batteryVoltage(): number {
             this.start();            
             const values = this._batteryVoltage.pauseUntilValues() as any[];
@@ -122,6 +131,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Power"
+        //% weight=93
         batteryCharge(): number {
             this.start();            
             const values = this._batteryCharge.pauseUntilValues() as any[];
@@ -134,6 +144,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Power"
+        //% weight=92
         batteryCapacity(): number {
             this.start();            
             const values = this._batteryCapacity.pauseUntilValues() as any[];
@@ -147,6 +158,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Power"
+        //% weight=91
         keepOnPulseDuration(): number {
             this.start();            
             const values = this._keepOnPulseDuration.pauseUntilValues() as any[];
@@ -158,9 +170,9 @@ namespace modules {
         * This regulates how often and for how long such current is drawn.
         * Typically a 1/8W 22 ohm resistor is used as load. This limits the duty cycle to 10%.
         */
-        //% 
-        //% group="Power" value.defl=600
-        //% block="set %power keep on pulse duration to %value"
+        //% group="Power"
+        //% weight=90
+        //% value.defl=600
         setKeepOnPulseDuration(value: number) {
             this.start();
             const values = this._keepOnPulseDuration.values as any[];
@@ -175,6 +187,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Power"
+        //% weight=89
         keepOnPulsePeriod(): number {
             this.start();            
             const values = this._keepOnPulsePeriod.pauseUntilValues() as any[];
@@ -186,9 +199,9 @@ namespace modules {
         * This regulates how often and for how long such current is drawn.
         * Typically a 1/8W 22 ohm resistor is used as load. This limits the duty cycle to 10%.
         */
-        //% 
-        //% group="Power" value.defl=20000
-        //% block="set %power keep on pulse period to %value"
+        //% group="Power"
+        //% weight=88
+        //% value.defl=20000
         setKeepOnPulsePeriod(value: number) {
             this.start();
             const values = this._keepOnPulsePeriod.values as any[];
@@ -203,6 +216,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Power"
+        //% weight=87
         priorityOffset(): number {
             this.start();            
             const values = this._priorityOffset.pauseUntilValues() as any[];
@@ -214,9 +228,8 @@ namespace modules {
         * between different supplies.
         * The `priority` is clamped to `u32` range when included in `active` reports.
         */
-        //% 
         //% group="Power"
-        //% block="set %power priority offset to %value"
+        //% weight=86
         setPriorityOffset(value: number) {
             this.start();
             const values = this._priorityOffset.values as any[];
@@ -225,6 +238,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const power = new PowerClient("power");

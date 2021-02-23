@@ -9,18 +9,18 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ModelRunnerClient extends jacdac.SensorClient<[number[]]> {
 
-            private readonly _autoInvokeEvery : jacdac.RegisterClient<[number]>;
-            private readonly _inputShape : jacdac.RegisterClient<[number[]]>;
-            private readonly _outputShape : jacdac.RegisterClient<[number[]]>;
-            private readonly _lastRunTime : jacdac.RegisterClient<[number]>;
-            private readonly _allocatedArenaSize : jacdac.RegisterClient<[number]>;
-            private readonly _modelSize : jacdac.RegisterClient<[number]>;
-            private readonly _lastError : jacdac.RegisterClient<[string]>;
-            private readonly _format : jacdac.RegisterClient<[jacdac.ModelRunnerModelFormat]>;
-            private readonly _formatVersion : jacdac.RegisterClient<[number]>;
-            private readonly _parallel : jacdac.RegisterClient<[boolean]>;            
+        private readonly _autoInvokeEvery : jacdac.RegisterClient<[number]>;
+        private readonly _inputShape : jacdac.RegisterClient<[number[]]>;
+        private readonly _outputShape : jacdac.RegisterClient<[number[]]>;
+        private readonly _lastRunTime : jacdac.RegisterClient<[number]>;
+        private readonly _allocatedArenaSize : jacdac.RegisterClient<[number]>;
+        private readonly _modelSize : jacdac.RegisterClient<[number]>;
+        private readonly _lastError : jacdac.RegisterClient<[string]>;
+        private readonly _format : jacdac.RegisterClient<[jacdac.ModelRunnerModelFormat]>;
+        private readonly _formatVersion : jacdac.RegisterClient<[number]>;
+        private readonly _parallel : jacdac.RegisterClient<[boolean]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_MODEL_RUNNER, role, "r: f32");
 
             this._autoInvokeEvery = this.addRegister<[number]>(jacdac.ModelRunnerReg.AutoInvokeEvery, "u16");
@@ -44,6 +44,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=100
         autoInvokeEvery(): number {
             this.start();            
             const values = this._autoInvokeEvery.pauseUntilValues() as any[];
@@ -56,9 +57,8 @@ namespace modules {
         * The `outputs` register will stream its value after each run.
         * This register is not stored in flash.
         */
-        //% 
         //% group="Model Runner"
-        //% block="set %modelrunner auto invoke every to %value"
+        //% weight=99
         setAutoInvokeEvery(value: number) {
             this.start();
             const values = this._autoInvokeEvery.values as any[];
@@ -73,6 +73,7 @@ namespace modules {
         //% group="Model Runner"
         //% block="%modelrunner output"
         //% blockId=jacdac_modelrunner_outputs_output_get
+        //% weight=98
         output(): number[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -84,6 +85,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=97
         dimension(): number[] {
             this.start();            
             const values = this._inputShape.pauseUntilValues() as any[];
@@ -95,6 +97,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=96
         dimension(): number[] {
             this.start();            
             const values = this._outputShape.pauseUntilValues() as any[];
@@ -106,6 +109,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=95
         lastRunTime(): number {
             this.start();            
             const values = this._lastRunTime.pauseUntilValues() as any[];
@@ -117,6 +121,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=94
         allocatedArenaSize(): number {
             this.start();            
             const values = this._allocatedArenaSize.pauseUntilValues() as any[];
@@ -128,6 +133,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=93
         modelSize(): number {
             this.start();            
             const values = this._modelSize.pauseUntilValues() as any[];
@@ -139,6 +145,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=92
         lastError(): string {
             this.start();            
             const values = this._lastError.pauseUntilValues() as any[];
@@ -153,6 +160,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=91
         format(): jacdac.ModelRunnerModelFormat {
             this.start();            
             const values = this._format.pauseUntilValues() as any[];
@@ -164,6 +172,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=90
         formatVersion(): number {
             this.start();            
             const values = this._formatVersion.pauseUntilValues() as any[];
@@ -176,6 +185,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Model Runner"
+        //% weight=89
         parallel(): boolean {
             this.start();            
             const values = this._parallel.pauseUntilValues() as any[];
@@ -183,6 +193,22 @@ namespace modules {
         }
  
 
+
+        /**
+        * Open pipe for streaming in the model. The size of the model has to be declared upfront.
+        * The model is streamed over regular pipe data packets.
+        * The format supported by this instance of the service is specified in `format` register.
+        * When the pipe is closed, the model is written all into flash, and the device running the service may reset.
+        */
+        //% group="Model Runner"
+        //% blockId=jacdac_modelrunner_set_model_cmd
+        //% block="%modelrunner set model"
+        //% weight=88
+        setModel(modelSize: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ModelRunnerCmd.SetModel, "u32", [modelSize]))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const modelRunner = new ModelRunnerClient("model Runner");

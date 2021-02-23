@@ -5,9 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class RotaryEncoderClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _clicksPerTurn : jacdac.RegisterClient<[number]>;            
+        private readonly _clicksPerTurn : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_ROTARY_ENCODER, role, "i32");
 
             this._clicksPerTurn = this.addRegister<[number]>(jacdac.RotaryEncoderReg.ClicksPerTurn, "u16");            
@@ -22,6 +22,7 @@ namespace modules {
         //% group="Slider"
         //% block="%rotaryencoder position"
         //% blockId=jacdac_rotaryencoder_position___get
+        //% weight=100
         position(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -33,6 +34,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Slider"
+        //% weight=99
         clicksPerTurn(): number {
             this.start();            
             const values = this._clicksPerTurn.pauseUntilValues() as any[];
@@ -40,6 +42,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const rotaryEncoder = new RotaryEncoderClient("rotary Encoder");

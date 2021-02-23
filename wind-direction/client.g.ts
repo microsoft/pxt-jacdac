@@ -5,10 +5,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class WindDirectionClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _windDirectionError : jacdac.RegisterClient<[number]>;
-            private readonly _windDirectionOffset : jacdac.RegisterClient<[number]>;            
+        private readonly _windDirectionError : jacdac.RegisterClient<[number]>;
+        private readonly _windDirectionOffset : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_WIND_DIRECTION, role, "u16");
 
             this._windDirectionError = this.addRegister<[number]>(jacdac.WindDirectionReg.WindDirectionError, "u16");
@@ -23,6 +23,7 @@ namespace modules {
         //% group="Wind direction"
         //% block="%winddirection wind direction"
         //% blockId=jacdac_winddirection_wind_direction___get
+        //% weight=100
         windDirection(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -34,6 +35,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Wind direction"
+        //% weight=99
         windDirectionError(): number {
             this.start();            
             const values = this._windDirectionError.pauseUntilValues() as any[];
@@ -45,6 +47,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Wind direction"
+        //% weight=98
         windDirectionOffset(): number {
             this.start();            
             const values = this._windDirectionOffset.pauseUntilValues() as any[];
@@ -52,6 +55,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const windDirection = new WindDirectionClient("wind Direction");

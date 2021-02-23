@@ -5,9 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class VibrationMotorClient extends jacdac.Client {
 
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_VIBRATION_MOTOR, role);
 
             this._enabled = this.addRegister<[boolean]>(jacdac.VibrationMotorReg.Enabled, "u8");            
@@ -21,6 +21,7 @@ namespace modules {
         //% group="Vibration motor"
         //% block="%vibration enabled"
         //% blockId=jacdac_vibration_enabled___get
+        //% weight=100
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -30,9 +31,10 @@ namespace modules {
         /**
         * Determines if the vibration motor responds to vibrate commands.
         */
-        //% blockId=jacdac_vibration_enabled___set
         //% group="Vibration motor"
+        //% blockId=jacdac_vibration_enabled___set
         //% block="set %vibration %value=toggleOnOff"
+        //% weight=99
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -41,6 +43,19 @@ namespace modules {
         }
  
 
+
+        /**
+        * Starts a sequence of vibration and pauses. To stop any existing vibration, send an empty payload.
+        */
+        //% group="Vibration motor"
+        //% blockId=jacdac_vibration_vibrate_cmd
+        //% block="%vibration vibrate"
+        //% weight=98
+        vibrate(duration: ([number, number])[], speed: undefined): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.VibrationMotorCmd.Vibrate, "r: u8 u0.8", [duration, speed]))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const vibrationMotor = new VibrationMotorClient("vibration Motor");

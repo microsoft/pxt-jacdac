@@ -5,17 +5,17 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class LedPixelClient extends jacdac.Client {
 
-            private readonly _brightness : jacdac.RegisterClient<[number]>;
-            private readonly _actualBrightness : jacdac.RegisterClient<[number]>;
-            private readonly _lightType : jacdac.RegisterClient<[jacdac.LedPixelLightType]>;
-            private readonly _numPixels : jacdac.RegisterClient<[number]>;
-            private readonly _numColumns : jacdac.RegisterClient<[number]>;
-            private readonly _maxPower : jacdac.RegisterClient<[number]>;
-            private readonly _maxPixels : jacdac.RegisterClient<[number]>;
-            private readonly _numRepeats : jacdac.RegisterClient<[number]>;
-            private readonly _variant : jacdac.RegisterClient<[jacdac.LedPixelVariant]>;            
+        private readonly _brightness : jacdac.RegisterClient<[number]>;
+        private readonly _actualBrightness : jacdac.RegisterClient<[number]>;
+        private readonly _lightType : jacdac.RegisterClient<[jacdac.LedPixelLightType]>;
+        private readonly _numPixels : jacdac.RegisterClient<[number]>;
+        private readonly _numColumns : jacdac.RegisterClient<[number]>;
+        private readonly _maxPower : jacdac.RegisterClient<[number]>;
+        private readonly _maxPixels : jacdac.RegisterClient<[number]>;
+        private readonly _numRepeats : jacdac.RegisterClient<[number]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.LedPixelVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_LED_PIXEL, role);
 
             this._brightness = this.addRegister<[number]>(jacdac.LedPixelReg.Brightness, "u0.8");
@@ -38,6 +38,7 @@ namespace modules {
         //% group="Light"
         //% block="%ledpixel brightness"
         //% blockId=jacdac_ledpixel_brightness___get
+        //% weight=100
         brightness(): number {
             this.start();            
             const values = this._brightness.pauseUntilValues() as any[];
@@ -48,9 +49,13 @@ namespace modules {
         * Set the luminosity of the strip.
         * At `0` the power to the strip is completely shut down.
         */
+        //% group="Light"
         //% blockId=jacdac_ledpixel_brightness___set
-        //% group="Light" value.min=0 value.max=1 value.defl=0.05
         //% block="set %ledpixel brightness to %value"
+        //% weight=99
+        //% value.min=0
+        //% value.max=1
+        //% value.defl=0.05
         setBrightness(value: number) {
             this.start();
             const values = this._brightness.values as any[];
@@ -65,6 +70,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=98
         actualBrightness(): number {
             this.start();            
             const values = this._actualBrightness.pauseUntilValues() as any[];
@@ -78,6 +84,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=97
         lightType(): jacdac.LedPixelLightType {
             this.start();            
             const values = this._lightType.pauseUntilValues() as any[];
@@ -89,9 +96,8 @@ namespace modules {
         * Controllers which are sold with lights should default to the correct type
         * and could not allow change.
         */
-        //% 
         //% group="Light"
-        //% block="set %ledpixel light type to %value"
+        //% weight=96
         setLightType(value: jacdac.LedPixelLightType) {
             this.start();
             const values = this._lightType.values as any[];
@@ -106,6 +112,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=95
         numPixels(): number {
             this.start();            
             const values = this._numPixels.pauseUntilValues() as any[];
@@ -117,9 +124,9 @@ namespace modules {
         * Controllers which are sold with lights should default to the correct length
         * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
         */
-        //% 
-        //% group="Light" value.defl=15
-        //% block="set %ledpixel num pixels to %value"
+        //% group="Light"
+        //% weight=94
+        //% value.defl=15
         setNumPixels(value: number) {
             this.start();
             const values = this._numPixels.values as any[];
@@ -133,6 +140,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=93
         numColumns(): number {
             this.start();            
             const values = this._numColumns.pauseUntilValues() as any[];
@@ -143,9 +151,8 @@ namespace modules {
         * If the LED pixel strip is a matrix, specifies the number of columns. Otherwise, a square shape is assumed. Controllers which are sold with lights should default to the correct length
         * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
         */
-        //% 
         //% group="Light"
-        //% block="set %ledpixel num columns to %value"
+        //% weight=92
         setNumColumns(value: number) {
             this.start();
             const values = this._numColumns.values as any[];
@@ -158,6 +165,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=91
         maxPower(): number {
             this.start();            
             const values = this._maxPower.pauseUntilValues() as any[];
@@ -167,9 +175,9 @@ namespace modules {
         /**
         * Limit the power drawn by the light-strip (and controller).
         */
-        //% 
-        //% group="Light" value.defl=200
-        //% block="set %ledpixel max power to %value"
+        //% group="Light"
+        //% weight=90
+        //% value.defl=200
         setMaxPower(value: number) {
             this.start();
             const values = this._maxPower.values as any[];
@@ -183,6 +191,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=89
         maxPixels(): number {
             this.start();            
             const values = this._maxPixels.pauseUntilValues() as any[];
@@ -196,6 +205,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=88
         numRepeats(): number {
             this.start();            
             const values = this._numRepeats.pauseUntilValues() as any[];
@@ -207,9 +217,9 @@ namespace modules {
         * Should be set before the `run` command.
         * Setting to `0` means to repeat forever.
         */
-        //% 
-        //% group="Light" value.defl=1
-        //% block="set %ledpixel num repeats to %value"
+        //% group="Light"
+        //% weight=87
+        //% value.defl=1
         setNumRepeats(value: number) {
             this.start();
             const values = this._numRepeats.values as any[];
@@ -222,6 +232,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
+        //% weight=86
         variant(): jacdac.LedPixelVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -229,6 +240,19 @@ namespace modules {
         }
  
 
+
+        /**
+        * Run the given light "program". See service description for details.
+        */
+        //% group="Light"
+        //% blockId=jacdac_ledpixel_run_cmd
+        //% block="%ledpixel run"
+        //% weight=85
+        run(program: Buffer): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.LedPixelCmd.Run, "b", [program]))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const ledPixel = new LedPixelClient("led Pixel");

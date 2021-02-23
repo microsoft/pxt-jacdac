@@ -6,7 +6,7 @@ namespace modules {
     export class MultitouchClient extends jacdac.SensorClient<[number[]]> {
             
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_MULTITOUCH, role, "r: i32");
             
         }
@@ -21,6 +21,7 @@ namespace modules {
         //% group="Button"
         //% block="%multitouch capacitance"
         //% blockId=jacdac_multitouch_capacity_capacitance_get
+        //% weight=100
         capacitance(): number[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -31,57 +32,64 @@ namespace modules {
         /**
          * Emitted when an input is touched.
          */
-        //% blockId=jacdac_on_multitouch_touch
-        //% block="touch" blockSetVariable=myModule
         //% group="Button"
-        onTouch(handler: () => void) {
+        //% blockId=jacdac_on_multitouch_touch
+        //% block="on %multitouch touch"
+        //% weight=99
+        onTouch(handler: () => void): void {
             this.registerEvent(jacdac.MultitouchEvent.Touch, handler);
         }
         /**
          * Emitted when an input is no longer touched.
          */
-        //% blockId=jacdac_on_multitouch_release
-        //% block="release" blockSetVariable=myModule
         //% group="Button"
-        onRelease(handler: () => void) {
+        //% blockId=jacdac_on_multitouch_release
+        //% block="on %multitouch release"
+        //% weight=98
+        onRelease(handler: () => void): void {
             this.registerEvent(jacdac.MultitouchEvent.Release, handler);
         }
         /**
          * Emitted when an input is briefly touched. TODO Not implemented.
          */
-        //% blockId=jacdac_on_multitouch_tap
-        //% block="tap" blockSetVariable=myModule
         //% group="Button"
-        onTap(handler: () => void) {
+        //% blockId=jacdac_on_multitouch_tap
+        //% block="on %multitouch tap"
+        //% weight=97
+        onTap(handler: () => void): void {
             this.registerEvent(jacdac.MultitouchEvent.Tap, handler);
         }
         /**
          * Emitted when an input is touched for longer than 500ms. TODO Not implemented.
          */
-        //% blockId=jacdac_on_multitouch_long_press
-        //% block="long press" blockSetVariable=myModule
         //% group="Button"
-        onLongPress(handler: () => void) {
+        //% blockId=jacdac_on_multitouch_long_press
+        //% block="on %multitouch long press"
+        //% weight=96
+        onLongPress(handler: () => void): void {
             this.registerEvent(jacdac.MultitouchEvent.LongPress, handler);
         }
         /**
          * Emitted when input channels are successively touched in order of increasing channel numbers.
          */
-        //% blockId=jacdac_on_multitouch_swipe_pos
-        //% block="swipe pos" blockSetVariable=myModule
         //% group="Button"
-        onSwipePos(handler: () => void) {
+        //% blockId=jacdac_on_multitouch_swipe_pos
+        //% block="on %multitouch swipe pos"
+        //% weight=95
+        onSwipePos(handler: () => void): void {
             this.registerEvent(jacdac.MultitouchEvent.SwipePos, handler);
         }
         /**
          * Emitted when input channels are successively touched in order of decreasing channel numbers.
          */
-        //% blockId=jacdac_on_multitouch_swipe_neg
-        //% block="swipe neg" blockSetVariable=myModule
         //% group="Button"
-        onSwipeNeg(handler: () => void) {
+        //% blockId=jacdac_on_multitouch_swipe_neg
+        //% block="on %multitouch swipe neg"
+        //% weight=94
+        onSwipeNeg(handler: () => void): void {
             this.registerEvent(jacdac.MultitouchEvent.SwipeNeg, handler);
         }
+    
     }
     //% fixedInstance whenUsed
     export const multitouch = new MultitouchClient("multitouch");

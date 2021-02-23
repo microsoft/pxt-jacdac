@@ -5,11 +5,11 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class DistanceClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _minRange : jacdac.RegisterClient<[number]>;
-            private readonly _maxRange : jacdac.RegisterClient<[number]>;
-            private readonly _variant : jacdac.RegisterClient<[jacdac.DistanceVariant]>;            
+        private readonly _minRange : jacdac.RegisterClient<[number]>;
+        private readonly _maxRange : jacdac.RegisterClient<[number]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.DistanceVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_DISTANCE, role, "u16.16");
 
             this._minRange = this.addRegister<[number]>(jacdac.DistanceReg.MinRange, "u16.16");
@@ -25,6 +25,7 @@ namespace modules {
         //% group="Distance"
         //% block="%distance distance"
         //% blockId=jacdac_distance_distance___get
+        //% weight=100
         distance(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -36,6 +37,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Distance"
+        //% weight=99
         minRange(): number {
             this.start();            
             const values = this._minRange.pauseUntilValues() as any[];
@@ -47,6 +49,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Distance"
+        //% weight=98
         maxRange(): number {
             this.start();            
             const values = this._maxRange.pauseUntilValues() as any[];
@@ -58,6 +61,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Distance"
+        //% weight=97
         variant(): jacdac.DistanceVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -65,6 +69,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const distance = new DistanceClient("distance");

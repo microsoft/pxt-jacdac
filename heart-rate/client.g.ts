@@ -8,10 +8,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class HeartRateClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _heartRateError : jacdac.RegisterClient<[number]>;
-            private readonly _variant : jacdac.RegisterClient<[jacdac.HeartRateVariant]>;            
+        private readonly _heartRateError : jacdac.RegisterClient<[number]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.HeartRateVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_HEART_RATE, role, "u16.16");
 
             this._heartRateError = this.addRegister<[number]>(jacdac.HeartRateReg.HeartRateError, "u16.16");
@@ -26,6 +26,7 @@ namespace modules {
         //% group="Biometric"
         //% block="%heartrate heart rate"
         //% blockId=jacdac_heartrate_heart_rate___get
+        //% weight=100
         heartRate(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -37,6 +38,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Biometric"
+        //% weight=99
         heartRateError(): number {
             this.start();            
             const values = this._heartRateError.pauseUntilValues() as any[];
@@ -48,6 +50,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Biometric"
+        //% weight=98
         variant(): jacdac.HeartRateVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -55,6 +58,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const heartRate = new HeartRateClient("heart Rate");

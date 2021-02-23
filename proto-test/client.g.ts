@@ -6,20 +6,20 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ProtoTestClient extends jacdac.Client {
 
-            private readonly _rwBool : jacdac.RegisterClient<[boolean]>;
-            private readonly _roBool : jacdac.RegisterClient<[boolean]>;
-            private readonly _rwU32 : jacdac.RegisterClient<[number]>;
-            private readonly _roU32 : jacdac.RegisterClient<[number]>;
-            private readonly _rwI32 : jacdac.RegisterClient<[number]>;
-            private readonly _roI32 : jacdac.RegisterClient<[number]>;
-            private readonly _rwString : jacdac.RegisterClient<[string]>;
-            private readonly _roString : jacdac.RegisterClient<[string]>;
-            private readonly _rwBytes : jacdac.RegisterClient<[Buffer]>;
-            private readonly _roBytes : jacdac.RegisterClient<[Buffer]>;
-            private readonly _rwI8U8U16I32 : jacdac.RegisterClient<[number,number,number,number]>;
-            private readonly _roI8U8U16I32 : jacdac.RegisterClient<[number,number,number,number]>;            
+        private readonly _rwBool : jacdac.RegisterClient<[boolean]>;
+        private readonly _roBool : jacdac.RegisterClient<[boolean]>;
+        private readonly _rwU32 : jacdac.RegisterClient<[number]>;
+        private readonly _roU32 : jacdac.RegisterClient<[number]>;
+        private readonly _rwI32 : jacdac.RegisterClient<[number]>;
+        private readonly _roI32 : jacdac.RegisterClient<[number]>;
+        private readonly _rwString : jacdac.RegisterClient<[string]>;
+        private readonly _roString : jacdac.RegisterClient<[string]>;
+        private readonly _rwBytes : jacdac.RegisterClient<[Buffer]>;
+        private readonly _roBytes : jacdac.RegisterClient<[Buffer]>;
+        private readonly _rwI8U8U16I32 : jacdac.RegisterClient<[number,number,number,number]>;
+        private readonly _roI8U8U16I32 : jacdac.RegisterClient<[number,number,number,number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_PROTO_TEST, role);
 
             this._rwBool = this.addRegister<[boolean]>(jacdac.ProtoTestReg.RwBool, "u8");
@@ -42,6 +42,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=100
         rwBool(): boolean {
             this.start();            
             const values = this._rwBool.pauseUntilValues() as any[];
@@ -51,9 +52,8 @@ namespace modules {
         /**
         * A read write bool register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest rw bool to %value"
+        //% weight=99
         setRwBool(value: boolean) {
             this.start();
             const values = this._rwBool.values as any[];
@@ -66,6 +66,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=98
         roBool(): boolean {
             this.start();            
             const values = this._roBool.pauseUntilValues() as any[];
@@ -77,6 +78,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=97
         rwU32(): number {
             this.start();            
             const values = this._rwU32.pauseUntilValues() as any[];
@@ -86,9 +88,8 @@ namespace modules {
         /**
         * A read write u32 register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest rw u32 to %value"
+        //% weight=96
         setRwU32(value: number) {
             this.start();
             const values = this._rwU32.values as any[];
@@ -101,6 +102,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=95
         roU32(): number {
             this.start();            
             const values = this._roU32.pauseUntilValues() as any[];
@@ -112,6 +114,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=94
         rwI32(): number {
             this.start();            
             const values = this._rwI32.pauseUntilValues() as any[];
@@ -121,9 +124,8 @@ namespace modules {
         /**
         * A read write i32 register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest rw i32 to %value"
+        //% weight=93
         setRwI32(value: number) {
             this.start();
             const values = this._rwI32.values as any[];
@@ -136,6 +138,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=92
         roI32(): number {
             this.start();            
             const values = this._roI32.pauseUntilValues() as any[];
@@ -147,6 +150,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=91
         rwString(): string {
             this.start();            
             const values = this._rwString.pauseUntilValues() as any[];
@@ -156,9 +160,8 @@ namespace modules {
         /**
         * A read write string register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest rw string to %value"
+        //% weight=90
         setRwString(value: string) {
             this.start();
             const values = this._rwString.values as any[];
@@ -171,6 +174,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=89
         roString(): string {
             this.start();            
             const values = this._roString.pauseUntilValues() as any[];
@@ -182,6 +186,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=88
         rwBytes(): Buffer {
             this.start();            
             const values = this._rwBytes.pauseUntilValues() as any[];
@@ -191,9 +196,8 @@ namespace modules {
         /**
         * A read write string register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest rw bytes to %value"
+        //% weight=87
         setRwBytes(value: Buffer) {
             this.start();
             const values = this._rwBytes.values as any[];
@@ -206,6 +210,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=86
         roBytes(): Buffer {
             this.start();            
             const values = this._roBytes.pauseUntilValues() as any[];
@@ -217,6 +222,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=85
         i8(): number {
             this.start();            
             const values = this._rwI8U8U16I32.pauseUntilValues() as any[];
@@ -226,9 +232,8 @@ namespace modules {
         /**
         * A read write i8, u8, u16, i32 register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest i8 to %value"
+        //% weight=84
         setI8(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];
@@ -241,6 +246,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=83
         u8(): number {
             this.start();            
             const values = this._rwI8U8U16I32.pauseUntilValues() as any[];
@@ -250,9 +256,8 @@ namespace modules {
         /**
         * A read write i8, u8, u16, i32 register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest u8 to %value"
+        //% weight=82
         setU8(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];
@@ -265,6 +270,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=81
         u16(): number {
             this.start();            
             const values = this._rwI8U8U16I32.pauseUntilValues() as any[];
@@ -274,9 +280,8 @@ namespace modules {
         /**
         * A read write i8, u8, u16, i32 register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest u16 to %value"
+        //% weight=80
         setU16(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];
@@ -289,6 +294,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=79
         i32(): number {
             this.start();            
             const values = this._rwI8U8U16I32.pauseUntilValues() as any[];
@@ -298,9 +304,8 @@ namespace modules {
         /**
         * A read write i8, u8, u16, i32 register.
         */
-        //% 
         //% group="Protocol Test"
-        //% block="set %prototest i32 to %value"
+        //% weight=78
         setI32(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];
@@ -313,6 +318,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=77
         i8(): number {
             this.start();            
             const values = this._roI8U8U16I32.pauseUntilValues() as any[];
@@ -324,6 +330,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=76
         u8(): number {
             this.start();            
             const values = this._roI8U8U16I32.pauseUntilValues() as any[];
@@ -335,6 +342,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=75
         u16(): number {
             this.start();            
             const values = this._roI8U8U16I32.pauseUntilValues() as any[];
@@ -346,6 +354,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Protocol Test"
+        //% weight=74
         i32(): number {
             this.start();            
             const values = this._roI8U8U16I32.pauseUntilValues() as any[];
@@ -356,57 +365,136 @@ namespace modules {
         /**
          * An event raised when rw_bool is modified
          */
-        //% blockId=jacdac_on_prototest_e_bool
-        //% block="e bool" blockSetVariable=myModule
         //% group="Protocol Test"
-        onEBool(handler: () => void) {
+        //% blockId=jacdac_on_prototest_e_bool
+        //% block="on %prototest e bool"
+        //% weight=73
+        onEBool(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EBool, handler);
         }
         /**
          * An event raised when rw_u32 is modified
          */
-        //% blockId=jacdac_on_prototest_e_u32
-        //% block="e u32" blockSetVariable=myModule
         //% group="Protocol Test"
-        onEU32(handler: () => void) {
+        //% blockId=jacdac_on_prototest_e_u32
+        //% block="on %prototest e u32"
+        //% weight=72
+        onEU32(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EU32, handler);
         }
         /**
          * An event raised when rw_i32 is modified
          */
-        //% blockId=jacdac_on_prototest_e_i32
-        //% block="e i32" blockSetVariable=myModule
         //% group="Protocol Test"
-        onEI32(handler: () => void) {
+        //% blockId=jacdac_on_prototest_e_i32
+        //% block="on %prototest e i32"
+        //% weight=71
+        onEI32(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EI32, handler);
         }
         /**
          * An event raised when rw_string is modified
          */
-        //% blockId=jacdac_on_prototest_e_string
-        //% block="e string" blockSetVariable=myModule
         //% group="Protocol Test"
-        onEString(handler: () => void) {
+        //% blockId=jacdac_on_prototest_e_string
+        //% block="on %prototest e string"
+        //% weight=70
+        onEString(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EString, handler);
         }
         /**
          * An event raised when rw_bytes is modified
          */
-        //% blockId=jacdac_on_prototest_e_bytes
-        //% block="e bytes" blockSetVariable=myModule
         //% group="Protocol Test"
-        onEBytes(handler: () => void) {
+        //% blockId=jacdac_on_prototest_e_bytes
+        //% block="on %prototest e bytes"
+        //% weight=69
+        onEBytes(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EBytes, handler);
         }
         /**
          * An event raised when rw_i8_u8_u16_i32 is modified
          */
-        //% blockId=jacdac_on_prototest_e_i8_u8_u16_i32
-        //% block="e i8 u8 u16 i32" blockSetVariable=myModule
         //% group="Protocol Test"
-        onEI8U8U16I32(handler: () => void) {
+        //% blockId=jacdac_on_prototest_e_i8_u8_u16_i32
+        //% block="on %prototest e i8 u8 u16 i32"
+        //% weight=68
+        onEI8U8U16I32(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EI8U8U16I32, handler);
         }
+
+        /**
+        * A command to set rw_bool. Returns the value.
+        */
+        //% group="Protocol Test"
+        //% blockId=jacdac_prototest_c_bool_cmd
+        //% block="%prototest c bool"
+        //% weight=67
+        cBool(bool: boolean): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CBool, "u8", [bool]))
+        }
+
+        /**
+        * A command to set rw_u32. Returns the value.
+        */
+        //% group="Protocol Test"
+        //% blockId=jacdac_prototest_c_u32_cmd
+        //% block="%prototest c u32"
+        //% weight=66
+        cU32(u32: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CU32, "u32", [u32]))
+        }
+
+        /**
+        * A command to set rw_i32. Returns the value.
+        */
+        //% group="Protocol Test"
+        //% blockId=jacdac_prototest_c_i32_cmd
+        //% block="%prototest c i32"
+        //% weight=65
+        cI32(i32: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CI32, "i32", [i32]))
+        }
+
+        /**
+        * A command to set rw_string. Returns the value.
+        */
+        //% group="Protocol Test"
+        //% blockId=jacdac_prototest_c_string_cmd
+        //% block="%prototest c string"
+        //% weight=64
+        cString(string: string): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CString, "s", [string]))
+        }
+
+        /**
+        * A command to set rw_string. Returns the value.
+        */
+        //% group="Protocol Test"
+        //% blockId=jacdac_prototest_c_bytes_cmd
+        //% block="%prototest c bytes"
+        //% weight=63
+        cBytes(bytes: Buffer): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CBytes, "b", [bytes]))
+        }
+
+        /**
+        * A command to set rw_bytes. Returns the value.
+        */
+        //% group="Protocol Test"
+        //% blockId=jacdac_prototest_c_i8_u8_u16_i32_cmd
+        //% block="%prototest c i8 u8 u16 i32"
+        //% weight=62
+        cI8U8U16I32(i8: number, u8: number, u16: number, i32: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CI8U8U16I32, "i8 u8 u16 i32", [i8, u8, u16, i32]))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const protoTest = new ProtoTestClient("proto Test");

@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class MotorClient extends jacdac.Client {
 
-            private readonly _duty : jacdac.RegisterClient<[number]>;
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-            private readonly _loadTorque : jacdac.RegisterClient<[number]>;
-            private readonly _loadSpeed : jacdac.RegisterClient<[number]>;            
+        private readonly _duty : jacdac.RegisterClient<[number]>;
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _loadTorque : jacdac.RegisterClient<[number]>;
+        private readonly _loadSpeed : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_MOTOR, role);
 
             this._duty = this.addRegister<[number]>(jacdac.MotorReg.Duty, "i1.15");
@@ -29,6 +29,7 @@ namespace modules {
         //% group="Motor"
         //% block="%motor duty"
         //% blockId=jacdac_motor_duty___get
+        //% weight=100
         duty(): number {
             this.start();            
             const values = this._duty.pauseUntilValues() as any[];
@@ -40,9 +41,12 @@ namespace modules {
         * Positive is recommended to be clockwise rotation and negative counterclockwise. A duty of ``0`` 
         * while ``enabled`` acts as brake.
         */
+        //% group="Motor"
         //% blockId=jacdac_motor_duty___set
-        //% group="Motor" value.min=-1 value.max=1
         //% block="set %motor duty to %value"
+        //% weight=99
+        //% value.min=-1
+        //% value.max=1
         setDuty(value: number) {
             this.start();
             const values = this._duty.values as any[];
@@ -57,6 +61,7 @@ namespace modules {
         //% group="Motor"
         //% block="%motor enabled"
         //% blockId=jacdac_motor_enabled___get
+        //% weight=98
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -66,9 +71,10 @@ namespace modules {
         /**
         * Turn the power to the motor on/off.
         */
-        //% blockId=jacdac_motor_enabled___set
         //% group="Motor"
+        //% blockId=jacdac_motor_enabled___set
         //% block="set %motor %value=toggleOnOff"
+        //% weight=97
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -81,6 +87,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Motor"
+        //% weight=96
         loadTorque(): number {
             this.start();            
             const values = this._loadTorque.pauseUntilValues() as any[];
@@ -92,6 +99,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Motor"
+        //% weight=95
         loadSpeed(): number {
             this.start();            
             const values = this._loadSpeed.pauseUntilValues() as any[];
@@ -99,6 +107,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const motor = new MotorClient("motor");

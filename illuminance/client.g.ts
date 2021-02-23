@@ -7,9 +7,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class IlluminanceClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _lightError : jacdac.RegisterClient<[number]>;            
+        private readonly _lightError : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_ILLUMINANCE, role, "u22.10");
 
             this._lightError = this.addRegister<[number]>(jacdac.IlluminanceReg.LightError, "u22.10");            
@@ -23,6 +23,7 @@ namespace modules {
         //% group="Imaging"
         //% block="%illuminance light"
         //% blockId=jacdac_illuminance_light___get
+        //% weight=100
         light(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -34,6 +35,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Imaging"
+        //% weight=99
         lightError(): number {
             this.start();            
             const values = this._lightError.pauseUntilValues() as any[];
@@ -41,6 +43,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const illuminance = new IlluminanceClient("illuminance");

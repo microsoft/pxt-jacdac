@@ -5,9 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class MidiOutputClient extends jacdac.Client {
 
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_MIDI_OUTPUT, role);
 
             this._enabled = this.addRegister<[boolean]>(jacdac.MidiOutputReg.Enabled, "u8");            
@@ -21,6 +21,7 @@ namespace modules {
         //% group="Sound"
         //% block="%midioutput enabled"
         //% blockId=jacdac_midioutput_enabled___get
+        //% weight=100
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -30,9 +31,10 @@ namespace modules {
         /**
         * Opens or closes the port to the MIDI device
         */
-        //% blockId=jacdac_midioutput_enabled___set
         //% group="Sound"
+        //% blockId=jacdac_midioutput_enabled___set
         //% block="set %midioutput %value=toggleOnOff"
+        //% weight=99
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -41,6 +43,31 @@ namespace modules {
         }
  
 
+
+        /**
+        * Clears any pending send data that has not yet been sent from the MIDIOutput's queue.
+        */
+        //% group="Sound"
+        //% blockId=jacdac_midioutput_clear_cmd
+        //% block="%midioutput clear"
+        //% weight=98
+        clear(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.MidiOutputCmd.Clear))
+        }
+
+        /**
+        * Enqueues the message to be sent to the corresponding MIDI port
+        */
+        //% group="Sound"
+        //% blockId=jacdac_midioutput_send_cmd
+        //% block="%midioutput send"
+        //% weight=97
+        send(data: Buffer): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.MidiOutputCmd.Send, "b", [data]))
+        }
+    
     }
     //% fixedInstance whenUsed
     export const midiOutput = new MidiOutputClient("midi Output");

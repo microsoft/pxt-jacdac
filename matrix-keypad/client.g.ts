@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class MatrixKeypadClient extends jacdac.SensorClient<[number[]]> {
 
-            private readonly _rows : jacdac.RegisterClient<[number]>;
-            private readonly _columns : jacdac.RegisterClient<[number]>;
-            private readonly _labels : jacdac.RegisterClient<[string[]]>;
-            private readonly _variant : jacdac.RegisterClient<[jacdac.MatrixKeypadVariant]>;            
+        private readonly _rows : jacdac.RegisterClient<[number]>;
+        private readonly _columns : jacdac.RegisterClient<[number]>;
+        private readonly _labels : jacdac.RegisterClient<[string[]]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.MatrixKeypadVariant]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_MATRIX_KEYPAD, role, "r: u8");
 
             this._rows = this.addRegister<[number]>(jacdac.MatrixKeypadReg.Rows, "u8");
@@ -28,6 +28,7 @@ namespace modules {
         //% group="Button"
         //% block="%matrixkeypad index"
         //% blockId=jacdac_matrixkeypad_pressed_index_get
+        //% weight=100
         index(): number[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -39,6 +40,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=99
         rows(): number {
             this.start();            
             const values = this._rows.pauseUntilValues() as any[];
@@ -50,6 +52,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=98
         columns(): number {
             this.start();            
             const values = this._columns.pauseUntilValues() as any[];
@@ -61,6 +64,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=97
         label(): string[] {
             this.start();            
             const values = this._labels.pauseUntilValues() as any[];
@@ -74,6 +78,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
+        //% weight=96
         variant(): jacdac.MatrixKeypadVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -84,39 +89,44 @@ namespace modules {
         /**
          * Emitted when a key, at the given index, goes from inactive (`pressed == 0`) to active.
          */
-        //% blockId=jacdac_on_matrixkeypad_down
-        //% block="down" blockSetVariable=myModule
         //% group="Button"
-        onDown(handler: () => void) {
+        //% blockId=jacdac_on_matrixkeypad_down
+        //% block="on %matrixkeypad down"
+        //% weight=95
+        onDown(handler: () => void): void {
             this.registerEvent(jacdac.MatrixKeypadEvent.Down, handler);
         }
         /**
          * Emitted when a key, at the given index, goes from active (`pressed == 1`) to inactive.
          */
-        //% blockId=jacdac_on_matrixkeypad_up
-        //% block="up" blockSetVariable=myModule
         //% group="Button"
-        onUp(handler: () => void) {
+        //% blockId=jacdac_on_matrixkeypad_up
+        //% block="on %matrixkeypad up"
+        //% weight=94
+        onUp(handler: () => void): void {
             this.registerEvent(jacdac.MatrixKeypadEvent.Up, handler);
         }
         /**
          * Emitted together with `up` when the press time was not longer than 500ms.
          */
-        //% blockId=jacdac_on_matrixkeypad_click
-        //% block="click" blockSetVariable=myModule
         //% group="Button"
-        onClick(handler: () => void) {
+        //% blockId=jacdac_on_matrixkeypad_click
+        //% block="on %matrixkeypad click"
+        //% weight=93
+        onClick(handler: () => void): void {
             this.registerEvent(jacdac.MatrixKeypadEvent.Click, handler);
         }
         /**
          * Emitted together with `up` when the press time was more than 500ms.
          */
-        //% blockId=jacdac_on_matrixkeypad_long_click
-        //% block="long click" blockSetVariable=myModule
         //% group="Button"
-        onLongClick(handler: () => void) {
+        //% blockId=jacdac_on_matrixkeypad_long_click
+        //% block="on %matrixkeypad long click"
+        //% weight=92
+        onLongClick(handler: () => void): void {
             this.registerEvent(jacdac.MatrixKeypadEvent.LongClick, handler);
         }
+    
     }
     //% fixedInstance whenUsed
     export const matrixKeypad = new MatrixKeypadClient("matrix Keypad");

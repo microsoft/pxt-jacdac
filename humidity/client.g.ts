@@ -5,11 +5,11 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class HumidityClient extends jacdac.SensorClient<[number]> {
 
-            private readonly _humidityError : jacdac.RegisterClient<[number]>;
-            private readonly _minHumidity : jacdac.RegisterClient<[number]>;
-            private readonly _maxHumidity : jacdac.RegisterClient<[number]>;            
+        private readonly _humidityError : jacdac.RegisterClient<[number]>;
+        private readonly _minHumidity : jacdac.RegisterClient<[number]>;
+        private readonly _maxHumidity : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_HUMIDITY, role, "u22.10");
 
             this._humidityError = this.addRegister<[number]>(jacdac.HumidityReg.HumidityError, "u22.10");
@@ -25,6 +25,7 @@ namespace modules {
         //% group="Environment"
         //% block="%humidity humidity"
         //% blockId=jacdac_humidity_humidity___get
+        //% weight=100
         humidity(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -36,6 +37,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Environment"
+        //% weight=99
         humidityError(): number {
             this.start();            
             const values = this._humidityError.pauseUntilValues() as any[];
@@ -47,6 +49,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Environment"
+        //% weight=98
         minHumidity(): number {
             this.start();            
             const values = this._minHumidity.pauseUntilValues() as any[];
@@ -58,6 +61,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Environment"
+        //% weight=97
         maxHumidity(): number {
             this.start();            
             const values = this._maxHumidity.pauseUntilValues() as any[];
@@ -65,6 +69,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const humidity = new HumidityClient("humidity");

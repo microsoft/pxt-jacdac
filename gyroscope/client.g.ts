@@ -5,10 +5,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class GyroscopeClient extends jacdac.SensorClient<[number,number,number]> {
 
-            private readonly _rotationRatesError : jacdac.RegisterClient<[number]>;
-            private readonly _maxRate : jacdac.RegisterClient<[number]>;            
+        private readonly _rotationRatesError : jacdac.RegisterClient<[number]>;
+        private readonly _maxRate : jacdac.RegisterClient<[number]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_GYROSCOPE, role, "i12.20 i12.20 i12.20");
 
             this._rotationRatesError = this.addRegister<[number]>(jacdac.GyroscopeReg.RotationRatesError, "i12.20");
@@ -23,6 +23,7 @@ namespace modules {
         //% group="Movement"
         //% block="%gyroscope x"
         //% blockId=jacdac_gyroscope_rotation_rates_x_get
+        //% weight=100
         x(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -36,6 +37,7 @@ namespace modules {
         //% group="Movement"
         //% block="%gyroscope y"
         //% blockId=jacdac_gyroscope_rotation_rates_y_get
+        //% weight=99
         y(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -49,6 +51,7 @@ namespace modules {
         //% group="Movement"
         //% block="%gyroscope z"
         //% blockId=jacdac_gyroscope_rotation_rates_z_get
+        //% weight=98
         z(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
@@ -60,6 +63,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Movement"
+        //% weight=97
         rotationRatesError(): number {
             this.start();            
             const values = this._rotationRatesError.pauseUntilValues() as any[];
@@ -71,6 +75,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Movement"
+        //% weight=96
         maxRate(): number {
             this.start();            
             const values = this._maxRate.pauseUntilValues() as any[];
@@ -80,9 +85,8 @@ namespace modules {
         /**
         * Configures the range of range of rotation rates.
         */
-        //% 
         //% group="Movement"
-        //% block="set %gyroscope max rate to %value"
+        //% weight=95
         setMaxRate(value: number) {
             this.start();
             const values = this._maxRate.values as any[];
@@ -91,6 +95,7 @@ namespace modules {
         }
  
 
+    
     }
     //% fixedInstance whenUsed
     export const gyroscope = new GyroscopeClient("gyroscope");

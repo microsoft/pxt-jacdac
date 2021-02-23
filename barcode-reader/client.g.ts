@@ -5,10 +5,10 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class BarcodeReaderClient extends jacdac.Client {
 
-            private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-            private readonly _formats : jacdac.RegisterClient<[jacdac.BarcodeReaderFormat[]]>;            
+        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _formats : jacdac.RegisterClient<[jacdac.BarcodeReaderFormat[]]>;            
 
-            constructor(role: string) {
+        constructor(role: string) {
             super(jacdac.SRV_BARCODE_READER, role);
 
             this._enabled = this.addRegister<[boolean]>(jacdac.BarcodeReaderReg.Enabled, "u8");
@@ -23,6 +23,7 @@ namespace modules {
         //% group="Barcode reader"
         //% block="%barcodereader enabled"
         //% blockId=jacdac_barcodereader_enabled___get
+        //% weight=100
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -32,9 +33,10 @@ namespace modules {
         /**
         * Turns on or off the detection of barcodes.
         */
-        //% blockId=jacdac_barcodereader_enabled___set
         //% group="Barcode reader"
+        //% blockId=jacdac_barcodereader_enabled___set
         //% block="set %barcodereader %value=toggleOnOff"
+        //% weight=99
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -47,6 +49,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Barcode reader"
+        //% weight=98
         format(): jacdac.BarcodeReaderFormat[] {
             this.start();            
             const values = this._formats.pauseUntilValues() as any[];
@@ -58,12 +61,14 @@ namespace modules {
          * Raised when a bar code is detected and decoded. If the reader detects multiple codes, it will issue multiple events.
         * In case of numeric barcodes, the `data` field should contain the ASCII (which is the same as UTF8 in that case) representation of the number.
          */
-        //% blockId=jacdac_on_barcodereader_detect
-        //% block="detect" blockSetVariable=myModule
         //% group="Barcode reader"
-        onDetect(handler: () => void) {
+        //% blockId=jacdac_on_barcodereader_detect
+        //% block="on %barcodereader detect"
+        //% weight=97
+        onDetect(handler: () => void): void {
             this.registerEvent(jacdac.BarcodeReaderEvent.Detect, handler);
         }
+    
     }
     //% fixedInstance whenUsed
     export const barcodeReader = new BarcodeReaderClient("barcode Reader");
