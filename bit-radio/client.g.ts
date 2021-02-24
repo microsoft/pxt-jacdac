@@ -159,7 +159,7 @@ namespace modules {
         }
 
         /**
-        * Sends a string payload as a radio message
+        * Sends a string payload as a radio message, maximum 18 characters.
         */
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_string_cmd
@@ -167,7 +167,7 @@ namespace modules {
         //% weight=89
         sendString(message: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendString, "s[18]", [message]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendString, "s", [message]))
         }
 
         /**
@@ -177,9 +177,21 @@ namespace modules {
         //% blockId=jacdac_bitradio_send_number_cmd
         //% block="%bitradio send number"
         //% weight=88
-        sendNumber(value: number, name: string): void {
+        sendNumber(value: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendNumber, "f64 s[12]", [value, name]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendNumber, "f64", [value]))
+        }
+
+        /**
+        * Sends a double precision number and a name payload as a radio message
+        */
+        //% group="Bit:radio"
+        //% blockId=jacdac_bitradio_send_value_cmd
+        //% block="%bitradio send value"
+        //% weight=87
+        sendValue(value: number, name: string): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendValue, "f64 s", [value, name]))
         }
 
         /**
@@ -188,10 +200,10 @@ namespace modules {
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_buffer_cmd
         //% block="%bitradio send buffer"
-        //% weight=87
+        //% weight=86
         sendBuffer(data: Buffer): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendBuffer, "b[18]", [data]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendBuffer, "b", [data]))
         }
     
     }
