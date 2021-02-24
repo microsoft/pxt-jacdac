@@ -7,14 +7,16 @@ namespace modules {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
         private readonly _group : jacdac.RegisterClient<[number]>;
-        private readonly _transmissionPower : jacdac.RegisterClient<[number]>;            
+        private readonly _transmissionPower : jacdac.RegisterClient<[number]>;
+        private readonly _frequencyBand : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_BIT_RADIO, role);
 
             this._enabled = this.addRegister<[boolean]>(jacdac.BitRadioReg.Enabled, "u8");
             this._group = this.addRegister<[number]>(jacdac.BitRadioReg.Group, "u8");
-            this._transmissionPower = this.addRegister<[number]>(jacdac.BitRadioReg.TransmissionPower, "u8");            
+            this._transmissionPower = this.addRegister<[number]>(jacdac.BitRadioReg.TransmissionPower, "u8");
+            this._frequencyBand = this.addRegister<[number]>(jacdac.BitRadioReg.FrequencyBand, "u8");            
         }
     
 
@@ -96,6 +98,33 @@ namespace modules {
             values[0] = value;
             this._transmissionPower.values = values as [number];
         }
+
+        /**
+        * Change the transmission and reception band of the radio to the given channel.
+        */
+        //% callInDebugger
+        //% group="Bit:radio"
+        //% weight=94
+        frequencyBand(): number {
+            this.start();            
+            const values = this._frequencyBand.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Change the transmission and reception band of the radio to the given channel.
+        */
+        //% group="Bit:radio"
+        //% weight=93
+        //% value.min=0
+        //% value.max=83
+        //% value.defl=7
+        setFrequencyBand(value: number) {
+            this.start();
+            const values = this._frequencyBand.values as any[];
+            values[0] = value;
+            this._frequencyBand.values = values as [number];
+        }
  
 
         /**
@@ -104,7 +133,7 @@ namespace modules {
         //% group="Bit:radio"
         //% blockId=jacdac_on_bitradio_string_received
         //% block="on %bitradio string received"
-        //% weight=94
+        //% weight=92
         onStringReceived(handler: () => void): void {
             this.registerEvent(jacdac.BitRadioEvent.StringReceived, handler);
         }
@@ -114,7 +143,7 @@ namespace modules {
         //% group="Bit:radio"
         //% blockId=jacdac_on_bitradio_number_received
         //% block="on %bitradio number received"
-        //% weight=93
+        //% weight=91
         onNumberReceived(handler: () => void): void {
             this.registerEvent(jacdac.BitRadioEvent.NumberReceived, handler);
         }
@@ -124,7 +153,7 @@ namespace modules {
         //% group="Bit:radio"
         //% blockId=jacdac_on_bitradio_buffer_received
         //% block="on %bitradio buffer received"
-        //% weight=92
+        //% weight=90
         onBufferReceived(handler: () => void): void {
             this.registerEvent(jacdac.BitRadioEvent.BufferReceived, handler);
         }
@@ -135,7 +164,7 @@ namespace modules {
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_string_cmd
         //% block="%bitradio send string"
-        //% weight=91
+        //% weight=89
         sendString(message: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendString, "s[18]", [message]))
@@ -147,7 +176,7 @@ namespace modules {
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_number_cmd
         //% block="%bitradio send number"
-        //% weight=90
+        //% weight=88
         sendNumber(value: number, name: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendNumber, "f64 s[12]", [value, name]))
@@ -159,7 +188,7 @@ namespace modules {
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_buffer_cmd
         //% block="%bitradio send buffer"
-        //% weight=89
+        //% weight=87
         sendBuffer(data: Buffer): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendBuffer, "b[18]", [data]))
