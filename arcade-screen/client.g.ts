@@ -14,7 +14,7 @@ namespace modules {
             super(jacdac.SRV_ARCADE_SCREEN, role);
 
             this._brightness = this.addRegister<[number]>(jacdac.ArcadeScreenReg.Brightness, "u0.8");
-            this._palette = this.addRegister<[([number, number, number])[]]>(jacdac.ArcadeScreenReg.Palette, "r: u0.8 u0.8 u0.8 u8");            
+            this._palette = this.addRegister<[([number, number, number])[]]>(jacdac.ArcadeScreenReg.Palette, "r: u8 u8 u8 u8");            
         }
     
 
@@ -71,8 +71,6 @@ namespace modules {
         */
         //% group="Arcade screen"
         //% weight=97
-        //% value.min=0
-        //% value.max=1
         setPaletteBlue(value: ([number, number, number])[]) {
             this.start();
             const values = this._palette.values as any[];
@@ -101,8 +99,6 @@ namespace modules {
         */
         //% group="Arcade screen"
         //% weight=95
-        //% value.min=0
-        //% value.max=1
         setPaletteGreen(value: undefined) {
             this.start();
             const values = this._palette.values as any[];
@@ -131,8 +127,6 @@ namespace modules {
         */
         //% group="Arcade screen"
         //% weight=93
-        //% value.min=0
-        //% value.max=1
         setPaletteRed(value: undefined) {
             this.start();
             const values = this._palette.values as any[];
