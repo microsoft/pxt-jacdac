@@ -14,7 +14,6 @@ namespace modules {
         private readonly _minPulse : jacdac.RegisterClient<[number]>;
         private readonly _maxAngle : jacdac.RegisterClient<[number]>;
         private readonly _maxPulse : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.ServoVariant]>;
         private readonly _stallTorque : jacdac.RegisterClient<[number]>;
         private readonly _responseSpeed : jacdac.RegisterClient<[number]>;            
 
@@ -28,7 +27,6 @@ namespace modules {
             this._minPulse = this.addRegister<[number]>(jacdac.ServoReg.MinPulse, "u16");
             this._maxAngle = this.addRegister<[number]>(jacdac.ServoReg.MaxAngle, "i16.16");
             this._maxPulse = this.addRegister<[number]>(jacdac.ServoReg.MaxPulse, "u16");
-            this._variant = this.addRegister<[jacdac.ServoVariant]>(jacdac.ServoReg.Variant, "u8");
             this._stallTorque = this.addRegister<[number]>(jacdac.ServoReg.StallTorque, "u16.16");
             this._responseSpeed = this.addRegister<[number]>(jacdac.ServoReg.ResponseSpeed, "u16.16");            
         }
@@ -217,26 +215,11 @@ namespace modules {
         }
 
         /**
-        * Specifies the type of servo motor.
-        * * Positional Rotation Servos: Positional servos can rotate the shaft in about half of the circle,
-        * with features to avoid over-rotating. Most servo have a range of 180° but some allow 270° or 360°.
-        * * Linear Servos: linear servos are also like a positional servo, but with additional gears to the adjust the output from circular to back-and-forth.
-        */
-        //% callInDebugger
-        //% group="Servo"
-        //% weight=86
-        variant(): jacdac.ServoVariant {
-            this.start();            
-            const values = this._variant.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
         * The servo motor will stop rotating when it is trying to move a ``stall_torque`` weight at a radial distance of ``1.0`` cm.
         */
         //% callInDebugger
         //% group="Servo"
-        //% weight=85
+        //% weight=86
         stallTorque(): number {
             this.start();            
             const values = this._stallTorque.pauseUntilValues() as any[];
@@ -248,7 +231,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Servo"
-        //% weight=84
+        //% weight=85
         responseSpeed(): number {
             this.start();            
             const values = this._responseSpeed.pauseUntilValues() as any[];
