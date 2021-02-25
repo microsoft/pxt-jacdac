@@ -655,13 +655,13 @@ namespace jacdac {
      */
     //% whenUsed
     export let onIdentifyRequest = () => {
-        if (!pins.pinByCfg(DAL.CFG_PIN_LED))
-            return
-        for (let i = 0; i < 7; ++i) {
-            setPinByCfg(DAL.CFG_PIN_LED, true)
-            pause(50)
-            setPinByCfg(DAL.CFG_PIN_LED, false)
-            pause(150)
+        if (pins.pinByCfg(DAL.CFG_PIN_LED)) {
+            for (let i = 0; i < 7; ++i) {
+                setPinByCfg(DAL.CFG_PIN_LED, true)
+                pause(50)
+                setPinByCfg(DAL.CFG_PIN_LED, false)
+                pause(150)
+            }
         }
     }
 
