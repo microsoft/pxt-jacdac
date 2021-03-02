@@ -5,7 +5,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-
         }
     }
 }
+

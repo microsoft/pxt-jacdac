@@ -2,18 +2,26 @@
     "name": "jacdac-button-host",
     "version": "0.3.0",
     "description": "MakeCode support for Jacdac Button host service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-button": "github:microsoft/pxt-jacdac/button"
+    },
     "files": [
         "host.ts"
     ],
     "testFiles": [
         "test.ts"
     ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-button": "github:microsoft/pxt-jacdac/button"
-    },
     "testDependencies": {
         "brain-nrf52840": "*"
-    }
+    },
+    "targetVersions": {
+        "target": "0.14.10",
+        "targetId": "maker"
+    },
+    "supportedTargets": [
+        "maker"
+    ],
+    "preferredEditor": "tsprj"
 }
