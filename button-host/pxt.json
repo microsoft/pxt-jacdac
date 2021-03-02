@@ -4,8 +4,7 @@
     "description": "MakeCode support for Jacdac Button host service",
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-button": "github:microsoft/pxt-jacdac/button"
+        "jacdac": "github:microsoft/pxt-jacdac"
     },
     "files": [
         "host.ts"
