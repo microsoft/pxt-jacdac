@@ -12,7 +12,7 @@ namespace jacdac {
         Pressed = 0x101,
     }
 
-    const enum ButtonEvent {
+    const enum JDButtonEvent {
         /**
          * Emitted when button goes from inactive (`pressed == 0`) to active.
          */
@@ -44,13 +44,20 @@ namespace jacdac {
         Hold = 0x82,
     }
 
-    export class ButtonHost extends Host {
-        constructor(name: string) {
-            super(name, SRV_BUTTON);
+    export class ButtonHost extends jacdac.SensorHost {
+        constructor(dev: string, public readonly button: Button) {
+            super(dev, SRV_BUTTON);
+            this.button.onEvent(ButtonEvent.Down, () => this.sendEvent(JDButtonEvent.Down));
+            this.button.onEvent(ButtonEvent.Up, () => this.sendEvent(JDButtonEvent.Up));
+            this.button.onEvent(ButtonEvent.Click, () => this.sendEvent(JDButtonEvent.Click));
+            this.button.onEvent(ButtonEvent.LongClick, () => this.sendEvent(JDButtonEvent.LongClick));
+            // TODO: Hold in makecode
+            //this.button.onEvent(ButtonEvent., () => this.sendEvent(JDButtonEvent.Down));
         }
 
-        handlePacket(packet: JDPacket) {
+        serializeState(): Buffer {
+            const pressed = this.button.isPressed();
+            return jacdac.jdpack("u8", [ pressed ? 1 : 0]);
         }
     }
 }
-

@@ -4,6 +4,7 @@
     "description": "MakeCode support for Jacdac Button host service",
     "dependencies": {
         "core": "*",
+        "buttons": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
     "files": [
@@ -13,10 +14,10 @@
         "test.ts"
     ],
     "testDependencies": {
-        "brain-nrf52840": "*"
+        "adafruit-circuit-playground-bluefruit": "*"
     },
     "targetVersions": {
-        "target": "0.14.10",
+        "target": "0.14.12",
         "targetId": "maker"
     },
     "supportedTargets": [
