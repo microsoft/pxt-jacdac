@@ -3,7 +3,6 @@ namespace jacdac {
     //% weight=1
     export class SensorClient<TReading extends PackSimpleDataType[]> extends Client {
         protected readonly _reading: RegisterClient<TReading>
-        private _stateChangedHandler: () => void;
 
         public isStreaming = false
 
