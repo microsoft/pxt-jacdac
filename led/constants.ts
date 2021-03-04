@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: LED
     export const SRV_LED = 0x1e3048f8
 
@@ -76,7 +76,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The physical type of LED.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.LedVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.LedVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

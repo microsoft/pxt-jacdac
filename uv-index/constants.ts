@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: UV index
     export const SRV_UV_INDEX = 0x1f6e0d90
 
@@ -30,7 +30,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical sensor and capabilities.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.UvIndexVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.UvIndexVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

@@ -7,14 +7,14 @@ namespace modules {
 
         private readonly _inactiveThreshold : jacdac.RegisterClient<[number]>;
         private readonly _activeThreshold : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.AnalogButtonVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.AnalogButtonVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_ANALOG_BUTTON, role, "u0.16");
+            super(jacdac.constants.SRV_ANALOG_BUTTON, role, "u0.16");
 
-            this._inactiveThreshold = this.addRegister<[number]>(jacdac.AnalogButtonReg.InactiveThreshold, "u0.16");
-            this._activeThreshold = this.addRegister<[number]>(jacdac.AnalogButtonReg.ActiveThreshold, "u0.16");
-            this._variant = this.addRegister<[jacdac.AnalogButtonVariant]>(jacdac.AnalogButtonReg.Variant, "u8");            
+            this._inactiveThreshold = this.addRegister<[number]>(jacdac.constants.AnalogButtonReg.InactiveThreshold, "u0.16");
+            this._activeThreshold = this.addRegister<[number]>(jacdac.constants.AnalogButtonReg.ActiveThreshold, "u0.16");
+            this._variant = this.addRegister<[jacdac.constants.AnalogButtonVariant]>(jacdac.constants.AnalogButtonReg.Variant, "u8");            
         }
     
 
@@ -90,7 +90,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=95
-        variant(): jacdac.AnalogButtonVariant {
+        variant(): jacdac.constants.AnalogButtonVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -105,7 +105,7 @@ namespace modules {
         //% block="on %analogbutton active"
         //% weight=94
         onActive(handler: () => void): void {
-            this.registerEvent(jacdac.AnalogButtonEvent.Active, handler);
+            this.registerEvent(jacdac.constants.AnalogButtonEvent.Active, handler);
         }
         /**
          * Emitted when button goes from active (pressure higher than threshold) to inactive.
@@ -115,7 +115,7 @@ namespace modules {
         //% block="on %analogbutton inactive"
         //% weight=93
         onInactive(handler: () => void): void {
-            this.registerEvent(jacdac.AnalogButtonEvent.Inactive, handler);
+            this.registerEvent(jacdac.constants.AnalogButtonEvent.Inactive, handler);
         }
     
     }

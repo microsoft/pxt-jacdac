@@ -16,23 +16,23 @@ namespace modules {
         private readonly _allocatedArenaSize : jacdac.RegisterClient<[number]>;
         private readonly _modelSize : jacdac.RegisterClient<[number]>;
         private readonly _lastError : jacdac.RegisterClient<[string]>;
-        private readonly _format : jacdac.RegisterClient<[jacdac.ModelRunnerModelFormat]>;
+        private readonly _format : jacdac.RegisterClient<[jacdac.constants.ModelRunnerModelFormat]>;
         private readonly _formatVersion : jacdac.RegisterClient<[number]>;
         private readonly _parallel : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MODEL_RUNNER, role, "r: f32");
+            super(jacdac.constants.SRV_MODEL_RUNNER, role, "r: f32");
 
-            this._autoInvokeEvery = this.addRegister<[number]>(jacdac.ModelRunnerReg.AutoInvokeEvery, "u16");
-            this._inputShape = this.addRegister<[number[]]>(jacdac.ModelRunnerReg.InputShape, "r: u16");
-            this._outputShape = this.addRegister<[number[]]>(jacdac.ModelRunnerReg.OutputShape, "r: u16");
-            this._lastRunTime = this.addRegister<[number]>(jacdac.ModelRunnerReg.LastRunTime, "u32");
-            this._allocatedArenaSize = this.addRegister<[number]>(jacdac.ModelRunnerReg.AllocatedArenaSize, "u32");
-            this._modelSize = this.addRegister<[number]>(jacdac.ModelRunnerReg.ModelSize, "u32");
-            this._lastError = this.addRegister<[string]>(jacdac.ModelRunnerReg.LastError, "s");
-            this._format = this.addRegister<[jacdac.ModelRunnerModelFormat]>(jacdac.ModelRunnerReg.Format, "u32");
-            this._formatVersion = this.addRegister<[number]>(jacdac.ModelRunnerReg.FormatVersion, "u32");
-            this._parallel = this.addRegister<[boolean]>(jacdac.ModelRunnerReg.Parallel, "u8");            
+            this._autoInvokeEvery = this.addRegister<[number]>(jacdac.constants.ModelRunnerReg.AutoInvokeEvery, "u16");
+            this._inputShape = this.addRegister<[number[]]>(jacdac.constants.ModelRunnerReg.InputShape, "r: u16");
+            this._outputShape = this.addRegister<[number[]]>(jacdac.constants.ModelRunnerReg.OutputShape, "r: u16");
+            this._lastRunTime = this.addRegister<[number]>(jacdac.constants.ModelRunnerReg.LastRunTime, "u32");
+            this._allocatedArenaSize = this.addRegister<[number]>(jacdac.constants.ModelRunnerReg.AllocatedArenaSize, "u32");
+            this._modelSize = this.addRegister<[number]>(jacdac.constants.ModelRunnerReg.ModelSize, "u32");
+            this._lastError = this.addRegister<[string]>(jacdac.constants.ModelRunnerReg.LastError, "s");
+            this._format = this.addRegister<[jacdac.constants.ModelRunnerModelFormat]>(jacdac.constants.ModelRunnerReg.Format, "u32");
+            this._formatVersion = this.addRegister<[number]>(jacdac.constants.ModelRunnerReg.FormatVersion, "u32");
+            this._parallel = this.addRegister<[boolean]>(jacdac.constants.ModelRunnerReg.Parallel, "u8");            
         }
     
 
@@ -161,7 +161,7 @@ namespace modules {
         //% callInDebugger
         //% group="Model Runner"
         //% weight=91
-        format(): jacdac.ModelRunnerModelFormat {
+        format(): jacdac.constants.ModelRunnerModelFormat {
             this.start();            
             const values = this._format.pauseUntilValues() as any[];
             return values[0];
@@ -206,7 +206,7 @@ namespace modules {
         //% weight=88
         setModel(modelSize: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ModelRunnerCmd.SetModel, "u32", [modelSize]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.ModelRunnerCmd.SetModel, "u32", [modelSize]))
         }
     
     }

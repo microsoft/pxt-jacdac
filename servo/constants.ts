@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Servo
     export const SRV_SERVO = 0x12fc9103
     export const enum ServoReg {

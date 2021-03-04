@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Arcade Gamepad
     export const SRV_ARCADE_GAMEPAD = 0x1deaa06e
 
@@ -21,7 +21,7 @@ namespace jacdac {
          * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
          *
          * ```
-         * const [rest] = jdunpack<[([jacdac.ArcadeGamepadButton, number])[]]>(buf, "r: u8 u0.8")
+         * const [rest] = jdunpack<[([jacdac.constants.ArcadeGamepadButton, number])[]]>(buf, "r: u8 u0.8")
          * const [button, pressure] = rest[0]
          * ```
          */
@@ -31,7 +31,7 @@ namespace jacdac {
          * Constant. Indicates number of players supported and which buttons are present on the controller.
          *
          * ```
-         * const [button] = jdunpack<[jacdac.ArcadeGamepadButton[]]>(buf, "u8[]")
+         * const [button] = jdunpack<[jacdac.constants.ArcadeGamepadButton[]]>(buf, "u8[]")
          * ```
          */
         AvailableButtons = 0x180,
@@ -42,7 +42,7 @@ namespace jacdac {
          * Argument: button Button (uint8_t). Emitted when button goes from inactive to active.
          *
          * ```
-         * const [button] = jdunpack<[jacdac.ArcadeGamepadButton]>(buf, "u8")
+         * const [button] = jdunpack<[jacdac.constants.ArcadeGamepadButton]>(buf, "u8")
          * ```
          */
         //% block="down"
@@ -52,7 +52,7 @@ namespace jacdac {
          * Argument: button Button (uint8_t). Emitted when button goes from active to inactive.
          *
          * ```
-         * const [button] = jdunpack<[jacdac.ArcadeGamepadButton]>(buf, "u8")
+         * const [button] = jdunpack<[jacdac.constants.ArcadeGamepadButton]>(buf, "u8")
          * ```
          */
         //% block="up"

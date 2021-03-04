@@ -14,7 +14,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_HID_KEYBOARD, role);
+            super(jacdac.constants.SRV_HID_KEYBOARD, role);
             
         }
     
@@ -28,9 +28,9 @@ namespace modules {
         //% blockId=jacdac_hidkeyboard_key_cmd
         //% block="%hidkeyboard key"
         //% weight=100
-        key(selector: ([number, jacdac.HidKeyboardModifiers, jacdac.HidKeyboardAction])[], modifiers: undefined, action: undefined): void {
+        key(selector: ([number, jacdac.constants.HidKeyboardModifiers, jacdac.constants.HidKeyboardAction])[], modifiers: undefined, action: undefined): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidKeyboardCmd.Key, "r: u16 u8 u8", [selector, modifiers, action]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.HidKeyboardCmd.Key, "r: u16 u8 u8", [selector, modifiers, action]))
         }
 
         /**
@@ -42,7 +42,7 @@ namespace modules {
         //% weight=99
         clear(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.HidKeyboardCmd.Clear))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.HidKeyboardCmd.Clear))
         }
     
     }

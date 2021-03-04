@@ -16,17 +16,17 @@ namespace modules {
         private readonly _priorityOffset : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_POWER, role, "u16");
+            super(jacdac.constants.SRV_POWER, role, "u16");
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.PowerReg.Enabled, "u8");
-            this._maxPower = this.addRegister<[number]>(jacdac.PowerReg.MaxPower, "u16");
-            this._overload = this.addRegister<[boolean]>(jacdac.PowerReg.Overload, "u8");
-            this._batteryVoltage = this.addRegister<[number]>(jacdac.PowerReg.BatteryVoltage, "u16");
-            this._batteryCharge = this.addRegister<[number]>(jacdac.PowerReg.BatteryCharge, "u0.16");
-            this._batteryCapacity = this.addRegister<[number]>(jacdac.PowerReg.BatteryCapacity, "u32");
-            this._keepOnPulseDuration = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulseDuration, "u16");
-            this._keepOnPulsePeriod = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulsePeriod, "u16");
-            this._priorityOffset = this.addRegister<[number]>(jacdac.PowerReg.PriorityOffset, "i32");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.constants.PowerReg.Enabled, "u8");
+            this._maxPower = this.addRegister<[number]>(jacdac.constants.PowerReg.MaxPower, "u16");
+            this._overload = this.addRegister<[boolean]>(jacdac.constants.PowerReg.Overload, "u8");
+            this._batteryVoltage = this.addRegister<[number]>(jacdac.constants.PowerReg.BatteryVoltage, "u16");
+            this._batteryCharge = this.addRegister<[number]>(jacdac.constants.PowerReg.BatteryCharge, "u0.16");
+            this._batteryCapacity = this.addRegister<[number]>(jacdac.constants.PowerReg.BatteryCapacity, "u32");
+            this._keepOnPulseDuration = this.addRegister<[number]>(jacdac.constants.PowerReg.KeepOnPulseDuration, "u16");
+            this._keepOnPulsePeriod = this.addRegister<[number]>(jacdac.constants.PowerReg.KeepOnPulsePeriod, "u16");
+            this._priorityOffset = this.addRegister<[number]>(jacdac.constants.PowerReg.PriorityOffset, "i32");            
         }
     
 

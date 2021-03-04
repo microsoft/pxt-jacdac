@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Model Runner
     export const SRV_MODEL_RUNNER = 0x140f9a78
 
@@ -129,7 +129,7 @@ namespace jacdac {
          * The format is typically present as first or second little endian word of model file.
          *
          * ```
-         * const [format] = jdunpack<[jacdac.ModelRunnerModelFormat]>(buf, "u32")
+         * const [format] = jdunpack<[jacdac.constants.ModelRunnerModelFormat]>(buf, "u32")
          * ```
          */
         Format = 0x186,

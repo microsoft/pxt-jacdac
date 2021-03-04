@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Soil moisture
     export const SRV_SOIL_MOISTURE = 0x1d4aa3b3
 
@@ -21,7 +21,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Describe the type of physical sensor.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.SoilMoistureVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.SoilMoistureVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

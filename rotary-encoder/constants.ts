@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Rotary encoder
     export const SRV_ROTARY_ENCODER = 0x10fa29c9
     export const enum RotaryEncoderReg {

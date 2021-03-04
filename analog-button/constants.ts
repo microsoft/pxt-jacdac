@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Analog Button
     export const SRV_ANALOG_BUTTON = 0x1865adc9
 
@@ -39,7 +39,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical button.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.AnalogButtonVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.AnalogButtonVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

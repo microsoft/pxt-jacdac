@@ -50,7 +50,7 @@ namespace jacdac {
         _retPort: number = null
 
         constructor(role: string) {
-            super(SRV_TCP, role);
+            super(jacdac.constants.SRV_TCP, role);
         }
 
         handlePacket(pkt: JDPacket) {

@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Joystick
     export const SRV_JOYSTICK = 0x1acb1890
 
@@ -23,7 +23,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical joystick.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.JoystickVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.JoystickVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

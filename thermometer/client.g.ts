@@ -8,15 +8,15 @@ namespace modules {
         private readonly _minTemperature : jacdac.RegisterClient<[number]>;
         private readonly _maxTemperature : jacdac.RegisterClient<[number]>;
         private readonly _temperatureError : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.ThermometerVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.ThermometerVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_THERMOMETER, role, "i22.10");
+            super(jacdac.constants.SRV_THERMOMETER, role, "i22.10");
 
-            this._minTemperature = this.addRegister<[number]>(jacdac.ThermometerReg.MinTemperature, "i22.10");
-            this._maxTemperature = this.addRegister<[number]>(jacdac.ThermometerReg.MaxTemperature, "i22.10");
-            this._temperatureError = this.addRegister<[number]>(jacdac.ThermometerReg.TemperatureError, "u22.10");
-            this._variant = this.addRegister<[jacdac.ThermometerVariant]>(jacdac.ThermometerReg.Variant, "u8");            
+            this._minTemperature = this.addRegister<[number]>(jacdac.constants.ThermometerReg.MinTemperature, "i22.10");
+            this._maxTemperature = this.addRegister<[number]>(jacdac.constants.ThermometerReg.MaxTemperature, "i22.10");
+            this._temperatureError = this.addRegister<[number]>(jacdac.constants.ThermometerReg.TemperatureError, "u22.10");
+            this._variant = this.addRegister<[jacdac.constants.ThermometerVariant]>(jacdac.constants.ThermometerReg.Variant, "u8");            
         }
     
 
@@ -76,7 +76,7 @@ namespace modules {
         //% callInDebugger
         //% group="Environment"
         //% weight=96
-        variant(): jacdac.ThermometerVariant {
+        variant(): jacdac.constants.ThermometerVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

@@ -6,13 +6,13 @@ namespace modules {
     export class UvIndexClient extends jacdac.SensorClient<[number]> {
 
         private readonly _uvIndexError : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.UvIndexVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.UvIndexVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_UV_INDEX, role, "u16.16");
+            super(jacdac.constants.SRV_UV_INDEX, role, "u16.16");
 
-            this._uvIndexError = this.addRegister<[number]>(jacdac.UvIndexReg.UvIndexError, "u16.16");
-            this._variant = this.addRegister<[jacdac.UvIndexVariant]>(jacdac.UvIndexReg.Variant, "u8");            
+            this._uvIndexError = this.addRegister<[number]>(jacdac.constants.UvIndexReg.UvIndexError, "u16.16");
+            this._variant = this.addRegister<[jacdac.constants.UvIndexVariant]>(jacdac.constants.UvIndexReg.Variant, "u8");            
         }
     
 
@@ -48,7 +48,7 @@ namespace modules {
         //% callInDebugger
         //% group="Environment"
         //% weight=98
-        variant(): jacdac.UvIndexVariant {
+        variant(): jacdac.constants.UvIndexVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

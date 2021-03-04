@@ -7,7 +7,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_MULTITOUCH, role, "r: i32");
+            super(jacdac.constants.SRV_MULTITOUCH, role, "r: i32");
             
         }
     
@@ -37,7 +37,7 @@ namespace modules {
         //% block="on %multitouch touch"
         //% weight=99
         onTouch(handler: () => void): void {
-            this.registerEvent(jacdac.MultitouchEvent.Touch, handler);
+            this.registerEvent(jacdac.constants.MultitouchEvent.Touch, handler);
         }
         /**
          * Emitted when an input is no longer touched.
@@ -47,7 +47,7 @@ namespace modules {
         //% block="on %multitouch release"
         //% weight=98
         onRelease(handler: () => void): void {
-            this.registerEvent(jacdac.MultitouchEvent.Release, handler);
+            this.registerEvent(jacdac.constants.MultitouchEvent.Release, handler);
         }
         /**
          * Emitted when an input is briefly touched. TODO Not implemented.
@@ -57,7 +57,7 @@ namespace modules {
         //% block="on %multitouch tap"
         //% weight=97
         onTap(handler: () => void): void {
-            this.registerEvent(jacdac.MultitouchEvent.Tap, handler);
+            this.registerEvent(jacdac.constants.MultitouchEvent.Tap, handler);
         }
         /**
          * Emitted when an input is touched for longer than 500ms. TODO Not implemented.
@@ -67,7 +67,7 @@ namespace modules {
         //% block="on %multitouch long press"
         //% weight=96
         onLongPress(handler: () => void): void {
-            this.registerEvent(jacdac.MultitouchEvent.LongPress, handler);
+            this.registerEvent(jacdac.constants.MultitouchEvent.LongPress, handler);
         }
         /**
          * Emitted when input channels are successively touched in order of increasing channel numbers.
@@ -77,7 +77,7 @@ namespace modules {
         //% block="on %multitouch swipe pos"
         //% weight=95
         onSwipePos(handler: () => void): void {
-            this.registerEvent(jacdac.MultitouchEvent.SwipePos, handler);
+            this.registerEvent(jacdac.constants.MultitouchEvent.SwipePos, handler);
         }
         /**
          * Emitted when input channels are successively touched in order of decreasing channel numbers.
@@ -87,7 +87,7 @@ namespace modules {
         //% block="on %multitouch swipe neg"
         //% weight=94
         onSwipeNeg(handler: () => void): void {
-            this.registerEvent(jacdac.MultitouchEvent.SwipeNeg, handler);
+            this.registerEvent(jacdac.constants.MultitouchEvent.SwipeNeg, handler);
         }
     
     }

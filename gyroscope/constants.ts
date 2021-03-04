@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Gyroscope
     export const SRV_GYROSCOPE = 0x1e1b06f2
     export const enum GyroscopeReg {

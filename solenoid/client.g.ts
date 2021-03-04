@@ -6,13 +6,13 @@ namespace modules {
     export class SolenoidClient extends jacdac.Client {
 
         private readonly _pulled : jacdac.RegisterClient<[boolean]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.SolenoidVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.SolenoidVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SOLENOID, role);
+            super(jacdac.constants.SRV_SOLENOID, role);
 
-            this._pulled = this.addRegister<[boolean]>(jacdac.SolenoidReg.Pulled, "u8");
-            this._variant = this.addRegister<[jacdac.SolenoidVariant]>(jacdac.SolenoidReg.Variant, "u8");            
+            this._pulled = this.addRegister<[boolean]>(jacdac.constants.SolenoidReg.Pulled, "u8");
+            this._variant = this.addRegister<[jacdac.constants.SolenoidVariant]>(jacdac.constants.SolenoidReg.Variant, "u8");            
         }
     
 
@@ -50,7 +50,7 @@ namespace modules {
         //% callInDebugger
         //% group="Solenoid"
         //% weight=98
-        variant(): jacdac.SolenoidVariant {
+        variant(): jacdac.constants.SolenoidVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

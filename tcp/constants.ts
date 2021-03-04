@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: TCP
     export const SRV_TCP = 0x1b43b70b
 
@@ -41,7 +41,7 @@ namespace jacdac {
          * Argument: error TcpError (int32_t). Reported when an error is encountered. Negative error codes come directly from the SSL implementation.
          *
          * ```
-         * const [error] = jdunpack<[jacdac.TcpTcpError]>(buf, "i32")
+         * const [error] = jdunpack<[jacdac.constants.TcpTcpError]>(buf, "i32")
          * ```
          */
         Error = 0x0,

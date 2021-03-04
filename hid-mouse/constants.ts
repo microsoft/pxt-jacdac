@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: HID Mouse
     export const SRV_HID_MOUSE = 0x1885dc1c
 
@@ -23,7 +23,7 @@ namespace jacdac {
          * A ``DoubleClick`` is two clicks with ``150ms`` gap between them (that is, ``100ms`` first click, ``150ms`` gap, ``100ms`` second click).
          *
          * ```
-         * const [buttons, event] = jdunpack<[jacdac.HidMouseButton, jacdac.HidMouseButtonEvent]>(buf, "u16 u8")
+         * const [buttons, event] = jdunpack<[jacdac.constants.HidMouseButton, jacdac.constants.HidMouseButtonEvent]>(buf, "u16 u8")
          * ```
          */
         SetButton = 0x80,

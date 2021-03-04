@@ -1,19 +1,19 @@
 namespace jacdac {
     export class LoggerHost extends Host {
-        private _lastListenerTime: number = 0;
-        minPriority = LoggerPriority.Silent;
+        private _lastListenerTime = 0;
+        minPriority = jacdac.constants.LoggerPriority.Silent;
 
         constructor() {
-            super("conh", SRV_LOGGER);
+            super("conh", jacdac.constants.SRV_LOGGER);
             this._lastListenerTime = 0;
         }
 
         handlePacket(packet: JDPacket) {
-            this.minPriority = this.handleRegValue(packet, LoggerReg.MinPriority, "u8", this.minPriority);
+            this.minPriority = this.handleRegValue(packet, jacdac.constants.LoggerReg.MinPriority, "u8", this.minPriority);
             // TODO: is this a command?
-            const SetMinPriority = 0x2000 | LoggerReg.MinPriority
+            const SetMinPriority = 0x2000 | jacdac.constants.LoggerReg.MinPriority
             switch (packet.serviceCommand) {
-                case SetMinPriority:
+                case SetMinPriority: {
                     const now = control.millis()
                     // lower the priority immediately, but tighten it only when no one 
                     // was asking for lower one for some time
@@ -25,25 +25,24 @@ namespace jacdac {
                         this._lastListenerTime = now
                     }
                     break;
-                default:
-                    break;
+                }
             }
         }
 
         debug(message: string): void {
-            this.add(LoggerPriority.Debug, message);
+            this.add(jacdac.constants.LoggerPriority.Debug, message);
         }
         log(message: string): void {
-            this.add(LoggerPriority.Log, message);
+            this.add(jacdac.constants.LoggerPriority.Log, message);
         }
         warn(message: string): void {
-            this.add(LoggerPriority.Warning, message);
+            this.add(jacdac.constants.LoggerPriority.Warning, message);
         }
         error(message: string): void {
-            this.add(LoggerPriority.Error, message);
+            this.add(jacdac.constants.LoggerPriority.Error, message);
         }
 
-        add(priority: LoggerPriority, message: string): void {
+        add(priority: jacdac.constants.LoggerPriority, message: string): void {
             if (!message || !message.length || priority < this.minPriority
                 || !this._lastListenerTime)
                 return;
@@ -54,8 +53,8 @@ namespace jacdac {
                 return;
             }
 
-            for (let buf of Buffer.chunkedFromUTF8(message, JD_SERIAL_MAX_PAYLOAD_SIZE)) {
-                this.sendReport(JDPacket.from(LoggerPriority.Debug + priority, buf))
+            for (const buf of Buffer.chunkedFromUTF8(message, JD_SERIAL_MAX_PAYLOAD_SIZE)) {
+                this.sendReport(JDPacket.from(jacdac.constants.LoggerPriority.Debug + priority, buf))
             }
         }
     }

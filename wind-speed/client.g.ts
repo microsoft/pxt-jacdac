@@ -9,10 +9,10 @@ namespace modules {
         private readonly _maxWindSpeed : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WIND_SPEED, role, "u16.16");
+            super(jacdac.constants.SRV_WIND_SPEED, role, "u16.16");
 
-            this._windSpeedError = this.addRegister<[number]>(jacdac.WindSpeedReg.WindSpeedError, "u16.16");
-            this._maxWindSpeed = this.addRegister<[number]>(jacdac.WindSpeedReg.MaxWindSpeed, "u16.16");            
+            this._windSpeedError = this.addRegister<[number]>(jacdac.constants.WindSpeedReg.WindSpeedError, "u16.16");
+            this._maxWindSpeed = this.addRegister<[number]>(jacdac.constants.WindSpeedReg.MaxWindSpeed, "u16.16");            
         }
     
 

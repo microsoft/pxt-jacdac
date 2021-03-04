@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Bootloader
     export const SRV_BOOTLOADER = 0x1ffa9948
 
@@ -55,7 +55,7 @@ namespace jacdac {
         /**
          * report PageData
          * ```
-         * const [sessionId, pageError, pageAddress] = jdunpack<[number, jacdac.BootloaderError, number]>(buf, "u32 u32 u32")
+         * const [sessionId, pageError, pageAddress] = jdunpack<[number, jacdac.constants.BootloaderError, number]>(buf, "u32 u32 u32")
          * ```
          */
     }

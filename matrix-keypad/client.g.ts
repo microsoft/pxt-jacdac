@@ -8,15 +8,15 @@ namespace modules {
         private readonly _rows : jacdac.RegisterClient<[number]>;
         private readonly _columns : jacdac.RegisterClient<[number]>;
         private readonly _labels : jacdac.RegisterClient<[string[]]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.MatrixKeypadVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.MatrixKeypadVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MATRIX_KEYPAD, role, "r: u8");
+            super(jacdac.constants.SRV_MATRIX_KEYPAD, role, "r: u8");
 
-            this._rows = this.addRegister<[number]>(jacdac.MatrixKeypadReg.Rows, "u8");
-            this._columns = this.addRegister<[number]>(jacdac.MatrixKeypadReg.Columns, "u8");
-            this._labels = this.addRegister<[string[]]>(jacdac.MatrixKeypadReg.Labels, "r: z");
-            this._variant = this.addRegister<[jacdac.MatrixKeypadVariant]>(jacdac.MatrixKeypadReg.Variant, "u8");            
+            this._rows = this.addRegister<[number]>(jacdac.constants.MatrixKeypadReg.Rows, "u8");
+            this._columns = this.addRegister<[number]>(jacdac.constants.MatrixKeypadReg.Columns, "u8");
+            this._labels = this.addRegister<[string[]]>(jacdac.constants.MatrixKeypadReg.Labels, "r: z");
+            this._variant = this.addRegister<[jacdac.constants.MatrixKeypadVariant]>(jacdac.constants.MatrixKeypadReg.Variant, "u8");            
         }
     
 
@@ -79,7 +79,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=96
-        variant(): jacdac.MatrixKeypadVariant {
+        variant(): jacdac.constants.MatrixKeypadVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -94,7 +94,7 @@ namespace modules {
         //% block="on %matrixkeypad down"
         //% weight=95
         onDown(handler: () => void): void {
-            this.registerEvent(jacdac.MatrixKeypadEvent.Down, handler);
+            this.registerEvent(jacdac.constants.MatrixKeypadEvent.Down, handler);
         }
         /**
          * Emitted when a key, at the given index, goes from active (`pressed == 1`) to inactive.
@@ -104,7 +104,7 @@ namespace modules {
         //% block="on %matrixkeypad up"
         //% weight=94
         onUp(handler: () => void): void {
-            this.registerEvent(jacdac.MatrixKeypadEvent.Up, handler);
+            this.registerEvent(jacdac.constants.MatrixKeypadEvent.Up, handler);
         }
         /**
          * Emitted together with `up` when the press time was not longer than 500ms.
@@ -114,7 +114,7 @@ namespace modules {
         //% block="on %matrixkeypad click"
         //% weight=93
         onClick(handler: () => void): void {
-            this.registerEvent(jacdac.MatrixKeypadEvent.Click, handler);
+            this.registerEvent(jacdac.constants.MatrixKeypadEvent.Click, handler);
         }
         /**
          * Emitted together with `up` when the press time was more than 500ms.
@@ -124,7 +124,7 @@ namespace modules {
         //% block="on %matrixkeypad long click"
         //% weight=92
         onLongClick(handler: () => void): void {
-            this.registerEvent(jacdac.MatrixKeypadEvent.LongClick, handler);
+            this.registerEvent(jacdac.constants.MatrixKeypadEvent.LongClick, handler);
         }
     
     }

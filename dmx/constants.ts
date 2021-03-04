@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: DMX
     export const SRV_DMX = 0x11cf8c05
     export const enum DmxReg {

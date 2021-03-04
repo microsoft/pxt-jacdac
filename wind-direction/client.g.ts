@@ -9,10 +9,10 @@ namespace modules {
         private readonly _windDirectionOffset : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WIND_DIRECTION, role, "u16");
+            super(jacdac.constants.SRV_WIND_DIRECTION, role, "u16");
 
-            this._windDirectionError = this.addRegister<[number]>(jacdac.WindDirectionReg.WindDirectionError, "u16");
-            this._windDirectionOffset = this.addRegister<[number]>(jacdac.WindDirectionReg.WindDirectionOffset, "i16");            
+            this._windDirectionError = this.addRegister<[number]>(jacdac.constants.WindDirectionReg.WindDirectionError, "u16");
+            this._windDirectionOffset = this.addRegister<[number]>(jacdac.constants.WindDirectionReg.WindDirectionOffset, "i16");            
         }
     
 

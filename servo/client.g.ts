@@ -18,17 +18,17 @@ namespace modules {
         private readonly _responseSpeed : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SERVO, role);
+            super(jacdac.constants.SRV_SERVO, role);
 
-            this._angle = this.addRegister<[number]>(jacdac.ServoReg.Angle, "i16.16");
-            this._enabled = this.addRegister<[boolean]>(jacdac.ServoReg.Enabled, "u8");
-            this._offset = this.addRegister<[number]>(jacdac.ServoReg.Offset, "i16.16");
-            this._minAngle = this.addRegister<[number]>(jacdac.ServoReg.MinAngle, "i16.16");
-            this._minPulse = this.addRegister<[number]>(jacdac.ServoReg.MinPulse, "u16");
-            this._maxAngle = this.addRegister<[number]>(jacdac.ServoReg.MaxAngle, "i16.16");
-            this._maxPulse = this.addRegister<[number]>(jacdac.ServoReg.MaxPulse, "u16");
-            this._stallTorque = this.addRegister<[number]>(jacdac.ServoReg.StallTorque, "u16.16");
-            this._responseSpeed = this.addRegister<[number]>(jacdac.ServoReg.ResponseSpeed, "u16.16");            
+            this._angle = this.addRegister<[number]>(jacdac.constants.ServoReg.Angle, "i16.16");
+            this._enabled = this.addRegister<[boolean]>(jacdac.constants.ServoReg.Enabled, "u8");
+            this._offset = this.addRegister<[number]>(jacdac.constants.ServoReg.Offset, "i16.16");
+            this._minAngle = this.addRegister<[number]>(jacdac.constants.ServoReg.MinAngle, "i16.16");
+            this._minPulse = this.addRegister<[number]>(jacdac.constants.ServoReg.MinPulse, "u16");
+            this._maxAngle = this.addRegister<[number]>(jacdac.constants.ServoReg.MaxAngle, "i16.16");
+            this._maxPulse = this.addRegister<[number]>(jacdac.constants.ServoReg.MaxPulse, "u16");
+            this._stallTorque = this.addRegister<[number]>(jacdac.constants.ServoReg.StallTorque, "u16.16");
+            this._responseSpeed = this.addRegister<[number]>(jacdac.constants.ServoReg.ResponseSpeed, "u16.16");            
         }
     
 

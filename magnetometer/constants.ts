@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Magnetometer
     export const SRV_MAGNETOMETER = 0x13029088
     export const enum MagnetometerReg {

@@ -12,13 +12,13 @@ namespace modules {
         private readonly _rate : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SPEECH_SYNTHESIS, role);
+            super(jacdac.constants.SRV_SPEECH_SYNTHESIS, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.SpeechSynthesisReg.Enabled, "u8");
-            this._lang = this.addRegister<[string]>(jacdac.SpeechSynthesisReg.Lang, "s");
-            this._volume = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Volume, "u0.8");
-            this._pitch = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Pitch, "u16.16");
-            this._rate = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Rate, "u16.16");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.constants.SpeechSynthesisReg.Enabled, "u8");
+            this._lang = this.addRegister<[string]>(jacdac.constants.SpeechSynthesisReg.Lang, "s");
+            this._volume = this.addRegister<[number]>(jacdac.constants.SpeechSynthesisReg.Volume, "u0.8");
+            this._pitch = this.addRegister<[number]>(jacdac.constants.SpeechSynthesisReg.Pitch, "u16.16");
+            this._rate = this.addRegister<[number]>(jacdac.constants.SpeechSynthesisReg.Rate, "u16.16");            
         }
     
 
@@ -166,7 +166,7 @@ namespace modules {
         //% weight=90
         speak(text: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SpeechSynthesisCmd.Speak, "s", [text]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.SpeechSynthesisCmd.Speak, "s", [text]))
         }
 
         /**
@@ -178,7 +178,7 @@ namespace modules {
         //% weight=89
         cancel(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.SpeechSynthesisCmd.Cancel))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.SpeechSynthesisCmd.Cancel))
         }
     
     }

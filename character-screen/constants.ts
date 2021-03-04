@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Character Screen
     export const SRV_CHARACTER_SCREEN = 0x1f37c56a
 
@@ -36,7 +36,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Describes the type of character LED screen.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.CharacterScreenVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.CharacterScreenVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,
@@ -45,7 +45,7 @@ namespace jacdac {
          * Read-write TextDirection (uint8_t). Specifies the RTL or LTR direction of the text.
          *
          * ```
-         * const [textDirection] = jdunpack<[jacdac.CharacterScreenTextDirection]>(buf, "u8")
+         * const [textDirection] = jdunpack<[jacdac.constants.CharacterScreenTextDirection]>(buf, "u8")
          * ```
          */
         TextDirection = 0x82,

@@ -7,14 +7,14 @@ namespace modules {
 
         private readonly _error : jacdac.RegisterClient<[number]>;
         private readonly _precision : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.RealTimeClockVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.RealTimeClockVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_REAL_TIME_CLOCK, role, "u16 u8 u8 u8 u8 u8 u8");
+            super(jacdac.constants.SRV_REAL_TIME_CLOCK, role, "u16 u8 u8 u8 u8 u8 u8");
 
-            this._error = this.addRegister<[number]>(jacdac.RealTimeClockReg.Error, "u16.16");
-            this._precision = this.addRegister<[number]>(jacdac.RealTimeClockReg.Precision, "u16.16");
-            this._variant = this.addRegister<[jacdac.RealTimeClockVariant]>(jacdac.RealTimeClockReg.Variant, "u8");            
+            this._error = this.addRegister<[number]>(jacdac.constants.RealTimeClockReg.Error, "u16.16");
+            this._precision = this.addRegister<[number]>(jacdac.constants.RealTimeClockReg.Precision, "u16.16");
+            this._variant = this.addRegister<[jacdac.constants.RealTimeClockVariant]>(jacdac.constants.RealTimeClockReg.Variant, "u8");            
         }
     
 
@@ -167,7 +167,7 @@ namespace modules {
         //% callInDebugger
         //% group="Real time clock"
         //% weight=91
-        variant(): jacdac.RealTimeClockVariant {
+        variant(): jacdac.constants.RealTimeClockVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -184,7 +184,7 @@ namespace modules {
         //% weight=90
         setTime(year: number, month: number, dayOfMonth: number, dayOfWeek: number, hour: number, min: number, sec: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.RealTimeClockCmd.SetTime, "u16 u8 u8 u8 u8 u8 u8", [year, month, dayOfMonth, dayOfWeek, hour, min, sec]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.RealTimeClockCmd.SetTime, "u16 u8 u8 u8 u8 u8 u8", [year, month, dayOfMonth, dayOfWeek, hour, min, sec]))
         }
     
     }

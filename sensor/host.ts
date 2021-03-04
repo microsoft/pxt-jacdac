@@ -15,12 +15,12 @@ namespace jacdac {
         public handlePacket(packet: JDPacket) {
             this.log(`hpkt ${packet.serviceCommand}`);
             this.stateUpdated = false
-            this.streamingInterval = this.handleRegUInt32(packet, SystemReg.StreamingInterval, this.streamingInterval)
-            const samples = this.handleRegValue(packet, SystemReg.StreamingSamples, "u8", this.streamingSamples)
+            this.streamingInterval = this.handleRegUInt32(packet, jacdac.constants.SystemReg.StreamingInterval, this.streamingInterval)
+            const samples = this.handleRegValue(packet, jacdac.constants.SystemReg.StreamingSamples, "u8", this.streamingSamples)
             this.setStreaming(samples)
 
             switch (packet.serviceCommand) {
-                case SystemCmd.Calibrate:
+                case jacdac.constants.SystemCmd.Calibrate:
                     this.handleCalibrateCommand(packet);
                     break
                 default:
@@ -64,11 +64,11 @@ namespace jacdac {
                 while (this.streamingSamples !== undefined && this.streamingSamples > 0) {
                     // run callback                    
                     const state = this.serializeState();
-                    if (!!state) {
+                    if (state) {
                         // did the state change?
                         if (this.isConnected()) {
                             // send state and record time
-                            this.sendReport(JDPacket.from(CMD_GET_REG | SystemReg.Reading, state))
+                            this.sendReport(JDPacket.from(CMD_GET_REG | jacdac.constants.SystemReg.Reading, state))
                         }
                     }
                     // check streaming interval value or cancelled

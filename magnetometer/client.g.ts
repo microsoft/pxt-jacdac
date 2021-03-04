@@ -8,9 +8,9 @@ namespace modules {
         private readonly _forcesError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MAGNETOMETER, role, "i32 i32 i32");
+            super(jacdac.constants.SRV_MAGNETOMETER, role, "i32 i32 i32");
 
-            this._forcesError = this.addRegister<[number]>(jacdac.MagnetometerReg.ForcesError, "i32");            
+            this._forcesError = this.addRegister<[number]>(jacdac.constants.MagnetometerReg.ForcesError, "i32");            
         }
     
 
@@ -83,7 +83,7 @@ namespace modules {
         //% weight=96
         calibrate(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.MagnetometerCmd.Calibrate))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.MagnetometerCmd.Calibrate))
         }
     
     }

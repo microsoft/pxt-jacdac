@@ -4,14 +4,14 @@ namespace modules {
      * If a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.
      **/
     //% fixedInstances blockGap=8
-    export class ArcadeGamepadClient extends jacdac.SensorClient<[([jacdac.ArcadeGamepadButton, number])[]]> {
+    export class ArcadeGamepadClient extends jacdac.SensorClient<[([jacdac.constants.ArcadeGamepadButton, number])[]]> {
 
-        private readonly _availableButtons : jacdac.RegisterClient<[jacdac.ArcadeGamepadButton[]]>;            
+        private readonly _availableButtons : jacdac.RegisterClient<[jacdac.constants.ArcadeGamepadButton[]]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_ARCADE_GAMEPAD, role, "r: u8 u0.8");
+            super(jacdac.constants.SRV_ARCADE_GAMEPAD, role, "r: u8 u0.8");
 
-            this._availableButtons = this.addRegister<[jacdac.ArcadeGamepadButton[]]>(jacdac.ArcadeGamepadReg.AvailableButtons, "r: u8");            
+            this._availableButtons = this.addRegister<[jacdac.constants.ArcadeGamepadButton[]]>(jacdac.constants.ArcadeGamepadReg.AvailableButtons, "r: u8");            
         }
     
 
@@ -24,7 +24,7 @@ namespace modules {
         //% block="%arcadegamepad button"
         //% blockId=jacdac_arcadegamepad_buttons_button_get
         //% weight=100
-        button(): ([jacdac.ArcadeGamepadButton, number])[] {
+        button(): ([jacdac.constants.ArcadeGamepadButton, number])[] {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -51,7 +51,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=98
-        availableButtonsButton(): jacdac.ArcadeGamepadButton[] {
+        availableButtonsButton(): jacdac.constants.ArcadeGamepadButton[] {
             this.start();            
             const values = this._availableButtons.pauseUntilValues() as any[];
             return values[0];
@@ -66,7 +66,7 @@ namespace modules {
         //% block="on %arcadegamepad down"
         //% weight=97
         onDown(handler: () => void): void {
-            this.registerEvent(jacdac.ArcadeGamepadEvent.Down, handler);
+            this.registerEvent(jacdac.constants.ArcadeGamepadEvent.Down, handler);
         }
         /**
          * Emitted when button goes from active to inactive.
@@ -76,7 +76,7 @@ namespace modules {
         //% block="on %arcadegamepad up"
         //% weight=96
         onUp(handler: () => void): void {
-            this.registerEvent(jacdac.ArcadeGamepadEvent.Up, handler);
+            this.registerEvent(jacdac.constants.ArcadeGamepadEvent.Up, handler);
         }
     
     }

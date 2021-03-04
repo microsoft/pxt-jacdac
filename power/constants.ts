@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Power
     export const SRV_POWER = 0x1fa4c95a
     export const enum PowerReg {

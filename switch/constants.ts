@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Switch
     export const SRV_SWITCH = 0x1ad29402
 
@@ -27,7 +27,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Describes the type of switch used.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.SwitchVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.SwitchVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

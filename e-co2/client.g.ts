@@ -9,16 +9,16 @@ namespace modules {
         private readonly _minECO2 : jacdac.RegisterClient<[number]>;
         private readonly _maxECO2 : jacdac.RegisterClient<[number]>;
         private readonly _conditioningPeriod : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.ECO2Variant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.ECO2Variant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_E_CO2, role, "u22.10");
+            super(jacdac.constants.SRV_E_CO2, role, "u22.10");
 
-            this._eCO2Error = this.addRegister<[number]>(jacdac.ECO2Reg.ECO2Error, "u22.10");
-            this._minECO2 = this.addRegister<[number]>(jacdac.ECO2Reg.MinECO2, "u22.10");
-            this._maxECO2 = this.addRegister<[number]>(jacdac.ECO2Reg.MaxECO2, "u22.10");
-            this._conditioningPeriod = this.addRegister<[number]>(jacdac.ECO2Reg.ConditioningPeriod, "u32");
-            this._variant = this.addRegister<[jacdac.ECO2Variant]>(jacdac.ECO2Reg.Variant, "u8");            
+            this._eCO2Error = this.addRegister<[number]>(jacdac.constants.ECO2Reg.ECO2Error, "u22.10");
+            this._minECO2 = this.addRegister<[number]>(jacdac.constants.ECO2Reg.MinECO2, "u22.10");
+            this._maxECO2 = this.addRegister<[number]>(jacdac.constants.ECO2Reg.MaxECO2, "u22.10");
+            this._conditioningPeriod = this.addRegister<[number]>(jacdac.constants.ECO2Reg.ConditioningPeriod, "u32");
+            this._variant = this.addRegister<[jacdac.constants.ECO2Variant]>(jacdac.constants.ECO2Reg.Variant, "u8");            
         }
     
 
@@ -90,7 +90,7 @@ namespace modules {
         //% callInDebugger
         //% group="Environment"
         //% weight=95
-        variant(): jacdac.ECO2Variant {
+        variant(): jacdac.constants.ECO2Variant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

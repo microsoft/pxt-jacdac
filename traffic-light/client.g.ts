@@ -10,11 +10,11 @@ namespace modules {
         private readonly _green : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_TRAFFIC_LIGHT, role);
+            super(jacdac.constants.SRV_TRAFFIC_LIGHT, role);
 
-            this._red = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Red, "u8");
-            this._orange = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Orange, "u8");
-            this._green = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Green, "u8");            
+            this._red = this.addRegister<[boolean]>(jacdac.constants.TrafficLightReg.Red, "u8");
+            this._orange = this.addRegister<[boolean]>(jacdac.constants.TrafficLightReg.Orange, "u8");
+            this._green = this.addRegister<[boolean]>(jacdac.constants.TrafficLightReg.Green, "u8");            
         }
     
 

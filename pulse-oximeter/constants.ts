@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Pulse Oximeter
     export const SRV_PULSE_OXIMETER = 0x10bb4eb6
     export const enum PulseOximeterReg {

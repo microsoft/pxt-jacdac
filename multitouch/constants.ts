@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Multitouch
     export const SRV_MULTITOUCH = 0x18d55e2b
     export const enum MultitouchReg {

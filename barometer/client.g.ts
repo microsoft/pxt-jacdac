@@ -8,9 +8,9 @@ namespace modules {
         private readonly _pressureError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_BAROMETER, role, "u22.10");
+            super(jacdac.constants.SRV_BAROMETER, role, "u22.10");
 
-            this._pressureError = this.addRegister<[number]>(jacdac.BarometerReg.PressureError, "u22.10");            
+            this._pressureError = this.addRegister<[number]>(jacdac.constants.BarometerReg.PressureError, "u22.10");            
         }
     
 

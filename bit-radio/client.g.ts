@@ -11,12 +11,12 @@ namespace modules {
         private readonly _frequencyBand : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_BIT_RADIO, role);
+            super(jacdac.constants.SRV_BIT_RADIO, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.BitRadioReg.Enabled, "u8");
-            this._group = this.addRegister<[number]>(jacdac.BitRadioReg.Group, "u8");
-            this._transmissionPower = this.addRegister<[number]>(jacdac.BitRadioReg.TransmissionPower, "u8");
-            this._frequencyBand = this.addRegister<[number]>(jacdac.BitRadioReg.FrequencyBand, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.constants.BitRadioReg.Enabled, "u8");
+            this._group = this.addRegister<[number]>(jacdac.constants.BitRadioReg.Group, "u8");
+            this._transmissionPower = this.addRegister<[number]>(jacdac.constants.BitRadioReg.TransmissionPower, "u8");
+            this._frequencyBand = this.addRegister<[number]>(jacdac.constants.BitRadioReg.FrequencyBand, "u8");            
         }
     
 
@@ -135,7 +135,7 @@ namespace modules {
         //% block="on %bitradio string received"
         //% weight=92
         onStringReceived(handler: () => void): void {
-            this.registerEvent(jacdac.BitRadioEvent.StringReceived, handler);
+            this.registerEvent(jacdac.constants.BitRadioEvent.StringReceived, handler);
         }
         /**
          * Raised when a number packet is received
@@ -145,7 +145,7 @@ namespace modules {
         //% block="on %bitradio number received"
         //% weight=91
         onNumberReceived(handler: () => void): void {
-            this.registerEvent(jacdac.BitRadioEvent.NumberReceived, handler);
+            this.registerEvent(jacdac.constants.BitRadioEvent.NumberReceived, handler);
         }
         /**
          * Raised when a buffer packet is received
@@ -155,7 +155,7 @@ namespace modules {
         //% block="on %bitradio buffer received"
         //% weight=90
         onBufferReceived(handler: () => void): void {
-            this.registerEvent(jacdac.BitRadioEvent.BufferReceived, handler);
+            this.registerEvent(jacdac.constants.BitRadioEvent.BufferReceived, handler);
         }
 
         /**
@@ -167,7 +167,7 @@ namespace modules {
         //% weight=89
         sendString(message: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendString, "s", [message]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.BitRadioCmd.SendString, "s", [message]))
         }
 
         /**
@@ -179,7 +179,7 @@ namespace modules {
         //% weight=88
         sendNumber(value: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendNumber, "f64", [value]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.BitRadioCmd.SendNumber, "f64", [value]))
         }
 
         /**
@@ -191,7 +191,7 @@ namespace modules {
         //% weight=87
         sendValue(value: number, name: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendValue, "f64 s", [value, name]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.BitRadioCmd.SendValue, "f64 s", [value, name]))
         }
 
         /**
@@ -203,7 +203,7 @@ namespace modules {
         //% weight=86
         sendBuffer(data: Buffer): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BitRadioCmd.SendBuffer, "b", [data]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.BitRadioCmd.SendBuffer, "b", [data]))
         }
     
     }

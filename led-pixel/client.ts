@@ -3,7 +3,7 @@ namespace modules {
     //% blockGap=8
     export class LedPixelClient extends jacdac.Client {
         constructor(role: string) {
-            super(jacdac.SRV_LED_PIXEL, role);
+            super(jacdac.constants.SRV_LED_PIXEL, role);
         }
 
         _length = 10
@@ -17,11 +17,11 @@ namespace modules {
         //% weight=0
         //% numpixels.min=0
         //% numpixels.defl=30
-        configure(numpixels: number, type = jacdac.LedPixelLightType.WS2812B_GRB, maxpower = 500): void {
+        configure(numpixels: number, type = jacdac.constants.LedPixelLightType.WS2812B_GRB, maxpower = 500): void {
             this._length = numpixels >> 0;
-            this.setReg(jacdac.LedPixelReg.NumPixels, "u16", [this._length])
-            this.setReg(jacdac.LedPixelReg.LightType, "u8", [type])
-            this.setReg(jacdac.LedPixelReg.MaxPower, "u16", [maxpower])
+            this.setReg(jacdac.constants.LedPixelReg.NumPixels, "u16", [this._length])
+            this.setReg(jacdac.constants.LedPixelReg.LightType, "u8", [type])
+            this.setReg(jacdac.constants.LedPixelReg.MaxPower, "u16", [maxpower])
         }
 
         /**
@@ -34,18 +34,18 @@ namespace modules {
         //% group="Light"
         setBrightness(brightness: number): void {
             // jacdac expects brightness between 0...1, MakeCode usually uses 0..255
-            this.setReg(jacdac.LedPixelReg.Brightness, "u0.8", [brightness / 0xff])
+            this.setReg(jacdac.constants.LedPixelReg.Brightness, "u0.8", [brightness / 0xff])
         }
 
         runProgram(prog: Buffer) {
             this.currAnimation++
-            this.sendCommandWithAck(jacdac.JDPacket.from(jacdac.LedPixelCmd.Run, prog))
+            this.sendCommandWithAck(jacdac.JDPacket.from(jacdac.constants.LedPixelCmd.Run, prog))
         }
 
         runEncoded(prog: string, args?: number[]) {
             if (!args) args = []
             this.currAnimation++
-            this.sendCommand(jacdac.JDPacket.from(jacdac.LedPixelCmd.Run, jacdac.lightEncode(prog, args)))
+            this.sendCommand(jacdac.JDPacket.from(jacdac.constants.LedPixelCmd.Run, jacdac.lightEncode(prog, args)))
         }
 
         set(idx: number, rgb: number) {
@@ -93,7 +93,7 @@ namespace modules {
                 if (currAnim != this.currAnimation)
                     return
                 let framelen = 0
-                let frames: Buffer[] = []
+                const frames: Buffer[] = []
                 let waitTime = 0
                 const wait = jacdac.lightEncode("wait %", [frameTime])
                 for (; ;) {

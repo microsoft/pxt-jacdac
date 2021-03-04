@@ -3,7 +3,7 @@ namespace modules {
     //% blockGap=8        
     export class ServoClient extends jacdac.Client {
         constructor(role: string) {
-            super(jacdac.SRV_SERVO, role);
+            super(jacdac.constants.SRV_SERVO, role);
         }
 
         private pulse: number
@@ -15,10 +15,10 @@ namespace modules {
             if (n === this.pulse)
                 return
             if (n == null) {
-                this.setReg(jacdac.ServoReg.Enabled, "u8", [0])
+                this.setReg(jacdac.constants.ServoReg.Enabled, "u8", [0])
             } else {
-                this.setReg(jacdac.ServoReg.Angle, "u8", [n | 0])
-                this.setReg(jacdac.ServoReg.Enabled, "u8", [1])
+                this.setReg(jacdac.constants.ServoReg.Angle, "u8", [n | 0])
+                this.setReg(jacdac.constants.ServoReg.Enabled, "u8", [1])
             }
             this.pulse = n
         }

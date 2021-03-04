@@ -11,7 +11,7 @@ namespace jacdac {
     //% blockGap=8
     export class ModelRunnerClient extends Client {
         constructor(role: string) {
-            super(SRV_MODEL_RUNNER, role);
+            super(jacdac.constants.SRV_MODEL_RUNNER, role);
         }
 
         private _autoInv: number
@@ -27,11 +27,11 @@ namespace jacdac {
 
         autoInvoke(numSamples = 10) {
             this._autoInv = numSamples
-            this.setReg(ModelRunnerReg.AutoInvokeEvery, "u16", [numSamples])
+            this.setReg(jacdac.constants.ModelRunnerReg.AutoInvokeEvery, "u16", [numSamples])
         }
 
         handlePacket(pkt: JDPacket) {
-            if (pkt.serviceCommand == (ModelRunnerReg.Outputs | CMD_GET_REG)) {
+            if (pkt.serviceCommand == (jacdac.constants.ModelRunnerReg.Outputs | CMD_GET_REG)) {
                 const scores = unpackArray(pkt.data, NumberFormat.Float32LE)
                 for (let i = 0; i < scores.length; ++i) {
                     if (scores[i] > this._minScore) {

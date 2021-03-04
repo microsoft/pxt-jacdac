@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Thermocouple
     export const SRV_THERMOCOUPLE = 0x143ac061
 
@@ -54,7 +54,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Specifies the type of thermometer.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.ThermocoupleVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.ThermocoupleVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

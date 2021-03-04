@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Illuminance
     export const SRV_ILLUMINANCE = 0x1e6ecaf2
     export const enum IlluminanceReg {

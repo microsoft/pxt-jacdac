@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Water level
     export const SRV_WATER_LEVEL = 0x147b62ed
 
@@ -22,7 +22,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical sensor.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.WaterLevelVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.WaterLevelVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

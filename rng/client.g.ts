@@ -8,12 +8,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class RngClient extends jacdac.SensorClient<[Buffer]> {
 
-        private readonly _variant : jacdac.RegisterClient<[jacdac.RngVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.RngVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_RNG, role, "b");
+            super(jacdac.constants.SRV_RNG, role, "b");
 
-            this._variant = this.addRegister<[jacdac.RngVariant]>(jacdac.RngReg.Variant, "u8");            
+            this._variant = this.addRegister<[jacdac.constants.RngVariant]>(jacdac.constants.RngReg.Variant, "u8");            
         }
     
 
@@ -41,7 +41,7 @@ namespace modules {
         //% callInDebugger
         //% group="Random Number Generator"
         //% weight=99
-        variant(): jacdac.RngVariant {
+        variant(): jacdac.constants.RngVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

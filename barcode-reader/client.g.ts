@@ -6,13 +6,13 @@ namespace modules {
     export class BarcodeReaderClient extends jacdac.Client {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-        private readonly _formats : jacdac.RegisterClient<[jacdac.BarcodeReaderFormat[]]>;            
+        private readonly _formats : jacdac.RegisterClient<[jacdac.constants.BarcodeReaderFormat[]]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_BARCODE_READER, role);
+            super(jacdac.constants.SRV_BARCODE_READER, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.BarcodeReaderReg.Enabled, "u8");
-            this._formats = this.addRegister<[jacdac.BarcodeReaderFormat[]]>(jacdac.BarcodeReaderReg.Formats, "r: u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.constants.BarcodeReaderReg.Enabled, "u8");
+            this._formats = this.addRegister<[jacdac.constants.BarcodeReaderFormat[]]>(jacdac.constants.BarcodeReaderReg.Formats, "r: u8");            
         }
     
 
@@ -50,7 +50,7 @@ namespace modules {
         //% callInDebugger
         //% group="Barcode reader"
         //% weight=98
-        formatsFormat(): jacdac.BarcodeReaderFormat[] {
+        formatsFormat(): jacdac.constants.BarcodeReaderFormat[] {
             this.start();            
             const values = this._formats.pauseUntilValues() as any[];
             return values[0];
@@ -66,7 +66,7 @@ namespace modules {
         //% block="on %barcodereader detect"
         //% weight=97
         onDetect(handler: () => void): void {
-            this.registerEvent(jacdac.BarcodeReaderEvent.Detect, handler);
+            this.registerEvent(jacdac.constants.BarcodeReaderEvent.Detect, handler);
         }
     
     }

@@ -11,18 +11,18 @@ namespace modules {
         private readonly _maxWeight : jacdac.RegisterClient<[number]>;
         private readonly _minWeight : jacdac.RegisterClient<[number]>;
         private readonly _weightResolution : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.WeightScaleVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.WeightScaleVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WEIGHT_SCALE, role, "u16.16");
+            super(jacdac.constants.SRV_WEIGHT_SCALE, role, "u16.16");
 
-            this._weightError = this.addRegister<[number]>(jacdac.WeightScaleReg.WeightError, "u16.16");
-            this._zeroOffset = this.addRegister<[number]>(jacdac.WeightScaleReg.ZeroOffset, "u16.16");
-            this._gain = this.addRegister<[number]>(jacdac.WeightScaleReg.Gain, "u16.16");
-            this._maxWeight = this.addRegister<[number]>(jacdac.WeightScaleReg.MaxWeight, "u16.16");
-            this._minWeight = this.addRegister<[number]>(jacdac.WeightScaleReg.MinWeight, "u16.16");
-            this._weightResolution = this.addRegister<[number]>(jacdac.WeightScaleReg.WeightResolution, "u16.16");
-            this._variant = this.addRegister<[jacdac.WeightScaleVariant]>(jacdac.WeightScaleReg.Variant, "u8");            
+            this._weightError = this.addRegister<[number]>(jacdac.constants.WeightScaleReg.WeightError, "u16.16");
+            this._zeroOffset = this.addRegister<[number]>(jacdac.constants.WeightScaleReg.ZeroOffset, "u16.16");
+            this._gain = this.addRegister<[number]>(jacdac.constants.WeightScaleReg.Gain, "u16.16");
+            this._maxWeight = this.addRegister<[number]>(jacdac.constants.WeightScaleReg.MaxWeight, "u16.16");
+            this._minWeight = this.addRegister<[number]>(jacdac.constants.WeightScaleReg.MinWeight, "u16.16");
+            this._weightResolution = this.addRegister<[number]>(jacdac.constants.WeightScaleReg.WeightResolution, "u16.16");
+            this._variant = this.addRegister<[jacdac.constants.WeightScaleVariant]>(jacdac.constants.WeightScaleReg.Variant, "u8");            
         }
     
 
@@ -144,7 +144,7 @@ namespace modules {
         //% callInDebugger
         //% group="Weight Scale"
         //% weight=91
-        variant(): jacdac.WeightScaleVariant {
+        variant(): jacdac.constants.WeightScaleVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -161,7 +161,7 @@ namespace modules {
         //% weight=90
         calibrateZeroOffset(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WeightScaleCmd.CalibrateZeroOffset))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.WeightScaleCmd.CalibrateZeroOffset))
         }
 
         /**
@@ -173,7 +173,7 @@ namespace modules {
         //% weight=89
         calibrateGain(weight: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WeightScaleCmd.CalibrateGain, "u22.10", [weight]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.WeightScaleCmd.CalibrateGain, "u22.10", [weight]))
         }
     
     }

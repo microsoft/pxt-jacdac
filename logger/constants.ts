@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Logger
     export const SRV_LOGGER = 0x12dc1fca
 
@@ -19,7 +19,7 @@ namespace jacdac {
          * too verbose for them.
          *
          * ```
-         * const [minPriority] = jdunpack<[jacdac.LoggerPriority]>(buf, "u8")
+         * const [minPriority] = jdunpack<[jacdac.constants.LoggerPriority]>(buf, "u8")
          * ```
          */
         MinPriority = 0x80,

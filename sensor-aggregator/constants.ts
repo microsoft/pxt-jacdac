@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Sensor Aggregator
     export const SRV_SENSOR_AGGREGATOR = 0x1d90e1c5
 
@@ -17,7 +17,7 @@ namespace jacdac {
          * These settings are stored in flash.
          *
          * ```
-         * const [samplingInterval, samplesInWindow, rest] = jdunpack<[number, number, ([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]]>(buf, "u16 u16 x[4] r: b[8] u32 u8 u8 u8 i8")
+         * const [samplingInterval, samplesInWindow, rest] = jdunpack<[number, number, ([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]]>(buf, "u16 u16 x[4] r: b[8] u32 u8 u8 u8 i8")
          * const [deviceId, serviceClass, serviceNum, sampleSize, sampleType, sampleShift] = rest[0]
          * ```
          */

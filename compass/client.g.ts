@@ -9,10 +9,10 @@ namespace modules {
         private readonly _headingError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_COMPASS, role, "u16.16");
+            super(jacdac.constants.SRV_COMPASS, role, "u16.16");
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.CompassReg.Enabled, "u8");
-            this._headingError = this.addRegister<[number]>(jacdac.CompassReg.HeadingError, "u16.16");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.constants.CompassReg.Enabled, "u8");
+            this._headingError = this.addRegister<[number]>(jacdac.constants.CompassReg.HeadingError, "u16.16");            
         }
     
 
@@ -81,7 +81,7 @@ namespace modules {
         //% weight=96
         calibrate(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.CompassCmd.Calibrate))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.CompassCmd.Calibrate))
         }
     
     }

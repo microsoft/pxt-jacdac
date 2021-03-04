@@ -35,7 +35,7 @@ namespace jacdac {
         running: boolean
         serviceIndex: number
         protected stateUpdated: boolean;
-        private _statusCode: number = 0; // u16, u16
+        private _statusCode = 0; // u16, u16
 
         constructor(
             public name: string,
@@ -59,9 +59,9 @@ namespace jacdac {
             if (this.handleStatusCode(pkt))
                 return;
 
-            if (pkt.serviceCommand == SystemCmd.Announce) {
+            if (pkt.serviceCommand == jacdac.constants.SystemCmd.Announce) {
                 this.sendReport(
-                    JDPacket.from(SystemCmd.Announce, this.advertisementData()))
+                    JDPacket.from(jacdac.constants.SystemCmd.Announce, this.advertisementData()))
             } else {
                 this.stateUpdated = false
                 this.handlePacket(pkt)
@@ -92,12 +92,12 @@ namespace jacdac {
         }
 
         protected sendChangeEvent(): void {
-            this.sendEvent(SystemEvent.Change);
+            this.sendEvent(constants.SystemEvent.Change);
         }
 
         private handleStatusCode(pkt: JDPacket): boolean {
-            this.handleRegUInt32(pkt, SystemReg.StatusCode, this._statusCode)
-            return pkt.serviceCommand == (SystemReg.StatusCode | SystemCmd.GetRegister)
+            this.handleRegUInt32(pkt, constants.SystemReg.StatusCode, this._statusCode)
+            return pkt.serviceCommand == (constants.SystemReg.StatusCode | constants.SystemCmd.GetRegister)
         }
 
         protected handleRegFormat<T extends any[]>(pkt: JDPacket, register: number, fmt: string, current: T): T {
@@ -214,7 +214,7 @@ namespace jacdac {
         protected log(text: string) {
             if (this.supressLog || consolePriority < console.minPriority)
                 return
-            let dev = selfDevice().toString()
+            const dev = selfDevice().toString()
             console.add(consolePriority, `${dev}:${this.serviceClass}>${this.name}>${text}`);
         }
     }
@@ -250,7 +250,7 @@ namespace jacdac {
             if (sn == null || this.pkts.length == 0)
                 return
             let hasNonSet = false
-            for (let p of this.pkts) {
+            for (const p of this.pkts) {
                 p[1] = sn
                 if ((p[3] >> 4) != (CMD_SET_REG >> 12))
                     hasNonSet = true
@@ -374,17 +374,17 @@ namespace jacdac {
         }
 
         requestAdvertisementData() {
-            this.sendCommand(JDPacket.onlyHeader(SystemCmd.Announce))
+            this.sendCommand(JDPacket.onlyHeader(constants.SystemCmd.Announce))
         }
 
         handlePacketOuter(pkt: JDPacket) {
-            if (pkt.serviceCommand == SystemCmd.Announce)
+            if (pkt.serviceCommand == constants.SystemCmd.Announce)
                 this.advertisementData = pkt.data
 
             if (pkt.isEvent) {
                 const code = pkt.eventCode
-                if (code == SystemEvent.Active) this.systemActive = true
-                else if (code == SystemEvent.Inactive) this.systemActive = false
+                if (code == constants.SystemEvent.Active) this.systemActive = true
+                else if (code == constants.SystemEvent.Inactive) this.systemActive = false
                 this.raiseEvent(code, pkt.intData)
             }
 
@@ -587,23 +587,23 @@ namespace jacdac {
         }
 
         get mcuTemperature() {
-            return this.queryInt(ControlReg.McuTemperature)
+            return this.queryInt(constants.ControlReg.McuTemperature)
         }
 
         get firmwareVersion() {
-            const b = this.query(ControlReg.FirmwareVersion, null)
+            const b = this.query(constants.ControlReg.FirmwareVersion, null)
             if (b) return b.toString()
             else return ""
         }
 
         get firmwareUrl() {
-            const b = this.query(ControlReg.FirmwareUrl, null)
+            const b = this.query(constants.ControlReg.FirmwareUrl, null)
             if (b) return b.toString()
             else return ""
         }
 
         get deviceUrl() {
-            const b = this.query(ControlReg.DeviceUrl, null)
+            const b = this.query(constants.ControlReg.DeviceUrl, null)
             if (b) return b.toString()
             else return ""
         }
@@ -671,16 +671,16 @@ namespace jacdac {
         }
         handlePacketOuter(pkt: JDPacket) {
             switch (pkt.serviceCommand) {
-                case SystemCmd.Announce:
+                case constants.SystemCmd.Announce:
                     queueAnnounce()
                     break
-                case ControlCmd.Identify:
+                case constants.ControlCmd.Identify:
                     control.runInParallel(onIdentifyRequest)
                     break
-                case ControlCmd.Reset:
+                case constants.ControlCmd.Reset:
                     control.reset()
                     break
-                case CMD_GET_REG | ControlReg.DeviceDescription:
+                case CMD_GET_REG | constants.ControlReg.DeviceDescription:
                     this.sendReport(JDPacket.from(pkt.serviceCommand, Buffer.fromUTF8("PXT: " + control.programName())))
                     break
             }
@@ -734,7 +734,7 @@ namespace jacdac {
         const buf = Buffer.create(ids.length * 4)
         for (let i = 0; i < ids.length; ++i)
             buf.setNumber(NumberFormat.UInt32LE, i * 4, ids[i]);
-        JDPacket.from(SystemCmd.Announce, buf)
+        JDPacket.from(constants.SystemCmd.Announce, buf)
             ._sendReport(selfDevice())
         _announceCallbacks.forEach(f => f())
         for (const cl of _allClients)
@@ -862,7 +862,7 @@ namespace jacdac {
             let dev = _devices.find(d => d.deviceId == devId)
 
             if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
-                if (pkt.serviceCommand == SystemCmd.Announce) {
+                if (pkt.serviceCommand == constants.SystemCmd.Announce) {
                     if (dev && (dev.services[0] & 0xf) > (pkt.data[0] & 0xf)) {
                         // if the reset counter went down, it means the device resetted; treat it as new device
                         _devices.removeElement(dev)

@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Control
     export const SRV_CONTROL = 0x0
 
@@ -22,7 +22,7 @@ namespace jacdac {
         /**
          * report Services
          * ```
-         * const [restartCounter, flags, packetCount, serviceClass] = jdunpack<[number, jacdac.ControlAnnounceFlags, number, number[]]>(buf, "u8 u8 u8 x[1] u32[]")
+         * const [restartCounter, flags, packetCount, serviceClass] = jdunpack<[number, jacdac.constants.ControlAnnounceFlags, number, number[]]>(buf, "u8 u8 u8 x[1] u32[]")
          * ```
          */
 

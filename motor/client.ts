@@ -2,7 +2,7 @@ namespace modules {
     //% fixedInstances
     export class MotorClient extends jacdac.Client {
         constructor(role: string) {
-            super(jacdac.SRV_MOTOR, role);
+            super(jacdac.constants.SRV_MOTOR, role);
         }
 
         /**
@@ -18,10 +18,10 @@ namespace modules {
         run(speed: number): void {
             speed = Math.clamp(-100, 100, speed)
             if (speed == 0)
-                this.setReg(jacdac.MotorReg.Enabled, "u8", [0])
+                this.setReg(jacdac.constants.MotorReg.Enabled, "u8", [0])
             else {
-                this.setReg(jacdac.MotorReg.Duty, "u1.15", [Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0)])
-                this.setReg(jacdac.MotorReg.Enabled, "u8", [1])
+                this.setReg(jacdac.constants.MotorReg.Duty, "u1.15", [Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0)])
+                this.setReg(jacdac.constants.MotorReg.Enabled, "u8", [1])
             }
         }
     }

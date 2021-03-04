@@ -1,5 +1,5 @@
 {
-    "targetWebsite": "https://makecode.microbit.org/v3.1",
+    "targetWebsite": "https://makecode.microbit.org/beta",
     "overrides": {
         "testDependencies": {
             "radio": "*"
@@ -8,6 +8,8 @@
     "links": {
         "jacdac": ".",
         "jacdac-settings": "./settings",
-        "jacdac-tcp": "./tcp"
+        "jacdac-tcp": "./tcp",
+        "jacdac-button": "./button",
+        "jacdac-accelerometer": "./accelerometer"
     }
 }

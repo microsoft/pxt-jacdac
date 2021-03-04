@@ -16,7 +16,7 @@ namespace modules {
     //% fixedInstances
     export class ThermometerClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
-            super(jacdac.SRV_THERMOMETER, role, "i22.10");
+            super(jacdac.constants.SRV_THERMOMETER, role, "i22.10");
         }
 
         /**

@@ -7,14 +7,14 @@ namespace modules {
 
         private readonly _minRange : jacdac.RegisterClient<[number]>;
         private readonly _maxRange : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.DistanceVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.DistanceVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_DISTANCE, role, "u16.16");
+            super(jacdac.constants.SRV_DISTANCE, role, "u16.16");
 
-            this._minRange = this.addRegister<[number]>(jacdac.DistanceReg.MinRange, "u16.16");
-            this._maxRange = this.addRegister<[number]>(jacdac.DistanceReg.MaxRange, "u16.16");
-            this._variant = this.addRegister<[jacdac.DistanceVariant]>(jacdac.DistanceReg.Variant, "u8");            
+            this._minRange = this.addRegister<[number]>(jacdac.constants.DistanceReg.MinRange, "u16.16");
+            this._maxRange = this.addRegister<[number]>(jacdac.constants.DistanceReg.MaxRange, "u16.16");
+            this._variant = this.addRegister<[jacdac.constants.DistanceVariant]>(jacdac.constants.DistanceReg.Variant, "u8");            
         }
     
 
@@ -62,7 +62,7 @@ namespace modules {
         //% callInDebugger
         //% group="Distance"
         //% weight=97
-        variant(): jacdac.DistanceVariant {
+        variant(): jacdac.constants.DistanceVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

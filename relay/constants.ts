@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Relay
     export const SRV_RELAY = 0x183fe656
 
@@ -22,7 +22,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Describes the type of relay used.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.RelayVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.RelayVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

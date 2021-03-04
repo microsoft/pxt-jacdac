@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: LED Pixel
     export const SRV_LED_PIXEL = 0x126f00e0
 
@@ -45,7 +45,7 @@ namespace jacdac {
          * and could not allow change.
          *
          * ```
-         * const [lightType] = jdunpack<[jacdac.LedPixelLightType]>(buf, "u8")
+         * const [lightType] = jdunpack<[jacdac.constants.LedPixelLightType]>(buf, "u8")
          * ```
          */
         LightType = 0x80,
@@ -105,7 +105,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Specifies the shape of the light strip.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.LedPixelVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.LedPixelVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

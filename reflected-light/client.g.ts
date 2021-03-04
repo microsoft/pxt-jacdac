@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ReflectedLightClient extends jacdac.SensorClient<[number]> {
 
-        private readonly _variant : jacdac.RegisterClient<[jacdac.ReflectedLightVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.ReflectedLightVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_REFLECTED_LIGHT, role, "u0.16");
+            super(jacdac.constants.SRV_REFLECTED_LIGHT, role, "u0.16");
 
-            this._variant = this.addRegister<[jacdac.ReflectedLightVariant]>(jacdac.ReflectedLightReg.Variant, "u8");            
+            this._variant = this.addRegister<[jacdac.constants.ReflectedLightVariant]>(jacdac.constants.ReflectedLightReg.Variant, "u8");            
         }
     
 
@@ -34,7 +34,7 @@ namespace modules {
         //% callInDebugger
         //% group="Imaging"
         //% weight=99
-        variant(): jacdac.ReflectedLightVariant {
+        variant(): jacdac.constants.ReflectedLightVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -49,7 +49,7 @@ namespace modules {
         //% block="on %reflectedlight dark"
         //% weight=98
         onDark(handler: () => void): void {
-            this.registerEvent(jacdac.ReflectedLightEvent.Dark, handler);
+            this.registerEvent(jacdac.constants.ReflectedLightEvent.Dark, handler);
         }
         /**
          * The sensor detected a transition from dark to light
@@ -59,7 +59,7 @@ namespace modules {
         //% block="on %reflectedlight light"
         //% weight=97
         onLight(handler: () => void): void {
-            this.registerEvent(jacdac.ReflectedLightEvent.Light, handler);
+            this.registerEvent(jacdac.constants.ReflectedLightEvent.Light, handler);
         }
     
     }

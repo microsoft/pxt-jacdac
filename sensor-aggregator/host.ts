@@ -1,12 +1,12 @@
 namespace jacdac {
-    function numberFmt(stype: SensorAggregatorSampleType) {
+    function numberFmt(stype: jacdac.constants.SensorAggregatorSampleType) {
         switch (stype) {
-            case SensorAggregatorSampleType.U8: return NumberFormat.UInt8LE
-            case SensorAggregatorSampleType.I8: return NumberFormat.Int8LE
-            case SensorAggregatorSampleType.U16: return NumberFormat.UInt16LE
-            case SensorAggregatorSampleType.I16: return NumberFormat.Int16LE
-            case SensorAggregatorSampleType.U32: return NumberFormat.UInt32LE
-            case SensorAggregatorSampleType.I32: return NumberFormat.Int32LE
+            case jacdac.constants.SensorAggregatorSampleType.U8: return NumberFormat.UInt8LE
+            case jacdac.constants.SensorAggregatorSampleType.I8: return NumberFormat.Int8LE
+            case jacdac.constants.SensorAggregatorSampleType.U16: return NumberFormat.UInt16LE
+            case jacdac.constants.SensorAggregatorSampleType.I16: return NumberFormat.Int16LE
+            case jacdac.constants.SensorAggregatorSampleType.U32: return NumberFormat.UInt32LE
+            case jacdac.constants.SensorAggregatorSampleType.I32: return NumberFormat.Int32LE
         }
     }
 
@@ -17,11 +17,11 @@ namespace jacdac {
         lastSample: Buffer
         private parent: SensorAggregatorHost
         private numElts: number
-        private sampleType: SensorAggregatorSampleType
+        private sampleType: jacdac.constants.SensorAggregatorSampleType
         private sampleMult: number
 
         handlePacket(packet: JDPacket) {
-            if (packet.serviceCommand == (CMD_GET_REG | SystemReg.Reading)) {
+            if (packet.serviceCommand == (CMD_GET_REG | jacdac.constants.SystemReg.Reading)) {
                 this.parent._newData(packet.timestamp, false)
                 const arr = packet.data.toArray(numberFmt(this.sampleType))
                 for (let i = 0; i < arr.length; ++i)
@@ -37,7 +37,7 @@ namespace jacdac {
         }
 
         announceCallback() {
-            this.setReg(SensorReg.StreamingSamples, "u8", [255])
+            this.setReg(jacdac.constants.SensorReg.StreamingSamples, "u8", [255])
         }
 
         constructor(parent: SensorAggregatorHost, config: Buffer) {
@@ -78,7 +78,7 @@ namespace jacdac {
         newDataCallback: () => void
 
         constructor() {
-            super("agg", SRV_SENSOR_AGGREGATOR);
+            super("agg", jacdac.constants.SRV_SENSOR_AGGREGATOR);
         }
 
         get samplesInWindow() {
@@ -169,8 +169,8 @@ namespace jacdac {
             let frameSz = 0
             while (off < config.length) {
                 const coll = new Collector(this, config.slice(off, entrySize))
-                coll.setReg(SensorReg.StreamingInterval, "u32", [this.samplingInterval])
-                coll.setReg(SensorReg.StreamingSamples, "u8", [255])
+                coll.setReg(jacdac.constants.SensorReg.StreamingInterval, "u32", [this.samplingInterval])
+                coll.setReg(jacdac.constants.SensorReg.StreamingSamples, "u8", [255])
                 this.collectors.push(coll)
                 frameSz += coll.lastSample.length
                 off += entrySize
@@ -182,25 +182,25 @@ namespace jacdac {
 
         private sendLastSample() {
             const buf = this.samplesBuffer.slice(this.samplesBuffer.length - this.sampleSize, this.sampleSize)
-            this.sendReport(JDPacket.from(SensorAggregatorReg.CurrentSample | CMD_GET_REG, buf))
+            this.sendReport(JDPacket.from(jacdac.constants.SensorAggregatorReg.CurrentSample | CMD_GET_REG, buf))
         }
 
         handlePacket(packet: JDPacket) {
-            this.handleRegUInt32(packet, SensorAggregatorReg.NumSamples, this.numSamples)
-            this.handleRegValue(packet, SensorAggregatorReg.SampleSize, "u8", this.sampleSize)
-            this.streamSamples = this.handleRegUInt32(packet, SensorAggregatorReg.StreamingSamples, this.streamSamples)
+            this.handleRegUInt32(packet, jacdac.constants.SensorAggregatorReg.NumSamples, this.numSamples)
+            this.handleRegValue(packet, jacdac.constants.SensorAggregatorReg.SampleSize, "u8", this.sampleSize)
+            this.streamSamples = this.handleRegUInt32(packet, jacdac.constants.SensorAggregatorReg.StreamingSamples, this.streamSamples)
 
             switch (packet.serviceCommand) {
-                case SensorAggregatorReg.Inputs | CMD_GET_REG:
+                case jacdac.constants.SensorAggregatorReg.Inputs | CMD_GET_REG:
                     this.sendReport(JDPacket.from(packet.serviceCommand, this.inputSettings))
                     break
-                case SensorAggregatorReg.Inputs | CMD_SET_REG:
+                case jacdac.constants.SensorAggregatorReg.Inputs | CMD_SET_REG:
                     if (this.inputSettings && packet.data.equals(this.inputSettings))
                         return // already done
                     settings.writeBuffer(inputsSettingsKey, packet.data)
                     this.configureInputs()
                     break
-                case SensorAggregatorReg.CurrentSample | CMD_GET_REG:
+                case jacdac.constants.SensorAggregatorReg.CurrentSample | CMD_GET_REG:
                     this.sendLastSample()
                     break;
             }

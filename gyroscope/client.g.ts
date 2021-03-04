@@ -9,10 +9,10 @@ namespace modules {
         private readonly _maxRate : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_GYROSCOPE, role, "i12.20 i12.20 i12.20");
+            super(jacdac.constants.SRV_GYROSCOPE, role, "i12.20 i12.20 i12.20");
 
-            this._rotationRatesError = this.addRegister<[number]>(jacdac.GyroscopeReg.RotationRatesError, "i12.20");
-            this._maxRate = this.addRegister<[number]>(jacdac.GyroscopeReg.MaxRate, "i12.20");            
+            this._rotationRatesError = this.addRegister<[number]>(jacdac.constants.GyroscopeReg.RotationRatesError, "i12.20");
+            this._maxRate = this.addRegister<[number]>(jacdac.constants.GyroscopeReg.MaxRate, "i12.20");            
         }
     
 

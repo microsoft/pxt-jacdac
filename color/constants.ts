@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Color
     export const SRV_COLOR = 0x1630d567
     export const enum ColorReg {

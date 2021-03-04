@@ -8,9 +8,9 @@ namespace modules {
         private readonly _connected : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WIFI, role);
+            super(jacdac.constants.SRV_WIFI, role);
 
-            this._connected = this.addRegister<[boolean]>(jacdac.WifiReg.Connected, "u8");            
+            this._connected = this.addRegister<[boolean]>(jacdac.constants.WifiReg.Connected, "u8");            
         }
     
 
@@ -35,7 +35,7 @@ namespace modules {
         //% block="on %wifi got ip"
         //% weight=99
         onGotIp(handler: () => void): void {
-            this.registerEvent(jacdac.WifiEvent.GotIp, handler);
+            this.registerEvent(jacdac.constants.WifiEvent.GotIp, handler);
         }
         /**
          * Emitted when disconnected from network.
@@ -45,7 +45,7 @@ namespace modules {
         //% block="on %wifi lost ip"
         //% weight=98
         onLostIp(handler: () => void): void {
-            this.registerEvent(jacdac.WifiEvent.LostIp, handler);
+            this.registerEvent(jacdac.constants.WifiEvent.LostIp, handler);
         }
 
         /**
@@ -57,7 +57,7 @@ namespace modules {
         //% weight=97
         connect(ssid: string, password: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WifiCmd.Connect, "z z", [ssid, password]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.WifiCmd.Connect, "z z", [ssid, password]))
         }
 
         /**
@@ -69,7 +69,7 @@ namespace modules {
         //% weight=96
         disconnect(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WifiCmd.Disconnect))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.WifiCmd.Disconnect))
         }
     
     }

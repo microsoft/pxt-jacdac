@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Light level
     export const SRV_LIGHT_LEVEL = 0x17dc9a1c
 
@@ -22,7 +22,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). The type of physical sensor.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.LightLevelVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.LightLevelVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

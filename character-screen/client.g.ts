@@ -7,20 +7,20 @@ namespace modules {
 
         private readonly _message : jacdac.RegisterClient<[string]>;
         private readonly _brightness : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.CharacterScreenVariant]>;
-        private readonly _textDirection : jacdac.RegisterClient<[jacdac.CharacterScreenTextDirection]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.CharacterScreenVariant]>;
+        private readonly _textDirection : jacdac.RegisterClient<[jacdac.constants.CharacterScreenTextDirection]>;
         private readonly _rows : jacdac.RegisterClient<[number]>;
         private readonly _columns : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_CHARACTER_SCREEN, role);
+            super(jacdac.constants.SRV_CHARACTER_SCREEN, role);
 
-            this._message = this.addRegister<[string]>(jacdac.CharacterScreenReg.Message, "s");
-            this._brightness = this.addRegister<[number]>(jacdac.CharacterScreenReg.Brightness, "u0.8");
-            this._variant = this.addRegister<[jacdac.CharacterScreenVariant]>(jacdac.CharacterScreenReg.Variant, "u8");
-            this._textDirection = this.addRegister<[jacdac.CharacterScreenTextDirection]>(jacdac.CharacterScreenReg.TextDirection, "u8");
-            this._rows = this.addRegister<[number]>(jacdac.CharacterScreenReg.Rows, "u8");
-            this._columns = this.addRegister<[number]>(jacdac.CharacterScreenReg.Columns, "u8");            
+            this._message = this.addRegister<[string]>(jacdac.constants.CharacterScreenReg.Message, "s");
+            this._brightness = this.addRegister<[number]>(jacdac.constants.CharacterScreenReg.Brightness, "u0.8");
+            this._variant = this.addRegister<[jacdac.constants.CharacterScreenVariant]>(jacdac.constants.CharacterScreenReg.Variant, "u8");
+            this._textDirection = this.addRegister<[jacdac.constants.CharacterScreenTextDirection]>(jacdac.constants.CharacterScreenReg.TextDirection, "u8");
+            this._rows = this.addRegister<[number]>(jacdac.constants.CharacterScreenReg.Rows, "u8");
+            this._columns = this.addRegister<[number]>(jacdac.constants.CharacterScreenReg.Columns, "u8");            
         }
     
 
@@ -88,7 +88,7 @@ namespace modules {
         //% callInDebugger
         //% group="Display"
         //% weight=96
-        variant(): jacdac.CharacterScreenVariant {
+        variant(): jacdac.constants.CharacterScreenVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -100,7 +100,7 @@ namespace modules {
         //% callInDebugger
         //% group="Display"
         //% weight=95
-        textDirection(): jacdac.CharacterScreenTextDirection {
+        textDirection(): jacdac.constants.CharacterScreenTextDirection {
             this.start();            
             const values = this._textDirection.pauseUntilValues() as any[];
             return values[0];
@@ -111,11 +111,11 @@ namespace modules {
         */
         //% group="Display"
         //% weight=94
-        setTextDirection(value: jacdac.CharacterScreenTextDirection) {
+        setTextDirection(value: jacdac.constants.CharacterScreenTextDirection) {
             this.start();
             const values = this._textDirection.values as any[];
             values[0] = value;
-            this._textDirection.values = values as [jacdac.CharacterScreenTextDirection];
+            this._textDirection.values = values as [jacdac.constants.CharacterScreenTextDirection];
         }
 
         /**

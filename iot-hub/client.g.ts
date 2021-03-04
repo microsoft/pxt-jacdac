@@ -11,12 +11,12 @@ namespace modules {
         private readonly _deviceId : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_IOT_HUB, role);
+            super(jacdac.constants.SRV_IOT_HUB, role);
 
-            this._connectionStatus = this.addRegister<[string]>(jacdac.IotHubReg.ConnectionStatus, "s");
-            this._connectionString = this.addRegister<[string]>(jacdac.IotHubReg.ConnectionString, "s");
-            this._hubName = this.addRegister<[string]>(jacdac.IotHubReg.HubName, "s");
-            this._deviceId = this.addRegister<[string]>(jacdac.IotHubReg.DeviceId, "s");            
+            this._connectionStatus = this.addRegister<[string]>(jacdac.constants.IotHubReg.ConnectionStatus, "s");
+            this._connectionString = this.addRegister<[string]>(jacdac.constants.IotHubReg.ConnectionString, "s");
+            this._hubName = this.addRegister<[string]>(jacdac.constants.IotHubReg.HubName, "s");
+            this._deviceId = this.addRegister<[string]>(jacdac.constants.IotHubReg.DeviceId, "s");            
         }
     
 
@@ -97,7 +97,7 @@ namespace modules {
         //% block="on %iothub connected"
         //% weight=95
         onConnected(handler: () => void): void {
-            this.registerEvent(jacdac.IotHubEvent.Connected, handler);
+            this.registerEvent(jacdac.constants.IotHubEvent.Connected, handler);
         }
         /**
          * Emitted when connection was lost.
@@ -107,7 +107,7 @@ namespace modules {
         //% block="on %iothub connection error"
         //% weight=94
         onConnectionError(handler: () => void): void {
-            this.registerEvent(jacdac.IotHubEvent.ConnectionError, handler);
+            this.registerEvent(jacdac.constants.IotHubEvent.ConnectionError, handler);
         }
         /**
          * This event is emitted upon reception of a cloud to device message, that is a string
@@ -119,7 +119,7 @@ namespace modules {
         //% block="on %iothub devicebound str"
         //% weight=93
         onDeviceboundStr(handler: () => void): void {
-            this.registerEvent(jacdac.IotHubEvent.DeviceboundStr, handler);
+            this.registerEvent(jacdac.constants.IotHubEvent.DeviceboundStr, handler);
         }
 
         /**
@@ -132,7 +132,7 @@ namespace modules {
         //% weight=92
         connect(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.IotHubCmd.Connect))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.IotHubCmd.Connect))
         }
 
         /**
@@ -145,7 +145,7 @@ namespace modules {
         //% weight=91
         disconnect(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.IotHubCmd.Disconnect))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.IotHubCmd.Disconnect))
         }
 
         /**
@@ -157,7 +157,7 @@ namespace modules {
         //% weight=90
         sendStringMsg(msg: string, propertyName: ([string, string])[], propertyValue: undefined): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.IotHubCmd.SendStringMsg, "z r: z z", [msg, propertyName, propertyValue]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.IotHubCmd.SendStringMsg, "z r: z z", [msg, propertyName, propertyValue]))
         }
 
         /**
@@ -169,7 +169,7 @@ namespace modules {
         //% weight=89
         sendMsgExt(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.IotHubCmd.SendMsgExt))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.IotHubCmd.SendMsgExt))
         }
 
         /**
@@ -181,7 +181,7 @@ namespace modules {
         //% weight=88
         patchTwin(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.IotHubCmd.PatchTwin))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.IotHubCmd.PatchTwin))
         }
 
         /**
@@ -193,7 +193,7 @@ namespace modules {
         //% weight=87
         respondToMethod(status: number, requestId: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.IotHubCmd.RespondToMethod, "u32 z", [status, requestId]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.IotHubCmd.RespondToMethod, "u32 z", [status, requestId]))
         }
     
     }

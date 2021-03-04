@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Protocol Test
     export const SRV_PROTO_TEST = 0x16c7466a
     export const enum ProtoTestReg {

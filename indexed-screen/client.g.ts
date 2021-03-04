@@ -17,16 +17,16 @@ namespace modules {
         private readonly _rotation : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_INDEXED_SCREEN, role);
+            super(jacdac.constants.SRV_INDEXED_SCREEN, role);
 
-            this._brightness = this.addRegister<[number]>(jacdac.IndexedScreenReg.Brightness, "u0.8");
-            this._palette = this.addRegister<[([number, number, number])[]]>(jacdac.IndexedScreenReg.Palette, "r: u8 u8 u8 u8");
-            this._bitsPerPixel = this.addRegister<[number]>(jacdac.IndexedScreenReg.BitsPerPixel, "u8");
-            this._width = this.addRegister<[number]>(jacdac.IndexedScreenReg.Width, "u16");
-            this._height = this.addRegister<[number]>(jacdac.IndexedScreenReg.Height, "u16");
-            this._widthMajor = this.addRegister<[boolean]>(jacdac.IndexedScreenReg.WidthMajor, "u8");
-            this._upSampling = this.addRegister<[number]>(jacdac.IndexedScreenReg.UpSampling, "u8");
-            this._rotation = this.addRegister<[number]>(jacdac.IndexedScreenReg.Rotation, "u16");            
+            this._brightness = this.addRegister<[number]>(jacdac.constants.IndexedScreenReg.Brightness, "u0.8");
+            this._palette = this.addRegister<[([number, number, number])[]]>(jacdac.constants.IndexedScreenReg.Palette, "r: u8 u8 u8 u8");
+            this._bitsPerPixel = this.addRegister<[number]>(jacdac.constants.IndexedScreenReg.BitsPerPixel, "u8");
+            this._width = this.addRegister<[number]>(jacdac.constants.IndexedScreenReg.Width, "u16");
+            this._height = this.addRegister<[number]>(jacdac.constants.IndexedScreenReg.Height, "u16");
+            this._widthMajor = this.addRegister<[boolean]>(jacdac.constants.IndexedScreenReg.WidthMajor, "u8");
+            this._upSampling = this.addRegister<[number]>(jacdac.constants.IndexedScreenReg.UpSampling, "u8");
+            this._rotation = this.addRegister<[number]>(jacdac.constants.IndexedScreenReg.Rotation, "u16");            
         }
     
 
@@ -312,7 +312,7 @@ namespace modules {
         //% weight=81
         startUpdate(x: number, y: number, width: number, height: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.IndexedScreenCmd.StartUpdate, "u16 u16 u16 u16", [x, y, width, height]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.IndexedScreenCmd.StartUpdate, "u16 u16 u16 u16", [x, y, width, height]))
         }
 
         /**
@@ -325,7 +325,7 @@ namespace modules {
         //% weight=80
         setPixels(pixels: Buffer): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.IndexedScreenCmd.SetPixels, "b", [pixels]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.IndexedScreenCmd.SetPixels, "b", [pixels]))
         }
     
     }

@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace jacdac.constants {
     // Service: Potentiometer
     export const SRV_POTENTIOMETER = 0x1f274746
 
@@ -21,7 +21,7 @@ namespace jacdac {
          * Constant Variant (uint8_t). Specifies the physical layout of the potentiometer.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.PotentiometerVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.constants.PotentiometerVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

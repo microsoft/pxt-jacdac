@@ -6,15 +6,15 @@ namespace modules {
     export class RelayClient extends jacdac.Client {
 
         private readonly _closed : jacdac.RegisterClient<[boolean]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.RelayVariant]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.RelayVariant]>;
         private readonly _maxSwitchingCurrent : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_RELAY, role);
+            super(jacdac.constants.SRV_RELAY, role);
 
-            this._closed = this.addRegister<[boolean]>(jacdac.RelayReg.Closed, "u8");
-            this._variant = this.addRegister<[jacdac.RelayVariant]>(jacdac.RelayReg.Variant, "u8");
-            this._maxSwitchingCurrent = this.addRegister<[number]>(jacdac.RelayReg.MaxSwitchingCurrent, "u32");            
+            this._closed = this.addRegister<[boolean]>(jacdac.constants.RelayReg.Closed, "u8");
+            this._variant = this.addRegister<[jacdac.constants.RelayVariant]>(jacdac.constants.RelayReg.Variant, "u8");
+            this._maxSwitchingCurrent = this.addRegister<[number]>(jacdac.constants.RelayReg.MaxSwitchingCurrent, "u32");            
         }
     
 
@@ -52,7 +52,7 @@ namespace modules {
         //% callInDebugger
         //% group="Relay"
         //% weight=98
-        variant(): jacdac.RelayVariant {
+        variant(): jacdac.constants.RelayVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -79,7 +79,7 @@ namespace modules {
         //% block="on %relay on"
         //% weight=96
         onOn(handler: () => void): void {
-            this.registerEvent(jacdac.RelayEvent.On, handler);
+            this.registerEvent(jacdac.constants.RelayEvent.On, handler);
         }
         /**
          * Emitted when relay goes from ``on`` to ``off`` state.
@@ -89,7 +89,7 @@ namespace modules {
         //% block="on %relay off"
         //% weight=95
         onOff(handler: () => void): void {
-            this.registerEvent(jacdac.RelayEvent.Off, handler);
+            this.registerEvent(jacdac.constants.RelayEvent.Off, handler);
         }
     
     }

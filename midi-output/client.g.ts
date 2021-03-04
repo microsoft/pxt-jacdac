@@ -8,9 +8,9 @@ namespace modules {
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MIDI_OUTPUT, role);
+            super(jacdac.constants.SRV_MIDI_OUTPUT, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.MidiOutputReg.Enabled, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.constants.MidiOutputReg.Enabled, "u8");            
         }
     
 
@@ -53,7 +53,7 @@ namespace modules {
         //% weight=98
         clear(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.MidiOutputCmd.Clear))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.MidiOutputCmd.Clear))
         }
 
         /**
@@ -65,7 +65,7 @@ namespace modules {
         //% weight=97
         send(data: Buffer): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.MidiOutputCmd.Send, "b", [data]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.MidiOutputCmd.Send, "b", [data]))
         }
     
     }
