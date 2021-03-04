@@ -1,6 +1,7 @@
 namespace modules {
     /**
      * A gamepad with direction and action buttons for one player.
+     * If a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.
      **/
     //% fixedInstances blockGap=8
     export class ArcadeGamepadClient extends jacdac.SensorClient<[([jacdac.ArcadeGamepadButton, number])[]]> {

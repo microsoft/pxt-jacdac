@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-arcadegamepad",
+    "name": "jacdac-indexedscreen",
     "version": "0.0.0",
-    "description": "A gamepad with direction and action buttons for one player.\nIf a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.",
+    "description": "A screen with indexed colors.\n\nThis is often run over an SPI connection, not regular single-wire JACDAC.",
     "files": [
         "constants.ts",
         "client.g.ts"

@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-arcadegamepad",
+    "name": "jacdac-arcadesound",
     "version": "0.0.0",
-    "description": "A gamepad with direction and action buttons for one player.\nIf a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.",
+    "description": "A sound playing device.\n\nThis is typically run over an SPI connection, not regular single-wire JACDAC.",
     "files": [
         "constants.ts",
         "client.g.ts"

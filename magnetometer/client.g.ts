@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class MagnetometerClient extends jacdac.SensorClient<[number,number,number]> {
 
-        private readonly _forcesError : jacdac.RegisterClient<[number,number,number]>;            
+        private readonly _forcesError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_MAGNETOMETER, role, "i32 i32 i32");
 
-            this._forcesError = this.addRegister<[number,number,number]>(jacdac.MagnetometerReg.ForcesError, "i32 i32 i32");            
+            this._forcesError = this.addRegister<[number]>(jacdac.MagnetometerReg.ForcesError, "i32");            
         }
     
 
@@ -65,34 +65,10 @@ namespace modules {
         //% callInDebugger
         //% group="Magnetometer"
         //% weight=97
-        forcesErrorX(): number {
+        forcesError(): number {
             this.start();            
             const values = this._forcesError.pauseUntilValues() as any[];
             return values[0];
-        }
-
-        /**
-        * Error on the readings.
-        */
-        //% callInDebugger
-        //% group="Magnetometer"
-        //% weight=96
-        forcesErrorY(): number {
-            this.start();            
-            const values = this._forcesError.pauseUntilValues() as any[];
-            return values[1];
-        }
-
-        /**
-        * Error on the readings.
-        */
-        //% callInDebugger
-        //% group="Magnetometer"
-        //% weight=95
-        forcesErrorZ(): number {
-            this.start();            
-            const values = this._forcesError.pauseUntilValues() as any[];
-            return values[2];
         }
  
 
@@ -104,7 +80,7 @@ namespace modules {
         //% group="Magnetometer"
         //% blockId=jacdac_magnetomer_calibrate_cmd
         //% block="%magnetomer calibrate"
-        //% weight=94
+        //% weight=96
         calibrate(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.MagnetometerCmd.Calibrate))
