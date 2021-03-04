@@ -6,8 +6,7 @@ namespace jacdac {
             this.button.onEvent(ButtonEvent.Up, () => this.sendEvent(constants.ButtonEvent.Up));
             this.button.onEvent(ButtonEvent.Click, () => this.sendEvent(constants.ButtonEvent.Click));
             this.button.onEvent(ButtonEvent.LongClick, () => this.sendEvent(constants.ButtonEvent.LongClick));
-            // TODO: Hold in makecode
-            //this.button.onEvent(ButtonEvent., () => this.sendEvent(JDButtonEvent.Down));
+            this.button.onEvent(<number>DAL.DEVICE_BUTTON_EVT_HOLD, () => this.sendEvent(constants.ButtonEvent.Hold));
         }
 
         serializeState(): Buffer {
