@@ -13,8 +13,7 @@
     ],
     "supportedTargets": [
         "arcade",
-        "maker",
-        "microbit"
+        "maker"
     ],
     "preferredEditor": "tsprj"
 }
