@@ -23,9 +23,7 @@ To build all projects
 sh mk.sh
 ```
 
-To refresh the ``constants.ts`` files,
-* build jacdac-spec (``npm run buildspecs`` from jacdac-ts)
-* copy all ``constants.ts`` files from ``jacdac-spec/services/generated/makecode`` to the root folder of this repo
+To refresh the ``constants.ts`` files, build jacdac-spec (``yarn buildspecs`` from jacdac-ts) from https://github.com/microsoft/jacdac-ts .
 
 ## Contributing
 
