@@ -9,7 +9,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_HID_MOUSE, role);
+            super(jacdac.SRV_HID_MOUSE, role);
             
         }
     
@@ -25,9 +25,9 @@ namespace modules {
         //% blockId=jacdac_hidmouse_set_button_cmd
         //% block="%hidmouse set button"
         //% weight=100
-        setButton(buttons: jacdac.constants.HidMouseButton, event: jacdac.constants.HidMouseButtonEvent): void {
+        setButton(buttons: jacdac.HidMouseButton, event: jacdac.HidMouseButtonEvent): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.HidMouseCmd.SetButton, "u16 u8", [buttons, event]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidMouseCmd.SetButton, "u16 u8", [buttons, event]))
         }
 
         /**
@@ -40,7 +40,7 @@ namespace modules {
         //% weight=99
         move(dx: number, dy: number, time: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.HidMouseCmd.Move, "i16 i16 u16", [dx, dy, time]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidMouseCmd.Move, "i16 i16 u16", [dx, dy, time]))
         }
 
         /**
@@ -53,7 +53,7 @@ namespace modules {
         //% weight=98
         wheel(dy: number, time: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.HidMouseCmd.Wheel, "i16 u16", [dy, time]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidMouseCmd.Wheel, "i16 u16", [dy, time]))
         }
     
     }

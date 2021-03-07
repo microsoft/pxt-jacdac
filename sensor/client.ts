@@ -8,12 +8,12 @@ namespace jacdac {
 
         constructor(deviceClass: number, role: string, stateFormat: string) {
             super(deviceClass, role);
-            this._reading = this.addRegister(jacdac.constants.SystemReg.Reading, stateFormat)
+            this._reading = this.addRegister(jacdac.SystemReg.Reading, stateFormat)
         }
 
         announceCallback() {
             if (this.isStreaming)
-                this.setReg(jacdac.constants.SystemReg.StreamingSamples, "u8", [this.isStreaming ? 255 : 0])
+                this.setReg(jacdac.SystemReg.StreamingSamples, "u8", [this.isStreaming ? 255 : 0])
         }
 
         /**
@@ -23,16 +23,16 @@ namespace jacdac {
         public setStreaming(on: boolean, interval?: number) {
             this.start();
             this.isStreaming = on
-            this.setReg(jacdac.constants.SystemReg.StreamingSamples, "u8", [this.isStreaming ? 255 : 0])
+            this.setReg(jacdac.SystemReg.StreamingSamples, "u8", [this.isStreaming ? 255 : 0])
             if (interval != undefined)
-                this.setReg(jacdac.constants.SystemReg.StreamingInterval, "u32", [interval])
+                this.setReg(jacdac.SystemReg.StreamingInterval, "u32", [interval])
         }
 
         /**
          * Requests the sensor to calibrate
          */
         public calibrate() {
-            this.sendCommand(JDPacket.onlyHeader(jacdac.constants.SystemCmd.Calibrate))
+            this.sendCommand(JDPacket.onlyHeader(jacdac.SystemCmd.Calibrate))
         }
 
         public onStateChanged(handler: () => void) {
@@ -65,7 +65,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket) {
-            if (this._samples && packet.serviceCommand == (CMD_GET_REG | jacdac.constants.SystemReg.Reading)) {
+            if (this._samples && packet.serviceCommand == (CMD_GET_REG | jacdac.SystemReg.Reading)) {
                 const v = jdunpack(packet.data, this._reading.packFormat) as TReading;
                 if (v != null) {
                     let num = 1

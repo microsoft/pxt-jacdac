@@ -7,7 +7,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_SETTINGS, role);
+            super(jacdac.SRV_SETTINGS, role);
             
         }
     
@@ -21,7 +21,7 @@ namespace modules {
         //% block="on %settings change"
         //% weight=100
         onChange(handler: () => void): void {
-            this.registerEvent(jacdac.constants.SettingsEvent.Change, handler);
+            this.registerEvent(jacdac.SettingsEvent.Change, handler);
         }
 
         /**
@@ -33,7 +33,7 @@ namespace modules {
         //% weight=99
         get(key: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.SettingsCmd.Get, "s", [key]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SettingsCmd.Get, "s", [key]))
         }
 
         /**
@@ -45,7 +45,7 @@ namespace modules {
         //% weight=98
         set(key: string, value: Buffer): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.SettingsCmd.Set, "z b", [key, value]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SettingsCmd.Set, "z b", [key, value]))
         }
 
         /**
@@ -57,7 +57,7 @@ namespace modules {
         //% weight=97
         delete(key: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.SettingsCmd.Delete, "s", [key]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SettingsCmd.Delete, "s", [key]))
         }
 
         /**
@@ -69,7 +69,7 @@ namespace modules {
         //% weight=96
         clear(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.SettingsCmd.Clear))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.SettingsCmd.Clear))
         }
     
     }

@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: bit:radio
     export const SRV_BIT_RADIO = 0x1ac986cf
     export const enum BitRadioReg {

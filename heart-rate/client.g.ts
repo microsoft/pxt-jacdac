@@ -9,13 +9,13 @@ namespace modules {
     export class HeartRateClient extends jacdac.SensorClient<[number]> {
 
         private readonly _heartRateError : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.HeartRateVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.HeartRateVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_HEART_RATE, role, "u16.16");
+            super(jacdac.SRV_HEART_RATE, role, "u16.16");
 
-            this._heartRateError = this.addRegister<[number]>(jacdac.constants.HeartRateReg.HeartRateError, "u16.16");
-            this._variant = this.addRegister<[jacdac.constants.HeartRateVariant]>(jacdac.constants.HeartRateReg.Variant, "u8");            
+            this._heartRateError = this.addRegister<[number]>(jacdac.HeartRateReg.HeartRateError, "u16.16");
+            this._variant = this.addRegister<[jacdac.HeartRateVariant]>(jacdac.HeartRateReg.Variant, "u8");            
         }
     
 
@@ -51,7 +51,7 @@ namespace modules {
         //% callInDebugger
         //% group="Biometric"
         //% weight=98
-        variant(): jacdac.constants.HeartRateVariant {
+        variant(): jacdac.HeartRateVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

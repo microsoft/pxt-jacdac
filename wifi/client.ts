@@ -19,7 +19,7 @@ namespace jacdac {
 
     export class WifiClient extends Client {
         constructor(role: string) {
-            super(jacdac.constants.SRV_WIFI, role);
+            super(jacdac.SRV_WIFI, role);
         }
 
         get hasIP() {

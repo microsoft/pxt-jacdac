@@ -201,7 +201,7 @@ namespace jacdac {
                     this.stateUpdateHandler();
                 // send state
                 this.sendReport(
-                    JDPacket.from(CMD_GET_REG | constants.SystemReg.Reading, this.state))
+                    JDPacket.from(CMD_GET_REG | SystemReg.Reading, this.state))
                 // waiting for a bit
                 pause(this.streamingInterval);
                 // check if server still alive

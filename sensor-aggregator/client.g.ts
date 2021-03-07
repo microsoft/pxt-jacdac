@@ -6,18 +6,18 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SensorAggregatorClient extends jacdac.SensorClient<[Buffer]> {
 
-        private readonly _inputs : jacdac.RegisterClient<[number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]]>;
+        private readonly _inputs : jacdac.RegisterClient<[number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]]>;
         private readonly _numSamples : jacdac.RegisterClient<[number]>;
         private readonly _sampleSize : jacdac.RegisterClient<[number]>;
         private readonly _streamingSamples : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_SENSOR_AGGREGATOR, role, "b");
+            super(jacdac.SRV_SENSOR_AGGREGATOR, role, "b");
 
-            this._inputs = this.addRegister<[number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]]>(jacdac.constants.SensorAggregatorReg.Inputs, "u16 u16 u32 r: b[8] u32 u8 u8 u8 i8");
-            this._numSamples = this.addRegister<[number]>(jacdac.constants.SensorAggregatorReg.NumSamples, "u32");
-            this._sampleSize = this.addRegister<[number]>(jacdac.constants.SensorAggregatorReg.SampleSize, "u8");
-            this._streamingSamples = this.addRegister<[number]>(jacdac.constants.SensorAggregatorReg.StreamingSamples, "u32");            
+            this._inputs = this.addRegister<[number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]]>(jacdac.SensorAggregatorReg.Inputs, "u16 u16 u32 r: b[8] u32 u8 u8 u8 i8");
+            this._numSamples = this.addRegister<[number]>(jacdac.SensorAggregatorReg.NumSamples, "u32");
+            this._sampleSize = this.addRegister<[number]>(jacdac.SensorAggregatorReg.SampleSize, "u8");
+            this._streamingSamples = this.addRegister<[number]>(jacdac.SensorAggregatorReg.StreamingSamples, "u32");            
         }
     
 
@@ -44,7 +44,7 @@ namespace modules {
             this.start();
             const values = this._inputs.values as any[];
             values[0] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**
@@ -70,7 +70,7 @@ namespace modules {
             this.start();
             const values = this._inputs.values as any[];
             values[1] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**
@@ -80,7 +80,7 @@ namespace modules {
         //% callInDebugger
         //% group="Sensor Aggregator"
         //% weight=96
-        inputsReserved(): ([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[] {
+        inputsReserved(): ([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[] {
             this.start();            
             const values = this._inputs.pauseUntilValues() as any[];
             return values[2];
@@ -92,11 +92,11 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=95
-        setInputsReserved(value: ([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]) {
+        setInputsReserved(value: ([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]) {
             this.start();
             const values = this._inputs.values as any[];
             values[2] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**
@@ -122,7 +122,7 @@ namespace modules {
             this.start();
             const values = this._inputs.values as any[];
             values[3] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**
@@ -148,7 +148,7 @@ namespace modules {
             this.start();
             const values = this._inputs.values as any[];
             values[4] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**
@@ -174,7 +174,7 @@ namespace modules {
             this.start();
             const values = this._inputs.values as any[];
             values[5] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**
@@ -200,7 +200,7 @@ namespace modules {
             this.start();
             const values = this._inputs.values as any[];
             values[6] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**
@@ -226,7 +226,7 @@ namespace modules {
             this.start();
             const values = this._inputs.values as any[];
             values[7] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**
@@ -252,7 +252,7 @@ namespace modules {
             this.start();
             const values = this._inputs.values as any[];
             values[8] = value;
-            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.constants.SensorAggregatorSampleType, number])[]];
+            this._inputs.values = values as [number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]];
         }
 
         /**

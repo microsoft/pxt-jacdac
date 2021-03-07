@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Settings
     export const SRV_SETTINGS = 0x1107dc4a
     export const enum SettingsCmd {

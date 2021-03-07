@@ -34,7 +34,7 @@ namespace modules {
                 const delta = e.timestamp - now
                 if (delta > 0)
                     pause(delta)
-                this.musicClient.sendCommand(jacdac.JDPacket.from(jacdac.constants.BuzzerCmd.PlayTone, e.payload))
+                this.musicClient.sendCommand(jacdac.JDPacket.from(jacdac.BuzzerCmd.PlayTone, e.payload))
             }
         }
 
@@ -63,7 +63,7 @@ namespace modules {
     //% fixedInstances
     export class BuzzerClient extends jacdac.Client {
         constructor(role: string) {
-            super(jacdac.constants.SRV_BUZZER, role);
+            super(jacdac.SRV_BUZZER, role);
         }
 
         private player: JDMelodyPlayer
@@ -85,7 +85,7 @@ namespace modules {
         //% weight=76 blockGap=8
         //% group="Music"
         playTone(frequency: number, ms: number, volume = 255): void {
-            this.sendCommand(jacdac.JDPacket.from(jacdac.constants.BuzzerCmd.PlayTone, tonePayload(frequency, ms, volume << 2)))
+            this.sendCommand(jacdac.JDPacket.from(jacdac.BuzzerCmd.PlayTone, tonePayload(frequency, ms, volume << 2)))
         }
     }
 

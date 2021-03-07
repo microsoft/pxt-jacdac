@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Distance
     export const SRV_DISTANCE = 0x141a6b8a
 
@@ -41,7 +41,7 @@ namespace jacdac.constants {
          * Constant Variant (uint8_t). Determines the type of sensor used.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.DistanceVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.DistanceVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

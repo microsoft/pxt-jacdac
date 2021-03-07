@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Motor
     export const SRV_MOTOR = 0x17004cd8
     export const enum MotorReg {

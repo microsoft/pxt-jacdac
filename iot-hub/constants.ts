@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Azure IoT Hub
     export const SRV_IOT_HUB = 0x19ed364c
     export const enum IotHubCmd {

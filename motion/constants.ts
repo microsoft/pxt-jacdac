@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Motion
     export const SRV_MOTION = 0x1179a749
 
@@ -38,7 +38,7 @@ namespace jacdac.constants {
          * Constant Variant (uint8_t). Type of physical sensor
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.MotionVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.MotionVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

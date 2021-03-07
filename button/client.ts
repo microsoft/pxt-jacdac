@@ -5,14 +5,14 @@ namespace modules {
     //% fixedInstances
     export class ButtonClient extends jacdac.SensorClient<[number]> {
         constructor(role: string) {
-            super(jacdac.constants.SRV_BUTTON, role, "u8");
+            super(jacdac.SRV_BUTTON, role, "u8");
         }
 
         connectControllerButton(controllerButton: number) {
             this.start()
-            control.internalOnEvent(this.eventId, jacdac.constants.ButtonEvent.Down,
+            control.internalOnEvent(this.eventId, jacdac.ButtonEvent.Down,
                 () => control.raiseEvent(INTERNAL_KEY_DOWN, controllerButton))
-            control.internalOnEvent(this.eventId, jacdac.constants.ButtonEvent.Up,
+            control.internalOnEvent(this.eventId, jacdac.ButtonEvent.Up,
                 () => control.raiseEvent(INTERNAL_KEY_UP, controllerButton))
         }
 
@@ -35,7 +35,7 @@ namespace modules {
          */
         //% blockId=jacadacbtnonevent block="on %button $event"
         //% group="Buttons"
-        onEvent(event: jacdac.constants.ButtonEvent, handler: () => void) {
+        onEvent(event: jacdac.ButtonEvent, handler: () => void) {
             this.registerEvent(event, handler);
         }
     }

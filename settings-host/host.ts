@@ -2,17 +2,17 @@ namespace jacdac {
     export const SETTINGS_PREFIX = "jdsts:"
     export class SettingsHost extends Host {
         constructor(name: string) {
-            super(name, jacdac.constants.SRV_SETTINGS);
+            super(name, jacdac.SRV_SETTINGS);
         }
 
         handlePacket(packet: JDPacket) {
             switch (packet.serviceCommand) {
-                case jacdac.constants.SettingsCmd.Delete: this.handleDeleteCommand(packet); break;
-                case jacdac.constants.SettingsCmd.ListKeys: this.handleListKeys(packet); break;
-                case jacdac.constants.SettingsCmd.List: this.handleList(packet); break;
-                case jacdac.constants.SettingsCmd.Set: this.handleSetCommand(packet); break;
-                case jacdac.constants.SettingsCmd.Get: this.handleGetCommand(packet); break;
-                case jacdac.constants.SettingsCmd.Clear: this.handleClearCommand(packet); break;
+                case jacdac.SettingsCmd.Delete: this.handleDeleteCommand(packet); break;
+                case jacdac.SettingsCmd.ListKeys: this.handleListKeys(packet); break;
+                case jacdac.SettingsCmd.List: this.handleList(packet); break;
+                case jacdac.SettingsCmd.Set: this.handleSetCommand(packet); break;
+                case jacdac.SettingsCmd.Get: this.handleGetCommand(packet); break;
+                case jacdac.SettingsCmd.Clear: this.handleClearCommand(packet); break;
             }
         }
 
@@ -39,7 +39,7 @@ namespace jacdac {
             // return empty buffer if not found
             if (!value) value = Buffer.create(0)
             console.log(`get '${key}' -> '${id}' ${value.toHex()}`)
-            this.sendReport(JDPacket.from(jacdac.constants.SettingsCmd.Get, packet.data.concat(value)));
+            this.sendReport(JDPacket.from(jacdac.SettingsCmd.Get, packet.data.concat(value)));
         }
 
         private handleSetCommand(packet: JDPacket) {

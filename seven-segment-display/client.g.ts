@@ -12,13 +12,13 @@ namespace modules {
         private readonly _decimalPoint : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_SEVEN_SEGMENT_DISPLAY, role);
+            super(jacdac.SRV_SEVEN_SEGMENT_DISPLAY, role);
 
-            this._digits = this.addRegister<[Buffer]>(jacdac.constants.SevenSegmentDisplayReg.Digits, "b");
-            this._brightness = this.addRegister<[number]>(jacdac.constants.SevenSegmentDisplayReg.Brightness, "u0.16");
-            this._doubleDots = this.addRegister<[boolean]>(jacdac.constants.SevenSegmentDisplayReg.DoubleDots, "u8");
-            this._digitCount = this.addRegister<[number]>(jacdac.constants.SevenSegmentDisplayReg.DigitCount, "u8");
-            this._decimalPoint = this.addRegister<[boolean]>(jacdac.constants.SevenSegmentDisplayReg.DecimalPoint, "u8");            
+            this._digits = this.addRegister<[Buffer]>(jacdac.SevenSegmentDisplayReg.Digits, "b");
+            this._brightness = this.addRegister<[number]>(jacdac.SevenSegmentDisplayReg.Brightness, "u0.16");
+            this._doubleDots = this.addRegister<[boolean]>(jacdac.SevenSegmentDisplayReg.DoubleDots, "u8");
+            this._digitCount = this.addRegister<[number]>(jacdac.SevenSegmentDisplayReg.DigitCount, "u8");
+            this._decimalPoint = this.addRegister<[boolean]>(jacdac.SevenSegmentDisplayReg.DecimalPoint, "u8");            
         }
     
 

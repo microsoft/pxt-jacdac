@@ -1,7 +1,7 @@
 namespace jacdac {
     export class AccelerometerHost extends jacdac.SensorHost {
         constructor(dev: string) {
-            super(dev, jacdac.constants.SRV_ACCELEROMETER);
+            super(dev, jacdac.SRV_ACCELEROMETER);
 
             // todo events
         }

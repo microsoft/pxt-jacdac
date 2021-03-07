@@ -22,22 +22,22 @@ namespace modules {
         private readonly _roU8String : jacdac.RegisterClient<[number,string]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_PROTO_TEST, role);
+            super(jacdac.SRV_PROTO_TEST, role);
 
-            this._rwBool = this.addRegister<[boolean]>(jacdac.constants.ProtoTestReg.RwBool, "u8");
-            this._roBool = this.addRegister<[boolean]>(jacdac.constants.ProtoTestReg.RoBool, "u8");
-            this._rwU32 = this.addRegister<[number]>(jacdac.constants.ProtoTestReg.RwU32, "u32");
-            this._roU32 = this.addRegister<[number]>(jacdac.constants.ProtoTestReg.RoU32, "u32");
-            this._rwI32 = this.addRegister<[number]>(jacdac.constants.ProtoTestReg.RwI32, "i32");
-            this._roI32 = this.addRegister<[number]>(jacdac.constants.ProtoTestReg.RoI32, "i32");
-            this._rwString = this.addRegister<[string]>(jacdac.constants.ProtoTestReg.RwString, "s");
-            this._roString = this.addRegister<[string]>(jacdac.constants.ProtoTestReg.RoString, "s");
-            this._rwBytes = this.addRegister<[Buffer]>(jacdac.constants.ProtoTestReg.RwBytes, "b");
-            this._roBytes = this.addRegister<[Buffer]>(jacdac.constants.ProtoTestReg.RoBytes, "b");
-            this._rwI8U8U16I32 = this.addRegister<[number,number,number,number]>(jacdac.constants.ProtoTestReg.RwI8U8U16I32, "i8 u8 u16 i32");
-            this._roI8U8U16I32 = this.addRegister<[number,number,number,number]>(jacdac.constants.ProtoTestReg.RoI8U8U16I32, "i8 u8 u16 i32");
-            this._rwU8String = this.addRegister<[number,string]>(jacdac.constants.ProtoTestReg.RwU8String, "u8 s");
-            this._roU8String = this.addRegister<[number,string]>(jacdac.constants.ProtoTestReg.RoU8String, "u8 s");            
+            this._rwBool = this.addRegister<[boolean]>(jacdac.ProtoTestReg.RwBool, "u8");
+            this._roBool = this.addRegister<[boolean]>(jacdac.ProtoTestReg.RoBool, "u8");
+            this._rwU32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RwU32, "u32");
+            this._roU32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RoU32, "u32");
+            this._rwI32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RwI32, "i32");
+            this._roI32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RoI32, "i32");
+            this._rwString = this.addRegister<[string]>(jacdac.ProtoTestReg.RwString, "s");
+            this._roString = this.addRegister<[string]>(jacdac.ProtoTestReg.RoString, "s");
+            this._rwBytes = this.addRegister<[Buffer]>(jacdac.ProtoTestReg.RwBytes, "b");
+            this._roBytes = this.addRegister<[Buffer]>(jacdac.ProtoTestReg.RoBytes, "b");
+            this._rwI8U8U16I32 = this.addRegister<[number,number,number,number]>(jacdac.ProtoTestReg.RwI8U8U16I32, "i8 u8 u16 i32");
+            this._roI8U8U16I32 = this.addRegister<[number,number,number,number]>(jacdac.ProtoTestReg.RoI8U8U16I32, "i8 u8 u16 i32");
+            this._rwU8String = this.addRegister<[number,string]>(jacdac.ProtoTestReg.RwU8String, "u8 s");
+            this._roU8String = this.addRegister<[number,string]>(jacdac.ProtoTestReg.RoU8String, "u8 s");            
         }
     
 
@@ -446,7 +446,7 @@ namespace modules {
         //% block="on %prototest e bool"
         //% weight=67
         onEBool(handler: () => void): void {
-            this.registerEvent(jacdac.constants.ProtoTestEvent.EBool, handler);
+            this.registerEvent(jacdac.ProtoTestEvent.EBool, handler);
         }
         /**
          * An event raised when rw_u32 is modified
@@ -456,7 +456,7 @@ namespace modules {
         //% block="on %prototest e u32"
         //% weight=66
         onEU32(handler: () => void): void {
-            this.registerEvent(jacdac.constants.ProtoTestEvent.EU32, handler);
+            this.registerEvent(jacdac.ProtoTestEvent.EU32, handler);
         }
         /**
          * An event raised when rw_i32 is modified
@@ -466,7 +466,7 @@ namespace modules {
         //% block="on %prototest e i32"
         //% weight=65
         onEI32(handler: () => void): void {
-            this.registerEvent(jacdac.constants.ProtoTestEvent.EI32, handler);
+            this.registerEvent(jacdac.ProtoTestEvent.EI32, handler);
         }
         /**
          * An event raised when rw_string is modified
@@ -476,7 +476,7 @@ namespace modules {
         //% block="on %prototest e string"
         //% weight=64
         onEString(handler: () => void): void {
-            this.registerEvent(jacdac.constants.ProtoTestEvent.EString, handler);
+            this.registerEvent(jacdac.ProtoTestEvent.EString, handler);
         }
         /**
          * An event raised when rw_bytes is modified
@@ -486,7 +486,7 @@ namespace modules {
         //% block="on %prototest e bytes"
         //% weight=63
         onEBytes(handler: () => void): void {
-            this.registerEvent(jacdac.constants.ProtoTestEvent.EBytes, handler);
+            this.registerEvent(jacdac.ProtoTestEvent.EBytes, handler);
         }
         /**
          * An event raised when rw_i8_u8_u16_i32 is modified
@@ -496,7 +496,7 @@ namespace modules {
         //% block="on %prototest e i8 u8 u16 i32"
         //% weight=62
         onEI8U8U16I32(handler: () => void): void {
-            this.registerEvent(jacdac.constants.ProtoTestEvent.EI8U8U16I32, handler);
+            this.registerEvent(jacdac.ProtoTestEvent.EI8U8U16I32, handler);
         }
         /**
          * An event raised when rw_u8_string is modified
@@ -506,7 +506,7 @@ namespace modules {
         //% block="on %prototest e u8 string"
         //% weight=61
         onEU8String(handler: () => void): void {
-            this.registerEvent(jacdac.constants.ProtoTestEvent.EU8String, handler);
+            this.registerEvent(jacdac.ProtoTestEvent.EU8String, handler);
         }
 
         /**
@@ -518,7 +518,7 @@ namespace modules {
         //% weight=60
         cBool(bool: boolean): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.ProtoTestCmd.CBool, "u8", [bool]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CBool, "u8", [bool]))
         }
 
         /**
@@ -530,7 +530,7 @@ namespace modules {
         //% weight=59
         cU32(u32: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.ProtoTestCmd.CU32, "u32", [u32]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CU32, "u32", [u32]))
         }
 
         /**
@@ -542,7 +542,7 @@ namespace modules {
         //% weight=58
         cI32(i32: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.ProtoTestCmd.CI32, "i32", [i32]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CI32, "i32", [i32]))
         }
 
         /**
@@ -554,7 +554,7 @@ namespace modules {
         //% weight=57
         cString(string: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.ProtoTestCmd.CString, "s", [string]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CString, "s", [string]))
         }
 
         /**
@@ -566,7 +566,7 @@ namespace modules {
         //% weight=56
         cBytes(bytes: Buffer): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.ProtoTestCmd.CBytes, "b", [bytes]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CBytes, "b", [bytes]))
         }
 
         /**
@@ -578,7 +578,7 @@ namespace modules {
         //% weight=55
         cI8U8U16I32(i8: number, u8: number, u16: number, i32: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.ProtoTestCmd.CI8U8U16I32, "i8 u8 u16 i32", [i8, u8, u16, i32]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CI8U8U16I32, "i8 u8 u16 i32", [i8, u8, u16, i32]))
         }
 
         /**
@@ -590,7 +590,7 @@ namespace modules {
         //% weight=54
         cU8String(u8: number, string: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.ProtoTestCmd.CU8String, "u8 s", [u8, string]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CU8String, "u8 s", [u8, string]))
         }
     
     }

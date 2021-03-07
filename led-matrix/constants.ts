@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: LED Matrix
     export const SRV_LED_MATRIX = 0x110d154b
     export const enum LedMatrixReg {

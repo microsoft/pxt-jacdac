@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Equivalent CO₂
     export const SRV_E_CO2 = 0x169c9dc6
 
@@ -57,7 +57,7 @@ namespace jacdac.constants {
          * Constant Variant (uint8_t). Type of physical sensor and capabilities.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.ECO2Variant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.ECO2Variant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

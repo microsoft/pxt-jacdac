@@ -8,9 +8,9 @@ namespace modules {
         private readonly _volume : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_SOUND_PLAYER, role);
+            super(jacdac.SRV_SOUND_PLAYER, role);
 
-            this._volume = this.addRegister<[number]>(jacdac.constants.SoundPlayerReg.Volume, "u0.16");            
+            this._volume = this.addRegister<[number]>(jacdac.SoundPlayerReg.Volume, "u0.16");            
         }
     
 
@@ -55,7 +55,7 @@ namespace modules {
         //% weight=98
         play(volume: number, name: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.SoundPlayerCmd.Play, "u0.16 s", [volume, name]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SoundPlayerCmd.Play, "u0.16 s", [volume, name]))
         }
     
     }

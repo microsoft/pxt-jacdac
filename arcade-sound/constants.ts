@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Arcade sound
     export const SRV_ARCADE_SOUND = 0x1fc63606
     export const enum ArcadeSoundCmd {

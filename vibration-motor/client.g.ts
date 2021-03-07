@@ -8,9 +8,9 @@ namespace modules {
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_VIBRATION_MOTOR, role);
+            super(jacdac.SRV_VIBRATION_MOTOR, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.constants.VibrationMotorReg.Enabled, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.VibrationMotorReg.Enabled, "u8");            
         }
     
 
@@ -53,7 +53,7 @@ namespace modules {
         //% weight=98
         vibrate(duration: ([number, number])[], speed: undefined): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.VibrationMotorCmd.Vibrate, "r: u8 u0.8", [duration, speed]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.VibrationMotorCmd.Vibrate, "r: u8 u0.8", [duration, speed]))
         }
     
     }

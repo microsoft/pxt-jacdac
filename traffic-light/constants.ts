@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Traffic Light
     export const SRV_TRAFFIC_LIGHT = 0x15c38d9b
     export const enum TrafficLightReg {

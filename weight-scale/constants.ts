@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Weight Scale
     export const SRV_WEIGHT_SCALE = 0x1f4d5040
 
@@ -77,7 +77,7 @@ namespace jacdac.constants {
          * Constant Variant (uint8_t). The type of physical scale
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.WeightScaleVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.WeightScaleVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

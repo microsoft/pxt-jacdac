@@ -6,7 +6,7 @@ namespace modules {
     //% blockGap=8
     export class MultiTouchClient extends jacdac.SensorClient<number[]> {
         constructor(role: string) {
-            super(jacdac.constants.SRV_MULTITOUCH, role, "i32[]");
+            super(jacdac.SRV_MULTITOUCH, role, "i32[]");
         }
 
         /**
@@ -29,7 +29,7 @@ namespace modules {
          */
         //% blockId=jdmulittouchevent block="on %multiTouch $event at"
         //% group="Touch"
-        onEvent(event: jacdac.constants.MultitouchEvent, handler: (index: number) => void) {
+        onEvent(event: jacdac.MultitouchEvent, handler: (index: number) => void) {
             this.registerHandler(event, handler);
         }
     }

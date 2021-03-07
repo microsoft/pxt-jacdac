@@ -11,12 +11,12 @@ namespace modules {
         private readonly _columns : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_LED_MATRIX, role);
+            super(jacdac.SRV_LED_MATRIX, role);
 
-            this._leds = this.addRegister<[Buffer]>(jacdac.constants.LedMatrixReg.Leds, "b");
-            this._brightness = this.addRegister<[number]>(jacdac.constants.LedMatrixReg.Brightness, "u0.8");
-            this._rows = this.addRegister<[number]>(jacdac.constants.LedMatrixReg.Rows, "u16");
-            this._columns = this.addRegister<[number]>(jacdac.constants.LedMatrixReg.Columns, "u16");            
+            this._leds = this.addRegister<[Buffer]>(jacdac.LedMatrixReg.Leds, "b");
+            this._brightness = this.addRegister<[number]>(jacdac.LedMatrixReg.Brightness, "u0.8");
+            this._rows = this.addRegister<[number]>(jacdac.LedMatrixReg.Rows, "u16");
+            this._columns = this.addRegister<[number]>(jacdac.LedMatrixReg.Columns, "u16");            
         }
     
 

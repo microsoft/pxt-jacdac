@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: WIFI
     export const SRV_WIFI = 0x18aae1fa
 
@@ -45,7 +45,7 @@ namespace jacdac.constants {
     /**
      * pipe_report Results
      * ```
-     * const [flags, rssi, channel, bssid, ssid] = jdunpack<[jacdac.constants.WifiAPFlags, number, number, Buffer, string]>(buf, "u32 x[4] i8 u8 b[6] s[33]")
+     * const [flags, rssi, channel, bssid, ssid] = jdunpack<[jacdac.WifiAPFlags, number, number, Buffer, string]>(buf, "u32 x[4] i8 u8 b[6] s[33]")
      * ```
      */
 

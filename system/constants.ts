@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Common registers and commands
 
     export const enum SystemReadingThreshold { // uint8_t
@@ -188,7 +188,7 @@ namespace jacdac.constants {
          * add this report in frame along with the announce packet.
          *
          * ```
-         * const [code, vendorCode] = jdunpack<[jacdac.constants.SystemStatusCodes, number]>(buf, "u16 u16")
+         * const [code, vendorCode] = jdunpack<[jacdac.SystemStatusCodes, number]>(buf, "u16 u16")
          * ```
          */
         StatusCode = 0x103,
@@ -226,7 +226,7 @@ namespace jacdac.constants {
          * Notifies that the status code of the service changed.
          *
          * ```
-         * const [code, vendorCode] = jdunpack<[jacdac.constants.SystemStatusCodes, number]>(buf, "u16 u16")
+         * const [code, vendorCode] = jdunpack<[jacdac.SystemStatusCodes, number]>(buf, "u16 u16")
          * ```
          */
         //% block="status code changed"

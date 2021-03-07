@@ -5,14 +5,14 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class JoystickClient extends jacdac.SensorClient<[number,number]> {
 
-        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.JoystickVariant]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.JoystickVariant]>;
         private readonly _digital : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_JOYSTICK, role, "i1.15 i1.15");
+            super(jacdac.SRV_JOYSTICK, role, "i1.15 i1.15");
 
-            this._variant = this.addRegister<[jacdac.constants.JoystickVariant]>(jacdac.constants.JoystickReg.Variant, "u8");
-            this._digital = this.addRegister<[boolean]>(jacdac.constants.JoystickReg.Digital, "u8");            
+            this._variant = this.addRegister<[jacdac.JoystickVariant]>(jacdac.JoystickReg.Variant, "u8");
+            this._digital = this.addRegister<[boolean]>(jacdac.JoystickReg.Digital, "u8");            
         }
     
 
@@ -52,7 +52,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=98
-        variant(): jacdac.constants.JoystickVariant {
+        variant(): jacdac.JoystickVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

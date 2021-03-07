@@ -20,7 +20,7 @@ namespace modules {
     //% blockGap=8
     export class LEDClient extends jacdac.Client {
         constructor(role: string) {
-            super(jacdac.constants.SRV_LED, role);
+            super(jacdac.SRV_LED, role);
         }
 
         // set to negative for infinity
@@ -41,7 +41,7 @@ namespace modules {
         //% brightness.max=255
         //% group="Mono Light"
         setBrightness(brightness: number): void {
-            this.setReg(jacdac.constants.LedReg.Brightness, "u0.16", [brightness])
+            this.setReg(jacdac.LedReg.Brightness, "u0.16", [brightness])
         }
 
         /**
@@ -59,7 +59,7 @@ namespace modules {
                     anim.setNumber(NumberFormat.UInt16LE, i + 2, adj)
                 }
             }
-            this.setRegBuffer(jacdac.constants.LedReg.Animation, anim)
+            this.setRegBuffer(jacdac.LedReg.Animation, anim)
         }
     }
 

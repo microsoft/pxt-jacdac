@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Solenoid
     export const SRV_SOLENOID = 0x171723ca
 
@@ -22,7 +22,7 @@ namespace jacdac.constants {
          * Constant Variant (uint8_t). Describes the type of solenoid used.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.SolenoidVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.SolenoidVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

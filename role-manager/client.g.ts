@@ -20,10 +20,10 @@ namespace modules {
         private readonly _allRolesAllocated : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_ROLE_MANAGER, role);
+            super(jacdac.SRV_ROLE_MANAGER, role);
 
-            this._autoBind = this.addRegister<[boolean]>(jacdac.constants.RoleManagerReg.AutoBind, "u8");
-            this._allRolesAllocated = this.addRegister<[boolean]>(jacdac.constants.RoleManagerReg.AllRolesAllocated, "u8");            
+            this._autoBind = this.addRegister<[boolean]>(jacdac.RoleManagerReg.AutoBind, "u8");
+            this._allRolesAllocated = this.addRegister<[boolean]>(jacdac.RoleManagerReg.AllRolesAllocated, "u8");            
         }
     
 
@@ -83,7 +83,7 @@ namespace modules {
         //% block="on %rolemanager change"
         //% weight=97
         onChange(handler: () => void): void {
-            this.registerEvent(jacdac.constants.RoleManagerEvent.Change, handler);
+            this.registerEvent(jacdac.RoleManagerEvent.Change, handler);
         }
 
         /**
@@ -95,7 +95,7 @@ namespace modules {
         //% weight=96
         getRole(deviceId: Buffer, serviceIdx: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.RoleManagerCmd.GetRole, "b[8] u8", [deviceId, serviceIdx]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.RoleManagerCmd.GetRole, "b[8] u8", [deviceId, serviceIdx]))
         }
 
         /**
@@ -107,7 +107,7 @@ namespace modules {
         //% weight=95
         setRole(deviceId: Buffer, serviceIdx: number, role: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.RoleManagerCmd.SetRole, "b[8] u8 s", [deviceId, serviceIdx, role]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.RoleManagerCmd.SetRole, "b[8] u8 s", [deviceId, serviceIdx, role]))
         }
 
         /**
@@ -119,7 +119,7 @@ namespace modules {
         //% weight=94
         clearAllRoles(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.constants.RoleManagerCmd.ClearAllRoles))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.RoleManagerCmd.ClearAllRoles))
         }
     
     }

@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Speech synthesis
     export const SRV_SPEECH_SYNTHESIS = 0x1204d995
     export const enum SpeechSynthesisReg {

@@ -8,9 +8,9 @@ namespace modules {
         private readonly _clicksPerTurn : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_ROTARY_ENCODER, role, "i32");
+            super(jacdac.SRV_ROTARY_ENCODER, role, "i32");
 
-            this._clicksPerTurn = this.addRegister<[number]>(jacdac.constants.RotaryEncoderReg.ClicksPerTurn, "u16");            
+            this._clicksPerTurn = this.addRegister<[number]>(jacdac.RotaryEncoderReg.ClicksPerTurn, "u16");            
         }
     
 

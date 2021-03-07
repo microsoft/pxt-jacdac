@@ -8,9 +8,9 @@ namespace modules {
         private readonly _volume : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_BUZZER, role);
+            super(jacdac.SRV_BUZZER, role);
 
-            this._volume = this.addRegister<[number]>(jacdac.constants.BuzzerReg.Volume, "u0.8");            
+            this._volume = this.addRegister<[number]>(jacdac.BuzzerReg.Volume, "u0.8");            
         }
     
 
@@ -59,7 +59,7 @@ namespace modules {
         //% weight=98
         playTone(period: number, duty: number, duration: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.BuzzerCmd.PlayTone, "u16 u16 u16", [period, duty, duration]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BuzzerCmd.PlayTone, "u16 u16 u16", [period, duty, duration]))
         }
     
     }

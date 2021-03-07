@@ -11,12 +11,12 @@ namespace modules {
         private readonly _loadSpeed : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_MOTOR, role);
+            super(jacdac.SRV_MOTOR, role);
 
-            this._duty = this.addRegister<[number]>(jacdac.constants.MotorReg.Duty, "i1.15");
-            this._enabled = this.addRegister<[boolean]>(jacdac.constants.MotorReg.Enabled, "u8");
-            this._loadTorque = this.addRegister<[number]>(jacdac.constants.MotorReg.LoadTorque, "u16.16");
-            this._loadSpeed = this.addRegister<[number]>(jacdac.constants.MotorReg.LoadSpeed, "u16.16");            
+            this._duty = this.addRegister<[number]>(jacdac.MotorReg.Duty, "i1.15");
+            this._enabled = this.addRegister<[boolean]>(jacdac.MotorReg.Enabled, "u8");
+            this._loadTorque = this.addRegister<[number]>(jacdac.MotorReg.LoadTorque, "u16.16");
+            this._loadSpeed = this.addRegister<[number]>(jacdac.MotorReg.LoadSpeed, "u16.16");            
         }
     
 

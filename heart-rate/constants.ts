@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Heart Rate
     export const SRV_HEART_RATE = 0x166c6dc4
 
@@ -33,7 +33,7 @@ namespace jacdac.constants {
          * Constant Variant (uint8_t). The type of physical sensor
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.HeartRateVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.HeartRateVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

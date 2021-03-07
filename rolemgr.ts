@@ -129,30 +129,30 @@ namespace jacdac._rolemgr {
 
     export class RoleManagerHost extends Host {
         constructor() {
-            super("rolemgr", jacdac.constants.SRV_ROLE_MANAGER)
+            super("rolemgr", jacdac.SRV_ROLE_MANAGER)
         }
 
         public handlePacket(packet: JDPacket) {
-            jacdac.autoBind = this.handleRegBool(packet, jacdac.constants.RoleManagerReg.AutoBind, jacdac.autoBind)
+            jacdac.autoBind = this.handleRegBool(packet, jacdac.RoleManagerReg.AutoBind, jacdac.autoBind)
 
             switch (packet.serviceCommand) {
-                case jacdac.constants.RoleManagerReg.AllRolesAllocated | CMD_GET_REG:
-                    this.sendReport(JDPacket.jdpacked(jacdac.constants.RoleManagerReg.AllRolesAllocated | CMD_GET_REG,
+                case jacdac.RoleManagerReg.AllRolesAllocated | CMD_GET_REG:
+                    this.sendReport(JDPacket.jdpacked(jacdac.RoleManagerReg.AllRolesAllocated | CMD_GET_REG,
                         "u8", [_allClients.every(c => c.broadcast || !!c.device) ? 1 : 0]))
                     break
-                case jacdac.constants.RoleManagerCmd.GetRole:
+                case jacdac.RoleManagerCmd.GetRole:
                     if (packet.data.length == 9) {
                         const name = getRole(packet.data.slice(0, 8).toHex(), packet.data[8]) || ""
-                        this.sendReport(JDPacket.from(jacdac.constants.RoleManagerCmd.GetRole, packet.data.concat(Buffer.fromUTF8(name))))
+                        this.sendReport(JDPacket.from(jacdac.RoleManagerCmd.GetRole, packet.data.concat(Buffer.fromUTF8(name))))
                     }
                     break
-                case jacdac.constants.RoleManagerCmd.SetRole:
+                case jacdac.RoleManagerCmd.SetRole:
                     if (packet.data.length >= 9) {
                         setRole(packet.data.slice(0, 8).toHex(), packet.data[8], packet.data.slice(9).toString())
                         this.sendChangeEvent();
                     }
                     break
-                case jacdac.constants.RoleManagerCmd.ListStoredRoles:
+                case jacdac.RoleManagerCmd.ListStoredRoles:
                     OutPipe.respondForEach(packet, settings.list(roleSettingPrefix), k => {
                         const name = settings.readString(k)
                         const len = roleSettingPrefix.length
@@ -163,10 +163,10 @@ namespace jacdac._rolemgr {
                         ])
                     })
                     break
-                case jacdac.constants.RoleManagerCmd.ListRequiredRoles:
+                case jacdac.RoleManagerCmd.ListRequiredRoles:
                     OutPipe.respondForEach(packet, _allClients, packName)
                     break
-                case jacdac.constants.RoleManagerCmd.ClearAllRoles:
+                case jacdac.RoleManagerCmd.ClearAllRoles:
                     clearRoles()
                     this.sendChangeEvent();
                     break

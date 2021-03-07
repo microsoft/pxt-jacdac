@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Barcode reader
     export const SRV_BARCODE_READER = 0x1c739e6c
 
@@ -32,7 +32,7 @@ namespace jacdac.constants {
          * Constant. Reports the list of supported barcode formats, as documented in https://developer.mozilla.org/en-US/docs/Web/API/Barcode_Detection_API.
          *
          * ```
-         * const [format] = jdunpack<[jacdac.constants.BarcodeReaderFormat[]]>(buf, "u8[]")
+         * const [format] = jdunpack<[jacdac.BarcodeReaderFormat[]]>(buf, "u8[]")
          * ```
          */
         Formats = 0x180,
@@ -44,7 +44,7 @@ namespace jacdac.constants {
          * In case of numeric barcodes, the `data` field should contain the ASCII (which is the same as UTF8 in that case) representation of the number.
          *
          * ```
-         * const [format, data] = jdunpack<[jacdac.constants.BarcodeReaderFormat, string]>(buf, "u8 s")
+         * const [format, data] = jdunpack<[jacdac.BarcodeReaderFormat, string]>(buf, "u8 s")
          * ```
          */
         //% block="detect"

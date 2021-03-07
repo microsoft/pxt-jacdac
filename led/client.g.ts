@@ -11,18 +11,18 @@ namespace modules {
         private readonly _ledCount : jacdac.RegisterClient<[number]>;
         private readonly _waveLength : jacdac.RegisterClient<[number]>;
         private readonly _luminousIntensity : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.LedVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.LedVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_LED, role);
+            super(jacdac.SRV_LED, role);
 
-            this._brightness = this.addRegister<[number]>(jacdac.constants.LedReg.Brightness, "u0.16");
-            this._animation = this.addRegister<[number,([number, number, number, number])[]]>(jacdac.constants.LedReg.Animation, "u16 r: u8 u8 u8 u8");
-            this._maxPower = this.addRegister<[number]>(jacdac.constants.LedReg.MaxPower, "u16");
-            this._ledCount = this.addRegister<[number]>(jacdac.constants.LedReg.LedCount, "u16");
-            this._waveLength = this.addRegister<[number]>(jacdac.constants.LedReg.WaveLength, "u16");
-            this._luminousIntensity = this.addRegister<[number]>(jacdac.constants.LedReg.LuminousIntensity, "u16");
-            this._variant = this.addRegister<[jacdac.constants.LedVariant]>(jacdac.constants.LedReg.Variant, "u8");            
+            this._brightness = this.addRegister<[number]>(jacdac.LedReg.Brightness, "u0.16");
+            this._animation = this.addRegister<[number,([number, number, number, number])[]]>(jacdac.LedReg.Animation, "u16 r: u8 u8 u8 u8");
+            this._maxPower = this.addRegister<[number]>(jacdac.LedReg.MaxPower, "u16");
+            this._ledCount = this.addRegister<[number]>(jacdac.LedReg.LedCount, "u16");
+            this._waveLength = this.addRegister<[number]>(jacdac.LedReg.WaveLength, "u16");
+            this._luminousIntensity = this.addRegister<[number]>(jacdac.LedReg.LuminousIntensity, "u16");
+            this._variant = this.addRegister<[jacdac.LedVariant]>(jacdac.LedReg.Variant, "u8");            
         }
     
 
@@ -305,7 +305,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=83
-        variant(): jacdac.constants.LedVariant {
+        variant(): jacdac.LedVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

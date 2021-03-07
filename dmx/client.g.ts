@@ -8,9 +8,9 @@ namespace modules {
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_DMX, role);
+            super(jacdac.SRV_DMX, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.constants.DmxReg.Enabled, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.DmxReg.Enabled, "u8");            
         }
     
 
@@ -53,7 +53,7 @@ namespace modules {
         //% weight=98
         send(channels: Buffer): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.constants.DmxCmd.Send, "b", [channels]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.DmxCmd.Send, "b", [channels]))
         }
     
     }

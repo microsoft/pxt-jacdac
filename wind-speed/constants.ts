@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Wind speed
     export const SRV_WIND_SPEED = 0x1b591bbf
     export const enum WindSpeedReg {

@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Real time clock
     export const SRV_REAL_TIME_CLOCK = 0x1a8b1a28
 
@@ -43,7 +43,7 @@ namespace jacdac.constants {
          * Constant Variant (uint8_t). The type of physical clock used by the sensor.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.RealTimeClockVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.RealTimeClockVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

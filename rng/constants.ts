@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Random Number Generator
     export const SRV_RNG = 0x1789f0a2
 
@@ -26,7 +26,7 @@ namespace jacdac.constants {
          * `WebCrypto` refers is used in simulators, where the source of randomness comes from an advanced operating system.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.RngVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.RngVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: HID Keyboard
     export const SRV_HID_KEYBOARD = 0x18b05b6a
 
@@ -25,7 +25,7 @@ namespace jacdac.constants {
          * Presses a key or a sequence of keys down.
          *
          * ```
-         * const [rest] = jdunpack<[([number, jacdac.constants.HidKeyboardModifiers, jacdac.constants.HidKeyboardAction])[]]>(buf, "r: u16 u8 u8")
+         * const [rest] = jdunpack<[([number, jacdac.HidKeyboardModifiers, jacdac.HidKeyboardAction])[]]>(buf, "r: u16 u8 u8")
          * const [selector, modifiers, action] = rest[0]
          * ```
          */

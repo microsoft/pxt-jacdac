@@ -18,7 +18,7 @@ namespace jacdac {
         }
 
         protected notifyChange() {
-            this.sendCommand(JDPacket.from(CMD_SET_REG | jacdac.constants.SystemReg.Value, this.state))
+            this.sendCommand(JDPacket.from(CMD_SET_REG | jacdac.SystemReg.Value, this.state))
         }
     }
 }

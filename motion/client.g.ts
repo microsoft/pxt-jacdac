@@ -7,14 +7,14 @@ namespace modules {
 
         private readonly _maxDistance : jacdac.RegisterClient<[number]>;
         private readonly _angle : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.MotionVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.MotionVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_MOTION, role, "u8");
+            super(jacdac.SRV_MOTION, role, "u8");
 
-            this._maxDistance = this.addRegister<[number]>(jacdac.constants.MotionReg.MaxDistance, "u16.16");
-            this._angle = this.addRegister<[number]>(jacdac.constants.MotionReg.Angle, "u16");
-            this._variant = this.addRegister<[jacdac.constants.MotionVariant]>(jacdac.constants.MotionReg.Variant, "u8");            
+            this._maxDistance = this.addRegister<[number]>(jacdac.MotionReg.MaxDistance, "u16.16");
+            this._angle = this.addRegister<[number]>(jacdac.MotionReg.Angle, "u16");
+            this._variant = this.addRegister<[jacdac.MotionVariant]>(jacdac.MotionReg.Variant, "u8");            
         }
     
 
@@ -62,7 +62,7 @@ namespace modules {
         //% callInDebugger
         //% group="Movement"
         //% weight=97
-        variant(): jacdac.constants.MotionVariant {
+        variant(): jacdac.MotionVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];

@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Compass
     export const SRV_COMPASS = 0x15b7b9bf
     export const enum CompassReg {

@@ -5,14 +5,14 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SwitchClient extends jacdac.SensorClient<[boolean]> {
 
-        private readonly _variant : jacdac.RegisterClient<[jacdac.constants.SwitchVariant]>;
+        private readonly _variant : jacdac.RegisterClient<[jacdac.SwitchVariant]>;
         private readonly _autoOffDelay : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_SWITCH, role, "u8");
+            super(jacdac.SRV_SWITCH, role, "u8");
 
-            this._variant = this.addRegister<[jacdac.constants.SwitchVariant]>(jacdac.constants.SwitchReg.Variant, "u8");
-            this._autoOffDelay = this.addRegister<[number]>(jacdac.constants.SwitchReg.AutoOffDelay, "u16.16");            
+            this._variant = this.addRegister<[jacdac.SwitchVariant]>(jacdac.SwitchReg.Variant, "u8");
+            this._autoOffDelay = this.addRegister<[number]>(jacdac.SwitchReg.AutoOffDelay, "u16.16");            
         }
     
 
@@ -36,7 +36,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=99
-        variant(): jacdac.constants.SwitchVariant {
+        variant(): jacdac.SwitchVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -64,7 +64,7 @@ namespace modules {
         //% block="on %switch on"
         //% weight=97
         onOn(handler: () => void): void {
-            this.registerEvent(jacdac.constants.SwitchEvent.On, handler);
+            this.registerEvent(jacdac.SwitchEvent.On, handler);
         }
         /**
          * Emitted when switch goes from ``on`` to ``off``.
@@ -74,7 +74,7 @@ namespace modules {
         //% block="on %switch off"
         //% weight=96
         onOff(handler: () => void): void {
-            this.registerEvent(jacdac.constants.SwitchEvent.Off, handler);
+            this.registerEvent(jacdac.SwitchEvent.Off, handler);
         }
     
     }

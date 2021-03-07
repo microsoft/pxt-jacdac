@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Humidity
     export const SRV_HUMIDITY = 0x16c810b8
     export const enum HumidityReg {

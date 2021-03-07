@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Microphone
     export const SRV_MICROPHONE = 0x113dac86
     export const enum MicrophoneCmd {

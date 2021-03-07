@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Indexed screen
     export const SRV_INDEXED_SCREEN = 0x16fa36e5
     export const enum IndexedScreenCmd {

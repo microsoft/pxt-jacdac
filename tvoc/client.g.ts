@@ -11,12 +11,12 @@ namespace modules {
         private readonly _conditioningPeriod : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_TVOC, role, "u22.10");
+            super(jacdac.SRV_TVOC, role, "u22.10");
 
-            this._tVOCError = this.addRegister<[number]>(jacdac.constants.TvocReg.TVOCError, "u22.10");
-            this._minTVOC = this.addRegister<[number]>(jacdac.constants.TvocReg.MinTVOC, "u22.10");
-            this._maxTVOC = this.addRegister<[number]>(jacdac.constants.TvocReg.MaxTVOC, "u22.10");
-            this._conditioningPeriod = this.addRegister<[number]>(jacdac.constants.TvocReg.ConditioningPeriod, "u32");            
+            this._tVOCError = this.addRegister<[number]>(jacdac.TvocReg.TVOCError, "u22.10");
+            this._minTVOC = this.addRegister<[number]>(jacdac.TvocReg.MinTVOC, "u22.10");
+            this._maxTVOC = this.addRegister<[number]>(jacdac.TvocReg.MaxTVOC, "u22.10");
+            this._conditioningPeriod = this.addRegister<[number]>(jacdac.TvocReg.ConditioningPeriod, "u32");            
         }
     
 

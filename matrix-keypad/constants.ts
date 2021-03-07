@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Matrix Keypad
     export const SRV_MATRIX_KEYPAD = 0x13062dc8
 
@@ -53,7 +53,7 @@ namespace jacdac.constants {
          * as the service controlling the LED pixel on the keypad.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.MatrixKeypadVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.MatrixKeypadVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,

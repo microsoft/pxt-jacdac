@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Sensor
     export const enum SensorReg {
         /**

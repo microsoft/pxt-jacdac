@@ -12,13 +12,13 @@ namespace modules {
         private readonly _quietThreshold : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.constants.SRV_SOUND_LEVEL, role, "u0.16");
+            super(jacdac.SRV_SOUND_LEVEL, role, "u0.16");
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.constants.SoundLevelReg.Enabled, "u8");
-            this._minDecibels = this.addRegister<[number]>(jacdac.constants.SoundLevelReg.MinDecibels, "i16");
-            this._maxDecibels = this.addRegister<[number]>(jacdac.constants.SoundLevelReg.MaxDecibels, "i16");
-            this._loudThreshold = this.addRegister<[number]>(jacdac.constants.SoundLevelReg.LoudThreshold, "u0.16");
-            this._quietThreshold = this.addRegister<[number]>(jacdac.constants.SoundLevelReg.QuietThreshold, "u0.16");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.SoundLevelReg.Enabled, "u8");
+            this._minDecibels = this.addRegister<[number]>(jacdac.SoundLevelReg.MinDecibels, "i16");
+            this._maxDecibels = this.addRegister<[number]>(jacdac.SoundLevelReg.MaxDecibels, "i16");
+            this._loudThreshold = this.addRegister<[number]>(jacdac.SoundLevelReg.LoudThreshold, "u0.16");
+            this._quietThreshold = this.addRegister<[number]>(jacdac.SoundLevelReg.QuietThreshold, "u0.16");            
         }
     
 
@@ -185,7 +185,7 @@ namespace modules {
         //% block="on %soundlevel loud"
         //% weight=89
         onLoud(handler: () => void): void {
-            this.registerEvent(jacdac.constants.SoundLevelEvent.Loud, handler);
+            this.registerEvent(jacdac.SoundLevelEvent.Loud, handler);
         }
         /**
          * Raised when a period of quietness is detected
@@ -195,7 +195,7 @@ namespace modules {
         //% block="on %soundlevel quiet"
         //% weight=88
         onQuiet(handler: () => void): void {
-            this.registerEvent(jacdac.constants.SoundLevelEvent.Quiet, handler);
+            this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler);
         }
     
     }

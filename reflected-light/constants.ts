@@ -1,4 +1,4 @@
-namespace jacdac.constants {
+namespace jacdac {
     // Service: Reflected light
     export const SRV_REFLECTED_LIGHT = 0x126c4cb2
 
@@ -21,7 +21,7 @@ namespace jacdac.constants {
          * Constant Variant (uint8_t). Type of physical sensor used
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.constants.ReflectedLightVariant]>(buf, "u8")
+         * const [variant] = jdunpack<[jacdac.ReflectedLightVariant]>(buf, "u8")
          * ```
          */
         Variant = 0x107,
