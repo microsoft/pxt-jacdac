@@ -18,6 +18,8 @@ This project contains [Jacdac](https://aka.ms/jacdac) host and client services f
 
 ## Developer section
 
+Issues are tracked at https://github.com/microsoft/jacdac/issues .
+
 To build all projects
 ```
 sh mk.sh
