@@ -108,7 +108,7 @@ namespace jacdac {
                 if (current == null)
                     return; // ignore missing data
 
-                if (last == null || Math.abs(last - current) > threshold) {
+                if (last == null || Math.abs(last - current) >= threshold) {
                     last = current;
                     handler();
                 }
