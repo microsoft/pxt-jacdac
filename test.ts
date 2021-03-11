@@ -53,13 +53,149 @@ function addClient(cls: number, name: string) {
 }
 addClient(0x1f140409, "left_leg/acc1")
 addClient(0x1473a263, "btn1")
-addClient(0x16c810b8, "small/hum")
+//addClient(0x16c810b8, "small/hum")
 addClient(0x1421bac7, "small/temp")
 addClient(0x169c9dc6, "big/eco2")
-addClient(0x16c810b8, "big/hum")
+//addClient(0x16c810b8, "big/hum")
 addClient(0x1421bac7, "big/temp")
-addClient(0x16c810b8, "xsmall/hum")
+//addClient(0x16c810b8, "xsmall/hum")
 addClient(0x1421bac7, "xsmall/temp")
 
 
 jacdac._rolemgr.clearRoles()
+
+namespace jacdac {
+    // Service: Humidity
+    export const SRV_HUMIDITY = 0x16c810b8
+    export const enum HumidityReg {
+        /**
+         * Read-only %RH u22.10 (uint32_t). The relative humidity in percentage of full water saturation.
+         *
+         * ```
+         * const [humidity] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        Humidity = 0x101,
+
+        /**
+         * Read-only %RH u22.10 (uint32_t). The real humidity is between `humidity - humidity_error` and `humidity + humidity_error`.
+         *
+         * ```
+         * const [humidityError] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        HumidityError = 0x106,
+
+        /**
+         * Constant °C u22.10 (uint32_t). Lowest humidity that can be reported.
+         *
+         * ```
+         * const [minHumidity] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        MinHumidity = 0x104,
+
+        /**
+         * Constant °C u22.10 (uint32_t). Highest humidity that can be reported.
+         *
+         * ```
+         * const [maxHumidity] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        MaxHumidity = 0x105,
+    }
+
+}
+namespace modules {
+    /**
+     * A sensor measuring humidity of outside environment.
+     **/
+    //% fixedInstances blockGap=8
+    export class HumidityClient extends jacdac.SimpleSensorClient {
+
+        private readonly _humidityError : jacdac.RegisterClient<[number]>;
+        private readonly _minHumidity : jacdac.RegisterClient<[number]>;
+        private readonly _maxHumidity : jacdac.RegisterClient<[number]>;            
+
+        constructor(role: string) {
+            super(jacdac.SRV_HUMIDITY, role, "u22.10");
+
+            this._humidityError = this.addRegister<[number]>(jacdac.HumidityReg.HumidityError, "u22.10");
+            this._minHumidity = this.addRegister<[number]>(jacdac.HumidityReg.MinHumidity, "u22.10");
+            this._maxHumidity = this.addRegister<[number]>(jacdac.HumidityReg.MaxHumidity, "u22.10");            
+        }
+    
+
+        /**
+        * The relative humidity in percentage of full water saturation.
+        */
+        //% callInDebugger
+        //% group="Environment"
+        //% block="%humidity humidity"
+        //% blockId=jacdac_humidity_humidity___get
+        //% weight=100
+        humidity(): number {
+            return this.reading();
+        
+        }
+
+        /**
+        * The real humidity is between `humidity - humidity_error` and `humidity + humidity_error`.
+        */
+        //% callInDebugger
+        //% group="Environment"
+        //% weight=99
+        humidityError(): number {
+            this.start();            
+            const values = this._humidityError.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Lowest humidity that can be reported.
+        */
+        //% callInDebugger
+        //% group="Environment"
+        //% weight=98
+        minHumidity(): number {
+            this.start();            
+            const values = this._minHumidity.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Highest humidity that can be reported.
+        */
+        //% callInDebugger
+        //% group="Environment"
+        //% weight=97
+        maxHumidity(): number {
+            this.start();            
+            const values = this._maxHumidity.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+         * Run code when the humidity changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_humidity_on_humidity_change
+        //% block="on %humidity humidity changed by %threshold"
+        //% weight=96
+        //% threshold.defl=1
+        onHumidityChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
+
+    
+    }
+    //% fixedInstance whenUsed
+    export const humidity = new HumidityClient("humidity");
+}
+
+modules.humidity.start()
+forever(() => {
+    const h = modules.humidity.humidity()
+    console.log(`humidity: ${h}`)
+    pause(5000)
+})
