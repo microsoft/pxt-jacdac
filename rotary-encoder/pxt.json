@@ -1,19 +1,21 @@
 {
-    "name": "jacdac-rotary-encoder",
-    "version": "0.4.10",
-    "description": "MakeCode support for Jacdac Rotary encoder service",
+    "name": "jacdac-rotaryencoder",
+    "version": "0.0.0",
+    "description": "An incremental rotary encoder - converts angular motion of a shaft to digital signal.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker",
-        "microbit"
-    ],
-    "preferredEditor": "tsprj"
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }

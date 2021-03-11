@@ -1,19 +1,21 @@
 {
     "name": "jacdac-button",
-    "version": "0.4.10",
-    "description": "MakeCode support for Jacdac Button service",
+    "version": "0.0.0",
+    "description": "A push-button, which returns to inactive position when not operated anymore.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker",
-        "microbit"
-    ],
-    "preferredEditor": "tsprj"
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }
