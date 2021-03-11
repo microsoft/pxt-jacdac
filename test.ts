@@ -61,7 +61,6 @@ addClient(0x1421bac7, "big/temp")
 //addClient(0x16c810b8, "xsmall/hum")
 addClient(0x1421bac7, "xsmall/temp")
 
-
 jacdac._rolemgr.clearRoles()
 
 namespace jacdac {
@@ -197,5 +196,5 @@ modules.humidity.start()
 forever(() => {
     const h = modules.humidity.humidity()
     console.log(`humidity: ${h}`)
-    pause(5000)
+    pause(100)
 })

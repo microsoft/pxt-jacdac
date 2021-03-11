@@ -315,7 +315,7 @@ namespace jacdac {
         }
 
         handlePacket(packet: JDPacket): void {
-            if (packet.isRegGet && this.code !== packet.regCode) {
+            if (packet.isRegGet && this.code == packet.regCode) {
                 const d = packet.data
                 const changed = !d.equals(this.data);
                 this.data = d;
