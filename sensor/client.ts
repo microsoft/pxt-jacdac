@@ -37,7 +37,7 @@ namespace jacdac {
 
         public onStateChanged(handler: () => void) {
             this._reading.onDataChanged(handler);
-            this.start();
+            this.setStreaming(true);
         }
     }
 
@@ -104,12 +104,11 @@ namespace jacdac {
 
             let last: number = this.reading()
             this.onStateChanged(() => {
-                const current = this.reading()
+                const [current] = this._reading.values
                 if (current == null)
                     return; // ignore missing data
 
-                if ((last == null || !threshold)
-                    || Math.abs(last - current) > threshold) {
+                if (last == null || Math.abs(last - current) > threshold) {
                     last = current;
                     handler();
                 }
