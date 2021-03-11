@@ -44,8 +44,8 @@ namespace modules {
         */
         //% group="Environment"
         //% blockId=jacdac_barometer_on_pressure_change
-        //% block="on %barometer pressure changed by %threshold
-        //% weight=100
+        //% block="on %barometer pressure changed by %threshold"
+        //% weight=98
         //% threshold.defl=1
         onPressureChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

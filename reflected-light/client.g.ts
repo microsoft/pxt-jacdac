@@ -44,8 +44,8 @@ namespace modules {
         */
         //% group="Imaging"
         //% blockId=jacdac_reflectedlight_on_brightness_change
-        //% block="on %reflectedlight brightness changed by %threshold
-        //% weight=100
+        //% block="on %reflectedlight brightness changed by %threshold"
+        //% weight=98
         //% threshold.defl=0.1
         onBrightnessChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);
@@ -57,7 +57,7 @@ namespace modules {
         //% group="Imaging"
         //% blockId=jacdac_on_reflectedlight_dark
         //% block="on %reflectedlight dark"
-        //% weight=98
+        //% weight=97
         onDark(handler: () => void): void {
             this.registerEvent(jacdac.ReflectedLightEvent.Dark, handler);
         }
@@ -67,7 +67,7 @@ namespace modules {
         //% group="Imaging"
         //% blockId=jacdac_on_reflectedlight_light
         //% block="on %reflectedlight light"
-        //% weight=97
+        //% weight=96
         onLight(handler: () => void): void {
             this.registerEvent(jacdac.ReflectedLightEvent.Light, handler);
         }

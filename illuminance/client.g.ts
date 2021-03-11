@@ -46,8 +46,8 @@ namespace modules {
         */
         //% group="Imaging"
         //% blockId=jacdac_illuminance_on_light_change
-        //% block="on %illuminance light changed by %threshold
-        //% weight=100
+        //% block="on %illuminance light changed by %threshold"
+        //% weight=98
         //% threshold.defl=1
         onLightChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

@@ -180,8 +180,8 @@ namespace modules {
         */
         //% group="Sound"
         //% blockId=jacdac_soundlevel_on_sound_level_change
-        //% block="on %soundlevel sound level changed by %threshold
-        //% weight=100
+        //% block="on %soundlevel sound level changed by %threshold"
+        //% weight=89
         //% threshold.defl=0.1
         onSoundLevelChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);
@@ -193,7 +193,7 @@ namespace modules {
         //% group="Sound"
         //% blockId=jacdac_on_soundlevel_loud
         //% block="on %soundlevel loud"
-        //% weight=89
+        //% weight=88
         onLoud(handler: () => void): void {
             this.registerEvent(jacdac.SoundLevelEvent.Loud, handler);
         }
@@ -203,7 +203,7 @@ namespace modules {
         //% group="Sound"
         //% blockId=jacdac_on_soundlevel_quiet
         //% block="on %soundlevel quiet"
-        //% weight=88
+        //% weight=87
         onQuiet(handler: () => void): void {
             this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler);
         }

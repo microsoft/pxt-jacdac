@@ -44,8 +44,8 @@ namespace modules {
         */
         //% group="Slider"
         //% blockId=jacdac_potentiometer_on_position_change
-        //% block="on %potentiometer position changed by %threshold
-        //% weight=100
+        //% block="on %potentiometer position changed by %threshold"
+        //% weight=98
         //% threshold.defl=0.1
         onPositionChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

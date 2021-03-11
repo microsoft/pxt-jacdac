@@ -61,8 +61,8 @@ namespace modules {
         */
         //% group="Biometric"
         //% blockId=jacdac_heartrate_on_heart_rate_change
-        //% block="on %heartrate heart rate changed by %threshold
-        //% weight=100
+        //% block="on %heartrate heart rate changed by %threshold"
+        //% weight=97
         //% threshold.defl=1
         onHeartRateChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

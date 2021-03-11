@@ -74,8 +74,8 @@ namespace modules {
         */
         //% group="Compass"
         //% blockId=jacdac_compass_on_heading_change
-        //% block="on %compass heading changed by %threshold
-        //% weight=100
+        //% block="on %compass heading changed by %threshold"
+        //% weight=96
         //% threshold.defl=1
         onHeadingChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);
@@ -88,7 +88,7 @@ namespace modules {
         //% group="Compass"
         //% blockId=jacdac_compass_calibrate_cmd
         //% block="%compass calibrate"
-        //% weight=96
+        //% weight=95
         calibrate(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.CompassCmd.Calibrate))

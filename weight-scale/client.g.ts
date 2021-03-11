@@ -154,8 +154,8 @@ namespace modules {
         */
         //% group="Weight Scale"
         //% blockId=jacdac_weightscale_on_weight_change
-        //% block="on %weightscale weight changed by %threshold
-        //% weight=100
+        //% block="on %weightscale weight changed by %threshold"
+        //% weight=90
         //% threshold.defl=1
         onWeightChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);
@@ -168,7 +168,7 @@ namespace modules {
         //% group="Weight Scale"
         //% blockId=jacdac_weightscale_calibrate_zero_offset_cmd
         //% block="%weightscale calibrate zero offset"
-        //% weight=90
+        //% weight=89
         calibrateZeroOffset(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WeightScaleCmd.CalibrateZeroOffset))
@@ -180,7 +180,7 @@ namespace modules {
         //% group="Weight Scale"
         //% blockId=jacdac_weightscale_calibrate_gain_cmd
         //% block="%weightscale calibrate gain"
-        //% weight=89
+        //% weight=88
         calibrateGain(weight: number): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WeightScaleCmd.CalibrateGain, "u22.10", [weight]))

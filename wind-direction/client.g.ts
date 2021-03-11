@@ -58,8 +58,8 @@ namespace modules {
         */
         //% group="Wind direction"
         //% blockId=jacdac_winddirection_on_wind_direction_change
-        //% block="on %winddirection wind direction changed by %threshold
-        //% weight=100
+        //% block="on %winddirection wind direction changed by %threshold"
+        //% weight=97
         //% threshold.defl=1
         onWindDirectionChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

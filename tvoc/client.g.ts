@@ -86,8 +86,8 @@ namespace modules {
         */
         //% group="Environment"
         //% blockId=jacdac_tvoc_on_TVOC_change
-        //% block="on %tvoc TVOC changed by %threshold
-        //% weight=100
+        //% block="on %tvoc TVOC changed by %threshold"
+        //% weight=95
         //% threshold.defl=1
         onTVOCChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

@@ -241,8 +241,8 @@ namespace modules {
         */
         //% group="Power"
         //% blockId=jacdac_power_on_current_draw_change
-        //% block="on %power current draw changed by %threshold
-        //% weight=100
+        //% block="on %power current draw changed by %threshold"
+        //% weight=85
         //% threshold.defl=1
         onCurrentDrawChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

@@ -100,8 +100,8 @@ namespace modules {
         */
         //% group="Environment"
         //% blockId=jacdac_eco2_on_e_CO2_change
-        //% block="on %eco2 e CO2 changed by %threshold
-        //% weight=100
+        //% block="on %eco2 e CO2 changed by %threshold"
+        //% weight=94
         //% threshold.defl=1
         onECO2ChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

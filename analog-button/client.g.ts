@@ -100,8 +100,8 @@ namespace modules {
         */
         //% group="Button"
         //% blockId=jacdac_analogbutton_on_pressure_change
-        //% block="on %analogbutton pressure changed by %threshold
-        //% weight=100
+        //% block="on %analogbutton pressure changed by %threshold"
+        //% weight=94
         //% threshold.defl=0.1
         onPressureChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);
@@ -113,7 +113,7 @@ namespace modules {
         //% group="Button"
         //% blockId=jacdac_on_analogbutton_active
         //% block="on %analogbutton active"
-        //% weight=94
+        //% weight=93
         onActive(handler: () => void): void {
             this.registerEvent(jacdac.AnalogButtonEvent.Active, handler);
         }
@@ -123,7 +123,7 @@ namespace modules {
         //% group="Button"
         //% blockId=jacdac_on_analogbutton_inactive
         //% block="on %analogbutton inactive"
-        //% weight=93
+        //% weight=92
         onInactive(handler: () => void): void {
             this.registerEvent(jacdac.AnalogButtonEvent.Inactive, handler);
         }

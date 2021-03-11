@@ -72,8 +72,8 @@ namespace modules {
         */
         //% group="Environment"
         //% blockId=jacdac_humidity_on_humidity_change
-        //% block="on %humidity humidity changed by %threshold
-        //% weight=100
+        //% block="on %humidity humidity changed by %threshold"
+        //% weight=96
         //% threshold.defl=1
         onHumidityChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

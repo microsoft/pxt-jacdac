@@ -44,8 +44,8 @@ namespace modules {
         */
         //% group="Environment"
         //% blockId=jacdac_soilmoisture_on_moisture_change
-        //% block="on %soilmoisture moisture changed by %threshold
-        //% weight=100
+        //% block="on %soilmoisture moisture changed by %threshold"
+        //% weight=98
         //% threshold.defl=0.1
         onMoistureChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

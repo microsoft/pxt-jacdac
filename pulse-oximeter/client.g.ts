@@ -46,8 +46,8 @@ namespace modules {
         */
         //% group="Biometric"
         //% blockId=jacdac_pulseoximeter_on_oxygen_change
-        //% block="on %pulseoximeter oxygen changed by %threshold
-        //% weight=100
+        //% block="on %pulseoximeter oxygen changed by %threshold"
+        //% weight=98
         //% threshold.defl=1
         onOxygenChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

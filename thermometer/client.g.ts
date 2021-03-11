@@ -86,8 +86,8 @@ namespace modules {
         */
         //% group="Environment"
         //% blockId=jacdac_thermometer_on_temperature_change
-        //% block="on %thermometer temperature changed by %threshold
-        //% weight=100
+        //% block="on %thermometer temperature changed by %threshold"
+        //% weight=95
         //% threshold.defl=1
         onTemperatureChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

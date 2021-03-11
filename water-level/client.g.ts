@@ -44,8 +44,8 @@ namespace modules {
         */
         //% group="Water level"
         //% blockId=jacdac_waterlevel_on_level_change
-        //% block="on %waterlevel level changed by %threshold
-        //% weight=100
+        //% block="on %waterlevel level changed by %threshold"
+        //% weight=98
         //% threshold.defl=0.1
         onLevelChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

@@ -58,8 +58,8 @@ namespace modules {
         */
         //% group="Wind speed"
         //% blockId=jacdac_windspeed_on_wind_speed_change
-        //% block="on %windspeed wind speed changed by %threshold
-        //% weight=100
+        //% block="on %windspeed wind speed changed by %threshold"
+        //% weight=97
         //% threshold.defl=1
         onWindSpeedChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

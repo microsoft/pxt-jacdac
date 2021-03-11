@@ -72,8 +72,8 @@ namespace modules {
         */
         //% group="Distance"
         //% blockId=jacdac_distance_on_distance_change
-        //% block="on %distance distance changed by %threshold
-        //% weight=100
+        //% block="on %distance distance changed by %threshold"
+        //% weight=96
         //% threshold.defl=1
         onDistanceChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);
