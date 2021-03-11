@@ -3,7 +3,7 @@ namespace modules {
      * A thermometer measuring outside or inside environment.
      **/
     //% fixedInstances blockGap=8
-    export class ThermometerClient extends jacdac.SensorClient<[number]> {
+    export class ThermometerClient extends jacdac.SimpleSensorClient {
 
         private readonly _minTemperature : jacdac.RegisterClient<[number]>;
         private readonly _maxTemperature : jacdac.RegisterClient<[number]>;
@@ -29,9 +29,8 @@ namespace modules {
         //% blockId=jacdac_thermometer_temperature___get
         //% weight=100
         temperature(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -81,7 +80,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the temperature changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_thermometer_on_temperature_change
+        //% block="on %thermometer temperature changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onTemperatureChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

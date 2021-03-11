@@ -73,7 +73,6 @@ namespace modules {
             const values = this._bufferPending.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
 
         /**

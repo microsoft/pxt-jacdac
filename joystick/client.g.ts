@@ -69,7 +69,6 @@ namespace modules {
             const values = this._digital.pauseUntilValues() as any[];
             return !!values[0];
         }
- 
 
     
     }

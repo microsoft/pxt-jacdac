@@ -167,7 +167,6 @@ namespace modules {
             values[0] = value;
             this._smoothingTimeConstant.values = values as [number];
         }
- 
 
     
     }

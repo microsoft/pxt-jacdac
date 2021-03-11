@@ -3,7 +3,7 @@ namespace modules {
      * Measures the amount of liquid precipitation over an area in a predefined period of time.
      **/
     //% fixedInstances blockGap=8
-    export class RainGaugeClient extends jacdac.SensorClient<[number]> {
+    export class RainGaugeClient extends jacdac.SimpleSensorClient {
 
         private readonly _precipitationPrecision : jacdac.RegisterClient<[number]>;            
 
@@ -23,9 +23,8 @@ namespace modules {
         //% blockId=jacdac_raingauge_precipitation___get
         //% weight=100
         precipitation(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -39,7 +38,18 @@ namespace modules {
             const values = this._precipitationPrecision.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the precipitation changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_raingauge_on_precipitation_change
+        //% block="on %raingauge precipitation changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onPrecipitationChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

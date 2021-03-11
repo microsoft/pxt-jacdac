@@ -3,7 +3,7 @@ namespace modules {
      * A sensor that measures luminosity level.
      **/
     //% fixedInstances blockGap=8
-    export class LightLevelClient extends jacdac.SensorClient<[number]> {
+    export class LightLevelClient extends jacdac.SimpleSensorClient {
 
         private readonly _variant : jacdac.RegisterClient<[jacdac.LightLevelVariant]>;            
 
@@ -23,9 +23,8 @@ namespace modules {
         //% blockId=jacdac_lightlevel_light_level___get
         //% weight=100
         lightLevel(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -39,7 +38,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the light level changes by the given threshold value.
+        */
+        //% group="Imaging"
+        //% blockId=jacdac_lightlevel_on_light_level_change
+        //% block="on %lightlevel light level changed by %threshold
+        //% weight=100
+        //% threshold.defl=0.1
+        onLightLevelChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

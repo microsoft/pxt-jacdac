@@ -73,7 +73,6 @@ namespace modules {
             const values = this._allRolesAllocated.pauseUntilValues() as any[];
             return !!values[0];
         }
- 
 
         /**
          * Emit notifying that the internal state of the service changed.

@@ -85,4 +85,35 @@ namespace jacdac {
             super.handlePacket(packet)
         }
     }
+
+    //% fixedInstances
+    export class SimpleSensorClient extends SensorClient<[number]> {
+        constructor(deviceClass: number, role: string, stateFormat: string) {
+            super(deviceClass, role, stateFormat);
+        }
+
+        reading(): number {
+            this.setStreaming(true);
+            const values = this._reading.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        onReadingChangedBy(threshold: number, handler: () => void) {
+            if (!handler || threshold < 0)
+                return;
+
+            let last: number = this.reading()
+            this.onStateChanged(() => {
+                const current = this.reading()
+                if (current == null)
+                    return; // ignore missing data
+
+                if ((last == null || !threshold)
+                    || Math.abs(last - current) > threshold) {
+                    last = current;
+                    handler();
+                }
+            })
+        }
+    }
 }

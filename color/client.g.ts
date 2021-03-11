@@ -53,7 +53,6 @@ namespace modules {
             const values = this._reading.pauseUntilValues() as any[];
             return values[2];
         }
- 
 
     
     }

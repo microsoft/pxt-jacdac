@@ -3,7 +3,7 @@ namespace modules {
      * A sensor that measures the heading.
      **/
     //% fixedInstances blockGap=8
-    export class CompassClient extends jacdac.SensorClient<[number]> {
+    export class CompassClient extends jacdac.SimpleSensorClient {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
         private readonly _headingError : jacdac.RegisterClient<[number]>;            
@@ -25,9 +25,8 @@ namespace modules {
         //% blockId=jacdac_compass_heading___get
         //% weight=100
         heading(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -69,7 +68,18 @@ namespace modules {
             const values = this._headingError.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the heading changes by the given threshold value.
+        */
+        //% group="Compass"
+        //% blockId=jacdac_compass_on_heading_change
+        //% block="on %compass heading changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onHeadingChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
 
         /**

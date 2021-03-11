@@ -25,7 +25,6 @@ namespace modules {
             const values = this._reading.pauseUntilValues() as any[];
             return !!values[0];
         }
- 
 
         /**
          * Emitted when button goes from inactive (`pressed == 0`) to active.

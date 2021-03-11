@@ -300,7 +300,6 @@ namespace modules {
             values[0] = value;
             this._rotation.values = values as [number];
         }
- 
 
 
         /**

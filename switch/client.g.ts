@@ -54,7 +54,6 @@ namespace modules {
             const values = this._autoOffDelay.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
         /**
          * Emitted when switch goes from ``off`` to ``on``.

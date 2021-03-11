@@ -93,7 +93,6 @@ namespace modules {
             values[0] = value;
             this._maxRate.values = values as [number];
         }
- 
 
     
     }

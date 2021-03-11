@@ -3,7 +3,7 @@ namespace modules {
      * A sound level detector sensor, gives a relative indication of the sound level.
      **/
     //% fixedInstances blockGap=8
-    export class SoundLevelClient extends jacdac.SensorClient<[number]> {
+    export class SoundLevelClient extends jacdac.SimpleSensorClient {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
         private readonly _minDecibels : jacdac.RegisterClient<[number]>;
@@ -31,9 +31,8 @@ namespace modules {
         //% blockId=jacdac_soundlevel_sound_level___get
         //% weight=100
         soundLevel(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -175,7 +174,18 @@ namespace modules {
             values[0] = value;
             this._quietThreshold.values = values as [number];
         }
- 
+
+        /**
+         * Run code when the sound level changes by the given threshold value.
+        */
+        //% group="Sound"
+        //% blockId=jacdac_soundlevel_on_sound_level_change
+        //% block="on %soundlevel sound level changed by %threshold
+        //% weight=100
+        //% threshold.defl=0.1
+        onSoundLevelChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
         /**
          * Raised when a loud sound is detected

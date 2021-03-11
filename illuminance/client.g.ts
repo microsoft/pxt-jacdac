@@ -5,7 +5,7 @@ namespace modules {
      * Note that this is different from *luminance*, the amount of light that passes through, emits from, or reflects off an object.
      **/
     //% fixedInstances blockGap=8
-    export class IlluminanceClient extends jacdac.SensorClient<[number]> {
+    export class IlluminanceClient extends jacdac.SimpleSensorClient {
 
         private readonly _lightError : jacdac.RegisterClient<[number]>;            
 
@@ -25,9 +25,8 @@ namespace modules {
         //% blockId=jacdac_illuminance_light___get
         //% weight=100
         light(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -41,7 +40,18 @@ namespace modules {
             const values = this._lightError.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the light changes by the given threshold value.
+        */
+        //% group="Imaging"
+        //% blockId=jacdac_illuminance_on_light_change
+        //% block="on %illuminance light changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onLightChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

@@ -3,7 +3,7 @@ namespace modules {
      * An incremental rotary encoder - converts angular motion of a shaft to digital signal.
      **/
     //% fixedInstances blockGap=8
-    export class RotaryEncoderClient extends jacdac.SensorClient<[number]> {
+    export class RotaryEncoderClient extends jacdac.SimpleSensorClient {
 
         private readonly _clicksPerTurn : jacdac.RegisterClient<[number]>;            
 
@@ -24,9 +24,8 @@ namespace modules {
         //% blockId=jacdac_rotaryencoder_position___get
         //% weight=100
         position(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -40,7 +39,18 @@ namespace modules {
             const values = this._clicksPerTurn.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the position changes by the given threshold value.
+        */
+        //% group="Slider"
+        //% blockId=jacdac_rotaryencoder_on_position_change
+        //% block="on %rotaryencoder position changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onPositionChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

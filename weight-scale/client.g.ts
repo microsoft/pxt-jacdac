@@ -3,7 +3,7 @@ namespace modules {
      * A weight measuring sensor.
      **/
     //% fixedInstances blockGap=8
-    export class WeightScaleClient extends jacdac.SensorClient<[number]> {
+    export class WeightScaleClient extends jacdac.SimpleSensorClient {
 
         private readonly _weightError : jacdac.RegisterClient<[number]>;
         private readonly _zeroOffset : jacdac.RegisterClient<[number]>;
@@ -35,9 +35,8 @@ namespace modules {
         //% blockId=jacdac_weightscale_weight___get
         //% weight=100
         weight(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -149,7 +148,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the weight changes by the given threshold value.
+        */
+        //% group="Weight Scale"
+        //% blockId=jacdac_weightscale_on_weight_change
+        //% block="on %weightscale weight changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onWeightChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
 
         /**

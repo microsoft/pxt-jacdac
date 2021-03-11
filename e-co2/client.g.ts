@@ -3,7 +3,7 @@ namespace modules {
      * Measures equivalent CO₂ levels.
      **/
     //% fixedInstances blockGap=8
-    export class ECO2Client extends jacdac.SensorClient<[number]> {
+    export class ECO2Client extends jacdac.SimpleSensorClient {
 
         private readonly _eCO2Error : jacdac.RegisterClient<[number]>;
         private readonly _minECO2 : jacdac.RegisterClient<[number]>;
@@ -31,9 +31,8 @@ namespace modules {
         //% blockId=jacdac_eco2_e_CO2___get
         //% weight=100
         eCO2(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -95,7 +94,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the e CO2 changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_eco2_on_e_CO2_change
+        //% block="on %eco2 e CO2 changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onECO2ChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

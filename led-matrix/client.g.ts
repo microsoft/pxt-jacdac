@@ -103,7 +103,6 @@ namespace modules {
             const values = this._columns.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
     
     }

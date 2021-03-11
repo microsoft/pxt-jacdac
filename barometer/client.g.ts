@@ -3,7 +3,7 @@ namespace modules {
      * A sensor measuring air pressure of outside environment.
      **/
     //% fixedInstances blockGap=8
-    export class BarometerClient extends jacdac.SensorClient<[number]> {
+    export class BarometerClient extends jacdac.SimpleSensorClient {
 
         private readonly _pressureError : jacdac.RegisterClient<[number]>;            
 
@@ -23,9 +23,8 @@ namespace modules {
         //% blockId=jacdac_barometer_pressure___get
         //% weight=100
         pressure(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -39,7 +38,18 @@ namespace modules {
             const values = this._pressureError.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the pressure changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_barometer_on_pressure_change
+        //% block="on %barometer pressure changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onPressureChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

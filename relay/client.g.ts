@@ -69,7 +69,6 @@ namespace modules {
             const values = this._maxSwitchingCurrent.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
         /**
          * Emitted when relay goes from ``off`` to ``on`` state.

@@ -3,7 +3,7 @@ namespace modules {
      * A soil moisture sensor.
      **/
     //% fixedInstances blockGap=8
-    export class SoilMoistureClient extends jacdac.SensorClient<[number]> {
+    export class SoilMoistureClient extends jacdac.SimpleSensorClient {
 
         private readonly _variant : jacdac.RegisterClient<[jacdac.SoilMoistureVariant]>;            
 
@@ -23,9 +23,8 @@ namespace modules {
         //% blockId=jacdac_soilmoisture_moisture___get
         //% weight=100
         moisture(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -39,7 +38,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the moisture changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_soilmoisture_on_moisture_change
+        //% block="on %soilmoisture moisture changed by %threshold
+        //% weight=100
+        //% threshold.defl=0.1
+        onMoistureChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

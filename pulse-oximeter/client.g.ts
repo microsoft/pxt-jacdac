@@ -5,7 +5,7 @@ namespace modules {
      * **Jacdac is not suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**
      **/
     //% fixedInstances blockGap=8
-    export class PulseOximeterClient extends jacdac.SensorClient<[number]> {
+    export class PulseOximeterClient extends jacdac.SimpleSensorClient {
 
         private readonly _oxygenError : jacdac.RegisterClient<[number]>;            
 
@@ -25,9 +25,8 @@ namespace modules {
         //% blockId=jacdac_pulseoximeter_oxygen___get
         //% weight=100
         oxygen(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -41,7 +40,18 @@ namespace modules {
             const values = this._oxygenError.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the oxygen changes by the given threshold value.
+        */
+        //% group="Biometric"
+        //% blockId=jacdac_pulseoximeter_on_oxygen_change
+        //% block="on %pulseoximeter oxygen changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onOxygenChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

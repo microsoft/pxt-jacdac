@@ -436,7 +436,6 @@ namespace modules {
             const values = this._roU8String.pauseUntilValues() as any[];
             return values[1];
         }
- 
 
         /**
          * An event raised when rw_bool is modified

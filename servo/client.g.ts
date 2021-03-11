@@ -237,7 +237,6 @@ namespace modules {
             const values = this._responseSpeed.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
     
     }

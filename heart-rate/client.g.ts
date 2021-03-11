@@ -6,7 +6,7 @@ namespace modules {
      * **Jacdac is NOT suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**
      **/
     //% fixedInstances blockGap=8
-    export class HeartRateClient extends jacdac.SensorClient<[number]> {
+    export class HeartRateClient extends jacdac.SimpleSensorClient {
 
         private readonly _heartRateError : jacdac.RegisterClient<[number]>;
         private readonly _variant : jacdac.RegisterClient<[jacdac.HeartRateVariant]>;            
@@ -28,9 +28,8 @@ namespace modules {
         //% blockId=jacdac_heartrate_heart_rate___get
         //% weight=100
         heartRate(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -56,7 +55,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the heart rate changes by the given threshold value.
+        */
+        //% group="Biometric"
+        //% blockId=jacdac_heartrate_on_heart_rate_change
+        //% block="on %heartrate heart rate changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onHeartRateChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

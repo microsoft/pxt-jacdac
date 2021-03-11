@@ -3,7 +3,7 @@ namespace modules {
      * A sensor that measures wind speed.
      **/
     //% fixedInstances blockGap=8
-    export class WindSpeedClient extends jacdac.SensorClient<[number]> {
+    export class WindSpeedClient extends jacdac.SimpleSensorClient {
 
         private readonly _windSpeedError : jacdac.RegisterClient<[number]>;
         private readonly _maxWindSpeed : jacdac.RegisterClient<[number]>;            
@@ -25,9 +25,8 @@ namespace modules {
         //% blockId=jacdac_windspeed_wind_speed___get
         //% weight=100
         windSpeed(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -53,7 +52,18 @@ namespace modules {
             const values = this._maxWindSpeed.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the wind speed changes by the given threshold value.
+        */
+        //% group="Wind speed"
+        //% blockId=jacdac_windspeed_on_wind_speed_change
+        //% block="on %windspeed wind speed changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onWindSpeedChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

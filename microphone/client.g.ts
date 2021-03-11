@@ -39,7 +39,6 @@ namespace modules {
             values[0] = value;
             this._samplingPeriod.values = values as [number];
         }
- 
 
     
     }

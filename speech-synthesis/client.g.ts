@@ -154,7 +154,6 @@ namespace modules {
             values[0] = value;
             this._rate.values = values as [number];
         }
- 
 
 
         /**

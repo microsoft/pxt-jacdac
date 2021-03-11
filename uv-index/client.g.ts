@@ -3,7 +3,7 @@ namespace modules {
      * The UV Index is a measure of the intensity of ultraviolet (UV) rays from the Sun.
      **/
     //% fixedInstances blockGap=8
-    export class UvIndexClient extends jacdac.SensorClient<[number]> {
+    export class UvIndexClient extends jacdac.SimpleSensorClient {
 
         private readonly _uvIndexError : jacdac.RegisterClient<[number]>;
         private readonly _variant : jacdac.RegisterClient<[jacdac.UvIndexVariant]>;            
@@ -25,9 +25,8 @@ namespace modules {
         //% blockId=jacdac_uvindex_uv_index___get
         //% weight=100
         uvIndex(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -53,7 +52,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the uv index changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_uvindex_on_uv_index_change
+        //% block="on %uvindex uv index changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onUvIndexChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

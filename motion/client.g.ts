@@ -67,8 +67,17 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
+        /**
+         * A movement was detected.
+         */
+        //% group="Movement"
+        //% blockId=jacdac_on_motion_movement
+        //% block="on %motion movement"
+        //% weight=96
+        onMovement(handler: () => void): void {
+            this.registerEvent(jacdac.MotionEvent.Movement, handler);
+        }
     
     }
     //% fixedInstance whenUsed

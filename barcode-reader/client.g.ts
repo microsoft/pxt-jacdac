@@ -55,7 +55,6 @@ namespace modules {
             const values = this._formats.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
         /**
          * Raised when a bar code is detected and decoded. If the reader detects multiple codes, it will issue multiple events.

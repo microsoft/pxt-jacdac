@@ -3,7 +3,7 @@ namespace modules {
      * A sensor that detects light and dark surfaces, commonly used for line following robots.
      **/
     //% fixedInstances blockGap=8
-    export class ReflectedLightClient extends jacdac.SensorClient<[number]> {
+    export class ReflectedLightClient extends jacdac.SimpleSensorClient {
 
         private readonly _variant : jacdac.RegisterClient<[jacdac.ReflectedLightVariant]>;            
 
@@ -23,9 +23,8 @@ namespace modules {
         //% blockId=jacdac_reflectedlight_brightness___get
         //% weight=100
         brightness(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -39,7 +38,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the brightness changes by the given threshold value.
+        */
+        //% group="Imaging"
+        //% blockId=jacdac_reflectedlight_on_brightness_change
+        //% block="on %reflectedlight brightness changed by %threshold
+        //% weight=100
+        //% threshold.defl=0.1
+        onBrightnessChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
         /**
          * The sensor detected a transition from light to dark

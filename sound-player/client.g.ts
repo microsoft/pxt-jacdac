@@ -43,7 +43,6 @@ namespace modules {
             values[0] = value;
             this._volume.values = values as [number];
         }
- 
 
 
         /**

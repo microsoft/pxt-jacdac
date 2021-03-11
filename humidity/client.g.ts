@@ -3,7 +3,7 @@ namespace modules {
      * A sensor measuring humidity of outside environment.
      **/
     //% fixedInstances blockGap=8
-    export class HumidityClient extends jacdac.SensorClient<[number]> {
+    export class HumidityClient extends jacdac.SimpleSensorClient {
 
         private readonly _humidityError : jacdac.RegisterClient<[number]>;
         private readonly _minHumidity : jacdac.RegisterClient<[number]>;
@@ -27,9 +27,8 @@ namespace modules {
         //% blockId=jacdac_humidity_humidity___get
         //% weight=100
         humidity(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -67,7 +66,18 @@ namespace modules {
             const values = this._maxHumidity.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the humidity changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_humidity_on_humidity_change
+        //% block="on %humidity humidity changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onHumidityChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

@@ -3,7 +3,7 @@ namespace modules {
      * A sensor that measures wind direction.
      **/
     //% fixedInstances blockGap=8
-    export class WindDirectionClient extends jacdac.SensorClient<[number]> {
+    export class WindDirectionClient extends jacdac.SimpleSensorClient {
 
         private readonly _windDirectionError : jacdac.RegisterClient<[number]>;
         private readonly _windDirectionOffset : jacdac.RegisterClient<[number]>;            
@@ -25,9 +25,8 @@ namespace modules {
         //% blockId=jacdac_winddirection_wind_direction___get
         //% weight=100
         windDirection(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -53,7 +52,18 @@ namespace modules {
             const values = this._windDirectionOffset.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the wind direction changes by the given threshold value.
+        */
+        //% group="Wind direction"
+        //% blockId=jacdac_winddirection_on_wind_direction_change
+        //% block="on %winddirection wind direction changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onWindDirectionChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

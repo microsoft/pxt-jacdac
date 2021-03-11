@@ -3,7 +3,7 @@ namespace modules {
      * A sensor that measures liquid/water level.
      **/
     //% fixedInstances blockGap=8
-    export class WaterLevelClient extends jacdac.SensorClient<[number]> {
+    export class WaterLevelClient extends jacdac.SimpleSensorClient {
 
         private readonly _variant : jacdac.RegisterClient<[jacdac.WaterLevelVariant]>;            
 
@@ -23,9 +23,8 @@ namespace modules {
         //% blockId=jacdac_waterlevel_level___get
         //% weight=100
         level(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -39,7 +38,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the level changes by the given threshold value.
+        */
+        //% group="Water level"
+        //% blockId=jacdac_waterlevel_on_level_change
+        //% block="on %waterlevel level changed by %threshold
+        //% weight=100
+        //% threshold.defl=0.1
+        onLevelChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

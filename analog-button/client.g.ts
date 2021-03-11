@@ -3,7 +3,7 @@ namespace modules {
      * A capacitive or pressure sensitive push-button.
      **/
     //% fixedInstances blockGap=8
-    export class AnalogButtonClient extends jacdac.SensorClient<[number]> {
+    export class AnalogButtonClient extends jacdac.SimpleSensorClient {
 
         private readonly _inactiveThreshold : jacdac.RegisterClient<[number]>;
         private readonly _activeThreshold : jacdac.RegisterClient<[number]>;
@@ -27,9 +27,8 @@ namespace modules {
         //% blockId=jacdac_analogbutton_pressure___get
         //% weight=100
         pressure(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -95,7 +94,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the pressure changes by the given threshold value.
+        */
+        //% group="Button"
+        //% blockId=jacdac_analogbutton_on_pressure_change
+        //% block="on %analogbutton pressure changed by %threshold
+        //% weight=100
+        //% threshold.defl=0.1
+        onPressureChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
         /**
          * Emitted when button goes from inactive (pressure less than threshold) to active.

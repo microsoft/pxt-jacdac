@@ -41,7 +41,6 @@ namespace modules {
             values[0] = value ? 1 : 0;
             this._enabled.values = values as [boolean];
         }
- 
 
 
         /**

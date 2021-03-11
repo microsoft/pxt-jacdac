@@ -125,7 +125,6 @@ namespace modules {
             values[0] = value;
             this._frequencyBand.values = values as [number];
         }
- 
 
         /**
          * Raised when a string packet is received

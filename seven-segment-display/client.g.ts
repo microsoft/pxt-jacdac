@@ -155,7 +155,6 @@ namespace modules {
             const values = this._decimalPoint.pauseUntilValues() as any[];
             return !!values[0];
         }
- 
 
     
     }

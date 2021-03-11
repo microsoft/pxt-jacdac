@@ -105,7 +105,6 @@ namespace modules {
             const values = this._loadSpeed.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
     
     }

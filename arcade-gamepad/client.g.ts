@@ -56,7 +56,6 @@ namespace modules {
             const values = this._availableButtons.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
         /**
          * Emitted when button goes from inactive to active.

@@ -3,7 +3,7 @@ namespace modules {
      * Measures equivalent Total Volatile Organic Compound levels.
      **/
     //% fixedInstances blockGap=8
-    export class TvocClient extends jacdac.SensorClient<[number]> {
+    export class TvocClient extends jacdac.SimpleSensorClient {
 
         private readonly _tVOCError : jacdac.RegisterClient<[number]>;
         private readonly _minTVOC : jacdac.RegisterClient<[number]>;
@@ -29,9 +29,8 @@ namespace modules {
         //% blockId=jacdac_tvoc_TVOC___get
         //% weight=100
         tVOC(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -81,7 +80,18 @@ namespace modules {
             const values = this._conditioningPeriod.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the TVOC changes by the given threshold value.
+        */
+        //% group="Environment"
+        //% blockId=jacdac_tvoc_on_TVOC_change
+        //% block="on %tvoc TVOC changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onTVOCChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

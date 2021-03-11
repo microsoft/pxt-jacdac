@@ -84,7 +84,6 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
         /**
          * Emitted when a key, at the given index, goes from inactive (`pressed == 0`) to active.

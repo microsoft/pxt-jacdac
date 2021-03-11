@@ -3,7 +3,7 @@ namespace modules {
      * A sensor that determines the distance of an object without any physical contact involved.
      **/
     //% fixedInstances blockGap=8
-    export class DistanceClient extends jacdac.SensorClient<[number]> {
+    export class DistanceClient extends jacdac.SimpleSensorClient {
 
         private readonly _minRange : jacdac.RegisterClient<[number]>;
         private readonly _maxRange : jacdac.RegisterClient<[number]>;
@@ -27,9 +27,8 @@ namespace modules {
         //% blockId=jacdac_distance_distance___get
         //% weight=100
         distance(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -67,7 +66,18 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
+
+        /**
+         * Run code when the distance changes by the given threshold value.
+        */
+        //% group="Distance"
+        //% blockId=jacdac_distance_on_distance_change
+        //% block="on %distance distance changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onDistanceChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

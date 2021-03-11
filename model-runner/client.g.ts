@@ -191,7 +191,6 @@ namespace modules {
             const values = this._parallel.pauseUntilValues() as any[];
             return !!values[0];
         }
- 
 
 
         /**

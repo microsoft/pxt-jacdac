@@ -11,7 +11,6 @@ namespace modules {
             
         }
     
- 
 
         /**
          * Notifies that some setting have been modified.

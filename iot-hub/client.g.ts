@@ -87,7 +87,6 @@ namespace modules {
             const values = this._deviceId.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
         /**
          * Emitted upon successful connection.

@@ -25,7 +25,6 @@ namespace modules {
             const values = this._connected.pauseUntilValues() as any[];
             return !!values[0];
         }
- 
 
         /**
          * Emitted upon successful join and IP address assignment.

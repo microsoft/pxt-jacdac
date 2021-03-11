@@ -3,7 +3,7 @@ namespace modules {
      * A power-provider service.
      **/
     //% fixedInstances blockGap=8
-    export class PowerClient extends jacdac.SensorClient<[number]> {
+    export class PowerClient extends jacdac.SimpleSensorClient {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
         private readonly _maxPower : jacdac.RegisterClient<[number]>;
@@ -109,9 +109,8 @@ namespace modules {
         //% blockId=jacdac_power_current_draw___get
         //% weight=95
         currentDraw(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return this.reading();
+        
         }
 
         /**
@@ -236,7 +235,18 @@ namespace modules {
             values[0] = value;
             this._priorityOffset.values = values as [number];
         }
- 
+
+        /**
+         * Run code when the current draw changes by the given threshold value.
+        */
+        //% group="Power"
+        //% blockId=jacdac_power_on_current_draw_change
+        //% block="on %power current draw changed by %threshold
+        //% weight=100
+        //% threshold.defl=1
+        onCurrentDrawChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
+        }
 
     
     }

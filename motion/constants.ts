@@ -44,4 +44,12 @@ namespace jacdac {
         Variant = 0x107,
     }
 
+    export const enum MotionEvent {
+        /**
+         * A movement was detected.
+         */
+        //% block="movement"
+        Movement = 0x1,
+    }
+
 }

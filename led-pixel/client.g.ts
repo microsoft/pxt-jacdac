@@ -238,7 +238,6 @@ namespace modules {
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
         }
- 
 
 
         /**

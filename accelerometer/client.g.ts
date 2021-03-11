@@ -95,7 +95,6 @@ namespace modules {
             values[0] = value;
             this._maxForce.values = values as [number];
         }
- 
 
         /**
          * Emitted when accelerometer is tilted in the given direction.
