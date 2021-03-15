@@ -29,7 +29,6 @@ namespace jacdac._rolemgr {
     class RoleBinding {
         boundToDev: Device
         boundToServiceIdx: number
-        changed = false;
 
         constructor(
             public role: string,
@@ -52,7 +51,6 @@ namespace jacdac._rolemgr {
             setRole(dev.deviceId, serviceIdx, this.role)
             this.boundToDev = dev
             this.boundToServiceIdx = serviceIdx
-            this.changed = true;
         }
     }
 
@@ -179,10 +177,23 @@ namespace jacdac._rolemgr {
             }
         }
 
+        private bindingHash() {
+            let r = ""
+            const n = _allClients.length
+            for(let i = 0; i < n; ++i) {
+                const client = _allClients[i];
+                r += `${client.role || ""}:${client.broadcast || (client.device && client.device.deviceId) || ""}:${client.serviceIndex}`
+            }
+            const buf = Buffer.fromUTF8(r)
+            return buf.hash(8);
+        }
+
         autoBind() {
             // console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
             if (_devices.length == 0 || _unattachedClients.length == 0)
                 return
+
+            const oldHash = this.bindingHash();
 
             const bindings: RoleBinding[] = []
             const wraps = _devices.map(d => new DeviceWrapper(d))
@@ -253,7 +264,8 @@ namespace jacdac._rolemgr {
             }
 
             // notify clients that something changed
-            if (bindings.some(binding => binding.changed))
+            const newHash = this.bindingHash();
+            if (oldHash !== newHash)
                 this.sendChangeEvent()
         }
     }
