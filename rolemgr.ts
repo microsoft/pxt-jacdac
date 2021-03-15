@@ -126,6 +126,8 @@ namespace jacdac._rolemgr {
     }
 
     export class RoleManagerHost extends Host {
+        private _oldBindingsHash: number;
+
         constructor() {
             super("rolemgr", jacdac.SRV_ROLE_MANAGER)
         }
@@ -185,15 +187,13 @@ namespace jacdac._rolemgr {
                 r += `${client.role || ""}:${client.broadcast || (client.device && client.device.deviceId) || ""}:${client.serviceIndex}`
             }
             const buf = Buffer.fromUTF8(r)
-            return buf.hash(8);
+            return buf.hash(32);
         }
 
         autoBind() {
-            // console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
+            console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
             if (_devices.length == 0 || _unattachedClients.length == 0)
                 return
-
-            const oldHash = this.bindingHash();
 
             const bindings: RoleBinding[] = []
             const wraps = _devices.map(d => new DeviceWrapper(d))
@@ -265,8 +265,13 @@ namespace jacdac._rolemgr {
 
             // notify clients that something changed
             const newHash = this.bindingHash();
-            if (oldHash !== newHash)
+            if (this._oldBindingsHash !== newHash) {
+                this._oldBindingsHash = newHash;
+                //console.log(`auto bind: changed`)
                 this.sendChangeEvent()
+            } else {
+                //console.log(`auto bind: no changes`)
+            }
         }
     }
 }
