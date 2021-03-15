@@ -147,10 +147,8 @@ namespace jacdac._rolemgr {
                     }
                     break
                 case jacdac.RoleManagerCmd.SetRole:
-                    if (packet.data.length >= 9) {
+                    if (packet.data.length >= 9)
                         setRole(packet.data.slice(0, 8).toHex(), packet.data[8], packet.data.slice(9).toString())
-                        this.sendChangeEvent();
-                    }
                     break
                 case jacdac.RoleManagerCmd.ListStoredRoles:
                     OutPipe.respondForEach(packet, settings.list(roleSettingPrefix), k => {
@@ -168,7 +166,6 @@ namespace jacdac._rolemgr {
                     break
                 case jacdac.RoleManagerCmd.ClearAllRoles:
                     clearRoles()
-                    this.sendChangeEvent();
                     break
             }
 
