@@ -2,6 +2,11 @@
     "name": "jacdac-ble",
     "version": "0.0.0",
     "description": "Support for sending Jacdac packets over BLE.",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "file:../",
+        "bluetooth": "*"
+    },
     "files": [
         "JacdacBLE.cpp",
         "JacdacBLE.h",
@@ -10,15 +15,10 @@
     "testFiles": [
         "test.ts"
     ],
-    "supportedTargets": [
-        "microbit"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "bluetooth": "*"
-    },
     "testDependencies": {
         "microbit": "*"
-    }
+    },
+    "supportedTargets": [
+        "microbit"
+    ]
 }
