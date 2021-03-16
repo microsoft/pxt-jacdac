@@ -20,6 +20,6 @@
         "jacdac": "github:microsoft/pxt-jacdac"
     },
     "testDependencies": {
-        "nrf52840": "*"
+        "microbit": "*"
     }
 }
