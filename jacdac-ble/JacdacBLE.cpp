@@ -151,6 +151,6 @@ int JacdacBLE::send(uint8_t *buf, int length)
 
 
 ManagedBuffer JacdacBLE::read() {
-    return ManagedBuffer(rxBuffer, JACDAC_BLE_BUFFER_SIZE);
+    return ManagedBuffer(rxBuffer, JD_FRAME_SIZE((jd_frame_t *)this->rxBuffer));
 }
 #endif
