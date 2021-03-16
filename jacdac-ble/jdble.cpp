@@ -1,8 +1,11 @@
 #include "pxt.h"
 #include "jdlow.h"
 #include "mbbridge.h"
+#include "JacdacBLE.h"
 
 #ifdef MICROBIT_CODAL
+
+#if CONFIG_ENABLED(DEVICE_BLE)
 
 namespace pxt {
 void (*logJDFrame)(const uint8_t *data);
@@ -15,21 +18,21 @@ uint64_t current_time_us() {
 namespace jacdac {
 
 
-static JacdacBLE jdble;
+static JacdacBLE* jdble;
 
 // from device to PC
-void jdble_tx(const uint8_t *data)) {
-    jdble->send(data, JD_FRAME_SIZE(((jd_frame_t*)data));
+void jdble_tx(const uint8_t *data) {
+    jdble->send((uint8_t *)data, JD_FRAME_SIZE(((jd_frame_t*)data)));
 }
 // from PC to device.
-void jdble_rx() {
+void jdble_rx(MicroBitEvent) {
     pxt::sendJDFrame((const uint8_t *)(void *)jdble->read().getBytes());
 }
 
 void jdble_init() {
     jdble = new JacdacBLE(*uBit.ble);
-    uBit.messageBus.listen(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX, jd_ble_rx);
-    pxt::logJDFrame = logFrame;
+    uBit.messageBus.listen(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX, jdble_rx, MESSAGE_BUS_LISTENER_IMMEDIATE);
+    pxt::logJDFrame = jdble_tx;
 }
 
 // raw ble implementation using SD APIs, not yet used.
@@ -143,4 +146,5 @@ void jdble_init() {
 
 } // namespace jacdac
 
+#endif
 #endif
