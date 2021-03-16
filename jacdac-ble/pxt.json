@@ -1,0 +1,25 @@
+{
+    "name": "jacdac-ble",
+    "version": "0.0.0",
+    "description": "Support for sending Jacdac packets over BLE.",
+    "files": [
+        "JacdacBLE.cpp",
+        "JacdacBLE.h",
+        "jdble.cpp"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "nrf52840": "*"
+    }
+}

@@ -228,7 +228,11 @@ void __physStart() {
     jd_init();
     sendJDFrame = sendExtFrame;
 #ifdef MICROBIT_CODAL
+#if CONFIG_ENABLED(DEVICE_BLE)
+    jdble_init();
+#else
     mbbridge_init();
+#endif
 #endif
 }
 

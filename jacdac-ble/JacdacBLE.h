@@ -1,0 +1,138 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2016 British Broadcasting Corporation.
+This software is provided by Lancaster University by arrangement with the BBC.
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+*/
+
+#ifndef JACDAC_BLE_SERVICE_H
+#define JACDAC_BLE_SERVICE_H
+
+#include "MicroBitConfig.h"
+
+#if CONFIG_ENABLED(DEVICE_BLE)
+
+#include "MicroBitBLEManager.h"
+#include "MicroBitBLEService.h"
+#include "MicroBitSerial.h"
+
+#define JACDAC_BLE_BUFFER_SIZE      254
+
+#define MICROBIT_JACDAC_S_EVT_RX    1
+#define MICROBIT_JACDAC_S_EVT_TX    1
+
+#define DEVICE_ID_JACDAC_BLE        3056         
+
+typedef struct {
+    uint32_t bus_state;
+    uint32_t bus_lo_error;
+    uint32_t bus_uart_error;
+    uint32_t bus_timeout_error;
+    uint32_t packets_sent;
+    uint32_t packets_received;
+    uint32_t packets_dropped;
+} jd_diagnostics_t;
+
+/**
+  * Class definition for the custom MicroBit UART Service.
+  * Provides a BLE service that acts as a UART port, enabling the reception and transmission
+  * of an arbitrary number of bytes.
+  */
+class JacdacBLE : public MicroBitBLEService
+{
+    uint8_t* rxBuffer;
+    uint8_t* txBuffer;
+    uint8_t* diagBuffer;
+
+    uint32_t rxCharacteristicHandle;
+    uint32_t diagCharacteristicHandle;
+
+    uint8_t status;
+
+    /**
+      * Invoked when BLE disconnects.
+      */
+    void onDisconnect( const microbit_ble_evt_t *p_ble_evt);
+
+    /**
+      * A callback function for whenever a Bluetooth device consumes our TX Buffer
+      */
+    void onConfirmation( const microbit_ble_evt_hvc_t *params);
+    
+    
+    /**
+      * A callback function for whenever a Bluetooth device writes to our TX characteristic.
+      */
+    void onDataWritten(const microbit_ble_evt_write_t *params);
+
+    public:
+
+    /**
+     * Constructor for the JacdacBLE.
+     * @param _ble an instance of BLEDevice
+     * @param rxBufferSize the size of the rxBuffer
+     * @param txBufferSize the size of the txBuffer
+     *
+     * @note The default size is JACDAC_BLE_BUFFER_SIZE (254 bytes).
+     */
+    JacdacBLE(BLEDevice &_ble, uint8_t rxBufferSize = JACDAC_BLE_BUFFER_SIZE, uint8_t txBufferSize = JACDAC_BLE_BUFFER_SIZE);
+
+    /**
+     * Send a Jacdac byte buffer.
+     * @param buf pointer to the buffer
+     * @param len length of the buffer
+     *
+     * @return MICROBIT_OK on success or MICROBIT_NO_RESOURCES if tx queue is full
+     */
+    int send(uint8_t* buf, int len);
+
+    int send(ManagedBuffer b) 
+    {
+        this->send((uint8_t *)b.getBytes(), b.length());
+    }
+
+    ManagedBuffer read();
+    
+    // Index for each charactersitic in arrays of handles and UUIDs
+    typedef enum mbbs_cIdx
+    {
+        mbbs_cIdxTX,
+        mbbs_cIdxRX,
+        mbbs_cIdxDIAG,
+        mbbs_cIdxCOUNT
+    } mbbs_cIdx;
+    
+    // UUIDs for our service and characteristics
+    static const uint8_t  base_uuid[16];
+    static const uint16_t serviceUUID;
+    static const uint16_t charUUID[ mbbs_cIdxCOUNT];
+    
+    // Data for each characteristic when they are held by Soft Device.
+    MicroBitBLEChar      chars[ mbbs_cIdxCOUNT];
+
+    public:
+    
+    int              characteristicCount()          { return mbbs_cIdxCOUNT; };
+    MicroBitBLEChar *characteristicPtr( int idx)    { return &chars[ idx]; };
+};
+
+#endif
+#endif
