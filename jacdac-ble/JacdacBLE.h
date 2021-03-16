@@ -32,7 +32,7 @@ DEALINGS IN THE SOFTWARE.
 
 #include "MicroBitBLEManager.h"
 #include "MicroBitBLEService.h"
-#include "MicroBitSerial.h"
+#include "jdlow.h"
 
 #define JACDAC_BLE_BUFFER_SIZE      254
 
@@ -41,15 +41,7 @@ DEALINGS IN THE SOFTWARE.
 
 #define DEVICE_ID_JACDAC_BLE        3056         
 
-typedef struct {
-    uint32_t bus_state;
-    uint32_t bus_lo_error;
-    uint32_t bus_uart_error;
-    uint32_t bus_timeout_error;
-    uint32_t packets_sent;
-    uint32_t packets_received;
-    uint32_t packets_dropped;
-} jd_diagnostics_t;
+#define JD_BLE_STATUS_IN_USE        0x08
 
 /**
   * Class definition for the custom MicroBit UART Service.
@@ -61,11 +53,15 @@ class JacdacBLE : public MicroBitBLEService
     uint8_t* rxBuffer;
     uint8_t* txBuffer;
     uint8_t* diagBuffer;
+    uint8_t* txPointer;
+    uint8_t* rxPointer;
 
     uint32_t rxCharacteristicHandle;
     uint32_t diagCharacteristicHandle;
 
     uint8_t status;
+    uint8_t txLen;
+    uint8_t rxLen;
 
     /**
       * Invoked when BLE disconnects.

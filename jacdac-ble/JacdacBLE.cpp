@@ -14,6 +14,8 @@
 #include "ErrorNo.h"
 #include "NotifyEvents.h"
 
+#define BLE_GATT_EFFECTIVE_MTU     20
+
 
 const uint8_t  JacdacBLE::base_uuid[ 16] =
 {0xf8, 0x53, 0x00, 0x01, 0xa9, 0x7f, 0x49, 0xf5, 0xa5, 0x54, 0x3e, 0x37, 0x3f, 0xbe, 0xa2, 0xd5};
@@ -40,6 +42,9 @@ JacdacBLE::JacdacBLE(BLEDevice &_ble, uint8_t rxBufferSize, uint8_t txBufferSize
     rxBuffer = (uint8_t *)malloc(JACDAC_BLE_BUFFER_SIZE);
     diagBuffer = (uint8_t *)malloc(sizeof(jd_diagnostics_t));
 
+    rxPointer = rxBuffer;
+    txPointer = txBuffer;
+
     // Register the base UUID and create the service.
     RegisterBaseUUID(base_uuid);
     CreateService(serviceUUID);
@@ -47,12 +52,12 @@ JacdacBLE::JacdacBLE(BLEDevice &_ble, uint8_t rxBufferSize, uint8_t txBufferSize
     // Create the data structures that represent each of our characteristics in Soft Device.
     CreateCharacteristic( mbbs_cIdxRX, charUUID[ mbbs_cIdxRX],
                           rxBuffer,
-                          1, JACDAC_BLE_BUFFER_SIZE,
+                          1, BLE_GATT_EFFECTIVE_MTU,
                           microbit_propWRITE | microbit_propWRITE_WITHOUT);
 
     CreateCharacteristic( mbbs_cIdxTX, charUUID[ mbbs_cIdxTX],
                           txBuffer,
-                          1, JACDAC_BLE_BUFFER_SIZE,
+                          1, BLE_GATT_EFFECTIVE_MTU,
                           microbit_propINDICATE);
 
     // Create the data structures that represent each of our characteristics in Soft Device.
@@ -76,10 +81,7 @@ void JacdacBLE::onDisconnect( const microbit_ble_evt_t *p_ble_evt)
   */
 void JacdacBLE::onConfirmation( const microbit_ble_evt_hvc_t *params)
 {
-    if ( params->handle == valueHandle( mbbs_cIdxTX))
-        MicroBitEvent(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_TX);
 }
-
 
 /**
   * A callback function for whenever a Bluetooth device writes to our RX characteristic.
@@ -89,7 +91,19 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
     if (params->handle == valueHandle(mbbs_cIdxRX))
     {
         uint16_t bytesWritten = params->len;
-        MicroBitEvent(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX);
+        
+
+        memcpy(this->rxPointer, params->data, bytesWritten);
+
+        // DMESG("RBW: %d FS %d", bytesWritten, JD_FRAME_SIZE((jd_frame_t *)this->rxBuffer));
+
+        this->rxPointer += bytesWritten;
+
+        if (this->rxPointer >= (this->rxBuffer + JD_FRAME_SIZE((jd_frame_t *)this->rxBuffer)))
+        {
+            MicroBitEvent(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX);
+            rxPointer = rxBuffer;
+        }
     }
 
     if (params->handle == valueHandle(mbbs_cIdxDIAG))
@@ -114,9 +128,23 @@ int JacdacBLE::send(uint8_t *buf, int length)
 
     if( !getConnected() && !updatesEnabled)
         return MICROBIT_NOT_SUPPORTED;
+    
+    ble_gatts_hvx_params_t hvx_params;
+    hvx_params.handle = chars[mbbs_cIdxTX].charHandles()->value;
+    hvx_params.type   = BLE_GATT_HVX_INDICATION;
+    hvx_params.offset = 0;
+    hvx_params.p_len  = 0;
+    hvx_params.p_data = NULL;
 
-    indicateChrValue(mbbs_cIdxTX, buf, length);
-    updatesEnabled = indicateChrValueEnabled(mbbs_cIdxTX);
+    int sent = 0;
+    while(sent < length) 
+    {
+        uint16_t n = min(BLE_GATT_EFFECTIVE_MTU, length - sent);
+        hvx_params.p_len  = &n;
+        hvx_params.p_data = (uint8_t*)buf + sent;
+        if (sd_ble_gatts_hvx(getConnectionHandle(), &hvx_params) == NRF_SUCCESS)
+            sent += n;
+    }
 
     return MICROBIT_OK;
 }
