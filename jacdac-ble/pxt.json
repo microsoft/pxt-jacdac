@@ -11,13 +11,12 @@
         "test.ts"
     ],
     "supportedTargets": [
-        "arcade",
-        "microbit",
-        "maker"
+        "microbit"
     ],
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "bluetooth": "*"
     },
     "testDependencies": {
         "microbit": "*"
