@@ -4,6 +4,8 @@
 
 #ifdef MICROBIT_CODAL
 
+#if CONFIG_ENABLED(DEVICE_BLE)
+#else
 namespace pxt {
 void (*logJDFrame)(const uint8_t *data);
 void (*sendJDFrame)(const uint8_t *data);
@@ -99,5 +101,5 @@ void mbbridge_init() {
 }
 
 } // namespace jacdac
-
+#endif
 #endif
