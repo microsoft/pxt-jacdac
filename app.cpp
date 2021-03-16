@@ -23,6 +23,7 @@ static LinkedFrame *volatile rxQ;
 static LinkedFrame *volatile txQ;
 static LinkedFrame *superFrameRX;
 
+extern void jdble_init();
 
 extern "C" jd_frame_t *app_pull_frame() {
     target_disable_irq();
