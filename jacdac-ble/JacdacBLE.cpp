@@ -14,7 +14,10 @@
 #include "ErrorNo.h"
 #include "NotifyEvents.h"
 
-#define BLE_GATT_EFFECTIVE_MTU     20
+#define BLE_GATT_EFFECTIVE_MTU      20
+#define JD_BLE_HEADER_SIZE          2
+#define JD_BLE_DATA_SIZE            (BLE_GATT_EFFECTIVE_MTU - JD_BLE_HEADER_SIZE)
+#define JD_BLE_FIRST_CHUNK_FLAG     0x80
 
 
 const uint8_t  JacdacBLE::base_uuid[ 16] =
@@ -91,18 +94,29 @@ void JacdacBLE::onDataWritten(const microbit_ble_evt_write_t *params)
     if (params->handle == valueHandle(mbbs_cIdxRX))
     {
         uint16_t bytesWritten = params->len;
-        
 
-        memcpy(this->rxPointer, params->data, bytesWritten);
+        if (params->data[0] & JD_BLE_FIRST_CHUNK_FLAG) {
+            if (this->rxPointer > this->rxBuffer)
+                DMESG("JD_BLE: pkt dropped.");
 
-        // DMESG("RBW: %d FS %d", bytesWritten, JD_FRAME_SIZE((jd_frame_t *)this->rxBuffer));
+            this->rxPointer = this->rxBuffer;
+            this->rxChunkCounter = params->data[0] & 0x7f; 
+        }
 
-        this->rxPointer += bytesWritten;
+        this->rxChunkCounter = (this->rxChunkCounter == 0) ? 0 : this->rxChunkCounter - 1;
 
-        if (this->rxPointer >= (this->rxBuffer + JD_FRAME_SIZE((jd_frame_t *)this->rxBuffer)))
+        if (params->data[1] != this->rxChunkCounter)
+            DMESG("JD_BLE: Data out of order");
+        else
+        {
+            memcpy(this->rxPointer, &params->data[2], bytesWritten - JD_BLE_HEADER_SIZE);
+            this->rxPointer += bytesWritten - JD_BLE_HEADER_SIZE;
+        }
+
+        if (this->rxChunkCounter == 0)
         {
             MicroBitEvent(DEVICE_ID_JACDAC_BLE, MICROBIT_JACDAC_S_EVT_RX);
-            rxPointer = rxBuffer;
+            this->rxPointer = this->rxBuffer;
         }
     }
 
@@ -136,14 +150,32 @@ int JacdacBLE::send(uint8_t *buf, int length)
     hvx_params.p_len  = 0;
     hvx_params.p_data = NULL;
 
+    int totalChunks = (length / (JD_BLE_DATA_SIZE)) + ((length % (JD_BLE_DATA_SIZE)) != 0);
+    int remainingChunks = totalChunks - 1;
     int sent = 0;
-    while(sent < length) 
-    {
-        uint16_t n = min(BLE_GATT_EFFECTIVE_MTU, length - sent);
-        hvx_params.p_len  = &n;
-        hvx_params.p_data = (uint8_t*)buf + sent;
+    uint8_t temp[BLE_GATT_EFFECTIVE_MTU] = { 0 };
+
+    DMESG("JD_BLE: send len %d chunks %d rem chunk %d", length, totalChunks, remainingChunks);
+
+    while(sent < length) {
+        uint16_t n = min(JD_BLE_DATA_SIZE, length - sent);
+        uint16_t total = n + JD_BLE_HEADER_SIZE;
+        temp[0] = (totalChunks & 0x7f);
+
+        if (sent == 0)
+            temp[0] |= JD_BLE_FIRST_CHUNK_FLAG;
+            
+        temp[1] = remainingChunks;
+
+        memcpy(&temp[2], buf + sent, n);
+
+        hvx_params.p_len  = &total;
+        hvx_params.p_data = temp;
         if (sd_ble_gatts_hvx(getConnectionHandle(), &hvx_params) == NRF_SUCCESS)
+        {
             sent += n;
+            remainingChunks = (remainingChunks == 0 ? 0 : remainingChunks - 1);
+        }
     }
 
     return MICROBIT_OK;

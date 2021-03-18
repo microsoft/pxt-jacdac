@@ -60,8 +60,7 @@ class JacdacBLE : public MicroBitBLEService
     uint32_t diagCharacteristicHandle;
 
     uint8_t status;
-    uint8_t txLen;
-    uint8_t rxLen;
+    uint8_t rxChunkCounter;
 
     /**
       * Invoked when BLE disconnects.
