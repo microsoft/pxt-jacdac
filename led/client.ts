@@ -47,7 +47,8 @@ namespace modules {
                     anim.setNumber(NumberFormat.UInt16LE, i + 2, adj)
                 }
             }
-            this.setRegBuffer(jacdac.LedReg.Animation, anim)
+            // TODO
+            //this.setRegBuffer(jacdac.LedReg.Animation, anim)
         }
     }
 
