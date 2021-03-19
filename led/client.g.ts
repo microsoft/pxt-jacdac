@@ -3,8 +3,9 @@ namespace modules {
      * A controller for 1 or more monochrome or RGB LEDs connected in parallel.
      **/
     //% fixedInstances blockGap=8
-    export class LedClient extends jacdac.SensorClient<[number,number,number]> {
+    export class LedClient extends jacdac.Client {
 
+        private readonly _color : jacdac.RegisterClient<[number,number,number]>;
         private readonly _maxPower : jacdac.RegisterClient<[number]>;
         private readonly _ledCount : jacdac.RegisterClient<[number]>;
         private readonly _waveLength : jacdac.RegisterClient<[number]>;
@@ -12,8 +13,9 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.LedVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_LED, role, "u8 u8 u8");
+            super(jacdac.SRV_LED, role);
 
+            this._color = this.addRegister<[number,number,number]>(jacdac.LedReg.Color, "u8 u8 u8");
             this._maxPower = this.addRegister<[number]>(jacdac.LedReg.MaxPower, "u16");
             this._ledCount = this.addRegister<[number]>(jacdac.LedReg.LedCount, "u16");
             this._waveLength = this.addRegister<[number]>(jacdac.LedReg.WaveLength, "u16");
@@ -27,12 +29,10 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
-        //% block="%led red"
-        //% blockId=jacdac_led_color_red_get
         //% weight=100
-        red(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
+        colorRed(): number {
+            this.start();            
+            const values = this._color.pauseUntilValues() as any[];
             return values[0];
         }
 
@@ -41,12 +41,10 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
-        //% block="%led green"
-        //% blockId=jacdac_led_color_green_get
         //% weight=99
-        green(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
+        colorGreen(): number {
+            this.start();            
+            const values = this._color.pauseUntilValues() as any[];
             return values[1];
         }
 
@@ -55,12 +53,10 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
-        //% block="%led blue"
-        //% blockId=jacdac_led_color_blue_get
         //% weight=98
-        blue(): number {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
+        colorBlue(): number {
+            this.start();            
+            const values = this._color.pauseUntilValues() as any[];
             return values[2];
         }
 
