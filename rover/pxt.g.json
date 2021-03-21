@@ -1,7 +1,7 @@
 {
     "name": "jacdac-rover",
     "version": "0.0.0",
-    "description": "A roving robot.\n\n\tidentifier: 0x19f4d06b\n\textends: _sensor",
+    "description": "A roving robot.",
     "files": [
         "constants.ts",
         "client.g.ts"

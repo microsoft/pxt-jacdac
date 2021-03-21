@@ -1,9 +1,6 @@
 namespace modules {
     /**
      * A roving robot.
-     * 
-     * 	identifier: 0x19f4d06b
-     * 	extends: _sensor
      **/
     //% fixedInstances blockGap=8
     export class RoverClient extends jacdac.SensorClient<[number,number,number,number,number]> {

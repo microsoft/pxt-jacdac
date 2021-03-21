@@ -1,6 +1,6 @@
 namespace jacdac {
     // Service: Rover
-    export const SRV_ROVER = 0x0
+    export const SRV_ROVER = 0x19f4d06b
     export const enum RoverReg {
         /**
          * The current position and orientation of the robot.
