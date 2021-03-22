@@ -8,7 +8,6 @@ namespace jacdac {
             this.button.onEvent(MkcdButtonEvent.Down, () => this.sendEvent(JDButtonEvent.Down));
             this.button.onEvent(MkcdButtonEvent.Up, () => this.sendEvent(JDButtonEvent.Up));
             this.button.onEvent(MkcdButtonEvent.Click, () => this.sendEvent(JDButtonEvent.Click));
-            this.button.onEvent(MkcdButtonEvent.LongClick, () => this.sendEvent(JDButtonEvent.LongClick));
             this.button.onEvent(<number>DAL.DEVICE_BUTTON_EVT_HOLD, () => this.sendEvent(JDButtonEvent.Hold));
         }
 
