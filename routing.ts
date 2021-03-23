@@ -2,7 +2,6 @@ namespace jacdac {
     export const enum StatusEvent {
         ProxyStarted = 200,
         ProxyPacketReceived = 201,
-        ProxyPing = 202
     }
     export let onStatusEvent: (event: StatusEvent) => void;
 
@@ -12,9 +11,9 @@ namespace jacdac {
     let _hostServices: Host[]
     export let _unattachedClients: Client[]
     export let _allClients: Client[]
-    let _myDevice: Device
+    let _myDevice: Device;
     //% whenUsed
-    export let _devices: Device[] = []
+    export let _devices: Device[] = [];
     //% whenUsed
     let _announceCallbacks: (() => void)[] = [];
     let _newDeviceCallbacks: (() => void)[];
@@ -523,6 +522,7 @@ namespace jacdac {
 
     class RegQuery {
         lastQuery = 0
+        lastReport = 0
         value: Buffer
         constructor(public reg: number) { }
     }
@@ -593,23 +593,36 @@ namespace jacdac {
             return q.value
         }
 
-        get mcuTemperature() {
+        private _uptimeOffset = 0;
+        get uptime(): number {
+            // create query
+            this.query(ControlReg.Uptime, 60000)
+            const q = this.lookupQuery(ControlReg.Uptime);
+            if (q.value) {
+                const up = q.value.getNumber(NumberFormat.UInt32LE, 0)
+                const offset = (control.millis() - q.lastReport) * 1000
+                return up + offset;
+            }
+            return undefined
+        }
+
+        get mcuTemperature(): number {
             return this.queryInt(ControlReg.McuTemperature)
         }
 
-        get firmwareVersion() {
+        get firmwareVersion(): string {
             const b = this.query(ControlReg.FirmwareVersion, null)
             if (b) return b.toString()
             else return ""
         }
 
-        get firmwareUrl() {
+        get firmwareUrl(): string {
             const b = this.query(ControlReg.FirmwareUrl, null)
             if (b) return b.toString()
             else return ""
         }
 
-        get deviceUrl() {
+        get deviceUrl(): string {
             const b = this.query(ControlReg.DeviceUrl, null)
             if (b) return b.toString()
             else return ""
@@ -619,8 +632,10 @@ namespace jacdac {
             if ((pkt.serviceCommand & CMD_TYPE_MASK) == CMD_GET_REG) {
                 const reg = pkt.serviceCommand & CMD_REG_MASK
                 const q = this.lookupQuery(reg)
-                if (q)
+                if (q) {
                     q.value = pkt.data
+                    q.lastReport = control.millis()
+                }
             }
         }
 
@@ -676,20 +691,33 @@ namespace jacdac {
         constructor() {
             super("ctrl", 0)
         }
+
         handlePacketOuter(pkt: JDPacket) {
-            switch (pkt.serviceCommand) {
-                case SystemCmd.Announce:
-                    queueAnnounce()
-                    break
-                case ControlCmd.Identify:
-                    control.runInParallel(onIdentifyRequest)
-                    break
-                case ControlCmd.Reset:
-                    control.reset()
-                    break
-                case CMD_GET_REG | ControlReg.DeviceDescription:
-                    this.sendReport(JDPacket.from(pkt.serviceCommand, Buffer.fromUTF8("PXT: " + control.programName())))
-                    break
+            if (pkt.isRegGet) {
+                switch(pkt.regCode) {
+                    case ControlReg.Uptime: {
+                        console.log(`jacdac: uptime ${control.micros()}`)
+                        const buf = Buffer.create(4)
+                        buf.setNumber(NumberFormat.UInt32LE, 0, control.micros())
+                        this.sendReport(JDPacket.from(CMD_GET_REG | ControlReg.Uptime, buf));
+                        break;
+                    }
+                }
+            } else {
+                switch (pkt.serviceCommand) {
+                    case SystemCmd.Announce:
+                        queueAnnounce()
+                        break
+                    case ControlCmd.Identify:
+                        control.runInParallel(onIdentifyRequest)
+                        break
+                    case ControlCmd.Reset:
+                        control.reset()
+                        break
+                    case CMD_GET_REG | ControlReg.DeviceDescription:
+                        this.sendReport(JDPacket.from(pkt.serviceCommand, Buffer.fromUTF8("PXT: " + control.programName())))
+                        break
+                }
             }
         }
     }
@@ -748,13 +776,18 @@ namespace jacdac {
             cl.announceCallback()
         gcDevices()
 
-        // only try autoBind we see some devices online
-        if (autoBind && _devices.length > 1) {
-            autoBindCnt++
-            // also, only do it every two announces (TBD)
-            if (autoBindCnt >= 2) {
-                autoBindCnt = 0
-                jacdac.roleManagerHost.autoBind();
+        // only try autoBind, proxy we see some devices online
+        if (_devices.length > 1) {
+            // check for proxy mode
+            jacdac.roleManagerHost.checkProxy()
+            // auto bind
+            if (autoBind) {
+                autoBindCnt++
+                // also, only do it every two announces (TBD)
+                if (autoBindCnt >= 2) {
+                    autoBindCnt = 0
+                    jacdac.roleManagerHost.autoBind();
+                }
             }
         }
     }
@@ -975,47 +1008,31 @@ namespace jacdac {
         setPinByCfg(CFG_PIN_JDPWR_ENABLE, enabled)
     }
 
-    const JACDAC_PROXY_SETTING = "__jacdac_proxy"    
+    export const JACDAC_PROXY_SETTING = "__jacdac_proxy"    
     function startProxy() {
         // check if a proxy restart was requested
-        if (!settings.exists(JACDAC_PROXY_SETTING)) {
-            jacdac.onAnnounce(() => {
-                // check if any other device has a role manager, and bail out
-                // todo use uptime
-                const self = jacdac.selfDevice();
-                for(const device of jacdac.devices()) {
-                    if (device !== self && device.hasService(SRV_ROLE_MANAGER)) {
-                        // another role manager has entered the bus, turn on proxy mode
-                        settings.writeNumber(JACDAC_PROXY_SETTING, 1)
-                        // and reset
-                        control.reset();
-                    }
-                }
-            })
-        } else {
-            log(`jacdac starting proxy`)
-            // clear proxy flag
-            settings.remove(JACDAC_PROXY_SETTING)
+        if (!settings.exists(JACDAC_PROXY_SETTING))
+            return;
+            
+        log(`jacdac starting proxy`)
+        // clear proxy flag
+        settings.remove(JACDAC_PROXY_SETTING)
 
-            // start jacdac in proxy mode
-            jacdac.__physStart();
-            control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
-                let buf: Buffer;
-                while (null != (buf = jacdac.__physGetPacket())) {
-                    if(onStatusEvent)
-                        onStatusEvent(StatusEvent.ProxyPacketReceived)
-                }
-            });
-            if(onStatusEvent)
-                onStatusEvent(StatusEvent.ProxyStarted)
-
-            // don't allow main to run until next reset
-            while(true) {
-                log(`jacdac proxy ping`)
-                pause(1000);
+        // start jacdac in proxy mode
+        jacdac.__physStart();
+        control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
+            let buf: Buffer;
+            while (null != (buf = jacdac.__physGetPacket())) {
                 if(onStatusEvent)
-                    onStatusEvent(StatusEvent.ProxyPing)
+                    onStatusEvent(StatusEvent.ProxyPacketReceived)
             }
+        });
+        if(onStatusEvent)
+            onStatusEvent(StatusEvent.ProxyStarted)
+
+        // don't allow main to run until next reset
+        while(true) {
+            pause(100);
         }
     }
 

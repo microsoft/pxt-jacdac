@@ -187,6 +187,30 @@ namespace jacdac._rolemgr {
             return buf.hash(32);
         }
 
+        checkProxy() {
+            const now = control.micros()
+            const self = jacdac.selfDevice();
+            const devs = jacdac.devices().filter(d => d !== self && d.hasService(SRV_ROLE_MANAGER));
+            if (!devs.length)
+                return; // nothing to do here
+
+            console.log(`jacdac: check proxy self ${((now / 100000) | 0) / 10}s`)
+            for(const device of devs) {
+                const uptime = device.uptime;
+                if (uptime === undefined) {
+                    console.log(`jacdac: check proxy ${device.shortId}: no uptime`)
+                    device.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime);
+                } else {
+                    console.log(`jacdac: check proxy ${device.shortId}: ${((uptime / 100000) | 0) / 10}s`)
+                    if (now > uptime) {
+                        console.log(`jacdac: request proxy mode`)
+                        settings.writeNumber(JACDAC_PROXY_SETTING, 1)
+                        control.reset();
+                    }
+                }
+            }
+        }
+
         autoBind() {
             console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
             if (_devices.length == 0 || _unattachedClients.length == 0)

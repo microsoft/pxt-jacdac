@@ -196,5 +196,5 @@ modules.humidity.start()
 forever(() => {
     const h = modules.humidity.humidity()
     console.log(`humidity: ${h}`)
-    pause(100)
+    pause(5000)
 })
