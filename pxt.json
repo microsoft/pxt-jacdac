@@ -22,7 +22,6 @@
         "mbcompat.ts",
         "commands.ts",
         "config.ts",
-        "routing.ts",
         "packet.ts",
         "pack.ts",
         "service.ts",
@@ -45,7 +44,8 @@
         "role-manager/constants.ts",
         "rolemgr.ts",
         "proto-test/constants.ts",
-        "proto-test/host.ts"
+        "proto-test/host.ts",
+        "routing.ts"
     ],
     "testFiles": [
         "test.ts"
