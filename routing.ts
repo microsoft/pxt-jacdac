@@ -978,30 +978,44 @@ namespace jacdac {
     const JACDAC_PROXY_SETTING = "__jacdac_proxy"    
     function startProxy() {
         // check if a proxy restart was requested
-        if (!settings.exists(JACDAC_PROXY_SETTING))
-            return;
-        log(`jacdac starting proxy`)
-        // clear proxy flag
-        settings.remove(JACDAC_PROXY_SETTING)
+        if (!settings.exists(JACDAC_PROXY_SETTING)) {
+            jacdac.onAnnounce(() => {
+                // check if any other device has a role manager, and bail out
+                // todo use uptime
+                const self = jacdac.selfDevice();
+                for(const device of jacdac.devices()) {
+                    if (device !== self && device.hasService(SRV_ROLE_MANAGER)) {
+                        // another role manager has entered the bus, turn on proxy mode
+                        settings.writeNumber(JACDAC_PROXY_SETTING, 1)
+                        // and reset
+                        control.reset();
+                    }
+                }
+            })
+        } else {
+            log(`jacdac starting proxy`)
+            // clear proxy flag
+            settings.remove(JACDAC_PROXY_SETTING)
 
-        // start jacdac in proxy mode
-        jacdac.__physStart();
-        control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
-            let buf: Buffer;
-            while (null != (buf = jacdac.__physGetPacket())) {
-                if(onStatusEvent)
-                    onStatusEvent(StatusEvent.ProxyPacketReceived)
-            }
-        });
-        if(onStatusEvent)
-            onStatusEvent(StatusEvent.ProxyStarted)
-
-        // don't allow main to run until next reset
-        while(true) {
-            log(`jacdac proxy ping`)
-            pause(1000);
+            // start jacdac in proxy mode
+            jacdac.__physStart();
+            control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
+                let buf: Buffer;
+                while (null != (buf = jacdac.__physGetPacket())) {
+                    if(onStatusEvent)
+                        onStatusEvent(StatusEvent.ProxyPacketReceived)
+                }
+            });
             if(onStatusEvent)
-                onStatusEvent(StatusEvent.ProxyPing)
+                onStatusEvent(StatusEvent.ProxyStarted)
+
+            // don't allow main to run until next reset
+            while(true) {
+                log(`jacdac proxy ping`)
+                pause(1000);
+                if(onStatusEvent)
+                    onStatusEvent(StatusEvent.ProxyPing)
+            }
         }
     }
 
