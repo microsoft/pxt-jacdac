@@ -32,3 +32,6 @@ jacdac.onStatusEvent = function (event) {
             break;
     }
 }
+
+// force v2, TODO: do something better here
+input.logoIsPressed()
