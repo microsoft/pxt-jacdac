@@ -1019,7 +1019,7 @@ namespace jacdac {
         settings.remove(JACDAC_PROXY_SETTING)
 
         // start jacdac in proxy mode
-        jacdac.__physStart();
+        //jacdac.__physStart();
         control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
             let buf: Buffer;
             while (null != (buf = jacdac.__physGetPacket())) {
@@ -1053,7 +1053,7 @@ namespace jacdac {
         new ControlService().start()
         _unattachedClients = []
         _allClients = []
-        jacdac.__physStart();
+        //jacdac.__physStart();
         control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
             let buf: Buffer;
             while (null != (buf = jacdac.__physGetPacket())) {
@@ -1098,7 +1098,11 @@ namespace jacdac {
         log("jacdac started");
     }
 
-    // proxy mode
+    // make sure physical is started deterministically
+    // on micro:bit it allocates a buffer that should stay in the same place in memory
+    jacdac.__physStart();
+
+    // check for proxy mode
     startProxy()
 
     // start after main
