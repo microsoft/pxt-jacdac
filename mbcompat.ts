@@ -17,7 +17,7 @@ namespace pins {
 }
 
 jacdac.onStatusEvent = function (event) {
-    switch(event) {
+    switch (event) {
         case jacdac.StatusEvent.ProxyStarted:
             basic.showLeds(`
             . . . . .
@@ -31,6 +31,12 @@ jacdac.onStatusEvent = function (event) {
             led.toggle(1, 3);
             break;
     }
+}
+
+// don't use jacdac.JACDAC_PROXY_SETTING - it isn't initialized here yet in sim (pxt bug)
+if (settings.exists("__jacdac_proxy")) {
+    input.onButtonPressed(Button.A, () => control.reset())
+    input.onButtonPressed(Button.B, () => control.reset())
 }
 
 // force v2, TODO: do something better here
