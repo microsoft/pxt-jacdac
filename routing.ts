@@ -1,4 +1,11 @@
 namespace jacdac {
+    export const enum StatusEvent {
+        ProxyStarted = 200,
+        ProxyPacketReceived = 201,
+        ProxyPing = 202
+    }
+    export let onStatusEvent: (event: StatusEvent) => void;
+
     // common logging level for jacdac services
     export let consolePriority = ConsolePriority.Debug;
 
@@ -968,6 +975,36 @@ namespace jacdac {
         setPinByCfg(CFG_PIN_JDPWR_ENABLE, enabled)
     }
 
+    const JACDAC_PROXY_SETTING = "__jacdac_proxy"    
+    function startProxy() {
+        // check if a proxy restart was requested
+        if (!settings.exists(JACDAC_PROXY_SETTING))
+            return;
+        log(`jacdac starting proxy`)
+        // clear proxy flag
+        settings.remove(JACDAC_PROXY_SETTING)
+
+        // start jacdac in proxy mode
+        jacdac.__physStart();
+        control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
+            let buf: Buffer;
+            while (null != (buf = jacdac.__physGetPacket())) {
+                if(onStatusEvent)
+                    onStatusEvent(StatusEvent.ProxyPacketReceived)
+            }
+        });
+        if(onStatusEvent)
+            onStatusEvent(StatusEvent.ProxyStarted)
+
+        // don't allow main to run until next reset
+        while(true) {
+            log(`jacdac proxy ping`)
+            pause(1000);
+            if(onStatusEvent)
+                onStatusEvent(StatusEvent.ProxyPing)
+        }
+    }
+
     /**
      * Starts the Jacdac service
      */
@@ -1029,6 +1066,9 @@ namespace jacdac {
         // and we're done
         log("jacdac started");
     }
+
+    // proxy mode
+    startProxy()
 
     // start after main
     control.runInParallel(() => start());
