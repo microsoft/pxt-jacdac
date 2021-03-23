@@ -20,15 +20,15 @@ jacdac.onStatusEvent = function (event) {
     switch(event) {
         case jacdac.StatusEvent.ProxyStarted:
             basic.showLeds(`
-            # . # . #
-            # . # . #
-            # . # . #
-            # . # . #
-            . . # . #
+            . . . . .
+            . # # # .
+            . # # # .
+            . . # # .
+            . . . . .
             `)
             break;
         case jacdac.StatusEvent.ProxyPacketReceived:
-            led.toggle(2, 4);
+            led.toggle(1, 3);
             break;
     }
 }
