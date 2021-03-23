@@ -19,12 +19,13 @@ namespace pins {
 jacdac.onStatusEvent = function (event) {
     switch(event) {
         case jacdac.StatusEvent.ProxyStarted:
+            basic.showString("JACDAC")
             break;
         case jacdac.StatusEvent.ProxyPacketReceived:
-            led.toggle(0, 0);
+            led.toggle(1, 0);
             break;
         case jacdac.StatusEvent.ProxyPing:
-            basic.showString("JACDAC");
+            led.toggle(0, 0);
             break;
     }
 }
