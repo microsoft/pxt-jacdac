@@ -594,7 +594,6 @@ namespace jacdac {
             return q.value
         }
 
-        private _uptimeOffset = 0;
         get uptime(): number {
             // create query
             this.query(ControlReg.Uptime, 60000)
@@ -693,15 +692,23 @@ namespace jacdac {
             super("ctrl", 0)
         }
 
+        sendUptime() {
+            const buf = Buffer.create(4)
+            buf.setNumber(NumberFormat.UInt32LE, 0, control.micros())
+            this.sendReport(JDPacket.from(CMD_GET_REG | ControlReg.Uptime, buf));
+        }
+
         handlePacketOuter(pkt: JDPacket) {
             if (pkt.isRegGet) {
                 switch(pkt.regCode) {
                     case ControlReg.Uptime: {
                         console.log(`jacdac: uptime ${control.micros()}`)
-                        const buf = Buffer.create(4)
-                        buf.setNumber(NumberFormat.UInt32LE, 0, control.micros())
-                        this.sendReport(JDPacket.from(CMD_GET_REG | ControlReg.Uptime, buf));
+                        this.sendUptime();
                         break;
+                    }
+                    case ControlReg.DeviceDescription: {
+                        this.sendReport(JDPacket.from(pkt.serviceCommand, Buffer.fromUTF8(control.programName())))
+                        break
                     }
                 }
             } else {
@@ -714,9 +721,6 @@ namespace jacdac {
                         break
                     case ControlCmd.Reset:
                         control.reset()
-                        break
-                    case CMD_GET_REG | ControlReg.DeviceDescription:
-                        this.sendReport(JDPacket.from(pkt.serviceCommand, Buffer.fromUTF8("PXT: " + control.programName())))
                         break
                 }
             }
@@ -1062,7 +1066,8 @@ namespace jacdac {
         options = options || {};
 
         _hostServices = []
-        new ControlService().start()
+        const controlService = new ControlService();
+        controlService.start()
         _unattachedClients = []
         _allClients = []
         //jacdac.__physStart();
@@ -1104,8 +1109,10 @@ namespace jacdac {
             });
             loggerHost.start()
         }
-        if (!options.disableRoleManager)
+        if (!options.disableRoleManager) {
             roleManagerHost.start();
+            controlService.sendUptime();
+        }
         // and we're done
         log("jacdac started");
     }
