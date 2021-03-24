@@ -8,7 +8,7 @@
     },
     "files": [
         "constants.ts",
-        "client.ts"
+        "client.g.ts"
     ],
     "testFiles": [
         "test.ts"
