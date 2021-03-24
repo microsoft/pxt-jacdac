@@ -203,7 +203,7 @@ namespace jacdac._rolemgr {
                 } else {
                     console.log(`jacdac: check proxy ${device.shortId}: ${((uptime / 100000) | 0) / 10}s`)
                     if (now > uptime) {
-                        console.log(`jacdac: request proxy mode`)
+                        console.log(`jacdac: reset into proxy mode`)
                         settings.writeNumber(JACDAC_PROXY_SETTING, 1)
                         control.reset();
                     }
@@ -212,9 +212,11 @@ namespace jacdac._rolemgr {
         }
 
         autoBind() {
-            console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
-            if (_devices.length == 0 || _unattachedClients.length == 0)
+            console.log(`autobind: devs=${_devices.length} clients=${_unattachedClients.length}`)
+            if (_devices.length == 0 || _unattachedClients.length == 0) {
+                this.checkChanges();
                 return
+            }
 
             const bindings: RoleBinding[] = []
             const wraps = _devices.map(d => new DeviceWrapper(d))
@@ -283,12 +285,15 @@ namespace jacdac._rolemgr {
                     h.bindings = h.bindings.filter(b => b.boundToDev != dev.device)
                 }
             }
+            this.checkChanges();
+        }
 
+        private checkChanges() {
             // notify clients that something changed
             const newHash = this.bindingHash();
             if (this._oldBindingsHash !== newHash) {
                 this._oldBindingsHash = newHash;
-                //console.log(`auto bind: changed`)
+                console.log(`roles: bindings changed`)
                 this.sendChangeEvent()
             } else {
                 //console.log(`auto bind: no changes`)
