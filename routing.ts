@@ -2,7 +2,6 @@ namespace jacdac {
     export const enum StatusEvent {
         ProxyStarted = 200,
         ProxyPacketReceived = 201,
-        ProxyAnnounce = 202,
     }
     export let onStatusEvent: (event: StatusEvent) => void;
 
@@ -1034,18 +1033,6 @@ namespace jacdac {
                     onStatusEvent(StatusEvent.ProxyPacketReceived)
             }
         });
-        // announce empty list of services
-        /*
-        let restartCounter = 0;
-        control.internalOnEvent(jacdac.__physId(), 100, () => {
-            if (restartCounter < 0xf) restartCounter++
-            const buf = Buffer.create(4)
-            buf.setNumber(NumberFormat.UInt32LE, 0, restartCounter | 0x100);    
-            JDPacket.from(SystemCmd.Announce, buf)._sendReport(selfDevice())
-            if(onStatusEvent)
-                onStatusEvent(StatusEvent.ProxyAnnounce)
-        });
-        */
 
         // start animation
         if(onStatusEvent)
