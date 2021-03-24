@@ -20,7 +20,7 @@ jacdac.onStatusEvent = function (event) {
     switch (event) {
         case jacdac.StatusEvent.ProxyStarted:
             basic.showLeds(`
-            . . . . .
+            . # # # .
             . # # # .
             . # # # .
             . . # # .
