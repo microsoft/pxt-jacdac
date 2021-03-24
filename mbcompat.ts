@@ -27,7 +27,7 @@ jacdac.onStatusEvent = function (event) {
             . . . . .
             `)
             break;
-        case jacdac.StatusEvent.ProxyPacketReceived:
+        case jacdac.StatusEvent.ProxyAnnounce:
             led.toggle(1, 3);
             break;
     }
