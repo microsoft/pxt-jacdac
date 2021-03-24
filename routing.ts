@@ -222,7 +222,7 @@ namespace jacdac {
             if (this.supressLog || consolePriority < console.minPriority)
                 return
             const dev = selfDevice().toString()
-            console.add(consolePriority, `${dev}:${this.serviceClass}>${this.name}>${text}`);
+            console.add(consolePriority, `${dev}[${this.serviceIndex}]>${this.name}>${text}`);
         }
     }
 
@@ -702,7 +702,6 @@ namespace jacdac {
             if (pkt.isRegGet) {
                 switch(pkt.regCode) {
                     case ControlReg.Uptime: {
-                        console.log(`jacdac: uptime ${control.micros()}`)
                         this.sendUptime();
                         break;
                     }
@@ -910,13 +909,17 @@ namespace jacdac {
                 if (pkt.serviceCommand == SystemCmd.Announce) {
                     if (dev && (dev.services[0] & 0xf) > (pkt.data[0] & 0xf)) {
                         // if the reset counter went down, it means the device resetted; treat it as new device
+                        log(`device ${dev.shortId} resetted`)
                         _devices.removeElement(dev)
                         dev._destroy()
                         dev = null
                     }
 
-                    if (!dev)
+                    if (!dev) {
                         dev = new Device(pkt.deviceIdentifier)
+                        // ask for uptime
+                        dev.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime)
+                    }
 
                     const matches = serviceMatches(dev, pkt.data)
                     dev.services = pkt.data
@@ -1032,6 +1035,7 @@ namespace jacdac {
             }
         });
         // announce empty list of services
+        /*
         let restartCounter = 0;
         control.internalOnEvent(jacdac.__physId(), 100, () => {
             if (restartCounter < 0xf) restartCounter++
@@ -1041,6 +1045,7 @@ namespace jacdac {
             if(onStatusEvent)
                 onStatusEvent(StatusEvent.ProxyAnnounce)
         });
+        */
 
         // start animation
         if(onStatusEvent)
