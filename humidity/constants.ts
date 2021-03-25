@@ -21,7 +21,7 @@ namespace jacdac {
         HumidityError = 0x106,
 
         /**
-         * Constant °C u22.10 (uint32_t). Lowest humidity that can be reported.
+         * Constant %RH u22.10 (uint32_t). Lowest humidity that can be reported.
          *
          * ```
          * const [minHumidity] = jdunpack<[number]>(buf, "u22.10")
@@ -30,7 +30,7 @@ namespace jacdac {
         MinHumidity = 0x104,
 
         /**
-         * Constant °C u22.10 (uint32_t). Highest humidity that can be reported.
+         * Constant %RH u22.10 (uint32_t). Highest humidity that can be reported.
          *
          * ```
          * const [maxHumidity] = jdunpack<[number]>(buf, "u22.10")
