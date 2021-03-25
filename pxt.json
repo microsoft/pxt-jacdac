@@ -48,14 +48,15 @@
         "routing.ts"
     ],
     "testFiles": [
+        "test.microbit.ts",
         "test.ts"
     ],
     "testDependencies": {
-        "net": "*",
-        "nucleo-f411re": "*"
+        "microbit": "*"
     },
     "fileDependencies": {
-        "mbcompat.ts": "target:microbit"
+        "mbcompat.ts": "target:microbit",
+        "test.microbit.ts": "target:microbit"
     },
     "public": true,
     "targetVersions": {
