@@ -2,8 +2,6 @@
 #include "jdlow.h"
 #include "mbbridge.h"
 
-// #define COUNT_SERVICE 1
-
 #define FRAME_EXT_FLAG 0x80
 
 #define LOG(msg, ...) DMESG("JDAPP: " msg, ##__VA_ARGS__)
@@ -13,6 +11,7 @@
 
 #define EVT_DATA_READY 1
 #define EVT_QUEUE_ANNOUNCE 100
+#define EVT_TX_EMPTY 101
 
 namespace jacdac {
 
@@ -22,7 +21,6 @@ namespace jacdac {
 static LinkedFrame *volatile rxQ;
 static LinkedFrame *volatile txQ;
 static LinkedFrame *superFrameRX;
-
 
 extern "C" jd_frame_t *app_pull_frame() {
     target_disable_irq();
@@ -35,49 +33,10 @@ extern "C" jd_frame_t *app_pull_frame() {
     return res;
 }
 
-#ifdef COUNT_SERVICE
-typedef struct {
-    jd_packet_t hd;
-    uint32_t count;
-} count_service_pkt_t;
-
-static count_service_pkt_t cnt;
-
-static uint32_t prevCnt;
-static uint32_t numErrors, numPkts, numSent;
-
 static void queue_cnt() {
-    if (jd_get_num_pending_tx() <= 0) {
-        cnt.count++;
-        cnt.hd.size = 4;
-        cnt.hd.device_identifier = 0x65646f43656b614d;
-        cnt.hd.service_number = 0x42;
-        auto s = new count_service_pkt_t;
-        *s = cnt;
-        numSent++;
-        jd_queue_packet(&s->hd);
-    }
+    if (txQ == NULL)
+        Event(DEVICE_ID, EVT_TX_EMPTY);
 }
-
-static void handle_count_packet(jd_packet_t *frame) {
-    numPkts++;
-    count_service_pkt_t *cs = (count_service_pkt_t *)frame;
-    uint32_t c = cs->count;
-    if (prevCnt && prevCnt + 1 != c) {
-        log_pin_set(2, 1);
-        numErrors++;
-        if ((numErrors & 0x1f) == 0)
-            DMESG("ERR %d/%d %d snt:%d", numErrors, numPkts, numErrors * 10000 / numPkts, numSent);
-        else
-            DMESG("CNT-ERR");
-        log_pin_set(2, 0);
-    }
-    prevCnt = c;
-}
-#else
-static void handle_count_packet(jd_packet_t *) {}
-static void queue_cnt() {}
-#endif
 
 extern "C" void app_queue_annouce() {
     //    LOG("announce");
@@ -128,11 +87,6 @@ extern "C" int app_handle_frame(jd_frame_t *frame) {
     // DMESG("PKT t:%d fl:%x %d cmd=%x", (int)current_time_ms(), frame->flags,
     //      ((jd_packet_t *)frame)->service_number, ((jd_packet_t *)frame)->service_command);
 
-    if (((jd_packet_t *)frame)->service_number == 0x42) {
-        handle_count_packet((jd_packet_t *)frame);
-        return 0;
-    }
-
     if (copyAndAppend(&rxQ, frame, MAX_RX) < 0) {
         return -1;
     } else {
@@ -154,6 +108,11 @@ int __physId() {
     return DEVICE_ID;
 }
 
+static bool isFloodPingReport(jd_packet_t *pkt) {
+    return !(pkt->flags & JD_FRAME_FLAG_COMMAND) && pkt->service_number == 0 &&
+           pkt->service_command == 0x83;
+}
+
 //%
 void __physSendPacket(Buffer header, Buffer data) {
     if (!header || header->length != JD_SERIAL_FULL_HEADER_SIZE)
@@ -165,7 +124,7 @@ void __physSendPacket(Buffer header, Buffer data) {
     if (copyAndAppend(&txQ, frame, MAX_TX, data->data) < 0)
         return;
 
-    if (pxt::logJDFrame) {
+    if (pxt::logJDFrame && !isFloodPingReport((jd_packet_t *)header->data)) {
         auto buf = (uint8_t *)malloc(JD_FRAME_SIZE(frame));
         memcpy(buf, frame, JD_SERIAL_FULL_HEADER_SIZE);
         memcpy(buf + JD_SERIAL_FULL_HEADER_SIZE, data->data,
@@ -197,7 +156,8 @@ Buffer __physGetPacket() {
         if ((superFrameRX = rxQ) != NULL)
             rxQ = rxQ->next;
         target_enable_irq();
-        if (pxt::logJDFrame && !(superFrameRX->frame.flags & FRAME_EXT_FLAG))
+        if (pxt::logJDFrame && !(superFrameRX->frame.flags & FRAME_EXT_FLAG) &&
+            !isFloodPingReport((jd_packet_t *)&superFrameRX->frame))
             pxt::logJDFrame((uint8_t *)&superFrameRX->frame);
     }
 
@@ -221,7 +181,6 @@ static void sendExtFrame(const uint8_t *data) {
     copyAndAppend(&txQ, frame, MAX_TX); // and also put it on the send Q
     jd_packet_ready();
 }
-
 
 //%
 void __physStart() {

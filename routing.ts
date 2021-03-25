@@ -686,6 +686,8 @@ namespace jacdac {
         }
     }
 
+    function doNothing() { }
+
     class ControlService extends Host {
         constructor() {
             super("ctrl", 0)
@@ -697,9 +699,28 @@ namespace jacdac {
             this.sendReport(JDPacket.from(CMD_GET_REG | ControlReg.Uptime, buf));
         }
 
+        private handleFloodPing(pkt: JDPacket) {
+            let [numResponses, counter, size] = pkt.jdunpack<[number, number, number]>("u32 u32 u8")
+            const payload = Buffer.create(4 + size)
+            for (let i = 0; i < size; ++i)
+                payload[4 + i] = i
+            const queuePing = () => {
+                if (numResponses <= 0) {
+                    control.internalOnEvent(jacdac.__physId(), EVT_TX_EMPTY, doNothing);
+                } else {
+                    payload.setNumber(NumberFormat.UInt32LE, 0, counter)
+                    this.sendReport(JDPacket.from(ControlCmd.FloodPing, payload))
+                    numResponses--
+                    counter++
+                }
+            }
+            control.internalOnEvent(jacdac.__physId(), EVT_TX_EMPTY, queuePing);
+            queuePing()
+        }
+
         handlePacketOuter(pkt: JDPacket) {
             if (pkt.isRegGet) {
-                switch(pkt.regCode) {
+                switch (pkt.regCode) {
                     case ControlReg.Uptime: {
                         this.sendUptime();
                         break;
@@ -719,6 +740,9 @@ namespace jacdac {
                         break
                     case ControlCmd.Reset:
                         control.reset()
+                        break
+                    case ControlCmd.FloodPing:
+                        this.handleFloodPing(pkt)
                         break
                 }
             }
@@ -996,6 +1020,9 @@ namespace jacdac {
     }
 
     const EVT_DATA_READY = 1
+    const EVT_QUEUE_ANNOUNCE = 100
+    const EVT_TX_EMPTY = 101
+
     const CFG_PIN_JDPWR_OVERLOAD_LED = 1103
     const CFG_PIN_JDPWR_ENABLE = 1104
     const CFG_PIN_JDPWR_FAULT = 1105
@@ -1015,12 +1042,12 @@ namespace jacdac {
         setPinByCfg(CFG_PIN_JDPWR_ENABLE, enabled)
     }
 
-    export const JACDAC_PROXY_SETTING = "__jacdac_proxy"    
+    export const JACDAC_PROXY_SETTING = "__jacdac_proxy"
     function startProxy() {
         // check if a proxy restart was requested
         if (!settings.exists(JACDAC_PROXY_SETTING))
             return;
-            
+
         log(`jacdac starting proxy`)
         // clear proxy flag
         settings.remove(JACDAC_PROXY_SETTING)
@@ -1029,17 +1056,17 @@ namespace jacdac {
         control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
             let buf: Buffer;
             while (null != (buf = jacdac.__physGetPacket())) {
-                if(onStatusEvent)
+                if (onStatusEvent)
                     onStatusEvent(StatusEvent.ProxyPacketReceived)
             }
         });
 
         // start animation
-        if(onStatusEvent)
+        if (onStatusEvent)
             onStatusEvent(StatusEvent.ProxyStarted)
 
         // don't allow main to run until next reset
-        while(true) {
+        while (true) {
             pause(100);
         }
     }
@@ -1054,10 +1081,12 @@ namespace jacdac {
         if (_hostServices)
             return // already started
 
+        // make sure we prevent re-entering this function (potentially even log() can call us)
+        _hostServices = []
+
         log("jacdac starting")
         options = options || {};
 
-        _hostServices = []
         const controlService = new ControlService();
         controlService.start()
         _unattachedClients = []
@@ -1071,7 +1100,7 @@ namespace jacdac {
                 routePacket(pkt)
             }
         });
-        control.internalOnEvent(jacdac.__physId(), 100, queueAnnounce);
+        control.internalOnEvent(jacdac.__physId(), EVT_QUEUE_ANNOUNCE, queueAnnounce);
 
         enablePower(true)
         const faultpin = pins.pinByCfg(CFG_PIN_JDPWR_FAULT)
