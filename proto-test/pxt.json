@@ -1,0 +1,23 @@
+{
+    "name": "proto-test",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "client.g.ts",
+        "constants.ts",
+        "host.ts",
+        "pxt.g.json"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "3.1.65",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
+}
