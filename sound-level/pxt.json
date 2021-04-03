@@ -7,8 +7,7 @@
         "jacdac": "github:microsoft/pxt-jacdac"
     },
     "files": [
-        "constants.ts",
-        "client.g.ts"
+        "constants.ts"
     ],
     "supportedTargets": [
         "arcade",
