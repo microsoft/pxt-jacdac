@@ -7,7 +7,7 @@ Jacdac servers to surface sensors of the micro:bit V2. **Supported in MakeCode b
 
 This repository can be added as an **extension** in MakeCode.
 
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
+* open [https://makecode.microbit.org/beta](https://makecode.microbit.org/beta)
 * click on **New Project**
 * click on **Extensions** under the gearwheel menu
 * search for **https://github.com/microsoft/pxt-jacdac/examples/microbit** and import
