@@ -13,7 +13,8 @@ function startAll() {
     const thermometer = new microbit.Thermometer()
     const compass = new microbit.Compass()
     const radio = new microbit.Radio()
-    const soundPlayer = new microbit.SoundPlayer()
+    //const soundPlayer = new microbit.SoundPlayer()
+    const buzzer = new microbit.Buzzer()
 
     accel.start()
     buttonA.start()
@@ -25,6 +26,7 @@ function startAll() {
     thermometer.start()
     compass.start()
     radio.start()
-    soundPlayer.start()
+    //soundPlayer.start()
+    buzzer.start()
 }
-startAll();
+startAll()

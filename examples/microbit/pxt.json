@@ -18,7 +18,8 @@
         "microbitPlay.ts",
         "microbitTemperature.ts",
         "microbitCompass.ts",
-        "microbitRadio.ts"
+        "microbitRadio.ts",
+        "microbitBuzzer.ts"
     ],
     "testFiles": [
         "test.ts"
