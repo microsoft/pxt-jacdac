@@ -6,13 +6,14 @@
 // - edge connector (cap touch)
 
 function startAll() {
-    let accel = new microbit.Accelerometer();
-    let buttonA = new microbit.MButton("buttonA", Button.A);
-    let buttonB = new microbit.MButton("buttonB", Button.B);
-    let buttonAB = new microbit.MButton("buttonAB", Button.AB);
-    let soundLevel = new microbit.SoundLevel();
-    let lightLevel = new microbit.LightLevel();
-    let screen = new microbit.Screen();
+    const accel = new microbit.Accelerometer();
+    const buttonA = new microbit.MButton("buttonA", Button.A);
+    const buttonB = new microbit.MButton("buttonB", Button.B);
+    const buttonAB = new microbit.MButton("buttonAB", Button.AB);
+    const soundLevel = new microbit.SoundLevel();
+    const lightLevel = new microbit.LightLevel();
+    const screen = new microbit.Screen();
+    const thermometer = new microbit.Thermometer()
     accel.start();
     buttonA.start();
     buttonB.start();
@@ -20,5 +21,6 @@ function startAll() {
     soundLevel.start();
     lightLevel.start();
     screen.start();
+    thermometer.start()
 }
 startAll();

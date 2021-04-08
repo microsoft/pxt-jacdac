@@ -1,5 +1,5 @@
 namespace microbit {
-    export const SRV_LIGHT_LEVEL = 0x17dc9a1c
+    const SRV_LIGHT_LEVEL = 0x17dc9a1c
     export class LightLevel extends jacdac.SensorServer {
         constructor() {
             super("microbitLight", SRV_LIGHT_LEVEL)
