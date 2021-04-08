@@ -1,8 +1,5 @@
 // TODO:
-// - play sound
 // - cap touch (logo)
-// - temperature
-// - compass
 // - edge connector (cap touch)
 
 function startAll() {
@@ -16,6 +13,7 @@ function startAll() {
     const thermometer = new microbit.Thermometer()
     const compass = new microbit.Compass()
     const radio = new microbit.Radio()
+    const soundPlayer = new microbit.SoundPlayer()
 
     accel.start()
     buttonA.start()
@@ -26,6 +24,7 @@ function startAll() {
     screen.start()
     thermometer.start()
     compass.start()
-    radio.start();
+    radio.start()
+    soundPlayer.start()
 }
 startAll();
