@@ -77,7 +77,7 @@ namespace microbit {
         Quiet = 0x5,
     }
 
-    export class SoundLevel extends jacdac.SensorServer {
+    export class SoundLevelServer extends jacdac.SensorServer {
         enabled: boolean = false;
         private registered = false;
         // Sensitivity	-38dB ±3dB @ 94dB SPL
@@ -130,4 +130,7 @@ namespace microbit {
             return jacdac.jdpack("u0.16", [soundLevel]);
         }
     }
+
+    //% fixedInstance whenUsed
+    export const soundLevelServer = new SoundLevelServer()
 }

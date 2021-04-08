@@ -37,7 +37,7 @@ namespace microbit {
         Calibrate = 0x2,
     }
 
-    export class Compass extends jacdac.SensorServer {
+    export class CompassServer extends jacdac.SensorServer {
         enabled = false
 
         constructor() {
@@ -71,4 +71,7 @@ namespace microbit {
             return jacdac.jdpack("u16.16", [heading]);
         }
     }
+
+    //% fixedInstance whenUsed
+    export const compassServer = new CompassServer()
 }
