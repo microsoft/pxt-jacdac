@@ -5,7 +5,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac": "github:microsoft/pxt-jacdac#v0.4.32"
     },
     "files": [
         "main.ts",
