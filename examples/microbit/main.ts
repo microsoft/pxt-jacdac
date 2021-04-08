@@ -14,6 +14,8 @@ function startAll() {
     const lightLevel = new microbit.LightLevel();
     const screen = new microbit.Screen();
     const thermometer = new microbit.Thermometer()
+    const compass = new microbit.Compass()
+
     accel.start();
     buttonA.start();
     buttonB.start();
@@ -21,6 +23,7 @@ function startAll() {
     soundLevel.start();
     lightLevel.start();
     screen.start();
-    thermometer.start()
+    thermometer.start();
+    compass.start();
 }
 startAll();

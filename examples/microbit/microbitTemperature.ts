@@ -64,7 +64,7 @@ namespace microbit {
             super.handlePacket(pkt)
             this.handleRegValue(pkt, ThermometerReg.MinTemperature, "i22.10", -10);
             this.handleRegValue(pkt, ThermometerReg.MaxTemperature, "i22.10", 50);
-            this.handleRegValue(pkt, ThermometerReg.TemperatureError, "i22.10", 3);
+            this.handleRegValue(pkt, ThermometerReg.TemperatureError, "u22.10", 3);
         }
 
         public serializeState(): Buffer {
