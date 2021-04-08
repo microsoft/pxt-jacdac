@@ -17,7 +17,8 @@
         "microbitLightLevel.ts",
         "microbitPlay.ts",
         "microbitTemperature.ts",
-        "microbitCompass.ts"
+        "microbitCompass.ts",
+        "microbitRadio.ts"
     ],
     "testFiles": [
         "test.ts"

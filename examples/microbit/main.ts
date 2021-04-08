@@ -15,15 +15,17 @@ function startAll() {
     const screen = new microbit.Screen();
     const thermometer = new microbit.Thermometer()
     const compass = new microbit.Compass()
+    const radio = new microbit.Radio()
 
-    accel.start();
-    buttonA.start();
-    buttonB.start();
-    buttonAB.start();
-    soundLevel.start();
-    lightLevel.start();
-    screen.start();
-    thermometer.start();
-    compass.start();
+    accel.start()
+    buttonA.start()
+    buttonB.start()
+    buttonAB.start()
+    soundLevel.start()
+    lightLevel.start()
+    screen.start()
+    thermometer.start()
+    compass.start()
+    radio.start();
 }
 startAll();

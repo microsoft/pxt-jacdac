@@ -41,7 +41,7 @@ namespace microbit {
         enabled = false
 
         constructor() {
-            super("microbitCompass", SRV_COMPASS)
+            super("compass", SRV_COMPASS)
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {

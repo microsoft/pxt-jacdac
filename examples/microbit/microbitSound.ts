@@ -87,7 +87,7 @@ namespace microbit {
         soundLevel: number = 0;
         
         constructor() {
-            super("microbitSound", SRV_SOUND_LEVEL)
+            super("soundlevel", SRV_SOUND_LEVEL)
             this.setThresholds()
             input.onSound(DetectedSound.Loud, function() {
                 this.sendEvent(SoundLevelEvent.Loud)
