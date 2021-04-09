@@ -128,7 +128,7 @@ namespace jacdac {
         }
 
         private handleInstanceName(pkt: JDPacket) {
-            this.handleRegValue(pkt, SystemReg.InstanceName, "s", [this.name])
+            this.handleRegValue(pkt, SystemReg.InstanceName, "s", this.name)
         }
 
         protected handleRegFormat<T extends any[]>(
