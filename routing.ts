@@ -749,7 +749,7 @@ namespace jacdac {
 
     function doNothing() {}
 
-    class ControlService extends Server {
+    class ControlServer extends Server {
         constructor() {
             super("ctrl", 0)
         }
@@ -885,14 +885,14 @@ namespace jacdac {
         // only try autoBind, proxy we see some devices online
         if (_devices.length > 1) {
             // check for proxy mode
-            jacdac.roleManager.checkProxy()
+            jacdac.roleManagerServer.checkProxy()
             // auto bind
             if (autoBind) {
                 autoBindCnt++
                 // also, only do it every two announces (TBD)
                 if (autoBindCnt >= 2) {
                     autoBindCnt = 0
-                    jacdac.roleManager.autoBind()
+                    jacdac.roleManagerServer.autoBind()
                 }
             }
         }
@@ -1166,8 +1166,8 @@ namespace jacdac {
         log("jacdac starting")
         options = options || {}
 
-        const controlService = new ControlService()
-        controlService.start()
+        const controlServer = new ControlServer()
+        controlServer.start()
         _unattachedClients = []
         _allClients = []
         //jacdac.__physStart();
@@ -1208,13 +1208,13 @@ namespace jacdac {
 
         if (!options.disableLogger) {
             console.addListener(function (pri, msg) {
-                if (msg[0] != ":") jacdac.logger.add(pri as number, msg)
+                if (msg[0] != ":") jacdac.loggerServer.add(pri as number, msg)
             })
-            jacdac.logger.start()
+            jacdac.loggerServer.start()
         }
         if (!options.disableRoleManager) {
-            roleManager.start()
-            controlService.sendUptime()
+            roleManagerServer.start()
+            controlServer.sendUptime()
         }
         // and we're done
         log("jacdac started")
