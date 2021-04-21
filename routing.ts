@@ -396,6 +396,8 @@ namespace jacdac {
         protected advertisementData: Buffer
         private handlers: SMap<(idx?: number) => void>
         protected systemActive = false
+        private _onConnected: () => void;
+        private _onDisconnected: () => void;
 
         protected readonly config: ClientPacketQueue
         private readonly registers: RegisterClient<PackSimpleDataType[]>[] = []
@@ -432,8 +434,38 @@ namespace jacdac {
             return devices().filter(d => d.clients.indexOf(this) >= 0)
         }
 
+        /**
+         * Indicates if the client is bound to a server
+         */
+        //% blockId=jd_client_is_connected block="is %client connected"
+        //% group="Connection" weight=50
+        //% blockNamespace="modules"
         isConnected() {
-            return !!this.device
+            return this.broadcast || !!this.device
+        }
+
+        /**
+         * Raised when a server is connected.
+         */
+        //% blockId=jd_client_on_connected block="on %client connected"
+        //% group="Connection" weight=49
+        //% blockNamespace="modules"
+        onConnected(handler: () => void) {
+            this._onConnected = handler
+            if (this._onConnected && this.isConnected())
+                this._onConnected()
+        }
+
+        /**
+         * Raised when a server is connected.
+         */
+        //% blockId=jd_client_on_disconnected block="on %client disconnected"
+        //% group="Connection" weight=48
+        //% blockNamespace="modules"
+        onDisconnected(handler: () => void) {
+            this._onDisconnected = handler
+            if (this._onDisconnected && !this.isConnected())
+                this._onDisconnected()
         }
 
         requestAdvertisementData() {
@@ -473,6 +505,8 @@ namespace jacdac {
             dev.clients.push(this)
             this.onAttach()
             this.config.resend()
+            if (this._onConnected)
+                this._onConnected()
             return true
         }
 
@@ -486,6 +520,8 @@ namespace jacdac {
                 clearAttachCache()
             }
             this.onDetach()
+            if (this._onDisconnected)
+                this._onDisconnected()
         }
 
         protected onAttach() {}
