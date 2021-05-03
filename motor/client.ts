@@ -131,7 +131,7 @@ namespace modules {
             speed = Math.clamp(-100, 100, speed)
             if (speed == 0) this.setEnabled(false)
             else {
-                this.setDuty(Math.clamp(-0x7fff, 0x7fff, (speed * 327.67) | 0))
+                this.setDuty(speed)
                 this.setEnabled(true)
             }
         }
