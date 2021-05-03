@@ -121,7 +121,7 @@ namespace modules {
          * Set the throttle on a DC motor
          * @param speed the throttle of the motor from -100% to 100%
          */
-        //% group="Motors"
+        //% group="Motor"
         //% weight=99
         //% blockId=jdmotorrun block="run %motor at $speed=speedPicker \\%"
         //% servo.fieldEditor="gridpicker"
