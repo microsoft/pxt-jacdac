@@ -1,6 +1,6 @@
 {
     "name": "jacdac-humidity",
-    "version": "0.4.49",
+    "version": "0.4.50",
     "description": "A sensor measuring humidity of outside environment.",
     "files": [
         "constants.ts",
