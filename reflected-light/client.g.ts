@@ -23,7 +23,7 @@ namespace modules {
         //% blockId=jacdac_reflectedlight_brightness___get
         //% weight=100
         brightness(): number {
-            return this.reading();
+            return this.reading() * 100;
         
         }
 
@@ -73,6 +73,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed
-    export const reflectedLight = new ReflectedLightClient("reflected Light");
+    //% fixedInstance whenUsed block="reflected light 1"
+    export const reflectedLight1 = new ReflectedLightClient("reflected Light1");
 }

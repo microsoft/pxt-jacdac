@@ -3,7 +3,7 @@ namespace modules {
      * Senses RGB colors
      **/
     //% fixedInstances blockGap=8
-    export class ColorClient extends jacdac.SensorClient<[number,number,number]> {
+    export class ColorClient extends jacdac.SensorClient {
             
 
         constructor(role: string) {
@@ -23,7 +23,7 @@ namespace modules {
         red(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
@@ -37,7 +37,7 @@ namespace modules {
         green(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
-            return values[1];
+            return values[1] * 100;
         }
 
         /**
@@ -51,11 +51,11 @@ namespace modules {
         blue(): number {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
-            return values[2];
+            return values[2] * 100;
         }
 
     
     }
-    //% fixedInstance whenUsed
-    export const color = new ColorClient("color");
+    //% fixedInstance whenUsed block="color 1"
+    export const color1 = new ColorClient("color1");
 }

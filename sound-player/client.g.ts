@@ -25,7 +25,7 @@ namespace modules {
         volume(): number {
             this.start();            
             const values = this._volume.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
@@ -36,28 +36,29 @@ namespace modules {
         //% block="set %soundplayer volume to %value"
         //% weight=99
         //% value.min=0
-        //% value.max=1
+        //% value.max=100
+        //% value.defl=100
         setVolume(value: number) {
             this.start();
             const values = this._volume.values as any[];
-            values[0] = value;
+            values[0] = value / 100;
             this._volume.values = values as [number];
         }
 
 
         /**
-        * Starts playing a sounds with a specific volume.
+        * Starts playing a sound.
         */
         //% group="Sound"
         //% blockId=jacdac_soundplayer_play_cmd
         //% block="%soundplayer play"
         //% weight=98
-        play(volume: number, name: string): void {
+        play(_: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SoundPlayerCmd.Play, "u0.16 s", [volume, name]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SoundPlayerCmd.Play, "s", [_]))
         }
     
     }
-    //% fixedInstance whenUsed
-    export const soundPlayer = new SoundPlayerClient("sound Player");
+    //% fixedInstance whenUsed block="sound player 1"
+    export const soundPlayer1 = new SoundPlayerClient("sound Player1");
 }

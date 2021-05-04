@@ -3,7 +3,7 @@ namespace jacdac {
     export const SRV_COMPASS = 0x15b7b9bf
     export const enum CompassReg {
         /**
-         * Read-only u16.16 (uint32_t). The heading with respect to the magnetic north.
+         * Read-only ° u16.16 (uint32_t). The heading with respect to the magnetic north.
          *
          * ```
          * const [heading] = jdunpack<[number]>(buf, "u16.16")

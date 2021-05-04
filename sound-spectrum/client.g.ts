@@ -3,7 +3,7 @@ namespace modules {
      * A microphone that analyzes the sound specturm
      **/
     //% fixedInstances blockGap=8
-    export class SoundSpectrumClient extends jacdac.SensorClient<[Buffer]> {
+    export class SoundSpectrumClient extends jacdac.SensorClient {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
         private readonly _fftPow2Size : jacdac.RegisterClient<[number]>;
@@ -149,7 +149,7 @@ namespace modules {
         smoothingTimeConstant(): number {
             this.start();            
             const values = this._smoothingTimeConstant.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
@@ -159,17 +159,17 @@ namespace modules {
         //% group="Sound"
         //% weight=90
         //% value.min=0
-        //% value.max=1
+        //% value.max=100
         //% value.defl=0.8
         setSmoothingTimeConstant(value: number) {
             this.start();
             const values = this._smoothingTimeConstant.values as any[];
-            values[0] = value;
+            values[0] = value / 100;
             this._smoothingTimeConstant.values = values as [number];
         }
 
     
     }
-    //% fixedInstance whenUsed
-    export const soundSpectrum = new SoundSpectrumClient("sound Spectrum");
+    //% fixedInstance whenUsed block="sound spectrum 1"
+    export const soundSpectrum1 = new SoundSpectrumClient("sound Spectrum1");
 }

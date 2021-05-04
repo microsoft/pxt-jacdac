@@ -87,7 +87,7 @@ namespace modules {
         brightness(): number {
             this.start();            
             const values = this._brightness.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
@@ -98,11 +98,12 @@ namespace modules {
         //% block="set %sevensegmentdisplay brightness to %value"
         //% weight=97
         //% value.min=0
-        //% value.max=1
+        //% value.max=100
+        //% value.defl=100
         setBrightness(value: number) {
             this.start();
             const values = this._brightness.values as any[];
-            values[0] = value;
+            values[0] = value / 100;
             this._brightness.values = values as [number];
         }
 
@@ -158,6 +159,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed
-    export const sevenSegmentDisplay = new SevenSegmentDisplayClient("seven Segment Display");
+    //% fixedInstance whenUsed block="seven segment display 1"
+    export const sevenSegmentDisplay1 = new SevenSegmentDisplayClient("seven Segment Display1");
 }

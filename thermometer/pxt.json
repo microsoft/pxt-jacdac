@@ -1,6 +1,6 @@
 {
     "name": "jacdac-thermometer",
-    "version": "0.4.15",
+    "version": "0.4.57",
     "description": "MakeCode support for Jacdac Thermometer service",
     "dependencies": {
         "core": "*",
@@ -8,7 +8,7 @@
     },
     "files": [
         "constants.ts",
-        "client.ts"
+        "client.g.ts"
     ],
     "testFiles": [
         "test.ts"

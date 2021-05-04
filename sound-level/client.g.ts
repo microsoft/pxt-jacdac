@@ -31,7 +31,7 @@ namespace modules {
         //% blockId=jacdac_soundlevel_sound_level___get
         //% weight=100
         soundLevel(): number {
-            return this.reading();
+            return this.reading() * 100;
         
         }
 
@@ -132,7 +132,7 @@ namespace modules {
         loudThreshold(): number {
             this.start();            
             const values = this._loudThreshold.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
@@ -141,16 +141,17 @@ namespace modules {
         //% group="Sound"
         //% weight=92
         //% value.min=0
-        //% value.max=1
+        //% value.max=100
+        //% value.defl=100
         setLoudThreshold(value: number) {
             this.start();
             const values = this._loudThreshold.values as any[];
-            values[0] = value;
+            values[0] = value / 100;
             this._loudThreshold.values = values as [number];
         }
 
         /**
-        * The sound level to trigger a quite event.
+        * The sound level to trigger a quiet event.
         */
         //% callInDebugger
         //% group="Sound"
@@ -158,20 +159,21 @@ namespace modules {
         quietThreshold(): number {
             this.start();            
             const values = this._quietThreshold.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
-        * The sound level to trigger a quite event.
+        * The sound level to trigger a quiet event.
         */
         //% group="Sound"
         //% weight=90
         //% value.min=0
-        //% value.max=1
+        //% value.max=100
+        //% value.defl=100
         setQuietThreshold(value: number) {
             this.start();
             const values = this._quietThreshold.values as any[];
-            values[0] = value;
+            values[0] = value / 100;
             this._quietThreshold.values = values as [number];
         }
 
@@ -209,6 +211,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed
-    export const soundLevel = new SoundLevelClient("sound Level");
+    //% fixedInstance whenUsed block="sound level 1"
+    export const soundLevel1 = new SoundLevelClient("sound Level1");
 }

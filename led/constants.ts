@@ -9,32 +9,26 @@ namespace jacdac {
         Bead = 0x4,
     }
 
+    export const enum LedCmd {
+        /**
+         * This has the same semantics as `set_status_light` in the control service.
+         *
+         * ```
+         * const [toRed, toGreen, toBlue, speed] = jdunpack<[number, number, number, number]>(buf, "u8 u8 u8 u8")
+         * ```
+         */
+        Animate = 0x80,
+    }
+
     export const enum LedReg {
         /**
-         * Read-write ratio u0.16 (uint16_t). Set the luminosity of the strip. The value is used to scale `value` in `steps` register.
-         * At `0` the power to the strip is completely shut down.
+         * The current color of the LED.
          *
          * ```
-         * const [brightness] = jdunpack<[number]>(buf, "u0.16")
+         * const [red, green, blue] = jdunpack<[number, number, number]>(buf, "u8 u8 u8")
          * ```
          */
-        Brightness = 0x1,
-
-        /**
-         * Animations are described using pairs of color description and duration,
-         * similarly to the `status_light` register in the control service.
-         * `repetition` as ``0`` is considered infinite.
-         * For monochrome LEDs, the hue and saturation are ignored.
-         * A specification `(red, 80ms), (blue, 40ms), (blue, 0ms), (yellow, 80ms)`
-         * means to start with red, cross-fade to blue over 80ms, stay blue for 40ms,
-         * change to yellow, and cross-fade back to red in 80ms.
-         *
-         * ```
-         * const [repetitions, rest] = jdunpack<[number, ([number, number, number, number])[]]>(buf, "u16 r: u8 u8 u8 u8")
-         * const [hue, saturation, value, duration] = rest[0]
-         * ```
-         */
-        Animation = 0x82,
+        Color = 0x180,
 
         /**
          * Read-write mA uint16_t. Limit the power drawn by the light-strip (and controller).
@@ -52,7 +46,7 @@ namespace jacdac {
          * const [ledCount] = jdunpack<[number]>(buf, "u16")
          * ```
          */
-        LedCount = 0x180,
+        LedCount = 0x183,
 
         /**
          * Constant nm uint16_t. If monochrome LED, specifies the wave length of the LED.

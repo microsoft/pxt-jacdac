@@ -25,8 +25,8 @@ struct ExchangeBuffer {
     uint8_t padding[3];
 
     // only single buffer in each direction to ensure ordering
-    volatile uint8_t recvBuf[256];
-    volatile uint8_t sendBuf[256];
+    volatile uint8_t recvBuf[256]; // the PC reads from here
+    volatile uint8_t sendBuf[256]; // the PC writes here
 };
 
 static ExchangeBuffer *buff;

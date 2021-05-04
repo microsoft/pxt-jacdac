@@ -17,6 +17,8 @@ namespace jacdac {
     export const JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS = 0x04
 
     const ACK_RETRIES = 4
+    const ACK_DELAY = 40
+
     let ackAwaiters: AckAwaiter[]
 
 
@@ -137,7 +139,7 @@ namespace jacdac {
         }
 
         get regCode() {
-            return this.serviceCommand & 0xfff
+            return this.serviceCommand & CMD_REG_MASK
         }
 
         get data(): Buffer {
@@ -282,7 +284,7 @@ namespace jacdac {
             public readonly srcId: string
         ) {
             this.crc = pkt.crc
-            this.nextRetry = control.millis() + 40
+            this.nextRetry = control.millis() + ACK_DELAY
             this.eventId = control.allocateNotifyEvent()
         }
     }
@@ -300,7 +302,7 @@ namespace jacdac {
                 control.raiseEvent(DAL.DEVICE_ID_NOTIFY, a.eventId)
             } else {
                 a.numTries++
-                a.nextRetry = now + a.numTries * 40
+                a.nextRetry = now + a.numTries * ACK_DELAY
                 a.pkt._sendCore()
             }
         }

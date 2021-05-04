@@ -6,13 +6,15 @@ namespace modules {
      * which is periodically re-seeded with entropy coming from some hardware source.
      **/
     //% fixedInstances blockGap=8
-    export class RngClient extends jacdac.SensorClient<[Buffer]> {
+    export class RngClient extends jacdac.Client {
 
+        private readonly _random : jacdac.RegisterClient<[Buffer]>;
         private readonly _variant : jacdac.RegisterClient<[jacdac.RngVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_RNG, role, "b");
+            super(jacdac.SRV_RNG, role);
 
+            this._random = this.addRegister<[Buffer]>(jacdac.RngReg.Random, "b");
             this._variant = this.addRegister<[jacdac.RngVariant]>(jacdac.RngReg.Variant, "u8");            
         }
     
@@ -23,12 +25,10 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Random Number Generator"
-        //% block="%rng random"
-        //% blockId=jacdac_rng_random___get
         //% weight=100
         random(): Buffer {
-            this.setStreaming(true);            
-            const values = this._reading.pauseUntilValues() as any[];
+            this.start();            
+            const values = this._random.pauseUntilValues() as any[];
             return values[0];
         }
 
@@ -49,6 +49,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed
-    export const rng = new RngClient("rng");
+    //% fixedInstance whenUsed block="rng 1"
+    export const rng1 = new RngClient("rng1");
 }

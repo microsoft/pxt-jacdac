@@ -3,45 +3,53 @@ namespace jacdac {
     export const SRV_BUTTON = 0x1473a263
     export const enum ButtonReg {
         /**
-         * Read-only bool (uint8_t). Indicates whether the button is currently active (pressed).
+         * Read-only ratio u0.16 (uint16_t). Indicates the pressure state of the button, where ``0`` is open and ``0xffff`` is fully pressed.
          *
          * ```
-         * const [pressed] = jdunpack<[number]>(buf, "u8")
+         * const [pressure] = jdunpack<[number]>(buf, "u0.16")
          * ```
          */
-        Pressed = 0x101,
+        Pressure = 0x101,
+
+        /**
+         * Constant bool (uint8_t). Indicates if the button provides analog ``pressure`` readings.
+         *
+         * ```
+         * const [analog] = jdunpack<[number]>(buf, "u8")
+         * ```
+         */
+        Analog = 0x180,
     }
 
     export const enum ButtonEvent {
         /**
-         * Emitted when button goes from inactive (`pressed == 0`) to active.
+         * Emitted when button goes from inactive to active.
          */
         //% block="down"
         Down = 0x1,
 
         /**
-         * Emitted when button goes from active (`pressed == 1`) to inactive.
+         * Argument: time ms uint32_t. Emitted when button goes from active to inactive. The 'time' parameter
+         * records the amount of time between the down and up events.
+         *
+         * ```
+         * const [time] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         //% block="up"
         Up = 0x2,
 
         /**
-         * Emitted together with `up` when the press time was not longer than 500ms.
-         */
-        //% block="click"
-        Click = 0x80,
-
-        /**
-         * Emitted after button is held for 500ms. Long click events are followed by a separate up event.
-         */
-        //% block="long click"
-        LongClick = 0x81,
-
-        /**
-         * Emitted after the button is held for 1500ms. Hold events are followed by a separate up event.
+         * Argument: time ms uint32_t. Emitted when the press time is greater than 500ms, and then at least every 500ms
+         * as long as the button remains pressed. The 'time' parameter records the the amount of time
+         * that the button has been held (since the down event).
+         *
+         * ```
+         * const [time] = jdunpack<[number]>(buf, "u32")
+         * ```
          */
         //% block="hold"
-        Hold = 0x82,
+        Hold = 0x81,
     }
 
 }

@@ -23,7 +23,7 @@ namespace modules {
         //% blockId=jacdac_soilmoisture_moisture___get
         //% weight=100
         moisture(): number {
-            return this.reading();
+            return this.reading() * 100;
         
         }
 
@@ -53,6 +53,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed
-    export const soilMoisture = new SoilMoistureClient("soil Moisture");
+    //% fixedInstance whenUsed block="soil moisture 1"
+    export const soilMoisture1 = new SoilMoistureClient("soil Moisture1");
 }

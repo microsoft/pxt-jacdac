@@ -61,7 +61,7 @@ namespace modules {
         brightness(): number {
             this.start();            
             const values = this._brightness.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
@@ -72,11 +72,12 @@ namespace modules {
         //% block="set %ledmatrix brightness to %value"
         //% weight=97
         //% value.min=0
-        //% value.max=1
+        //% value.max=100
+        //% value.defl=100
         setBrightness(value: number) {
             this.start();
             const values = this._brightness.values as any[];
-            values[0] = value;
+            values[0] = value / 100;
             this._brightness.values = values as [number];
         }
 
@@ -106,6 +107,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed
-    export const ledMatrix = new LedMatrixClient("led Matrix");
+    //% fixedInstance whenUsed block="led matrix 1"
+    export const ledMatrix1 = new LedMatrixClient("led Matrix1");
 }

@@ -23,7 +23,7 @@ namespace modules {
         //% blockId=jacdac_potentiometer_position___get
         //% weight=100
         position(): number {
-            return this.reading();
+            return this.reading() * 100;
         
         }
 
@@ -53,6 +53,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed
-    export const potentiometer = new PotentiometerClient("potentiometer");
+    //% fixedInstance whenUsed block="potentiometer 1"
+    export const potentiometer1 = new PotentiometerClient("potentiometer1");
 }

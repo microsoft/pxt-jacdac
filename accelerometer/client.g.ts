@@ -3,7 +3,7 @@ namespace modules {
      * A 3-axis accelerometer.
      **/
     //% fixedInstances blockGap=8
-    export class AccelerometerClient extends jacdac.SensorClient<[number,number,number]> {
+    export class AccelerometerClient extends jacdac.SensorClient {
 
         private readonly _forcesError : jacdac.RegisterClient<[number]>;
         private readonly _maxForce : jacdac.RegisterClient<[number]>;            
@@ -218,6 +218,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed
-    export const accelerometer = new AccelerometerClient("accelerometer");
+    //% fixedInstance whenUsed block="accelerometer 1"
+    export const accelerometer1 = new AccelerometerClient("accelerometer1");
 }

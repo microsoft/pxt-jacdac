@@ -33,18 +33,6 @@ namespace modules {
         }
 
         /**
-         * Sets the brightness of the light
-         * @param brightness 
-         */
-        //% blockId=jacdacmonolightsetbrightness block="set %monoLight brightness to $brightness"
-        //% brightness.min=0
-        //% brightness.max=255
-        //% group="Mono Light"
-        setBrightness(brightness: number): void {
-            this.setReg(jacdac.LedReg.Brightness, "u0.16", [brightness])
-        }
-
-        /**
          * Show animation
          */
         //% blockId=jacdacmonolightshowanimation block="%monoLight show $animation animation"
@@ -59,7 +47,8 @@ namespace modules {
                     anim.setNumber(NumberFormat.UInt16LE, i + 2, adj)
                 }
             }
-            this.setRegBuffer(jacdac.LedReg.Animation, anim)
+            // TODO
+            //this.setRegBuffer(jacdac.LedReg.Animation, anim)
         }
     }
 

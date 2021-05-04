@@ -23,7 +23,7 @@ namespace modules {
         //% blockId=jacdac_lightlevel_light_level___get
         //% weight=100
         lightLevel(): number {
-            return this.reading();
+            return this.reading() * 100;
         
         }
 
@@ -53,6 +53,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed
-    export const lightLevel = new LightLevelClient("light Level");
+    //% fixedInstance whenUsed block="light level 1"
+    export const lightLevel1 = new LightLevelClient("light Level1");
 }

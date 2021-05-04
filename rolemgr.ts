@@ -54,7 +54,7 @@ namespace jacdac._rolemgr {
         }
     }
 
-    class HostBindings {
+    class ServerBindings {
         bindings: RoleBinding[] = []
         constructor(
             public host: string
@@ -125,7 +125,7 @@ namespace jacdac._rolemgr {
         return maxElt
     }
 
-    export class RoleManagerHost extends Host {
+    export class RoleManagerServer extends Server {
         private _oldBindingsHash: number;
 
         constructor() {
@@ -187,10 +187,36 @@ namespace jacdac._rolemgr {
             return buf.hash(32);
         }
 
+        checkProxy() {
+            const now = control.micros()
+            const self = jacdac.selfDevice();
+            const devs = jacdac.devices().filter(d => d !== self && !!(d.announceflags & ControlAnnounceFlags.IsClient));
+            if (!devs.length)
+                return; // nothing to do here
+
+            this.log(`check proxy self ${((now / 100000) | 0) / 10}s`)
+            for(const device of devs) {
+                const uptime = device.uptime;
+                if (uptime === undefined) {
+                    this.log(`check proxy ${device.shortId}: no uptime`)
+                    device.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime);
+                } else {
+                    this.log(`check proxy ${device.shortId}: ${((uptime / 100000) | 0) / 10}s`)
+                    if (now > uptime) {
+                        this.log(`reset into proxy mode`)
+                        settings.writeNumber(JACDAC_PROXY_SETTING, 1)
+                        control.reset();
+                    }
+                }
+            }
+        }
+
         autoBind() {
-            console.log(`autobind: devs=${_devices.length} cl=${_unattachedClients.length}`)
-            if (_devices.length == 0 || _unattachedClients.length == 0)
+            this.log(`autobind: devs=${_devices.length} clients=${_unattachedClients.length}`)
+            if (_devices.length == 0 || _unattachedClients.length == 0) {
+                this.checkChanges();
                 return
+            }
 
             const bindings: RoleBinding[] = []
             const wraps = _devices.map(d => new DeviceWrapper(d))
@@ -211,26 +237,26 @@ namespace jacdac._rolemgr {
                 }
             }
 
-            let hosts: HostBindings[] = []
+            let servers: ServerBindings[] = []
 
             // Group all clients by host
             for (const b of bindings) {
                 const hn = b.host()
-                let h = hosts.find(h => h.host == hn)
+                let h = servers.find(h => h.host == hn)
                 if (!h) {
-                    h = new HostBindings(hn)
-                    hosts.push(h)
+                    h = new ServerBindings(hn)
+                    servers.push(h)
                 }
                 h.bindings.push(b)
             }
 
             // exclude hosts that have already everything bound
-            hosts = hosts.filter(h => !h.fullyBound)
+            servers = servers.filter(h => !h.fullyBound)
 
-            while (hosts.length > 0) {
+            while (servers.length > 0) {
                 // Get host with maximum number of clients (resolve ties by name)
                 // This gives priority to assignment of "more complicated" hosts, which are generally more difficult to assign
-                const h = maxIn(hosts, (a, b) => a.bindings.length - b.bindings.length || b.host.compare(a.host))
+                const h = maxIn(servers, (a, b) => a.bindings.length - b.bindings.length || b.host.compare(a.host))
 
                 for (const d of wraps)
                     d.score = h.scoreFor(d)
@@ -239,7 +265,7 @@ namespace jacdac._rolemgr {
 
                 if (dev.score == 0) {
                     // nothing can be assigned, on any device
-                    hosts.removeElement(h)
+                    servers.removeElement(h)
                     continue
                 }
 
@@ -252,19 +278,22 @@ namespace jacdac._rolemgr {
 
                 // if everything bound on this host, remove it from further consideration
                 if (h.fullyBound)
-                    hosts.removeElement(h)
+                    servers.removeElement(h)
                 else {
                     // otherwise, remove bindings on the current device, to update sort order
                     // it's unclear we need this
                     h.bindings = h.bindings.filter(b => b.boundToDev != dev.device)
                 }
             }
+            this.checkChanges();
+        }
 
+        private checkChanges() {
             // notify clients that something changed
             const newHash = this.bindingHash();
             if (this._oldBindingsHash !== newHash) {
                 this._oldBindingsHash = newHash;
-                //console.log(`auto bind: changed`)
+                this.log(`roles: bindings changed`)
                 this.sendChangeEvent()
             } else {
                 //console.log(`auto bind: no changes`)
@@ -276,7 +305,7 @@ namespace jacdac._rolemgr {
 namespace jacdac {
 
     //% fixedInstance whenUsed block="role manager"
-    export const roleManagerHost = new _rolemgr.RoleManagerHost()
+    export const roleManagerServer = new _rolemgr.RoleManagerServer()
 
     /*
 

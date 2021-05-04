@@ -3,7 +3,7 @@ namespace modules {
      * A switch, which keeps its position.
      **/
     //% fixedInstances blockGap=8
-    export class SwitchClient extends jacdac.SensorClient<[boolean]> {
+    export class SwitchClient extends jacdac.SensorClient {
 
         private readonly _variant : jacdac.RegisterClient<[jacdac.SwitchVariant]>;
         private readonly _autoOffDelay : jacdac.RegisterClient<[number]>;            
@@ -77,6 +77,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed
-    export const switch_ = new SwitchClient("switch");
+    //% fixedInstance whenUsed block="switch 1"
+    export const switch_1 = new SwitchClient("switch1");
 }

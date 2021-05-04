@@ -1,6 +1,6 @@
 {
     "name": "jacdac",
-    "version": "0.4.15",
+    "version": "0.4.57",
     "description": "Jacdac for MakeCode",
     "dependencies": {
         "core": "*",
@@ -8,7 +8,6 @@
     },
     "files": [
         "README.md",
-        "jacdac.svg",
         "jdlow.c",
         "jdlow.h",
         "jdprotocol.h",
@@ -22,7 +21,6 @@
         "mbcompat.ts",
         "commands.ts",
         "config.ts",
-        "routing.ts",
         "packet.ts",
         "pack.ts",
         "service.ts",
@@ -38,28 +36,30 @@
         "control/constants.ts",
         "logger/constants.ts",
         "logger/client.ts",
-        "logger-host/host.ts",
+        "logger-server/server.ts",
         "sensor/constants.ts",
         "sensor/client.ts",
-        "sensor/host.ts",
+        "sensor/server.ts",
         "role-manager/constants.ts",
         "rolemgr.ts",
         "proto-test/constants.ts",
-        "proto-test/host.ts"
+        "proto-test/server.ts",
+        "routing.ts"
     ],
     "testFiles": [
+        "test.microbit.ts",
         "test.ts"
     ],
     "testDependencies": {
-        "net": "*",
-        "nucleo-f411re": "*"
+        "radio": "*"
     },
     "fileDependencies": {
-        "mbcompat.ts": "target:microbit"
+        "mbcompat.ts": "target:microbit",
+        "test.microbit.ts": "target:microbit"
     },
     "public": true,
     "targetVersions": {
-        "target": "3.1.57",
+        "target": "3.1.75",
         "targetId": "microbit"
     },
     "supportedTargets": [
@@ -76,7 +76,7 @@
         "namespace": "modules",
         "label": "Configure",
         "group": "Services",
-        "url": "https://microsoft.github.com/jacdac-docs/tools/makecode-editor-extension",
+        "url": "https://microsoft.github.io/jacdac-docs/tools/makecode-editor-extension",
         "localUrl": "http://localhost:8000/tools/makecode-editor-extension"
     }
 }

@@ -1,5 +1,10 @@
 {
-    "targetWebsite": "https://maker.makecode.com",
+    "targetWebsite": "https://makecode.microbit.org/beta",
+    "overrides": {
+        "testDependencies": {
+            "radio": "*"
+        }
+    },
     "links": {
         "jacdac": ".",
         "jacdac-settings": "./settings",

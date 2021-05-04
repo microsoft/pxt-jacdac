@@ -3,7 +3,7 @@ namespace modules {
      * Real time clock to support collecting data with precise time stamps.
      **/
     //% fixedInstances blockGap=8
-    export class RealTimeClockClient extends jacdac.SensorClient<[number,number,number,number,number,number,number]> {
+    export class RealTimeClockClient extends jacdac.SensorClient {
 
         private readonly _error : jacdac.RegisterClient<[number]>;
         private readonly _precision : jacdac.RegisterClient<[number]>;
@@ -187,6 +187,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed
-    export const realTimeClock = new RealTimeClockClient("real Time Clock");
+    //% fixedInstance whenUsed block="real time clock 1"
+    export const realTimeClock1 = new RealTimeClockClient("real Time Clock1");
 }

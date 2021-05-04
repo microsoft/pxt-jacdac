@@ -233,7 +233,7 @@ int uart_start_tx(const void *data, uint32_t numbytes) {
     sws->p.setDigitalValue(1);
 
     // LOG("start tx @%d", (int)tim_get_micros());
-    target_wait_us(40);
+    target_wait_us(50);
 
     pin_pulse();
 

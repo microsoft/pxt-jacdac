@@ -17,7 +17,7 @@ namespace jacdac {
          * const [random] = jdunpack<[Buffer]>(buf, "b")
          * ```
          */
-        Random = 0x101,
+        Random = 0x180,
 
         /**
          * Constant Variant (uint8_t). The type of algorithm/technique used to generate the number.

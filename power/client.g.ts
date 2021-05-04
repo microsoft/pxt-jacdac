@@ -134,7 +134,7 @@ namespace modules {
         batteryCharge(): number {
             this.start();            
             const values = this._batteryCharge.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
@@ -250,6 +250,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed
-    export const power = new PowerClient("power");
+    //% fixedInstance whenUsed block="power 1"
+    export const power1 = new PowerClient("power1");
 }

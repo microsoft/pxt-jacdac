@@ -4,7 +4,7 @@ namespace modules {
      * If a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.
      **/
     //% fixedInstances blockGap=8
-    export class ArcadeGamepadClient extends jacdac.SensorClient<[([jacdac.ArcadeGamepadButton, number])[]]> {
+    export class ArcadeGamepadClient extends jacdac.SensorClient {
 
         private readonly _availableButtons : jacdac.RegisterClient<[jacdac.ArcadeGamepadButton[]]>;            
 
@@ -42,7 +42,7 @@ namespace modules {
         pressure(): undefined {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
-            return values[1];
+            return values[1] * 100;
         }
 
         /**
@@ -79,6 +79,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed
-    export const arcadeGamepad = new ArcadeGamepadClient("arcade Gamepad");
+    //% fixedInstance whenUsed block="arcade gamepad 1"
+    export const arcadeGamepad1 = new ArcadeGamepadClient("arcade Gamepad1");
 }
