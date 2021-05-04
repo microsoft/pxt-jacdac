@@ -155,8 +155,6 @@ int JacdacBLE::send(uint8_t *buf, int length)
     int sent = 0;
     uint8_t temp[BLE_GATT_EFFECTIVE_MTU] = { 0 };
 
-    DMESG("JD_BLE: send len %d chunks %d rem chunk %d", length, totalChunks, remainingChunks);
-
     while(sent < length) {
         uint16_t n = min(JD_BLE_DATA_SIZE, length - sent);
         uint16_t total = n + JD_BLE_HEADER_SIZE;
