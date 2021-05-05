@@ -1,11 +1,12 @@
 #include "pxt.h"
 #include "jdlow.h"
 #include "mbbridge.h"
-#include "JacdacBLE.h"
 
 #ifdef MICROBIT_CODAL
 
 #if CONFIG_ENABLED(DEVICE_BLE)
+
+#include "JacdacBLE.h"
 
 namespace pxt {
 void (*logJDFrame)(const uint8_t *data);

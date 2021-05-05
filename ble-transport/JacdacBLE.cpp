@@ -1,8 +1,8 @@
-/**
-  * Class definition for the custom MicroBit UART Service.
-  * Provides a BLE service that acts as a UART port, enabling the reception and transmission
-  * of an arbitrary number of bytes.
-  */
+#include "pxt.h"
+#include "jdlow.h"
+#include "mbbridge.h"
+
+#ifdef MICROBIT_CODAL
 
 #include "MicroBitConfig.h"
 
@@ -183,4 +183,5 @@ int JacdacBLE::send(uint8_t *buf, int length)
 ManagedBuffer JacdacBLE::read() {
     return ManagedBuffer(rxBuffer, JD_FRAME_SIZE((jd_frame_t *)this->rxBuffer));
 }
-#endif
+#endif // DEVICE_BLE
+#endif // MICROBIT_CODAL

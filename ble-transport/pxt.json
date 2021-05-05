@@ -8,8 +8,8 @@
         "bluetooth": "*"
     },
     "files": [
-        "JacdacBLE.cpp",
         "JacdacBLE.h",
+        "JacdacBLE.cpp",
         "jdble.cpp"
     ],
     "testFiles": [
