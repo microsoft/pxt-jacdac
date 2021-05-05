@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-ble",
+    "name": "jacdac-ble-transport",
     "version": "0.0.0",
     "description": "Support for sending Jacdac packets over BLE.",
     "dependencies": {
