@@ -16,7 +16,6 @@
         "test.ts"
     ],
     "testDependencies": {
-        "microbit": "*"
     },
     "supportedTargets": [
         "microbit"
