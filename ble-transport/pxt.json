@@ -16,6 +16,7 @@
         "test.ts"
     ],
     "testDependencies": {
+        "bluetooth": "*"
     },
     "supportedTargets": [
         "microbit"
