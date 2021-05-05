@@ -8,16 +8,7 @@
 
 #include "JacdacBLE.h"
 
-namespace pxt {
-void (*logJDFrame)(const uint8_t *data);
-void (*sendJDFrame)(const uint8_t *data);
-uint64_t current_time_us() {
-    return system_timer_current_time_us();
-}
-} // namespace pxt
-
 namespace jacdac {
-
 
 static JacdacBLE* jdble;
 

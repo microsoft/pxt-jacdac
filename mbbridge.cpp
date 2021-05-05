@@ -4,8 +4,6 @@
 
 #ifdef MICROBIT_CODAL
 
-#if CONFIG_ENABLED(DEVICE_BLE)
-#else
 namespace pxt {
 void (*logJDFrame)(const uint8_t *data);
 void (*sendJDFrame)(const uint8_t *data);
@@ -14,6 +12,8 @@ uint64_t current_time_us() {
 }
 } // namespace pxt
 
+#if CONFIG_ENABLED(DEVICE_BLE)
+#else
 namespace jacdac {
 
 #define MAX_LOGQ 10
