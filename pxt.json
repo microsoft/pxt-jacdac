@@ -51,7 +51,6 @@
         "test.ts"
     ],
     "testDependencies": {
-        "radio": "*"
     },
     "fileDependencies": {
         "mbcompat.ts": "target:microbit",
