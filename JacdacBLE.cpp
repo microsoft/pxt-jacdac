@@ -6,7 +6,7 @@
 
 #include "MicroBitConfig.h"
 
-#if CONFIG_ENABLED(DEVICE_BLE)
+#if CONFIG_ENABLED(DEVICE_BLE) && CONFIG_ENABLED(JACDAC_BLE_TRANSPORT)
 
 #include "ExternalEvents.h"
 #include "JacdacBLE.h"

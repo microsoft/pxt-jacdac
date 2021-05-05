@@ -4,20 +4,19 @@
     "description": "Support for sending Jacdac packets over BLE.",
     "dependencies": {
         "core": "*",
-        "jacdac": "file:../",
-        "bluetooth": "*"
+        "jacdac": "file:../"
+    },
+    "yotta": {
+        "config": {
+            "DEVICE_BLE": 1,
+            "JACDAC_BLE_TRANSPORT": 1
+        }
     },
     "files": [
-        "JacdacBLE.h",
-        "JacdacBLE.cpp",
-        "jdble.cpp"
     ],
     "testFiles": [
         "test.ts"
     ],
-    "testDependencies": {
-        "bluetooth": "*"
-    },
     "supportedTargets": [
         "microbit"
     ]

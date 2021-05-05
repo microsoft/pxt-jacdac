@@ -22,8 +22,6 @@ static LinkedFrame *volatile rxQ;
 static LinkedFrame *volatile txQ;
 static LinkedFrame *superFrameRX;
 
-extern void jdble_init();
-
 extern "C" jd_frame_t *app_pull_frame() {
     target_disable_irq();
     jd_frame_t *res = NULL;
@@ -189,7 +187,7 @@ void __physStart() {
     jd_init();
     sendJDFrame = sendExtFrame;
 #ifdef MICROBIT_CODAL
-#if CONFIG_ENABLED(DEVICE_BLE)
+#if CONFIG_ENABLED(DEVICE_BLE) && CONFIG_ENABLED(JACDAC_BLE_TRANSPORT)
     jdble_init();
 #else
     mbbridge_init();
