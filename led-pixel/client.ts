@@ -348,13 +348,15 @@ namespace modules {
 
     export namespace ledPixelAnimations {
         //% fixedInstances
-        export abstract class Animation {
+        export class Animation {
             protected length: number
             protected step: number
             protected color = 0xffffff
             constructor() { }
 
-            abstract create(length: number): Animation;
+            create(length: number): Animation {
+                return undefined
+            }
 
             clear() {
                 this.step = 0

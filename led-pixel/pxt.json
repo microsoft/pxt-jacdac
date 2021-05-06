@@ -6,14 +6,18 @@
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
-    "testFiles": [
-        "test.ts"
-    ],
     "files": [
         "constants.ts",
         "encoder.ts",
         "client.ts"
     ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "3.1.79",
+        "targetId": "microbit"
+    },
     "supportedTargets": [
         "arcade",
         "maker",
