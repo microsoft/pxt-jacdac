@@ -1,6 +1,6 @@
 {
     "name": "jacdac-bluetooth-transport",
-    "version": "0.0.0",
+    "version": "0.4.64",
     "description": "Support for sending Jacdac packets over BLE.",
     "dependencies": {
         "core": "*",
@@ -11,11 +11,10 @@
             "DEVICE_BLE": 1,
             "JACDAC_BLE_TRANSPORT": 1,
             "SOFTDEVICE_PRESENT": 1,
-            "MICROBIT_BLE_ENABLED" : 1
+            "MICROBIT_BLE_ENABLED": 1
         }
     },
-    "files": [
-    ],
+    "files": [],
     "testFiles": [
         "test.ts"
     ],
