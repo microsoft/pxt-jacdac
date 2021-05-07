@@ -5,8 +5,8 @@
     "dependencies": {
         "core": "*",
         "mouse": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse"
+        "jacdac": "file:../",
+        "jacdac-hid-mouse": "file:../hid-mouse"
     },
     "files": [
         "server.ts"

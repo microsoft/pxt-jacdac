@@ -4,7 +4,7 @@
     "description": "MakeCode support for Jacdac HID Keyboard client",
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac": "file:../"
     },
     "files": [
         "constants.ts",
