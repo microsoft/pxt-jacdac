@@ -21,7 +21,7 @@ namespace jacdac {
     let _pktCallbacks: ((p: JDPacket) => void)[]
     let restartCounter = 0
     let autoBindCnt = 0
-    let resetIn = 2_000_000 // 2s
+    let resetIn = 2000000 // 2s
     export let autoBind = true
 
     function log(msg: string) {
