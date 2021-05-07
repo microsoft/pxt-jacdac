@@ -5,8 +5,8 @@
     "dependencies": {
         "core": "*",
         "keyboard": "*",
-        "jacdac": "file:../",
-        "jacdac-hid-keyboard": "file:../hid-keyboard"
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-hid-keyboard": "github:microsoft/pxt-jacdac/hid-keyboard"
     },
     "files": [
         "server.ts"
