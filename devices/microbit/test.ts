@@ -14,7 +14,7 @@ function startAll() {
     microbit.thermometerServer.start()
     microbit.compassServer.start()
     microbit.radioServer.start()
-    //microbit.soundPlayerServer.start()
     microbit.buzzerServer.start()
+    microbit.soundPlayerServer.start()
 }
 startAll()
