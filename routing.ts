@@ -439,7 +439,7 @@ namespace jacdac {
          * Indicates if the client is bound to a server
          */
         //% blockId=jd_client_is_connected block="is %client connected"
-        //% group="Connection" weight=50
+        //% group="Services" weight=50
         //% blockNamespace="modules"
         isConnected() {
             return this.broadcast || !!this.device
@@ -449,7 +449,7 @@ namespace jacdac {
          * Raised when a server is connected.
          */
         //% blockId=jd_client_on_connected block="on %client connected"
-        //% group="Connection" weight=49
+        //% group="Services" weight=49
         //% blockNamespace="modules"
         onConnected(handler: () => void) {
             this._onConnected = handler
@@ -461,7 +461,7 @@ namespace jacdac {
          * Raised when a server is connected.
          */
         //% blockId=jd_client_on_disconnected block="on %client disconnected"
-        //% group="Connection" weight=48
+        //% group="Services" weight=48
         //% blockNamespace="modules"
         onDisconnected(handler: () => void) {
             this._onDisconnected = handler
