@@ -1,5 +1,4 @@
 function startAll() {
-
     microbit.buttonA.start()
     microbit.buttonB.start()
     microbit.buttonAB.start()
@@ -12,7 +11,7 @@ function startAll() {
     microbit.buzzerServer.start()
     microbit.soundPlayerServer.start()
     // calibration "kills" jacdac
-    microbit.compassServer.start()
+    // microbit.compassServer.start()
     microbit.radioServer.start()
 }
 startAll()
