@@ -2,6 +2,7 @@
  * Jacdac servers for micro:bit sensors
  */
 //% icon="icons/jacdac.svg"
+//% weight=79 color="#009900"
 namespace servers {
     /**
      * Start all microbit servers
