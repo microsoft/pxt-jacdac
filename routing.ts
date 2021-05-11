@@ -513,8 +513,11 @@ namespace jacdac {
             // refresh registers
             this.config.resend()
             // if the device has any status light (StatusLightRgbFade is 0b..11.. mask)
-            if (this.device.announceflags & ControlAnnounceFlags.StatusLightRgbFade) 
-                control.runInParallel(() => this.connectedBlink())
+            if (this.device) {
+                const flags = this.device.announceflags
+                if (flags & ControlAnnounceFlags.StatusLightRgbFade) 
+                    control.runInParallel(() => this.connectedBlink())
+            }
             // user handler
             if (this._onConnected)
                 this._onConnected()
