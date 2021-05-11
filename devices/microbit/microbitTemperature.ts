@@ -1,4 +1,4 @@
-namespace microbit {
+namespace servers {
     // Service: Thermometer
     const SRV_THERMOMETER = 0x1421bac7
 

@@ -1,4 +1,4 @@
-namespace microbit {
+namespace servers {
     // Service: Sound level
     const SRV_SOUND_LEVEL = 0x14ad1a5d
     const enum SoundLevelReg {

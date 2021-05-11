@@ -1,4 +1,4 @@
-namespace microbit {
+namespace servers {
     // Service: Sound player
     const SRV_SOUND_PLAYER = 0x1403d338
     const enum SoundPlayerReg {

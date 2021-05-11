@@ -1,4 +1,4 @@
-namespace microbit {
+namespace servers {
     export class ScreenServer extends jacdac.Server {
         constructor() {
             super("screen", 0x110d154b)

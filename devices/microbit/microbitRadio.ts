@@ -1,4 +1,4 @@
-namespace microbit {
+namespace servers {
     // Service: bit:radio
     const SRV_BIT_RADIO = 0x1ac986cf
     const enum BitRadioReg {
