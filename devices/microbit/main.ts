@@ -38,4 +38,12 @@ namespace servers {
             )
         })
     }
+
+    /**
+     * Starts a jacdac server
+     */
+    //% blockId=jacdac_start_server block="start $server"
+    export function startServer(server: jacdac.Server) {
+        server.start()
+    }
 }
