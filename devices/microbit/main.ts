@@ -1,8 +1,3 @@
-/**
- * Jacdac servers for micro:bit sensors
- */
-//% icon="icons/jacdac.svg"
-//% weight=79 color="#009900"
 namespace servers {
     /**
      * Start all microbit servers
@@ -37,13 +32,5 @@ namespace servers {
             `
             )
         })
-    }
-
-    /**
-     * Starts a jacdac server
-     */
-    //% blockId=jacdac_start_server block="start $server"
-    export function startServer(server: jacdac.Server) {
-        server.start()
     }
 }
