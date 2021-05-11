@@ -81,6 +81,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="sound player"
     export const soundPlayerServer = new SoundPlayerServer()
 }

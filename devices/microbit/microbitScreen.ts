@@ -36,6 +36,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="screen"
     export const screenServer = new ScreenServer()
 }

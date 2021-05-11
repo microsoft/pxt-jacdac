@@ -10,6 +10,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="light level"
     export const lightLevelServer = new LightLevelServer()
 }

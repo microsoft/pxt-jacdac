@@ -75,6 +75,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="thermometer"
     export const thermometerServer = new ThermometerServer()
 }

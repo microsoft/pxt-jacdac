@@ -131,6 +131,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="sound level"
     export const soundLevelServer = new SoundLevelServer()
 }

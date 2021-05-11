@@ -54,6 +54,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="buzzer"
     export const buzzerServer = new BuzzerServer()
 }

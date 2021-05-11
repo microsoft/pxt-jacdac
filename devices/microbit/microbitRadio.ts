@@ -188,6 +188,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="radio"
     export const radioServer = new RadioServer()
 }

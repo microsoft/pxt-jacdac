@@ -72,6 +72,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="compass"
     export const compassServer = new CompassServer()
 }

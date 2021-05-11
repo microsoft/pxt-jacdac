@@ -22,7 +22,7 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="accelerometer"
     export const accelerometerServer = new AccelerometerServer()
 }
 
