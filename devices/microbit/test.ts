@@ -1,7 +1,3 @@
-// TODO:
-// - cap touch (logo)
-// - edge connector (cap touch)
-
 function startAll() {
 
     microbit.buttonA.start()
@@ -20,3 +16,16 @@ function startAll() {
     microbit.radioServer.start()
 }
 startAll()
+
+control.runInBackground(function() {
+    pause(100)
+    basic.showAnimation(
+        `
+        ..... ..##. .###. .###. .###.
+        ..... ..... ..##. .###. .###.
+        ..... ..... ..... ..##. .###.
+        ..... ..... ..... ..... ..##.
+        ..... ..... ..... ..... .....
+        `
+    )
+})
