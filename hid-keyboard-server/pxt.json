@@ -6,10 +6,14 @@
         "core": "*",
         "keyboard": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
         "jacdac-hid-keyboard": "github:microsoft/pxt-jacdac/hid-keyboard"
     },
     "files": [
         "server.ts"
+    ],
+    "testFiles": [
+        "test.ts"
     ],
     "supportedTargets": [
         "arcade",
