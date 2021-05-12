@@ -19,6 +19,20 @@ namespace servers {
             return ""
         }
 
+        private selectorToFunction(selector: number): KeyboardFunctionKey {
+            if (selector >= 0x28 && selector <= 0x73)
+                return selector
+            else
+                return 0
+        }
+
+        private selectorToMedia(selector: number): KeyboardMediaKey {
+            if (selector >= 0x74 && selector <= 0x81)
+                return selector
+            else
+                return 0
+        }
+
         handleKeyCommand(packet: jacdac.JDPacket) {
             const [keys] = packet.jdunpack<number[][][]>("r: u16 u8 u8")
 
@@ -28,14 +42,26 @@ namespace servers {
                 const upacked = keys[i]
                 const selector = upacked[i]
                 const key = this.selectorToKey(selector)
+                const fcn = this.selectorToFunction(selector)
+                const media = this.selectorToMedia(selector)
                 const modifier = upacked[i + 1] & ~0xe
                 const action = upacked[i + 2]
+
+                this.log(`mods ${modifier}`)
+                this.log(`key ${key}`)
+                this.log(`fcn ${fcn}`)
+                this.log(`media ${media}`)
+
                 if (action === jacdac.HidKeyboardAction.Press) {
                     if (modifier) keyboard.modifierKey(modifier, KeyboardKeyEvent.Down)
                     pause(REPORT_DELAY)
                     if (key) keyboard.key(key, KeyboardKeyEvent.Down)
+                    if (fcn) keyboard.functionKey(fcn, KeyboardKeyEvent.Down)
+                    if (media) keyboard.mediaKey(media, KeyboardKeyEvent.Down)
                     pause(REPORT_DELAY)
                     if (key) keyboard.key(key, KeyboardKeyEvent.Up)
+                    if (fcn) keyboard.functionKey(fcn, KeyboardKeyEvent.Up)
+                    if (media) keyboard.mediaKey(media, KeyboardKeyEvent.Up)
                     pause(REPORT_DELAY)
                     if (modifier) keyboard.modifierKey(modifier, KeyboardKeyEvent.Up)
                     pause(REPORT_DELAY)
@@ -43,6 +69,8 @@ namespace servers {
                     if (modifier) keyboard.modifierKey(modifier, action)
                     pause(REPORT_DELAY)
                     if (key) keyboard.key(key, action)
+                    if (fcn) keyboard.functionKey(fcn, action)
+                    if (media) keyboard.mediaKey(media, action)
                     pause(REPORT_DELAY)
                 }
             }
