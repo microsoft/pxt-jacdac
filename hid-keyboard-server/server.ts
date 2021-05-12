@@ -12,8 +12,8 @@ namespace servers {
             if (selector >= 0x04 && selector <= 0x1d) // a-z
                 return String.fromCharCode("a".charCodeAt(0) + (selector - 0x04))
             if (selector >= 0x1e && selector <= 0x26) // 1-9
-                return String.fromCharCode("1".charCodeAt(0) + (selector - 0x1e))            
-            switch(selector) {
+                return String.fromCharCode("1".charCodeAt(0) + (selector - 0x1e))
+            switch (selector) {
                 case 0x27: return "0"
             }
             return ""
@@ -21,16 +21,30 @@ namespace servers {
 
         handleKeyCommand(packet: jacdac.JDPacket) {
             const [keys] = packet.jdunpack<number[][][]>("r: u16 u8 u8")
-            
+
+            const REPORT_DELAY = 20
             // each key press is represented by 32 bits, unpacked into three "numbers"
-            for (let i = 0; i < keys.length; i ++) {
+            for (let i = 0; i < keys.length; i++) {
                 const upacked = keys[i]
                 const selector = upacked[i]
                 const key = this.selectorToKey(selector)
                 const modifier = upacked[i + 1] & ~0xe
                 const action = upacked[i + 2]
-                if (modifier) keyboard.modifierKey(modifier, action)
-                if (key) keyboard.key(key, action)
+                if (action === jacdac.HidKeyboardAction.Press) {
+                    if (modifier) keyboard.modifierKey(modifier, KeyboardKeyEvent.Down)
+                    pause(REPORT_DELAY)
+                    if (key) keyboard.key(key, KeyboardKeyEvent.Down)
+                    pause(REPORT_DELAY)
+                    if (key) keyboard.key(key, KeyboardKeyEvent.Up)
+                    pause(REPORT_DELAY)
+                    if (modifier) keyboard.modifierKey(modifier, KeyboardKeyEvent.Up)
+                    pause(REPORT_DELAY)
+                } else {
+                    if (modifier) keyboard.modifierKey(modifier, action)
+                    pause(REPORT_DELAY)
+                    if (key) keyboard.key(key, action)
+                    pause(REPORT_DELAY)
+                }
             }
         }
 
