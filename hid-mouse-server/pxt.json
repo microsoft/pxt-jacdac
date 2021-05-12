@@ -9,12 +9,8 @@
         "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
         "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse"
     },
-    "files": [
-        "server.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker"
-    ],
+    "testFiles": ["test.ts"],
+    "files": ["server.ts"],
+    "supportedTargets": ["arcade", "maker"],
     "preferredEditor": "tsprj"
 }
