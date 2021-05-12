@@ -16,7 +16,12 @@
         "test.ts"
     ],
     "testDependencies": {
-        "microsoft-makeable": "*"
+        "device": "*",
+        "game": "*"
+    },
+    "targetVersions": {
+        "target": "1.5.12",
+        "targetId": "arcade"
     },
     "supportedTargets": [
         "arcade",

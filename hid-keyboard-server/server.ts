@@ -20,10 +20,11 @@ namespace servers {
         }
 
         handleKeyCommand(packet: jacdac.JDPacket) {
-            let upacked = packet.jdunpack<number[]>("r: u16 u8 u8")
-
+            const [keys] = packet.jdunpack<number[][][]>("r: u16 u8 u8")
+            
             // each key press is represented by 32 bits, unpacked into three "numbers"
-            for (let i = 0; i < upacked.length / 3; i += 3) {
+            for (let i = 0; i < keys.length; i ++) {
+                const upacked = keys[i]
                 const selector = upacked[i]
                 const key = this.selectorToKey(selector)
                 const modifier = upacked[i + 1] & ~0xe
