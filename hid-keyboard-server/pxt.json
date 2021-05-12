@@ -15,6 +15,9 @@
     "testFiles": [
         "test.ts"
     ],
+    "testDependencies": {
+        "microsoft-makeable": "*"
+    },
     "supportedTargets": [
         "arcade",
         "maker"
