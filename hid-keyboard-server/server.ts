@@ -144,19 +144,6 @@ namespace servers {
             }
         }
 
-        private sendModifiers(modifiers: number, action: KeyboardKeyEvent) {
-            let i = 0
-            for (let i = 0; i < 8; ++i) {
-                const bit = modifiers & (1 << i)
-                const flag = 1 << i
-                if (bit == flag) {
-                    const hidmod = 0xe0 + i
-                    keyboard.modifierKey(hidmod, action)
-                    pause(REPORT_DELAY)
-                }
-            }
-        }
-
         handleKeyCommand(packet: jacdac.JDPacket) {
             const [keys] = packet.jdunpack<number[][][]>("r: u16 u8 u8")
 
@@ -178,7 +165,7 @@ namespace servers {
                 if (key) this.log(`key ${key}`)
 
                 if (action === jacdac.HidKeyboardAction.Press) {
-                    this.sendModifiers(modifiers, KeyboardKeyEvent.Down)
+                    keyboard.modifierKey(modifiers, KeyboardKeyEvent.Down)
                     if (fcn) keyboard.functionKey(fcn, KeyboardKeyEvent.Down)
                     else if (media)
                         keyboard.mediaKey(media, KeyboardKeyEvent.Down)
@@ -189,9 +176,12 @@ namespace servers {
                         keyboard.mediaKey(media, KeyboardKeyEvent.Up)
                     else if (key) keyboard.key(key, KeyboardKeyEvent.Up)
                     pause(REPORT_DELAY)
-                    this.sendModifiers(modifiers, KeyboardKeyEvent.Up)
+                    keyboard.modifierKey(modifiers, KeyboardKeyEvent.Up)
+                    pause(REPORT_DELAY)
+                    // just to make sure
+                    keyboard.clearAllKeys()
                 } else {
-                    this.sendModifiers(modifiers, action)
+                    keyboard.modifierKey(modifiers, action)
                     if (fcn) keyboard.functionKey(fcn, action)
                     else if (media) keyboard.mediaKey(media, action)
                     else if (key) keyboard.key(key, action)
