@@ -188,6 +188,8 @@ namespace jacdac._rolemgr {
         }
 
         checkProxy() {
+            if (!this.running)
+                return
             const now = control.micros()
             const self = jacdac.selfDevice();
             const devs = jacdac.devices().filter(d => d !== self && !!(d.announceflags & ControlAnnounceFlags.IsClient));
