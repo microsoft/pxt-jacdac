@@ -179,7 +179,7 @@ namespace jacdac._rolemgr {
         private bindingHash() {
             let r = ""
             const n = _allClients.length
-            for(let i = 0; i < n; ++i) {
+            for (let i = 0; i < n; ++i) {
                 const client = _allClients[i];
                 r += `${client.role || ""}:${client.broadcast || (client.device && client.device.deviceId) || ""}:${client.serviceIndex}`
             }
@@ -197,7 +197,7 @@ namespace jacdac._rolemgr {
                 return; // nothing to do here
 
             this.log(`check proxy self ${((now / 100000) | 0) / 10}s`)
-            for(const device of devs) {
+            for (const device of devs) {
                 const uptime = device.uptime;
                 if (uptime === undefined) {
                     this.log(`check proxy ${device.shortId}: no uptime`)
@@ -214,6 +214,8 @@ namespace jacdac._rolemgr {
         }
 
         autoBind() {
+            if (!this.running)
+                return
             this.log(`autobind: devs=${_devices.length} clients=${_unattachedClients.length}`)
             if (_devices.length == 0 || _unattachedClients.length == 0) {
                 this.checkChanges();
