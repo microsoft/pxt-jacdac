@@ -15,10 +15,6 @@
     "testFiles": [
         "test.ts"
     ],
-    "testDependencies": {
-        "device": "*",
-        "game": "*"
-    },
     "targetVersions": {
         "target": "1.5.12",
         "targetId": "arcade"
