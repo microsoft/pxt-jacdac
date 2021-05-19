@@ -5,6 +5,11 @@ namespace jacdac {
         Identify = 202,
     }
 
+    /** 
+     * Register platform specific code to be run before jacdac starts 
+    */
+    export let onPlatformStart: () => void
+
     export const CHANGE = "change"
     export const DEVICE_CONNECT = "deviceConnect"
     export const DEVICE_CHANGE = "deviceChange"
@@ -1400,6 +1405,10 @@ namespace jacdac {
     // make sure physical is started deterministically
     // on micro:bit it allocates a buffer that should stay in the same place in memory
     jacdac.__physStart()
+
+    // platform setup
+    if(onPlatformStart)
+        onPlatformStart()
 
     // check for proxy mode
     startProxy()
