@@ -3,6 +3,7 @@ namespace jacdac._rolemgr {
 
     export function clearRoles() {
         settings.list(roleSettingPrefix).forEach(settings.remove)
+        jacdac.bus.clearAttachCache()
     }
 
     export function getRole(devid: string, servIdx: number) {
@@ -15,7 +16,7 @@ namespace jacdac._rolemgr {
             settings.writeString(key, role)
         else
             settings.remove(key)
-        Device.clearNameCache()
+        jacdac.bus.clearAttachCache()
     }
 
     class DeviceWrapper {
@@ -138,7 +139,7 @@ namespace jacdac._rolemgr {
             switch (packet.serviceCommand) {
                 case jacdac.RoleManagerReg.AllRolesAllocated | CMD_GET_REG:
                     this.sendReport(JDPacket.jdpacked(jacdac.RoleManagerReg.AllRolesAllocated | CMD_GET_REG,
-                        "u8", [_allClients.every(c => c.broadcast || !!c.device) ? 1 : 0]))
+                        "u8", [jacdac.bus.allClients.every(c => c.broadcast || !!c.device) ? 1 : 0]))
                     break
                 case jacdac.RoleManagerCmd.GetRole:
                     if (packet.data.length == 9) {
@@ -162,7 +163,7 @@ namespace jacdac._rolemgr {
                     })
                     break
                 case jacdac.RoleManagerCmd.ListRequiredRoles:
-                    OutPipe.respondForEach(packet, _allClients, packName)
+                    OutPipe.respondForEach(packet, jacdac.bus.allClients, packName)
                     break
                 case jacdac.RoleManagerCmd.ClearAllRoles:
                     clearRoles()
@@ -178,9 +179,9 @@ namespace jacdac._rolemgr {
 
         private bindingHash() {
             let r = ""
-            const n = _allClients.length
+            const n = jacdac.bus.allClients.length
             for (let i = 0; i < n; ++i) {
-                const client = _allClients[i];
+                const client = jacdac.bus.allClients[i];
                 r += `${client.role || ""}:${client.broadcast || (client.device && client.device.deviceId) || ""}:${client.serviceIndex}`
             }
             const buf = Buffer.fromUTF8(r)
@@ -216,8 +217,8 @@ namespace jacdac._rolemgr {
         autoBind() {
             if (!this.running)
                 return
-            this.log(`autobind: devs=${bus.devices.length} clients=${_unattachedClients.length}`)
-            if (bus.devices.length == 0 || _unattachedClients.length == 0) {
+            this.log(`autobind: devs=${bus.devices.length} clients=${jacdac.bus.unattachedClients.length}`)
+            if (bus.devices.length == 0 || jacdac.bus.unattachedClients.length == 0) {
                 this.checkChanges();
                 return
             }
@@ -225,7 +226,7 @@ namespace jacdac._rolemgr {
             const bindings: RoleBinding[] = []
             const wraps = bus.devices.map(d => new DeviceWrapper(d))
 
-            for (const cl of _allClients) {
+            for (const cl of jacdac.bus.allClients) {
                 if (!cl.broadcast && cl.role) {
                     const b = new RoleBinding(cl.role, cl.serviceClass)
                     if (cl.device) {

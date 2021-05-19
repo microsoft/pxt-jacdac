@@ -19,12 +19,18 @@ namespace jacdac {
         readonly hostServices: Server[] = []
         readonly devices: Device[] = []
         private _myDevice: Device
+        private restartCounter = 0
+        private resetIn = 2000000 // 2s
+        public readonly controlServer = new ControlServer()
+        public readonly unattachedClients: Client[] = []
+        public readonly allClients: Client[] = []
 
         constructor() {
             super()
+            this.controlServer.start()
         }
 
-        gcDevices() {
+        private gcDevices() {
             const now = control.millis()
             const cutoff = now - 2000
             this.selfDevice.lastSeen = now // make sure not to gc self
@@ -57,18 +63,133 @@ namespace jacdac {
             }
             return this._myDevice
         }
+
+        clearAttachCache() {
+            for (let d of this.devices) {
+                // add a dummy byte at the end (if not done already), to force re-attach of services
+                if (d.services && (d.services.length & 3) == 0)
+                    d.services = d.services.concat(Buffer.create(1))
+            }
+        }
+
+        queueAnnounce() {
+            const ids = this.hostServices.map(h =>
+                h.running ? h.serviceClass : -1
+            )
+            if (this.restartCounter < 0xf) this.restartCounter++
+            ids[0] =
+                this.restartCounter |
+                ControlAnnounceFlags.IsClient |
+                ControlAnnounceFlags.SupportsACK |
+                ControlAnnounceFlags.SupportsBroadcast |
+                ControlAnnounceFlags.SupportsFrames
+            const buf = Buffer.create(ids.length * 4)
+            for (let i = 0; i < ids.length; ++i)
+                buf.setNumber(NumberFormat.UInt32LE, i * 4, ids[i])
+            JDPacket.from(SystemCmd.Announce, buf)._sendReport(this.selfDevice)
+            this.emit(SELF_ANNOUNCE)
+            for (const cl of this.allClients) cl.announceCallback()
+            this.gcDevices()
+
+            // send resetin to whoever wants to listen for it
+            if (this.resetIn)
+                JDPacket.from(
+                    ControlReg.ResetIn | CMD_SET_REG,
+                    jdpack("u32", [this.resetIn])
+                ).sendAsMultiCommand(SRV_CONTROL)
+
+            // only try autoBind, proxy we see some devices online
+            if (this.devices.length > 1) {
+                // check for proxy mode
+                jacdac.roleManagerServer.checkProxy()
+                // auto bind
+                if (autoBind) {
+                    autoBindCnt++
+                    // also, only do it every two announces (TBD)
+                    if (autoBindCnt >= 2) {
+                        autoBindCnt = 0
+                        jacdac.roleManagerServer.autoBind()
+                    }
+                }
+            }
+        }
+
+        detachClient(client: Client) {
+            if (this.unattachedClients.indexOf(client) < 0) {
+                this.unattachedClients.push(client)
+                this.clearAttachCache()
+            }
+        }
+
+        attachClient(client: Client) {
+            this.unattachedClients.removeElement(client)
+        }
+
+        startClient(client: Client) {
+            this.unattachedClients.push(client)
+            this.allClients.push(client)
+            this.clearAttachCache()
+        }
+
+        destroyClient(client: Client) {
+            this.unattachedClients.removeElement(client)
+            this.allClients.removeElement(client)
+            this.clearAttachCache()
+        }
+
+        reattach(dev: Device) {
+            log(
+                `reattaching services to ${dev.toString()}; cl=${
+                    this.unattachedClients.length
+                }/${this.allClients.length}`
+            )
+            const newClients: Client[] = []
+            const occupied = Buffer.create(dev.services.length >> 2)
+            for (let c of dev.clients) {
+                if (c.broadcast) {
+                    c._detach()
+                    continue // will re-attach
+                }
+                const newClass = dev.services.getNumber(
+                    NumberFormat.UInt32LE,
+                    c.serviceIndex << 2
+                )
+                if (
+                    newClass == c.serviceClass &&
+                    dev.matchesRoleAt(c.role, c.serviceIndex)
+                ) {
+                    newClients.push(c)
+                    occupied[c.serviceIndex] = 1
+                } else {
+                    c._detach()
+                }
+            }
+            dev.clients = newClients
+
+            this.emit(DEVICE_CONNECT, dev)
+
+            if (this.unattachedClients.length == 0) return
+
+            for (let i = 4; i < dev.services.length; i += 4) {
+                if (occupied[i >> 2]) continue
+                const serviceClass = dev.services.getNumber(
+                    NumberFormat.UInt32LE,
+                    i
+                )
+                for (let cc of this.unattachedClients) {
+                    if (cc.serviceClass == serviceClass) {
+                        if (cc._attach(dev, i >> 2)) break
+                    }
+                }
+            }
+        }
     }
     export let bus: Bus
 
     // common logging level for jacdac services
     export let logPriority = LoggerPriority.Debug
 
-    export let _unattachedClients: Client[]
-    export let _allClients: Client[]
-    //% whenUsed
-    let restartCounter = 0
     let autoBindCnt = 0
-    let resetIn = 2000000 // 2s
     export let autoBind = true
 
     function log(msg: string) {
@@ -560,7 +681,7 @@ namespace jacdac {
                 if (!dev.matchesRoleAt(this.role, serviceNum)) return false // don't attach
                 this.device = dev
                 this.serviceIndex = serviceNum
-                _unattachedClients.removeElement(this)
+                bus.attachClient(this)
             }
             log(
                 `attached ${dev.toString()}/${serviceNum} to client ${
@@ -643,8 +764,7 @@ namespace jacdac {
             if (!this.broadcast) {
                 if (!this.device) throw "Invalid detach"
                 this.device = null
-                _unattachedClients.push(this)
-                clearAttachCache()
+                bus.detachClient(this)
             }
             this.onDetach()
             if (this._onDisconnected) this._onDisconnected()
@@ -719,18 +839,14 @@ namespace jacdac {
             if (this.started) return
             this.started = true
             jacdac.start()
-            _unattachedClients.push(this)
-            _allClients.push(this)
-            clearAttachCache()
+            jacdac.bus.startClient(this)
         }
 
         destroy() {
             if (this.device) this.device.clients.removeElement(this)
-            _unattachedClients.removeElement(this)
-            _allClients.removeElement(this)
             this.serviceIndex = null
             this.device = null
-            clearAttachCache()
+            jacdac.bus.destroyClient(this)
         }
 
         announceCallback() {}
@@ -915,10 +1031,6 @@ namespace jacdac {
             pkt._sendCmd(this)
         }
 
-        static clearNameCache() {
-            clearAttachCache()
-        }
-
         _destroy() {
             log("destroy " + this.shortId)
             for (let c of this.clients) c._detach()
@@ -943,7 +1055,7 @@ namespace jacdac {
 
     function doNothing() {}
 
-    class ControlServer extends Server {
+    export class ControlServer extends Server {
         constructor() {
             super("ctrl", 0)
         }
@@ -999,7 +1111,7 @@ namespace jacdac {
             } else {
                 switch (pkt.serviceCommand) {
                     case SystemCmd.Announce:
-                        queueAnnounce()
+                        bus.queueAnnounce()
                         break
                     case ControlCmd.Identify:
                         this.log("identify")
@@ -1025,103 +1137,6 @@ namespace jacdac {
      */
     export function devices() {
         return bus.devices.slice(0)
-    }
-
-    function queueAnnounce() {
-        const ids = jacdac.bus.hostServices.map(h =>
-            h.running ? h.serviceClass : -1
-        )
-        if (restartCounter < 0xf) restartCounter++
-        ids[0] =
-            restartCounter |
-            ControlAnnounceFlags.IsClient |
-            ControlAnnounceFlags.SupportsACK |
-            ControlAnnounceFlags.SupportsBroadcast |
-            ControlAnnounceFlags.SupportsFrames
-        const buf = Buffer.create(ids.length * 4)
-        for (let i = 0; i < ids.length; ++i)
-            buf.setNumber(NumberFormat.UInt32LE, i * 4, ids[i])
-        JDPacket.from(SystemCmd.Announce, buf)._sendReport(bus.selfDevice)
-        jacdac.bus.emit(SELF_ANNOUNCE)
-        for (const cl of _allClients) cl.announceCallback()
-        bus.gcDevices()
-
-        // send resetin to whoever wants to listen for it
-        if (resetIn)
-            JDPacket.from(
-                ControlReg.ResetIn | CMD_SET_REG,
-                jdpack("u32", [resetIn])
-            ).sendAsMultiCommand(SRV_CONTROL)
-
-        // only try autoBind, proxy we see some devices online
-        if (bus.devices.length > 1) {
-            // check for proxy mode
-            jacdac.roleManagerServer.checkProxy()
-            // auto bind
-            if (autoBind) {
-                autoBindCnt++
-                // also, only do it every two announces (TBD)
-                if (autoBindCnt >= 2) {
-                    autoBindCnt = 0
-                    jacdac.roleManagerServer.autoBind()
-                }
-            }
-        }
-    }
-
-    function clearAttachCache() {
-        for (let d of bus.devices) {
-            // add a dummy byte at the end (if not done already), to force re-attach of services
-            if (d.services && (d.services.length & 3) == 0)
-                d.services = d.services.concat(Buffer.create(1))
-        }
-    }
-
-    function reattach(dev: Device) {
-        log(
-            `reattaching services to ${dev.toString()}; cl=${
-                _unattachedClients.length
-            }/${_allClients.length}`
-        )
-        const newClients: Client[] = []
-        const occupied = Buffer.create(dev.services.length >> 2)
-        for (let c of dev.clients) {
-            if (c.broadcast) {
-                c._detach()
-                continue // will re-attach
-            }
-            const newClass = dev.services.getNumber(
-                NumberFormat.UInt32LE,
-                c.serviceIndex << 2
-            )
-            if (
-                newClass == c.serviceClass &&
-                dev.matchesRoleAt(c.role, c.serviceIndex)
-            ) {
-                newClients.push(c)
-                occupied[c.serviceIndex] = 1
-            } else {
-                c._detach()
-            }
-        }
-        dev.clients = newClients
-
-        jacdac.bus.emit(DEVICE_CONNECT, dev)
-
-        if (_unattachedClients.length == 0) return
-
-        for (let i = 4; i < dev.services.length; i += 4) {
-            if (occupied[i >> 2]) continue
-            const serviceClass = dev.services.getNumber(
-                NumberFormat.UInt32LE,
-                i
-            )
-            for (let cc of _unattachedClients) {
-                if (cc.serviceClass == serviceClass) {
-                    if (cc._attach(dev, i >> 2)) break
-                }
-            }
-        }
     }
 
     function serviceMatches(dev: Device, serv: Buffer) {
@@ -1195,7 +1210,7 @@ namespace jacdac {
                     dev.services = pkt.data
                     if (!matches) {
                         dev.lastSeen = control.millis()
-                        reattach(dev)
+                        bus.reattach(dev)
                     }
                 }
                 if (dev) {
@@ -1306,16 +1321,12 @@ namespace jacdac {
     }): void {
         if (jacdac.bus) return // already started
 
-        // make sure we prevent re-entering this function (potentially even log() can call us)
-        bus = new Bus()
-
         log("jacdac starting")
         options = options || {}
 
-        const controlServer = new ControlServer()
-        controlServer.start()
-        _unattachedClients = []
-        _allClients = []
+        // make sure we prevent re-entering this function (potentially even log() can call us)
+        bus = new Bus()
+
         //jacdac.__physStart();
         control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
             let buf: Buffer
@@ -1325,10 +1336,8 @@ namespace jacdac {
                 routePacket(pkt)
             }
         })
-        control.internalOnEvent(
-            jacdac.__physId(),
-            EVT_QUEUE_ANNOUNCE,
-            queueAnnounce
+        control.internalOnEvent(jacdac.__physId(), EVT_QUEUE_ANNOUNCE, () =>
+            bus.queueAnnounce()
         )
 
         enablePower(true)
@@ -1361,7 +1370,7 @@ namespace jacdac {
         if (!options.disableRoleManager) {
             roleManagerServer.start()
         }
-        controlServer.sendUptime()
+        bus.controlServer.sendUptime()
         // and we're done
         log("jacdac started")
     }
