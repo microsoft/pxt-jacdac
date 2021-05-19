@@ -11,33 +11,36 @@ namespace hidevents {
         const keys = jacdac.settingsServer.list(PREFIX)
         console.log(`decoding bindings (${keys.length})`)
         bindings = []
-        for(const key of keys) {
+        for (const key of keys) {
             try {
-              //  const payload = jacdac.settingsServer.readBuffer(key)
-             //   const binding = jacdac.jdunpack(payload, "b[8] u32 u8 u8 u16 u16")
-              //  binding[0] = binding[0].toHex() // keep a string
-               // bindings.push(binding)
-            } catch(e) {
+                const payload = jacdac.settingsServer.readBuffer(key)
+                const binding = jacdac.jdunpack(
+                    payload,
+                    "b[8] u32 u8 u8 u16 u16"
+                )
+                const bf: Buffer = binding[0]
+                binding[0] = bf.toHex()
+                bindings.push(binding)
+            } catch (e) {
                 // this key is broken
                 console.log(`binding ${key} corrupted`)
                 //jacdac.settingsServer.delete(key)
             }
         }
-        console.log(`decoded ${bindings.length} bindings`)
     }
 
     function handleEvent(pkt: jacdac.JDPacket) {
         const deviceId = pkt.deviceIdentifier
         const serviceIndex = pkt.serviceIndex
         const eventCode = pkt.eventCode
-        console.log(`hid event ${deviceId} ${serviceIndex} ${eventCode}`)
-        for(const binding of bindings) {
-            console.log(`binding ${binding[0]} ${binding[2]} ${binding[3]}`)
-            if (binding[0] === deviceId &&
+        for (const binding of bindings) {
+            if (
+                binding[0] === deviceId &&
                 binding[2] === serviceIndex &&
-                binding[3] === eventCode) {
+                binding[3] === eventCode
+            ) {
                 // we have a hit!
-                console.log(`key ${binding[5]} ${binding[6]}`)
+                console.log(`key ${binding[4]} ${binding[5]}`)
             }
         }
     }
