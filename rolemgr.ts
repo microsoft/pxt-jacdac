@@ -128,13 +128,14 @@ namespace jacdac._rolemgr {
 
     export class RoleManagerServer extends Server {
         private _oldBindingsHash: number;
+        public autoBind = true
 
         constructor() {
             super("rolemgr", jacdac.SRV_ROLE_MANAGER)
         }
 
         public handlePacket(packet: JDPacket) {
-            jacdac.autoBind = this.handleRegBool(packet, jacdac.RoleManagerReg.AutoBind, jacdac.autoBind)
+            this.autoBind = this.handleRegBool(packet, jacdac.RoleManagerReg.AutoBind, this.autoBind)
 
             switch (packet.serviceCommand) {
                 case jacdac.RoleManagerReg.AllRolesAllocated | CMD_GET_REG:
@@ -214,7 +215,7 @@ namespace jacdac._rolemgr {
             }
         }
 
-        autoBind() {
+        bindRoles() {
             if (!this.running)
                 return
             this.log(`autobind: devs=${bus.devices.length} clients=${jacdac.bus.unattachedClients.length}`)

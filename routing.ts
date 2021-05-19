@@ -21,6 +21,7 @@ namespace jacdac {
         private _myDevice: Device
         private restartCounter = 0
         private resetIn = 2000000 // 2s
+        private autoBindCnt = 0
         public controlServer: ControlServer
         public readonly unattachedClients: Client[] = []
         public readonly allClients: Client[] = []
@@ -109,12 +110,12 @@ namespace jacdac {
                 // check for proxy mode
                 jacdac.roleManagerServer.checkProxy()
                 // auto bind
-                if (autoBind) {
-                    autoBindCnt++
+                if (jacdac.roleManagerServer.autoBind) {
+                    this.autoBindCnt++
                     // also, only do it every two announces (TBD)
-                    if (autoBindCnt >= 2) {
-                        autoBindCnt = 0
-                        jacdac.roleManagerServer.autoBind()
+                    if (this.autoBindCnt >= 2) {
+                        this.autoBindCnt = 0
+                        jacdac.roleManagerServer.bindRoles()
                     }
                 }
             }
@@ -194,9 +195,6 @@ namespace jacdac {
 
     // common logging level for jacdac services
     export let logPriority = LoggerPriority.Debug
-
-    let autoBindCnt = 0
-    export let autoBind = true
 
     function log(msg: string) {
         jacdac.loggerServer.add(logPriority, msg)
@@ -454,7 +452,7 @@ namespace jacdac {
 
             // log things up!
             const dev = bus.selfDevice.toString()
-            jacdac.loggerServer.add(
+            loggerServer.add(
                 logPriority,
                 `${dev}${
                     this.instanceName
