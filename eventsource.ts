@@ -1,29 +1,32 @@
 namespace jacdac {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    export type EventHandler = (...args: any[]) => void
+    export type EventHandler = (arg: any) => void
 
-    class Listener {
+    export class EventListener {
         constructor(
             // use string for parity with JS
             public readonly key: string,
-            public readonly handler: EventHandler
+            public readonly handler: EventHandler,
+            public readonly once: boolean
         ) {}
     }
 
-    export const NEW_LISTENER = "newListener"
-    export const REMOVE_LISTENER = "removeListener"
     export const ERROR = "error"
 
     export class EventSource {
         // use array to save on heap
         // consider using 2 arrays
-        private readonly listeners: Listener[] = []
+        private readonly listeners: EventListener[] = []
 
         constructor() {}
 
         on(eventName: string, handler: EventHandler) {
-            this.addListenerInternal(eventName, handler)
+            this.addListenerInternal(eventName, handler, false)
             return this
+        }
+
+        once(eventName: string, handler: EventHandler) {
+            this.addListenerInternal(eventName, handler, true)
         }
 
         off(eventName: string, handler: EventHandler) {
@@ -31,7 +34,11 @@ namespace jacdac {
             return this
         }
 
-        private addListenerInternal(eventName: string, handler: EventHandler) {
+        private addListenerInternal(
+            eventName: string,
+            handler: EventHandler,
+            once: boolean
+        ) {
             if (!eventName || !handler) {
                 return
             }
@@ -45,8 +52,8 @@ namespace jacdac {
             }
 
             // append to list
-            this.listeners.push(new Listener(eventName, handler))
-            this.emit(NEW_LISTENER, eventName, handler)
+            const listener = new EventListener(eventName, handler, once)
+            this.listeners.push(listener)
         }
 
         private removeListenerInternal(
@@ -64,7 +71,6 @@ namespace jacdac {
                     listener.handler === handler
                 ) {
                     this.listeners.splice(i, 1)
-                    this.emit(REMOVE_LISTENER, eventName, handler)
                     return
                 }
             }
@@ -73,22 +79,40 @@ namespace jacdac {
         /**
          * Synchronously calls each of the listeners registered for the event named eventName, in the order they were registered.
          * @param eventName
-         * @param args
+         * @param arg
          */
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        emit(eventName: string, ...args: any[]): boolean {
+        emit(eventName: string, arg?: any): boolean {
             if (!eventName) return false
 
+            // run handlers
+            let someOnce = false
             for (const listener of this.listeners) {
                 if (listener.key === eventName) {
+                    someOnce = someOnce || listener.once
                     const handler = listener.handler
                     try {
-                        handler(args)
+                        handler(arg)
                     } catch (e) {
                         this.emit(ERROR, e)
                     }
                 }
             }
+
+            // cleanup the "once"
+            if (someOnce) {
+                let i = 0;
+                while(i < this.listeners.length) {
+                    const listener = this.listeners[i]
+                    if (listener.once && listener.key === eventName) {
+                        this.listeners.splice(i, 1);
+                        // no need to increment i
+                    } else {
+                        i++;
+                    }
+                }
+            }
+
             return true
         }
 
@@ -109,7 +133,7 @@ namespace jacdac {
          * @param next
          */
         subscribe<T>(eventName: string, next: (value: T) => void): () => void {
-            this.addListenerInternal(eventName, next)
+            this.addListenerInternal(eventName, next, false)
             const unsubscribe = () =>
                 this.removeListenerInternal(eventName, next)
             return unsubscribe
