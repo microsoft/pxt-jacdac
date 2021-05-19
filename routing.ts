@@ -4,7 +4,6 @@ namespace jacdac {
         ProxyPacketReceived = 201,
         Identify = 202,
     }
-    export let onStatusEvent: (event: StatusEvent) => void
 
     export const CHANGE = "change"
     export const DEVICE_CONNECT = "deviceConnect"
@@ -16,7 +15,9 @@ namespace jacdac {
     export const REPORT_UPDATE = "reportUpdate"
     export const RESTART = "restart"
     export const PACKET_RECEIVE = "packetReceive"
-    export const PACKET_EVENT = "packetEvent"
+    export const EVENT = "packetEvent"
+    export const STATUS_EVENT = "statusEvent"
+    export const IDENTIFY = "identify"
 
     export class Bus extends jacdac.EventSource {
         readonly hostServices: Server[] = []
@@ -25,7 +26,7 @@ namespace jacdac {
         private restartCounter = 0
         private resetIn = 2000000 // 2s
         private autoBindCnt = 0
-        public controlServer: ControlServer
+        private controlServer: ControlServer
         public readonly unattachedClients: Client[] = []
         public readonly allClients: Client[] = []
 
@@ -33,11 +34,16 @@ namespace jacdac {
             super()
         }
 
+        get running() {
+            return !!this.controlServer
+        }
+
         start() {
-            if (this.controlServer) return
+            if (this.running) return
 
             this.controlServer = new ControlServer()
             this.controlServer.start()
+            this.controlServer.sendUptime()
         }
 
         private gcDevices() {
@@ -264,8 +270,7 @@ namespace jacdac {
                             this.reattach(dev)
                         }
                     }
-                    if (dev)
-                        dev.handleCtrlReport(pkt)
+                    if (dev) dev.handleCtrlReport(pkt)
                     return
                 } else if (pkt.serviceIndex == JD_SERVICE_INDEX_CRC_ACK) {
                     _gotAck(pkt)
@@ -281,9 +286,9 @@ namespace jacdac {
     }
 
     /**
-     * The Jacdac bus singleton. Must start jacdac before accessing this.
+     * The Jacdac bus singleton.
      */
-    export let bus: Bus
+    export const bus: Bus = new Bus()
 
     // common logging level for jacdac services
     export let logPriority = LoggerPriority.Debug
@@ -365,6 +370,7 @@ namespace jacdac {
 
         protected sendChangeEvent(): void {
             this.sendEvent(SystemEvent.Change)
+            this.emit(CHANGE)
         }
 
         private handleAnnounce(pkt: JDPacket) {
@@ -1104,7 +1110,8 @@ namespace jacdac {
                     // of the missed events, and then eventually the current event
                     if (ahead > 0 && (behind < 60 || ahead < 5)) return
                     // we got our event
-                    this.emit(PACKET_EVENT, pkt)
+                    this.emit(EVENT, pkt)
+                    bus.emit(EVENT, pkt)
                 }
                 this._eventCounter = pkt.eventCounter
             }
@@ -1174,21 +1181,6 @@ namespace jacdac {
         }
     }
 
-    /**
-     * Raised when an identity command request is received
-     */
-    //% whenUsed
-    export let onIdentifyRequest = () => {
-        if (pins.pinByCfg(DAL.CFG_PIN_LED)) {
-            for (let i = 0; i < 7; ++i) {
-                setPinByCfg(DAL.CFG_PIN_LED, true)
-                pause(50)
-                setPinByCfg(DAL.CFG_PIN_LED, false)
-                pause(150)
-            }
-        }
-    }
-
     function doNothing() {}
 
     export class ControlServer extends Server {
@@ -1251,9 +1243,8 @@ namespace jacdac {
                         break
                     case ControlCmd.Identify:
                         this.log("identify")
-                        if (onIdentifyRequest)
-                            control.runInParallel(onIdentifyRequest)
-                        if (onStatusEvent) onStatusEvent(StatusEvent.Identify)
+                        bus.emit(IDENTIFY)
+                        bus.emit(STATUS_EVENT, StatusEvent.Identify)
                         break
                     case ControlCmd.Reset:
                         this.log("reset requested")
@@ -1297,6 +1288,45 @@ namespace jacdac {
         setPinByCfg(CFG_PIN_JDPWR_ENABLE, enabled)
     }
 
+    function enablePowerFaultPin() {
+        const faultpin = pins.pinByCfg(CFG_PIN_JDPWR_FAULT)
+        if (faultpin) {
+            log(`enabling power fault pin`)
+            // FAULT is always assumed to be active-low; no external pull-up is needed
+            // (and you should never pull it up to +5V!)
+            faultpin.setPull(PinPullMode.PullUp)
+            faultpin.digitalRead()
+            jacdac.bus.on(SELF_ANNOUNCE, () => {
+                if (faultpin.digitalRead() == false) {
+                    control.runInParallel(() => {
+                        control.dmesg("jacdac power overload; restarting power")
+                        enablePower(false)
+                        setPinByCfg(CFG_PIN_JDPWR_OVERLOAD_LED, true)
+                        pause(200) // wait some time for the LED to be noticed; also there's some de-glitch time on EN
+                        setPinByCfg(CFG_PIN_JDPWR_OVERLOAD_LED, false)
+                        enablePower(true)
+                    })
+                }
+            })
+        }
+    }
+
+    function enableIdentityLED() {
+        if (pins.pinByCfg(DAL.CFG_PIN_LED)) {
+            log(`enabling identity LED`)
+            bus.on(IDENTIFY, () =>
+                control.runInBackground(function () {
+                    for (let i = 0; i < 7; ++i) {
+                        setPinByCfg(DAL.CFG_PIN_LED, true)
+                        pause(50)
+                        setPinByCfg(DAL.CFG_PIN_LED, false)
+                        pause(150)
+                    }
+                })
+            )
+        }
+    }
+
     export const JACDAC_PROXY_SETTING = "__jacdac_proxy"
     function startProxy() {
         // check if a proxy restart was requested
@@ -1310,13 +1340,12 @@ namespace jacdac {
         control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
             let buf: Buffer
             while (null != (buf = jacdac.__physGetPacket())) {
-                if (onStatusEvent)
-                    onStatusEvent(StatusEvent.ProxyPacketReceived)
+                jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyPacketReceived)
             }
         })
 
         // start animation
-        if (onStatusEvent) onStatusEvent(StatusEvent.ProxyStarted)
+        jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyStarted)
 
         // don't allow main to run until next reset
         while (true) {
@@ -1331,9 +1360,9 @@ namespace jacdac {
         disableLogger?: boolean
         disableRoleManager?: boolean
     }): void {
-        if (jacdac.bus) return // already started
+        if (jacdac.bus.running) return // already started
         // make sure we prevent re-entering this function (potentially even log() can call us)
-        bus = new Bus()
+        bus.start()
 
         log("jacdac starting")
         options = options || {}
@@ -1352,27 +1381,9 @@ namespace jacdac {
         )
 
         enablePower(true)
-        const faultpin = pins.pinByCfg(CFG_PIN_JDPWR_FAULT)
-        if (faultpin) {
-            // FAULT is always assumed to be active-low; no external pull-up is needed
-            // (and you should never pull it up to +5V!)
-            faultpin.setPull(PinPullMode.PullUp)
-            faultpin.digitalRead()
-            jacdac.bus.on(SELF_ANNOUNCE, () => {
-                if (faultpin.digitalRead() == false) {
-                    control.runInParallel(() => {
-                        control.dmesg("jacdac power overload; restarting power")
-                        enablePower(false)
-                        setPinByCfg(CFG_PIN_JDPWR_OVERLOAD_LED, true)
-                        pause(200) // wait some time for the LED to be noticed; also there's some de-glitch time on EN
-                        setPinByCfg(CFG_PIN_JDPWR_OVERLOAD_LED, false)
-                        enablePower(true)
-                    })
-                }
-            })
-        }
+        enablePowerFaultPin()
+        enableIdentityLED()
 
-        jacdac.bus.start()
         if (!options.disableLogger) {
             console.addListener(function (pri, msg) {
                 if (msg[0] != ":") jacdac.loggerServer.add(pri as number, msg)
@@ -1382,7 +1393,6 @@ namespace jacdac {
         if (!options.disableRoleManager) {
             roleManagerServer.start()
         }
-        jacdac.bus.controlServer.sendUptime()
         // and we're done
         log("jacdac started")
     }

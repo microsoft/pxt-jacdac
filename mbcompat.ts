@@ -36,7 +36,7 @@ function identifyAnimation() {
     })
 }
 
-jacdac.onStatusEvent = function (event) {
+jacdac.bus.on(jacdac.STATUS_EVENT, function (event) {
     switch (event) {
         case jacdac.StatusEvent.ProxyStarted:
             identifyAnimation()
@@ -54,7 +54,7 @@ jacdac.onStatusEvent = function (event) {
             identifyAnimation();
             break;
     }
-}
+})
 
 // don't use jacdac.JACDAC_PROXY_SETTING - it isn't initialized here yet in sim (pxt bug)
 if (settings.exists("__jacdac_proxy")) {
