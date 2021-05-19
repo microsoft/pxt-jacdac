@@ -14,23 +14,58 @@ namespace jacdac {
     export const PACKET_PROCESS = "packetProcess"
     export const REPORT_RECEIVE = "reportReceive"
     export const REPORT_UPDATE = "reportUpdate"
-    
+
     export class Bus extends jacdac.EventSource {
         readonly hostServices: Server[] = []
+        readonly devices: Device[] = []
+        private _myDevice: Device
+
         constructor() {
             super()
         }
+
+        gcDevices() {
+            const now = control.millis()
+            const cutoff = now - 2000
+            this.selfDevice.lastSeen = now // make sure not to gc self
+
+            let numdel = 0
+            for (let i = 0; i < this.devices.length; ++i) {
+                const dev = this.devices[i]
+                if (dev.lastSeen < cutoff) {
+                    this.devices.splice(i, 1)
+                    i--
+                    dev._destroy()
+                    numdel++
+                }
+            }
+            if (numdel) {
+                this.emit(DEVICE_CHANGE)
+                this.emit(CHANGE)
+            }
+        }
+
+        /**
+         * Gets the Jacdac device representing the running device
+         */
+        get selfDevice() {
+            if (!this._myDevice) {
+                this._myDevice = new Device(
+                    control.deviceLongSerialNumber().toHex()
+                )
+                this._myDevice.services = Buffer.create(4)
+            }
+            return this._myDevice
+        }
     }
-    export let bus: Bus;
+    export let bus: Bus
 
     // common logging level for jacdac services
     export let logPriority = LoggerPriority.Debug
 
     export let _unattachedClients: Client[]
     export let _allClients: Client[]
-    let _myDevice: Device
     //% whenUsed
-    export let _devices: Device[] = []
     let restartCounter = 0
     let autoBindCnt = 0
     let resetIn = 2000000 // 2s
@@ -42,7 +77,7 @@ namespace jacdac {
 
     function mkEventCmd(evCode: number) {
         // protect access to _myDevice
-        let myDevice = selfDevice()
+        const myDevice = bus.selfDevice
         if (!myDevice._eventCounter) myDevice._eventCounter = 0
         myDevice._eventCounter =
             (myDevice._eventCounter + 1) & CMD_EVENT_COUNTER_MASK
@@ -55,7 +90,7 @@ namespace jacdac {
     }
 
     //% fixedInstances
-    export class Server {
+    export class Server extends EventSource {
         protected supressLog: boolean
         running: boolean
         serviceIndex: number
@@ -65,7 +100,9 @@ namespace jacdac {
         constructor(
             public readonly instanceName: string,
             public readonly serviceClass: number
-        ) {}
+        ) {
+            super()
+        }
 
         get statusCode() {
             return this._statusCode
@@ -109,7 +146,7 @@ namespace jacdac {
 
         protected sendReport(pkt: JDPacket) {
             pkt.serviceIndex = this.serviceIndex
-            pkt._sendReport(selfDevice())
+            pkt._sendReport(bus.selfDevice)
         }
 
         protected sendEvent(eventCode: number, data?: Buffer) {
@@ -141,7 +178,12 @@ namespace jacdac {
         }
 
         private handleInstanceName(pkt: JDPacket) {
-            this.handleRegValue(pkt, SystemReg.InstanceName, "s", this.instanceName)
+            this.handleRegValue(
+                pkt,
+                SystemReg.InstanceName,
+                "s",
+                this.instanceName
+            )
         }
 
         protected handleRegFormat<T extends any[]>(
@@ -284,10 +326,14 @@ namespace jacdac {
             if (jacdac.logPriority < loggerMinPriority) return
 
             // log things up!
-            const dev = selfDevice().toString()
+            const dev = bus.selfDevice.toString()
             jacdac.loggerServer.add(
                 logPriority,
-                `${dev}${this.instanceName ? `.${this.instanceName}` : `[${this.serviceIndex}]`}>${text}`
+                `${dev}${
+                    this.instanceName
+                        ? `.${this.instanceName}`
+                        : `[${this.serviceIndex}]`
+                }>${text}`
             )
         }
     }
@@ -341,7 +387,9 @@ namespace jacdac {
         [index: string]: T
     }
 
-    export class RegisterClient<TValues extends PackSimpleDataType[]> extends EventSource {
+    export class RegisterClient<
+        TValues extends PackSimpleDataType[]
+    > extends EventSource {
         private data: Buffer
         private _localTime: number
 
@@ -413,8 +461,8 @@ namespace jacdac {
         protected advertisementData: Buffer
         private handlers: SMap<(idx?: number) => void>
         protected systemActive = false
-        private _onConnected: () => void;
-        private _onDisconnected: () => void;
+        private _onConnected: () => void
+        private _onDisconnected: () => void
 
         protected readonly config: ClientPacketQueue
         private readonly registers: RegisterClient<PackSimpleDataType[]>[] = []
@@ -470,8 +518,7 @@ namespace jacdac {
         //% blockNamespace="modules"
         onConnected(handler: () => void) {
             this._onConnected = handler
-            if (this._onConnected && this.isConnected())
-                this.handleConnected()
+            if (this._onConnected && this.isConnected()) this.handleConnected()
         }
 
         /**
@@ -532,12 +579,11 @@ namespace jacdac {
             // if the device has any status light (StatusLightRgbFade is 0b..11.. mask)
             if (this.device) {
                 const flags = this.device.announceflags
-                if (flags & ControlAnnounceFlags.StatusLightRgbFade) 
+                if (flags & ControlAnnounceFlags.StatusLightRgbFade)
                     control.runInParallel(() => this.connectedBlink())
             }
             // user handler
-            if (this._onConnected)
-                this._onConnected()
+            if (this._onConnected) this._onConnected()
         }
 
         private connectedBlink() {
@@ -550,15 +596,37 @@ namespace jacdac {
             const greenRepeat = 2
             const repeat = 3
 
-            const green = JDPacket.from(ControlCmd.SetStatusLight, jdpack<[number, number, number, number]>("u8 u8 u8 u8", [0, g, 0, 0]))
+            const green = JDPacket.from(
+                ControlCmd.SetStatusLight,
+                jdpack<[number, number, number, number]>("u8 u8 u8 u8", [
+                    0,
+                    g,
+                    0,
+                    0,
+                ])
+            )
             green.serviceIndex = 0
-            const greenoff = JDPacket.from(ControlCmd.SetStatusLight, jdpack<[number, number, number, number]>("u8 u8 u8 u8", [0, og, 0, 0]))
+            const greenoff = JDPacket.from(
+                ControlCmd.SetStatusLight,
+                jdpack<[number, number, number, number]>("u8 u8 u8 u8", [
+                    0,
+                    og,
+                    0,
+                    0,
+                ])
+            )
             greenoff.serviceIndex = 0
-            const off = JDPacket.from(ControlCmd.SetStatusLight, jdpack<[number, number, number, number]>("u8 u8 u8 u8", [0, 0, 0, 0]))
+            const off = JDPacket.from(
+                ControlCmd.SetStatusLight,
+                jdpack<[number, number, number, number]>(
+                    "u8 u8 u8 u8",
+                    [0, 0, 0, 0]
+                )
+            )
             off.serviceIndex = 0
 
-            for(let i = 0; i < repeat; ++i) {
-                for(let j = 0; j < greenRepeat; ++j) {
+            for (let i = 0; i < repeat; ++i) {
+                for (let j = 0; j < greenRepeat; ++j) {
                     green._sendCmd(this.device)
                     pause(tgreen)
                     greenoff._sendCmd(this.device)
@@ -579,8 +647,7 @@ namespace jacdac {
                 clearAttachCache()
             }
             this.onDetach()
-            if (this._onDisconnected)
-                this._onDisconnected()
+            if (this._onDisconnected) this._onDisconnected()
         }
 
         protected onAttach() {}
@@ -635,8 +702,12 @@ namespace jacdac {
         }
 
         protected log(text: string) {
-            if (this.supressLog || logPriority < jacdac.loggerServer.minPriority) return
-            let dev = selfDevice().toString()
+            if (
+                this.supressLog ||
+                logPriority < jacdac.loggerServer.minPriority
+            )
+                return
+            let dev = bus.selfDevice.toString()
             let other = this.device ? this.device.toString() : "<unbound>"
             jacdac.loggerServer.add(
                 logPriority,
@@ -693,15 +764,19 @@ namespace jacdac {
         _score: number
 
         constructor(public deviceId: string) {
-            _devices.push(this)
+            bus.devices.push(this)
         }
 
         get announceflags(): ControlAnnounceFlags {
-            return this.services ? this.services.getNumber(NumberFormat.UInt16LE, 0) : 0
+            return this.services
+                ? this.services.getNumber(NumberFormat.UInt16LE, 0)
+                : 0
         }
 
         get resetCount() {
-            return this.announceflags & ControlAnnounceFlags.RestartCounterSteady
+            return (
+                this.announceflags & ControlAnnounceFlags.RestartCounterSteady
+            )
         }
 
         get packetCount() {
@@ -741,8 +816,13 @@ namespace jacdac {
         }
 
         serviceClassAt(serviceIndex: number) {
-            return serviceIndex == 0  ? 0
-                : this.services ? this.services.getNumber(NumberFormat.UInt32LE, serviceIndex << 2) 
+            return serviceIndex == 0
+                ? 0
+                : this.services
+                ? this.services.getNumber(
+                      NumberFormat.UInt32LE,
+                      serviceIndex << 2
+                  )
                 : 0
         }
 
@@ -816,9 +896,8 @@ namespace jacdac {
         hasService(serviceClass: number) {
             const n = this.serviceClassLength
             for (let i = 0; i < n; ++i)
-                if (this.serviceClassAt(i) === serviceClass)
-                    return true;
-            return false;
+                if (this.serviceClassAt(i) === serviceClass) return true
+            return false
         }
 
         clientAtServiceIndex(serviceIndex: number) {
@@ -876,9 +955,8 @@ namespace jacdac {
         }
 
         private handleFloodPing(pkt: JDPacket) {
-            let [numResponses, counter, size] = pkt.jdunpack<
-                [number, number, number]
-            >("u32 u32 u8")
+            let [numResponses, counter, size] =
+                pkt.jdunpack<[number, number, number]>("u32 u32 u8")
             const payload = Buffer.create(4 + size)
             for (let i = 0; i < size; ++i) payload[4 + i] = i
             const queuePing = () => {
@@ -946,45 +1024,13 @@ namespace jacdac {
      * Gets the list of devices currently detected on the bus
      */
     export function devices() {
-        return _devices.slice()
-    }
-
-    /**
-     * Gets the Jacdac device representing the running device
-     */
-    export function selfDevice() {
-        if (!_myDevice) {
-            _myDevice = new Device(control.deviceLongSerialNumber().toHex())
-            _myDevice.services = Buffer.create(4)
-        }
-        return _myDevice
-    }
-
-    /**
-     * Raised when services from a device are announced
-     * @param cb
-     */
-    export function onAnnounce(cb: (dev: Device) => void) {
-        jacdac.start()
-        jacdac.bus.on(SELF_ANNOUNCE, cb)
-    }
-
-    /**
-     * Raised when a new device is detected on the bus
-     * @param cb
-     */
-    export function onNewDevice(cb: (dev: Device) => void) {
-        jacdac.start()
-        jacdac.bus.on(DEVICE_CONNECT, cb)
-    }
-
-    export function onRawPacket(cb: (pkt: JDPacket) => void) {
-        jacdac.start()
-        jacdac.bus.on(PACKET_PROCESS, cb)
+        return bus.devices.slice(0)
     }
 
     function queueAnnounce() {
-        const ids = jacdac.bus.hostServices.map(h => (h.running ? h.serviceClass : -1))
+        const ids = jacdac.bus.hostServices.map(h =>
+            h.running ? h.serviceClass : -1
+        )
         if (restartCounter < 0xf) restartCounter++
         ids[0] =
             restartCounter |
@@ -995,18 +1041,20 @@ namespace jacdac {
         const buf = Buffer.create(ids.length * 4)
         for (let i = 0; i < ids.length; ++i)
             buf.setNumber(NumberFormat.UInt32LE, i * 4, ids[i])
-        JDPacket.from(SystemCmd.Announce, buf)._sendReport(selfDevice())
+        JDPacket.from(SystemCmd.Announce, buf)._sendReport(bus.selfDevice)
         jacdac.bus.emit(SELF_ANNOUNCE)
         for (const cl of _allClients) cl.announceCallback()
-        gcDevices()
+        bus.gcDevices()
 
         // send resetin to whoever wants to listen for it
         if (resetIn)
-            JDPacket.from(ControlReg.ResetIn | CMD_SET_REG, jdpack("u32", [resetIn]))
-            .sendAsMultiCommand(SRV_CONTROL)
+            JDPacket.from(
+                ControlReg.ResetIn | CMD_SET_REG,
+                jdpack("u32", [resetIn])
+            ).sendAsMultiCommand(SRV_CONTROL)
 
         // only try autoBind, proxy we see some devices online
-        if (_devices.length > 1) {
+        if (bus.devices.length > 1) {
             // check for proxy mode
             jacdac.roleManagerServer.checkProxy()
             // auto bind
@@ -1022,7 +1070,7 @@ namespace jacdac {
     }
 
     function clearAttachCache() {
-        for (let d of _devices) {
+        for (let d of bus.devices) {
             // add a dummy byte at the end (if not done already), to force re-attach of services
             if (d.services && (d.services.length & 3) == 0)
                 d.services = d.services.concat(Buffer.create(1))
@@ -1092,11 +1140,11 @@ namespace jacdac {
 
         if (pkt.requiresAck) {
             pkt.requiresAck = false // make sure we only do it once
-            if (pkt.deviceIdentifier == selfDevice().deviceId) {
+            if (pkt.deviceIdentifier == bus.selfDevice.deviceId) {
                 const crc = pkt.crc
                 const ack = JDPacket.onlyHeader(crc)
                 ack.serviceIndex = JD_SERVICE_INDEX_CRC_ACK
-                ack._sendReport(selfDevice())
+                ack._sendReport(bus.selfDevice)
             }
         }
 
@@ -1107,12 +1155,12 @@ namespace jacdac {
             for (const h of jacdac.bus.hostServices) {
                 if (h.serviceClass == multiCommandClass && h.running) {
                     // pretend it's directly addressed to us
-                    pkt.deviceIdentifier = selfDevice().deviceId
+                    pkt.deviceIdentifier = bus.selfDevice.deviceId
                     pkt.serviceIndex = h.serviceIndex
                     h.handlePacketOuter(pkt)
                 }
             }
-        } else if (devId == selfDevice().deviceId) {
+        } else if (devId == bus.selfDevice.deviceId) {
             if (!pkt.isCommand) {
                 // control.dmesg(`invalid echo ${pkt}`)
                 return // huh? someone's pretending to be us?
@@ -1125,14 +1173,14 @@ namespace jacdac {
         } else {
             if (pkt.isCommand) return // it's a command, and it's not for us
 
-            let dev = _devices.find(d => d.deviceId == devId)
+            let dev = bus.devices.find(d => d.deviceId == devId)
 
             if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
                 if (pkt.serviceCommand == SystemCmd.Announce) {
                     if (dev && dev.resetCount > (pkt.data[0] & 0xf)) {
                         // if the reset counter went down, it means the device resetted; treat it as new device
                         log(`device ${dev.shortId} resetted`)
-                        _devices.removeElement(dev)
+                        bus.devices.removeElement(dev)
                         dev._destroy()
                         dev = null
                     }
@@ -1197,27 +1245,6 @@ namespace jacdac {
                 client.currentDevice = dev
                 client.handlePacketOuter(pkt)
             }
-        }
-    }
-
-    function gcDevices() {
-        const now = control.millis()
-        const cutoff = now - 2000
-        selfDevice().lastSeen = now // make sure not to gc self
-
-        let numdel = 0
-        for (let i = 0; i < _devices.length; ++i) {
-            const dev = _devices[i]
-            if (dev.lastSeen < cutoff) {
-                _devices.splice(i, 1)
-                i--
-                dev._destroy()
-                numdel++
-            }
-        }
-        if (numdel) {
-            jacdac.bus.emit(DEVICE_CHANGE)
-            jacdac.bus.emit(CHANGE)
         }
     }
 
@@ -1311,7 +1338,7 @@ namespace jacdac {
             // (and you should never pull it up to +5V!)
             faultpin.setPull(PinPullMode.PullUp)
             faultpin.digitalRead()
-            onAnnounce(() => {
+            jacdac.bus.on(SELF_ANNOUNCE, () => {
                 if (faultpin.digitalRead() == false) {
                     control.runInParallel(() => {
                         control.dmesg("jacdac power overload; restarting power")
