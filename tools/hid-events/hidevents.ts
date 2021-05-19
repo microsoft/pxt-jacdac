@@ -5,17 +5,52 @@ namespace hidevents {
     const FORMAT = "b[8] u32 u8 u8 u16 u16"
     // data layout types
     //type FORMAT_TYPE = [Buffer, number, number, number, number, number]
+    let bindings: any[][] = []
+
+    function decodeBindings() {
+        const keys = jacdac.settingsServer.list(PREFIX)
+        console.log(`decoding bindings (${keys.length})`)
+        bindings = []
+        for(const key of keys) {
+            try {
+              //  const payload = jacdac.settingsServer.readBuffer(key)
+             //   const binding = jacdac.jdunpack(payload, "b[8] u32 u8 u8 u16 u16")
+              //  binding[0] = binding[0].toHex() // keep a string
+               // bindings.push(binding)
+            } catch(e) {
+                // this key is broken
+                console.log(`binding ${key} corrupted`)
+                //jacdac.settingsServer.delete(key)
+            }
+        }
+        console.log(`decoded ${bindings.length} bindings`)
+    }
+
+    function handleEvent(pkt: jacdac.JDPacket) {
+        const deviceId = pkt.deviceIdentifier
+        const serviceIndex = pkt.serviceIndex
+        const eventCode = pkt.eventCode
+        console.log(`hid event ${deviceId} ${serviceIndex} ${eventCode}`)
+        for(const binding of bindings) {
+            console.log(`binding ${binding[0]} ${binding[2]} ${binding[3]}`)
+            if (binding[0] === deviceId &&
+                binding[2] === serviceIndex &&
+                binding[3] === eventCode) {
+                // we have a hit!
+                console.log(`key ${binding[5]} ${binding[6]}`)
+            }
+        }
+    }
 
     function start() {
         // start services
         jacdac.start({ disableRoleManager: true })
         jacdac.settingsServer.start()
+        jacdac.settingsServer.on(jacdac.CHANGE, () => decodeBindings())
+        jacdac.bus.on(jacdac.EVENT, pkt => handleEvent(pkt))
 
-        // read bindings, keep as buffers
-        const bindinds = settings.list(PREFIX)
-            .map(kv => settings.readBuffer(kv))
-
-        // register to events
+        // decode and start
+        decodeBindings()
     }
 
     start()
