@@ -1,0 +1,17 @@
+{
+    "name": "jacdac-hid-events",
+    "version": "0.0.0",
+    "description": "Mapping Events to Hid Keyboard keys.",
+    "files": [
+        "hidevents.ts"
+    ],
+    "supportedTargets": [
+        "microbit"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+    }
+}
