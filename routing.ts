@@ -21,13 +21,19 @@ namespace jacdac {
         private _myDevice: Device
         private restartCounter = 0
         private resetIn = 2000000 // 2s
-        public readonly controlServer = new ControlServer()
+        public controlServer: ControlServer
         public readonly unattachedClients: Client[] = []
         public readonly allClients: Client[] = []
 
         constructor() {
             super()
-            this.controlServer.start()
+        }
+
+        start() {
+            if (this.controlServer) return;
+
+            this.controlServer = new ControlServer();
+            this.controlServer.start();
         }
 
         private gcDevices() {
@@ -1320,12 +1326,11 @@ namespace jacdac {
         disableRoleManager?: boolean
     }): void {
         if (jacdac.bus) return // already started
+        // make sure we prevent re-entering this function (potentially even log() can call us)
+        bus = new Bus()
 
         log("jacdac starting")
         options = options || {}
-
-        // make sure we prevent re-entering this function (potentially even log() can call us)
-        bus = new Bus()
 
         //jacdac.__physStart();
         control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
@@ -1361,6 +1366,7 @@ namespace jacdac {
             })
         }
 
+        bus.start()
         if (!options.disableLogger) {
             console.addListener(function (pri, msg) {
                 if (msg[0] != ":") jacdac.loggerServer.add(pri as number, msg)
