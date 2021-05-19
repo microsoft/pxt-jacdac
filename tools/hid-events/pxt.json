@@ -6,11 +6,12 @@
         "hidevents.ts"
     ],
     "supportedTargets": [
-        "microbit"
+        "maker"
     ],
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-hid-keyboard-server": "github:microsoft/pxt-jacdac/hid-keyboard-server"
     },
     "testDependencies": {
     }
