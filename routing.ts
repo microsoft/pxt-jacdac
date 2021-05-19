@@ -190,7 +190,128 @@ namespace jacdac {
                 }
             }
         }
+
+        routePacket(pkt: JDPacket) {
+            // log("route: " + pkt.toString())
+            const devId = pkt.deviceIdentifier
+            const multiCommandClass = pkt.multicommandClass
+    
+            // TODO implement send queue for packet compression
+    
+            if (pkt.requiresAck) {
+                pkt.requiresAck = false // make sure we only do it once
+                if (pkt.deviceIdentifier == this.selfDevice.deviceId) {
+                    const crc = pkt.crc
+                    const ack = JDPacket.onlyHeader(crc)
+                    ack.serviceIndex = JD_SERVICE_INDEX_CRC_ACK
+                    ack._sendReport(this.selfDevice)
+                }
+            }
+    
+            this.emit(PACKET_PROCESS, pkt)
+    
+            if (multiCommandClass != null) {
+                if (!pkt.isCommand) return // only commands supported in multi-command
+                for (const h of this.hostServices) {
+                    if (h.serviceClass == multiCommandClass && h.running) {
+                        // pretend it's directly addressed to us
+                        pkt.deviceIdentifier = this.selfDevice.deviceId
+                        pkt.serviceIndex = h.serviceIndex
+                        h.handlePacketOuter(pkt)
+                    }
+                }
+            } else if (devId == this.selfDevice.deviceId) {
+                if (!pkt.isCommand) {
+                    // control.dmesg(`invalid echo ${pkt}`)
+                    return // huh? someone's pretending to be us?
+                }
+                const h = this.hostServices[pkt.serviceIndex]
+                if (h && h.running) {
+                    // log(`handle pkt at ${h.name} cmd=${pkt.service_command}`)
+                    h.handlePacketOuter(pkt)
+                }
+            } else {
+                if (pkt.isCommand) return // it's a command, and it's not for us
+    
+                let dev = this.devices.find(d => d.deviceId == devId)
+    
+                if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
+                    if (pkt.serviceCommand == SystemCmd.Announce) {
+                        if (dev && dev.resetCount > (pkt.data[0] & 0xf)) {
+                            // if the reset counter went down, it means the device resetted; treat it as new device
+                            log(`device ${dev.shortId} resetted`)
+                            this.devices.removeElement(dev)
+                            dev._destroy()
+                            dev = null
+                        }
+    
+                        if (!dev) {
+                            dev = new Device(pkt.deviceIdentifier)
+                            // ask for uptime
+                            dev.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime)
+                        }
+    
+                        const matches = serviceMatches(dev, pkt.data)
+                        dev.services = pkt.data
+                        if (!matches) {
+                            dev.lastSeen = control.millis()
+                            this.reattach(dev)
+                        }
+                    }
+                    if (dev) {
+                        dev.handleCtrlReport(pkt)
+                        dev.lastSeen = control.millis()
+                    }
+                    return
+                } else if (pkt.serviceIndex == JD_SERVICE_INDEX_CRC_ACK) {
+                    _gotAck(pkt)
+                }
+    
+                if (!dev)
+                    // we can't know the serviceClass, no announcement seen yet for this device
+                    return
+    
+                dev.lastSeen = control.millis()
+    
+                const serviceClass = dev.serviceClassAt(pkt.serviceIndex)
+                if (!serviceClass || serviceClass == 0xffffffff) return
+    
+                if (pkt.isEvent) {
+                    let ec = dev._eventCounter
+                    // if ec is undefined, it's the first event, so skip processing
+                    if (ec !== undefined) {
+                        ec++
+                        // how many packets ahead and behind current are we?
+                        const ahead =
+                            (pkt.eventCounter - ec) & CMD_EVENT_COUNTER_MASK
+                        const behind =
+                            (ec - pkt.eventCounter) & CMD_EVENT_COUNTER_MASK
+                        // ahead == behind == 0 is the usual case, otherwise
+                        // behind < 60 means this is an old event (or retransmission of something we already processed)
+                        // ahead < 5 means we missed at most 5 events, so we ignore this one and rely on retransmission
+                        // of the missed events, and then eventually the current event
+                        if (ahead > 0 && (behind < 60 || ahead < 5)) return
+                    }
+                    dev._eventCounter = pkt.eventCounter
+                }
+    
+                const client = dev.clients.find(c =>
+                    c.broadcast
+                        ? c.serviceClass == serviceClass
+                        : c.serviceIndex == pkt.serviceIndex
+                )
+                if (client) {
+                    // log(`handle pkt at ${client.name} rep=${pkt.service_command}`)
+                    client.currentDevice = dev
+                    client.handlePacketOuter(pkt)
+                }
+            }
+        }    
     }
+
+    /**
+     * The Jacdac bus singleton. Must start jacdac before accessing this.
+     */
     export let bus: Bus
 
     // common logging level for jacdac services
@@ -198,20 +319,6 @@ namespace jacdac {
 
     function log(msg: string) {
         jacdac.loggerServer.add(logPriority, msg)
-    }
-
-    function mkEventCmd(evCode: number) {
-        // protect access to _myDevice
-        const myDevice = bus.selfDevice
-        if (!myDevice._eventCounter) myDevice._eventCounter = 0
-        myDevice._eventCounter =
-            (myDevice._eventCounter + 1) & CMD_EVENT_COUNTER_MASK
-        if (evCode >> 8) throw "invalid evcode"
-        return (
-            CMD_EVENT_MASK |
-            (myDevice._eventCounter << CMD_EVENT_COUNTER_POS) |
-            evCode
-        )
     }
 
     //% fixedInstances
@@ -272,11 +379,11 @@ namespace jacdac {
         protected sendReport(pkt: JDPacket) {
             pkt.serviceIndex = this.serviceIndex
             pkt._sendReport(bus.selfDevice)
-        }
+        }   
 
         protected sendEvent(eventCode: number, data?: Buffer) {
             const pkt = JDPacket.from(
-                mkEventCmd(eventCode),
+                bus.selfDevice.mkEventCmd(eventCode),
                 data || Buffer.create(0)
             )
             this.sendReport(pkt)
@@ -622,7 +729,7 @@ namespace jacdac {
         }
 
         broadcastDevices() {
-            return devices().filter(d => d.clients.indexOf(this) >= 0)
+            return bus.devices.filter(d => d.clients.indexOf(this) >= 0)
         }
 
         /**
@@ -874,7 +981,7 @@ namespace jacdac {
         constructor(public reg: number) {}
     }
 
-    export class Device {
+    export class Device extends EventSource {
         services: Buffer
         lastSeen: number
         clients: Client[] = []
@@ -884,6 +991,7 @@ namespace jacdac {
         _score: number
 
         constructor(public deviceId: string) {
+            super()
             bus.devices.push(this)
         }
 
@@ -1035,6 +1143,18 @@ namespace jacdac {
             pkt._sendCmd(this)
         }
 
+        mkEventCmd(evCode: number) {
+            if (!this._eventCounter) this._eventCounter = 0
+            this._eventCounter =
+                (this._eventCounter + 1) & CMD_EVENT_COUNTER_MASK
+            if (evCode >> 8) throw "invalid evcode"
+            return (
+                CMD_EVENT_MASK |
+                (this._eventCounter << CMD_EVENT_COUNTER_POS) |
+                evCode
+            )
+        }     
+
         _destroy() {
             log("destroy " + this.shortId)
             for (let c of this.clients) c._detach()
@@ -1136,135 +1256,11 @@ namespace jacdac {
         }
     }
 
-    /**
-     * Gets the list of devices currently detected on the bus
-     */
-    export function devices() {
-        return bus.devices.slice(0)
-    }
-
     function serviceMatches(dev: Device, serv: Buffer) {
         const ds = dev.services
         if (!ds || ds.length != serv.length) return false
         for (let i = 4; i < serv.length; ++i) if (ds[i] != serv[i]) return false
         return true
-    }
-
-    export function routePacket(pkt: JDPacket) {
-        // log("route: " + pkt.toString())
-        const devId = pkt.deviceIdentifier
-        const multiCommandClass = pkt.multicommandClass
-
-        // TODO implement send queue for packet compression
-
-        if (pkt.requiresAck) {
-            pkt.requiresAck = false // make sure we only do it once
-            if (pkt.deviceIdentifier == bus.selfDevice.deviceId) {
-                const crc = pkt.crc
-                const ack = JDPacket.onlyHeader(crc)
-                ack.serviceIndex = JD_SERVICE_INDEX_CRC_ACK
-                ack._sendReport(bus.selfDevice)
-            }
-        }
-
-        jacdac.bus.emit(PACKET_PROCESS, pkt)
-
-        if (multiCommandClass != null) {
-            if (!pkt.isCommand) return // only commands supported in multi-command
-            for (const h of jacdac.bus.hostServices) {
-                if (h.serviceClass == multiCommandClass && h.running) {
-                    // pretend it's directly addressed to us
-                    pkt.deviceIdentifier = bus.selfDevice.deviceId
-                    pkt.serviceIndex = h.serviceIndex
-                    h.handlePacketOuter(pkt)
-                }
-            }
-        } else if (devId == bus.selfDevice.deviceId) {
-            if (!pkt.isCommand) {
-                // control.dmesg(`invalid echo ${pkt}`)
-                return // huh? someone's pretending to be us?
-            }
-            const h = jacdac.bus.hostServices[pkt.serviceIndex]
-            if (h && h.running) {
-                // log(`handle pkt at ${h.name} cmd=${pkt.service_command}`)
-                h.handlePacketOuter(pkt)
-            }
-        } else {
-            if (pkt.isCommand) return // it's a command, and it's not for us
-
-            let dev = bus.devices.find(d => d.deviceId == devId)
-
-            if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
-                if (pkt.serviceCommand == SystemCmd.Announce) {
-                    if (dev && dev.resetCount > (pkt.data[0] & 0xf)) {
-                        // if the reset counter went down, it means the device resetted; treat it as new device
-                        log(`device ${dev.shortId} resetted`)
-                        bus.devices.removeElement(dev)
-                        dev._destroy()
-                        dev = null
-                    }
-
-                    if (!dev) {
-                        dev = new Device(pkt.deviceIdentifier)
-                        // ask for uptime
-                        dev.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime)
-                    }
-
-                    const matches = serviceMatches(dev, pkt.data)
-                    dev.services = pkt.data
-                    if (!matches) {
-                        dev.lastSeen = control.millis()
-                        bus.reattach(dev)
-                    }
-                }
-                if (dev) {
-                    dev.handleCtrlReport(pkt)
-                    dev.lastSeen = control.millis()
-                }
-                return
-            } else if (pkt.serviceIndex == JD_SERVICE_INDEX_CRC_ACK) {
-                _gotAck(pkt)
-            }
-
-            if (!dev)
-                // we can't know the serviceClass, no announcement seen yet for this device
-                return
-
-            dev.lastSeen = control.millis()
-
-            const serviceClass = dev.serviceClassAt(pkt.serviceIndex)
-            if (!serviceClass || serviceClass == 0xffffffff) return
-
-            if (pkt.isEvent) {
-                let ec = dev._eventCounter
-                // if ec is undefined, it's the first event, so skip processing
-                if (ec !== undefined) {
-                    ec++
-                    // how many packets ahead and behind current are we?
-                    const ahead =
-                        (pkt.eventCounter - ec) & CMD_EVENT_COUNTER_MASK
-                    const behind =
-                        (ec - pkt.eventCounter) & CMD_EVENT_COUNTER_MASK
-                    // ahead == behind == 0 is the usual case, otherwise
-                    // behind < 60 means this is an old event (or retransmission of something we already processed)
-                    // ahead < 5 means we missed at most 5 events, so we ignore this one and rely on retransmission
-                    // of the missed events, and then eventually the current event
-                    if (ahead > 0 && (behind < 60 || ahead < 5)) return
-                }
-                dev._eventCounter = pkt.eventCounter
-            }
-
-            const client = dev.clients.find(c =>
-                c.broadcast
-                    ? c.serviceClass == serviceClass
-                    : c.serviceIndex == pkt.serviceIndex
-            )
-            if (client) {
-                // log(`handle pkt at ${client.name} rep=${pkt.service_command}`)
-                client.currentDevice = dev
-                client.handlePacketOuter(pkt)
-            }
-        }
     }
 
     const EVT_DATA_READY = 1
@@ -1336,11 +1332,11 @@ namespace jacdac {
             while (null != (buf = jacdac.__physGetPacket())) {
                 const pkt = JDPacket.fromBinary(buf)
                 pkt.timestamp = jacdac.__physGetTimestamp()
-                routePacket(pkt)
+                jacdac.bus.routePacket(pkt)
             }
         })
         control.internalOnEvent(jacdac.__physId(), EVT_QUEUE_ANNOUNCE, () =>
-            bus.queueAnnounce()
+            jacdac.bus.queueAnnounce()
         )
 
         enablePower(true)
@@ -1364,7 +1360,7 @@ namespace jacdac {
             })
         }
 
-        bus.start()
+        jacdac.bus.start()
         if (!options.disableLogger) {
             console.addListener(function (pri, msg) {
                 if (msg[0] != ":") jacdac.loggerServer.add(pri as number, msg)
@@ -1374,7 +1370,7 @@ namespace jacdac {
         if (!options.disableRoleManager) {
             roleManagerServer.start()
         }
-        bus.controlServer.sendUptime()
+        jacdac.bus.controlServer.sendUptime()
         // and we're done
         log("jacdac started")
     }

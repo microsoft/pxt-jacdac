@@ -194,7 +194,7 @@ namespace jacdac._rolemgr {
                 return
             const now = control.micros()
             const self = jacdac.bus.selfDevice;
-            const devs = jacdac.devices().filter(d => d !== self && !!(d.announceflags & ControlAnnounceFlags.IsClient));
+            const devs = jacdac.bus.devices.filter(d => d !== self && !!(d.announceflags & ControlAnnounceFlags.IsClient));
             if (!devs.length)
                 return; // nothing to do here
 
