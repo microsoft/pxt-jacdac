@@ -79,10 +79,7 @@ namespace jacdac {
         emit(eventName: string, ...args: any[]): boolean {
             if (!eventName) return false
 
-            const listeners = this.listeners
-            const n = listeners.length
-            for (let i = 0; i < n; ++i) {
-                const listener = listeners[i]
+            for (const listener of this.listeners) {
                 if (listener.key === eventName) {
                     const handler = listener.handler
                     try {
@@ -98,10 +95,7 @@ namespace jacdac {
         listenerCount(eventName: string): number {
             if (!eventName) return 0
             let k = 0
-            const listeners = this.listeners
-            const n = listeners.length
-            for (let i = 0; i < n; ++i) {
-                const listener = listeners[i]
+            for (const listener of this.listeners) {
                 if (listener.key === eventName) {
                     k++
                 }
