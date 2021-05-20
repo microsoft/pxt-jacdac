@@ -16,11 +16,11 @@
         "jacdac-hid-keyboard-server": "./hid-keyboard-server",
         "jacdac-hid-mouse": "./hid-mouse",
         "jacdac-servers": "./servers",
-        "jacdac-servo": "../../servo",
-        "jacdac-motor": "../../motor",
-        "jacdac-buzzer": "../../buzzer",
-        "jacdac-rotaryencoder": "../../rotary-encoder",
-        "jacdac-ledpixel": "../../led-pixel",
-        "jacdac-led": "../../led"
+        "jacdac-servo": "./servo",
+        "jacdac-motor": "./motor",
+        "jacdac-buzzer": "./buzzer",
+        "jacdac-rotaryencoder": "./rotary-encoder",
+        "jacdac-ledpixel": "./led-pixel",
+        "jacdac-led": "./led"
     }
 }
