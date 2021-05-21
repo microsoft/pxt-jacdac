@@ -83,11 +83,11 @@ namespace servers {
             const keys = this.list()
             console.log("list keys")
             console.log(keys)
-            OutPipe.respondForEach(packet, keys, k => jacdac.jdpack("s", [k]))
+            jacdac.OutPipe.respondForEach(packet, keys, k => jacdac.jdpack("s", [k]))
         }
 
         private handleList(packet: jacdac.JDPacket) {
-            OutPipe.respondForEach(
+            jacdac.OutPipe.respondForEach(
                 packet,
                 settings.list(SETTINGS_PREFIX),
                 k => {
