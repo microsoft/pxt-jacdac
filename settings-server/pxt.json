@@ -7,7 +7,7 @@
         "settings": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
         "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
-        "jacdac-hid-keyboard": "github:microsoft/pxt-jacdac/settings-server"
+        "jacdac-settings": "github:microsoft/pxt-jacdac/settings"
     },
     "files": [
         "server.ts"
