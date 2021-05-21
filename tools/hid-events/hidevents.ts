@@ -8,12 +8,12 @@ namespace hidevents {
     let bindings: any[][] = []
 
     function decodeBindings() {
-        const keys = jacdac.settingsServer.list(PREFIX)
+        const keys = servers.settingsServer.list(PREFIX)
         console.log(`decoding bindings (${keys.length})`)
         bindings = []
         for (const key of keys) {
             try {
-                const payload = jacdac.settingsServer.readBuffer(key)
+                const payload = servers.settingsServer.readBuffer(key)
                 const binding = jacdac.jdunpack(
                     payload,
                     "b[8] u32 u8 u8 u16 u16"
@@ -24,7 +24,7 @@ namespace hidevents {
             } catch (e) {
                 // this key is broken
                 console.log(`binding ${key} corrupted`)
-                //jacdac.settingsServer.delete(key)
+                //servers.settingsServer.delete(key)
             }
         }
     }
@@ -49,8 +49,8 @@ namespace hidevents {
     function start() {
         // start services
         jacdac.start({ disableRoleManager: true })
-        jacdac.settingsServer.start()
-        jacdac.settingsServer.on(jacdac.CHANGE, () => decodeBindings())
+        servers.settingsServer.start()
+        servers.settingsServer.on(jacdac.CHANGE, () => decodeBindings())
         jacdac.bus.on(jacdac.EVENT, pkt => handleEvent(pkt))
 
         // decode and start
