@@ -1,11 +1,11 @@
-namespace jacdac {
+namespace servers {
     export const SETTINGS_PREFIX = "jd:"
-    export class SettingsServer extends Server {
+    export class SettingsServer extends jacdac.Server {
         constructor(name: string) {
             super(name, jacdac.SRV_SETTINGS)
         }
 
-        handlePacket(packet: JDPacket) {
+        handlePacket(packet: jacdac.JDPacket) {
             switch (packet.serviceCommand) {
                 case jacdac.SettingsCmd.Delete:
                     this.handleDeleteCommand(packet)
@@ -42,12 +42,12 @@ namespace jacdac {
             settings.remove(SETTINGS_PREFIX + key)
         }
 
-        private handleClearCommand(packet: JDPacket) {
+        private handleClearCommand(packet: jacdac.JDPacket) {
             settings.list(SETTINGS_PREFIX).forEach(k => settings.remove(k))
             this.sendChangeEvent()
         }
 
-        private handleDeleteCommand(packet: JDPacket) {
+        private handleDeleteCommand(packet: jacdac.JDPacket) {
             const key = packet.stringData
             const id = SETTINGS_PREFIX + key
             console.log(`delete '${key}' -> '${id}'`)
@@ -55,7 +55,7 @@ namespace jacdac {
             this.sendChangeEvent()
         }
 
-        private handleGetCommand(packet: JDPacket) {
+        private handleGetCommand(packet: jacdac.JDPacket) {
             const key = packet.stringData
             const id = SETTINGS_PREFIX + key
             let value: Buffer = undefined
@@ -66,11 +66,11 @@ namespace jacdac {
             if (!value) value = Buffer.create(0)
             console.log(`get '${key}' -> '${id}' ${value.toHex()}`)
             this.sendReport(
-                JDPacket.from(jacdac.SettingsCmd.Get, packet.data.concat(value))
+                jacdac.JDPacket.from(jacdac.SettingsCmd.Get, packet.data.concat(value))
             )
         }
 
-        private handleSetCommand(packet: JDPacket) {
+        private handleSetCommand(packet: jacdac.JDPacket) {
             const [key, value] = packet.jdunpack<[string, Buffer]>("z b")
             const id = SETTINGS_PREFIX + key.trim()
             console.log(`set '${key}' -> '${id}' '${value}'`)
@@ -79,14 +79,14 @@ namespace jacdac {
             this.sendChangeEvent()
         }
 
-        private handleListKeys(packet: JDPacket) {
+        private handleListKeys(packet: jacdac.JDPacket) {
             const keys = this.list()
             console.log("list keys")
             console.log(keys)
-            OutPipe.respondForEach(packet, keys, k => jdpack("s", [k]))
+            OutPipe.respondForEach(packet, keys, k => jacdac.jdpack("s", [k]))
         }
 
-        private handleList(packet: JDPacket) {
+        private handleList(packet: jacdac.JDPacket) {
             OutPipe.respondForEach(
                 packet,
                 settings.list(SETTINGS_PREFIX),
@@ -96,7 +96,7 @@ namespace jacdac {
                         (key[0] === "$"
                             ? Buffer.create(0)
                             : settings.readBuffer(k)) || Buffer.create(0)
-                    return jdpack("z b", [key, value])
+                    return jacdac.jdpack("z b", [key, value])
                 }
             )
         }
