@@ -5,9 +5,9 @@ namespace jacdac {
         Identify = 202,
     }
 
-    /** 
-     * Register platform specific code to be run before jacdac starts 
-    */
+    /**
+     * Register platform specific code to be run before jacdac starts
+     */
     export let onPlatformStart: () => void
 
     export const CHANGE = "change"
@@ -1407,8 +1407,7 @@ namespace jacdac {
     jacdac.__physStart()
 
     // platform setup
-    if(onPlatformStart)
-        onPlatformStart()
+    if (onPlatformStart) onPlatformStart()
 
     // check for proxy mode
     startProxy()
