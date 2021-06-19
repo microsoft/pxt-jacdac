@@ -107,6 +107,7 @@ namespace jacdac {
             const buf = Buffer.create(ids.length * 4)
             for (let i = 0; i < ids.length; ++i)
                 buf.setNumber(NumberFormat.UInt32LE, i * 4, ids[i])
+            this.selfDevice.services = buf
             JDPacket.from(SystemCmd.Announce, buf)._sendReport(this.selfDevice)
             this.emit(SELF_ANNOUNCE)
             for (const cl of this.allClients) cl.announceCallback()
