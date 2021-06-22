@@ -297,10 +297,10 @@ namespace jacdac {
     export const bus: Bus = new Bus()
 
     // common logging level for jacdac services
-    export let logPriority = LoggerPriority.Debug
+    export let logPriority = ConsolePriority.Debug
 
     function log(msg: string) {
-        jacdac.loggerServer.add(logPriority, msg)
+        console.add(logPriority, msg)
     }
 
     //% fixedInstances
@@ -537,12 +537,11 @@ namespace jacdac {
         protected log(text: string) {
             // check if logging is needed
             if (this.supressLog) return
-            const loggerMinPriority = jacdac.loggerServer.minPriority
-            if (jacdac.logPriority < loggerMinPriority) return
+            if (jacdac.logPriority < console.minPriority) return
 
             // log things up!
             const dev = bus.selfDevice.toString()
-            loggerServer.add(
+            console.add(
                 logPriority,
                 `${dev}${
                     this.instanceName
@@ -918,12 +917,12 @@ namespace jacdac {
         protected log(text: string) {
             if (
                 this.supressLog ||
-                logPriority < jacdac.loggerServer.minPriority
+                logPriority < console.minPriority
             )
                 return
             let dev = bus.selfDevice.toString()
             let other = this.device ? this.device.toString() : "<unbound>"
-            jacdac.loggerServer.add(
+            console.add(
                 logPriority,
                 `${dev}/${other}:${this.serviceClass}>${this.role}>${text}`
             )
