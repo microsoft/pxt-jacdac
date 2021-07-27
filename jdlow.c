@@ -165,13 +165,18 @@ static void rx_timeout(void) {
 }
 
 static void setup_rx_timeout(void) {
-    uint32_t *p = (uint32_t *)rxFrame;
-    if (p[0] == 0 && p[1] == 0) {
-        rx_timeout(); // didn't get any data after lo-pulse
-    } else {
-        // got the size - set timeout for whole packet
-        tim_set_timer(JD_FRAME_SIZE(rxFrame) * 12 + 60, rx_timeout);
+    target_disable_irq();
+    if (status & JD_STATUS_RX_ACTIVE) {
+        uart_flush_rx();
+        uint32_t *p = (uint32_t *)rxFrame;
+        if (p[0] == 0 && p[1] == 0) {
+            rx_timeout(); // didn't get any data after lo-pulse
+        } else {
+            // got the size - set timeout for whole packet
+            tim_set_timer(JD_FRAME_SIZE(rxFrame) * 12 + 60, rx_timeout);
+        }
     }
+    target_enable_irq();
 }
 
 void jd_line_falling() {
@@ -204,6 +209,10 @@ void jd_line_falling() {
 
     uart_start_rx(rxFrame, sizeof(*rxFrame));
     // log_pin_set(1, 0);
+
+    // if we're not active after start_rx, it means the rx already finished
+    if (!(status & JD_STATUS_RX_ACTIVE))
+        return;
 
     // 200us max delay according to spec, +50us to get the first 4 bytes of data
     tim_set_timer(250, setup_rx_timeout);

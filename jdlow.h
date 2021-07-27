@@ -29,6 +29,7 @@ void tim_set_timer(int delta, cb_t cb);
 void uart_init(void);
 int uart_start_tx(const void *data, uint32_t numbytes);
 void uart_start_rx(void *data, uint32_t maxbytes);
+void uart_flush_rx(void);
 void uart_disable(void);
 int uart_wait_high(void);
 

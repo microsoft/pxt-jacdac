@@ -241,6 +241,10 @@ int uart_start_tx(const void *data, uint32_t numbytes) {
     return 0;
 }
 
+void uart_flush_rx(void) {
+    // nothing to do
+}
+
 void uart_start_rx(void *data, uint32_t maxbytes) {
     // LOG("start rx @%d", (int)tim_get_micros());
     if (status & STATUS_IN_RX)

@@ -15,6 +15,15 @@
 
 namespace jacdac {
 
+static inline void raiseEvent(int src, int val) {
+#ifdef PXT_ESP32
+    pxt::raiseEvent(src, val);
+#else
+    Event(src, val);
+#endif
+}
+
+
 #define MAX_RX 10
 #define MAX_TX 10
 
@@ -35,13 +44,13 @@ extern "C" jd_frame_t *app_pull_frame() {
 
 static void queue_cnt() {
     if (txQ == NULL)
-        Event(DEVICE_ID, EVT_TX_EMPTY);
+        raiseEvent(DEVICE_ID, EVT_TX_EMPTY);
 }
 
 extern "C" void app_queue_annouce() {
     //    LOG("announce");
     queue_cnt();
-    Event(DEVICE_ID, EVT_QUEUE_ANNOUNCE);
+    raiseEvent(DEVICE_ID, EVT_QUEUE_ANNOUNCE);
 }
 
 int copyAndAppend(LinkedFrame *volatile *q, jd_frame_t *frame, int max, uint8_t *data) {
@@ -90,7 +99,7 @@ extern "C" int app_handle_frame(jd_frame_t *frame) {
     if (copyAndAppend(&rxQ, frame, MAX_RX) < 0) {
         return -1;
     } else {
-        Event(DEVICE_ID, EVT_DATA_READY);
+        raiseEvent(DEVICE_ID, EVT_DATA_READY);
         return 0;
     }
 }
@@ -180,6 +189,10 @@ static void sendExtFrame(const uint8_t *data) {
     frame->flags &= ~FRAME_EXT_FLAG;
     copyAndAppend(&txQ, frame, MAX_TX); // and also put it on the send Q
     jd_packet_ready();
+}
+
+extern "C" int jd_pin_num() {
+    return PIN(JACK_TX);
 }
 
 //%
