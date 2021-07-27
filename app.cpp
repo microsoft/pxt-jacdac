@@ -191,9 +191,11 @@ static void sendExtFrame(const uint8_t *data) {
     jd_packet_ready();
 }
 
+#ifdef PIN
 extern "C" int jd_pin_num() {
     return PIN(JACK_TX);
 }
+#endif
 
 //%
 void __physStart() {
