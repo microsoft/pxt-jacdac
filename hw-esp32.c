@@ -21,6 +21,11 @@ typedef struct jacdac_ctx {
 
     esp_timer_handle_t timer;
     intr_handle_t intr_handle;
+
+    bool cb_rx;
+    bool cb_tx;
+    bool cb_fall;
+    esp_timer_handle_t timer0;
 } jacdac_ctx_t;
 
 static jacdac_ctx_t context;
@@ -65,10 +70,24 @@ static void jd_timer(void *dummy) {
     }
 }
 
+static void jd_timer0(void *dummy) {
+    if (context.cb_rx) {
+        context.cb_rx = 0;
+        jd_rx_completed(0);
+    }
+    if (context.cb_tx) {
+        context.cb_tx = 0;
+        jd_tx_completed(0);
+    }
+    if (context.cb_fall) {
+        context.cb_fall = 0;
+        jd_line_falling();
+    }
+}
+
 #define CHK(e)                                                                                     \
     if ((e) != ESP_OK)                                                                             \
     jd_panic()
-
 
 void target_panic(int code);
 void jd_panic(void) {
@@ -84,6 +103,15 @@ void tim_init() {
     args.dispatch_method = ESP_TIMER_TASK;
     args.name = "JD timeout";
     esp_timer_create(&args, &context.timer);
+
+    args.callback = (esp_timer_cb_t)jd_timer0;
+    args.name = "JD callback";
+    esp_timer_create(&args, &context.timer0);
+}
+
+static void schedule_timer0(void) {
+    esp_timer_stop(context.timer0);
+    esp_timer_start_once(context.timer0, 0);
 }
 
 uint64_t tim_get_micros(void) {
@@ -249,7 +277,8 @@ static IRAM_ATTR void start_bg_rx() {
     context.seen_low = 1;
     context.uart_hw->int_ena.val |= END_RX_FLAGS | UART_RXFIFO_FULL_INT_ENA;
     if (!context.fifo_buf) {
-        jd_line_falling();
+        context.cb_fall = 1;
+        schedule_timer0();
     }
 }
 
@@ -274,7 +303,8 @@ static IRAM_ATTR void uart_isr(void *dummy) {
     } else if (uart_intr_status & UART_TX_BRK_DONE_INT_ST) {
         uart_reg->conf0.txd_brk = 0;
         uart_disable();
-        jd_tx_completed(0);
+        context.cb_tx = 1;
+        schedule_timer0();
     } else if (uart_intr_status & UART_TXFIFO_EMPTY_INT_ST) {
         uart_reg->int_ena.txfifo_empty = 0;
         fill_fifo();
@@ -286,7 +316,8 @@ static IRAM_ATTR void uart_isr(void *dummy) {
         uart_disable();
         if (had_buf) {
             log_pin_pulse(0, 5);
-            jd_rx_completed(0);
+            context.cb_rx = 1;
+            schedule_timer0();
         } else {
             context.rx_ended = 1;
         }
