@@ -30,8 +30,8 @@ typedef struct jacdac_ctx {
 
 static jacdac_ctx_t context;
 
-#define LOG(msg, ...) DMESG("JD: " msg, ##__VA_ARGS__)
-//#define LOG(...) ((void)0)
+// #define LOG(msg, ...) DMESG("JD: " msg, ##__VA_ARGS__)
+#define LOG(...) ((void)0)
 
 // #define PIN_LOG_0 GPIO_NUM_3
 // #define PIN_LOG_1 GPIO_NUM_4
