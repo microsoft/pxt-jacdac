@@ -233,7 +233,7 @@ void uart_init() {
         jd_panic();
     }
 
-    context.uart_num = UART_NUM_MAX;
+    context.uart_num = UART_NUM_MAX - 1;
     DMESG("Jacdac on UART%d IO%d", context.uart_num, pinnum);
     context.uart_hw = UART_LL_GET_HW(context.uart_num);
 

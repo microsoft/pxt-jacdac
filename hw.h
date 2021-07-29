@@ -2,9 +2,17 @@
 #include "CodalDmesg.h"
 #else
 #include <stddef.h>
+
 #ifndef DMESG
-#define DMESG(...) ((void)0)
+#ifdef __cplusplus
+extern "C" void dmesg(const char *fmt, ...);
+#define DMESG ::dmesg
+#else // not C++
+void dmesg(const char *fmt, ...);
+#define DMESG dmesg
 #endif
+#endif
+
 #endif
 
 #if defined(NRF52840) || defined(NRF52832) || defined(NRF52833)
