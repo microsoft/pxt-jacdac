@@ -1,18 +1,7 @@
-#ifndef ESP_PLATFORM
-#include "CodalDmesg.h"
+#ifdef ESP_PLATFORM
+#include "dmesg.h"
 #else
-#include <stddef.h>
-
-#ifndef DMESG
-#ifdef __cplusplus
-extern "C" void dmesg(const char *fmt, ...);
-#define DMESG ::dmesg
-#else // not C++
-void dmesg(const char *fmt, ...);
-#define DMESG dmesg
-#endif
-#endif
-
+#include "CodalDmesg.h"
 #endif
 
 #if defined(NRF52840) || defined(NRF52832) || defined(NRF52833)
