@@ -1,18 +1,3 @@
-namespace jacdac {
-    export const BUTTON_EVENTS: number[] = [
-        DAL.DEVICE_BUTTON_EVT_CLICK,
-        DAL.DEVICE_BUTTON_EVT_LONG_CLICK,
-        DAL.DEVICE_BUTTON_EVT_DOWN,
-        DAL.DEVICE_BUTTON_EVT_UP,
-    ]
-}
-
-const enum JDGamepadCommand {
-    Button = 0x80,
-    Move = 0x81,
-    Throttle = 0x82,
-}
-
 const enum JDDimension {
     //% block=x
     X = 0,
