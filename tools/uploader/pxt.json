@@ -1,0 +1,27 @@
+{
+    "name": "jacdac-uploader",
+    "version": "0.4.85",
+    "description": "",
+    "dependencies": {
+        "jacdac-iot-s2": "*",
+        "net": "*",
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer",
+        "jacdac-servo": "github:microsoft/pxt-jacdac/servo",
+        "jacdac-motor": "github:microsoft/pxt-jacdac/motor",
+        "jacdac-button": "github:microsoft/pxt-jacdac/button",
+        "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
+        "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
+        "jacdac-led": "github:microsoft/pxt-jacdac/led"
+    },
+    "files": [
+        "uploader.ts",
+        "README.md"
+    ],
+    "supportedTargets": [
+        "maker"
+    ],
+    "preferredEditor": "tsprj",
+    "disableTargetTemplateFiles": true,
+    "binaryonly": true
+}

@@ -1,0 +1,13 @@
+{
+    "targetWebsite": "https://maker.makecode.com",
+    "links": {
+        "jacdac": "../..",
+        "jacdac-accelerometer": "../../accelerometer",
+        "jacdac-servo": "../../servo",
+        "jacdac-motor": "../../motor",
+        "jacdac-button": "../../button",
+        "jacdac-rotaryencoder": "../../rotary-encoder",
+        "jacdac-ledpixel": "../../led-pixel",
+        "jacdac-led": "../../led"
+    }
+}
