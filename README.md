@@ -2,7 +2,7 @@
 
 This project contains [Jacdac](https://aka.ms/jacdac) host and client services for MakeCode editors.
 
-**This project is still under construction.**
+**Partner Preview: Jacdac is currently in preview. If you would like to join as a pre-release test partner, please email jacdac-tap@microsoft.com.**
 
 ## Using this extensions
 
