@@ -27,8 +27,9 @@ namespace jacdac {
                     if (d <= this.minPriority || elapsed > 1500) {
                         this.minPriority = d
                         this._lastListenerTime = now
-                        console.minPriority = d
                     }
+                    if ((console.minPriority as number) > (this.minPriority as number))
+                        console.minPriority = this.minPriority as number as ConsolePriority
                     break
                 }
             }
@@ -60,7 +61,7 @@ namespace jacdac {
             // no one listening?
             if (control.millis() - this._lastListenerTime > 3000) {
                 this._lastListenerTime = 0
-                console.minPriority = ConsolePriority.Silent
+                this.minPriority = jacdac.LoggerPriority.Silent
                 return
             }
 

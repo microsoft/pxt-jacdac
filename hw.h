@@ -1,4 +1,8 @@
+#ifdef ESP_PLATFORM
+#include "dmesg.h"
+#else
 #include "CodalDmesg.h"
+#endif
 
 #if defined(NRF52840) || defined(NRF52832) || defined(NRF52833)
 // NRF52_SERIES not defined here for some reason

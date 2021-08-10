@@ -14,6 +14,7 @@
         "jdutil.c",
         "app.cpp",
         "hw.cpp",
+        "hw-esp32.c",
         "jdsim.ts",
         "hw.h",
         "mbbridge.h",
@@ -59,7 +60,9 @@
     "testDependencies": {},
     "fileDependencies": {
         "mbcompat.ts": "target:microbit",
-        "test.microbit.ts": "target:microbit"
+        "test.microbit.ts": "target:microbit",
+        "hw.cpp": "!core---esp32 && !core---esp32s2",
+        "hw-esp32.c": "core---esp32 || core---esp32s2"
     },
     "public": true,
     "targetVersions": {
