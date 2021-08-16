@@ -25,15 +25,15 @@ namespace jacdac {
          * Enables or disable streaming the sensor internal state
          * @param on streaming enabled
          */
-        public setStreaming(on: boolean, interval?: number) {
+        public setStreaming(on: boolean, interval_ms?: number) {
             this.start()
             this.isStreaming = on
             this.setReg(jacdac.SystemReg.StreamingSamples, "u8", [
                 this.isStreaming ? 255 : 0,
             ])
-            if (interval != undefined)
+            if (interval_ms != undefined)
                 this.setReg(jacdac.SystemReg.StreamingInterval, "u32", [
-                    interval,
+                    interval_ms,
                 ])
         }
 
