@@ -64,7 +64,7 @@ namespace jacdac {
                 sampleSize,
                 sampleType,
                 sampleShift,
-            ] = jdunpack(config, "b[8] u32 u8 u8 u8 i8")
+            ] = jdunpack<[Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number]>(config, "b[8] u32 u8 u8 u8 i8")
             const devId =
                 devIdBuf.getNumber(NumberFormat.Int32LE, 0) == 0
                     ? null
