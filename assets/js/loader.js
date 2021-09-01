@@ -114,6 +114,15 @@ function makeCodeRun(options) {
                         simStateChanged = true;
                         break;
                 }
+            } else if (d.type === "debugger") {
+                // console.log("dbg", d)
+                let brk = d
+                let stackTrace = brk.exceptionMessage + "\n"
+                for (let s of brk.stackframes) {
+                    let fi = s.funcInfo
+                    stackTrace += `   at ${fi.functionName} (${fi.fileName}:${fi.line + 1}:${fi.column + 1})\n`
+                }
+                if (brk.exceptionMessage) console.error(stackTrace);
             } else if (d.type === "messagepacket" && d.channel) {
                 if (d.channel == "jacdac" && d.broadcast && window.parent != window) {
                     d.sender = selfId
@@ -135,6 +144,8 @@ function makeCodeRun(options) {
         } else {
             if (d.type == "messagepacket" && d.channel == "jacdac" && d.sender != selfId) {
                 postMessage(d)
+            } else if (d.type == "reload") {
+                window.location.reload()
             }
         }
     }, false);
