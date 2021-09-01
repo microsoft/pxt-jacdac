@@ -2,9 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script type="text/javascript" src="./js/board.js"></script>
-    <script type="text/javascript" src="./js/loader.js"></script>
-    <script type="text/javascript" src="./js/custom.js"></script>
+    <script type="text/javascript" src="./assets/js/loader.js"></script>
+    <script type="text/javascript" src="./assets/js/custom.js"></script>
     <style>
         body {
             background: black;
@@ -84,7 +83,7 @@
     </iframe>
     <div id="fullscreen">⇲</div>
     <script type="text/javascript">
-makeCodeRun({ js: "./js/binary.js"})
+makeCodeRun({ js: /^http:\/\/localhost:/.test(window.location.href) ? "./assets/js/binary-local.js" : "./assets/js/binary.js"})
         </script>
 </body>
 </html>

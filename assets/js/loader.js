@@ -11,6 +11,7 @@ function makeCodeRun(options) {
     var simStateChanged = false
     var started = false;
     var meta = undefined;
+    var boardDefinition = undefined;
 
     // hide scrollbar
     window.scrollTo(0, 1);
@@ -27,6 +28,9 @@ function makeCodeRun(options) {
             // find metadata
             code.replace(/^\/\/\s+meta=([^\n]+)\n/m, function (m, metasrc) {
                 meta = JSON.parse(metasrc);
+            })
+            code.replace(/^\/\/\s+boardDefinition=([^\n]+)\n/m, function (m, metasrc) {
+                boardDefinition = JSON.parse(metasrc);
             })
             var vel = document.getElementById("version");
             if (meta.version && meta.repo && vel) {
@@ -59,7 +63,7 @@ function makeCodeRun(options) {
             version: meta.target,
             storedState: simState,
             frameCounter: 1,
-            boardDefinition: window.boardDefinition,
+            boardDefinition: boardDefinition,
             options: {
                 "theme": "green",
                 "player": ""

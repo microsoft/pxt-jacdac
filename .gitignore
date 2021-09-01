@@ -9,3 +9,4 @@ _site
 *.tgz
 .header.json
 .simstate.json
+assets/js/binary-local.js
