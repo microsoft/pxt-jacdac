@@ -51,17 +51,20 @@ function makeCodeRun(options) {
         const runMsg = {
             type: "run",
             parts: [],
+            builtinParts: [],
             code: code,
             partDefinitions: {},
+            fnArgs: {},
             cdnUrl: meta.cdnUrl,
             version: meta.target,
             storedState: simState,
             frameCounter: 1,
+            boardDefinition: window.boardDefinition,
             options: {
                 "theme": "green",
                 "player": ""
             },
-            id: "green-" + Math.random()
+            id: "green-" + Math.random(),
         }
         postMessage(runMsg);
     }
