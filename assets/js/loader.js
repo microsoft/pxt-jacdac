@@ -12,9 +12,16 @@ function makeCodeRun(options) {
     var started = false;
     var meta = undefined;
     var boardDefinition = undefined;
+    var simOrigin = undefined;
+    var selfId = "pxt" + Math.random();
 
     // hide scrollbar
     window.scrollTo(0, 1);
+
+    if (!localStorage["pxt_frameid"])
+        localStorage["pxt_frameid"] = "x" + Math.round(Math.random() * 2147483647)
+    var frameid = localStorage["pxt_frameid"]
+
     // init runtime
     initSimState();
     fetchCode();
@@ -42,7 +49,9 @@ function makeCodeRun(options) {
             }
             // load simulator with correct version
             document.getElementById("simframe")
-                .setAttribute("src", meta.simUrl);
+                .setAttribute("src", meta.simUrl + "#" + frameid);
+            var m = /^https?:\/\/[^\/]+/.exec(meta.simUrl)
+            simOrigin = m[0]
             initFullScreen();
         })
     }
@@ -83,40 +92,51 @@ function makeCodeRun(options) {
 
     window.addEventListener('message', function (ev) {
         var d = ev.data
-        if (d.type == "ready") {
-            var loader = document.getElementById("loader");
-            if (loader)
-                loader.remove();
-            isReady = true;
-            startSim();
-        } else if (d.type == "simulator") {
-            switch (d.command) {
-                case "restart":
-                    stopSim();
-                    startSim();
-                    break;
-                case "setstate":
-                    if (d.stateValue === null)
-                        delete simState[d.stateKey];
-                    else
-                        simState[d.stateKey] = d.stateValue;
-                    simStateChanged = true;
-                    break;
-            }
-        } else if (d.type === "messagepacket" && d.channel) {
-            const handler = channelHandlers[d.channel]
-            if (handler) {
-                try {
-                    const buf = d.data;
-                    const str = uint8ArrayToString(buf);
-                    const data = JSON.parse(str)
-                    handler(data);
-                } catch (e) {
-                    console.log(`invalid simmessage`)
-                    console.log(e)
+        // console.debug(ev.origin, d)
+        if (ev.origin == simOrigin) {
+            if (d.type == "ready") {
+                var loader = document.getElementById("loader");
+                if (loader)
+                    loader.remove();
+                isReady = true;
+                startSim();
+            } else if (d.type == "simulator") {
+                switch (d.command) {
+                    case "restart":
+                        stopSim();
+                        startSim();
+                        break;
+                    case "setstate":
+                        if (d.stateValue === null)
+                            delete simState[d.stateKey];
+                        else
+                            simState[d.stateKey] = d.stateValue;
+                        simStateChanged = true;
+                        break;
+                }
+            } else if (d.type === "messagepacket" && d.channel) {
+                if (d.channel == "jacdac" && d.broadcast && window.parent != window) {
+                    d.sender = selfId
+                    window.parent.postMessage(d, "*")
+                }
+                const handler = channelHandlers[d.channel]
+                if (handler) {
+                    try {
+                        const buf = d.data;
+                        const str = uint8ArrayToString(buf);
+                        const data = JSON.parse(str)
+                        handler(data);
+                    } catch (e) {
+                        console.log(`invalid simmessage`)
+                        console.log(e)
+                    }
                 }
             }
-        }            
+        } else {
+            if (d.type == "messagepacket" && d.channel == "jacdac" && d.sender != selfId) {
+                postMessage(d)
+            }
+        }
     }, false);
 
     // helpers
@@ -126,7 +146,7 @@ function makeCodeRun(options) {
         for (let i = 0; i < len; ++i)
             res += String.fromCharCode(input[i]);
         return res;
-    }            
+    }
 
     function setState(st) {
         var r = document.getElementById("root");
@@ -136,7 +156,7 @@ function makeCodeRun(options) {
 
     function postMessage(msg) {
         const frame = document.getElementById("simframe");
-        if (frame)
+        if (meta && frame)
             frame.contentWindow.postMessage(msg, meta.simUrl);
     }
 
@@ -153,22 +173,22 @@ function makeCodeRun(options) {
 
     function initSimState() {
         try {
-            simState = JSON.parse(localStorage["simstate"])
+            simState = JSON.parse(localStorage["pxt_simstate"])
         } catch (e) {
             simState = {}
         }
         setInterval(function () {
             if (simStateChanged)
-                localStorage["simstate"] = JSON.stringify(simState)
+                localStorage["pxt_simstate"] = JSON.stringify(simState)
             simStateChanged = false
         }, 200)
     }
-    
+
     function initFullScreen() {
         var sim = document.getElementById("simframe");
         var fs = document.getElementById("fullscreen");
         if (fs && sim.requestFullscreen) {
-            fs.onclick = function() { sim.requestFullscreen(); }
+            fs.onclick = function () { sim.requestFullscreen(); }
         } else if (fs) {
             fs.remove();
         }
