@@ -9,4 +9,4 @@ _site
 *.tgz
 .header.json
 .simstate.json
-tools/uploader/mkc-local.json
+docs/assets/js/binary-local.js

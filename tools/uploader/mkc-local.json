@@ -1,0 +1,16 @@
+{
+    "targetWebsite": "https://maker.makecode.com",
+    "links": {
+        "jacdac": "../..",
+        "jacdac-accelerometer": "../../accelerometer",
+        "jacdac-servo": "../../servo",
+        "jacdac-motor": "../../motor",
+        "jacdac-button": "../../button",
+        "jacdac-rotaryencoder": "../../rotary-encoder",
+        "jacdac-ledpixel": "../../led-pixel",
+        "jacdac-led": "../../led",
+        "wifi---esp32": "../../../../../pxt-common-packages/libs/wifi---esp32",
+        "net": "../../../../../pxt-common-packages/libs/net",
+        "azureiot": "../../../../../pxt-common-packages/libs/azureiot"
+    }
+}
