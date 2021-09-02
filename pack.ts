@@ -58,6 +58,7 @@ namespace jacdac {
         div: number
         fp = 0
         nfmt: NumberFormat
+        nfmt2: boolean
         word: string
         isArray: boolean
 
@@ -100,7 +101,17 @@ namespace jacdac {
                     this.isArray = true
                 }
 
+                this.nfmt2 = false
                 this.nfmt = numberFormatOfType(word)
+                if (this.nfmt == null) {
+                    if (word == "u64") {
+                        this.nfmt = NumberFormat.UInt32LE
+                        this.nfmt2 = true
+                    } else if (word == "i64") {
+                        this.nfmt = NumberFormat.Int32LE
+                        this.nfmt2 = true
+                    }
+                }
                 this.word = word
 
                 if (this.nfmt == null) {
@@ -117,6 +128,7 @@ namespace jacdac {
                     this.c0 = c0
                 } else {
                     this.size = Buffer.sizeOfNumberFormat(this.nfmt)
+                    if (this.nfmt2 != null) this.size += 4
                     this.c0 = -1
                 }
 
@@ -157,7 +169,10 @@ namespace jacdac {
             }
 
             if (parser.nfmt !== null) {
-                let v = buf.getNumber(parser.nfmt, off)
+                const fmt1 = parser.nfmt2 ? NumberFormat.UInt32LE : parser.nfmt
+                let v = buf.getNumber(fmt1, off)
+                if (parser.nfmt2)
+                    v += buf.getNumber(parser.nfmt, off + 4) * 4294967296
                 if (parser.div != 1) v /= parser.div
                 res.push(v)
                 off += parser.size
@@ -241,8 +256,14 @@ namespace jacdac {
                 if (parser.nfmt !== null) {
                     if (typeof v != "number")
                         throw `expecting number, got ` + typeof v
-                    if (trg)
-                        trg.setNumber(parser.nfmt, off, (v * parser.div) | 0)
+                    if (trg) {
+                        const vp = v * parser.div
+                        trg.setNumber(parser.nfmt, off, vp | 0)
+                        if (parser.nfmt2) {
+                            let vp32 = Math.floor(vp / 4294967296) 
+                            trg.setNumber(parser.nfmt, off + 4, vp32)
+                        }
+                    }
                     off += parser.size
                 } else {
                     let buf: Buffer
