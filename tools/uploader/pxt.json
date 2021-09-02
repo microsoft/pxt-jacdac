@@ -5,6 +5,7 @@
     "dependencies": {
         "jacdac-iot-s2": "*",
         "net": "*",
+        "azureiot": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
         "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer",
         "jacdac-servo": "github:microsoft/pxt-jacdac/servo",
@@ -15,6 +16,7 @@
         "jacdac-led": "github:microsoft/pxt-jacdac/led"
     },
     "files": [
+        "twins.ts",
         "uploader.ts",
         "README.md"
     ],
