@@ -114,19 +114,19 @@ namespace jacdac {
          * Constant uint32_t. A numeric code for the string above; used to identify firmware images and devices.
          *
          * ```
-         * const [firmwareIdentifier] = jdunpack<[number]>(buf, "u32")
+         * const [productIdentifier] = jdunpack<[number]>(buf, "u32")
          * ```
          */
-        FirmwareIdentifier = 0x181,
+        ProductIdentifier = 0x181,
 
         /**
-         * Constant uint32_t. Typically the same as `firmware_identifier` unless device was flashed by hand; the bootloader will respond to that code.
+         * Constant uint32_t. Typically the same as `product_identifier` unless device was flashed by hand; the bootloader will respond to that code.
          *
          * ```
-         * const [bootloaderFirmwareIdentifier] = jdunpack<[number]>(buf, "u32")
+         * const [bootloaderProductIdentifier] = jdunpack<[number]>(buf, "u32")
          * ```
          */
-        BootloaderFirmwareIdentifier = 0x184,
+        BootloaderProductIdentifier = 0x184,
 
         /**
          * Constant string (bytes). A string describing firmware version; typically semver.
@@ -154,33 +154,6 @@ namespace jacdac {
          * ```
          */
         Uptime = 0x186,
-
-        /**
-         * Constant string (bytes). Request the information web site for this device
-         *
-         * ```
-         * const [deviceUrl] = jdunpack<[string]>(buf, "s")
-         * ```
-         */
-        DeviceUrl = 0x187,
-
-        /**
-         * Constant string (bytes). URL pointing to device JSON specification.
-         *
-         * ```
-         * const [deviceSpecificationUrl] = jdunpack<[string]>(buf, "s")
-         * ```
-         */
-        DeviceSpecificationUrl = 0x189,
-
-        /**
-         * Constant string (bytes). URL with machine-readable metadata information about updating device firmware
-         *
-         * ```
-         * const [firmwareUrl] = jdunpack<[string]>(buf, "s")
-         * ```
-         */
-        FirmwareUrl = 0x188,
     }
 
 }

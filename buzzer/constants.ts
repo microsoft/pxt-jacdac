@@ -24,6 +24,11 @@ namespace jacdac {
          * ```
          */
         PlayTone = 0x80,
+
+        /**
+         * Play a note at the given frequency and volume.
+         */
+        PlayNote = 0x81,
     }
 
 }

@@ -60,6 +60,18 @@ namespace modules {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BuzzerCmd.PlayTone, "u16 u16 u16", [period, duty, duration]))
         }
+
+        /**
+        * Play a note at the given frequency and volume.
+        */
+        //% group="Sound"
+        //% blockId=jacdac_buzzer_play_note_cmd
+        //% block="%buzzer play note"
+        //% weight=97
+        playNote(frequency: number, volume: number, duration: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BuzzerCmd.PlayNote, "u16 u0.16 u16", [frequency, volume, duration]))
+        }
     
     }
     //% fixedInstance whenUsed block="buzzer 1"

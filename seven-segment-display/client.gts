@@ -157,6 +157,30 @@ namespace modules {
             return !!values[0];
         }
 
+
+        /**
+        * Shows the number on the screen using the decimal dot if available.
+        */
+        //% group="Display"
+        //% blockId=jacdac_sevensegmentdisplay_set_number_cmd
+        //% block="%sevensegmentdisplay set number"
+        //% weight=92
+        setNumber(value: number): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SevenSegmentDisplayCmd.SetNumber, "f64", [value]))
+        }
+
+        /**
+        * Shows the text on the screen. The client may decide to scroll the text if too long.
+        */
+        //% group="Display"
+        //% blockId=jacdac_sevensegmentdisplay_set_text_cmd
+        //% block="%sevensegmentdisplay set text"
+        //% weight=91
+        setText(text: string): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SevenSegmentDisplayCmd.SetText, "s", [text]))
+        }
     
     }
     //% fixedInstance whenUsed block="seven segment display 1"

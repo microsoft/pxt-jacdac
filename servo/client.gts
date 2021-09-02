@@ -5,7 +5,7 @@ namespace modules {
      * The `min/max_angle/pulse` may be read-only if the servo is permanently affixed to its Jacdac controller.
      **/
     //% fixedInstances blockGap=8
-    export class ServoClient extends jacdac.Client {
+    export class ServoClient extends jacdac.SimpleSensorClient {
 
         private readonly _angle : jacdac.RegisterClient<[number]>;
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
@@ -18,7 +18,7 @@ namespace modules {
         private readonly _responseSpeed : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SERVO, role);
+            super(jacdac.SRV_SERVO, role, "i16.16");
 
             this._angle = this.addRegister<[number]>(jacdac.ServoReg.Angle, "i16.16");
             this._enabled = this.addRegister<[boolean]>(jacdac.ServoReg.Enabled, "u8");
@@ -33,7 +33,7 @@ namespace modules {
     
 
         /**
-        * Specifies the angle of the arm.
+        * Specifies the angle of the arm (request).
         */
         //% callInDebugger
         //% group="Servo"
@@ -47,7 +47,7 @@ namespace modules {
         }
 
         /**
-        * Specifies the angle of the arm.
+        * Specifies the angle of the arm (request).
         */
         //% group="Servo"
         //% blockId=jacdac_servo_angle___set
@@ -210,6 +210,31 @@ namespace modules {
             this.start();            
             const values = this._responseSpeed.pauseUntilValues() as any[];
             return values[0];
+        }
+
+        /**
+        * The current physical position of the arm.
+        */
+        //% callInDebugger
+        //% group="Servo"
+        //% block="%servo current angle"
+        //% blockId=jacdac_servo_current_angle___get
+        //% weight=86
+        currentAngle(): number {
+            return this.reading();
+        
+        }
+
+        /**
+         * Run code when the current angle changes by the given threshold value.
+        */
+        //% group="Servo"
+        //% blockId=jacdac_servo_on_current_angle_change
+        //% block="on %servo current angle changed by %threshold"
+        //% weight=85
+        //% threshold.defl=1
+        onCurrentAngleChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
         }
 
     
