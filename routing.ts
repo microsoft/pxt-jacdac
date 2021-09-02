@@ -285,7 +285,7 @@ namespace jacdac {
 
                         if (!matches) this.reattach(dev)
                     }
-                    if (dev) dev.handleCtrlReport(pkt)
+                    if (dev) dev.processPacket(pkt)
                     return
                 } else if (pkt.serviceIndex == JD_SERVICE_INDEX_CRC_ACK) {
                     _gotAck(pkt)
@@ -1138,10 +1138,6 @@ namespace jacdac {
                 client.currentDevice = this
                 client.handlePacketOuter(pkt)
             }
-        }
-
-        handleCtrlReport(pkt: JDPacket) {
-            this.lastSeen = control.millis()
         }
 
         hasService(serviceClass: number) {
