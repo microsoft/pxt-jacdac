@@ -99,18 +99,20 @@ namespace jacdac.twins {
     }
 
     function rescanDevices() {
-        for (const d of jacdac.bus.devices) {
-            if (!twins.some(t => t.device == d)) new Twin(d)
-        }
-        for (const t of twins) {
-            t.computeTwin()
-        }
-        pause(200)
-        const fullTwin: Json = {}
-        for (const t of twins) {
-            fullTwin[t.id] = t.computeTwin()
-        }
-        console.log(JSON.stringify(fullTwin))
+        control.runInBackground(() => {
+            for (const d of jacdac.bus.devices) {
+                if (!twins.some(t => t.device == d)) new Twin(d)
+            }
+            for (const t of twins) {
+                t.computeTwin()
+            }
+            pause(200)
+            const fullTwin: Json = {}
+            for (const t of twins) {
+                fullTwin[t.id] = t.computeTwin()
+            }
+            console.log(JSON.stringify(fullTwin))
+        })
     }
 
     type Json = any
@@ -124,6 +126,37 @@ namespace jacdac.twins {
         azureiot.onTwinUpdate((twin, patch) => {
         })
         */
+
+        function testpack(v: number) {
+            console.log("t:" + v)
+            for (const fmt of ["i64", "u64"]) {
+                const buf = jdpack(fmt + " u32", [v, 0xdeadbeef])
+                const arr = jdunpack(buf, fmt + " u32")
+                if (arr[0] != v)
+                    throw `fail: ${fmt} ${v}!=${arr[0]} ${buf
+                        .slice(0, 8)
+                        .toHex()}`
+                if (arr[1] != 0xdeadbeef) throw "fail2"
+                if (v < 0) break
+            }
+        }
+
+        testpack(100)
+        testpack(0xffffffff)
+        testpack(0xffffffff+1)
+        testpack(0xdeadb00f)
+        testpack(100 * 0xffffffff)
+        testpack(100 * 0xdeadb00f)
+        testpack(0)
+        testpack(-100)
+        testpack(-0xffffffff)
+        testpack(-0xdeadb00f)
+        testpack(-0x100000000)
+        testpack(-0x1ffffffff)
+        testpack(-0x1deadb00f)
+        testpack(-100 * 0xffffffff)
+        testpack(-100 * 0xdeadb00f)
+
         jacdac.bus.on(jacdac.DEVICE_CONNECT, rescanDevices)
         rescanDevices()
     }
