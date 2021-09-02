@@ -140,24 +140,12 @@ namespace modules {
         }
 
         /**
-        * Commands the device to send a `ping` message to the hub with the given payload.
-        */
-        //% group="Iot"
-        //% blockId=jacdac_azureiothubhealth_ping_cmd
-        //% block="%azureiothubhealth ping"
-        //% weight=90
-        ping(payload: number): void {
-            this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.AzureIotHubHealthCmd.Ping, "u32", [payload]))
-        }
-
-        /**
         * Restricted command to override the existing connection string to the Azure IoT Hub.
         */
         //% group="Iot"
         //% blockId=jacdac_azureiothubhealth_set_connection_string_cmd
         //% block="%azureiothubhealth set connection string"
-        //% weight=89
+        //% weight=90
         setConnectionString(connectionString: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.AzureIotHubHealthCmd.SetConnectionString, "s", [connectionString]))

@@ -89,14 +89,6 @@ namespace jacdac {
             // TODO: disconnect
         }
 
-        private handlePingCommand(pkt: JDPacket) {
-            const payload = pkt.intData
-            azureiot.publishMessageJSON({
-                event: "ping",
-                payload: payload,
-            })
-        }
-
         private handleSetConnectionString(pkt: JDPacket) {
             const newConnString = pkt.stringData
             const connString = settings.programSecrets.readSecret(
@@ -141,9 +133,6 @@ namespace jacdac {
                     break
                 case jacdac.AzureIotHubHealthCmd.Disconnect:
                     this.disconnect()
-                    break
-                case jacdac.AzureIotHubHealthCmd.Ping:
-                    this.handlePingCommand(pkt)
                     break
                 case jacdac.AzureIotHubHealthCmd.SetConnectionString:
                     this.handleSetConnectionString(pkt)
