@@ -6,12 +6,12 @@ namespace jacdac {
             this._connectionStatus =
                 jacdac.AzureIotHubHealthConnectionStatus.Disconnected
 
-            azureiot.onEvent(jacdac.AzureIotEvent.Connected, () =>
+            azureiot.onEvent(AzureIotEvent.Connected, () =>
                 this.setConnectionStatus(
                     jacdac.AzureIotHubHealthConnectionStatus.Connected
                 )
             )
-            azureiot.onEvent(jacdac.AzureIotEvent.Disonnected, () =>
+            azureiot.onEvent(AzureIotEvent.Disconnected, () =>
                 this.setConnectionStatus(
                     jacdac.AzureIotHubHealthConnectionStatus.Disconnected
                 )
@@ -35,7 +35,7 @@ namespace jacdac {
         }
 
         private connect() {
-            if (!azureiot.isConneted()) {
+            if (!azureiot.isConnected()) {
                 this.setConnectionStatus(
                     AzureIotHubHealthConnectionStatus.Connecting
                 )
@@ -47,19 +47,19 @@ namespace jacdac {
             // TODO: disconnect
         }
 
-        private handlePingCommand(pkt: Packet) {
+        private handlePingCommand(pkt: JDPacket) {
             const payload = pkt.intData
-            azureiot.pushMessageJSON({
+            azureiot.publishMessageJSON({
                 event: "ping",
                 payload: payload,
             })
         }
 
-        private handleTwinCommand(pkt: Packet) {
+        private handleTwinCommand(pkt: JDPacket) {
             const twin = azureiot.getTwin()
         }
 
-        private handleSetConnectionString(pkt: Packet) {
+        private handleSetConnectionString(pkt: JDPacket) {
             const KEY = azureiot.SECRETS_KEY
             const newConnString = pkt.stringData
             const connString = settings.programSecrets.readSecret(KEY, true)
