@@ -20,13 +20,22 @@ namespace jacdac {
         HubName = 0x180,
 
         /**
+         * Read-only string (bytes). Device identifier in Azure Iot Hub
+         *
+         * ```
+         * const [hubDeviceId] = jdunpack<[string]>(buf, "s")
+         * ```
+         */
+        HubDeviceId = 0x181,
+
+        /**
          * Read-only ConnectionStatus (uint16_t). Indicates the status of connection. A message beyond the [0..3] range represents an HTTP error code.
          *
          * ```
          * const [connectionStatus] = jdunpack<[jacdac.AzureIotHubHealthConnectionStatus]>(buf, "u16")
          * ```
          */
-        ConnectionStatus = 0x181,
+        ConnectionStatus = 0x182,
 
         /**
          * Reads internal statistics about messages sent to the hub.
@@ -35,19 +44,10 @@ namespace jacdac {
          * const [reading, event, twinReported, twinDesired] = jdunpack<[number, number, number, number]>(buf, "u32 u32 u32 u32")
          * ```
          */
-        Statistics = 0x182,
+        Statistics = 0x183,
     }
 
     export const enum AzureIotHubHealthCmd {
-        /**
-         * Argument: twin_report pipe (bytes). Returns the twin json payload.
-         *
-         * ```
-         * const [twinReport] = jdunpack<[Buffer]>(buf, "b[12]")
-         * ```
-         */
-        Twin = 0x80,
-
         /**
          * No args. Starts a connection to the IoT hub service
          */
@@ -77,15 +77,6 @@ namespace jacdac {
         SetConnectionString = 0x86,
     }
 
-
-    /**
-     * pipe_report TwinReport
-     * ```
-     * const [content] = jdunpack<[string]>(buf, "s")
-     * ```
-     */
-
-
     export const enum AzureIotHubHealthEvent {
         /**
          * Argument: connection_status ConnectionStatus (uint16_t). Raised when the connection status changes
@@ -96,12 +87,6 @@ namespace jacdac {
          */
         //% block="connection status change"
         ConnectionStatusChange = 0x3,
-
-        /**
-         * Raised when the twin model is modified.
-         */
-        //% block="twin change"
-        TwinChange = 0x80,
     }
 
 }

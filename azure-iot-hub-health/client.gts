@@ -6,6 +6,7 @@ namespace modules {
     export class AzureIotHubHealthClient extends jacdac.Client {
 
         private readonly _hubName : jacdac.RegisterClient<[string]>;
+        private readonly _hubDeviceId : jacdac.RegisterClient<[string]>;
         private readonly _connectionStatus : jacdac.RegisterClient<[jacdac.AzureIotHubHealthConnectionStatus]>;
         private readonly _statistics : jacdac.RegisterClient<[number,number,number,number]>;            
 
@@ -13,6 +14,7 @@ namespace modules {
             super(jacdac.SRV_AZURE_IOT_HUB_HEALTH, role);
 
             this._hubName = this.addRegister<[string]>(jacdac.AzureIotHubHealthReg.HubName, "s");
+            this._hubDeviceId = this.addRegister<[string]>(jacdac.AzureIotHubHealthReg.HubDeviceId, "s");
             this._connectionStatus = this.addRegister<[jacdac.AzureIotHubHealthConnectionStatus]>(jacdac.AzureIotHubHealthReg.ConnectionStatus, "u16");
             this._statistics = this.addRegister<[number,number,number,number]>(jacdac.AzureIotHubHealthReg.Statistics, "u32 u32 u32 u32");            
         }
@@ -31,11 +33,23 @@ namespace modules {
         }
 
         /**
-        * Indicates the status of connection. A message beyond the [0..3] range represents an HTTP error code.
+        * Device identifier in Azure Iot Hub
         */
         //% callInDebugger
         //% group="Iot"
         //% weight=99
+        hubDeviceId(): string {
+            this.start();            
+            const values = this._hubDeviceId.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
+        * Indicates the status of connection. A message beyond the [0..3] range represents an HTTP error code.
+        */
+        //% callInDebugger
+        //% group="Iot"
+        //% weight=98
         connectionStatus(): jacdac.AzureIotHubHealthConnectionStatus {
             this.start();            
             const values = this._connectionStatus.pauseUntilValues() as any[];
@@ -47,7 +61,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=98
+        //% weight=97
         statisticsReading(): number {
             this.start();            
             const values = this._statistics.pauseUntilValues() as any[];
@@ -59,7 +73,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=97
+        //% weight=96
         statisticsEvent(): number {
             this.start();            
             const values = this._statistics.pauseUntilValues() as any[];
@@ -71,7 +85,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=96
+        //% weight=95
         statisticsTwinReported(): number {
             this.start();            
             const values = this._statistics.pauseUntilValues() as any[];
@@ -83,7 +97,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=95
+        //% weight=94
         statisticsTwinDesired(): number {
             this.start();            
             const values = this._statistics.pauseUntilValues() as any[];
@@ -96,19 +110,9 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_azureiothubhealth_connection_status_change
         //% block="on %azureiothubhealth connection status change"
-        //% weight=94
+        //% weight=93
         onConnectionStatusChange(handler: () => void): void {
             this.registerEvent(jacdac.AzureIotHubHealthEvent.ConnectionStatusChange, handler);
-        }
-        /**
-         * Raised when the twin model is modified.
-         */
-        //% group="Iot"
-        //% blockId=jacdac_on_azureiothubhealth_twin_change
-        //% block="on %azureiothubhealth twin change"
-        //% weight=93
-        onTwinChange(handler: () => void): void {
-            this.registerEvent(jacdac.AzureIotHubHealthEvent.TwinChange, handler);
         }
 
         /**

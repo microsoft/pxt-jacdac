@@ -5,58 +5,60 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class PowerClient extends jacdac.SimpleSensorClient {
 
-        private readonly _enabled : jacdac.RegisterClient<[boolean]>;
+        private readonly _allowed : jacdac.RegisterClient<[boolean]>;
         private readonly _maxPower : jacdac.RegisterClient<[number]>;
-        private readonly _overload : jacdac.RegisterClient<[boolean]>;
+        private readonly _powerStatus : jacdac.RegisterClient<[jacdac.PowerPowerStatus]>;
         private readonly _batteryVoltage : jacdac.RegisterClient<[number]>;
         private readonly _batteryCharge : jacdac.RegisterClient<[number]>;
         private readonly _batteryCapacity : jacdac.RegisterClient<[number]>;
         private readonly _keepOnPulseDuration : jacdac.RegisterClient<[number]>;
-        private readonly _keepOnPulsePeriod : jacdac.RegisterClient<[number]>;
-        private readonly _priorityOffset : jacdac.RegisterClient<[number]>;            
+        private readonly _keepOnPulsePeriod : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_POWER, role, "u16");
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.PowerReg.Enabled, "u8");
+            this._allowed = this.addRegister<[boolean]>(jacdac.PowerReg.Allowed, "u8");
             this._maxPower = this.addRegister<[number]>(jacdac.PowerReg.MaxPower, "u16");
-            this._overload = this.addRegister<[boolean]>(jacdac.PowerReg.Overload, "u8");
+            this._powerStatus = this.addRegister<[jacdac.PowerPowerStatus]>(jacdac.PowerReg.PowerStatus, "u8");
             this._batteryVoltage = this.addRegister<[number]>(jacdac.PowerReg.BatteryVoltage, "u16");
             this._batteryCharge = this.addRegister<[number]>(jacdac.PowerReg.BatteryCharge, "u0.16");
             this._batteryCapacity = this.addRegister<[number]>(jacdac.PowerReg.BatteryCapacity, "u32");
             this._keepOnPulseDuration = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulseDuration, "u16");
-            this._keepOnPulsePeriod = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulsePeriod, "u16");
-            this._priorityOffset = this.addRegister<[number]>(jacdac.PowerReg.PriorityOffset, "i32");            
+            this._keepOnPulsePeriod = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulsePeriod, "u16");            
         }
     
 
         /**
-        * Turn the power to the bus on/off.
+        * Can be used to completely disable the service.
+        * When allowed, the service may still not be providing power, see 
+        * `power_status` for the actual current state.
         */
         //% callInDebugger
         //% group="Power"
-        //% block="%power enabled"
-        //% blockId=jacdac_power_enabled___get
+        //% block="%power allowed"
+        //% blockId=jacdac_power_allowed___get
         //% weight=100
-        enabled(): boolean {
+        allowed(): boolean {
             this.start();            
-            const values = this._enabled.pauseUntilValues() as any[];
+            const values = this._allowed.pauseUntilValues() as any[];
             return !!values[0];
         }
 
         /**
-        * Turn the power to the bus on/off.
+        * Can be used to completely disable the service.
+        * When allowed, the service may still not be providing power, see 
+        * `power_status` for the actual current state.
         */
         //% group="Power"
-        //% blockId=jacdac_power_enabled___set
-        //% block="set %power %value=toggleOnOff"
+        //% blockId=jacdac_power_allowed___set
+        //% block="set %power allowed to %value"
         //% weight=99
         //% value.defl=1
-        setEnabled(value: boolean) {
+        setAllowed(value: boolean) {
             this.start();
-            const values = this._enabled.values as any[];
+            const values = this._allowed.values as any[];
             values[0] = value ? 1 : 0;
-            this._enabled.values = values as [boolean];
+            this._allowed.values = values as [boolean];
         }
 
         /**
@@ -79,8 +81,8 @@ namespace modules {
         //% group="Power"
         //% weight=97
         //% value.min=0
-        //% value.max=500
-        //% value.defl=500
+        //% value.max=900
+        //% value.defl=900
         setMaxPower(value: number) {
             this.start();
             const values = this._maxPower.values as any[];
@@ -89,15 +91,16 @@ namespace modules {
         }
 
         /**
-        * Indicates whether the power has been shut down due to overdraw.
+        * Indicates whether the power provider is currently providing power (`Powering` state), and if not, why not.
+        * `Overprovision` means there was another power provider, and we stopped not to overprovision the bus.
         */
         //% callInDebugger
         //% group="Power"
         //% weight=96
-        overload(): boolean {
+        powerStatus(): jacdac.PowerPowerStatus {
             this.start();            
-            const values = this._overload.pauseUntilValues() as any[];
-            return !!values[0];
+            const values = this._powerStatus.pauseUntilValues() as any[];
+            return values[0];
         }
 
         /**
@@ -209,45 +212,39 @@ namespace modules {
         }
 
         /**
-        * This value is added to `priority` of `active` reports, thus modifying amount of load-sharing
-        * between different supplies.
-        * The `priority` is clamped to `u32` range when included in `active` reports.
-        */
-        //% callInDebugger
-        //% group="Power"
-        //% weight=87
-        priorityOffset(): number {
-            this.start();            
-            const values = this._priorityOffset.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
-        * This value is added to `priority` of `active` reports, thus modifying amount of load-sharing
-        * between different supplies.
-        * The `priority` is clamped to `u32` range when included in `active` reports.
-        */
-        //% group="Power"
-        //% weight=86
-        setPriorityOffset(value: number) {
-            this.start();
-            const values = this._priorityOffset.values as any[];
-            values[0] = value;
-            this._priorityOffset.values = values as [number];
-        }
-
-        /**
          * Run code when the current draw changes by the given threshold value.
         */
         //% group="Power"
         //% blockId=jacdac_power_on_current_draw_change
         //% block="on %power current draw changed by %threshold"
-        //% weight=85
+        //% weight=87
         //% threshold.defl=1
         onCurrentDrawChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);
         }
 
+        /**
+         * Emitted whenever `power_status` changes.
+         */
+        //% group="Power"
+        //% blockId=jacdac_on_power_power_status_changed
+        //% block="on %power power status changed"
+        //% weight=86
+        onPowerStatusChanged(handler: () => void): void {
+            this.registerEvent(jacdac.PowerEvent.PowerStatusChanged, handler);
+        }
+
+        /**
+        * Sent by the power service periodically, as broadcast.
+        */
+        //% group="Power"
+        //% blockId=jacdac_power_shutdown_cmd
+        //% block="%power shutdown"
+        //% weight=85
+        shutdown(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.PowerCmd.Shutdown))
+        }
     
     }
     //% fixedInstance whenUsed block="power 1"

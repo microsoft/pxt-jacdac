@@ -1083,18 +1083,6 @@ namespace jacdac {
             else return ""
         }
 
-        get firmwareUrl(): string {
-            const b = this.query(ControlReg.FirmwareUrl, null)
-            if (b) return b.toString()
-            else return ""
-        }
-
-        get deviceUrl(): string {
-            const b = this.query(ControlReg.DeviceUrl, null)
-            if (b) return b.toString()
-            else return ""
-        }
-
         processPacket(pkt: JDPacket) {
             this.lastSeen = control.millis()
             this.emit(PACKET_RECEIVE, pkt)

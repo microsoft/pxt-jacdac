@@ -5,14 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class WindDirectionClient extends jacdac.SimpleSensorClient {
 
-        private readonly _windDirectionError : jacdac.RegisterClient<[number]>;
-        private readonly _windDirectionOffset : jacdac.RegisterClient<[number]>;            
+        private readonly _windDirectionError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_WIND_DIRECTION, role, "u16");
 
-            this._windDirectionError = this.addRegister<[number]>(jacdac.WindDirectionReg.WindDirectionError, "u16");
-            this._windDirectionOffset = this.addRegister<[number]>(jacdac.WindDirectionReg.WindDirectionOffset, "i16");            
+            this._windDirectionError = this.addRegister<[number]>(jacdac.WindDirectionReg.WindDirectionError, "u16");            
         }
     
 
@@ -42,24 +40,12 @@ namespace modules {
         }
 
         /**
-        * Offset added to direction to account for sensor calibration.
-        */
-        //% callInDebugger
-        //% group="Wind direction"
-        //% weight=98
-        windDirectionOffset(): number {
-            this.start();            
-            const values = this._windDirectionOffset.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
          * Run code when the wind direction changes by the given threshold value.
         */
         //% group="Wind direction"
         //% blockId=jacdac_winddirection_on_wind_direction_change
         //% block="on %winddirection wind direction changed by %threshold"
-        //% weight=97
+        //% weight=98
         //% threshold.defl=1
         onWindDirectionChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

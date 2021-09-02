@@ -1,8 +1,7 @@
 {
     "targetWebsite": "https://makecode.microbit.org/beta",
     "overrides": {
-        "testDependencies": {
-        }
+        "testDependencies": {}
     },
     "links": {
         "jacdac": ".",
@@ -14,6 +13,8 @@
         "jacdac-hid-keyboard-server": "./hid-keyboard-server",
         "jacdac-hid-mouse": "./hid-mouse",
         "jacdac-servers": "./servers",
-        "jacdac-microbit": "./devices/microbit"
+        "jacdac-microbit": "./devices/microbit",
+        "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
+        "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server"
     }
 }
