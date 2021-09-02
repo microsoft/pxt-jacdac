@@ -55,10 +55,6 @@ namespace jacdac {
             })
         }
 
-        private handleTwinCommand(pkt: JDPacket) {
-            const twin = azureiot.getTwin()
-        }
-
         private handleSetConnectionString(pkt: JDPacket) {
             const KEY = azureiot.SECRETS_KEY
             const newConnString = pkt.stringData
@@ -84,9 +80,6 @@ namespace jacdac {
                     break
                 case jacdac.AzureIotHubHealthCmd.SetConnectionString:
                     this.handleSetConnectionString(pkt)
-                    break
-                case jacdac.AzureIotHubHealthCmd.Twin:
-                    this.handleTwinCommand(pkt)
                     break
             }
         }
