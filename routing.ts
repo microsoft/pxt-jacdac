@@ -12,6 +12,7 @@ namespace jacdac {
 
     export const CHANGE = "change"
     export const DEVICE_CONNECT = "deviceConnect"
+    export const DEVICE_DISCONNECT = "deviceDisconnect"
     export const DEVICE_CHANGE = "deviceChange"
     export const DEVICE_ANNOUNCE = "deviceAnnounce"
     export const SELF_ANNOUNCE = "selfAnnounce"
@@ -964,7 +965,7 @@ namespace jacdac {
         lastQuery = 0
         lastReport = 0
         value: Buffer
-        constructor(public reg: number) {}
+        constructor(public reg: number, public serviceIdx: number) {}
     }
 
     export class Device extends EventSource {
@@ -1018,9 +1019,9 @@ namespace jacdac {
             return jacdac._rolemgr.getRole(this.deviceId, serviceIdx) == role
         }
 
-        private lookupQuery(reg: number) {
+        private lookupQuery(reg: number, serv = 0) {
             if (!this.queries) this.queries = []
-            return this.queries.find(q => q.reg == reg)
+            return this.queries.find(q => q.reg == reg && q.serviceIdx == serv)
         }
 
         get serviceClassLength() {
@@ -1036,15 +1037,15 @@ namespace jacdac {
                   )
         }
 
-        queryInt(reg: number, refreshRate = 1000) {
-            const v = this.query(reg, refreshRate)
+        queryInt(reg: number, refreshRate = 1000, servIdx = 0) {
+            const v = this.query(reg, refreshRate, servIdx)
             if (!v) return undefined
             return intOfBuffer(v)
         }
 
-        query(reg: number, refreshRate = 1000) {
-            let q = this.lookupQuery(reg)
-            if (!q) this.queries.push((q = new RegQuery(reg)))
+        query(reg: number, refreshRate = 1000, servIdx = 0) {
+            let q = this.lookupQuery(reg, servIdx)
+            if (!q) this.queries.push((q = new RegQuery(reg, servIdx)))
 
             const now = control.millis()
             if (
@@ -1053,7 +1054,9 @@ namespace jacdac {
                 (refreshRate != null && now - q.lastQuery > refreshRate)
             ) {
                 q.lastQuery = now
-                this.sendCtrlCommand(CMD_GET_REG | reg)
+                const pkt = JDPacket.onlyHeader(CMD_GET_REG | reg)
+                pkt.serviceIndex = servIdx
+                pkt._sendCmd(this)
             }
             return q.value
         }
@@ -1096,6 +1099,14 @@ namespace jacdac {
             this.lastSeen = control.millis()
             this.emit(PACKET_RECEIVE, pkt)
 
+            if (pkt.isRegGet && this.queries) {
+                const q = this.lookupQuery(pkt.regCode, pkt.serviceIndex)
+                if (q) {
+                    q.value = pkt.data
+                    q.lastReport = control.millis()
+                }
+            }
+
             const serviceClass = this.serviceClassAt(pkt.serviceIndex)
             if (!serviceClass || serviceClass == 0xffffffff) return
 
@@ -1131,14 +1142,6 @@ namespace jacdac {
 
         handleCtrlReport(pkt: JDPacket) {
             this.lastSeen = control.millis()
-            if (pkt.isRegGet) {
-                const reg = pkt.regCode
-                const q = this.lookupQuery(reg)
-                if (q) {
-                    q.value = pkt.data
-                    q.lastReport = control.millis()
-                }
-            }
         }
 
         hasService(serviceClass: number) {
@@ -1167,6 +1170,7 @@ namespace jacdac {
             log("destroy " + this.shortId)
             for (let c of this.clients) c._detach()
             this.clients = null
+            this.emit(DEVICE_DISCONNECT)
         }
     }
 
