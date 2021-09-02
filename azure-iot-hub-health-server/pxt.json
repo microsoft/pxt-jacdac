@@ -11,7 +11,7 @@
         "net": "*",
         "azureiot": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-azure-iot-hub": "github:microsoft/pxt-jacdac-azure-iot-hub-health"
+        "jacdac-azure-iot-hub": "github:microsoft/jacdac-azure-iot-hub-health"
     },
     "testDependencies": {
         "nucleo-f411re": "*"
