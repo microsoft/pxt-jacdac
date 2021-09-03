@@ -18,6 +18,40 @@ namespace jacdac.twins {
         registers: ServiceTwinRegisterSpec[]
     }
 
+    class ReadingCollector {
+        enabled: boolean
+        readings: number[] = []
+        timestamps: number[] = []
+
+        constructor(public parent: Twin, public serviceIdx: number, private fmt: string) {
+        }
+
+        extract(now: number) {
+            if (this.readings.length == 0) return null
+            const readings = this.readings
+            const timedelta = this.timestamps
+            this.readings = []
+            this.timestamps = []
+            for (let i = 0; i < timedelta.length; ++i) timedelta[i] -= now
+            return {
+                readings: readings,
+                timedelta: timedelta,
+            }
+        }
+
+        process(pkt: JDPacket) {
+            if (
+                this.enabled &&
+                pkt.isRegGet &&
+                pkt.regCode == SystemReg.Reading
+            ) {
+                const v = jdunpack(pkt.data, this.fmt)[0]
+                this.readings.push(v)
+                this.timestamps.push(control.millis())
+            }
+        }
+    }
+
     function toHexNum(n: number) {
         if (n == 0) return "0"
         const buf = control.createBuffer(4)
@@ -44,18 +78,41 @@ namespace jacdac.twins {
     }
 
     let twins: Twin[]
+    let exclusions: string[]
+
+    const streamingIntervalSpec: ServiceTwinRegisterSpec = {
+        name: "streaming_interval",
+        code: SystemReg.StreamingInterval,
+        flags: 0,
+        packf: "u32"
+    }
 
     class Twin {
         id: string
+        collectors: ReadingCollector[] = []
         constructor(public device: jacdac.Device) {
             this.device.on(jacdac.DEVICE_DISCONNECT, () => {
                 twins.removeElement(this)
             })
             this.id = this.device.shortId + "_" + this.device.deviceId
             twins.push(this)
+            this.device.on(jacdac.PACKET_RECEIVE, (pkt: JDPacket) => {
+                const coll = this.collectors[pkt.serviceIndex]
+                if (coll) coll.process(pkt)
+            })
+
+            const d = this.device
+            for (let servIdx = 0; servIdx < d.serviceClassLength; ++servIdx) {
+                const cl = d.serviceClassAt(servIdx)
+                const spec = getServiceTwinSpec(cl)
+                if (!spec) continue
+                const rd = spec.registers.find(r => r.code == SystemReg.Reading)
+                if (rd)
+                    this.collectors[servIdx] = new ReadingCollector(this, servIdx, rd.packf)
+            }
         }
 
-        computeTwin() {
+        computeTwin(forReal = true) {
             const d = this.device
             const twin: Json = {}
             for (let servIdx = 0; servIdx < d.serviceClassLength; ++servIdx) {
@@ -72,13 +129,22 @@ namespace jacdac.twins {
                 twin[key] = {
                     registers,
                 }
+                const coll = this.collectors[servIdx]
+                if (coll) {
+                    registers["streaming"] = coll.enabled
+                    spec.registers.push(streamingIntervalSpec)
+                }
                 for (const r of spec.registers) {
+                    if (exclusions.indexOf(spec.name + "." + r.name) >= 0)
+                        continue
+                    if (r.code == SystemReg.Reading) continue
+
                     const buf = d.query(
                         r.code,
-                        r.flags & ServiceTwinRegisterFlag.Const ? null : 1000,
+                        r.flags & ServiceTwinRegisterFlag.Const ? null : 500,
                         servIdx
                     )
-                    if (buf) {
+                    if (forReal && buf) {
                         const vals = jdunpack(buf, r.packf)
                         let rv: any
                         if (r.fields) {
@@ -94,25 +160,35 @@ namespace jacdac.twins {
                     }
                 }
             }
-            return twin
+            return forReal ? twin : undefined
         }
     }
 
+    let currTwin: Json
+
     function rescanDevices() {
-        control.runInBackground(() => {
-            for (const d of jacdac.bus.devices) {
-                if (!twins.some(t => t.device == d)) new Twin(d)
-            }
+        for (const d of jacdac.bus.devices) {
+            if (!twins.some(t => t.device == d)) new Twin(d)
+        }
+        for (let i = 0; i < 2; ++i) {
             for (const t of twins) {
-                t.computeTwin()
+                t.computeTwin(false)
             }
-            pause(200)
-            const fullTwin: Json = {}
-            for (const t of twins) {
-                fullTwin[t.id] = t.computeTwin()
-            }
-            console.log(JSON.stringify(fullTwin))
-        })
+            pause(100)
+        }
+        const fullTwin: Json = {}
+        for (const t of twins) {
+            fullTwin[t.id] = t.computeTwin()
+        }
+        if (!currTwin) {
+            console.log(JSON.stringify(fullTwin, null, 1))
+            currTwin = fullTwin
+        } else {
+            const patch = azureiot.computePatch(currTwin, fullTwin)
+            if (Object.keys(patch).length > 0)
+                console.log(JSON.stringify(patch, null, 1))
+            currTwin = fullTwin
+        }
     }
 
     type Json = any
@@ -120,44 +196,19 @@ namespace jacdac.twins {
     export function init() {
         if (twins) return
         twins = []
+
+        exclusions = []
+        exclusions.push("control.uptime")
+        exclusions.push("control.mcu_temperature")
+
         /*
         azureiot.connect()
         const currTwin = azureiot.getTwin()["reported"]
+        console.log(JSON.stringify( currTwin) )
         azureiot.onTwinUpdate((twin, patch) => {
         })
         */
 
-        function testpack(v: number) {
-            console.log("t:" + v)
-            for (const fmt of ["i64", "u64"]) {
-                const buf = jdpack(fmt + " u32", [v, 0xdeadbeef])
-                const arr = jdunpack(buf, fmt + " u32")
-                if (arr[0] != v)
-                    throw `fail: ${fmt} ${v}!=${arr[0]} ${buf
-                        .slice(0, 8)
-                        .toHex()}`
-                if (arr[1] != 0xdeadbeef) throw "fail2"
-                if (v < 0) break
-            }
-        }
-
-        testpack(100)
-        testpack(0xffffffff)
-        testpack(0xffffffff+1)
-        testpack(0xdeadb00f)
-        testpack(100 * 0xffffffff)
-        testpack(100 * 0xdeadb00f)
-        testpack(0)
-        testpack(-100)
-        testpack(-0xffffffff)
-        testpack(-0xdeadb00f)
-        testpack(-0x100000000)
-        testpack(-0x1ffffffff)
-        testpack(-0x1deadb00f)
-        testpack(-100 * 0xffffffff)
-        testpack(-100 * 0xdeadb00f)
-
-        jacdac.bus.on(jacdac.DEVICE_CONNECT, rescanDevices)
-        rescanDevices()
+        setInterval(rescanDevices, 1000)
     }
 }
