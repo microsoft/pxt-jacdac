@@ -84,6 +84,9 @@ namespace jacdac {
                     AzureIotHubHealthConnectionStatus.Connecting
                 )
                 azureiot.connect()
+                this.setConnectionStatus(
+                    AzureIotHubHealthConnectionStatus.Connected
+                )
             }
         }
 
