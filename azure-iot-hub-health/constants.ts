@@ -3,10 +3,10 @@ namespace jacdac {
     export const SRV_AZURE_IOT_HUB_HEALTH = 0x1462eefc
 
     export const enum AzureIotHubHealthConnectionStatus { // uint16_t
-        Connected = 0x0,
-        Disconnected = 0x1,
-        Connecting = 0x2,
-        Disconnecting = 0x3,
+        Connected = 0x1,
+        Disconnected = 0x2,
+        Connecting = 0x3,
+        Disconnecting = 0x4,
     }
 
     export const enum AzureIotHubHealthReg {
@@ -36,15 +36,6 @@ namespace jacdac {
          * ```
          */
         ConnectionStatus = 0x182,
-
-        /**
-         * Reads internal statistics about messages sent to the hub.
-         *
-         * ```
-         * const [reading, event, twinReported, twinDesired] = jdunpack<[number, number, number, number]>(buf, "u32 u32 u32 u32")
-         * ```
-         */
-        Statistics = 0x183,
     }
 
     export const enum AzureIotHubHealthCmd {

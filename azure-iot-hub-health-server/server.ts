@@ -69,6 +69,7 @@ namespace jacdac {
         ) {
             if (status !== this._connectionStatus) {
                 this._connectionStatus = status
+                this.log(`conn status: ${this._connectionStatus}`)
                 this.sendEvent(
                     jacdac.AzureIotHubHealthEvent.ConnectionStatusChange,
                     jdpack<[number]>("u8", [this._connectionStatus])
@@ -78,15 +79,20 @@ namespace jacdac {
 
         private connect() {
             if (!azureiot.isConnected()) {
+                this.log(`connecting`)
                 this.setConnectionStatus(
                     AzureIotHubHealthConnectionStatus.Connecting
                 )
                 azureiot.connect()
+                this.setConnectionStatus(
+                    AzureIotHubHealthConnectionStatus.Connected
+                )
             }
         }
 
         private disconnect() {
             // TODO: disconnect
+            this.log(`disconnecting`)
         }
 
         private handleSetConnectionString(pkt: JDPacket) {
@@ -96,6 +102,7 @@ namespace jacdac {
                 true
             )
             if (connString !== newConnString) {
+                this.log(`updated connection string`)
                 const wasConnected = azureiot.isConnected()
                 this.disconnect()
                 settings.programSecrets.setSecret(azureiot.SECRETS_KEY, true)
@@ -107,7 +114,16 @@ namespace jacdac {
             // hub name, device id
             if (pkt.isRegGet) {
                 switch (pkt.regCode) {
-                    case jacdac.AzureIotHubHealthReg.HubName:
+                    case jacdac.AzureIotHubHealthReg.ConnectionStatus: {
+                        this.handleRegValue(
+                            pkt,
+                            jacdac.AzureIotHubHealthReg.ConnectionStatus,
+                            "u16",
+                            this.connectionStatus
+                        )
+                        break
+                    }
+                    case jacdac.AzureIotHubHealthReg.HubName: {
                         this.handleRegValue(
                             pkt,
                             jacdac.AzureIotHubHealthReg.HubName,
@@ -115,14 +131,16 @@ namespace jacdac {
                             this.hubName
                         )
                         break
-                    case jacdac.AzureIotHubHealthReg.HubDeviceId:
+                    }
+                    case jacdac.AzureIotHubHealthReg.HubDeviceId: {
                         this.handleRegValue(
                             pkt,
-                            jacdac.AzureIotHubHealthReg.HubName,
+                            jacdac.AzureIotHubHealthReg.HubDeviceId,
                             "s",
                             this.hubDeviceId
                         )
                         break
+                    }
                 }
                 return
             }

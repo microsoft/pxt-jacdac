@@ -13,16 +13,11 @@
         "jacdac-button": "github:microsoft/pxt-jacdac/button",
         "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
         "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
-        "jacdac-led": "github:microsoft/pxt-jacdac/led"
+        "jacdac-led": "github:microsoft/pxt-jacdac/led",
+        "jacdac-azure-iot-hub-health-server": "github:microsoft/pxt-jacdac/azure-iot-hub-health-server"
     },
-    "files": [
-        "twins.ts",
-        "uploader.ts",
-        "README.md"
-    ],
-    "supportedTargets": [
-        "maker"
-    ],
+    "files": ["twins.ts", "uploader.ts", "README.md"],
+    "supportedTargets": ["maker"],
     "preferredEditor": "tsprj",
     "disableTargetTemplateFiles": true,
     "binaryonly": true
