@@ -8,6 +8,8 @@
         "jacdac-button": "../../button",
         "jacdac-rotaryencoder": "../../rotary-encoder",
         "jacdac-ledpixel": "../../led-pixel",
-        "jacdac-led": "../../led"
+        "jacdac-led": "../../led",
+        "jacdac-azure-iot-hub-health": "../../azure-iot-hub-health",
+        "jacdac-azure-iot-hub-health-server": "../../azure-iot-hub-health-server"
     }
 }

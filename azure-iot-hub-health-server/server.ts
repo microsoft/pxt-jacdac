@@ -69,6 +69,7 @@ namespace jacdac {
         ) {
             if (status !== this._connectionStatus) {
                 this._connectionStatus = status
+                this.log(`conn status: ${this._connectionStatus}`)
                 this.sendEvent(
                     jacdac.AzureIotHubHealthEvent.ConnectionStatusChange,
                     jdpack<[number]>("u8", [this._connectionStatus])
@@ -78,6 +79,7 @@ namespace jacdac {
 
         private connect() {
             if (!azureiot.isConnected()) {
+                this.log(`connecting`)
                 this.setConnectionStatus(
                     AzureIotHubHealthConnectionStatus.Connecting
                 )
@@ -87,6 +89,7 @@ namespace jacdac {
 
         private disconnect() {
             // TODO: disconnect
+            this.log(`disconnecting`)
         }
 
         private handleSetConnectionString(pkt: JDPacket) {
@@ -96,6 +99,7 @@ namespace jacdac {
                 true
             )
             if (connString !== newConnString) {
+                this.log(`updated connection string`)
                 const wasConnected = azureiot.isConnected()
                 this.disconnect()
                 settings.programSecrets.setSecret(azureiot.SECRETS_KEY, true)
