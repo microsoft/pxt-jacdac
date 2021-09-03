@@ -1016,6 +1016,9 @@ namespace jacdac {
             if (role == this.deviceId) return true
             if (role == this.deviceId + ":" + serviceIdx) return true
 
+            if (role.indexOf(":") >= 0)
+                return false
+
             return jacdac._rolemgr.getRole(this.deviceId, serviceIdx) == role
         }
 

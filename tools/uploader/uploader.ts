@@ -1,4 +1,5 @@
 jacdac.logPriority = ConsolePriority.Log
+// console.minPriority = ConsolePriority.Log
 
 namespace userconfig {}
 
