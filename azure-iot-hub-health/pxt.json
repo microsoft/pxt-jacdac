@@ -1,9 +1,15 @@
 {
     "name": "jacdac-azure-iot-hub-health",
-    "version": "0.0.0",
+    "version": "0.6.0",
     "description": "Health and diagnostics information about the Azure Iot Hub connection.",
-    "files": ["constants.ts"],
-    "supportedTargets": ["arcade", "microbit", "maker"],
+    "files": [
+        "constants.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
