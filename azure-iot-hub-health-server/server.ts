@@ -111,7 +111,16 @@ namespace jacdac {
             // hub name, device id
             if (pkt.isRegGet) {
                 switch (pkt.regCode) {
-                    case jacdac.AzureIotHubHealthReg.HubName:
+                    case jacdac.AzureIotHubHealthReg.ConnectionStatus: {
+                        this.handleRegValue(
+                            pkt,
+                            jacdac.AzureIotHubHealthReg.ConnectionStatus,
+                            "u16",
+                            this.connectionStatus
+                        )
+                        break
+                    }
+                    case jacdac.AzureIotHubHealthReg.HubName: {
                         this.handleRegValue(
                             pkt,
                             jacdac.AzureIotHubHealthReg.HubName,
@@ -119,14 +128,16 @@ namespace jacdac {
                             this.hubName
                         )
                         break
-                    case jacdac.AzureIotHubHealthReg.HubDeviceId:
+                    }
+                    case jacdac.AzureIotHubHealthReg.HubDeviceId: {
                         this.handleRegValue(
                             pkt,
-                            jacdac.AzureIotHubHealthReg.HubName,
+                            jacdac.AzureIotHubHealthReg.HubDeviceId,
                             "s",
                             this.hubDeviceId
                         )
                         break
+                    }
                 }
                 return
             }
