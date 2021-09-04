@@ -70,7 +70,7 @@ namespace jacdac {
             const newConnString = pkt.stringData
             const connString = settings.programSecrets.readSecret(
                 azureiot.SECRETS_KEY,
-                true
+                false
             )
             if (connString !== newConnString) {
                 this.log(`updated connection string`)
