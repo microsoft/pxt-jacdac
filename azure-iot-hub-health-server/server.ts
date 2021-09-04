@@ -75,8 +75,7 @@ namespace jacdac {
             if (connString !== newConnString) {
                 this.log(`updated connection string`)
                 const wasConnected = azureiot.isConnected()
-                this.disconnect()
-                settings.programSecrets.setSecret(azureiot.SECRETS_KEY, true)
+                azureiot.setConnectionString(newConnString)
                 if (wasConnected) this.connect()
             }
         }
