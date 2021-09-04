@@ -1,27 +1,10 @@
 namespace jacdac {
-    type SMap<T> = { [s: string]: T }
-    function splitPair(kv: string): string[] {
-        let i = kv.indexOf("=")
-        if (i < 0) return [kv, ""]
-        else return [kv.slice(0, i), kv.slice(i + 1)]
-    }
-
-    function parsePropertyBag(msg: string, separator?: string): SMap<string> {
-        let r: SMap<string> = {}
-        msg.split(separator || "&")
-            .map(kv => splitPair(kv))
-            .forEach(
-                parts => (r[net.urldecode(parts[0])] = net.urldecode(parts[1]))
-            )
-        return r
-    }
     export class AzureIotHubHealthServer extends jacdac.Server {
         private _connectionStatus: jacdac.AzureIotHubHealthConnectionStatus
         constructor(dev: string) {
             super(dev, jacdac.SRV_AZURE_IOT_HUB_HEALTH)
             this._connectionStatus =
                 jacdac.AzureIotHubHealthConnectionStatus.Disconnected
-
             azureiot.onEvent(AzureIotEvent.Connected, () =>
                 this.setConnectionStatus(
                     jacdac.AzureIotHubHealthConnectionStatus.Connected
@@ -39,29 +22,11 @@ namespace jacdac {
         }
 
         get hubName() {
-            const connString = settings.programSecrets.readSecret(
-                azureiot.SECRETS_KEY,
-                true
-            )
-            if (!connString) return ""
-
-            // TODO: move to azureiot
-            const connStringParts = parsePropertyBag(connString, ";")
-            const iotHubHostName = connStringParts["HostName"]
-            return iotHubHostName || ""
+            return azureiot.hubName()
         }
 
         get hubDeviceId() {
-            const connString = settings.programSecrets.readSecret(
-                azureiot.SECRETS_KEY,
-                true
-            )
-            if (!connString) return ""
-
-            // TODO: move to azureiot
-            const connStringParts = parsePropertyBag(connString, ";")
-            const deviceId = connStringParts["DeviceId"]
-            return deviceId
+            return azureiot.hubDeviceId()
         }
 
         private setConnectionStatus(

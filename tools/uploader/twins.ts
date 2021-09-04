@@ -48,7 +48,7 @@ namespace jacdac.twins {
             this.id = spec.name
             if (this.spec.registers.some(r => r.code == SystemReg.Reading)) {
                 this.spec.registers.push(streamingIntervalSpec)
-                this.enabled = false
+                this.enabled = true
             }
         }
 
@@ -79,8 +79,10 @@ namespace jacdac.twins {
         applyTwinUpdate(upd: Json) {
             console.log("applying update: " + JSON.stringify(upd))
             const regs = upd["registers"]
-            if (regs["streaming"] !== undefined)
-                this.enabled = !!regs["streaming"]
+            // always enable
+            //if (regs["streaming"] !== undefined)
+            //    this.enabled = !!regs["streaming"]
+            this.enabled = true
             for (const k of Object.keys(regs)) {
                 const rspec = this.spec.registers.find(r => r.name == k)
                 const v = regs[k]
@@ -248,6 +250,15 @@ namespace jacdac.twins {
     }
 
     function rescanDevices() {
+        if (!connect()) return
+        try {
+            scan()
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    function scan() {
         for (const d of jacdac.bus.devices) {
             if (!twins.some(t => t.device == d)) new DeviceTwin(d)
         }
@@ -263,7 +274,7 @@ namespace jacdac.twins {
             fullTwin[t.id] = t.computeTwin()
         }
         if (!currTwin) {
-            console.log(JSON.stringify(fullTwin, null, 1))
+            console.debug(JSON.stringify(fullTwin, null, 1))
             currTwin = fullTwin
             const cloudTwin = azureiot.getTwin()
             const patch = azureiot.computePatch(cloudTwin["reported"], currTwin)
@@ -272,12 +283,13 @@ namespace jacdac.twins {
         } else {
             const patch = azureiot.computePatch(currTwin, fullTwin)
             if (Object.keys(patch).length > 0) {
-                console.log(JSON.stringify(patch, null, 1))
+                console.debug(JSON.stringify(patch, null, 1))
                 azureiot.patchTwin(patch)
             }
             currTwin = fullTwin
         }
 
+        console.debug(`pending readings: ${pendingReadings}, last sent ${control.millis() - lastReadingsSent}`)
         if (
             pendingReadings > MAX_READINGS_PER_PACKET ||
             (pendingReadings > 0 &&
@@ -322,8 +334,10 @@ namespace jacdac.twins {
         try {
             // connection key may not be set
             azureiot.connect()
+            return true
         } catch (e) {
             console.error(e)
+            return false
         }
     }
 
@@ -336,7 +350,6 @@ namespace jacdac.twins {
         exclusions.push("control.mcu_temperature")
 
         lastReadingsSent = control.millis()
-        connect()
         setInterval(rescanDevices, 1000)
     }
 }
