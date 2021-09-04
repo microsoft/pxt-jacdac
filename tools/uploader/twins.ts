@@ -293,7 +293,7 @@ namespace jacdac.twins {
                 console.log(JSON.stringify(readings, null, 1))
                 azureiot.publishMessageJSON({
                     readings: readings,
-                    deviceTime: lastReadingsSent
+                    deviceTime: lastReadingsSent,
                 })
             }
         }
@@ -318,6 +318,15 @@ namespace jacdac.twins {
         })
     }
 
+    function connect() {
+        try {
+            // connection key may not be set
+            azureiot.connect()
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     export function init() {
         if (twins) return
         twins = []
@@ -327,9 +336,7 @@ namespace jacdac.twins {
         exclusions.push("control.mcu_temperature")
 
         lastReadingsSent = control.millis()
-
-        azureiot.connect()
-
+        connect()
         setInterval(rescanDevices, 1000)
     }
 }
