@@ -79,26 +79,6 @@ function startConsole() {
     hideConsole()
 }
 
-function wifi() {
-    showConsole()
-
-    //net.updateAccessPoint("SSID", "pass")
-
-    console.log("WiFi starting...")
-    net.logPriority = ConsolePriority.Log
-    const n = net.instance()
-    const cl = n.controller
-    cl.connect()
-    pauseUntil(() => cl.isConnected)
-    console.log("connected; MAC:" + cl.MACaddress.toHex())
-
-    const resp = net.get("https://pxt.io/api/ping")
-    console.log("resp: " + resp.toString())
-    console.log("cont: " + resp.content)
-
-    hideConsole()
-}
-
 function deviceBrowser() {
     let devs: jacdac.Device[] = []
     menu.show({

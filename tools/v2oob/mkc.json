@@ -1,14 +1,7 @@
 {
-    "targetWebsite": "https://arcade.makecode.com/beta",
+    "targetWebsite": "https://makecode.microbit.org/beta",
     "links": {
         "jacdac": "../..",
-        "jacdac-accelerometer": "../../accelerometer",
-        "jacdac-servo": "../../servo",
-        "jacdac-motor": "../../motor",
-        "jacdac-button": "../../button",
-        "jacdac-buzzer": "../../buzzer",
-        "jacdac-rotaryencoder": "../../rotary-encoder",
-        "jacdac-ledpixel": "../../led-pixel",
-        "jacdac-led": "../../led"
+        "jacdac-button": "../../button"
     }
 }
