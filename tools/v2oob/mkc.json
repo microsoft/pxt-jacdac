@@ -2,6 +2,13 @@
     "targetWebsite": "https://makecode.microbit.org/beta",
     "links": {
         "jacdac": "../..",
-        "jacdac-button": "../../button"
+        "jacdac-accelerometer": "../../accelerometer",
+        "jacdac-servo": "../../servo",
+        "jacdac-motor": "../../motor",
+        "jacdac-button": "../../button",
+        "jacdac-buzzer": "../../buzzer",
+        "jacdac-rotaryencoder": "../../rotary-encoder",
+        "jacdac-ledpixel": "../../led-pixel",
+        "jacdac-led": "../../led"
     }
 }
