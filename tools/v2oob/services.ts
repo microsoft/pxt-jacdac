@@ -73,7 +73,7 @@ const serviceDescs: ServiceDesc[] = [
         modules.rotaryEncoder1.setStreaming(num & 1 ? true : false)
     ),
     new ServiceDesc(jacdac.SRV_BUTTON, "btn", num =>
-        modules.rotaryEncoder1.setStreaming(num & 1 ? true : false)
+        modules.button1.setStreaming(num & 1 ? true : false)
     )
 ]
 
@@ -90,7 +90,6 @@ class RawSensorClient extends jacdac.SensorClient {
         return undefined
     }
 }
-
 
 function hexNum(n: number) {
     const hex = "0123456789abcdef"

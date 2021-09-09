@@ -23,23 +23,21 @@ function resetAll() {
     )
 }
 
-let consoleClient: jacdac.LoggerClient
+// basic idea: we listen for packets from services
+// associated with Jacdac modules from the kit
+// and do something special on the micro:bit 
+// - button: LED display
+// TODO: using function syntax here causes crash at runtime; https://github.com/microsoft/pxt/issues/8172
 
-function startConsole() {
-    if (!consoleClient) {
-        consoleClient = new jacdac.LoggerClient()
-        consoleClient.minPriority = jacdac.LoggerPriority.Debug
-        consoleClient.start()
-    }
-}
+// instead of clients, listen for devices, keep a list
+// just bare packets
 
+modules.button1.onDown(() => {
+    basic.showIcon(IconNames.Heart)
+})
 
-interface FnMap {
-    [index: string]: () => void
-}
-
-function main() {
-}
+modules.button1.onUp(() => {
+    basic.clearScreen()
+})
 
 jacdac.start({ disableRoleManager: true })
-control.runInBackground(main)
