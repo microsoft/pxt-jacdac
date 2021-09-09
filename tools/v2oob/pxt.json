@@ -1,33 +1,25 @@
 {
-    "name": "jacdac-multitool",
+    "name": "jacdac-v2-oob",
     "version": "0.6.5",
     "description": "",
     "dependencies": {
-        "hw": "*",
-        "device": "*",
-        "net": "*",
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer",
-        "jacdac-servo": "github:microsoft/pxt-jacdac/servo",
-        "jacdac-motor": "github:microsoft/pxt-jacdac/motor",
-        "jacdac-button": "github:microsoft/pxt-jacdac/button",
-        "jacdac-buzzer": "github:microsoft/pxt-jacdac/buzzer",
-        "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
-        "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
-        "jacdac-led": "github:microsoft/pxt-jacdac/led"
+        "jacdac-button": "github:microsoft/pxt-jacdac/button"
     },
     "files": [
-        "ui.ts",
         "main.ts",
         "services.ts",
         "README.md"
     ],
     "targetVersions": {
-        "target": "1.5.12",
-        "targetId": "arcade"
+        "target": "3.1.79",
+        "targetId": "microbit"
     },
     "supportedTargets": [
-        "arcade"
+        "microbit"
     ],
     "preferredEditor": "tsprj",
     "disableTargetTemplateFiles": true,
