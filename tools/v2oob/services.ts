@@ -74,10 +74,7 @@ const serviceDescs: ServiceDesc[] = [
     ),
     new ServiceDesc(jacdac.SRV_BUTTON, "btn", num =>
         modules.rotaryEncoder1.setStreaming(num & 1 ? true : false)
-    ),
-    new ServiceDesc(jacdac.SRV_BUZZER, "buz", num =>
-        modules.buzzer1.playMelody(music.jumpDown, 20)
-    ),
+    )
 ]
 
 class RawSensorClient extends jacdac.SensorClient {
@@ -94,24 +91,6 @@ class RawSensorClient extends jacdac.SensorClient {
     }
 }
 
-function sensorView(d: jacdac.Device, s: ServiceDesc) {
-    const client = new RawSensorClient(d.deviceId, s.classNum)
-    const reading = menu.item("Reading: ", () => {})
-    client.setStreaming(true)
-    client.onStateChanged(() => {
-        reading.name = "Reading: " + client.reading
-    })
-
-    menu.show({
-        title: "Device: " + d.shortId + " / " + s.name,
-        update: opts => {
-            opts.elements = [reading]
-            if (!d.isConnected) menu.exit(opts)
-        },
-    })
-
-    client.destroy()
-}
 
 function hexNum(n: number) {
     const hex = "0123456789abcdef"
@@ -144,7 +123,7 @@ function deviceView(d: jacdac.Device) {
     for (let i = 4; i < d.services.length; i += 4) {
         const id = d.services.getNumber(NumberFormat.UInt32LE, i)
         let s = serviceDescs.find(s => s.classNum == id)
-        if (!s) s = new ServiceDesc(id, "Service: " + servName(id), () => {})
+        if (!s) s = new ServiceDesc(id, "Service", () => {})
         services.push(s)
     }
 

@@ -6,7 +6,6 @@
         "jacdac-servo": "../../servo",
         "jacdac-motor": "../../motor",
         "jacdac-button": "../../button",
-        "jacdac-buzzer": "../../buzzer",
         "jacdac-rotaryencoder": "../../rotary-encoder",
         "jacdac-ledpixel": "../../led-pixel",
         "jacdac-led": "../../led"
