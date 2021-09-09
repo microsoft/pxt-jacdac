@@ -27,10 +27,8 @@ function resetAll() {
 // associated with Jacdac modules from the kit
 // and do something special on the micro:bit 
 // - button: LED display
-// TODO: using function syntax here causes crash at runtime; https://github.com/microsoft/pxt/issues/8172
+// - device connect/disconnect (sounds)
 
-// instead of clients, listen for devices, keep a list
-// just bare packets
 
 modules.button1.onDown(() => {
     basic.showIcon(IconNames.Heart)
@@ -38,6 +36,14 @@ modules.button1.onDown(() => {
 
 modules.button1.onUp(() => {
     basic.clearScreen()
+})
+
+modules.rotaryEncoder1.setStreaming(true)
+modules.rotaryEncoder1.onPositionChangedBy(1, () => {
+    led.plotBarGraph(
+        modules.rotaryEncoder1.position() % modules.rotaryEncoder1.clicksPerTurn(), 
+        modules.rotaryEncoder1.clicksPerTurn()
+    )
 })
 
 jacdac.start({ disableRoleManager: true })

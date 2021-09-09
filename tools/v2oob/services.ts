@@ -68,7 +68,6 @@ const serviceDescs: ServiceDesc[] = [
     new ServiceDesc(jacdac.SRV_MOTOR, "motor", num =>
         modules.motor1.run(((num % 11) - 5) * 20)
     ),
-    new ServiceDesc(jacdac.SRV_LOGGER, "logger"),
     new ServiceDesc(jacdac.SRV_ROTARY_ENCODER, "crank", num =>
         modules.rotaryEncoder1.setStreaming(num & 1 ? true : false)
     ),
@@ -115,6 +114,8 @@ function testDevice(d: jacdac.Device) {
         }
     }
 }
+
+let devices = jacdac.bus.devices
 
 function deviceView(d: jacdac.Device) {
     if (d == jacdac.bus.selfDevice) return
