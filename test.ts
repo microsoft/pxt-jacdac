@@ -1,5 +1,12 @@
 function jdpackTest() {
-    function testOne(fmt: string, data0: any[]) {
+    function testOne(
+        fmt: string,
+        data0: any[],
+        options?: {
+            expectedPayload?: string
+        }
+    ) {
+        const expectedPayload = options ? options.expectedPayload : undefined
         function checksame(a: any, b: any) {
             function fail(msg: string): never {
                 debugger
@@ -14,11 +21,15 @@ function jdpackTest() {
 
         const buf = jacdac.jdpack(fmt, data0)
         const data1 = jacdac.jdunpack(buf, fmt)
+        const bufHex = buf.toHex()
         console.log(
-            `${JSON.stringify(data0)}->${fmt}->${buf.toHex()}->${JSON.stringify(
+            `${JSON.stringify(data0)}->${fmt}->${bufHex}->${JSON.stringify(
                 data1
             )}`
         )
+        if (expectedPayload !== undefined && expectedPayload !== bufHex)
+            throw `jdpack test error: payload ${bufHex}, exected ${expectedPayload}`
+
         // console.log(fmt, data0, data1, toHex(buf))
         checksame(data0, data1)
     }
@@ -51,6 +62,11 @@ function jdpackTest() {
     testOne("u16 u16[]", [42, [18]])
     testOne("u16 u16[]", [42, []])
     testOne("u16 z[]", [42, ["foo", "bar", "bz"]])
+    testOne(
+        "b[8] u32 u8 s",
+        [hex`a1b2c3d4e5f6a7b8`, 0x12345678, 0x42, "barbaz"],
+        { expectedPayload: "a1b2c3d4e5f6a7b8785634124262617262617a" }
+    )
 }
 
 // pins.A9.digitalWrite(false)

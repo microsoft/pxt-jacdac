@@ -101,7 +101,7 @@ namespace jacdac {
                     this.isArray = true
                 }
 
-                this.nfmt2 = false
+                this.nfmt2 = null
                 this.nfmt = numberFormatOfType(word)
                 if (this.nfmt == null) {
                     if (word == "u64") {
