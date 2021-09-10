@@ -26,6 +26,12 @@ To build all projects
 sh mk.sh
 ```
 
+To bump the release, use the CLI. Don't create releases from the MakeCode built-in GitHub editors.
+
+```
+sh bump.sh
+```
+
 Run `makecode --pxt-modules` to create files in `pxt_modules/*`, which help with TypeScript auto-completion.
 
 To refresh the `constants.ts` files, build jacdac-spec (`yarn buildspecs` from jacdac-ts) from https://github.com/microsoft/jacdac-ts .
