@@ -7,16 +7,14 @@ namespace modules {
 
         private readonly _hubName : jacdac.RegisterClient<[string]>;
         private readonly _hubDeviceId : jacdac.RegisterClient<[string]>;
-        private readonly _connectionStatus : jacdac.RegisterClient<[jacdac.AzureIotHubHealthConnectionStatus]>;
-        private readonly _statistics : jacdac.RegisterClient<[number,number,number,number]>;            
+        private readonly _connectionStatus : jacdac.RegisterClient<[jacdac.AzureIotHubHealthConnectionStatus]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_AZURE_IOT_HUB_HEALTH, role);
 
             this._hubName = this.addRegister<[string]>(jacdac.AzureIotHubHealthReg.HubName, "s");
             this._hubDeviceId = this.addRegister<[string]>(jacdac.AzureIotHubHealthReg.HubDeviceId, "s");
-            this._connectionStatus = this.addRegister<[jacdac.AzureIotHubHealthConnectionStatus]>(jacdac.AzureIotHubHealthReg.ConnectionStatus, "u16");
-            this._statistics = this.addRegister<[number,number,number,number]>(jacdac.AzureIotHubHealthReg.Statistics, "u32 u32 u32 u32");            
+            this._connectionStatus = this.addRegister<[jacdac.AzureIotHubHealthConnectionStatus]>(jacdac.AzureIotHubHealthReg.ConnectionStatus, "u16");            
         }
     
 
@@ -57,60 +55,12 @@ namespace modules {
         }
 
         /**
-        * Reads internal statistics about messages sent to the hub.
-        */
-        //% callInDebugger
-        //% group="Iot"
-        //% weight=97
-        statisticsReading(): number {
-            this.start();            
-            const values = this._statistics.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
-        * Reads internal statistics about messages sent to the hub.
-        */
-        //% callInDebugger
-        //% group="Iot"
-        //% weight=96
-        statisticsEvent(): number {
-            this.start();            
-            const values = this._statistics.pauseUntilValues() as any[];
-            return values[1];
-        }
-
-        /**
-        * Reads internal statistics about messages sent to the hub.
-        */
-        //% callInDebugger
-        //% group="Iot"
-        //% weight=95
-        statisticsTwinReported(): number {
-            this.start();            
-            const values = this._statistics.pauseUntilValues() as any[];
-            return values[2];
-        }
-
-        /**
-        * Reads internal statistics about messages sent to the hub.
-        */
-        //% callInDebugger
-        //% group="Iot"
-        //% weight=94
-        statisticsTwinDesired(): number {
-            this.start();            
-            const values = this._statistics.pauseUntilValues() as any[];
-            return values[3];
-        }
-
-        /**
          * Raised when the connection status changes
          */
         //% group="Iot"
         //% blockId=jacdac_on_azureiothubhealth_connection_status_change
         //% block="on %azureiothubhealth connection status change"
-        //% weight=93
+        //% weight=97
         onConnectionStatusChange(handler: () => void): void {
             this.registerEvent(jacdac.AzureIotHubHealthEvent.ConnectionStatusChange, handler);
         }
@@ -121,7 +71,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_azureiothubhealth_connect_cmd
         //% block="%azureiothubhealth connect"
-        //% weight=92
+        //% weight=96
         connect(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.AzureIotHubHealthCmd.Connect))
@@ -133,7 +83,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_azureiothubhealth_disconnect_cmd
         //% block="%azureiothubhealth disconnect"
-        //% weight=91
+        //% weight=95
         disconnect(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.AzureIotHubHealthCmd.Disconnect))
@@ -145,7 +95,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_azureiothubhealth_set_connection_string_cmd
         //% block="%azureiothubhealth set connection string"
-        //% weight=90
+        //% weight=94
         setConnectionString(connectionString: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.AzureIotHubHealthCmd.SetConnectionString, "s", [connectionString]))
