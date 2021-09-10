@@ -38,7 +38,7 @@ namespace jacdac {
         }
 
         public onStateChanged(handler: () => void) {
-            this.on(REPORT_UPDATE, handler)
+            this._reading.on(REPORT_UPDATE, handler)
             this.setStreaming(true)
         }
     }
