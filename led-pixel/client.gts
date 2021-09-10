@@ -245,7 +245,7 @@ namespace modules {
         */
         //% group="Light"
         //% blockId=jacdac_ledpixel_run_cmd
-        //% block="%ledpixel run"
+        //% block="%ledpixel run $program"
         //% weight=85
         run(program: Buffer): void {
             this.start();

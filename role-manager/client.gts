@@ -90,7 +90,7 @@ namespace modules {
         */
         //% group="Role Manager"
         //% blockId=jacdac_rolemanager_get_role_cmd
-        //% block="%rolemanager get role"
+        //% block="%rolemanager get role |deviceId $deviceId |serviceIdx $serviceIdx"
         //% weight=96
         getRole(deviceId: Buffer, serviceIdx: number): void {
             this.start();
@@ -102,7 +102,7 @@ namespace modules {
         */
         //% group="Role Manager"
         //% blockId=jacdac_rolemanager_set_role_cmd
-        //% block="%rolemanager set role"
+        //% block="%rolemanager set role |deviceId $deviceId |serviceIdx $serviceIdx |role $role"
         //% weight=95
         setRole(deviceId: Buffer, serviceIdx: number, role: string): void {
             this.start();

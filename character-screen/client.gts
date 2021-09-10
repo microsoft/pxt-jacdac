@@ -149,7 +149,7 @@ namespace modules {
         */
         //% group="Display"
         //% blockId=jacdac_characterscreen_set_line_cmd
-        //% block="%characterscreen set line"
+        //% block="%characterscreen set line |index $index |message $message"
         //% weight=91
         setLine(index: number, message: string): void {
             this.start();

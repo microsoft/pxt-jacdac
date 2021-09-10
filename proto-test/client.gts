@@ -517,7 +517,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_bool_cmd
-        //% block="%prototest c bool"
+        //% block="%prototest c bool $bool"
         //% weight=60
         cBool(bool: boolean): void {
             this.start();
@@ -529,7 +529,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_u32_cmd
-        //% block="%prototest c u32"
+        //% block="%prototest c u32 $u32"
         //% weight=59
         cU32(u32: number): void {
             this.start();
@@ -541,7 +541,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_i32_cmd
-        //% block="%prototest c i32"
+        //% block="%prototest c i32 $i32"
         //% weight=58
         cI32(i32: number): void {
             this.start();
@@ -553,7 +553,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_string_cmd
-        //% block="%prototest c string"
+        //% block="%prototest c string $string"
         //% weight=57
         cString(string: string): void {
             this.start();
@@ -565,7 +565,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_bytes_cmd
-        //% block="%prototest c bytes"
+        //% block="%prototest c bytes $bytes"
         //% weight=56
         cBytes(bytes: Buffer): void {
             this.start();
@@ -577,7 +577,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_i8_u8_u16_i32_cmd
-        //% block="%prototest c i8 u8 u16 i32"
+        //% block="%prototest c i8 u8 u16 i32 |i8 $i8 |u8 $u8 |u16 $u16 |i32 $i32"
         //% weight=55
         cI8U8U16I32(i8: number, u8: number, u16: number, i32: number): void {
             this.start();
@@ -589,7 +589,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_u8_string_cmd
-        //% block="%prototest c u8 string"
+        //% block="%prototest c u8 string |u8 $u8 |string $string"
         //% weight=54
         cU8String(u8: number, string: string): void {
             this.start();

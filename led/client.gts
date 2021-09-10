@@ -139,7 +139,7 @@ namespace modules {
         */
         //% group="Light"
         //% blockId=jacdac_led_animate_cmd
-        //% block="%led animate"
+        //% block="%led animate |toRed $toRed |toGreen $toGreen |toBlue $toBlue |speed $speed"
         //% weight=91
         animate(toRed: number, toGreen: number, toBlue: number, speed: number): void {
             this.start();

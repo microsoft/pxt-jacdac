@@ -28,45 +28,6 @@ namespace modules {
                 jacdac.JDPacket.jdpacked(jacdac.SettingsCmd.Get, "s", [key])
             )
         }
-
-        /**
-         * Set the value of a given setting.
-         */
-        //% group="Settings"
-        //% weight=98
-        set(key: string, value: Buffer): void {
-            this.start()
-            this.sendCommand(
-                jacdac.JDPacket.jdpacked(jacdac.SettingsCmd.Set, "z b", [
-                    key,
-                    value,
-                ])
-            )
-        }
-
-        /**
-         * Delete a given setting.
-         */
-        //% group="Settings"
-        //% weight=97
-        delete(key: string): void {
-            this.start()
-            this.sendCommand(
-                jacdac.JDPacket.jdpacked(jacdac.SettingsCmd.Delete, "s", [key])
-            )
-        }
-
-        /**
-         * Clears all keys.
-         */
-        //% group="Settings"
-        //% weight=96
-        clear(): void {
-            this.start()
-            this.sendCommand(
-                jacdac.JDPacket.onlyHeader(jacdac.SettingsCmd.Clear)
-            )
-        }
     }
     //% fixedInstance whenUsed
     export const settings = new SettingsClient("settings")

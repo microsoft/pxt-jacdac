@@ -163,7 +163,7 @@ namespace modules {
         */
         //% group="Display"
         //% blockId=jacdac_sevensegmentdisplay_set_number_cmd
-        //% block="%sevensegmentdisplay set number"
+        //% block="%sevensegmentdisplay set number $value"
         //% weight=92
         setNumber(value: number): void {
             this.start();
@@ -175,7 +175,7 @@ namespace modules {
         */
         //% group="Display"
         //% blockId=jacdac_sevensegmentdisplay_set_text_cmd
-        //% block="%sevensegmentdisplay set text"
+        //% block="%sevensegmentdisplay set text $text"
         //% weight=91
         setText(text: string): void {
             this.start();

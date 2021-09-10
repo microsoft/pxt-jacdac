@@ -60,7 +60,7 @@ namespace modules {
         */
         //% group="Sound"
         //% blockId=jacdac_midioutput_send_cmd
-        //% block="%midioutput send"
+        //% block="%midioutput send $data"
         //% weight=97
         send(data: Buffer): void {
             this.start();

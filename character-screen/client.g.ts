@@ -143,6 +143,30 @@ namespace modules {
             return values[0];
         }
 
+
+        /**
+        * Overrides the content of a single line at a 0-based index.
+        */
+        //% group="Display"
+        //% blockId=jacdac_characterscreen_set_line_cmd
+        //% block="%characterscreen set line |index $index |message $message"
+        //% weight=91
+        setLine(index: number, message: string): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.CharacterScreenCmd.SetLine, "u16 s", [index, message]))
+        }
+
+        /**
+        * Clears all text from the display.
+        */
+        //% group="Display"
+        //% blockId=jacdac_characterscreen_clear_cmd
+        //% block="%characterscreen clear"
+        //% weight=90
+        clear(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.CharacterScreenCmd.Clear))
+        }
     
     }
     //% fixedInstance whenUsed block="character screen 1"

@@ -80,7 +80,7 @@ namespace modules {
         */
         //% group="Arcade sound"
         //% blockId=jacdac_arcadesound_play_cmd
-        //% block="%arcadesound play"
+        //% block="%arcadesound play $samples"
         //% weight=96
         play(samples: Buffer): void {
             this.start();

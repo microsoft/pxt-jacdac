@@ -51,11 +51,11 @@ namespace modules {
         */
         //% group="Sound"
         //% blockId=jacdac_soundplayer_play_cmd
-        //% block="%soundplayer play"
+        //% block="%soundplayer play $name"
         //% weight=98
-        play(_: string): void {
+        play(name: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SoundPlayerCmd.Play, "s", [_]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SoundPlayerCmd.Play, "s", [name]))
         }
     
     }

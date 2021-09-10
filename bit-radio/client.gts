@@ -134,7 +134,7 @@ namespace modules {
         */
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_string_cmd
-        //% block="%bitradio send string"
+        //% block="%bitradio send string $message"
         //% weight=92
         sendString(message: string): void {
             this.start();
@@ -146,7 +146,7 @@ namespace modules {
         */
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_number_cmd
-        //% block="%bitradio send number"
+        //% block="%bitradio send number $value"
         //% weight=91
         sendNumber(value: number): void {
             this.start();
@@ -158,7 +158,7 @@ namespace modules {
         */
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_value_cmd
-        //% block="%bitradio send value"
+        //% block="%bitradio send value |value $value |name $name"
         //% weight=90
         sendValue(value: number, name: string): void {
             this.start();
@@ -170,7 +170,7 @@ namespace modules {
         */
         //% group="Bit:radio"
         //% blockId=jacdac_bitradio_send_buffer_cmd
-        //% block="%bitradio send buffer"
+        //% block="%bitradio send buffer $data"
         //% weight=89
         sendBuffer(data: Buffer): void {
             this.start();

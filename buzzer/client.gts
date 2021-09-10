@@ -54,7 +54,7 @@ namespace modules {
         */
         //% group="Sound"
         //% blockId=jacdac_buzzer_play_tone_cmd
-        //% block="%buzzer play tone"
+        //% block="%buzzer play tone |period $period |duty $duty |duration $duration"
         //% weight=98
         playTone(period: number, duty: number, duration: number): void {
             this.start();
@@ -66,7 +66,7 @@ namespace modules {
         */
         //% group="Sound"
         //% blockId=jacdac_buzzer_play_note_cmd
-        //% block="%buzzer play note"
+        //% block="%buzzer play note |frequency $frequency |volume $volume |duration $duration"
         //% weight=97
         playNote(frequency: number, volume: number, duration: number): void {
             this.start();

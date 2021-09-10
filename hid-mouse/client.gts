@@ -20,7 +20,7 @@ namespace modules {
         */
         //% group="HID Mouse"
         //% blockId=jacdac_hidmouse_set_button_cmd
-        //% block="%hidmouse set button"
+        //% block="%hidmouse set button |buttons $buttons |event $event"
         //% weight=100
         setButton(buttons: jacdac.HidMouseButton, event: jacdac.HidMouseButtonEvent): void {
             this.start();
@@ -33,7 +33,7 @@ namespace modules {
         */
         //% group="HID Mouse"
         //% blockId=jacdac_hidmouse_move_cmd
-        //% block="%hidmouse move"
+        //% block="%hidmouse move |dx $dx |dy $dy |time $time"
         //% weight=99
         move(dx: number, dy: number, time: number): void {
             this.start();
@@ -46,7 +46,7 @@ namespace modules {
         */
         //% group="HID Mouse"
         //% blockId=jacdac_hidmouse_wheel_cmd
-        //% block="%hidmouse wheel"
+        //% block="%hidmouse wheel |dy $dy |time $time"
         //% weight=98
         wheel(dy: number, time: number): void {
             this.start();

@@ -24,7 +24,7 @@ namespace modules {
         */
         //% group="HID Keyboard"
         //% blockId=jacdac_hidkeyboard_key_cmd
-        //% block="%hidkeyboard key"
+        //% block="%hidkeyboard key |selector $selector |modifiers $modifiers |action $action"
         //% weight=100
         key(selector: ([number, jacdac.HidKeyboardModifiers, jacdac.HidKeyboardAction])[], modifiers: undefined, action: undefined): void {
             this.start();

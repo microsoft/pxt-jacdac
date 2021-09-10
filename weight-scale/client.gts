@@ -179,7 +179,7 @@ namespace modules {
         */
         //% group="Weight Scale"
         //% blockId=jacdac_weightscale_calibrate_gain_cmd
-        //% block="%weightscale calibrate gain"
+        //% block="%weightscale calibrate gain $weight"
         //% weight=88
         calibrateGain(weight: number): void {
             this.start();

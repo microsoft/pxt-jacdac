@@ -88,18 +88,6 @@ namespace modules {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.AzureIotHubHealthCmd.Disconnect))
         }
-
-        /**
-        * Restricted command to override the existing connection string to the Azure IoT Hub.
-        */
-        //% group="Iot"
-        //% blockId=jacdac_azureiothubhealth_set_connection_string_cmd
-        //% block="%azureiothubhealth set connection string"
-        //% weight=94
-        setConnectionString(connectionString: string): void {
-            this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.AzureIotHubHealthCmd.SetConnectionString, "s", [connectionString]))
-        }
     
     }
     //% fixedInstance whenUsed block="azure iot hub health 1"

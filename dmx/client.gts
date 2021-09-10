@@ -48,7 +48,7 @@ namespace modules {
         */
         //% group="DMX"
         //% blockId=jacdac_dmx_send_cmd
-        //% block="%dmx send"
+        //% block="%dmx send $channels"
         //% weight=98
         send(channels: Buffer): void {
             this.start();

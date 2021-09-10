@@ -179,7 +179,7 @@ namespace modules {
         */
         //% group="Real time clock"
         //% blockId=jacdac_realtimeclock_set_time_cmd
-        //% block="%realtimeclock set time"
+        //% block="%realtimeclock set time |year $year |month $month |dayOfMonth $dayOfMonth |dayOfWeek $dayOfWeek |hour $hour |min $min |sec $sec"
         //% weight=90
         setTime(year: number, month: number, dayOfMonth: number, dayOfWeek: number, hour: number, min: number, sec: number): void {
             this.start();

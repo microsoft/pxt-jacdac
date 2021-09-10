@@ -161,7 +161,7 @@ namespace modules {
         */
         //% group="Speech synthesis"
         //% blockId=jacdac_speechsynthesis_speak_cmd
-        //% block="%speechsynthesis speak"
+        //% block="%speechsynthesis speak $text"
         //% weight=90
         speak(text: string): void {
             this.start();

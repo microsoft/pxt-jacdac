@@ -52,7 +52,7 @@ namespace modules {
         */
         //% group="Iot"
         //% blockId=jacdac_wifi_connect_cmd
-        //% block="%wifi connect"
+        //% block="%wifi connect |ssid $ssid |password $password"
         //% weight=97
         connect(ssid: string, password: string): void {
             this.start();

@@ -48,7 +48,7 @@ namespace modules {
         */
         //% group="Vibration motor"
         //% blockId=jacdac_vibration_vibrate_cmd
-        //% block="%vibration vibrate"
+        //% block="%vibration vibrate |duration $duration |speed $speed"
         //% weight=98
         vibrate(duration: ([number, number])[], speed: undefined): void {
             this.start();

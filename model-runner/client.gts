@@ -201,7 +201,7 @@ namespace modules {
         */
         //% group="Model Runner"
         //% blockId=jacdac_modelrunner_set_model_cmd
-        //% block="%modelrunner set model"
+        //% block="%modelrunner set model $modelSize"
         //% weight=88
         setModel(modelSize: number): void {
             this.start();

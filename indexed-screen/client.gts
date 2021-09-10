@@ -318,7 +318,7 @@ namespace modules {
         */
         //% group="Indexed screen"
         //% blockId=jacdac_indexedscreen_start_update_cmd
-        //% block="%indexedscreen start update"
+        //% block="%indexedscreen start update |x $x |y $y |width $width |height $height"
         //% weight=81
         startUpdate(x: number, y: number, width: number, height: number): void {
             this.start();
@@ -331,7 +331,7 @@ namespace modules {
         */
         //% group="Indexed screen"
         //% blockId=jacdac_indexedscreen_set_pixels_cmd
-        //% block="%indexedscreen set pixels"
+        //% block="%indexedscreen set pixels $pixels"
         //% weight=80
         setPixels(pixels: Buffer): void {
             this.start();

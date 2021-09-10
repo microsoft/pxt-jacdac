@@ -3,16 +3,16 @@ namespace modules {
      * A service for configuring how Jacdac device map to HID input events. Users can have multiple configurations and swap between them by writing to `current_configuration`.
      **/
     //% fixedInstances blockGap=8
-    export class HIDAdapterClient extends jacdac.Client {
+    export class HidAdapterClient extends jacdac.Client {
 
         private readonly _numConfigurations : jacdac.RegisterClient<[number]>;
         private readonly _currentConfiguration : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_H_IDADAPTER, role);
+            super(jacdac.SRV_HID_ADAPTER, role);
 
-            this._numConfigurations = this.addRegister<[number]>(jacdac.HIDAdapterReg.NumConfigurations, "u8");
-            this._currentConfiguration = this.addRegister<[number]>(jacdac.HIDAdapterReg.CurrentConfiguration, "u8");            
+            this._numConfigurations = this.addRegister<[number]>(jacdac.HidAdapterReg.NumConfigurations, "u8");
+            this._currentConfiguration = this.addRegister<[number]>(jacdac.HidAdapterReg.CurrentConfiguration, "u8");            
         }
     
 
@@ -76,7 +76,7 @@ namespace modules {
         //% block="on %hidadapter changed"
         //% weight=96
         onChanged(handler: () => void): void {
-            this.registerEvent(jacdac.HIDAdapterEvent.Changed, handler);
+            this.registerEvent(jacdac.HidAdapterEvent.Changed, handler);
         }
 
         /**
@@ -84,11 +84,11 @@ namespace modules {
         */
         //% group="HID Adapter"
         //% blockId=jacdac_hidadapter_set_binding_cmd
-        //% block="%hidadapter set binding"
+        //% block="%hidadapter set binding |configurationNumber $configurationNumber |bindingIndex $bindingIndex |padding $padding |deviceId $deviceId |serviceClass $serviceClass |triggerValue $triggerValue |triggerContext $triggerContext |serviceIndex $serviceIndex |selector $selector |modifiers $modifiers"
         //% weight=95
         setBinding(configurationNumber: number, bindingIndex: number, padding: number, deviceId: number, serviceClass: number, triggerValue: number, triggerContext: number, serviceIndex: number, selector: number, modifiers: undefined): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HIDAdapterCmd.SetBinding, "u8 u8 b[2] u64 u32 u32 u8 u8 u16 u16", [configurationNumber, bindingIndex, padding, deviceId, serviceClass, triggerValue, triggerContext, serviceIndex, selector, modifiers]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidAdapterCmd.SetBinding, "u8 u8 b[2] u64 u32 u32 u8 u8 u16 u16", [configurationNumber, bindingIndex, padding, deviceId, serviceClass, triggerValue, triggerContext, serviceIndex, selector, modifiers]))
         }
 
         /**
@@ -96,11 +96,11 @@ namespace modules {
         */
         //% group="HID Adapter"
         //% blockId=jacdac_hidadapter_clear_binding_cmd
-        //% block="%hidadapter clear binding"
+        //% block="%hidadapter clear binding |configurationNumber $configurationNumber |bindingIndex $bindingIndex"
         //% weight=94
         clearBinding(configurationNumber: number, bindingIndex: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HIDAdapterCmd.ClearBinding, "u8 u8", [configurationNumber, bindingIndex]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidAdapterCmd.ClearBinding, "u8 u8", [configurationNumber, bindingIndex]))
         }
 
         /**
@@ -108,11 +108,11 @@ namespace modules {
         */
         //% group="HID Adapter"
         //% blockId=jacdac_hidadapter_clear_configuration_cmd
-        //% block="%hidadapter clear configuration"
+        //% block="%hidadapter clear configuration $configurationNumber"
         //% weight=93
         clearConfiguration(configurationNumber: number): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HIDAdapterCmd.ClearConfiguration, "u8", [configurationNumber]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidAdapterCmd.ClearConfiguration, "u8", [configurationNumber]))
         }
 
         /**
@@ -124,10 +124,10 @@ namespace modules {
         //% weight=92
         clear(): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.HIDAdapterCmd.Clear))
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.HidAdapterCmd.Clear))
         }
     
     }
-    //% fixedInstance whenUsed block="h idadapter 1"
-    export const hIDAdapter1 = new HIDAdapterClient("h IDAdapter1");
+    //% fixedInstance whenUsed block="hid adapter 1"
+    export const hidAdapter1 = new HidAdapterClient("hid Adapter1");
 }
