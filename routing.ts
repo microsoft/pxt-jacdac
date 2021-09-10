@@ -10,6 +10,11 @@ namespace jacdac {
      */
     export let onPlatformStart: () => void
 
+    /**
+     * Platform specific product identifier. Initialize in onPlatformStart
+     */
+    export let productIdentifier: number
+
     export const CHANGE = "change"
     export const DEVICE_CONNECT = "deviceConnect"
     export const DEVICE_DISCONNECT = "deviceDisconnect"
@@ -1201,6 +1206,16 @@ namespace jacdac {
         handlePacketOuter(pkt: JDPacket) {
             if (pkt.isRegGet) {
                 switch (pkt.regCode) {
+                    case ControlReg.ProductIdentifier: {
+                        if (productIdentifier)
+                            this.sendReport(
+                                JDPacket.from(
+                                    pkt.serviceCommand,
+                                    jdpack("u32", [jacdac.productIdentifier])
+                                )
+                            )
+                        break
+                    }
                     case ControlReg.Uptime: {
                         this.sendUptime()
                         break
