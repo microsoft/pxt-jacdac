@@ -1162,6 +1162,7 @@ namespace jacdac {
             for (let c of this.clients) c._detach()
             this.clients = null
             this.emit(DEVICE_DISCONNECT)
+            bus.emit(DEVICE_DISCONNECT, this)
         }
     }
 
