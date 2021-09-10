@@ -1,7 +1,7 @@
 namespace jacdac {
     export class ProtoTestServer extends Server {
         constructor() {
-            super("prototest", SRV_PROTO_TEST)
+            super("", SRV_PROTO_TEST)
         }
 
         bool = false
