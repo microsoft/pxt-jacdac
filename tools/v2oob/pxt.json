@@ -13,7 +13,8 @@
         "jacdac-button": "github:microsoft/pxt-jacdac/button#v0.6.9",
         "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder#v0.6.9",
         "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel#v0.6.9",
-        "jacdac-led": "github:microsoft/pxt-jacdac/led#v0.6.9"
+        "jacdac-led": "github:microsoft/pxt-jacdac/led#v0.6.9",
+        "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer#v0.6.10"
     },
     "files": [
         "main.ts",
