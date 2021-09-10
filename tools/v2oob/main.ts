@@ -29,7 +29,6 @@ function resetAll() {
 // - button: LED display
 // - device connect/disconnect (sounds)
 
-
 modules.button1.onDown(() => {
     basic.showIcon(IconNames.Heart)
 })
@@ -41,9 +40,7 @@ modules.button1.onUp(() => {
 modules.rotaryEncoder1.setStreaming(true)
 modules.rotaryEncoder1.onPositionChangedBy(1, () => {
     led.plotBarGraph(
-        modules.rotaryEncoder1.position() % modules.rotaryEncoder1.clicksPerTurn(), 
-        modules.rotaryEncoder1.clicksPerTurn()
-    )
+        modules.rotaryEncoder1.position() % 12, 12  )
 })
 
 jacdac.start({ disableRoleManager: true })
