@@ -1,3 +1,6 @@
+// TODO: if a service is a sensor service then set up streamings
+music.setVolume(50)
+
 jacdac.bus.subscribe(
     jacdac.DEVICE_CONNECT,
     (d: jacdac.Device) => {
@@ -63,7 +66,7 @@ jacdac.bus.subscribe(
 jacdac.bus.subscribe(
     jacdac.DEVICE_DISCONNECT,
     (d: jacdac.Device) => {
-        soundExpression.sad.playUntilDone()
+        soundExpression.mysterious.playUntilDone()
         delete dev2Services[d.deviceId]
     }
 )
