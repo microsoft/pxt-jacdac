@@ -6,42 +6,43 @@ This project contains [Jacdac](https://aka.ms/jacdac) host and client services f
 
 ## Using this extensions
 
-* Open your MakeCode editor (see supported editors)
-* Go to the extension dialog and search for https://github.com/microsoft/pxt-jacdac
-* Import the extension.
+-   Open your MakeCode editor (see supported editors)
+-   Go to the extension dialog and search for https://github.com/microsoft/pxt-jacdac
+-   Import the extension.
 
 ### Supported editors
 
-* Maker, https://maker.makecode.com
-* Arcade BETA, https://arcade.makecoe.com/beta
-* micro:bit Beta, https://makecode.microbit.org/beta
+-   micro:bit V2, https://makecode.microbit.org/
+-   Arcade, https://arcade.makecoe.com/
+-   Maker, https://maker.makecode.com/
 
 ## Developer section
 
 Issues are tracked at https://github.com/microsoft/jacdac/issues .
 
 To build all projects
+
 ```
 sh mk.sh
 ```
 
 Run `makecode --pxt-modules` to create files in `pxt_modules/*`, which help with TypeScript auto-completion.
 
-To refresh the ``constants.ts`` files, build jacdac-spec (``yarn buildspecs`` from jacdac-ts) from https://github.com/microsoft/jacdac-ts .
+To refresh the `constants.ts` files, build jacdac-spec (`yarn buildspecs` from jacdac-ts) from https://github.com/microsoft/jacdac-ts .
 
 ### Building local projects
 
-Typically you can do ```makecode`` from any subproject to build for micro:bit. To use another config, for example arcade,
+Typically you can do ``makecode` from any subproject to build for micro:bit. To use another config, for example arcade,
 
 ```
 makecode -c ../mkc-arcade.json
 ```
 
-You can also add ``--hw d5`` or ``--hw d5,f4,...`` to build for specific hardware profiles.
+You can also add `--hw d5` or `--hw d5,f4,...` to build for specific hardware profiles.
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+This project welcomes contributions and suggestions. Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
