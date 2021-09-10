@@ -1,76 +1,70 @@
-function identify(d: jacdac.Device) {
-    if (!d) return
-    if (d == jacdac.bus.selfDevice) {
-        control.runInParallel(() => {
-            jacdac.bus.emit(jacdac.IDENTIFY)
-            jacdac.bus.emit(jacdac.STATUS_EVENT, jacdac.StatusEvent.Identify)
-        })
-    } else {
-        d.sendCtrlCommand(jacdac.ControlCmd.Identify)
-    }
-}
-
-function describe(dev: jacdac.Device) {
-    let name = ""
-    if (dev == jacdac.bus.selfDevice) name = "<self>"
-    return `${dev.shortId} ${name}`
-}
-
-
-function resetAll() {
-    jacdac.JDPacket.onlyHeader(jacdac.ControlCmd.Reset).sendAsMultiCommand(
-        jacdac.SRV_CONTROL
-    )
-}
-
-// basic idea: we listen for packets from services
-// associated with Jacdac modules from the kit
-// and do something special on the micro:bit 
-// - button: LED display
-// - device connect/disconnect (sounds)
-
-modules.button1.onDown(() => {
-    basic.showIcon(IconNames.Heart)
-})
-
-modules.button1.onUp(() => {
-    basic.clearScreen()
-})
-
-modules.rotaryEncoder1.setStreaming(true)
-modules.rotaryEncoder1.onPositionChangedBy(1, () => {
-    led.plotBarGraph(
-        modules.rotaryEncoder1.position() % 12, 12  )
-})
-
-modules.potentiometer1.onPositionChangedBy(0.1, () => {
-    led.plotBarGraph(
-        modules.potentiometer1.position(), 1.0)
-})
-
-
-
 jacdac.bus.subscribe(
     jacdac.DEVICE_CONNECT,
-    (dev: jacdac.Device) => {
+    (d: jacdac.Device) => {
         // don't play on self announce
+        if (d === jacdac.bus.selfDevice) return
         soundExpression.happy.playUntilDone()
     }
 )
 
+// map device id to the service numbers supported by the device
+interface ServicesMap {
+    [index: string]: number[]
+}
+let dev2Services: ServicesMap = {}
+
+// whenever a device joins the bus, cache its services
 jacdac.bus.subscribe(
     jacdac.DEVICE_ANNOUNCE,
-    (dev: jacdac.Device) => {
-        // get the services if not present
-
+    (d: jacdac.Device) => {
+        if (d === jacdac.bus.selfDevice) return
+        if (!dev2Services[d.deviceId]) {
+            dev2Services[d.deviceId] = []
+            for (let i = 4; i < d.services.length; i += 4) {
+                const id = d.services.getNumber(NumberFormat.UInt32LE, i)
+                dev2Services[d.deviceId].push(id)
+            }
+        }
     }
 )
 
-// TODO: not on bus
+// whenever we get an event for a particular service class
+// do something on the micro:bit
+
+function processEvent(serviceClass: number, eventCode: number) {
+    if (serviceClass === jacdac.SRV_BUTTON) {
+        if (eventCode === jacdac.ButtonEvent.Down) {
+            basic.showIcon(IconNames.SmallHeart)
+        } else if (eventCode === jacdac.ButtonEvent.Up) {
+            basic.clearScreen()
+        } else if (eventCode === jacdac.ButtonEvent.Hold) {
+            basic.showIcon(IconNames.Heart)
+        }
+     }
+}
+
+// anytime we get a packet from some device, do something
+jacdac.bus.subscribe(
+    jacdac.PACKET_PROCESS,
+    (r: jacdac.JDPacket) => {
+        if (r.isEvent) {
+            const services = dev2Services[r.deviceIdentifier]
+            if (services) {
+                if (r.serviceIndex-1 < services.length) {
+                    const serviceClass = services[r.serviceIndex-1]
+                    processEvent(serviceClass, r.eventCode)
+                }
+            }
+        } 
+    }
+)
+
+// whenever a device leaves the bus, forget about its services
 jacdac.bus.subscribe(
     jacdac.DEVICE_DISCONNECT,
-    (dev: jacdac.Device) => {
+    (d: jacdac.Device) => {
         soundExpression.sad.playUntilDone()
+        delete dev2Services[d.deviceId]
     }
 )
 
