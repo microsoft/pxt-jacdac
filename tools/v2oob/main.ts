@@ -52,7 +52,7 @@ modules.potentiometer1.onPositionChangedBy(0.1, () => {
 
 jacdac.bus.subscribe(
     jacdac.DEVICE_CONNECT,
-    () => {
+    (dev: jacdac.Device) => {
         // don't play on self announce
         soundExpression.happy.playUntilDone()
     }
@@ -60,14 +60,16 @@ jacdac.bus.subscribe(
 
 jacdac.bus.subscribe(
     jacdac.DEVICE_ANNOUNCE,
-    () => {
-        // get the services
+    (dev: jacdac.Device) => {
+        // get the services if not present
+
     }
 )
 
+// TODO: not on bus
 jacdac.bus.subscribe(
     jacdac.DEVICE_DISCONNECT,
-    () => {
+    (dev: jacdac.Device) => {
         soundExpression.sad.playUntilDone()
     }
 )
