@@ -48,10 +48,13 @@ modules.potentiometer1.onPositionChangedBy(0.1, () => {
         modules.potentiometer1.position(), 1.0)
 })
 
+
+
 jacdac.bus.subscribe(
     jacdac.DEVICE_CONNECT,
     () => {
-        // make a sound
+        // don't play on self announce
+        soundExpression.happy.playUntilDone()
     }
 )
 
@@ -65,8 +68,7 @@ jacdac.bus.subscribe(
 jacdac.bus.subscribe(
     jacdac.DEVICE_DISCONNECT,
     () => {
-        // make a sound
-        // remove the device 
+        soundExpression.sad.playUntilDone()
     }
 )
 
