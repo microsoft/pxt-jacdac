@@ -6,14 +6,14 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer",
-        "jacdac-servo": "github:microsoft/pxt-jacdac/servo",
-        "jacdac-motor": "github:microsoft/pxt-jacdac/motor",
-        "jacdac-button": "github:microsoft/pxt-jacdac/button",
-        "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
-        "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
-        "jacdac-led": "github:microsoft/pxt-jacdac/led"
+        "jacdac": "github:microsoft/pxt-jacdac#v0.6.9",
+        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer#v0.6.9",
+        "jacdac-servo": "github:microsoft/pxt-jacdac/servo#v0.6.9",
+        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.6.9",
+        "jacdac-button": "github:microsoft/pxt-jacdac/button#v0.6.9",
+        "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder#v0.6.9",
+        "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel#v0.6.9",
+        "jacdac-led": "github:microsoft/pxt-jacdac/led#v0.6.9"
     },
     "files": [
         "main.ts",
