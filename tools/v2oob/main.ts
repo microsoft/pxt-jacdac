@@ -43,4 +43,31 @@ modules.rotaryEncoder1.onPositionChangedBy(1, () => {
         modules.rotaryEncoder1.position() % 12, 12  )
 })
 
+modules.potentiometer1.onPositionChangedBy(0.1, () => {
+    led.plotBarGraph(
+        modules.potentiometer1.position(), 1.0)
+})
+
+jacdac.bus.subscribe(
+    jacdac.DEVICE_CONNECT,
+    () => {
+        // make a sound
+    }
+)
+
+jacdac.bus.subscribe(
+    jacdac.DEVICE_ANNOUNCE,
+    () => {
+        // get the services
+    }
+)
+
+jacdac.bus.subscribe(
+    jacdac.DEVICE_DISCONNECT,
+    () => {
+        // make a sound
+        // remove the device 
+    }
+)
+
 jacdac.start({ disableRoleManager: true })
