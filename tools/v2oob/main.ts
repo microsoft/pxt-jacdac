@@ -66,7 +66,7 @@ jacdac.bus.subscribe(
 jacdac.bus.subscribe(
     jacdac.DEVICE_DISCONNECT,
     (d: jacdac.Device) => {
-        soundExpression.mysterious.playUntilDone()
+        soundExpression.happy.playUntilDone()
         delete dev2Services[d.deviceId]
     }
 )
