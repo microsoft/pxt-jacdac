@@ -21,12 +21,15 @@ interface ActuatorsMap {
 }
 
 let knownActuators = [ jacdac.SRV_SERVO, jacdac.SRV_LED ]
+let actuatorKeys: number[] = []
 let actuatorServices: ActuatorsMap = {}
 function checkForActuator(devId: string, serviceClass: number) {
     if (knownActuators.indexOf(serviceClass) >= 0) {
         // add device to map
-        if (!actuatorServices[serviceClass])
+        if (!actuatorServices[serviceClass]) {
             actuatorServices[serviceClass] = []
+            actuatorKeys.push(serviceClass)
+        }
         actuatorServices[serviceClass].push(devId)
     }
 }
@@ -97,8 +100,13 @@ jacdac.bus.subscribe(
     (d: jacdac.Device) => {
         soundExpression.happy.playUntilDone()
         dev2Services[d.deviceId].forEach(sc => {
-            if (actuatorServices[sc])
+            if (actuatorServices[sc]) {
                 actuatorServices[sc].removeElement(d.deviceId)
+                if (actuatorServices[sc].length === 0) {
+                    delete actuatorServices[sc]
+                    actuatorKeys.removeElement(sc)
+                }
+            }
         })
         delete dev2Services[d.deviceId]
     }
@@ -106,10 +114,25 @@ jacdac.bus.subscribe(
 
 // micro:bit actions translate to actuator actions
 
+function buttonToAngle(b: Button) {
+    return b === Button.A ? -90 : b === Button.B ? 90 : 0
+}
+
 function actuate(b: Button) {
     // for each serviceClass that is active
     // perform appropriate action on 
-    // all instances of that serviceClass (using wildcard option)
+    // all instances of that serviceClass (using wildcard option
+    actuatorKeys.forEach((sc:number) => {
+        if (sc === jacdac.SRV_SERVO) {
+            const angle = buttonToAngle(b)
+            const pkt = jacdac.JDPacket.jdpacked(
+                jacdac.CMD_SET_REG | jacdac.ServoReg.Angle 
+                , "i16.16", [angle])
+            pkt.sendAsMultiCommand(sc)
+        } else {
+
+        }
+    })
 }
 
 input.onButtonPressed(Button.A, function() {
