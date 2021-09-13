@@ -6,7 +6,8 @@ jacdac.bus.subscribe(
         if (d === jacdac.bus.selfDevice) return
         devCount++
         if (devCount) {
-            basic.showNumber(devCount)
+            updateDisplay = true
+            displayNumber = devCount
         }
     }
 )
@@ -174,7 +175,8 @@ jacdac.bus.subscribe(
     jacdac.DEVICE_DISCONNECT,
     (d: jacdac.Device) => {
         devCount--
-        basic.showNumber(devCount)
+        updateDisplay = true
+        displayNumber = devCount
         dev2Services[d.deviceId].forEach(sc => {
              if (service2dev[sc]) {
                 service2dev[sc].removeElement(d.deviceId)
