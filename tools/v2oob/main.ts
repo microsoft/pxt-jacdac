@@ -1,6 +1,6 @@
 music.setVolume(50)
 
-let devCount = -1
+let devCount = 0
 jacdac.bus.subscribe(
     jacdac.DEVICE_CONNECT,
     (d: jacdac.Device) => {
@@ -8,7 +8,6 @@ jacdac.bus.subscribe(
         if (d === jacdac.bus.selfDevice) return
         devCount++
         if (devCount) basic.showNumber(devCount)
-        soundExpression.happy.playUntilDone()
     }
 )
 
@@ -144,7 +143,6 @@ jacdac.bus.subscribe(
     (d: jacdac.Device) => {
         devCount--
         basic.showNumber(devCount)
-        soundExpression.happy.playUntilDone()
         dev2Services[d.deviceId].forEach(sc => {
              if (actuatorServices[sc]) {
                 actuatorServices[sc].removeElement(d.deviceId)
