@@ -1,8 +1,19 @@
-# JACDAC Multitool
+# JACDAC "Out of the Box" experience for micro:bit V2 and basic Jacdac modules
 
-Usage: Drop the `.uf2` generated in [Actions](https://github.com/microsoft/jacdac-multitool/actions) (or from a release) on your Arcade device.
+Usage: Drop the `.uf2` generated in [Actions](https://github.com/microsoft/pxt-jacdac/actions) (or from a release) on your micro:bit V2 device.
 
-Currently only works with F4 and D5 devices (of which only F4 was tested).
+Currently only works with micro:bit v2
+
+Behavior:
+ - when a Jacdac module is added to or removed from the bus, the micro:bit displays the new count of devices on the bus
+ - when a Jacdac button module is attached, the micro:bit will respond to the following events as follows
+    - Down: display small heart on 5x5 LEDs
+    - Hold: display large heart
+    - Up: clear display
+ - when a Jacdac sensor (slider, rotary encoder) is attached and the sensor value changes appreciably, 
+   micro:bit will display a bar chart showing the magnitude of the reading register 
+ - when a Jacdac actuator (servor, lights) is attached, the micro:bit will send a command to it based
+   on which button of micro:bit is pressed (A, B, A+B)
 
 ## Building
 
@@ -20,7 +31,6 @@ If you want to develop it alongside `pxt-jacdac`, clone `pxt-jacdac` in the same
 Then run `makecode --pxt-modules -c mkc-arcade.json` in `pxt-jacdac` (and remove `jacdac-multitool/pxt_modules` if any).
 Then create a workspace with both by running `code jacdac-multitool pxt-jacdac`.
 Finally, you will need to build with `makecode --config mkc-local.json` in `jacdac-multitool`.
-
 
 ## Contributing
 
