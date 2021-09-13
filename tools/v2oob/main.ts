@@ -1,5 +1,3 @@
-music.setVolume(50)
-
 let devCount = 0
 jacdac.bus.subscribe(
     jacdac.DEVICE_CONNECT,
@@ -7,7 +5,9 @@ jacdac.bus.subscribe(
         // don't play on self announce (this doesn't work)
         if (d === jacdac.bus.selfDevice) return
         devCount++
-        if (devCount) basic.showNumber(devCount)
+        if (devCount) {
+            basic.showNumber(devCount)
+        }
     }
 )
 
@@ -36,7 +36,8 @@ jacdac.bus.subscribe(
 
 // special handling for actuators (multi-command) and sensors (streaming)
 let knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL ]
-let knownSensors = [ jacdac.SRV_POTENTIOMETER, jacdac.SRV_ROTARY_ENCODER, jacdac.SRV_ACCELEROMETER ]
+let knownSensors = [ jacdac.SRV_POTENTIOMETER, jacdac.SRV_ROTARY_ENCODER, 
+    jacdac.SRV_ACCELEROMETER, jacdac.SRV_THERMOMETER ]
 
 let serviceKeys: number[] = []
 interface ServiceDeviceMap {
@@ -54,7 +55,7 @@ function checkForKnownService(dev: jacdac.Device, serviceClass: number, serviceI
         service2dev[serviceClass].push(dev.deviceId)
         if (knownActuators.indexOf(serviceClass) >= 0)
             configureActuator(dev, serviceClass)
-        else
+        else if (knownSensors.indexOf(serviceClass) >= 0)
             configureSensor(dev, serviceClass, serviceIndex)
     }
 }
@@ -72,8 +73,6 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
         ledPixelClients.push(client)
     }
 }
-
-// TODO: map dev.id + service index to sensor value
 
 interface SensorMap {
     [index: string]: number
@@ -103,7 +102,7 @@ jacdac.bus.subscribe(
     (pkt: jacdac.JDPacket) => {
         const services = dev2Services[pkt.deviceIdentifier]
         if (services) {
-            if (pkt.serviceIndex - 1 < services.length) {
+            if (pkt.serviceIndex > 0) {
                 const serviceClass = services[pkt.serviceIndex - 1]
                 if (pkt.isEvent) {
                     processEvent(serviceClass, pkt.eventCode)
@@ -134,20 +133,38 @@ function processEvent(serviceClass: number, eventCode: number) {
     }
 }
 
+let updateDisplay = false
+let displayNumber = 0
+forever(() => {
+    if (updateDisplay) {
+        basic.showNumber(displayNumber)
+        updateDisplay = false
+    }
+})
+
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
+    if (knownSensors.indexOf(serviceClass) == -1)
+        return
+    const lookup = pkt.deviceIdentifier + ":" + pkt.serviceIndex.toString()
+    console.log("get reading " + lookup)
     if (serviceClass === jacdac.SRV_ROTARY_ENCODER) {
         const position = pkt.jdunpack<number[]>("u32")[0]
-        const lookup = pkt.deviceIdentifier + ":" + pkt.serviceIndex.toString()
         if (position !== sensorMap[lookup]) {
             sensorMap[lookup] = position
             led.plotBarGraph(position % 12, 12)
         }
     } else if (serviceClass === jacdac.SRV_POTENTIOMETER) {
         const position = Math.round(pkt.jdunpack<number[]>("u0.16")[0] * 100)
-        const lookup = pkt.deviceIdentifier + ":" + pkt.serviceIndex.toString()
         if (position !== sensorMap[lookup]) {
             sensorMap[lookup] = position
             led.plotBarGraph(position, 100)
+        }
+    } else if (serviceClass === jacdac.SRV_THERMOMETER) {
+        const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0] )
+        if (temp !== sensorMap[lookup]) {
+            sensorMap[lookup] = temp
+            displayNumber = temp
+            updateDisplay = true
         }
     }
 }

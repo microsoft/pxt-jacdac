@@ -9,12 +9,11 @@
         "jacdac": "github:microsoft/pxt-jacdac#v0.6.13",
         "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer#v0.6.13",
         "jacdac-servo": "github:microsoft/pxt-jacdac/servo#v0.6.13",
-        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.6.13",
         "jacdac-button": "github:microsoft/pxt-jacdac/button#v0.6.13",
         "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder#v0.6.13",
         "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel#v0.6.13",
-        "jacdac-led": "github:microsoft/pxt-jacdac/led#v0.6.13",
-        "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer#v0.6.13"
+        "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer#v0.6.13",
+        "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer#v0.6.13"
     },
     "files": [
         "main.ts",
