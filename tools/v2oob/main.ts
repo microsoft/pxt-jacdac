@@ -36,7 +36,7 @@ jacdac.bus.subscribe(
 
 // special handling for actuators (multi-command) and sensors (streaming)
 let knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL ]
-let knownSensors = [ jacdac.SRV_POTENTIOMETER, jacdac.SRV_ROTARY_ENCODER ]
+let knownSensors = [ jacdac.SRV_POTENTIOMETER, jacdac.SRV_ROTARY_ENCODER, jacdac.SRV_ACCELEROMETER ]
 
 let serviceKeys: number[] = []
 interface ServiceDeviceMap {
@@ -126,6 +126,10 @@ function processEvent(serviceClass: number, eventCode: number) {
             basic.clearScreen()
         } else if (eventCode === jacdac.ButtonEvent.Hold) {
             basic.showIcon(IconNames.Heart, 0)
+        }
+    } if (serviceClass === jacdac.SRV_ACCELEROMETER) {
+        if (eventCode === jacdac.AccelerometerEvent.Shake) {
+            basic.showIcon(IconNames.Happy, 0)
         }
     }
 }
