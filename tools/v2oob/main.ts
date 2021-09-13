@@ -1,10 +1,13 @@
 music.setVolume(50)
 
+let devCount = -1
 jacdac.bus.subscribe(
     jacdac.DEVICE_CONNECT,
     (d: jacdac.Device) => {
         // don't play on self announce (this doesn't work)
         if (d === jacdac.bus.selfDevice) return
+        devCount++
+        if (devCount) basic.showNumber(devCount)
         soundExpression.happy.playUntilDone()
     }
 )
@@ -43,6 +46,11 @@ interface ActuatorsMap {
 }
 let actuatorServices: ActuatorsMap = {}
 
+interface SensorsMap {
+    [index: string]: number
+}
+let sensorServices: SensorsMap = {}
+
 function checkForActuator(dev: jacdac.Device, serviceClass: number) {
     if (knownActuators.indexOf(serviceClass) >= 0) {
         // add device to map
@@ -71,6 +79,7 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
 
 function checkForSensor(dev: jacdac.Device, serviceClass: number) {
     if (knownSensors[serviceClass]) {
+        // TODO: start up the 
         enableStreaming(serviceClass)
     }
 }
@@ -120,6 +129,7 @@ function processEvent(serviceClass: number, eventCode: number) {
     }
 }
 
+
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
     if (serviceClass === jacdac.SRV_ROTARY_ENCODER) {
         led.plotBarGraph(pkt.jdunpack<number[]>("u32")[0] % 12, 12)
@@ -132,6 +142,8 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
 jacdac.bus.subscribe(
     jacdac.DEVICE_DISCONNECT,
     (d: jacdac.Device) => {
+        devCount--
+        basic.showNumber(devCount)
         soundExpression.happy.playUntilDone()
         dev2Services[d.deviceId].forEach(sc => {
              if (actuatorServices[sc]) {
