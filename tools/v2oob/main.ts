@@ -28,8 +28,7 @@ jacdac.bus.subscribe(
             for (let i = 4; i < d.services.length; i += 4) {
                 const id = d.services.getNumber(NumberFormat.UInt32LE, i)
                 dev2Services[d.deviceId].push(id)
-                checkForActuator(d, id)
-                checkForSensor(d, id)
+                checkForKnownService(d, id, i >> 2)
             }
         }
     }
@@ -39,26 +38,24 @@ jacdac.bus.subscribe(
 let knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL ]
 let knownSensors = [ jacdac.SRV_POTENTIOMETER, jacdac.SRV_ROTARY_ENCODER ]
 
-let actuatorKeys: number[] = []
-interface ActuatorsMap {
+let serviceKeys: number[] = []
+interface ServiceDeviceMap {
     [index: number]: string[]
 }
-let actuatorServices: ActuatorsMap = {}
+let service2dev: ServiceDeviceMap = {}
 
-interface SensorsMap {
-    [index: string]: number
-}
-let sensorServices: SensorsMap = {}
-
-function checkForActuator(dev: jacdac.Device, serviceClass: number) {
-    if (knownActuators.indexOf(serviceClass) >= 0) {
+function checkForKnownService(dev: jacdac.Device, serviceClass: number, serviceIndex: number) {
+    if (knownActuators.indexOf(serviceClass) >= 0 || knownSensors.indexOf(serviceClass) >= 0) {
         // add device to map
-        if (!actuatorServices[serviceClass]) {
-            actuatorServices[serviceClass] = []
-            actuatorKeys.push(serviceClass)
+        if (!service2dev[serviceClass]) {
+            service2dev[serviceClass] = []
+            serviceKeys.push(serviceClass)
         }
-        actuatorServices[serviceClass].push(dev.deviceId)
-        configureActuator(dev, serviceClass)
+        service2dev[serviceClass].push(dev.deviceId)
+        if (knownActuators.indexOf(serviceClass) >= 0)
+            configureActuator(dev, serviceClass)
+        else
+            configureSensor(dev, serviceClass, serviceIndex)
     }
 }
 
@@ -76,22 +73,27 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
     }
 }
 
-function checkForSensor(dev: jacdac.Device, serviceClass: number) {
-    if (knownSensors[serviceClass]) {
-        // TODO: start up the 
-        enableStreaming(serviceClass)
-    }
+// TODO: map dev.id + service index to sensor value
+
+interface SensorMap {
+    [index: string]: number
+}
+let sensorMap: SensorMap = {}
+
+function configureSensor(dev: jacdac.Device, serviceClass: number, serviceIndex: number) {
+    sensorMap[dev.deviceId + ":" + serviceIndex.toString()] = 0
 }
 
+// we just poll using multi-command
 forever(() => {
-    knownSensors.forEach(enableStreaming)
-    basic.pause(10000)
+    knownSensors.forEach(getReadingRegister)
+    basic.pause(100)
 })
 
-function enableStreaming(sc: number) {
-    const pkt = jacdac.JDPacket.jdpacked(
-        jacdac.CMD_SET_REG | jacdac.SystemReg.StreamingSamples
-        , "u8", [255])
+function getReadingRegister(sc: number) {
+    const pkt = jacdac.JDPacket.onlyHeader(
+        jacdac.CMD_GET_REG | jacdac.SystemReg.Reading
+    )
     pkt.sendAsMultiCommand(sc)
 }
 
@@ -128,12 +130,21 @@ function processEvent(serviceClass: number, eventCode: number) {
     }
 }
 
-
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
     if (serviceClass === jacdac.SRV_ROTARY_ENCODER) {
-        led.plotBarGraph(pkt.jdunpack<number[]>("u32")[0] % 12, 12)
+        const position = pkt.jdunpack<number[]>("u32")[0]
+        const lookup = pkt.deviceIdentifier + ":" + pkt.serviceIndex.toString()
+        if (position !== sensorMap[lookup]) {
+            sensorMap[lookup] = position
+            led.plotBarGraph(position % 12, 12)
+        }
     } else if (serviceClass === jacdac.SRV_POTENTIOMETER) {
-        led.plotBarGraph(pkt.jdunpack<number[]>("u0.16")[0], 1.0)
+        const position = Math.round(pkt.jdunpack<number[]>("u0.16")[0] * 100)
+        const lookup = pkt.deviceIdentifier + ":" + pkt.serviceIndex.toString()
+        if (position !== sensorMap[lookup]) {
+            sensorMap[lookup] = position
+            led.plotBarGraph(position, 100)
+        }
     }
 }
 
@@ -144,11 +155,11 @@ jacdac.bus.subscribe(
         devCount--
         basic.showNumber(devCount)
         dev2Services[d.deviceId].forEach(sc => {
-             if (actuatorServices[sc]) {
-                actuatorServices[sc].removeElement(d.deviceId)
-                if (actuatorServices[sc].length === 0) {
-                    delete actuatorServices[sc]
-                    actuatorKeys.removeElement(sc)
+             if (service2dev[sc]) {
+                service2dev[sc].removeElement(d.deviceId)
+                if (service2dev[sc].length === 0) {
+                    delete service2dev[sc]
+                    serviceKeys.removeElement(sc)
                 }
             }
             const client = ledPixelClients.find(cl => cl.device === d)
@@ -177,7 +188,7 @@ function actuate(b: Button) {
     // for each (actuator) serviceClass that is active,
     // perform and appropriate action on all instances of that 
     // serviceClass, using multi-command
-    actuatorKeys.forEach((sc: number) => {
+    serviceKeys.forEach((sc: number) => {
         if (sc === jacdac.SRV_SERVO) {
             setServoAngle(b)
         } else if (sc === jacdac.SRV_LED_PIXEL) {
