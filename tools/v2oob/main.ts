@@ -35,7 +35,7 @@ jacdac.bus.subscribe(
 
 // special handling for actuators (multi-command) and sensors (streaming)
 let knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL ]
-let knownSensors = [ jacdac.SRV_POTENTIOMETER, jacdac.SRV_ACCELEROMETER, jacdac.SRV_ROTARY_ENCODER ]
+let knownSensors = [ jacdac.SRV_POTENTIOMETER, jacdac.SRV_ROTARY_ENCODER ]
 
 let actuatorKeys: number[] = []
 interface ActuatorsMap {
@@ -71,23 +71,34 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
 
 function checkForSensor(dev: jacdac.Device, serviceClass: number) {
     if (knownSensors[serviceClass]) {
-        // set up streaming
+        enableStreaming(serviceClass)
     }
+}
+
+forever(() => {
+    knownSensors.forEach(enableStreaming)
+    basic.pause(10000)
+})
+
+function enableStreaming(sc: number) {
+    const pkt = jacdac.JDPacket.jdpacked(
+        jacdac.CMD_SET_REG | jacdac.SystemReg.StreamingSamples
+        , "u8", [255])
+    pkt.sendAsMultiCommand(sc)
 }
 
 // anytime we get a packet from some device, do something
 jacdac.bus.subscribe(
     jacdac.PACKET_PROCESS,
-    (r: jacdac.JDPacket) => {
-        const services = dev2Services[r.deviceIdentifier]
+    (pkt: jacdac.JDPacket) => {
+        const services = dev2Services[pkt.deviceIdentifier]
         if (services) {
-            if (r.serviceIndex - 1 < services.length) {
-                const serviceClass = services[r.serviceIndex - 1]
-                if (r.isEvent) {
-                    processEvent(serviceClass, r.eventCode)
-                } else if (r.isReport && r.isRegGet) {
-                    // only for sensors
-                    processSensorGet(serviceClass, 0)
+            if (pkt.serviceIndex - 1 < services.length) {
+                const serviceClass = services[pkt.serviceIndex - 1]
+                if (pkt.isEvent) {
+                    processEvent(serviceClass, pkt.eventCode)
+                } else if (pkt.isReport && pkt.isRegGet && pkt.regCode === jacdac.SystemReg.Reading) {
+                    processSensorGetReading(serviceClass, pkt)
                 }
             }
         }
@@ -109,13 +120,11 @@ function processEvent(serviceClass: number, eventCode: number) {
     }
 }
 
-function processSensorGet(serviceClass: number, readReg: number) {
+function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
     if (serviceClass === jacdac.SRV_ROTARY_ENCODER) {
-
+        led.plotBarGraph(pkt.jdunpack<number[]>("u32")[0] % 12, 12)
     } else if (serviceClass === jacdac.SRV_POTENTIOMETER) {
-
-    } else if (serviceClass === jacdac.SRV_ACCELEROMETER) {
-
+        led.plotBarGraph(pkt.jdunpack<number[]>("u0.16")[0], 1.0)
     }
 }
 
