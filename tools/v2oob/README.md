@@ -7,11 +7,11 @@ Currently only works with micro:bit v2
 Behavior:
  - when a Jacdac module is added to or removed from the bus, the micro:bit displays the new count of devices on the bus
  - when a Jacdac button module is attached, the micro:bit will respond to the following events as follows
-    - Down: display small heart on 5x5 LEDs
-    - Hold: display large heart
+    - Down: display a first icon on 5x5 LEDs and play a note (eight different icons and notes supported, for up to eight buttons)
+    - Hold: display a second icon
     - Up: clear display
- - when a Jacdac sensor (slider, rotary encoder) is attached and the sensor value changes appreciably, 
-   micro:bit will display a bar chart showing the magnitude of the reading register 
+ - when a Jacdac sensor (slider, rotary encoder, thermometer) is attached and the sensor value changes appreciably, 
+   micro:bit will display a bar chart showing the magnitude of the reading register, or will display the value as a number 
  - when a Jacdac actuator (servor, lights) is attached, the micro:bit will send a command to it based
    on which button of micro:bit is pressed (A, B, A+B)
 
