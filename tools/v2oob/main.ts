@@ -145,16 +145,20 @@ interface IconMap {
 }
 let iconMap: IconMap = {}
 
+function getIndexFromButton(pkt: jacdac.JDPacket) {
+    if (iconMap[pkt.deviceIdentifier] === undefined) {
+        iconMap[pkt.deviceIdentifier] = nextIcon
+        if (nextIcon === buttonPressIcons.length - 1)
+            nextIcon = 0
+        else
+            nextIcon++
+    }
+    return iconMap[pkt.deviceIdentifier]
+}
+
 function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
     if (serviceClass === jacdac.SRV_BUTTON) {
-        if (iconMap[pkt.deviceIdentifier] === undefined) {
-            iconMap[pkt.deviceIdentifier] = nextIcon
-            if (nextIcon === buttonPressIcons.length-1) 
-                nextIcon = 0
-            else
-                nextIcon++
-        }
-        const index = iconMap[pkt.deviceIdentifier]
+        const index = getIndexFromButton(pkt)
         if (pkt.eventCode === jacdac.ButtonEvent.Down) {
             basic.showIcon(buttonPressIcons[index], 0)
             whichNote = buttonNotes[index]
