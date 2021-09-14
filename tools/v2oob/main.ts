@@ -8,6 +8,7 @@ jacdac.bus.subscribe(
         if (devCount) {
             updateDisplay = true
             displayNumber = devCount
+            playSound = true
         }
     }
 )
@@ -143,6 +144,14 @@ forever(() => {
     }
 })
 
+let playSound = false
+forever(() => {
+    if (playSound) {
+        soundExpression.happy.playUntilDone()
+        playSound = false
+    }
+})
+
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
     if (knownSensors.indexOf(serviceClass) == -1)
         return
@@ -177,6 +186,7 @@ jacdac.bus.subscribe(
         devCount--
         updateDisplay = true
         displayNumber = devCount
+        playSound = true
         dev2Services[d.deviceId].forEach(sc => {
              if (service2dev[sc]) {
                 service2dev[sc].removeElement(d.deviceId)
