@@ -119,8 +119,26 @@ jacdac.bus.subscribe(
 // whenever we get an event for a particular service class
 // do something on the micro:bit
 
-const buttonPressIcons = [ IconNames.SmallHeart, IconNames.Happy, IconNames.SmallDiamond ]
-const buttonHoldIcons =  [ IconNames.Heart, IconNames.Asleep, IconNames.Diamond ]
+const buttonPressIcons = [ IconNames.SmallHeart, IconNames.Happy, 
+    IconNames.SmallDiamond, IconNames.EigthNote,
+    IconNames.SmallSquare, IconNames.Pitchfork,
+    IconNames.Silly, IconNames.Tortoise ]
+const buttonHoldIcons =  [ IconNames.Heart, IconNames.Asleep, 
+    IconNames.Diamond, IconNames.QuarterNote,
+    IconNames.Square, IconNames.Target,
+    IconNames.Surprised, IconNames.Butterfly ]
+const buttonNotes = [
+    Note.C, Note.D, Note.E, Note.F, Note.G, Note.A, Note.B, Note.C5
+]
+
+let playNote = false
+let whichNote = Note.C
+forever(() => {
+    if (playNote) {
+        music.playTone(whichNote, music.beat())
+        playNote = false
+    }
+})
 let nextIcon = 0
 interface IconMap {
     [index: string]: number
@@ -136,12 +154,15 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
             else
                 nextIcon++
         }
+        const index = iconMap[pkt.deviceIdentifier]
         if (pkt.eventCode === jacdac.ButtonEvent.Down) {
-            basic.showIcon(buttonPressIcons[iconMap[pkt.deviceIdentifier]], 0)
+            basic.showIcon(buttonPressIcons[index], 0)
+            whichNote = buttonNotes[index]
+            playNote = true
         } else if (pkt.eventCode === jacdac.ButtonEvent.Up) {
             basic.clearScreen()
         } else if (pkt.eventCode === jacdac.ButtonEvent.Hold) {
-            basic.showIcon(buttonHoldIcons[iconMap[pkt.deviceIdentifier]], 0)
+            basic.showIcon(buttonHoldIcons[index], 0)
         }
     } if (serviceClass === jacdac.SRV_ACCELEROMETER) {
         if (pkt.eventCode === jacdac.AccelerometerEvent.Shake) {
