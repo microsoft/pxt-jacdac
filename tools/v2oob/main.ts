@@ -107,7 +107,7 @@ jacdac.bus.subscribe(
             if (pkt.serviceIndex > 0) {
                 const serviceClass = services[pkt.serviceIndex - 1]
                 if (pkt.isEvent) {
-                    processEvent(serviceClass, pkt.eventCode)
+                    processEvent(serviceClass, pkt)
                 } else if (pkt.isReport && pkt.isRegGet && pkt.regCode === jacdac.SystemReg.Reading) {
                     processSensorGetReading(serviceClass, pkt)
                 }
@@ -119,17 +119,32 @@ jacdac.bus.subscribe(
 // whenever we get an event for a particular service class
 // do something on the micro:bit
 
-function processEvent(serviceClass: number, eventCode: number) {
+const buttonPressIcons = [ IconNames.SmallHeart, IconNames.Happy, IconNames.SmallDiamond ]
+const buttonHoldIcons =  [ IconNames.Heart, IconNames.Asleep, IconNames.Diamond ]
+let nextIcon = 0
+interface IconMap {
+    [index: string]: number
+}
+let iconMap: IconMap = {}
+
+function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
     if (serviceClass === jacdac.SRV_BUTTON) {
-        if (eventCode === jacdac.ButtonEvent.Down) {
-            basic.showIcon(IconNames.SmallHeart, 0)
-        } else if (eventCode === jacdac.ButtonEvent.Up) {
+        if (iconMap[pkt.deviceIdentifier] === undefined) {
+            iconMap[pkt.deviceIdentifier] = nextIcon
+            if (nextIcon === buttonPressIcons.length-1) 
+                nextIcon = 0
+            else
+                nextIcon++
+        }
+        if (pkt.eventCode === jacdac.ButtonEvent.Down) {
+            basic.showIcon(buttonPressIcons[iconMap[pkt.deviceIdentifier]], 0)
+        } else if (pkt.eventCode === jacdac.ButtonEvent.Up) {
             basic.clearScreen()
-        } else if (eventCode === jacdac.ButtonEvent.Hold) {
-            basic.showIcon(IconNames.Heart, 0)
+        } else if (pkt.eventCode === jacdac.ButtonEvent.Hold) {
+            basic.showIcon(buttonHoldIcons[iconMap[pkt.deviceIdentifier]], 0)
         }
     } if (serviceClass === jacdac.SRV_ACCELEROMETER) {
-        if (eventCode === jacdac.AccelerometerEvent.Shake) {
+        if (pkt.eventCode === jacdac.AccelerometerEvent.Shake) {
             basic.showIcon(IconNames.Happy, 0)
         }
     }
