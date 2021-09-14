@@ -1,3 +1,6 @@
+music.setVolume(100)
+music.setTempo(180)
+
 let devCount = 0
 jacdac.bus.subscribe(
     jacdac.DEVICE_CONNECT,
