@@ -85,7 +85,6 @@ function addClient(cls: number, name: string) {
 }
 addClient(0x1f140409, "left_leg/acc1")
 addClient(0x1473a263, "btn1")
-addClient(0x16c810b8, "small/hum")
 addClient(0x1421bac7, "small/temp")
 addClient(0x169c9dc6, "big/eco2")
 addClient(0x16c810b8, "big/hum")
@@ -223,20 +222,16 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
-    //% fixedInstance whenUsed
-    export const humidity = new HumidityClient("humidity")
 }
 
-modules.humidity.start()
-modules.humidity.onHumidityChangedBy(1, () => {
-    // do something blocking
-    console.log(`humidity changed start`)
+const humiditySmallHum = new modules.HumidityClient("small/hum")
+humiditySmallHum.onHumidityChangedBy(1, () => {
+    console.log(`humidity changed (this is a log message)`)
     pause(1000)
-    console.log(`humidity changed end`)
 })
 forever(() => {
-    const h = modules.humidity.humidity()
+    const h = humiditySmallHum.humidity()
     // console.debug(`debug message`)
     console.log(`humidity: ${h} (this is a log message)`)
-    pause(2500)
+    pause(3000)
 })
