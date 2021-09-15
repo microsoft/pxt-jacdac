@@ -100,9 +100,11 @@ namespace jacdac {
                     const handler = listener.handler
                     const inBackground = listener.inBackground
                     if (inBackground) {
-                        control.runInBackground(() => this.run(handler, arg))
+                        control.runInBackground(() =>
+                            this.runHandler(handler, arg)
+                        )
                     } else {
-                        this.run(handler, arg)
+                        this.runHandler(handler, arg)
                     }
                 }
             }
@@ -124,7 +126,7 @@ namespace jacdac {
             return true
         }
 
-        private run(handler: EventHandler, arg: any) {
+        private runHandler(handler: EventHandler, arg: any) {
             try {
                 handler(arg)
             } catch (e) {
