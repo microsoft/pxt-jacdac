@@ -30,10 +30,10 @@ function identifyAnimation() {
     control.runInParallel(() => {
         led.stopAnimation()
         basic.showAnimation(
-            `0###0 00000 0###0  00000 0###0  00000
-        0###0 00000 0###0  00000 0###0  00000 
-        0###0 00000 0###0  00000 0###0  00000 
-        00##0 00000 00##0  00000 00##0  00000 
+            `00000 00000 00000  00000 00000  00000
+        ####0 00000 ####0  00000 ####0  00000 
+        ####0 00000 ####0  00000 ####0  00000 
+        ###00 00000 ###00  00000 ###00  00000 
         00000 00000 00000  00000 00000  00000`,
             250
         )
@@ -49,10 +49,10 @@ function handleStatusEvent(event: jacdac.StatusEvent) {
             break
         case jacdac.StatusEvent.ProxyPacketReceived:
             basic.plotLeds(`
-                . # # # .
-                . # # # .
-                . # # # .
-                . . # # .
+                . . . . .
+                # # # # .
+                # # # # .
+                # # # . .
                 . . . . .
                 `)
             break
