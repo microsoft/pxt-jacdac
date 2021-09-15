@@ -226,8 +226,9 @@ namespace modules {
 
 const humiditySmallHum = new modules.HumidityClient("small/hum")
 humiditySmallHum.onHumidityChangedBy(1, () => {
-    console.log(`humidity changed (this is a log message)`)
-    pause(1000)
+    console.log(`humidity changed start (this is a log message)`)
+    pause(3000)
+    console.log(`humidity changed end (this is a log message)`)
 })
 forever(() => {
     const h = humiditySmallHum.humidity()

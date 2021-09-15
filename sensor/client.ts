@@ -112,13 +112,26 @@ namespace jacdac {
             if (!handler || threshold < 0) return
 
             let last: number = this.reading()
+            // tracks that the handler is running
+            let running = false
             this.onStateChanged(() => {
+                // remember that a change hapenned while running the handler
+                if (running) {
+                    return
+                }
                 const [current] = this._reading.values as any[] as [number]
                 if (current == null) return // ignore missing data
 
                 if (last == null || Math.abs(last - current) >= threshold) {
                     last = current
-                    handler()
+                    running = true
+                    control.runInBackground(() => {
+                        try {
+                            handler()
+                        } finally {
+                            running = false
+                        }
+                    })
                 }
             })
         }
