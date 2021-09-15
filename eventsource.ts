@@ -94,19 +94,28 @@ namespace jacdac {
 
             // run handlers
             let someOnce = false
+            // run sync handler immediately, collect async handlers
+            const backgroundListeners: EventListener[] = []
             for (const listener of this.listeners) {
                 if (listener.key === eventName) {
                     someOnce = someOnce || listener.once
-                    const handler = listener.handler
-                    const inBackground = listener.inBackground
-                    if (inBackground) {
-                        control.runInBackground(() =>
-                            this.runHandler(handler, arg)
-                        )
-                    } else {
+                    if (listener.inBackground)
+                        backgroundListeners.push(listener)
+                    else {
+                        const handler = listener.handler
                         this.runHandler(handler, arg)
                     }
                 }
+            }
+
+            // start all background listeners in a single fiber
+            if (backgroundListeners.length) {
+                control.runInBackground(() => {
+                    for (const listener of backgroundListeners) {
+                        const handler = listener.handler
+                        this.runHandler(handler, arg)
+                    }
+                })
             }
 
             // cleanup the "once"
