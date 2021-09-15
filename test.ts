@@ -228,9 +228,15 @@ namespace modules {
 }
 
 modules.humidity.start()
+modules.humidity.onHumidityChangedBy(1, () => {
+    // do something blocking
+    console.log(`humidity changed start`)
+    pause(1000)
+    console.log(`humidity changed end`)
+})
 forever(() => {
     const h = modules.humidity.humidity()
     // console.debug(`debug message`)
-    // console.log(`humidity: ${h} (this is a log message)`)
-    pause(1000)
+    console.log(`humidity: ${h} (this is a log message)`)
+    pause(2500)
 })
