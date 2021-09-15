@@ -16,6 +16,8 @@ namespace jacdac {
     export let productIdentifier: number
 
     export const CHANGE = "change"
+    export const CONNECT = "connect"
+    export const DISCONNECT = "disconnect"
     export const DEVICE_CONNECT = "deviceConnect"
     export const DEVICE_DISCONNECT = "deviceDisconnect"
     export const DEVICE_CHANGE = "deviceChange"
@@ -689,8 +691,6 @@ namespace jacdac {
         protected advertisementData: Buffer
         private handlers: SMap<(idx?: number) => void>
         protected systemActive = false
-        private _onConnected: () => void
-        private _onDisconnected: () => void
 
         protected readonly config: ClientPacketQueue
         private readonly registers: RegisterClient<PackSimpleDataType[]>[] = []
@@ -745,8 +745,8 @@ namespace jacdac {
         //% group="Services" weight=49
         //% blockNamespace="modules"
         onConnected(handler: () => void) {
-            this._onConnected = handler
-            if (this._onConnected && this.isConnected()) this.handleConnected()
+            this.on(CONNECT, handler)
+            if (handler && this.isConnected()) this.emit(CONNECT)
         }
 
         /**
@@ -756,9 +756,8 @@ namespace jacdac {
         //% group="Services" weight=48
         //% blockNamespace="modules"
         onDisconnected(handler: () => void) {
-            this._onDisconnected = handler
-            if (this._onDisconnected && !this.isConnected())
-                this._onDisconnected()
+            this.on(DISCONNECT, handler)
+            if (handler && this.isConnected()) this.emit(DISCONNECT)
         }
 
         requestAdvertisementData() {
