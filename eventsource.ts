@@ -7,7 +7,8 @@ namespace jacdac {
             // use string for parity with JS
             public readonly key: string,
             public readonly handler: EventHandler,
-            public readonly once: boolean
+            public readonly once: boolean,
+            public readonly inBackground: boolean
         ) {}
     }
 
@@ -20,13 +21,13 @@ namespace jacdac {
 
         constructor() {}
 
-        on(eventName: string, handler: EventHandler) {
-            this.addListenerInternal(eventName, handler, false)
+        on(eventName: string, handler: EventHandler, inBackground?: boolean) {
+            this.addListenerInternal(eventName, handler, false, inBackground)
             return this
         }
 
-        once(eventName: string, handler: EventHandler) {
-            this.addListenerInternal(eventName, handler, true)
+        once(eventName: string, handler: EventHandler, inBackground?: boolean) {
+            this.addListenerInternal(eventName, handler, true, inBackground)
         }
 
         off(eventName: string, handler: EventHandler) {
@@ -37,7 +38,8 @@ namespace jacdac {
         private addListenerInternal(
             eventName: string,
             handler: EventHandler,
-            once: boolean
+            once: boolean,
+            inBackground: boolean
         ) {
             if (!eventName || !handler) {
                 return
@@ -52,7 +54,12 @@ namespace jacdac {
             }
 
             // append to list
-            const listener = new EventListener(eventName, handler, once)
+            const listener = new EventListener(
+                eventName,
+                handler,
+                once,
+                inBackground
+            )
             this.listeners.push(listener)
         }
 
@@ -91,10 +98,11 @@ namespace jacdac {
                 if (listener.key === eventName) {
                     someOnce = someOnce || listener.once
                     const handler = listener.handler
-                    try {
-                        handler(arg)
-                    } catch (e) {
-                        this.emit(ERROR, e)
+                    const inBackground = listener.inBackground
+                    if (inBackground) {
+                        control.runInBackground(() => this.run(handler, arg))
+                    } else {
+                        this.run(handler, arg)
                     }
                 }
             }
@@ -116,6 +124,14 @@ namespace jacdac {
             return true
         }
 
+        private run(handler: EventHandler, arg: any) {
+            try {
+                handler(arg)
+            } catch (e) {
+                this.emit(ERROR, e)
+            }
+        }
+
         listenerCount(eventName: string): number {
             if (!eventName) return 0
             let k = 0
@@ -133,7 +149,7 @@ namespace jacdac {
          * @param next
          */
         subscribe<T>(eventName: string, next: (value: T) => void): () => void {
-            this.addListenerInternal(eventName, next, false)
+            this.addListenerInternal(eventName, next, false, false)
             const unsubscribe = () =>
                 this.removeListenerInternal(eventName, next)
             return unsubscribe
