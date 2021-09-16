@@ -671,9 +671,11 @@ namespace jacdac {
         set values(values: TValues) {
             this.service.start()
             const d = jdpack(this.packFormat, values)
+            const changed = !!d != !!this._data || !d || !d.equals(this._data)
             this._data = d
             // send set request to the service
             this.service.setReg(this.code, this.packFormat, values)
+            if (changed) this.emit(CHANGE)
         }
 
         get lastGetTime() {
