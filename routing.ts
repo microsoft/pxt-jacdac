@@ -16,6 +16,8 @@ namespace jacdac {
     export let productIdentifier: number
 
     export const CHANGE = "change"
+    export const CONNECT = "connect"
+    export const DISCONNECT = "disconnect"
     export const DEVICE_CONNECT = "deviceConnect"
     export const DEVICE_DISCONNECT = "deviceDisconnect"
     export const DEVICE_CHANGE = "deviceChange"
@@ -689,8 +691,6 @@ namespace jacdac {
         protected advertisementData: Buffer
         private handlers: SMap<(idx?: number) => void>
         protected systemActive = false
-        private _onConnected: () => void
-        private _onDisconnected: () => void
 
         protected readonly config: ClientPacketQueue
         private readonly registers: RegisterClient<PackSimpleDataType[]>[] = []
@@ -745,8 +745,9 @@ namespace jacdac {
         //% group="Services" weight=49
         //% blockNamespace="modules"
         onConnected(handler: () => void) {
-            this._onConnected = handler
-            if (this._onConnected && this.isConnected()) this.handleConnected()
+            if (!handler) return
+            this.on(CONNECT, () => control.runInBackground(() => handler()))
+            if (this.isConnected()) handler()
         }
 
         /**
@@ -756,9 +757,8 @@ namespace jacdac {
         //% group="Services" weight=48
         //% blockNamespace="modules"
         onDisconnected(handler: () => void) {
-            this._onDisconnected = handler
-            if (this._onDisconnected && !this.isConnected())
-                this._onDisconnected()
+            if (!handler) return
+            this.on(DISCONNECT, () => control.runInBackground(() => handler()))
         }
 
         requestAdvertisementData() {
@@ -810,8 +810,7 @@ namespace jacdac {
                 if (flags & ControlAnnounceFlags.StatusLightRgbFade)
                     control.runInParallel(() => this.connectedBlink())
             }
-            // user handler
-            if (this._onConnected) this._onConnected()
+            this.emit(CONNECT)
         }
 
         private connectedBlink() {
@@ -874,7 +873,7 @@ namespace jacdac {
                 bus.detachClient(this)
             }
             this.onDetach()
-            if (this._onDisconnected) this._onDisconnected()
+            this.emit(DISCONNECT)
         }
 
         protected onAttach() {}
