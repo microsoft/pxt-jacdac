@@ -4,7 +4,7 @@
     "description": "A rectangular dot matrix display, made of monochrome LEDs or braille pins.",
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.ts"
     ],
     "testFiles": [
         "test.ts"
@@ -17,8 +17,5 @@
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
     }
 }
