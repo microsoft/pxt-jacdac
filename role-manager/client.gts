@@ -75,7 +75,7 @@ namespace modules {
         }
 
         /**
-         * Emit notifying that the internal state of the service changed.
+         * Notifies that role bindings have changed.
          */
         //% group="Role Manager"
         //% blockId=jacdac_on_rolemanager_change
