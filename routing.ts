@@ -796,7 +796,6 @@ namespace jacdac {
                 }`
             )
             dev.clients.push(this)
-            this.onAttach()
             this.handleConnected()
             return true
         }
@@ -872,12 +871,8 @@ namespace jacdac {
                 this.device = null
                 bus.detachClient(this)
             }
-            this.onDetach()
             this.emit(DISCONNECT)
         }
-
-        protected onAttach() {}
-        protected onDetach() {}
 
         sendCommand(pkt: JDPacket) {
             this.start()
