@@ -236,12 +236,7 @@ function deviceView(d: jacdac.Device) {
             )
             opts.elements.push(
                 menu.item(
-                    "Uptime: " +
-                        Math.round(
-                            (d.queryInt(jacdac.ControlReg.Uptime) || 0) /
-                                1000000
-                        ) +
-                        "s",
+                    "Uptime: " + Math.round((d.uptime || 0) / 1000000) + "s",
                     noop
                 )
             )
