@@ -63,7 +63,7 @@ namespace modules {
          * Sets a dot entry to a particular value
         //% group="Display"
         //% block="%dotmatrix set dot at x %x y %y to %on=toggleOnOff"
-        //% blockId=jacdac_dotmatrix_toggle
+        //% blockId=jacdac_dotmatrix_setdot
         //% weight=99
         */
         setDot(x: number, y: number, on: boolean) {
