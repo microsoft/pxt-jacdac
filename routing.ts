@@ -642,8 +642,16 @@ namespace jacdac {
         }
 
         pauseUntilValues(timeOut?: number) {
-            if (!this.hasValues())
+            if (!this.hasValues()) {
+                // streaming handled elsewhere
+                if (this.code !== SystemReg.Reading) {
+                    const device = this.service.currentDevice
+                    if (device)
+                        // tell device to refresh register
+                        device.query(this.code, 1000, this.service.serviceIndex)
+                }
                 pauseUntil(() => this.hasValues(), timeOut || 2000)
+            }
             return this.values
         }
 
@@ -1038,21 +1046,21 @@ namespace jacdac {
                   )
         }
 
-        queryInt(reg: number, refreshRate = 1000, servIdx = 0) {
-            const v = this.query(reg, refreshRate, servIdx)
-            if (!v) return undefined
-            return intOfBuffer(v)
-        }
-
         query(reg: number, refreshRate = 1000, servIdx = 0) {
             let q = this.lookupQuery(reg, servIdx)
             if (!q) this.queries.push((q = new RegQuery(reg, servIdx)))
 
             const now = control.millis()
+            const constreg = isConstRegister(reg)
             if (
+                // not queried before
                 !q.lastQuery ||
+                // no data yet and last query was a while ago
                 (q.value === undefined && now - q.lastQuery > 500) ||
-                (refreshRate != null && now - q.lastQuery > refreshRate)
+                // regular refresh, for non-const registers
+                (!constreg &&
+                    refreshRate != null &&
+                    now - q.lastQuery > refreshRate)
             ) {
                 q.lastQuery = now
                 const pkt = JDPacket.onlyHeader(CMD_GET_REG | reg)
@@ -1075,7 +1083,7 @@ namespace jacdac {
         }
 
         get mcuTemperature(): number {
-            return this.queryInt(ControlReg.McuTemperature)
+            return uintOfBuffer(this.query(ControlReg.McuTemperature, 5000))
         }
 
         get firmwareVersion(): string {

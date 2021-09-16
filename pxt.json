@@ -25,6 +25,7 @@
         "mbcompat.ts",
         "commands.ts",
         "config.ts",
+        "spec.ts",
         "packet.ts",
         "pack.ts",
         "service.ts",

@@ -336,6 +336,7 @@ namespace jacdac {
     }
 
     export function intOfBuffer(data: Buffer): number {
+        if (!data) return undefined
         let fmt: NumberFormat
         switch (data.length) {
             case 0:
@@ -354,6 +355,7 @@ namespace jacdac {
     }
 
     export function uintOfBuffer(data: Buffer): number {
+        if (!data) return undefined
         let fmt: NumberFormat
         switch (data.length) {
             case 0:
