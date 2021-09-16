@@ -1,19 +1,25 @@
 namespace jacdac {
-    // Service: LED Matrix
-    export const SRV_LED_MATRIX = 0x110d154b
-    export const enum LedMatrixReg {
+    // Service: Dot Matrix
+    export const SRV_DOT_MATRIX = 0x110d154b
+
+    export const enum DotMatrixVariant { // uint8_t
+        LED = 0x1,
+        Braille = 0x2,
+    }
+
+    export const enum DotMatrixReg {
         /**
-         * Read-write bytes. The state of the screen where pixel on/off state is
+         * Read-write bytes. The state of the screen where dot on/off state is
          * stored as a bit, column by column. The column should be byte aligned.
          *
          * ```
-         * const [leds] = jdunpack<[Buffer]>(buf, "b")
+         * const [dots] = jdunpack<[Buffer]>(buf, "b")
          * ```
          */
-        Leds = 0x2,
+        Dots = 0x2,
 
         /**
-         * Read-write ratio u0.8 (uint8_t). Reads the general brightness of the LEDs. ``0`` when the screen is off.
+         * Read-write ratio u0.8 (uint8_t). Reads the general brightness of the display, brightness for LEDs. `0` when the screen is off.
          *
          * ```
          * const [brightness] = jdunpack<[number]>(buf, "u0.8")
@@ -38,6 +44,15 @@ namespace jacdac {
          * ```
          */
         Columns = 0x182,
+
+        /**
+         * Constant Variant (uint8_t). Describes the type of matrix used.
+         *
+         * ```
+         * const [variant] = jdunpack<[jacdac.DotMatrixVariant]>(buf, "u8")
+         * ```
+         */
+        Variant = 0x107,
     }
 
 }

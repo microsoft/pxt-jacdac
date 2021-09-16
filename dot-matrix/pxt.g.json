@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-ledmatrix",
+    "name": "jacdac-dotmatrix",
     "version": "0.0.0",
-    "description": "A rectangular monochrome LED matrix controller.",
+    "description": "A rectangular dot matrix display, made of monochrome LEDs or braille pins.",
     "files": [
         "constants.ts",
         "client.g.ts"
