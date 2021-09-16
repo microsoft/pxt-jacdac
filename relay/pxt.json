@@ -1,10 +1,17 @@
 {
     "name": "jacdac-relay",
-    "version": "0.0.0",
+    "version": "0.6.18",
     "description": "A switching relay.",
-    "files": ["constants.ts", "client.g.ts"],
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
     "testFiles": [],
-    "supportedTargets": ["arcade", "microbit", "maker"],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
