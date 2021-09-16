@@ -69,12 +69,13 @@ namespace modules {
         setDot(x: number, y: number, on: boolean) {
             const data = this.dots()
             const columns = this.columns()
-            const rows = this.columns()
+            const rows = this.rows()
             const row = y | 0
             const col = x | 0
             if (
                 !data ||
                 isNaN(columns) ||
+                isNaN(rows) ||
                 row < 0 ||
                 row >= rows ||
                 col < 0 ||
@@ -98,12 +99,13 @@ namespace modules {
         toggleDot(x: number, y: number) {
             const data = this.dots()
             const columns = this.columns()
-            const rows = this.columns()
+            const rows = this.rows()
             const row = y | 0
             const col = x | 0
             if (
                 !data ||
                 isNaN(columns) ||
+                isNaN(rows) ||
                 row < 0 ||
                 row >= rows ||
                 col < 0 ||
