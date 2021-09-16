@@ -1,6 +1,6 @@
 {
     "name": "jacdac-v2-oob",
-    "version": "0.6.16",
+    "version": "0.6.17",
     "description": "",
     "dependencies": {
         "core": "*",
