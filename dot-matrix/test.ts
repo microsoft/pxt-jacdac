@@ -1,5 +1,4 @@
 forever(() => {
-    basic.showIcon(IconNames.Heart)
     const cols = modules.dotMatrix1.columns()
     const rows = modules.dotMatrix1.rows()
     for (let x = 0; x < cols; ++x) {
