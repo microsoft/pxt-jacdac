@@ -13,9 +13,9 @@ namespace modules {
         const bit = bitindex % 8
         // flip bit
         if (on) {
-            byte &= ~(1 << bit)
-        } else {
             byte |= 1 << bit
+        } else {
+            byte &= ~(1 << bit)
         }
         // save
         data[bitindex >> 3] = byte
