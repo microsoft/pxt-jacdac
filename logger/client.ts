@@ -13,17 +13,6 @@ namespace jacdac {
             this.broadcast = true
         }
 
-        private sendLogPriority() {
-            // on every announce, if we're listening to anything,
-            // tell everyone to log
-            if (this.minPriority < jacdac.LoggerPriority.Silent) {
-                const SetMinPriority = 0x2000 | jacdac.LoggerReg.MinPriority
-                JDPacket.jdpacked(SetMinPriority, "i32", [
-                    this.minPriority,
-                ]).sendAsMultiCommand(this.serviceClass)
-            }
-        }
-
         handlePacket(packet: JDPacket) {
             let pri = packet.serviceCommand - jacdac.LoggerCmd.Debug
             if (0 <= pri && pri <= jacdac.LoggerPriority.Error) {

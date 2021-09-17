@@ -620,7 +620,7 @@ namespace jacdac {
     export class RegisterClient<
         TValues extends PackSimpleDataType[]
     > extends EventSource {
-        private data: Buffer
+        private _data: Buffer
         private _localTime: number
 
         constructor(
@@ -630,42 +630,54 @@ namespace jacdac {
             defaultValue?: TValues
         ) {
             super()
-            this.data =
-                (defaultValue && jdpack(this.packFormat, defaultValue)) ||
-                Buffer.create(0)
+            this._data = defaultValue
+                ? jdpack(this.packFormat, defaultValue)
+                : undefined
+            this._localTime = control.millis()
+        }
+
+        reset() {
+            this._data = undefined
             this._localTime = control.millis()
         }
 
         hasValues(): boolean {
             this.service.start()
-            return !!this.data
+            return !!this._data
         }
 
         pauseUntilValues(timeOut?: number) {
-            if (!this.hasValues()) {
+            if (
                 // streaming handled elsewhere
-                if (this.code !== SystemReg.Reading) {
-                    const device = this.service.currentDevice
-                    if (device)
-                        // tell device to refresh register
-                        device.query(this.code, 1000, this.service.serviceIndex)
-                }
-                pauseUntil(() => this.hasValues(), timeOut || 2000)
+                this.code !== SystemReg.Reading &&
+                // don't double query consts
+                !(isConstRegister(this.code) && !!this._data)
+            ) {
+                const device = this.service.currentDevice
+                if (device)
+                    // tell device to refresh register
+                    device.query(this.code, 1000, this.service.serviceIndex)
             }
+            if (!this.hasValues())
+                pauseUntil(() => this.hasValues(), timeOut || 1000)
             return this.values
         }
 
         get values(): TValues {
             this.service.start()
-            return jdunpack(this.data, this.packFormat) as TValues
+            return jdunpack(this._data, this.packFormat) as TValues
         }
 
         set values(values: TValues) {
             this.service.start()
             const d = jdpack(this.packFormat, values)
-            this.data = d
-            // send set request to the service
-            this.service.setReg(this.code, this.packFormat, values)
+            const changed = !!d != !!this._data || !d || !d.equals(this._data)
+            if (changed) {
+                this._data = d
+                // send set request to the service
+                this.service.setReg(this.code, this.packFormat, values)
+                this.emit(CHANGE)
+            }
         }
 
         get lastGetTime() {
@@ -675,8 +687,9 @@ namespace jacdac {
         handlePacket(packet: JDPacket): void {
             if (packet.isRegGet && this.code == packet.regCode) {
                 const d = packet.data
-                const changed = !d.equals(this.data)
-                this.data = d
+                const changed =
+                    !!d != !!this._data || !d || !d.equals(this._data)
+                this._data = d
                 this._localTime = control.millis()
                 this.emit(REPORT_RECEIVE, this)
                 if (changed) {
@@ -690,7 +703,7 @@ namespace jacdac {
     //% fixedInstances
     export class Client extends EventSource {
         device: Device
-        currentDevice: Device
+        _currentDevice: Device
         protected readonly eventId: number
         broadcast: boolean // when true, this.device is never set
         serviceIndex: number
@@ -708,6 +721,17 @@ namespace jacdac {
             this.eventId = control.allocateNotifyEvent()
             this.config = new ClientPacketQueue(this)
             if (!this.role) throw "no role"
+        }
+
+        get currentDevice() {
+            return this._currentDevice
+        }
+
+        set currentDevice(device: Device) {
+            if (this._currentDevice !== device) {
+                this._currentDevice = device
+                this.registers.forEach(reg => reg.reset())
+            }
         }
 
         protected addRegister<TValues extends PackSimpleDataType[]>(
