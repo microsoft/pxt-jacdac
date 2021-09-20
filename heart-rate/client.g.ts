@@ -63,6 +63,8 @@ namespace modules {
         //% blockId=jacdac_heartrate_on_heart_rate_change
         //% block="on %heartrate heart rate changed by %threshold"
         //% weight=97
+        //% threshold.min=0
+        //% threshold.max=200
         //% threshold.defl=1
         onHeartRateChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

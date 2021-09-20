@@ -15,7 +15,7 @@ namespace modules {
     
 
         /**
-        * The relative position of the slider between `0` and `1`.
+        * The relative position of the slider.
         */
         //% callInDebugger
         //% group="Slider"
@@ -46,9 +46,11 @@ namespace modules {
         //% blockId=jacdac_potentiometer_on_position_change
         //% block="on %potentiometer position changed by %threshold"
         //% weight=98
-        //% threshold.defl=0.1
+        //% threshold.min=0
+        //% threshold.max=100
+        //% threshold.defl=5
         onPositionChangedBy(threshold: number, handler: () => void): void {
-            this.onReadingChangedBy(threshold, handler);
+            this.onReadingChangedBy(threshold / 100, handler);
         }
 
     

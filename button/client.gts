@@ -17,7 +17,7 @@ namespace modules {
     
 
         /**
-        * Indicates the pressure state of the button, where ``0`` is open and ``0xffff`` is fully pressed.
+        * Indicates the pressure state of the button, where ``0`` is open.
         */
         //% callInDebugger
         //% group="Button"
@@ -63,9 +63,11 @@ namespace modules {
         //% blockId=jacdac_button_on_pressure_change
         //% block="on %button pressure changed by %threshold"
         //% weight=97
-        //% threshold.defl=0.1
+        //% threshold.min=0
+        //% threshold.max=100
+        //% threshold.defl=5
         onPressureChangedBy(threshold: number, handler: () => void): void {
-            this.onReadingChangedBy(threshold, handler);
+            this.onReadingChangedBy(threshold / 100, handler);
         }
 
         /**

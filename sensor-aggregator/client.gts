@@ -40,6 +40,8 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=99
+        //% value.min=0
+        //% value.max=65535
         setInputsSamplingInterval(value: number) {
             this.start();
             const values = this._inputs.values as any[];
@@ -66,6 +68,8 @@ namespace modules {
         */
         //% group="Sensor Aggregator"
         //% weight=97
+        //% value.min=0
+        //% value.max=65535
         setInputsSamplesInWindow(value: number) {
             this.start();
             const values = this._inputs.values as any[];

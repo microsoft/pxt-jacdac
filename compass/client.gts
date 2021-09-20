@@ -76,6 +76,8 @@ namespace modules {
         //% blockId=jacdac_compass_on_heading_change
         //% block="on %compass heading changed by %threshold"
         //% weight=96
+        //% threshold.min=0
+        //% threshold.max=359
         //% threshold.defl=1
         onHeadingChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

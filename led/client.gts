@@ -77,6 +77,8 @@ namespace modules {
         */
         //% group="Light"
         //% weight=96
+        //% value.min=0
+        //% value.max=65535
         //% value.defl=100
         setMaxPower(value: number) {
             this.start();

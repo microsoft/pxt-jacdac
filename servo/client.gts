@@ -143,6 +143,8 @@ namespace modules {
         */
         //% group="Servo"
         //% weight=92
+        //% value.min=0
+        //% value.max=65535
         //% value.defl=500
         setMinPulse(value: number) {
             this.start();
@@ -180,6 +182,8 @@ namespace modules {
         */
         //% group="Servo"
         //% weight=89
+        //% value.min=0
+        //% value.max=65535
         //% value.defl=2500
         setMaxPulse(value: number) {
             this.start();
@@ -232,6 +236,7 @@ namespace modules {
         //% blockId=jacdac_servo_on_current_angle_change
         //% block="on %servo current angle changed by %threshold"
         //% weight=85
+        //% threshold.min=0
         //% threshold.defl=1
         onCurrentAngleChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

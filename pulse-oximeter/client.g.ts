@@ -48,6 +48,8 @@ namespace modules {
         //% blockId=jacdac_pulseoximeter_on_oxygen_change
         //% block="on %pulseoximeter oxygen changed by %threshold"
         //% weight=98
+        //% threshold.min=0
+        //% threshold.max=100
         //% threshold.defl=1
         onOxygenChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

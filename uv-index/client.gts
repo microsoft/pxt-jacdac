@@ -60,6 +60,8 @@ namespace modules {
         //% blockId=jacdac_uvindex_on_uv_index_change
         //% block="on %uvindex uv index changed by %threshold"
         //% weight=97
+        //% threshold.min=0
+        //% threshold.max=11
         //% threshold.defl=1
         onUvIndexChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

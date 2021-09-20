@@ -288,6 +288,8 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% weight=80
+        //% value.min=0
+        //% value.max=65535
         setRwI8U8U16I32U16(value: number) {
             this.start();
             const values = this._rwI8U8U16I32.values as any[];

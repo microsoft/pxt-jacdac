@@ -126,6 +126,8 @@ namespace modules {
         */
         //% group="Light"
         //% weight=94
+        //% value.min=0
+        //% value.max=65535
         //% value.defl=15
         setNumPixels(value: number) {
             this.start();
@@ -153,6 +155,8 @@ namespace modules {
         */
         //% group="Light"
         //% weight=92
+        //% value.min=0
+        //% value.max=65535
         setNumColumns(value: number) {
             this.start();
             const values = this._numColumns.values as any[];
@@ -177,6 +181,8 @@ namespace modules {
         */
         //% group="Light"
         //% weight=90
+        //% value.min=0
+        //% value.max=65535
         //% value.defl=200
         setMaxPower(value: number) {
             this.start();
@@ -219,6 +225,8 @@ namespace modules {
         */
         //% group="Light"
         //% weight=87
+        //% value.min=0
+        //% value.max=65535
         //% value.defl=1
         setNumRepeats(value: number) {
             this.start();

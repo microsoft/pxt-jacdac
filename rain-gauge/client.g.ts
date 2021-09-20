@@ -46,6 +46,7 @@ namespace modules {
         //% blockId=jacdac_raingauge_on_precipitation_change
         //% block="on %raingauge precipitation changed by %threshold"
         //% weight=98
+        //% threshold.min=0
         //% threshold.defl=1
         onPrecipitationChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

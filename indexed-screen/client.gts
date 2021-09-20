@@ -305,6 +305,8 @@ namespace modules {
         */
         //% group="Indexed screen"
         //% weight=82
+        //% value.min=0
+        //% value.max=65535
         setRotation(value: number) {
             this.start();
             const values = this._rotation.values as any[];

@@ -174,6 +174,8 @@ namespace modules {
         */
         //% group="Power"
         //% weight=90
+        //% value.min=0
+        //% value.max=65535
         //% value.defl=600
         setKeepOnPulseDuration(value: number) {
             this.start();
@@ -203,6 +205,8 @@ namespace modules {
         */
         //% group="Power"
         //% weight=88
+        //% value.min=0
+        //% value.max=65535
         //% value.defl=20000
         setKeepOnPulsePeriod(value: number) {
             this.start();
@@ -218,6 +222,8 @@ namespace modules {
         //% blockId=jacdac_power_on_current_draw_change
         //% block="on %power current draw changed by %threshold"
         //% weight=87
+        //% threshold.min=0
+        //% threshold.max=65535
         //% threshold.defl=1
         onCurrentDrawChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

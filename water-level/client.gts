@@ -46,9 +46,11 @@ namespace modules {
         //% blockId=jacdac_waterlevel_on_level_change
         //% block="on %waterlevel level changed by %threshold"
         //% weight=98
-        //% threshold.defl=0.1
+        //% threshold.min=0
+        //% threshold.max=100
+        //% threshold.defl=5
         onLevelChangedBy(threshold: number, handler: () => void): void {
-            this.onReadingChangedBy(threshold, handler);
+            this.onReadingChangedBy(threshold / 100, handler);
         }
 
     

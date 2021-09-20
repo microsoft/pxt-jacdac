@@ -59,6 +59,8 @@ namespace modules {
         */
         //% group="Model Runner"
         //% weight=99
+        //% value.min=0
+        //% value.max=65535
         setAutoInvokeEvery(value: number) {
             this.start();
             const values = this._autoInvokeEvery.values as any[];

@@ -184,9 +184,11 @@ namespace modules {
         //% blockId=jacdac_soundlevel_on_sound_level_change
         //% block="on %soundlevel sound level changed by %threshold"
         //% weight=89
-        //% threshold.defl=0.1
+        //% threshold.min=0
+        //% threshold.max=100
+        //% threshold.defl=5
         onSoundLevelChangedBy(threshold: number, handler: () => void): void {
-            this.onReadingChangedBy(threshold, handler);
+            this.onReadingChangedBy(threshold / 100, handler);
         }
 
         /**

@@ -47,6 +47,7 @@ namespace modules {
         //% blockId=jacdac_rotaryencoder_on_position_change
         //% block="on %rotaryencoder position changed by %threshold"
         //% weight=98
+        //% threshold.min=0
         //% threshold.defl=1
         onPositionChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

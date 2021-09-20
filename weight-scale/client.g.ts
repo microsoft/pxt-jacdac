@@ -156,6 +156,7 @@ namespace modules {
         //% blockId=jacdac_weightscale_on_weight_change
         //% block="on %weightscale weight changed by %threshold"
         //% weight=90
+        //% threshold.min=0
         //% threshold.defl=1
         onWeightChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

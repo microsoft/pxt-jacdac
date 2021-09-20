@@ -48,6 +48,8 @@ namespace modules {
         //% blockId=jacdac_illuminance_on_light_change
         //% block="on %illuminance light changed by %threshold"
         //% weight=98
+        //% threshold.min=0
+        //% threshold.max=100000
         //% threshold.defl=1
         onLightChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);

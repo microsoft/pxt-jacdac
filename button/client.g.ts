@@ -5,12 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ButtonClient extends jacdac.SimpleSensorClient {
 
-        private readonly _analog : jacdac.RegisterClient<[boolean]>;            
+        private readonly _analog : jacdac.RegisterClient<[boolean]>;
 
         constructor(role: string) {
             super(jacdac.SRV_BUTTON, role, "u0.16");
 
-            this._analog = this.addRegister<[boolean]>(jacdac.ButtonReg.Analog, "u8");            
+            this._analog = this.addRegister<[boolean]>(jacdac.ButtonReg.Analog, "u8");
         }
     
 
@@ -45,10 +45,12 @@ namespace modules {
         //% group="Button"
         //% blockId=jacdac_button_on_pressure_change
         //% block="on %button pressure changed by %threshold"
-        //% weight=98
-        //% threshold.defl=0.1
+        //% weight=97
+        //% threshold.min=0
+        //% threshold.max=100
+        //% threshold.defl=5
         onPressureChangedBy(threshold: number, handler: () => void): void {
-            this.onReadingChangedBy(threshold, handler);
+            this.onReadingChangedBy(threshold / 100, handler);
         }
 
         /**
@@ -57,7 +59,7 @@ namespace modules {
         //% group="Button"
         //% blockId=jacdac_on_button_down
         //% block="on %button down"
-        //% weight=97
+        //% weight=96
         onDown(handler: () => void): void {
             this.registerEvent(jacdac.ButtonEvent.Down, handler);
         }
@@ -68,7 +70,7 @@ namespace modules {
         //% group="Button"
         //% blockId=jacdac_on_button_up
         //% block="on %button up"
-        //% weight=96
+        //% weight=95
         onUp(handler: () => void): void {
             this.registerEvent(jacdac.ButtonEvent.Up, handler);
         }
@@ -80,7 +82,7 @@ namespace modules {
         //% group="Button"
         //% blockId=jacdac_on_button_hold
         //% block="on %button hold"
-        //% weight=95
+        //% weight=94
         onHold(handler: () => void): void {
             this.registerEvent(jacdac.ButtonEvent.Hold, handler);
         }
