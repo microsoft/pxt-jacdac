@@ -15,6 +15,13 @@
         "jacdac-servers": "./servers",
         "jacdac-microbit": "./devices/microbit",
         "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
-        "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server"
+        "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server",
+        "jacdac-servo": "./servo",
+        "jacdac-motor": "./motor",
+        "jacdac-rotaryencoder": "./rotary-encoder",
+        "jacdac-ledpixel": "./led-pixel",
+        "jacdac-led": "./led",
+        "jacdac-potentiometer": "./potentiometer",
+        "jacdac-thermometer": "./thermometer"
     }
 }

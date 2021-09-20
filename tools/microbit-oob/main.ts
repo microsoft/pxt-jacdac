@@ -2,19 +2,16 @@ music.setVolume(100)
 music.setTempo(180)
 
 let devCount = 0
-jacdac.bus.subscribe(
-    jacdac.DEVICE_CONNECT,
-    (d: jacdac.Device) => {
-        // don't play on self announce (this doesn't work)
-        if (d === jacdac.bus.selfDevice) return
-        devCount++
-        if (devCount) {
-            updateDisplay = true
-            displayNumber = devCount
-            playSound = true
-        }
+jacdac.bus.subscribe(jacdac.DEVICE_CONNECT, (d: jacdac.Device) => {
+    // don't play on self announce (this doesn't work)
+    if (d === jacdac.bus.selfDevice) return
+    devCount++
+    if (devCount) {
+        updateDisplay = true
+        displayNumber = devCount
+        playSound = true
     }
-)
+})
 
 // map device id to the service classes supported by the device
 interface ServicesMap {
@@ -24,25 +21,26 @@ let dev2Services: ServicesMap = {}
 
 // whenever a device announces itself,
 // cache its services, if not already done
-jacdac.bus.subscribe(
-    jacdac.DEVICE_ANNOUNCE,
-    (d: jacdac.Device) => {
-        if (d === jacdac.bus.selfDevice) return
-        if (!dev2Services[d.deviceId]) {
-            dev2Services[d.deviceId] = []
-            for (let i = 4; i < d.services.length; i += 4) {
-                const id = d.services.getNumber(NumberFormat.UInt32LE, i)
-                dev2Services[d.deviceId].push(id)
-                checkForKnownService(d, id, i >> 2)
-            }
+jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
+    if (d === jacdac.bus.selfDevice) return
+    if (!dev2Services[d.deviceId]) {
+        dev2Services[d.deviceId] = []
+        for (let i = 4; i < d.services.length; i += 4) {
+            const id = d.services.getNumber(NumberFormat.UInt32LE, i)
+            dev2Services[d.deviceId].push(id)
+            checkForKnownService(d, id, i >> 2)
         }
     }
-)
+})
 
 // special handling for actuators (multi-command) and sensors (streaming)
-let knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL ]
-let knownSensors = [ jacdac.SRV_POTENTIOMETER, jacdac.SRV_ROTARY_ENCODER, 
-    jacdac.SRV_ACCELEROMETER, jacdac.SRV_THERMOMETER ]
+let knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL]
+let knownSensors = [
+    jacdac.SRV_POTENTIOMETER,
+    jacdac.SRV_ROTARY_ENCODER,
+    jacdac.SRV_ACCELEROMETER,
+    jacdac.SRV_THERMOMETER,
+]
 
 let serviceKeys: number[] = []
 interface ServiceDeviceMap {
@@ -50,8 +48,15 @@ interface ServiceDeviceMap {
 }
 let service2dev: ServiceDeviceMap = {}
 
-function checkForKnownService(dev: jacdac.Device, serviceClass: number, serviceIndex: number) {
-    if (knownActuators.indexOf(serviceClass) >= 0 || knownSensors.indexOf(serviceClass) >= 0) {
+function checkForKnownService(
+    dev: jacdac.Device,
+    serviceClass: number,
+    serviceIndex: number
+) {
+    if (
+        knownActuators.indexOf(serviceClass) >= 0 ||
+        knownSensors.indexOf(serviceClass) >= 0
+    ) {
         // add device to map
         if (!service2dev[serviceClass]) {
             service2dev[serviceClass] = []
@@ -84,7 +89,11 @@ interface SensorMap {
 }
 let sensorMap: SensorMap = {}
 
-function configureSensor(dev: jacdac.Device, serviceClass: number, serviceIndex: number) {
+function configureSensor(
+    dev: jacdac.Device,
+    serviceClass: number,
+    serviceIndex: number
+) {
     sensorMap[dev.deviceId + ":" + serviceIndex.toString()] = 0
 }
 
@@ -102,36 +111,56 @@ function getReadingRegister(sc: number) {
 }
 
 // anytime we get a packet from some device, do something
-jacdac.bus.subscribe(
-    jacdac.PACKET_PROCESS,
-    (pkt: jacdac.JDPacket) => {
-        const services = dev2Services[pkt.deviceIdentifier]
-        if (services) {
-            if (pkt.serviceIndex > 0) {
-                const serviceClass = services[pkt.serviceIndex - 1]
-                if (pkt.isEvent) {
-                    processEvent(serviceClass, pkt)
-                } else if (pkt.isReport && pkt.isRegGet && pkt.regCode === jacdac.SystemReg.Reading) {
-                    processSensorGetReading(serviceClass, pkt)
-                }
+jacdac.bus.subscribe(jacdac.PACKET_PROCESS, (pkt: jacdac.JDPacket) => {
+    const services = dev2Services[pkt.deviceIdentifier]
+    if (services) {
+        if (pkt.serviceIndex > 0) {
+            const serviceClass = services[pkt.serviceIndex - 1]
+            if (pkt.isEvent) {
+                processEvent(serviceClass, pkt)
+            } else if (
+                pkt.isReport &&
+                pkt.isRegGet &&
+                pkt.regCode === jacdac.SystemReg.Reading
+            ) {
+                processSensorGetReading(serviceClass, pkt)
             }
         }
     }
-)
+})
 
 // whenever we get an event for a particular service class
 // do something on the micro:bit
 
-const buttonPressIcons = [ IconNames.SmallHeart, IconNames.Happy, 
-    IconNames.SmallDiamond, IconNames.EigthNote,
-    IconNames.SmallSquare, IconNames.Pitchfork,
-    IconNames.Silly, IconNames.Tortoise ]
-const buttonHoldIcons =  [ IconNames.Heart, IconNames.Asleep, 
-    IconNames.Diamond, IconNames.QuarterNote,
-    IconNames.Square, IconNames.Target,
-    IconNames.Surprised, IconNames.Butterfly ]
+const buttonPressIcons = [
+    IconNames.SmallHeart,
+    IconNames.Happy,
+    IconNames.SmallDiamond,
+    IconNames.EigthNote,
+    IconNames.SmallSquare,
+    IconNames.Pitchfork,
+    IconNames.Silly,
+    IconNames.Tortoise,
+]
+const buttonHoldIcons = [
+    IconNames.Heart,
+    IconNames.Asleep,
+    IconNames.Diamond,
+    IconNames.QuarterNote,
+    IconNames.Square,
+    IconNames.Target,
+    IconNames.Surprised,
+    IconNames.Butterfly,
+]
 const buttonNotes = [
-    Note.C, Note.D, Note.E, Note.F, Note.G, Note.A, Note.B, Note.C5
+    Note.C,
+    Note.D,
+    Note.E,
+    Note.F,
+    Note.G,
+    Note.A,
+    Note.B,
+    Note.C5,
 ]
 
 let playNote = false
@@ -151,10 +180,8 @@ let iconMap: IconMap = {}
 function getIndexFromButton(pkt: jacdac.JDPacket) {
     if (iconMap[pkt.deviceIdentifier] === undefined) {
         iconMap[pkt.deviceIdentifier] = nextIcon
-        if (nextIcon === buttonPressIcons.length - 1)
-            nextIcon = 0
-        else
-            nextIcon++
+        if (nextIcon === buttonPressIcons.length - 1) nextIcon = 0
+        else nextIcon++
     }
     return iconMap[pkt.deviceIdentifier]
 }
@@ -171,7 +198,8 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
         } else if (pkt.eventCode === jacdac.ButtonEvent.Hold) {
             basic.showIcon(buttonHoldIcons[index], 0)
         }
-    } if (serviceClass === jacdac.SRV_ACCELEROMETER) {
+    }
+    if (serviceClass === jacdac.SRV_ACCELEROMETER) {
         if (pkt.eventCode === jacdac.AccelerometerEvent.Shake) {
             basic.showIcon(IconNames.Happy, 0)
         }
@@ -196,8 +224,7 @@ forever(() => {
 })
 
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
-    if (knownSensors.indexOf(serviceClass) == -1)
-        return
+    if (knownSensors.indexOf(serviceClass) == -1) return
     const lookup = pkt.deviceIdentifier + ":" + pkt.serviceIndex.toString()
     console.log("get reading " + lookup)
     if (serviceClass === jacdac.SRV_ROTARY_ENCODER) {
@@ -213,7 +240,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
             led.plotBarGraph(position, 100)
         }
     } else if (serviceClass === jacdac.SRV_THERMOMETER) {
-        const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0] )
+        const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
         if (temp !== sensorMap[lookup]) {
             sensorMap[lookup] = temp
             displayNumber = temp
@@ -223,32 +250,28 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
 }
 
 // whenever a device leaves the bus, forget about its services
-jacdac.bus.subscribe(
-    jacdac.DEVICE_DISCONNECT,
-    (d: jacdac.Device) => {
-        devCount--
-        updateDisplay = true
-        displayNumber = devCount
-        playSound = true
-        dev2Services[d.deviceId].forEach(sc => {
-             if (service2dev[sc]) {
-                service2dev[sc].removeElement(d.deviceId)
-                if (service2dev[sc].length === 0) {
-                    delete service2dev[sc]
-                    serviceKeys.removeElement(sc)
-                }
+jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
+    devCount--
+    updateDisplay = true
+    displayNumber = devCount
+    playSound = true
+    dev2Services[d.deviceId].forEach(sc => {
+        if (service2dev[sc]) {
+            service2dev[sc].removeElement(d.deviceId)
+            if (service2dev[sc].length === 0) {
+                delete service2dev[sc]
+                serviceKeys.removeElement(sc)
             }
-            const client = ledPixelClients.find(cl => cl.device === d)
-            if (client)
-                ledPixelClients.removeElement(client)
-        })
-        delete dev2Services[d.deviceId]
-    }
-)
+        }
+        const client = ledPixelClients.find(cl => cl.device === d)
+        if (client) ledPixelClients.removeElement(client)
+    })
+    delete dev2Services[d.deviceId]
+})
 
 // micro:bit actions translate to actuator actions
 
-input.onButtonPressed(Button.A, function() {
+input.onButtonPressed(Button.A, function () {
     actuate(Button.A)
 })
 
@@ -262,7 +285,7 @@ input.onButtonPressed(Button.AB, function () {
 
 function actuate(b: Button) {
     // for each (actuator) serviceClass that is active,
-    // perform and appropriate action on all instances of that 
+    // perform and appropriate action on all instances of that
     // serviceClass, using multi-command
     serviceKeys.forEach((sc: number) => {
         if (sc === jacdac.SRV_SERVO) {
@@ -278,8 +301,10 @@ function actuate(b: Button) {
 function setServoAngle(b: Button) {
     const angle = b === Button.A ? -90 : b === Button.B ? 90 : 0
     const pkt = jacdac.JDPacket.jdpacked(
-        jacdac.CMD_SET_REG | jacdac.ServoReg.Angle
-        , "i16.16", [angle])
+        jacdac.CMD_SET_REG | jacdac.ServoReg.Angle,
+        "i16.16",
+        [angle]
+    )
     pkt.sendAsMultiCommand(jacdac.SRV_SERVO)
 }
 
