@@ -1,18 +1,39 @@
 music.setVolume(100)
 music.setTempo(180)
 
-let devCount = 0
+let lastDeviceCount = 0
+let playDeviceCountScheduled = false
+function schedulePlayDeviceCount() {
+    if (playDeviceCountScheduled) return
+    playDeviceCountScheduled = true
+    control.inBackground(() => {
+        // debouncing
+        pause(200)
+        playDeviceCountScheduled = false
+        // query current device count
+        const devCount = jacdac.bus.devices.filter(
+            d => d !== jacdac.bus.selfDevice
+        ).length
+        // nothing to do
+        const change = devCount - lastDeviceCount
+        if (change) {
+            lastDeviceCount = devCount
+            music.stopAllSounds()
+            led.stopAnimation()
+            if (change > 0) soundExpression.happy.play()
+            else soundExpression.sad.play()
+            basic.showNumber(devCount)
+        }
+    })
+}
+
 jacdac.bus.subscribe(jacdac.DEVICE_CONNECT, (d: jacdac.Device) => {
     // don't play on self announce (this doesn't work)
     if (d === jacdac.bus.selfDevice) return
-    devCount++
-    if (devCount) {
-        control.inBackground(() => {
-            led.stopAnimation()
-            basic.showNumber(devCount)
-        })
-        playSound = true
-    }
+    const devCount = jacdac.bus.devices.filter(
+        d => d !== jacdac.bus.selfDevice
+    ).length
+    if (devCount) schedulePlayDeviceCount()
 })
 
 // map device id to the service classes supported by the device
@@ -209,14 +230,6 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
     }
 }
 
-let playSound = false
-forever(() => {
-    if (playSound) {
-        soundExpression.happy.playUntilDone()
-        playSound = false
-    }
-})
-
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
     if (knownSensors.indexOf(serviceClass) == -1) return
     const lookup = pkt.deviceIdentifier + ":" + pkt.serviceIndex.toString()
@@ -247,12 +260,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
 
 // whenever a device leaves the bus, forget about its services
 jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
-    devCount--
-    control.inBackground(() => {
-        led.stopAnimation()
-        basic.showNumber(devCount)
-    })
-    playSound = true
+    schedulePlayDeviceCount()
     dev2Services[d.deviceId].forEach(sc => {
         if (service2dev[sc]) {
             service2dev[sc].removeElement(d.deviceId)
