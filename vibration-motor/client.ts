@@ -73,12 +73,16 @@ namespace modules {
             millis2 = isNaN(millis2) ? 0 : millis2
             intensity2 = isNaN(intensity2) ? 0 : intensity2
             repeat = isNaN(repeat) ? 1 : repeat
-            const pattern: [number, number][] = []
+            const pattern: number[] = []
             for (let i = 0; i < repeat; ++i) {
-                if (millis > 0)
-                    pattern.push([Math.max(1, millis >> 8), intensity / 100])
-                if (millis2 > 0)
-                    pattern.push([Math.max(1, millis2 >> 8), intensity2 / 100])
+                if (millis > 0) {
+                    pattern.push(Math.max(1, millis >> 8))
+                    pattern.push(intensity / 100)
+                }
+                if (millis2 > 0) {
+                    pattern.push(Math.max(1, millis2 >> 8))
+                    pattern.push(intensity2 / 100)
+                }
             }
             this.vibrateMulti(pattern)
         }
@@ -88,18 +92,23 @@ namespace modules {
          */
         //% group="Vibration motor"
         //% weight=95
-        vibrateMulti(pattern: [number, number][]) {
+        vibrateMulti(pattern: number[]) {
             if (!pattern) return
 
-            const payload = pattern
-                .slice(0)
-                .map(ds => [ds[0] >> 8, ds[1] / 100])
+            const payload: number[][] = []
+            for (let i = 0; i < pattern.length; i += 2) {
+                const entry: number[] = []
+                entry.push(pattern[i] >> 8)
+                entry.push(pattern[i+1] / 100)
+                payload.push(entry)
+            }
+
             this.start()
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.VibrationMotorCmd.Vibrate,
                     "r: u8 u0.8",
-                    payload
+                    [payload]
                 )
             )
         }
