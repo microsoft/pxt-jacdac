@@ -7,8 +7,10 @@ jacdac.bus.subscribe(jacdac.DEVICE_CONNECT, (d: jacdac.Device) => {
     if (d === jacdac.bus.selfDevice) return
     devCount++
     if (devCount) {
-        updateDisplay = true
-        displayNumber = devCount
+        control.inBackground(() => {
+            led.stopAnimation()
+            basic.showNumber(devCount)
+        })
         playSound = true
     }
 })
@@ -207,15 +209,6 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
     }
 }
 
-let updateDisplay = false
-let displayNumber = 0
-forever(() => {
-    if (updateDisplay) {
-        basic.showNumber(displayNumber)
-        updateDisplay = false
-    }
-})
-
 let playSound = false
 forever(() => {
     if (playSound) {
@@ -244,8 +237,10 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
         const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
         if (temp !== sensorMap[lookup]) {
             sensorMap[lookup] = temp
-            displayNumber = temp
-            updateDisplay = true
+            control.inBackground(() => {
+                led.stopAnimation()
+                basic.showNumber(temp)
+            })
         }
     }
 }
@@ -253,8 +248,10 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
 // whenever a device leaves the bus, forget about its services
 jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
     devCount--
-    updateDisplay = true
-    displayNumber = devCount
+    control.inBackground(() => {
+        led.stopAnimation()
+        basic.showNumber(devCount)
+    })
     playSound = true
     dev2Services[d.deviceId].forEach(sc => {
         if (service2dev[sc]) {
