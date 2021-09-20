@@ -163,14 +163,6 @@ const buttonNotes = [
     Note.C5,
 ]
 
-let playNote = false
-let whichNote = Note.C
-forever(() => {
-    if (playNote) {
-        music.playTone(whichNote, music.beat())
-        playNote = false
-    }
-})
 let nextIcon = 0
 interface IconMap {
     [index: string]: number
@@ -189,14 +181,23 @@ function getIndexFromButton(pkt: jacdac.JDPacket) {
 function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
     if (serviceClass === jacdac.SRV_BUTTON) {
         const index = getIndexFromButton(pkt)
+        const whichNote = buttonNotes[index]
+        led.stopAnimation()
         if (pkt.eventCode === jacdac.ButtonEvent.Down) {
             basic.showIcon(buttonPressIcons[index], 0)
-            whichNote = buttonNotes[index]
-            playNote = true
+            // play sound async, interupt any other sound
+            control.inBackground(() => {
+                music.stopAllSounds()
+                music.playTone(whichNote, music.beat())
+            })
         } else if (pkt.eventCode === jacdac.ButtonEvent.Up) {
             basic.clearScreen()
         } else if (pkt.eventCode === jacdac.ButtonEvent.Hold) {
             basic.showIcon(buttonHoldIcons[index], 0)
+            control.inBackground(() => {
+                music.stopAllSounds()
+                music.playTone(whichNote, music.beat())
+            })
         }
     }
     if (serviceClass === jacdac.SRV_ACCELEROMETER) {
