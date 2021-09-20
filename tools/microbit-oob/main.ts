@@ -247,7 +247,8 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
             sensorMap[lookup] = temp
             control.inBackground(() => {
                 led.stopAnimation()
-                basic.showNumber(temp)
+                if (temp < 0 || temp > 99) basic.showNumber(temp)
+                else whaleysans.showNumber(temp)
             })
         }
     }

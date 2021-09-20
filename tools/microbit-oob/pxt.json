@@ -13,7 +13,8 @@
         "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
         "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
         "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer",
-        "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer"
+        "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer",
+        "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
     "files": [
         "main.ts",
