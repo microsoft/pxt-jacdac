@@ -27,38 +27,34 @@ function schedulePlayDeviceCount() {
     })
 }
 
-jacdac.bus.subscribe(jacdac.DEVICE_CONNECT, (d: jacdac.Device) => {
-    // don't play on self announce (this doesn't work)
-    if (d === jacdac.bus.selfDevice) return
-    const devCount = jacdac.bus.devices.filter(
-        d => d !== jacdac.bus.selfDevice
-    ).length
-    if (devCount) schedulePlayDeviceCount()
-})
-
 // map device id to the service classes supported by the device
 interface ServicesMap {
     [index: string]: number[]
 }
 let dev2Services: ServicesMap = {}
 
-// whenever a device announces itself,
-// cache its services, if not already done
 jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
     if (d === jacdac.bus.selfDevice) return
+    // whenever a device announces itself,
+    // cache its services, if not already done
     if (!dev2Services[d.deviceId]) {
         dev2Services[d.deviceId] = []
-        for (let i = 4; i < d.services.length; i += 4) {
-            const id = d.services.getNumber(NumberFormat.UInt32LE, i)
+        for (let i = 1; i < d.serviceClassLength; i++) {
+            const id = d.serviceClassAt(i)
             dev2Services[d.deviceId].push(id)
-            checkForKnownService(d, id, i >> 2)
+            checkForKnownService(d, id, i)
         }
     }
+    // play sound
+    const devCount = jacdac.bus.devices.filter(
+        d => d !== jacdac.bus.selfDevice
+    ).length
+    if (devCount) schedulePlayDeviceCount()
 })
 
 // special handling for actuators (multi-command) and sensors (streaming)
-let knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL]
-let knownSensors = [
+const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL]
+const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
     jacdac.SRV_ACCELEROMETER,
@@ -120,18 +116,17 @@ function configureSensor(
     sensorMap[dev.deviceId + ":" + serviceIndex.toString()] = 0
 }
 
-// we just poll using multi-command
-forever(() => {
-    knownSensors.forEach(getReadingRegister)
-    basic.pause(100)
+// refil streaming samples register on each self-announce
+jacdac.bus.subscribe(jacdac.SELF_ANNOUNCE, () => {
+    knownSensors.forEach(sc => {
+        const pkt = jacdac.JDPacket.jdpacked(
+            jacdac.CMD_SET_REG | jacdac.SystemReg.StreamingSamples,
+            "u8",
+            [0xff]
+        )
+        pkt.sendAsMultiCommand(sc)
+    })
 })
-
-function getReadingRegister(sc: number) {
-    const pkt = jacdac.JDPacket.onlyHeader(
-        jacdac.CMD_GET_REG | jacdac.SystemReg.Reading
-    )
-    pkt.sendAsMultiCommand(sc)
-}
 
 // anytime we get a packet from some device, do something
 jacdac.bus.subscribe(jacdac.PACKET_PROCESS, (pkt: jacdac.JDPacket) => {
@@ -233,7 +228,7 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
     if (knownSensors.indexOf(serviceClass) == -1) return
     const lookup = pkt.deviceIdentifier + ":" + pkt.serviceIndex.toString()
-    console.log("get reading " + lookup)
+    //console.log("get reading " + lookup)
     if (serviceClass === jacdac.SRV_ROTARY_ENCODER) {
         const position = pkt.jdunpack<number[]>("u32")[0]
         if (position !== sensorMap[lookup]) {
