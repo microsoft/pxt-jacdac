@@ -66,10 +66,13 @@ namespace modules {
         vibrate(
             millis: number,
             intensity: number,
-            millis2: number,
-            intensity2: number,
-            repeat: number
+            millis2?: number,
+            intensity2?: number,
+            repeat?: number
         ): void {
+            millis2 = isNaN(millis2) ? 0 : millis2
+            intensity2 = isNaN(intensity2) ? 0 : intensity2
+            repeat = isNaN(repeat) ? 1 : repeat
             const pattern: [number, number][] = []
             for (let i = 0; i < repeat; ++i) {
                 if (millis > 0)
