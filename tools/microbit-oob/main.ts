@@ -240,6 +240,13 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
         if (position !== sensorMap[lookup]) {
             sensorMap[lookup] = position
             led.plotBarGraph(position, 100)
+            control.inBackground(() => {
+                music.stopAllSounds()
+                music.playTone(
+                    Note.C4 + pins.map(position, 0, 100, Note.C4, Note.C5),
+                    40
+                )
+            })
         }
     } else if (serviceClass === jacdac.SRV_THERMOMETER) {
         const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
