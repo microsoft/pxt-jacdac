@@ -76,12 +76,12 @@ namespace modules {
             const pattern: number[] = []
             for (let i = 0; i < repeat; ++i) {
                 if (millis > 0) {
-                    pattern.push(Math.max(1, millis >> 8))
-                    pattern.push(intensity / 100)
+                    pattern.push(millis)
+                    pattern.push(intensity)
                 }
                 if (millis2 > 0) {
-                    pattern.push(Math.max(1, millis2 >> 8))
-                    pattern.push(intensity2 / 100)
+                    pattern.push(millis2)
+                    pattern.push(intensity2)
                 }
             }
             this.vibrateMulti(pattern)
@@ -97,10 +97,7 @@ namespace modules {
 
             const payload: number[][] = []
             for (let i = 0; i < pattern.length; i += 2) {
-                const entry: number[] = []
-                entry.push(pattern[i] >> 8)
-                entry.push(pattern[i+1] / 100)
-                payload.push(entry)
+                payload.push([pattern[i] >> 3, pattern[i + 1] / 100])
             }
 
             this.start()
