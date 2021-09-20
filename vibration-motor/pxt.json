@@ -1,10 +1,19 @@
 {
     "name": "jacdac-vibration",
-    "version": "0.0.0",
+    "version": "0.6.22",
     "description": "A vibration motor.",
-    "files": ["constants.ts", "client.ts"],
-    "testFiles": ["test.ts"],
-    "supportedTargets": ["arcade", "microbit", "maker"],
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
