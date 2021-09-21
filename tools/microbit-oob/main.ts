@@ -328,3 +328,5 @@ function animateLEDs(client: modules.LedPixelClient, b: Button) {
 }
 
 jacdac.start({ disableRoleManager: true })
+
+basic.showIcon(IconNames.Happy)
