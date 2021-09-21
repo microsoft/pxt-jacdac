@@ -6,7 +6,7 @@
         "constants.ts",
         "client.g.ts"
     ],
-    "testFiles": [],
+    "testFiles": ["test.ts"],
     "supportedTargets": [
         "arcade",
         "microbit",
