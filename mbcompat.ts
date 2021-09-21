@@ -22,17 +22,13 @@ namespace pins {
 }
 
 let identifyAnimationRunning = false
-function identifyAnimation(sounds: boolean) {
+function identifyAnimation() {
     if (identifyAnimationRunning) return
 
     identifyAnimationRunning = true
     const sc = led.screenshot()
     control.runInParallel(() => {
         led.stopAnimation()
-        if (sounds) {
-            music.stopAllSounds()
-            soundExpression.hello.play()
-        }
         basic.showAnimation(
             `00000 00000 00000  00000 00000  00000
         ####0 00000 ####0  00000 ####0  00000 
@@ -49,7 +45,7 @@ function identifyAnimation(sounds: boolean) {
 function handleStatusEvent(event: jacdac.StatusEvent) {
     switch (event) {
         case jacdac.StatusEvent.ProxyStarted:
-            identifyAnimation(false)
+            identifyAnimation()
             break
         case jacdac.StatusEvent.ProxyPacketReceived:
             basic.plotLeds(`
@@ -61,7 +57,7 @@ function handleStatusEvent(event: jacdac.StatusEvent) {
                 `)
             break
         case jacdac.StatusEvent.Identify:
-            identifyAnimation(true)
+            identifyAnimation()
             break
     }
 }
