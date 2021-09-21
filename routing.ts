@@ -767,6 +767,7 @@ namespace jacdac {
         //% group="Services" weight=50
         //% blockNamespace="modules"
         isConnected() {
+            this.start()
             return this.broadcast || !!this.device
         }
 
@@ -777,6 +778,7 @@ namespace jacdac {
         //% group="Services" weight=49
         //% blockNamespace="modules"
         onConnected(handler: () => void) {
+            this.start()
             if (!handler) return
             this.on(CONNECT, () => control.runInBackground(() => handler()))
             if (this.isConnected()) handler()
@@ -789,6 +791,7 @@ namespace jacdac {
         //% group="Services" weight=48
         //% blockNamespace="modules"
         onDisconnected(handler: () => void) {
+            this.start()
             if (!handler) return
             this.on(DISCONNECT, () => control.runInBackground(() => handler()))
         }
