@@ -1,12 +1,14 @@
 {
     "name": "jacdac-relay",
-    "version": "0.6.25",
+    "version": "0.6.26",
     "description": "A switching relay.",
     "files": [
         "constants.ts",
         "client.g.ts"
     ],
-    "testFiles": ["test.ts"],
+    "testFiles": [
+        "test.ts"
+    ],
     "supportedTargets": [
         "arcade",
         "microbit",
