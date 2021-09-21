@@ -1375,6 +1375,15 @@ namespace jacdac {
         }
     }
 
+    function consumePackets() {
+        let buf: Buffer
+        while (null != (buf = jacdac.__physGetPacket())) {
+            const pkt = JDPacket.fromBinary(buf)
+            pkt.timestamp = jacdac.__physGetTimestamp()
+            jacdac.bus.processPacket(pkt)
+        }
+    }
+
     /**
      * Starts the Jacdac service
      */
@@ -1390,14 +1399,11 @@ namespace jacdac {
         options = options || {}
 
         //jacdac.__physStart();
-        control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
-            let buf: Buffer
-            while (null != (buf = jacdac.__physGetPacket())) {
-                const pkt = JDPacket.fromBinary(buf)
-                pkt.timestamp = jacdac.__physGetTimestamp()
-                jacdac.bus.processPacket(pkt)
-            }
-        })
+        control.internalOnEvent(
+            jacdac.__physId(),
+            EVT_DATA_READY,
+            consumePackets
+        )
         control.internalOnEvent(jacdac.__physId(), EVT_QUEUE_ANNOUNCE, () =>
             jacdac.bus.queueAnnounce()
         )

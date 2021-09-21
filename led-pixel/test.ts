@@ -1,3 +1,9 @@
+modules.ledPixel1.setBrightness(85)
+modules.ledPixel1.setAll(0x00ff00)
+modules.ledPixel1.setPixel(2, 0xff0000)
+
+pause(3000)
+
 modules.ledPixel1.configure(30, undefined, 500)
 forever(function () {
     modules.ledPixel1.showAnimation(
