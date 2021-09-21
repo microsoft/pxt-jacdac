@@ -5,14 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ButtonClient extends jacdac.SimpleSensorClient {
 
-        private readonly _analog : jacdac.RegisterClient<[boolean]>;
-        private readonly _pressed : jacdac.RegisterClient<[boolean]>;            
+        private readonly _analog : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_BUTTON, role, "u0.16");
 
-            this._analog = this.addRegister<[boolean]>(jacdac.ButtonReg.Analog, "u8");
-            this._pressed = this.addRegister<[boolean]>(jacdac.ButtonReg.Pressed, "u8");            
+            this._analog = this.addRegister<[boolean]>(jacdac.ButtonReg.Analog, "u8");            
         }
     
 
@@ -51,9 +49,8 @@ namespace modules {
         //% group="Button"
         //% weight=98
         pressed(): boolean {
-            this.start();            
-            const values = this._pressed.pauseUntilValues() as any[];
-            return !!values[0];
+            // TODO: implement client register
+            throw "client register not implement";
         }
 
         /**

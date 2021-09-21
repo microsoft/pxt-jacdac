@@ -805,10 +805,11 @@ namespace jacdac {
                 const code = pkt.eventCode
                 if (code == SystemEvent.Active) this.systemActive = true
                 else if (code == SystemEvent.Inactive) this.systemActive = false
+                this.emit(EVENT, pkt)
                 this.raiseEvent(code, pkt.intData)
-            }
-
-            for (const register of this.registers) register.handlePacket(pkt)
+            } else
+                for (const register of this.registers)
+                    register.handlePacket(pkt)
             this.handlePacket(pkt)
         }
 

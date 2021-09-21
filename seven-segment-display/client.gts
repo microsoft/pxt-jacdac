@@ -166,8 +166,8 @@ namespace modules {
         //% block="%sevensegmentdisplay set number $value"
         //% weight=92
         setNumber(value: number): void {
-            this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SevenSegmentDisplayCmd.SetNumber, "f64", [value]))
+            // TODO: implement client command
+            throw "client command not implemented"
         }
 
         /**
@@ -178,8 +178,8 @@ namespace modules {
         //% block="%sevensegmentdisplay set text $text"
         //% weight=91
         setText(text: string): void {
-            this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SevenSegmentDisplayCmd.SetText, "s", [text]))
+            // TODO: implement client command
+            throw "client command not implemented"
         }
     
     }

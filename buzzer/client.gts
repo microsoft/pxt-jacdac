@@ -69,8 +69,8 @@ namespace modules {
         //% block="%buzzer play note |frequency $frequency |volume $volume |duration $duration"
         //% weight=97
         playNote(frequency: number, volume: number, duration: number): void {
-            this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.BuzzerCmd.PlayNote, "u16 u0.16 u16", [frequency, volume, duration]))
+            // TODO: implement client command
+            throw "client command not implemented"
         }
     
     }
