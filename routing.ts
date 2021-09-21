@@ -1390,6 +1390,7 @@ namespace jacdac {
     export function start(options?: {
         disableLogger?: boolean
         disableRoleManager?: boolean
+        noWait?: boolean
     }): void {
         if (jacdac.bus.running) return // already started
         // make sure we prevent re-entering this function (potentially even log() can call us)
@@ -1420,6 +1421,11 @@ namespace jacdac {
         }
         if (!options.disableRoleManager) {
             roleManagerServer.start()
+        }
+        if (!options.noWait) {
+            log("waiting for devices to enumerate...")
+            pause(1000)
+            if (roleManagerServer.running) roleManagerServer.bindRoles()
         }
         // and we're done
         log("jacdac started")
