@@ -121,7 +121,9 @@ namespace jacdac {
             if (this.restartCounter < 0xf) this.restartCounter++
             ids[0] =
                 this.restartCounter |
-                ControlAnnounceFlags.IsClient |
+                (roleManagerServer.running
+                    ? ControlAnnounceFlags.IsClient
+                    : 0) |
                 ControlAnnounceFlags.SupportsACK |
                 ControlAnnounceFlags.SupportsBroadcast |
                 ControlAnnounceFlags.SupportsFrames
