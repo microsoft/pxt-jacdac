@@ -29,6 +29,8 @@ function identifyAnimation() {
     const sc = led.screenshot()
     control.runInParallel(() => {
         led.stopAnimation()
+        music.stopAllSounds()
+        soundExpression.hello.play()
         basic.showAnimation(
             `00000 00000 00000  00000 00000  00000
         ####0 00000 ####0  00000 ####0  00000 
