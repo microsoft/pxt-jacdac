@@ -209,5 +209,5 @@ namespace servers {
     }
 
     //% fixedInstance whenUsed block="keyboard"
-    export const hidKeyboardServer = new HIDKeyboardServer("keyboard")
+    export const hidKeyboard = new HIDKeyboardServer("keyboard")
 }

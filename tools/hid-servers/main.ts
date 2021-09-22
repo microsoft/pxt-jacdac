@@ -1,3 +1,3 @@
 jacdac.startServer()
-servers.hidKeyboardServer.start()
-servers.hidMouseServer.start()
+servers.hidKeyboard.start()
+servers.hidMouse.start()

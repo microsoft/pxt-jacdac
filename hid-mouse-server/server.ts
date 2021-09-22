@@ -60,5 +60,5 @@ namespace servers {
     }
 
     //% fixedInstance whenUsed
-    export const hidMouseServer = new HIDMouseServer("mouse")
+    export const hidMouse = new HIDMouseServer("mouse")
 }

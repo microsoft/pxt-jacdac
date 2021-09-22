@@ -5,10 +5,14 @@ namespace servers {
     //% blockId=jacdac_microbit_start_all
     //% block="start all jacdac servers"
     export function startAll() {
+        jacdac.startServer()
         servers.buttonA.start()
         servers.buttonB.start()
         servers.buttonAB.start()
         servers.buttonLogo.start()
+        servers.touchP0.start()
+        servers.touchP1.start()
+        servers.touchP2.start()
         servers.screenServer.start()
         servers.soundLevelServer.start()
         servers.lightLevelServer.start()

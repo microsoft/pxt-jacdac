@@ -1,2 +1,2 @@
 jacdac.startServer()
-servers.hidMouseServer.start()
+servers.hidMouse.start()
