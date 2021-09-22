@@ -195,11 +195,13 @@ namespace modules {
             action: jacdac.HidKeyboardAction
         ): void {
             this.start()
+            const entry: number[] = [selector, modifiers, action]
+            const data = [[entry]]
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidKeyboardCmd.Key,
                     "r: u16 u8 u8",
-                    [[selector, modifiers, action]]
+                    data
                 )
             )
         }
