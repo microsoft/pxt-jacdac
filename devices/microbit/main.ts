@@ -26,15 +26,7 @@ namespace servers {
 
         control.runInBackground(function () {
             pause(100)
-            basic.showAnimation(
-                `
-            ..... ..##. .###. .###. .###.
-            ..... ..... ..##. .###. .###.
-            ..... ..... ..... ..##. .###.
-            ..... ..... ..... ..... ..##.
-            ..... ..... ..... ..... .....
-            `
-            )
+            basic.showIcon(IconNames.Happy)
         })
     }
 }
