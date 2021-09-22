@@ -41,7 +41,7 @@ namespace hidevents {
             ) {
                 // we have a hit!
                 console.log(`key ${binding[4]} ${binding[5]}`)
-                servers.hidKeyboardServer.key(
+                servers.hidKeyboard.key(
                     binding[4],
                     binding[5],
                     KeyboardKeyEvent.Press
