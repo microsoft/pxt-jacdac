@@ -6,13 +6,8 @@
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker"
-    ],
+    "files": ["constants.ts", "client.ts"],
+    "testFiles": ["test.ts"],
+    "supportedTargets": ["arcade", "maker"],
     "preferredEditor": "tsprj"
 }
