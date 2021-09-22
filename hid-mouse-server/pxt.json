@@ -9,15 +9,11 @@
         "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
         "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse"
     },
-    "testFiles": [
-        "test.ts"
-    ],
-    "files": [
-        "server.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker"
-    ],
-    "preferredEditor": "tsprj"
+    "testFiles": ["test.ts"],
+    "files": ["server.ts"],
+    "supportedTargets": ["arcade", "maker"],
+    "preferredEditor": "tsprj",
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }

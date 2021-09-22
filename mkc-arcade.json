@@ -15,6 +15,7 @@
         "jacdac-hid-keyboard": "./hid-keyboard",
         "jacdac-hid-keyboard-server": "./hid-keyboard-server",
         "jacdac-hid-mouse": "./hid-mouse",
+        "jacdac-hid-mouse-server": "./hid-mouse-server",
         "jacdac-servers": "./servers",
         "jacdac-servo": "./servo",
         "jacdac-motor": "./motor",

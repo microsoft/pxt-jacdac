@@ -9,19 +9,11 @@
         "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
         "jacdac-hid-keyboard": "github:microsoft/pxt-jacdac/hid-keyboard"
     },
-    "files": [
-        "server.ts"
-    ],
-    "testFiles": [
-        "test.ts"
-    ],
-    "targetVersions": {
-        "target": "1.5.12",
-        "targetId": "arcade"
-    },
-    "supportedTargets": [
-        "arcade",
-        "maker"
-    ],
-    "preferredEditor": "tsprj"
+    "files": ["server.ts"],
+    "testFiles": ["test.ts"],
+    "supportedTargets": ["arcade", "maker"],
+    "preferredEditor": "tsprj",
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }

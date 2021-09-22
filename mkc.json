@@ -12,6 +12,7 @@
         "jacdac-hid-keyboard": "./hid-keyboard",
         "jacdac-hid-keyboard-server": "./hid-keyboard-server",
         "jacdac-hid-mouse": "./hid-mouse",
+        "jacdac-hid-mouse-server": "./hid-mouse-server",
         "jacdac-servers": "./servers",
         "jacdac-microbit": "./devices/microbit",
         "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
