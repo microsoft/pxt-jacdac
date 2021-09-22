@@ -4,14 +4,14 @@ function toReadings(data) {
     const entries = []
     for (const devid of Object.keys(rd.readings)) {
         const devdata = rd.readings[devid]
-        for (const role of Object.keys(devdata)) {
-            const roledata = devdata[role]
-            for (let i = 0; i < roledata.readings.length; ++i) {
+        for (const service of Object.keys(devdata)) {
+            const servdata = devdata[service]
+            for (let i = 0; i < servdata.readings.length; ++i) {
                 entries.push({
-                    t: enq + (roledata.timedelta[i] || 0),
-                    dev: devid,
-                    role: role,
-                    val: roledata.readings[i]
+                    timestamp: enq + (servdata.timedelta[i] || 0),
+                    device: devid,
+                    service: service,
+                    value: servdata.readings[i]
                 })
             }
         }
