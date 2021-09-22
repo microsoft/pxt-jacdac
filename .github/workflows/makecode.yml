@@ -37,18 +37,25 @@ jobs:
       - run: makecode -c mkc-arcade.json --hw F4,D5,N4,N3
       - run: cd tools/multitool && makecode --hw F4,D5,N4,N3
       - run: cd tools/uploader && makecode
-      - name: Upload UF2
+      - run: cd tools/hid-servers && makecode -c ../../mkc-maker.json
+      - run: cd tools/microbit-oob && makecode -c ../../mkc.json
+      - name: Upload multitool UF2
         uses: actions/upload-artifact@v1
         with:
           name: multitool-f4-d5-n4.uf2
           path: tools/multitool/built/combined.uf2
+      - name: Upload multitool HEX
+        uses: actions/upload-artifact@v1
+        with:
+          name: multitool-microbit.hex
+          path: tools/multitool/built/n3/binary.hex
       - name: Upload Uploader UF2
         uses: actions/upload-artifact@v1
         with:
           name: uploader-esp32s2.uf2
           path: tools/uploader/built/jacdac-iot-s2/binary.uf2
-      - name: Upload HEX
+      - name: Upload microbit oob HEX
         uses: actions/upload-artifact@v1
         with:
-          name: multitool-microbit.hex
-          path: tools/multitool/built/n3/binary.hex
+          name: microbit-oob.hex
+          path: tools/microbit-oob/built/binary.hex
