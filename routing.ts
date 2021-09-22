@@ -1436,6 +1436,13 @@ namespace jacdac {
         log("jacdac started")
     }
 
+    /**
+     * Starts device as a server
+     */
+    export function startServer() {
+        start({ disableLogger: true, disableRoleManager: true, noWait: true })
+    }
+
     // make sure physical is started deterministically
     // on micro:bit it allocates a buffer that should stay in the same place in memory
     jacdac.__physStart()
