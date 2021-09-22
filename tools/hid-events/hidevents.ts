@@ -51,8 +51,7 @@ namespace hidevents {
     }
 
     function start() {
-        // start services
-        jacdac.start({ disableRoleManager: true })
+        jacdac.startServer()
         jacdac.settingsServer.start()
         jacdac.settingsServer.on(jacdac.CHANGE, () => decodeBindings())
         jacdac.bus.on(jacdac.EVENT, pkt => handleEvent(pkt))
