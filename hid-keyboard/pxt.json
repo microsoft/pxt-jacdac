@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-keyboard",
-    "version": "0.6.35",
+    "version": "0.6.36",
     "description": "MakeCode support for Jacdac HID Keyboard client",
     "dependencies": {
         "core": "*",
@@ -17,5 +17,8 @@
         "arcade",
         "maker"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "tsprj",
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }

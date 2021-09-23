@@ -217,11 +217,11 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
                 music.playTone(whichNote, music.beat())
             })
         }
-    }
-    if (serviceClass === jacdac.SRV_ACCELEROMETER) {
-        if (pkt.eventCode === jacdac.AccelerometerEvent.Shake) {
-            basic.showIcon(IconNames.Happy, 0)
-        }
+    } else if (serviceClass === jacdac.SRV_ACCELEROMETER) {
+        basic.showIcon(
+            IconNames.Heart + pkt.eventCode - jacdac.AccelerometerEvent.TiltUp,
+            0
+        )
     }
 }
 
@@ -235,24 +235,15 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
             sensorMap[lookup] = position
             led.plotBarGraph(position % 20, 19)
         }
-    } else if (serviceClass === jacdac.SRV_LIGHT_LEVEL) {
-        const position = Math.round(pkt.jdunpack<number[]>("u0.16")[0] * 15)
-        if (position !== sensorMap[lookup]) {
-            sensorMap[lookup] = position
-            led.plotBarGraph(position, 15)
-        }
-    } else if (serviceClass === jacdac.SRV_POTENTIOMETER) {
+    } else if (
+        serviceClass === jacdac.SRV_POTENTIOMETER ||
+        serviceClass === jacdac.SRV_LIGHT_LEVEL ||
+        serviceClass === jacdac.SRV_FLEX
+    ) {
         const position = Math.round(pkt.jdunpack<number[]>("u0.16")[0] * 100)
         if (position !== sensorMap[lookup]) {
             sensorMap[lookup] = position
             led.plotBarGraph(position, 100)
-            control.inBackground(() => {
-                music.stopAllSounds()
-                music.playTone(
-                    Note.C4 + pins.map(position, 0, 100, Note.C4, Note.C5),
-                    40
-                )
-            })
         }
     } else if (serviceClass === jacdac.SRV_THERMOMETER) {
         const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
