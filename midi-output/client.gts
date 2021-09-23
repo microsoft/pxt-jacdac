@@ -68,6 +68,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="midi output 1"
+    //% fixedInstance whenUsed block="midi output1"
     export const midiOutput1 = new MidiOutputClient("midi Output1");
 }

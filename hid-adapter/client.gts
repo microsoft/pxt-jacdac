@@ -128,6 +128,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="hid adapter 1"
+    //% fixedInstance whenUsed block="hid adapter1"
     export const hidAdapter1 = new HidAdapterClient("hid Adapter1");
 }

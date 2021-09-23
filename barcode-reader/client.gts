@@ -69,6 +69,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="barcode reader 1"
+    //% fixedInstance whenUsed block="barcode reader1"
     export const barcodeReader1 = new BarcodeReaderClient("barcode Reader1");
 }

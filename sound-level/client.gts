@@ -213,6 +213,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="sound level 1"
+    //% fixedInstance whenUsed block="sound level1"
     export const soundLevel1 = new SoundLevelClient("sound Level1");
 }

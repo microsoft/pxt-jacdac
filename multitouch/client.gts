@@ -90,6 +90,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="multitouch 1"
+    //% fixedInstance whenUsed block="multitouch1"
     export const multitouch1 = new MultitouchClient("multitouch1");
 }

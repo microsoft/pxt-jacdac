@@ -102,6 +102,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="button 1"
+    //% fixedInstance whenUsed block="button1"
     export const button1 = new ButtonClient("button1");
 }

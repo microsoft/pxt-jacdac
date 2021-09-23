@@ -109,6 +109,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="motor 1"
+    //% fixedInstance whenUsed block="motor1"
     export const motor1 = new MotorClient("motor1");
 }

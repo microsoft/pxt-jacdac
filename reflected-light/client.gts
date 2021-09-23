@@ -75,6 +75,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="reflected light 1"
+    //% fixedInstance whenUsed block="reflected light1"
     export const reflectedLight1 = new ReflectedLightClient("reflected Light1");
 }

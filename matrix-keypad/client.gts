@@ -127,6 +127,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="matrix keypad 1"
+    //% fixedInstance whenUsed block="matrix keypad1"
     export const matrixKeypad1 = new MatrixKeypadClient("matrix Keypad1");
 }
