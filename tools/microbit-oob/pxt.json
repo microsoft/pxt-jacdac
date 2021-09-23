@@ -16,6 +16,7 @@
         "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer",
         "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
         "jacdac-flex": "github:microsoft/pxt-jacdac/flex",
+        "jacdac-joystick": "github:microsoft/pxt-jacdac/joystick",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
     "files": [
