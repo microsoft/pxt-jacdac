@@ -6,16 +6,11 @@
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "testFiles": [
-        "test.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker"
-    ],
-    "preferredEditor": "tsprj"
+    "files": ["constants.ts", "client.ts"],
+    "testFiles": ["test.ts"],
+    "supportedTargets": ["arcade", "maker"],
+    "preferredEditor": "tsprj",
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }
