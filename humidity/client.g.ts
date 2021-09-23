@@ -83,6 +83,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="humidity 1"
+    //% fixedInstance whenUsed block="humidity1"
     export const humidity1 = new HumidityClient("humidity1");
 }

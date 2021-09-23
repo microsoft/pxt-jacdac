@@ -77,6 +77,6 @@ namespace modules {
         }
     }
 
-    //% fixedInstance whenUsed block="accelerometer 1"
-    export const accelerometer = new AccelerometerClient("accelerometer")
+    //% fixedInstance whenUsed block="accelerometer1"
+    export const accelerometer = new AccelerometerClient("accelerometer1")
 }
