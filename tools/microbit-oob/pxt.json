@@ -15,6 +15,7 @@
         "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer",
         "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer",
         "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
+        "jacdac-flex": "github:microsoft/pxt-jacdac/flex",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
     "files": [
