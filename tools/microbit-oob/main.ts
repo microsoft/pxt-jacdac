@@ -233,7 +233,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
         const position = pkt.jdunpack<number[]>("u32")[0]
         if (position !== sensorMap[lookup]) {
             sensorMap[lookup] = position
-            led.plotBarGraph(position % 13, 12)
+            led.plotBarGraph(position % 20, 19)
         }
     } else if (serviceClass === jacdac.SRV_LIGHT_LEVEL) {
         const position = Math.round(pkt.jdunpack<number[]>("u0.16")[0] * 15)
