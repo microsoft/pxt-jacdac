@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-mouse-server",
-    "version": "0.6.35",
+    "version": "0.6.36",
     "description": "MakeCode support for Jacdac mouse hid server",
     "dependencies": {
         "core": "*",
@@ -9,9 +9,16 @@
         "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
         "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse"
     },
-    "testFiles": ["test.ts"],
-    "files": ["server.ts"],
-    "supportedTargets": ["arcade", "maker"],
+    "testFiles": [
+        "test.ts"
+    ],
+    "files": [
+        "server.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "maker"
+    ],
     "preferredEditor": "tsprj",
     "testDependencies": {
         "nucleo-f411re": "*"
