@@ -1,6 +1,8 @@
 music.setVolume(100)
 music.setTempo(180)
 
+const SRV_INFRASTRUCTURE = 0x1e1589eb
+
 let lastDeviceCount = 0
 let playDeviceCountScheduled = false
 function schedulePlayDeviceCount() {
@@ -12,7 +14,7 @@ function schedulePlayDeviceCount() {
         playDeviceCountScheduled = false
         // query current device count
         const devCount = jacdac.bus.devices.filter(
-            d => d !== jacdac.bus.selfDevice
+            d => d !== jacdac.bus.selfDevice && !d.hasService(SRV_INFRASTRUCTURE)
         ).length
         // nothing to do
         const change = devCount - lastDeviceCount

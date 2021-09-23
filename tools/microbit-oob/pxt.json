@@ -6,30 +6,25 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "jacdac": "github:microsoft/pxt-jacdac#v0.6.36",
-        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer#v0.6.36",
-        "jacdac-servo": "github:microsoft/pxt-jacdac/servo#v0.6.36",
-        "jacdac-button": "github:microsoft/pxt-jacdac/button#v0.6.36",
-        "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder#v0.6.36",
-        "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel#v0.6.36",
-        "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer#v0.6.36",
-        "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer#v0.6.36",
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer",
+        "jacdac-servo": "github:microsoft/pxt-jacdac/servo",
+        "jacdac-button": "github:microsoft/pxt-jacdac/button",
+        "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
+        "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
+        "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer",
+        "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer",
         "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
-        "jacdac-flex": "github:microsoft/pxt-jacdac/flex#v0.6.36",
-        "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0",
-        "jacdac-joystick": "github:microsoft/pxt-jacdac/joystick#v0.6.36"
+        "jacdac-flex": "github:microsoft/pxt-jacdac/flex",
+        "jacdac-joystick": "github:microsoft/pxt-jacdac/joystick",
+        "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
-    "files": [
-        "main.ts",
-        "README.md"
-    ],
+    "files": ["main.ts", "README.md"],
     "targetVersions": {
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": [
-        "microbit"
-    ],
+    "supportedTargets": ["microbit"],
     "preferredEditor": "tsprj",
     "disableTargetTemplateFiles": true,
     "binaryonly": true
