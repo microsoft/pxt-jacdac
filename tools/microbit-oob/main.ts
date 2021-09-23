@@ -98,7 +98,6 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
     } else if (serviceClass === jacdac.SRV_LED_PIXEL) {
         const client = new modules.LedPixelClient(dev.deviceId)
         client.setBrightness(10)
-        client.configure(8, jacdac.LedPixelLightType.WS2812B_GRB)
         client._attach(dev, jacdac.SRV_LED_PIXEL)
         ledPixelClients.push(client)
     }
