@@ -219,10 +219,11 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
             })
         }
     }
-    if (serviceClass === jacdac.SRV_ACCELEROMETER) {
-        if (pkt.eventCode === jacdac.AccelerometerEvent.Shake) {
-            basic.showIcon(IconNames.Happy, 0)
-        }
+    else if (serviceClass === jacdac.SRV_ACCELEROMETER) {
+        basic.showIcon(
+            IconNames.Heart + pkt.eventCode - jacdac.AccelerometerEvent.TiltUp,
+            0
+        )
     }
 }
 
