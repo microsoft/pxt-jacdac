@@ -223,7 +223,7 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
             IconNames.Heart + pkt.eventCode - jacdac.AccelerometerEvent.TiltUp,
             0
         )
-    } else if (serviceClass === jacdac.SRV_JOYSTICK &&
+    } /* else if (serviceClass === jacdac.SRV_JOYSTICK &&
         pkt.eventCode === jacdac.JoystickEvent.ButtonsChanged) {
         const which = pkt.jdunpack<jacdac.JoystickButtons[]>("u32")[0]
         switch(which) {
@@ -232,7 +232,7 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
             case jacdac.JoystickButtons.Up: basic.showArrow(ArrowNames.North, 0); break
             case jacdac.JoystickButtons.Down:  basic.showArrow(ArrowNames.South, 0); break
         }
-    }
+    } */
 }
 
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
@@ -265,7 +265,34 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
                 else whaleysans.showNumber(temp)
             })
         }
+    } else if (serviceClass === jacdac.SRV_JOYSTICK) {
+        const [buttons, x, y] = pkt.jdunpack<number[]>("i32 i1.15 i1.15")
+        plot(x * 100, y * 100)
     }
+}
+
+function plot(x: number, y: number) {
+        basic.clearScreen();
+        let dispX = 2;
+        let dispY = 2;
+        console.log(`${x} ${y}`);
+        if (x < -30)
+            dispX--;
+        if (x < -60)
+            dispX--;
+        if (x > 30)
+            dispX++;
+        if (x > 60)
+            dispX++;
+        if (y < -30)
+            dispY--;
+        if (y < -60)
+            dispY--;
+        if (y > 30)
+            dispY++;
+        if (y > 60)
+            dispY++;
+        led.plot(dispX, dispY);
 }
 
 // whenever a device leaves the bus, forget about its services
