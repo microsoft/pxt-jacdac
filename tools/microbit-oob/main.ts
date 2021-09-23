@@ -233,7 +233,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
         const position = pkt.jdunpack<number[]>("u32")[0]
         if (position !== sensorMap[lookup]) {
             sensorMap[lookup] = position
-            led.plotBarGraph(position % 12, 12)
+            led.plotBarGraph(position % 13, 12)
         }
     } else if (serviceClass === jacdac.SRV_POTENTIOMETER) {
         const position = Math.round(pkt.jdunpack<number[]>("u0.16")[0] * 100)
@@ -327,6 +327,7 @@ function animateLEDs(client: modules.LedPixelClient, b: Button) {
     }
 }
 
-jacdac.start({ disableRoleManager: true })
+// leave role manager on so that modules don't blink
+jacdac.start({ disableRoleManager: false })
 
 basic.showIcon(IconNames.Happy)

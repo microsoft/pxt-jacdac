@@ -1,5 +1,103 @@
 namespace jacdac {
     export enum HidKeyboardKey {
+        //% block="None"
+        None = 0,
+        //% block="a"
+        A = 4,
+        //% block="b"
+        B = 5,
+        //% block="c"
+        C = 6,
+        //% block="d"
+        D = 7,
+        //% block="e"
+        E = 8,
+        //% block="f"
+        F = 9,
+        //% block="g"
+        G = 10,
+        //% block="h"
+        H = 11,
+        //% block="i"
+        I = 12,
+        //% block="j"
+        J = 13,
+        //% block="k"
+        K = 14,
+        //% block="l"
+        L = 15,
+        //% block="m"
+        M = 16,
+        //% block="n"
+        N = 17,
+        //% block="o"
+        O = 18,
+        //% block="p"
+        P = 19,
+        //% block="q"
+        Q = 20,
+        //% block="r"
+        R = 21,
+        //% block="s"
+        S = 22,
+        //% block="t"
+        T = 23,
+        //% block="u"
+        U = 24,
+        //% block="v"
+        V = 25,
+        //% block="w"
+        W = 26,
+        //% block="x"
+        X = 27,
+        //% block="y"
+        Y = 28,
+        //% block="z"
+        Z = 29,
+        //% block="1"
+        One = 30,
+        //% block="2"
+        Two = 31,
+        //% block="3"
+        Three = 32,
+        //% block="4"
+        Four = 33,
+        //% block="5"
+        Five = 34,
+        //% block="6"
+        Six = 35,
+        //% block="7"
+        Seven = 36,
+        //% block="8"
+        Eight = 37,
+        //% block="9"
+        Nine = 38,
+        //% block="0"
+        Zero = 39,
+        //% block="a"
+        Space = 44,
+        //% block="a"
+        Minus = 45,
+        //% block="a"
+        Equal = 46,
+        //% block="a"
+        LeftBrace = 47,
+        //% block="a"
+        RightBrace = 48,
+        //% block="a"
+        KEY_BACKSLASH = 49,
+        //% block="a"
+        Semicolon = 51,
+        //% block="a"
+        Quote = 52,
+        //% block="a"
+        Tilde = 53,
+        //% block="a"
+        Comma = 54,
+        //% block="a"
+        Period = 55,
+        //% block="a"
+        Slash = 56,
         //% block="F1"
         F1Key = DAL.KEY_F1,
         //% block="F2"
@@ -187,16 +285,21 @@ namespace modules {
          */
         //% group="HID Keyboard"
         //% blockId=jacdac_hidkeyboard_key_cmd
-        //% block="%hidkeyboard key $modifiers $selector $action"
+        //% block="%hidkeyboard key $action $modifiers $selector|$selector2|$selector3"
         //% weight=100
         key(
+            action: jacdac.HidKeyboardAction,
             modifiers: jacdac.HidKeyboardModifiers,
             selector: jacdac.HidKeyboardKey,
-            action: jacdac.HidKeyboardAction
+            selector2: jacdac.HidKeyboardKey,
+            selector3: jacdac.HidKeyboardKey
         ): void {
             this.start()
-            const entry: number[] = [selector, modifiers, action]
-            const data = [[entry]]
+            const entries: number[][] = []
+            entries.push([selector, modifiers, action])
+            if (selector2) entries.push([selector2, modifiers, action])
+            if (selector3) entries.push([selector3, modifiers, action])
+            const data = [entries]
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidKeyboardCmd.Key,
