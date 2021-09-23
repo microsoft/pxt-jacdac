@@ -232,6 +232,12 @@ namespace jacdac._rolemgr {
             return buf.hash(32)
         }
 
+        resetToProxy() {
+            this.log(`reset into proxy mode`)
+            settings.writeNumber(JACDAC_PROXY_SETTING, 1)
+            control.reset()
+        }
+
         checkProxy() {
             if (!this.running) return
             const now = control.micros()
@@ -256,9 +262,7 @@ namespace jacdac._rolemgr {
                         }s`
                     )
                     if (now > uptime) {
-                        this.log(`reset into proxy mode`)
-                        settings.writeNumber(JACDAC_PROXY_SETTING, 1)
-                        control.reset()
+                        this.resetToProxy()
                     }
                 }
             }

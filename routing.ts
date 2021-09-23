@@ -1281,6 +1281,9 @@ namespace jacdac {
                         this.log("flood")
                         this.handleFloodPing(pkt)
                         break
+                    case ControlCmd.Proxy:
+                        jacdac.roleManagerServer.resetToProxy()
+                        break
                 }
             }
         }
