@@ -291,8 +291,8 @@ namespace modules {
             action: jacdac.HidKeyboardAction,
             modifiers: jacdac.HidKeyboardModifiers,
             selector: jacdac.HidKeyboardKey,
-            selector2: jacdac.HidKeyboardKey,
-            selector3: jacdac.HidKeyboardKey
+            selector2?: jacdac.HidKeyboardKey,
+            selector3?: jacdac.HidKeyboardKey
         ): void {
             this.start()
             const entries: number[][] = []
