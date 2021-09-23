@@ -300,7 +300,7 @@ function plot(x: number, y: number) {
         basic.clearScreen();
         let dispX = 2;
         let dispY = 2;
-        console.log(`${x} ${y}`);
+        //console.log(`${x} ${y}`);
         if (x < -30)
             dispX--;
         if (x < -60)
