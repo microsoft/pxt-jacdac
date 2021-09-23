@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-mouse-server",
-    "version": "0.6.34",
+    "version": "0.6.35",
     "description": "MakeCode support for Jacdac mouse hid server",
     "dependencies": {
         "core": "*",
