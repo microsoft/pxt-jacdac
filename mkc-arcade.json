@@ -24,6 +24,7 @@
         "jacdac-ledpixel": "./led-pixel",
         "jacdac-led": "./led",
         "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
-        "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server"
+        "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server",
+        "jacdac-light-level": "./light-level"
     }
 }

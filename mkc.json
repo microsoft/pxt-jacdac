@@ -23,6 +23,7 @@
         "jacdac-ledpixel": "./led-pixel",
         "jacdac-led": "./led",
         "jacdac-potentiometer": "./potentiometer",
-        "jacdac-thermometer": "./thermometer"
+        "jacdac-thermometer": "./thermometer",
+        "jacdac-light-level": "./light-level"
     }
 }

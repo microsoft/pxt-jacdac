@@ -14,6 +14,7 @@
         "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
         "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer",
         "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer",
+        "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
     "files": [
