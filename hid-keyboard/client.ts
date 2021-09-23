@@ -169,7 +169,7 @@ namespace jacdac {
         KeypadPlus = DAL.KEY_KPPLUS,
         //% block="keypad enter"
         KeypadEnter = DAL.KEY_KPENTER,
-        //% block="keypad 1"
+        //% block="keypad1"
         Keypad1 = DAL.KEY_KP1,
         //% block="keypad 2"
         Keypad2 = DAL.KEY_KP2,

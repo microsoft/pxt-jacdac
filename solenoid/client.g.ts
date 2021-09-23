@@ -58,6 +58,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="solenoid 1"
+    //% fixedInstance whenUsed block="solenoid1"
     export const solenoid1 = new SolenoidClient("solenoid1");
 }

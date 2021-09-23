@@ -55,6 +55,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="flex 1"
+    //% fixedInstance whenUsed block="flex1"
     export const flex1 = new FlexClient("flex1");
 }
