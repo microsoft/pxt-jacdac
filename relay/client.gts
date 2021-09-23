@@ -92,6 +92,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="relay 1"
+    //% fixedInstance whenUsed block="relay1"
     export const relay1 = new RelayClient("relay1");
 }

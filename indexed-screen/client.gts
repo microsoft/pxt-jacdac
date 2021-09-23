@@ -341,6 +341,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="indexed screen 1"
+    //% fixedInstance whenUsed block="indexed screen1"
     export const indexedScreen1 = new IndexedScreenClient("indexed Screen1");
 }

@@ -1,0 +1,24 @@
+{
+    "name": "jacdac-infrastructure",
+    "version": "0.0.0",
+    "description": "A service that tags a device as purely infrastructure device.\n\n\nA Jacdac user interface can ignore any device that hosts this service.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
+}

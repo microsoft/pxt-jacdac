@@ -55,6 +55,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="barometer 1"
+    //% fixedInstance whenUsed block="barometer1"
     export const barometer1 = new BarometerClient("barometer1");
 }

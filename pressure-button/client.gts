@@ -43,6 +43,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="pressure button 1"
+    //% fixedInstance whenUsed block="pressure button1"
     export const pressureButton1 = new PressureButtonClient("pressure Button1");
 }

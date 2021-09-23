@@ -90,6 +90,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="azure iot hub health 1"
+    //% fixedInstance whenUsed block="azure iot hub health1"
     export const azureIotHubHealth1 = new AzureIotHubHealthClient("azure Iot Hub Health1");
 }

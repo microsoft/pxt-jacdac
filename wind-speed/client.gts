@@ -68,6 +68,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="wind speed 1"
+    //% fixedInstance whenUsed block="wind speed1"
     export const windSpeed1 = new WindSpeedClient("wind Speed1");
 }

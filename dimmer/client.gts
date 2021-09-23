@@ -61,6 +61,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="dimmer 1"
+    //% fixedInstance whenUsed block="dimmer1"
     export const dimmer1 = new DimmerClient("dimmer1");
 }

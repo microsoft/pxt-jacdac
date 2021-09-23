@@ -92,6 +92,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="traffic light 1"
+    //% fixedInstance whenUsed block="traffic light1"
     export const trafficLight1 = new TrafficLightClient("traffic Light1");
 }

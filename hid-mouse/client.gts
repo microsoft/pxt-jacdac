@@ -54,6 +54,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="hid mouse 1"
+    //% fixedInstance whenUsed block="hid mouse1"
     export const hidMouse1 = new HidMouseClient("hid Mouse1");
 }

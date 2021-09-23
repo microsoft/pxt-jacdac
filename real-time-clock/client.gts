@@ -187,6 +187,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="real time clock 1"
+    //% fixedInstance whenUsed block="real time clock1"
     export const realTimeClock1 = new RealTimeClockClient("real Time Clock1");
 }

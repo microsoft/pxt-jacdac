@@ -72,6 +72,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="wifi 1"
+    //% fixedInstance whenUsed block="wifi1"
     export const wifi1 = new WifiClient("wifi1");
 }

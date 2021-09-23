@@ -327,6 +327,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="sensor aggregator 1"
+    //% fixedInstance whenUsed block="sensor aggregator1"
     export const sensorAggregator1 = new SensorAggregatorClient("sensor Aggregator1");
 }

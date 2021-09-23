@@ -56,6 +56,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="dmx 1"
+    //% fixedInstance whenUsed block="dmx1"
     export const dmx1 = new DmxClient("dmx1");
 }

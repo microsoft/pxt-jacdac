@@ -88,6 +88,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="arcade sound 1"
+    //% fixedInstance whenUsed block="arcade sound1"
     export const arcadeSound1 = new ArcadeSoundClient("arcade Sound1");
 }
