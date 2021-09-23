@@ -14,7 +14,8 @@ function schedulePlayDeviceCount() {
         playDeviceCountScheduled = false
         // query current device count
         const devCount = jacdac.bus.devices.filter(
-            d => d !== jacdac.bus.selfDevice && !d.hasService(SRV_INFRASTRUCTURE)
+            d =>
+                d !== jacdac.bus.selfDevice && !d.hasService(SRV_INFRASTRUCTURE)
         ).length
         // nothing to do
         const change = devCount - lastDeviceCount
@@ -62,7 +63,7 @@ const knownSensors = [
     jacdac.SRV_ACCELEROMETER,
     jacdac.SRV_THERMOMETER,
     jacdac.SRV_LIGHT_LEVEL,
-    jacdac.SRV_JOYSTICK
+    jacdac.SRV_JOYSTICK,
 ]
 
 let serviceKeys: number[] = []
@@ -121,15 +122,17 @@ function configureSensor(
 }
 
 // refil streaming samples register on each self-announce
+let samplesCount = 0
 jacdac.bus.subscribe(jacdac.SELF_ANNOUNCE, () => {
-    knownSensors.forEach(sc => {
-        const pkt = jacdac.JDPacket.jdpacked(
-            jacdac.CMD_SET_REG | jacdac.SystemReg.StreamingSamples,
-            "u8",
-            [0xff]
-        )
-        pkt.sendAsMultiCommand(sc)
-    })
+    if (!(samplesCount++ % 3))
+        knownSensors.forEach(sc => {
+            const pkt = jacdac.JDPacket.jdpacked(
+                jacdac.CMD_SET_REG | jacdac.SystemReg.StreamingSamples,
+                "u8",
+                [0xff]
+            )
+            pkt.sendAsMultiCommand(sc)
+        })
 })
 
 // anytime we get a packet from some device, do something
@@ -200,6 +203,26 @@ function getIndexFromButton(pkt: jacdac.JDPacket) {
     return iconMap[pkt.deviceIdentifier]
 }
 
+let nextTone: number
+function tonePlayer() {
+    control.inBackground(() => {
+        while (true) {
+            if (nextTone) {
+                const t = nextTone
+                nextTone = 0
+                music.playTone(t, music.beat(BeatFraction.Half))
+            }
+            basic.pause(5)
+        }
+    })
+}
+tonePlayer()
+
+function scheduleTone(f: number) {
+    nextTone = f
+    music.stopAllSounds()
+}
+
 function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
     if (serviceClass === jacdac.SRV_BUTTON) {
         const index = getIndexFromButton(pkt)
@@ -207,33 +230,35 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
         led.stopAnimation()
         if (pkt.eventCode === jacdac.ButtonEvent.Down) {
             basic.showIcon(buttonPressIcons[index], 0)
-            // play sound async, interupt any other sound
-            control.inBackground(() => {
-                music.stopAllSounds()
-                music.playTone(whichNote, music.beat())
-            })
+            scheduleTone(whichNote)
         } else if (pkt.eventCode === jacdac.ButtonEvent.Up) {
             basic.clearScreen()
         } else if (pkt.eventCode === jacdac.ButtonEvent.Hold) {
-            basic.showIcon(buttonHoldIcons[index], 0)
-            control.inBackground(() => {
-                music.stopAllSounds()
-                music.playTone(whichNote, music.beat())
-            })
+            game.addScore(1)
         }
     } else if (serviceClass === jacdac.SRV_ACCELEROMETER) {
         basic.showIcon(
             IconNames.Heart + pkt.eventCode - jacdac.AccelerometerEvent.TiltUp,
             0
         )
-    } else if (serviceClass === jacdac.SRV_JOYSTICK &&
-        pkt.eventCode === jacdac.JoystickEvent.ButtonsChanged) {
+    } else if (
+        serviceClass === jacdac.SRV_JOYSTICK &&
+        pkt.eventCode === jacdac.JoystickEvent.ButtonsChanged
+    ) {
         const which = pkt.jdunpack<jacdac.JoystickButtons[]>("u32")[0]
-        switch(which) {
-            case jacdac.JoystickButtons.Left: basic.showArrow(ArrowNames.West, 0); break
-            case jacdac.JoystickButtons.Right:  basic.showArrow(ArrowNames.East, 0); break
-            case jacdac.JoystickButtons.Up: basic.showArrow(ArrowNames.North, 0); break
-            case jacdac.JoystickButtons.Down:  basic.showArrow(ArrowNames.South, 0); break
+        switch (which) {
+            case jacdac.JoystickButtons.Left:
+                basic.showArrow(ArrowNames.West, 0)
+                break
+            case jacdac.JoystickButtons.Right:
+                basic.showArrow(ArrowNames.East, 0)
+                break
+            case jacdac.JoystickButtons.Up:
+                basic.showArrow(ArrowNames.North, 0)
+                break
+            case jacdac.JoystickButtons.Down:
+                basic.showArrow(ArrowNames.South, 0)
+                break
         }
     }
 }
