@@ -1,6 +1,6 @@
 {
     "name": "jacdac-microbit-oob",
-    "version": "0.6.36",
+    "version": "0.6.37",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -19,12 +19,17 @@
         "jacdac-joystick": "github:microsoft/pxt-jacdac/joystick",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
-    "files": ["main.ts", "README.md"],
+    "files": [
+        "main.ts",
+        "README.md"
+    ],
     "targetVersions": {
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": ["microbit"],
+    "supportedTargets": [
+        "microbit"
+    ],
     "preferredEditor": "tsprj",
     "disableTargetTemplateFiles": true,
     "binaryonly": true
