@@ -129,6 +129,7 @@ static void setup_exti() {
     sws->p.eventOn(DEVICE_PIN_INTERRUPT_ON_EDGE);
 }
 
+REAL_TIME_FUNC
 static void line_falling(int lineV) {
     pin_log(1);
     if (lineV)
@@ -143,6 +144,7 @@ static void line_falling(int lineV) {
     jd_line_falling();
 }
 
+REAL_TIME_FUNC
 static void sws_done(uint16_t errCode) {
     pin_pulse();
     pin_pulse();
@@ -190,7 +192,7 @@ static void sws_done(uint16_t errCode) {
     pin_pulse();
 }
 
-void uart_init() {
+void uart_init_() {
 #ifdef MICROBIT_CODAL
     sws = new ZSingleWireSerial(uBit.io.P12);
 #else
@@ -204,6 +206,7 @@ void uart_init() {
     pin_log(0);
 }
 
+REAL_TIME_FUNC
 int uart_start_tx(const void *data, uint32_t numbytes) {
     if (status & STATUS_IN_TX)
         jd_panic();
@@ -228,7 +231,7 @@ int uart_start_tx(const void *data, uint32_t numbytes) {
         return -1;
     }
 
-    target_wait_us(9);
+    target_wait_us(11);
     status |= STATUS_IN_TX;
     sws->p.setDigitalValue(1);
 
@@ -245,6 +248,7 @@ void uart_flush_rx(void) {
     // nothing to do
 }
 
+REAL_TIME_FUNC
 void uart_start_rx(void *data, uint32_t maxbytes) {
     // LOG("start rx @%d", (int)tim_get_micros());
     if (status & STATUS_IN_RX)
@@ -262,6 +266,7 @@ void uart_disable() {
     pin_pulse();
 }
 
+REAL_TIME_FUNC
 int uart_wait_high() {
     int timeout = 1000; // should be around 100-1000us
     while (timeout-- > 0 && sws->p.getDigitalValue() == 0)

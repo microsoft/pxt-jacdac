@@ -22,3 +22,7 @@
 #ifndef JD_TIM_OVERHEAD
 #define JD_TIM_OVERHEAD 12
 #endif
+
+#ifndef REAL_TIME_FUNC
+#define REAL_TIME_FUNC /* */
+#endif
