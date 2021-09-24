@@ -66,7 +66,7 @@ void jd_init(void) {
     DMESG("JD: init");
     tim_init();
     set_tick_timer(0);
-    uart_init();
+    uart_init_();
     check_announce();
 }
 
@@ -83,6 +83,7 @@ static void tx_done(void) {
     set_tick_timer(JD_STATUS_TX_ACTIVE);
 }
 
+REAL_TIME_FUNC
 void jd_tx_completed(int errCode) {
     LOG("tx done: %d", errCode);
     app_frame_sent(txFrame);
@@ -179,6 +180,7 @@ static void setup_rx_timeout(void) {
     target_enable_irq();
 }
 
+REAL_TIME_FUNC
 void jd_line_falling() {
     LOG("line fall");
     // log_pin_set(1, 1);
