@@ -842,11 +842,12 @@ namespace jacdac {
             // refresh registers
             this.config.resend()
             // if the device has any status light (StatusLightRgbFade is 0b..11.. mask)
-            if (this.device) {
-                const flags = this.device.announceflags
-                if (flags & ControlAnnounceFlags.StatusLightRgbFade)
-                    control.runInParallel(() => this.connectedBlink())
-            }
+            // TODO: reenable this
+            //if (this.device) {
+            //    const flags = this.device.announceflags
+            //    if (flags & ControlAnnounceFlags.StatusLightRgbFade)
+            //        control.runInParallel(() => this.connectedBlink())
+            //}
             this.emit(CONNECT)
         }
 
