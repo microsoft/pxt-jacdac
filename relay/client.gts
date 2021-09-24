@@ -19,7 +19,7 @@ namespace modules {
     
 
         /**
-        * Indicates whether the relay circuit is currently on (closed) or off (closed).
+        * Indicates whether the relay circuit is currently energized (closed) or not.
         */
         //% callInDebugger
         //% group="Relay"
@@ -33,7 +33,7 @@ namespace modules {
         }
 
         /**
-        * Indicates whether the relay circuit is currently on (closed) or off (closed).
+        * Indicates whether the relay circuit is currently energized (closed) or not.
         */
         //% group="Relay"
         //% blockId=jacdac_relay_closed___set
@@ -71,24 +71,26 @@ namespace modules {
         }
 
         /**
-         * Emitted when relay goes from ``off`` to ``on`` state.
+         * Emitted when relay goes from `inactive` to `active` state.
+        * Normally open (NO) relays close the circuit when activated.
          */
         //% group="Relay"
-        //% blockId=jacdac_on_relay_on
-        //% block="on %relay on"
+        //% blockId=jacdac_on_relay_active
+        //% block="on %relay active"
         //% weight=96
-        onOn(handler: () => void): void {
-            this.registerEvent(jacdac.RelayEvent.On, handler);
+        onActive(handler: () => void): void {
+            this.registerEvent(jacdac.RelayEvent.Active, handler);
         }
         /**
-         * Emitted when relay goes from ``on`` to ``off`` state.
+         * Emitted when relay goes from `active` to `inactive` state.
+        * Normally closed (NC) relays open the circuit when activated.
          */
         //% group="Relay"
-        //% blockId=jacdac_on_relay_off
-        //% block="on %relay off"
+        //% blockId=jacdac_on_relay_inactive
+        //% block="on %relay inactive"
         //% weight=95
-        onOff(handler: () => void): void {
-            this.registerEvent(jacdac.RelayEvent.Off, handler);
+        onInactive(handler: () => void): void {
+            this.registerEvent(jacdac.RelayEvent.Inactive, handler);
         }
     
     }
