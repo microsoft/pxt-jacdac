@@ -1445,6 +1445,45 @@ namespace jacdac {
      */
     export function startServer() {
         start({ disableLogger: true, disableRoleManager: true, noWait: true })
+
+        const greenPin =
+            control.getConfigValue(DAL.CFG_PIN_LED_G, -1) == -1
+                ? DAL.CFG_PIN_LED
+                : DAL.CFG_PIN_LED_G
+        const redPin =
+            control.getConfigValue(DAL.CFG_PIN_LED_R, -1) == -1
+                ? DAL.CFG_PIN_LED
+                : DAL.CFG_PIN_LED_R
+
+        let lastClient = control.millis()
+        bus.on(PACKET_PROCESS, (pkt: JDPacket) => {
+            if (pkt.serviceCommand == ControlCmd.Services && pkt.isReport) {
+                if (
+                    pkt.data.getNumber(NumberFormat.UInt16LE, 0) &
+                    ControlAnnounceFlags.IsClient
+                ) {
+                    lastClient = control.millis()
+                    setPinByCfg(greenPin, true)
+                    control.waitMicros(50)
+                    setPinByCfg(greenPin, false)
+                }
+            }
+        })
+
+        let disconnectCnt = 0
+        let diconnected = false
+        bus.on(SELF_ANNOUNCE, () => {
+            disconnectCnt++
+            if (control.millis() - lastClient > 1500) {
+                setPinByCfg(redPin, (disconnectCnt & 2) != 0)
+                diconnected = true
+            } else {
+                if (diconnected) {
+                    setPinByCfg(redPin, false)
+                    diconnected = false
+                }
+            }
+        })
     }
 
     // make sure physical is started deterministically
