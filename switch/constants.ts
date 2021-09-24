@@ -3,13 +3,21 @@ namespace jacdac {
     export const SRV_SWITCH = 0x1ad29402
 
     export const enum SwitchVariant { // uint8_t
+        //% block="slide"
         Slide = 0x1,
+        //% block="tilt"
         Tilt = 0x2,
+        //% block="push button"
         PushButton = 0x3,
+        //% block="tactile"
         Tactile = 0x4,
+        //% block="toggle"
         Toggle = 0x5,
+        //% block="proximity"
         Proximity = 0x6,
+        //% block="magnetic"
         Magnetic = 0x7,
+        //% block="foot pedal"
         FootPedal = 0x8,
     }
 

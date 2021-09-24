@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_RNG = 0x1789f0a2
 
     export const enum RngVariant { // uint8_t
+        //% block="quantum"
         Quantum = 0x1,
+        //% block="adcnoise"
         ADCNoise = 0x2,
+        //% block="web crypto"
         WebCrypto = 0x3,
     }
 

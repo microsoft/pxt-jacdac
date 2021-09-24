@@ -3,7 +3,9 @@ namespace jacdac {
     export const SRV_UV_INDEX = 0x1f6e0d90
 
     export const enum UvIndexVariant { // uint8_t
+        //% block="uva uvb"
         UVA_UVB = 0x1,
+        //% block="visible ir"
         Visible_IR = 0x2,
     }
 

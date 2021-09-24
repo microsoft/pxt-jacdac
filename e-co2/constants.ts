@@ -3,7 +3,9 @@ namespace jacdac {
     export const SRV_E_CO2 = 0x169c9dc6
 
     export const enum ECO2Variant { // uint8_t
+        //% block="voc"
         VOC = 0x1,
+        //% block="ndir"
         NDIR = 0x2,
     }
 

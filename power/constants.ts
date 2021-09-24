@@ -3,9 +3,13 @@ namespace jacdac {
     export const SRV_POWER = 0x1fa4c95a
 
     export const enum PowerPowerStatus { // uint8_t
+        //% block="disallowed"
         Disallowed = 0x0,
+        //% block="powering"
         Powering = 0x1,
+        //% block="overload"
         Overload = 0x2,
+        //% block="overprovision"
         Overprovision = 0x3,
     }
 

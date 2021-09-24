@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_WATER_LEVEL = 0x147b62ed
 
     export const enum WaterLevelVariant { // uint8_t
+        //% block="resistive"
         Resistive = 0x1,
+        //% block="contact photo electric"
         ContactPhotoElectric = 0x2,
+        //% block="non contact photo electric"
         NonContactPhotoElectric = 0x3,
     }
 

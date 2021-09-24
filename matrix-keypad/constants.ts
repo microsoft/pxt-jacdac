@@ -3,9 +3,13 @@ namespace jacdac {
     export const SRV_MATRIX_KEYPAD = 0x13062dc8
 
     export const enum MatrixKeypadVariant { // uint8_t
+        //% block="membrane"
         Membrane = 0x1,
+        //% block="keyboard"
         Keyboard = 0x2,
+        //% block="elastomer"
         Elastomer = 0x3,
+        //% block="elastomer ledpixel"
         ElastomerLEDPixel = 0x4,
     }
 

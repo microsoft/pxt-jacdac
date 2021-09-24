@@ -3,7 +3,9 @@ namespace jacdac {
     export const SRV_DOT_MATRIX = 0x110d154b
 
     export const enum DotMatrixVariant { // uint8_t
+        //% block="led"
         LED = 0x1,
+        //% block="braille"
         Braille = 0x2,
     }
 

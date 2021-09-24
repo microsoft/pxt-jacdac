@@ -3,9 +3,13 @@ namespace jacdac {
     export const SRV_DISTANCE = 0x141a6b8a
 
     export const enum DistanceVariant { // uint8_t
+        //% block="ultrasonic"
         Ultrasonic = 0x1,
+        //% block="infrared"
         Infrared = 0x2,
+        //% block="li dar"
         LiDAR = 0x3,
+        //% block="laser"
         Laser = 0x4,
     }
 

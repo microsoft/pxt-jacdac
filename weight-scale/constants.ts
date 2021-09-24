@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_WEIGHT_SCALE = 0x1f4d5040
 
     export const enum WeightScaleVariant { // uint8_t
+        //% block="body"
         Body = 0x1,
+        //% block="food"
         Food = 0x2,
+        //% block="jewelry"
         Jewelry = 0x3,
     }
 

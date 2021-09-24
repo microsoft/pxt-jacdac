@@ -3,15 +3,21 @@ namespace jacdac {
     export const SRV_VERIFIED_TELEMETRY = 0x2194841f
 
     export const enum VerifiedTelemetryStatus { // uint8_t
+        //% block="unknown"
         Unknown = 0x0,
+        //% block="working"
         Working = 0x1,
+        //% block="faulty"
         Faulty = 0x2,
     }
 
 
     export const enum VerifiedTelemetryFingerprintType { // uint8_t
+        //% block="fall curve"
         FallCurve = 0x1,
+        //% block="current sense"
         CurrentSense = 0x2,
+        //% block="custom"
         Custom = 0x3,
     }
 

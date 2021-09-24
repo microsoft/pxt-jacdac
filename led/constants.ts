@@ -3,9 +3,13 @@ namespace jacdac {
     export const SRV_LED = 0x1e3048f8
 
     export const enum LedVariant { // uint8_t
+        //% block="through hole"
         ThroughHole = 0x1,
+        //% block="smd"
         SMD = 0x2,
+        //% block="power"
         Power = 0x3,
+        //% block="bead"
         Bead = 0x4,
     }
 

@@ -3,17 +3,25 @@ namespace jacdac {
     export const SRV_LED_PIXEL = 0x126f00e0
 
     export const enum LedPixelLightType { // uint8_t
+        //% block="ws2812b grb"
         WS2812B_GRB = 0x0,
+        //% block="apa102"
         APA102 = 0x10,
+        //% block="sk9822"
         SK9822 = 0x11,
     }
 
 
     export const enum LedPixelVariant { // uint8_t
+        //% block="strip"
         Strip = 0x1,
+        //% block="ring"
         Ring = 0x2,
+        //% block="stick"
         Stick = 0x3,
+        //% block="jewel"
         Jewel = 0x4,
+        //% block="matrix"
         Matrix = 0x5,
     }
 

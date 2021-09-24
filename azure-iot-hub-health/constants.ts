@@ -3,9 +3,13 @@ namespace jacdac {
     export const SRV_AZURE_IOT_HUB_HEALTH = 0x1462eefc
 
     export const enum AzureIotHubHealthConnectionStatus { // uint16_t
+        //% block="connected"
         Connected = 0x1,
+        //% block="disconnected"
         Disconnected = 0x2,
+        //% block="connecting"
         Connecting = 0x3,
+        //% block="disconnecting"
         Disconnecting = 0x4,
     }
 

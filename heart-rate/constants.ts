@@ -3,10 +3,15 @@ namespace jacdac {
     export const SRV_HEART_RATE = 0x166c6dc4
 
     export const enum HeartRateVariant { // uint8_t
+        //% block="finger"
         Finger = 0x1,
+        //% block="chest"
         Chest = 0x2,
+        //% block="wrist"
         Wrist = 0x3,
+        //% block="pump"
         Pump = 0x4,
+        //% block="web cam"
         WebCam = 0x5,
     }
 

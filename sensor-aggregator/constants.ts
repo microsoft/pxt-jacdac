@@ -3,11 +3,17 @@ namespace jacdac {
     export const SRV_SENSOR_AGGREGATOR = 0x1d90e1c5
 
     export const enum SensorAggregatorSampleType { // uint8_t
+        //% block="u8"
         U8 = 0x8,
+        //% block="i8"
         I8 = 0x88,
+        //% block="u16"
         U16 = 0x10,
+        //% block="i16"
         I16 = 0x90,
+        //% block="u32"
         U32 = 0x20,
+        //% block="i32"
         I32 = 0xa0,
     }
 

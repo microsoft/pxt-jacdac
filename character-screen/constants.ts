@@ -3,13 +3,17 @@ namespace jacdac {
     export const SRV_CHARACTER_SCREEN = 0x1f37c56a
 
     export const enum CharacterScreenVariant { // uint8_t
+        //% block="lcd"
         LCD = 0x1,
+        //% block="oled"
         OLED = 0x2,
     }
 
 
     export const enum CharacterScreenTextDirection { // uint8_t
+        //% block="left to right"
         LeftToRight = 0x1,
+        //% block="right to left"
         RightToLeft = 0x2,
     }
 

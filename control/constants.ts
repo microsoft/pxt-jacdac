@@ -3,18 +3,31 @@ namespace jacdac {
     export const SRV_CONTROL = 0x0
 
     export const enum ControlAnnounceFlags { // uint16_t
+        //% block="restart counter steady"
         RestartCounterSteady = 0xf,
+        //% block="restart counter1"
         RestartCounter1 = 0x1,
+        //% block="restart counter2"
         RestartCounter2 = 0x2,
+        //% block="restart counter4"
         RestartCounter4 = 0x4,
+        //% block="restart counter8"
         RestartCounter8 = 0x8,
+        //% block="status light none"
         StatusLightNone = 0x0,
+        //% block="status light mono"
         StatusLightMono = 0x10,
+        //% block="status light rgb no fade"
         StatusLightRgbNoFade = 0x20,
+        //% block="status light rgb fade"
         StatusLightRgbFade = 0x30,
+        //% block="supports ack"
         SupportsACK = 0x100,
+        //% block="supports broadcast"
         SupportsBroadcast = 0x200,
+        //% block="supports frames"
         SupportsFrames = 0x400,
+        //% block="is client"
         IsClient = 0x800,
     }
 

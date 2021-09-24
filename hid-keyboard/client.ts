@@ -299,9 +299,10 @@ namespace modules {
         ): void {
             this.start()
             const entries: number[][] = []
-            entries.push([selector, modifiers, action])
+            if (selector) entries.push([selector, modifiers, action])
             if (selector2) entries.push([selector2, modifiers, action])
             if (selector3) entries.push([selector3, modifiers, action])
+            if (!entries.length) return
             const data = [entries]
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
