@@ -3,14 +3,23 @@ namespace jacdac {
     export const SRV_HID_KEYBOARD = 0x18b05b6a
 
     export const enum HidKeyboardModifiers { // uint8_t
+        //% block="..."
         None = 0x0,
+        //% block="ctrl"
         LeftControl = 0x1,
+        //% block="shift"
         LeftShift = 0x2,
+        //% block="alt"
         LeftAlt = 0x4,
+        //% block="meta"
         LeftGUI = 0x8,
+        //% block="right ctrl"
         RightControl = 0x10,
+        //% block="right shift"
         RightShift = 0x20,
+        //% block="right alt"
         RightAlt = 0x40,
+        //% block="right meta"
         RightGUI = 0x80,
     }
 
