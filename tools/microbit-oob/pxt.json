@@ -12,6 +12,7 @@
         "jacdac-button": "github:microsoft/pxt-jacdac/button",
         "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
         "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
+        "jacdac-led": "github:microsoft/pxt-jacdac/led",
         "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer",
         "jacdac-thermometer": "github:microsoft/pxt-jacdac/thermometer",
         "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
