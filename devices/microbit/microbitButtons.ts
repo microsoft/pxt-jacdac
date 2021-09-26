@@ -33,17 +33,64 @@ namespace servers {
     export const buttonLogo = new servers.MButton("Logo", DAL.MICROBIT_ID_LOGO)
 
     export class TouchButton extends jacdac.SensorServer {
+        pressed: boolean;
+        prevPressed: boolean
+        nextHold: number = 500000;
+        pressTime: number;
+        nextSample: number;
+
         constructor(dev: string, private button: number) {
             super(dev, SRV_BUTTON)
             // enable pin mode
-            input.pinIsPressed(this.button)
+            this.pressed = input.pinIsPressed(this.button)
+            this.prevPressed = this.pressed
             control.onEvent(button, EventBusValue.MICROBIT_EVT_ANY, () => {
-                const v = control.eventValue()
-                if (v == EventBusValue.MICROBIT_BUTTON_EVT_DOWN)
-                    this.sendEvent(ButtonEvent.Down)
-                else if (v == EventBusValue.MICROBIT_BUTTON_EVT_UP)
-                    this.sendEvent(ButtonEvent.Up)
+                this.update()
             })
+            
+        }
+
+        public update() {
+            this.pressed = input.pinIsPressed(this.button);
+
+            if (this.pressed !== this.prevPressed) {
+                this.prevPressed = this.pressed;
+                if (this.pressed) {
+                    this.sendEvent(ButtonEvent.Down)
+                    this.pressTime = control.millis();
+                    this.nextHold = 500000;
+                    control.runInBackground(() => {
+                        control.waitMicros(500000000)
+                        if (this.pressed && this.nextHold)
+                           this.update();
+                    })
+                } else {
+                    const pressLen = (control.millis() - this.pressTime) / 1000;
+                    this.nextHold = 0
+                    this.sendEvent(
+                        ButtonEvent.Up,
+                        jacdac.jdpack("u32", [pressLen])
+                    )
+                }
+            }
+        
+            if (this.pressed) {
+                let pressLen = (control.millis() - this.pressTime) / 1000;
+                if (pressLen >= this.nextHold) {
+                    this.nextHold += 500000;
+                    pressLen = pressLen / 1000;
+                    this.sendEvent(
+                        ButtonEvent.Hold,
+                        jacdac.jdpack("u32", [pressLen])
+                    )
+                    control.runInBackground(() => {
+                        control.waitMicros(500000000)
+                        if (this.pressed && this.nextHold)
+                           this.update();
+                    })
+                }
+            }
+
         }
         public serializeState(): Buffer {
             const pressed = input.pinIsPressed(this.button)
