@@ -77,11 +77,25 @@ namespace servers {
         }
     }
 
-
+    // button as button
     export class MButton extends BaseButton {
         protected isPressed() {
             const pressed = input.buttonIsPressed(this.button) 
             return pressed
+        }
+    }
+
+    // pin as button
+    export class TouchButton extends BaseButton {
+        protected isPressed() {
+            return input.pinIsPressed(this.button)
+        }
+    }
+
+    // logo as button
+    export class LogoButton extends BaseButton {
+        protected isPressed() {
+            return input.logoIsPressed()
         }
     }
 
@@ -92,14 +106,7 @@ namespace servers {
     //% fixedInstance whenUsed block="button AB"
     export const buttonAB = new servers.MButton("A+B", Button.AB)
     //% fixedInstance whenUsed block="button logo"
-    export const buttonLogo = new servers.MButton("Logo", DAL.MICROBIT_ID_LOGO)
-
-    export class TouchButton extends BaseButton {
-        protected isPressed() {
-            return input.pinIsPressed(this.button)
-        }
-    }
-
+    export const buttonLogo = new servers.LogoButton("Logo", DAL.MICROBIT_ID_LOGO)
     //% fixedInstance whenUsed block="pin P0"
     export const touchP0 = new servers.TouchButton("P0", TouchPin.P0)
     //% fixedInstance whenUsed block="pin P1"
