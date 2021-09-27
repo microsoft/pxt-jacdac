@@ -56,7 +56,11 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
 })
 
 // special handling for actuators (multi-command) and sensors (streaming)
-const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL, jacdac.SRV_LED ]
+const knownActuators = [
+    jacdac.SRV_SERVO, 
+    jacdac.SRV_LED_PIXEL, 
+    jacdac.SRV_LED,
+]
 const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
@@ -94,16 +98,35 @@ function checkForKnownService(
     }
 }
 
-let ledPixelClients: modules.LedPixelClient[] = []
+// led pixel functions
+
+function runProgram(prog: Buffer) {
+    const pkt = jacdac.JDPacket.from(jacdac.LedPixelCmd.Run, prog)
+    pkt.sendAsMultiCommand(jacdac.SRV_LED_PIXEL)
+}
+
+function runEncoded(prog: string, args?: number[]) {
+    const encoded = jacdac.lightEncode(prog, args)
+    runProgram(encoded)
+}
+
+function setPixel(index: number, rgb: number) {
+    runEncoded("setone % # wait 1", [index, rgb])
+}
 
 function configureActuator(dev: jacdac.Device, serviceClass: number) {
     if (serviceClass === jacdac.SRV_SERVO) {
-        // TODO: turn it on
+        // nothing to do here
     } else if (serviceClass === jacdac.SRV_LED_PIXEL) {
-        const client = new modules.LedPixelClient(dev.deviceId)
-        client.setBrightness(10)
-        client._attach(dev, jacdac.SRV_LED_PIXEL)
-        ledPixelClients.push(client)
+        const pkt = jacdac.JDPacket.jdpacked(
+            jacdac.CMD_SET_REG | jacdac.LedPixelReg.Brightness,
+            "u0.8",
+            [.10]
+        )
+        pkt.sendAsMultiCommand(jacdac.SRV_LED_PIXEL)
+        setPixel(0, 0xff0000)
+    } else if (serviceClass === jacdac.SRV_LED) {
+        // nothing to do here
     }
 }
 
@@ -120,7 +143,7 @@ function configureSensor(
     sensorMap[dev.deviceId + ":" + serviceIndex.toString()] = 0
 }
 
-// refil streaming samples register on each self-announce
+// refill streaming samples register on each self-announce
 let samplesCount = 0
 jacdac.bus.subscribe(jacdac.SELF_ANNOUNCE, () => {
     if (!(samplesCount++ % 3))
@@ -314,8 +337,6 @@ jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
                 serviceKeys.removeElement(sc)
             }
         }
-        const client = ledPixelClients.find(cl => cl.device === d)
-        if (client) ledPixelClients.removeElement(client)
     })
     delete dev2Services[d.deviceId]
 })
@@ -342,9 +363,7 @@ function actuate(b: Button) {
         if (sc === jacdac.SRV_SERVO) {
             setServoAngle(b)
         } else if (sc === jacdac.SRV_LED_PIXEL) {
-            ledPixelClients.forEach(client => {
-                animateLEDs(client, b)
-            })
+            animateLEDs(b)
         } else if (sc === jacdac.SRV_LED) {
             animateLED(b)
         }   
@@ -361,13 +380,13 @@ function setServoAngle(b: Button) {
     pkt.sendAsMultiCommand(jacdac.SRV_SERVO)
 }
 
-function animateLEDs(client: modules.LedPixelClient, b: Button) {
+function animateLEDs(b: Button) {
     if (b === Button.A) {
-        client.showAnimation(modules.ledPixelAnimations.sparkle, 2000)
+        runEncoded("rotfwd 1")
     } else if (b === Button.B) {
-        client.showAnimation(modules.ledPixelAnimations.firefly, 2000)
+        runEncoded("rotback 1")
     } else {
-        client.runEncoded("setall #000000")
+        runEncoded("setall #000000 #ff0000 #00ff00 #0000ff")
     }
 }
 
@@ -386,7 +405,6 @@ function animateLED(b: Button) {
     pause(500)
     sendColor(0)
 }
-
 
 // leave role manager on so that modules don't blink
 jacdac.start({ disableRoleManager: false })
