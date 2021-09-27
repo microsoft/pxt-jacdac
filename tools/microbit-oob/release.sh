@@ -1,2 +1,2 @@
 mkc -c ../../mkc.json
-cp built/binary.hex firmware.hex
+cp built/binary.hex microbit-oob.hex
