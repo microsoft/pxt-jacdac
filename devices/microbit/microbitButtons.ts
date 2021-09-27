@@ -50,7 +50,7 @@ namespace servers {
             
         }
 
-        public update() {
+        private update() {
             this.pressed = input.pinIsPressed(this.button);
 
             if (this.pressed !== this.prevPressed) {
@@ -65,7 +65,7 @@ namespace servers {
                            this.update();
                     })
                 } else {
-                    const pressLen = (control.millis() - this.pressTime) / 1000;
+                    const pressLen = control.millis() - this.pressTime;
                     this.nextHold = 0
                     this.sendEvent(
                         ButtonEvent.Up,
@@ -75,10 +75,9 @@ namespace servers {
             }
         
             if (this.pressed) {
-                let pressLen = (control.millis() - this.pressTime) / 1000;
+                let pressLen = control.millis() - this.pressTime;
                 if (pressLen >= this.nextHold) {
                     this.nextHold += 500000;
-                    pressLen = pressLen / 1000;
                     this.sendEvent(
                         ButtonEvent.Hold,
                         jacdac.jdpack("u32", [pressLen])
