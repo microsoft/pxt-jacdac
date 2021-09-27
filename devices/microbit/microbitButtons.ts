@@ -79,29 +79,9 @@ namespace servers {
 
 
     export class MButton extends BaseButton {
-        constructor(dev: string, button: number) {
-            super(dev,button)
-        }
         protected isPressed() {
             const pressed = input.buttonIsPressed(this.button) 
             return pressed
-        }
-    }
-
-    export class OldMButton extends jacdac.SensorServer {
-        constructor(dev: string, private button: number) {
-            super(dev, SRV_BUTTON)
-            control.onEvent(button, EventBusValue.MICROBIT_EVT_ANY, () => {
-                let v = control.eventValue()
-                if (v == EventBusValue.MICROBIT_BUTTON_EVT_DOWN)
-                    this.sendEvent(ButtonEvent.Down)
-                else if (v == EventBusValue.MICROBIT_BUTTON_EVT_UP)
-                    this.sendEvent(ButtonEvent.Up)
-            })
-        }
-        public serializeState(): Buffer {
-            const pressed = input.buttonIsPressed(this.button)
-            return jacdac.jdpack("u16", [pressed ? 0xffff : 0])
         }
     }
 
@@ -115,9 +95,6 @@ namespace servers {
     export const buttonLogo = new servers.MButton("Logo", DAL.MICROBIT_ID_LOGO)
 
     export class TouchButton extends BaseButton {
-        constructor(dev: string, button: number) {
-            super(dev,button)
-        }
         protected isPressed() {
             return input.pinIsPressed(this.button)
         }
