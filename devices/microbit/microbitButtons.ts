@@ -100,10 +100,10 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed block="button A"
+    //% fixedInstance whenUsed block="pin P0"
     export const touchP0 = new servers.TouchButton("P0", TouchPin.P0)
-    //% fixedInstance whenUsed block="button B"
+    //% fixedInstance whenUsed block="pin P1"
     export const touchP1 = new servers.TouchButton("P1", TouchPin.P1)
-    //% fixedInstance whenUsed block="button AB"
+    //% fixedInstance whenUsed block="pin P2"
     export const touchP2 = new servers.TouchButton("P2", TouchPin.P2)
 }
