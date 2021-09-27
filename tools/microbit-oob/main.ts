@@ -240,24 +240,7 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
             IconNames.Heart + pkt.eventCode - jacdac.AccelerometerEvent.TiltUp,
             0
         )
-    } /* else if (serviceClass === jacdac.SRV_JOYSTICK &&
-        pkt.eventCode === jacdac.JoystickEvent.ButtonsChanged) {
-        const which = pkt.jdunpack<jacdac.JoystickButtons[]>("u32")[0]
-        switch (which) {
-            case jacdac.JoystickButtons.Left:
-                basic.showArrow(ArrowNames.West, 0)
-                break
-            case jacdac.JoystickButtons.Right:
-                basic.showArrow(ArrowNames.East, 0)
-                break
-            case jacdac.JoystickButtons.Up:
-                basic.showArrow(ArrowNames.North, 0)
-                break
-            case jacdac.JoystickButtons.Down:
-                basic.showArrow(ArrowNames.South, 0)
-                break
-        }
-    } */
+    }
 }
 
 function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
