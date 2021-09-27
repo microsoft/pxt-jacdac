@@ -56,7 +56,7 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
 })
 
 // special handling for actuators (multi-command) and sensors (streaming)
-const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL]
+const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL, jacdac.SRV_LED ]
 const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
@@ -345,7 +345,9 @@ function actuate(b: Button) {
             ledPixelClients.forEach(client => {
                 animateLEDs(client, b)
             })
-        }
+        } else if (sc === jacdac.SRV_LED) {
+            animateLED(b)
+        }   
     })
 }
 
@@ -368,6 +370,23 @@ function animateLEDs(client: modules.LedPixelClient, b: Button) {
         client.runEncoded("setall #000000")
     }
 }
+
+function sendColor(color: number) {
+    const pkt = jacdac.JDPacket.jdpacked(
+        jacdac.LedCmd.Animate,
+        "u8 u8 u8 u8",
+        [color >> 16, (color & 0x00FF00) >> 8, color, 50]
+    )
+    pkt.sendAsMultiCommand(jacdac.SRV_LED)
+}
+
+function animateLED(b: Button) {
+    const color = b === Button.A ? 0xff0000 : b === Button.B ? 0x00ff00 : 0x0000ff
+    sendColor(color)
+    pause(500)
+    sendColor(0)
+}
+
 
 // leave role manager on so that modules don't blink
 jacdac.start({ disableRoleManager: false })
