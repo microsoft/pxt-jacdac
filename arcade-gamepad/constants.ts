@@ -3,15 +3,25 @@ namespace jacdac {
     export const SRV_ARCADE_GAMEPAD = 0x1deaa06e
 
     export const enum ArcadeGamepadButton { // uint8_t
+        //% block="left"
         Left = 0x1,
+        //% block="up"
         Up = 0x2,
+        //% block="right"
         Right = 0x3,
+        //% block="down"
         Down = 0x4,
+        //% block="a"
         A = 0x5,
+        //% block="b"
         B = 0x6,
+        //% block="menu"
         Menu = 0x7,
+        //% block="select"
         Select = 0x8,
+        //% block="reset"
         Reset = 0x9,
+        //% block="exit"
         Exit = 0xa,
     }
 

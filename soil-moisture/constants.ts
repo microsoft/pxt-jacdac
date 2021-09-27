@@ -3,7 +3,9 @@ namespace jacdac {
     export const SRV_SOIL_MOISTURE = 0x1d4aa3b3
 
     export const enum SoilMoistureVariant { // uint8_t
+        //% block="resistive"
         Resistive = 0x1,
+        //% block="capacitive"
         Capacitive = 0x2,
     }
 

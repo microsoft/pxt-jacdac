@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_THERMOMETER = 0x1421bac7
 
     export const enum ThermometerVariant { // uint8_t
+        //% block="outdoor"
         Outdoor = 0x1,
+        //% block="indoor"
         Indoor = 0x2,
+        //% block="body"
         Body = 0x3,
     }
 

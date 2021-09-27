@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_LIGHT_LEVEL = 0x17dc9a1c
 
     export const enum LightLevelVariant { // uint8_t
+        //% block="photo resistor"
         PhotoResistor = 0x1,
+        //% block="ledmatrix"
         LEDMatrix = 0x2,
+        //% block="ambient"
         Ambient = 0x3,
     }
 

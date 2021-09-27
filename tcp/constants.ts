@@ -3,7 +3,9 @@ namespace jacdac {
     export const SRV_TCP = 0x1b43b70b
 
     export const enum TcpTcpError { // int32_t
+        //% block="invalid command"
         InvalidCommand = 0x1,
+        //% block="invalid command payload"
         InvalidCommandPayload = 0x2,
     }
 

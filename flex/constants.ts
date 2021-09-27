@@ -3,7 +3,9 @@ namespace jacdac {
     export const SRV_FLEX = 0x1f47c6c6
 
     export const enum FlexVariant { // uint8_t
+        //% block="linear22inch"
         Linear22Inch = 0x1,
+        //% block="linear45inch"
         Linear45Inch = 0x2,
     }
 

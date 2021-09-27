@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_SOLENOID = 0x171723ca
 
     export const enum SolenoidVariant { // uint8_t
+        //% block="push pull"
         PushPull = 0x1,
+        //% block="valve"
         Valve = 0x2,
+        //% block="latch"
         Latch = 0x3,
     }
 

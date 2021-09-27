@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_MODEL_RUNNER = 0x140f9a78
 
     export const enum ModelRunnerModelFormat { // uint32_t
+        //% block="tflite"
         TFLite = 0x334c4654,
+        //% block="ml4f"
         ML4F = 0x30470f62,
+        //% block="edge impulse compiled"
         EdgeImpulseCompiled = 0x30564945,
     }
 

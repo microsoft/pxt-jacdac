@@ -3,7 +3,9 @@ namespace jacdac {
     export const SRV_POTENTIOMETER = 0x1f274746
 
     export const enum PotentiometerVariant { // uint8_t
+        //% block="slider"
         Slider = 0x1,
+        //% block="rotary"
         Rotary = 0x2,
     }
 

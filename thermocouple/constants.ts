@@ -3,13 +3,21 @@ namespace jacdac {
     export const SRV_THERMOCOUPLE = 0x143ac061
 
     export const enum ThermocoupleVariant { // uint8_t
+        //% block="type k"
         TypeK = 0x1,
+        //% block="type j"
         TypeJ = 0x2,
+        //% block="type t"
         TypeT = 0x3,
+        //% block="type e"
         TypeE = 0x4,
+        //% block="type n"
         TypeN = 0x5,
+        //% block="type s"
         TypeS = 0x6,
+        //% block="type r"
         TypeR = 0x7,
+        //% block="type b"
         TypeB = 0x8,
     }
 

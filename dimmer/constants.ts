@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_DIMMER = 0x1fb02645
 
     export const enum DimmerVariant { // uint8_t
+        //% block="light"
         Light = 0x1,
+        //% block="fan"
         Fan = 0x2,
+        //% block="pump"
         Pump = 0x3,
     }
 

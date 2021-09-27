@@ -285,8 +285,11 @@ namespace modules {
          */
         //% group="HID Keyboard"
         //% blockId=jacdac_hidkeyboard_key_cmd
-        //% block="%hidkeyboard key $action $modifiers $selector|$selector2|$selector3"
+        //% block="%hidkeyboard key $action $modifiers $selector||$selector2|$selector3"
+        //% inlineInputMode=inline
         //% weight=100
+        //% modifiers.defl=jacdac.HidKeyboardModifiers.LeftControl
+        //% selector.defl=jacdac.HidKeyboardKey.Enter
         key(
             action: jacdac.HidKeyboardAction,
             modifiers: jacdac.HidKeyboardModifiers,
@@ -296,9 +299,10 @@ namespace modules {
         ): void {
             this.start()
             const entries: number[][] = []
-            entries.push([selector, modifiers, action])
+            if (selector) entries.push([selector, modifiers, action])
             if (selector2) entries.push([selector2, modifiers, action])
             if (selector3) entries.push([selector3, modifiers, action])
+            if (!entries.length) return
             const data = [entries]
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(

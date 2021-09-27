@@ -3,6 +3,7 @@ namespace jacdac {
     export const SRV_MOTION = 0x1179a749
 
     export const enum MotionVariant { // uint8_t
+        //% block="pir"
         PIR = 0x1,
     }
 

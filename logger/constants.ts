@@ -3,10 +3,15 @@ namespace jacdac {
     export const SRV_LOGGER = 0x12dc1fca
 
     export const enum LoggerPriority { // uint8_t
+        //% block="debug"
         Debug = 0x0,
+        //% block="log"
         Log = 0x1,
+        //% block="warning"
         Warning = 0x2,
+        //% block="error"
         Error = 0x3,
+        //% block="silent"
         Silent = 0x4,
     }
 

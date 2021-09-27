@@ -3,10 +3,15 @@ namespace jacdac {
     export const SRV_BOOTLOADER = 0x1ffa9948
 
     export const enum BootloaderError { // uint32_t
+        //% block="no error"
         NoError = 0x0,
+        //% block="packet too small"
         PacketTooSmall = 0x1,
+        //% block="out of flashable range"
         OutOfFlashableRange = 0x2,
+        //% block="invalid page offset"
         InvalidPageOffset = 0x3,
+        //% block="not page aligned"
         NotPageAligned = 0x4,
     }
 

@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_RELAY = 0x183fe656
 
     export const enum RelayVariant { // uint8_t
+        //% block="electromechanical"
         Electromechanical = 0x1,
+        //% block="solid state"
         SolidState = 0x2,
+        //% block="reed"
         Reed = 0x3,
     }
 

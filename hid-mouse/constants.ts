@@ -3,16 +3,23 @@ namespace jacdac {
     export const SRV_HID_MOUSE = 0x1885dc1c
 
     export const enum HidMouseButton { // uint16_t
+        //% block="left"
         Left = 0x1,
+        //% block="right"
         Right = 0x2,
+        //% block="middle"
         Middle = 0x4,
     }
 
 
     export const enum HidMouseButtonEvent { // uint8_t
+        //% block="up"
         Up = 0x1,
+        //% block="down"
         Down = 0x2,
+        //% block="click"
         Click = 0x3,
+        //% block="double click"
         DoubleClick = 0x4,
     }
 

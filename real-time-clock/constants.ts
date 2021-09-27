@@ -3,8 +3,11 @@ namespace jacdac {
     export const SRV_REAL_TIME_CLOCK = 0x1a8b1a28
 
     export const enum RealTimeClockVariant { // uint8_t
+        //% block="computer"
         Computer = 0x1,
+        //% block="crystal"
         Crystal = 0x2,
+        //% block="cuckoo"
         Cuckoo = 0x3,
     }
 

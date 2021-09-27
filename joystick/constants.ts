@@ -3,25 +3,41 @@ namespace jacdac {
     export const SRV_JOYSTICK = 0x108f7456
 
     export const enum JoystickButtons { // uint32_t
+        //% block="left"
         Left = 0x1,
+        //% block="up"
         Up = 0x2,
+        //% block="right"
         Right = 0x4,
+        //% block="down"
         Down = 0x8,
+        //% block="a"
         A = 0x10,
+        //% block="b"
         B = 0x20,
+        //% block="menu"
         Menu = 0x40,
+        //% block="select"
         Select = 0x80,
+        //% block="reset"
         Reset = 0x100,
+        //% block="exit"
         Exit = 0x200,
+        //% block="x"
         X = 0x400,
+        //% block="y"
         Y = 0x800,
     }
 
 
     export const enum JoystickVariant { // uint8_t
+        //% block="thumb"
         Thumb = 0x1,
+        //% block="arcade ball"
         ArcadeBall = 0x2,
+        //% block="arcade stick"
         ArcadeStick = 0x3,
+        //% block="gamepad"
         Gamepad = 0x4,
     }
 

@@ -3,7 +3,9 @@ namespace jacdac {
     export const SRV_REFLECTED_LIGHT = 0x126c4cb2
 
     export const enum ReflectedLightVariant { // uint8_t
+        //% block="infrared digital"
         InfraredDigital = 0x1,
+        //% block="infrared analog"
         InfraredAnalog = 0x2,
     }
 

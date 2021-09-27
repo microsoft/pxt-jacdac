@@ -3,18 +3,31 @@ namespace jacdac {
     export const SRV_BARCODE_READER = 0x1c739e6c
 
     export const enum BarcodeReaderFormat { // uint8_t
+        //% block="aztec"
         Aztec = 0x1,
+        //% block="code128"
         Code128 = 0x2,
+        //% block="code39"
         Code39 = 0x3,
+        //% block="code93"
         Code93 = 0x4,
+        //% block="codabar"
         Codabar = 0x5,
+        //% block="data matrix"
         DataMatrix = 0x6,
+        //% block="ean13"
         Ean13 = 0x8,
+        //% block="ean8"
         Ean8 = 0x9,
+        //% block="itf"
         ITF = 0xa,
+        //% block="pdf417"
         Pdf417 = 0xb,
+        //% block="qr code"
         QrCode = 0xc,
+        //% block="upc a"
         UpcA = 0xd,
+        //% block="upc e"
         UpcE = 0xe,
     }
 

@@ -3,18 +3,27 @@ namespace jacdac {
     export const ANNOUNCE_INTERVAL = 0x1f4
 
     export const enum SystemReadingThreshold { // uint8_t
+        //% block="neutral"
         Neutral = 0x1,
+        //% block="inactive"
         Inactive = 0x2,
+        //% block="active"
         Active = 0x3,
     }
 
 
     export const enum SystemStatusCodes { // uint16_t
+        //% block="ready"
         Ready = 0x0,
+        //% block="initializing"
         Initializing = 0x1,
+        //% block="calibrating"
         Calibrating = 0x2,
+        //% block="sleeping"
         Sleeping = 0x3,
+        //% block="waiting for input"
         WaitingForInput = 0x4,
+        //% block="calibration needed"
         CalibrationNeeded = 0x64,
     }
 
