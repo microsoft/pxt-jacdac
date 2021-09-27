@@ -1,6 +1,6 @@
 {
     "name": "jacdac-model-runner",
-    "version": "0.6.41",
+    "version": "0.6.42",
     "description": "MakeCode support for Jacdac Model runner service",
     "dependencies": {
         "core": "*",
