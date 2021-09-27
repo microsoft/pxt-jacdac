@@ -24,13 +24,26 @@ static uint16_t currEvent;
 static DevicePin **logPins;
 static uint32_t *logPinMasks;
 
+#ifdef PICO_BOARD
+#include "hardware/gpio.h"
+#endif
+
+REAL_TIME_FUNC
 static void init_log_pins() {
     logPins = new DevicePin *[NUM_LOG_PINS];
+#ifdef PICO_BOARD
+    logPins[0] = pxt::lookupPin(2);
+    logPins[1] = pxt::lookupPin(3);
+    logPins[2] = pxt::lookupPin(4);
+    logPins[3] = pxt::lookupPin(5);
+    logPins[4] = pxt::lookupPin(6);
+#else
     logPins[0] = LOOKUP_PIN(P0);
     logPins[1] = LOOKUP_PIN(P1);
     logPins[2] = LOOKUP_PIN(P2);
     logPins[3] = LOOKUP_PIN(P8);
     logPins[4] = LOOKUP_PIN(P16);
+#endif
 
     logPinMasks = new uint32_t[NUM_LOG_PINS];
     for (int i = 0; i < NUM_LOG_PINS; ++i) {
@@ -39,6 +52,8 @@ static void init_log_pins() {
     }
 }
 
+
+REAL_TIME_FUNC
 static inline void log_pin_set_core(unsigned line, int v) {
     if (line >= NUM_LOG_PINS)
         return;
@@ -47,12 +62,19 @@ static inline void log_pin_set_core(unsigned line, int v) {
         NRF_P0->OUTSET = logPinMasks[line];
     else
         NRF_P0->OUTCLR = logPinMasks[line];
+#elif defined(PICO_BOARD)
+    if (v)
+        sio_hw->gpio_set = logPinMasks[line];
+    else
+        sio_hw->gpio_clr = logPinMasks[line];
 #else
     logPins[line]->setDigitalValue(v);
 #endif
 }
 #else
+REAL_TIME_FUNC
 static void log_pin_set_core(unsigned, int) {}
+REAL_TIME_FUNC
 static void init_log_pins() {}
 #endif
 
@@ -60,18 +82,21 @@ extern "C" void timer_log(int line, int v) {
     //    log_pin_set_core(line, v);
 }
 
+REAL_TIME_FUNC
 void log_pin_set(int line, int v) {
     // if (line == 1)
     log_pin_set_core(line, v);
 }
 
+REAL_TIME_FUNC
 static void pin_log(int v) {
     log_pin_set(3, v);
 }
 
+REAL_TIME_FUNC
 static void pin_pulse() {
-    pin_log(1);
-    pin_log(0);
+    log_pin_set(4, 1);
+    log_pin_set(4, 0);
 }
 
 void jd_panic(void) {
@@ -141,13 +166,14 @@ static void line_falling(int lineV) {
     }
 
     sws->p.eventOn(DEVICE_PIN_EVENT_NONE);
+
     jd_line_falling();
 }
 
 REAL_TIME_FUNC
 static void sws_done(uint16_t errCode) {
-    pin_pulse();
-    pin_pulse();
+    // pin_pulse();
+    // pin_pulse();
 
     // LOG("sws_done %d @%d", errCode, (int)tim_get_micros());
 

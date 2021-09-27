@@ -51,7 +51,10 @@ static void signal_write(int v) {
 static void signal_read(int v) {
     // log_pin_set(0, v);
 }
-static void pulse_log_pin(void) {}
+static void pulse_log_pin(void) {
+    log_pin_set(0, 1);
+    log_pin_set(0, 0);
+}
 
 static void check_announce(void) {
     if (tim_get_micros() > nextAnnounce) {
@@ -184,7 +187,6 @@ REAL_TIME_FUNC
 void jd_line_falling() {
     LOG("line fall");
     // log_pin_set(1, 1);
-    pulse_log_pin();
     signal_read(1);
 
     // target_disable_irq();
@@ -206,6 +208,7 @@ void jd_line_falling() {
         rx_timeout();
         return;
     }
+    
     // pulse1();
     // target_wait_us(2);
 
@@ -223,6 +226,8 @@ void jd_line_falling() {
 }
 
 void jd_rx_completed(int dataLeft) {
+    //pulse_log_pin();
+
     if (annCounter++ == 0)
         check_announce();
 
