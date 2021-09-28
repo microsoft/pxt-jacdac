@@ -1,10 +1,19 @@
 {
     "name": "jacdac-joystick",
-    "version": "0.6.43",
+    "version": "0.6.44",
     "description": "A two axis directional joystick",
-    "files": ["constants.ts", "client.ts"],
-    "testFiles": ["test.ts"],
-    "supportedTargets": ["arcade", "microbit", "maker"],
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
