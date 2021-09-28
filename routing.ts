@@ -810,6 +810,11 @@ namespace jacdac {
                 const code = pkt.eventCode
                 if (code == SystemEvent.Active) this.systemActive = true
                 else if (code == SystemEvent.Inactive) this.systemActive = false
+                else if (code == SystemEvent.Change)
+                    // refresh all non-const registers
+                    this.registers
+                        .filter(r => !isConstRegister(r.code))
+                        .forEach(r => r.reset())
                 this.emit(EVENT, pkt)
                 this.raiseEvent(code, pkt.intData)
             } else
