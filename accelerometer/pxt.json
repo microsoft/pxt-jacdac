@@ -15,5 +15,9 @@
         "maker",
         "microbit"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "tsprj",
+    "testFiles": [ "test.microbit.ts"],
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit"
+    }
 }
