@@ -3,29 +3,7 @@
     "overrides": {
         "testDependencies": {}
     },
-    "links": {
-        "jacdac": ".",
-        "jacdac-settings": "./settings",
-        "jacdac-tcp": "./tcp",
-        "jacdac-button": "./button",
-        "jacdac-accelerometer": "./accelerometer",
-        "jacdac-hid-keyboard": "./hid-keyboard",
-        "jacdac-hid-keyboard-server": "./hid-keyboard-server",
-        "jacdac-hid-mouse": "./hid-mouse",
-        "jacdac-hid-mouse-server": "./hid-mouse-server",
-        "jacdac-servers": "./servers",
-        "jacdac-microbit": "./devices/microbit",
-        "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
-        "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server",
-        "jacdac-servo": "./servo",
-        "jacdac-motor": "./motor",
-        "jacdac-rotaryencoder": "./rotary-encoder",
-        "jacdac-ledpixel": "./led-pixel",
-        "jacdac-led": "./led",
-        "jacdac-potentiometer": "./potentiometer",
-        "jacdac-thermometer": "./thermometer",
-        "jacdac-light-level": "./light-level",
-        "jacdac-flex": "./flex",
-        "jacdac-joystick": "./joystick"
-    }
+    "include": [
+        "links.json"
+    ]
 }

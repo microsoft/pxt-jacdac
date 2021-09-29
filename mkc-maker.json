@@ -1,17 +1,6 @@
 {
     "targetWebsite": "https://maker.makecode.com",
-    "links": {
-        "jacdac": ".",
-        "jacdac-settings": "./settings",
-        "jacdac-tcp": "./tcp",
-        "jacdac-button": "./button",
-        "jacdac-accelerometer": "./accelerometer",
-        "jacdac-hid-keyboard": "./hid-keyboard",
-        "jacdac-hid-keyboard-server": "./hid-keyboard-server",
-        "jacdac-hid-mouse": "./hid-mouse",
-        "jacdac-hid-mouse-server": "./hid-mouse-server",
-        "jacdac-servers": "./servers",
-        "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
-        "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server"
-    }
+    "include": [
+        "links.json"
+    ]
 }

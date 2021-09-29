@@ -1445,20 +1445,24 @@ namespace jacdac {
         log("jacdac started")
     }
 
+    function getLed(id: number) {
+        const thePin =
+            control.getConfigValue(id, -1) == -1
+                ? DAL.CFG_PIN_LED
+                : id
+        setPinByCfg(thePin, false)
+        return thePin
+    }
+
     /**
      * Starts device as a server
      */
     export function startServer() {
         start({ disableLogger: true, disableRoleManager: true, noWait: true })
 
-        const greenPin =
-            control.getConfigValue(DAL.CFG_PIN_LED_G, -1) == -1
-                ? DAL.CFG_PIN_LED
-                : DAL.CFG_PIN_LED_G
-        const redPin =
-            control.getConfigValue(DAL.CFG_PIN_LED_R, -1) == -1
-                ? DAL.CFG_PIN_LED
-                : DAL.CFG_PIN_LED_R
+        const greenPin = getLed(DAL.CFG_PIN_LED_G)
+        const redPin = getLed(DAL.CFG_PIN_LED_R)
+        getLed(DAL.CFG_PIN_LED_B) // clear it
 
         let lastClient = control.millis()
         bus.on(PACKET_PROCESS, (pkt: JDPacket) => {
