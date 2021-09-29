@@ -7,7 +7,7 @@
         "client.ts"
     ],
     "testFiles": [
-        "test.ts"
+        "test.ts", "test.microbit.ts"
     ],
     "supportedTargets": [
         "arcade",
@@ -18,7 +18,8 @@
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
-    "testDependencies": {
-        "nucleo-f411re": "*"
+    "testDependencies": {},
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit"
     }
 }

@@ -46,22 +46,22 @@ function plot (x: number, y: number) {
 
 modules.accelerometer1.onTiltUp(() => {
     if (mode !== Mode.Events) return
-    basic.showArrow(ArrowNames.North)
+    basic.showArrow(ArrowNames.North,0)
 })
 
 modules.accelerometer1.onTiltDown(() => {
     if (mode !== Mode.Events) return
-    basic.showArrow(ArrowNames.South)
+    basic.showArrow(ArrowNames.South,0)
 })
 
 modules.accelerometer1.onTiltLeft(() => {
     if (mode !== Mode.Events) return
-    basic.showArrow(ArrowNames.West)
+    basic.showArrow(ArrowNames.West,0)
 })
 
 modules.accelerometer1.onTiltRight(() => {
     if (mode !== Mode.Events) return
-    basic.showArrow(ArrowNames.East)
+    basic.showArrow(ArrowNames.East,0)
 })
 
 modules.accelerometer1.onFreefall(function () {
@@ -73,69 +73,50 @@ modules.accelerometer1.onFreefall(function () {
 
 modules.accelerometer1.onShake(function () {
     if (mode !== Mode.Events) return
-    basic.showIcon(IconNames.Confused)
+    basic.showIcon(IconNames.Confused,0)
 })
 
 modules.accelerometer1.onFaceDown(function () {
     if (mode !== Mode.Events) return
-    basic.showIcon(IconNames.Sad)
+    basic.showIcon(IconNames.Sad, 0)
 })
 
 modules.accelerometer1.onFaceUp(function () {
     if (mode !== Mode.Events) return
-    basic.showIcon(IconNames.Happy)
+    basic.showIcon(IconNames.Happy, 0)
 })
 
-enum ForceState {
-    None,
-    Window,
-    Ignore
-}
+let lastForce = 0
 
-let forceState = ForceState.None
-
-function forceTransition() {
-    if (forceState === ForceState.Window) {
-        forceState = ForceState.Ignore
+function forceOK(newForce: number) {
+    if (mode !== Mode.Events || newForce <= lastForce)
+        return false
+    if (lastForce === 0) {
         control.runInBackground(() => {
-            basic.pause(2000)
-            forceTransition();
-        })
-    } else {
-        forceState = ForceState.None
-    }
-}
-
-function forceEntry() {
-    if (forceState === ForceState.None) {
-        forceState = ForceState.Window
-        control.runInBackground(() => {
-            basic.pause(200)
-            forceTransition();
+            basic.pause(1000)
+            lastForce = 0
         })
     }
+    lastForce = newForce
+    return true
 }
 
 modules.accelerometer1.onForce2g(function () {
-    if (mode !== Mode.Events && forceState !== ForceState.Ignore) return
-    forceEntry()
-    basic.showNumber(2)
+    if (forceOK(2))
+        basic.showNumber(2,0)
 })
 
 modules.accelerometer1.onForce6g(function () {
-    if (mode !== Mode.Events && forceState !== ForceState.Ignore) return
-    forceEntry()
-    basic.showNumber(6)
+    if (forceOK(6))
+        basic.showNumber(6,0)
 })
 
 modules.accelerometer1.onForce8g(function () {
-    if (mode !== Mode.Events && forceState !== ForceState.Ignore) return
-    forceEntry()
-    basic.showNumber(8)
+    if (forceOK(8))
+        basic.showNumber(8,0)
 })
 
 modules.accelerometer1.onForce3g(function () {
-    if (mode !== Mode.Events && forceState !== ForceState.Ignore) return
-    forceEntry()
-    basic.showNumber(3)
+    if (forceOK(3))
+        basic.showNumber(3,0)
 })
