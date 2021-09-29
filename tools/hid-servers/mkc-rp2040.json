@@ -1,0 +1,10 @@
+{
+    "include": [
+       "../../mkc-maker.json"
+    ],
+    "overrides": {
+        "testDependencies": {
+            "jacdac-brain-rp2040": "*"
+        }
+    }
+}

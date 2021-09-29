@@ -1,0 +1,28 @@
+{
+    "links": {
+        "jacdac": ".",
+        "jacdac-accelerometer": "./accelerometer",
+        "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
+        "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server",
+        "jacdac-button": "./button",
+        "jacdac-buzzer": "./buzzer",
+        "jacdac-flex": "./flex",
+        "jacdac-hid-keyboard": "./hid-keyboard",
+        "jacdac-hid-keyboard-server": "./hid-keyboard-server",
+        "jacdac-hid-mouse": "./hid-mouse",
+        "jacdac-hid-mouse-server": "./hid-mouse-server",
+        "jacdac-joystick": "./joystick",
+        "jacdac-led": "./led",
+        "jacdac-ledpixel": "./led-pixel",
+        "jacdac-light-level": "./light-level",
+        "jacdac-microbit": "./devices/microbit",
+        "jacdac-motor": "./motor",
+        "jacdac-potentiometer": "./potentiometer",
+        "jacdac-rotaryencoder": "./rotary-encoder",
+        "jacdac-servers": "./servers",
+        "jacdac-servo": "./servo",
+        "jacdac-settings": "./settings",
+        "jacdac-tcp": "./tcp",
+        "jacdac-thermometer": "./thermometer"
+    }
+}
