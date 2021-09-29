@@ -44,8 +44,98 @@ function plot (x: number, y: number) {
     led.plot(dispX, dispY)
 }
 
+modules.accelerometer1.onTiltUp(() => {
+    if (mode !== Mode.Events) return
+    basic.showArrow(ArrowNames.North)
+})
 
-// basic.showIcon(
-//    IconNames.Heart + pkt.eventCode - jacdac.AccelerometerEvent.TiltUp,
-//    0
-//)
+modules.accelerometer1.onTiltDown(() => {
+    if (mode !== Mode.Events) return
+    basic.showArrow(ArrowNames.South)
+})
+
+modules.accelerometer1.onTiltLeft(() => {
+    if (mode !== Mode.Events) return
+    basic.showArrow(ArrowNames.West)
+})
+
+modules.accelerometer1.onTiltRight(() => {
+    if (mode !== Mode.Events) return
+    basic.showArrow(ArrowNames.East)
+})
+
+modules.accelerometer1.onFreefall(function () {
+    if (mode !== Mode.Events) return
+    control.runInBackground(() => {
+        soundExpression.giggle.playUntilDone()
+    })
+})
+
+modules.accelerometer1.onShake(function () {
+    if (mode !== Mode.Events) return
+    basic.showIcon(IconNames.Confused)
+})
+
+modules.accelerometer1.onFaceDown(function () {
+    if (mode !== Mode.Events) return
+    basic.showIcon(IconNames.Sad)
+})
+
+modules.accelerometer1.onFaceUp(function () {
+    if (mode !== Mode.Events) return
+    basic.showIcon(IconNames.Happy)
+})
+
+enum ForceState {
+    None,
+    Window,
+    Ignore
+}
+
+let forceState = ForceState.None
+
+function forceTransition() {
+    if (forceState === ForceState.Window) {
+        forceState = ForceState.Ignore
+        control.runInBackground(() => {
+            basic.pause(2000)
+            forceTransition();
+        })
+    } else {
+        forceState = ForceState.None
+    }
+}
+
+function forceEntry() {
+    if (forceState === ForceState.None) {
+        forceState = ForceState.Window
+        control.runInBackground(() => {
+            basic.pause(200)
+            forceTransition();
+        })
+    }
+}
+
+modules.accelerometer1.onForce2g(function () {
+    if (mode !== Mode.Events && forceState !== ForceState.Ignore) return
+    forceEntry()
+    basic.showNumber(2)
+})
+
+modules.accelerometer1.onForce6g(function () {
+    if (mode !== Mode.Events && forceState !== ForceState.Ignore) return
+    forceEntry()
+    basic.showNumber(6)
+})
+
+modules.accelerometer1.onForce8g(function () {
+    if (mode !== Mode.Events && forceState !== ForceState.Ignore) return
+    forceEntry()
+    basic.showNumber(8)
+})
+
+modules.accelerometer1.onForce3g(function () {
+    if (mode !== Mode.Events && forceState !== ForceState.Ignore) return
+    forceEntry()
+    basic.showNumber(3)
+})
