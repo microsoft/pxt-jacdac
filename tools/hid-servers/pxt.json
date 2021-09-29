@@ -15,6 +15,6 @@
         "jacdac-hid-keyboard-server": "github:microsoft/pxt-jacdac/hid-keyboard-server"
     },
     "testDependencies": {
-        "nucleo-f411re": "*"
+        "jacdac-brain-f4": "*"
     }
 }
