@@ -1,6 +1,6 @@
 {
     "name": "jacdac-test-accelerometer",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "description": "",
     "dependencies": {
         "core": "*",
