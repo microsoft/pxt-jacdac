@@ -10,3 +10,4 @@ _site
 .header.json
 .simstate.json
 docs/assets/js/binary-local.js
+dist
