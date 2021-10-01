@@ -99,8 +99,12 @@ function makeCodeRun(options) {
                 } else if (d.type == "simulator") {
                     switch (d.command) {
                         case "restart":
-                            stopSim()
-                            startSim()
+                            if (/localhost/.test(window.location.host)) {
+                                window.location.reload();
+                            } else {
+                                stopSim();
+                                startSim();
+                            }
                             break
                         case "setstate":
                             if (d.stateValue === null)
@@ -115,9 +119,8 @@ function makeCodeRun(options) {
                     let stackTrace = brk.exceptionMessage + "\n"
                     for (let s of brk.stackframes) {
                         let fi = s.funcInfo
-                        stackTrace += `   at ${fi.functionName} (${
-                            fi.fileName
-                        }:${fi.line + 1}:${fi.column + 1})\n`
+                        stackTrace += `   at ${fi.functionName} (${fi.fileName
+                            }:${fi.line + 1}:${fi.column + 1})\n`
                     }
                     if (brk.exceptionMessage) console.error(stackTrace)
                 } else if (d.type === "messagepacket" && d.channel) {
