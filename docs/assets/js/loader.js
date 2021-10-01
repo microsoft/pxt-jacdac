@@ -39,20 +39,11 @@ function makeCodeRun(options) {
             code.replace(/^\/\/\s+boardDefinition=([^\n]+)\n/m, function (m, metasrc) {
                 boardDefinition = JSON.parse(metasrc);
             })
-            var vel = document.getElementById("version");
-            if (meta.version && meta.repo && vel) {
-                var ap = document.createElement("a");
-                ap.download = "arcade.uf2";
-                ap.href = "https://github.com/" + meta.repo + "/releases/download/v" + meta.version + "/arcade.uf2";
-                ap.innerText = "v" + meta.version;
-                vel.appendChild(ap);
-            }
             // load simulator with correct version
             document.getElementById("simframe")
                 .setAttribute("src", meta.simUrl + "#" + frameid);
             var m = /^https?:\/\/[^\/]+/.exec(meta.simUrl)
             simOrigin = m[0]
-            initFullScreen();
         })
     }
 
@@ -193,15 +184,5 @@ function makeCodeRun(options) {
                 localStorage["pxt_simstate"] = JSON.stringify(simState)
             simStateChanged = false
         }, 200)
-    }
-
-    function initFullScreen() {
-        var sim = document.getElementById("simframe");
-        var fs = document.getElementById("fullscreen");
-        if (fs && sim.requestFullscreen) {
-            fs.onclick = function () { sim.requestFullscreen(); }
-        } else if (fs) {
-            fs.remove();
-        }
     }
 }
