@@ -109,6 +109,7 @@
         <div id="fullscreen">⇲</div>
         <script type="text/javascript">
             makeCodeRun({
+                selfId: window.location.hash.slice(1),
                 js: /^http:\/\/localhost:/.test(window.location.href)
                     ? "./assets/js/binary-local.js"
                     : "./assets/js/binary.js?v=" + Math.random(),

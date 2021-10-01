@@ -13,7 +13,7 @@ function makeCodeRun(options) {
     var meta = undefined;
     var boardDefinition = undefined;
     var simOrigin = undefined;
-    var selfId = "pxt" + Math.random();
+    var selfId = options.selfId || ("pxt" + Math.random());
 
     // hide scrollbar
     window.scrollTo(0, 1);
