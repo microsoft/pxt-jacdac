@@ -12,6 +12,7 @@
     ],
     "dependencies": {
         "core": "*",
+        "net": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
         "jacdac-tcp": "github:microsoft/pxt-jacdac/tcp"
     }
