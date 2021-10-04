@@ -14,6 +14,7 @@
         "jdutil.c",
         "app.cpp",
         "hw.cpp",
+        "led.cpp",
         "hw-esp32.c",
         "jdsim.ts",
         "hw.h",

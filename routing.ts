@@ -1451,11 +1451,40 @@ namespace jacdac {
         log("jacdac started")
     }
 
-    function getLed(id: number) {
-        const thePin =
-            control.getConfigValue(id, -1) == -1 ? DAL.CFG_PIN_LED : id
-        setPinByCfg(thePin, false)
-        return thePin
+    //% shim=jacdac::_setLedChannel
+    declare function _setLedChannel(ch: number, val: number): void
+
+    export function ledTest() {
+        forever(() => {
+            const max = 0x40
+            const step = 1
+            for (let ch = 0; ch < 3; ++ch) {
+                for (let i = 0; i < max; i += step) {
+                    _setLedChannel(ch, i << 8)
+                    pause(10)
+                }
+                for (let i = 0; i < max; i += step) {
+                    _setLedChannel(ch, (max - i) << 8)
+                    pause(10)
+                }
+            }
+        })
+    }
+
+    export enum LedChannel {
+        Red = 0,
+        Green = 1,
+        Blue = 2,
+    }
+
+    export function setLedChannel(ch: LedChannel, val: number) {
+        _setLedChannel(ch, val)
+    }
+
+    export function setLed(r: number, g: number, b: number) {
+        _setLedChannel(0, r)
+        _setLedChannel(1, g)
+        _setLedChannel(2, b)
     }
 
     /**
@@ -1463,10 +1492,6 @@ namespace jacdac {
      */
     export function startServer() {
         start({ disableLogger: true, disableRoleManager: true, noWait: true })
-
-        const greenPin = getLed(DAL.CFG_PIN_LED_G)
-        const redPin = getLed(DAL.CFG_PIN_LED_R)
-        getLed(DAL.CFG_PIN_LED_B) // clear it
 
         let lastClient = control.millis()
         bus.on(PACKET_PROCESS, (pkt: JDPacket) => {
@@ -1476,9 +1501,9 @@ namespace jacdac {
                     ControlAnnounceFlags.IsClient
                 ) {
                     lastClient = control.millis()
-                    setPinByCfg(greenPin, true)
+                    setLedChannel(LedChannel.Green, 0xffff)
                     control.waitMicros(50)
-                    setPinByCfg(greenPin, false)
+                    setLedChannel(LedChannel.Green, 0x0000)
                 }
             }
         })
@@ -1488,11 +1513,14 @@ namespace jacdac {
         bus.on(SELF_ANNOUNCE, () => {
             disconnectCnt++
             if (control.millis() - lastClient > 1500) {
-                setPinByCfg(redPin, (disconnectCnt & 2) != 0)
+                setLedChannel(
+                    LedChannel.Red,
+                    (disconnectCnt & 2) == 0 ? 0x0000 : 0xffff
+                )
                 diconnected = true
             } else {
                 if (diconnected) {
-                    setPinByCfg(redPin, false)
+                    setLedChannel(LedChannel.Red, 0x0000)
                     diconnected = false
                 }
             }
@@ -1502,6 +1530,8 @@ namespace jacdac {
     // make sure physical is started deterministically
     // on micro:bit it allocates a buffer that should stay in the same place in memory
     jacdac.__physStart()
+
+    setLed(0, 0, 0)
 
     // platform setup
     if (onPlatformStart) onPlatformStart()
