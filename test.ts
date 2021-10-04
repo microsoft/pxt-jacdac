@@ -1,3 +1,20 @@
+function ledTest() {
+    forever(() => {
+        const max = 0x40
+        const step = 1
+        for (let ch = 0; ch < 3; ++ch) {
+            for (let i = 0; i < max; i += step) {
+                jacdac.setLedChannel(ch, i << 8)
+                pause(10)
+            }
+            for (let i = 0; i < max; i += step) {
+                jacdac.setLedChannel(ch, (max - i) << 8)
+                pause(10)
+            }
+        }
+    })
+}
+
 function jdpackTest() {
     function testOne(
         fmt: string,

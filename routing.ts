@@ -1454,23 +1454,6 @@ namespace jacdac {
     //% shim=jacdac::_setLedChannel
     declare function _setLedChannel(ch: number, val: number): void
 
-    export function ledTest() {
-        forever(() => {
-            const max = 0x40
-            const step = 1
-            for (let ch = 0; ch < 3; ++ch) {
-                for (let i = 0; i < max; i += step) {
-                    _setLedChannel(ch, i << 8)
-                    pause(10)
-                }
-                for (let i = 0; i < max; i += step) {
-                    _setLedChannel(ch, (max - i) << 8)
-                    pause(10)
-                }
-            }
-        })
-    }
-
     export enum LedChannel {
         Red = 0,
         Green = 1,
