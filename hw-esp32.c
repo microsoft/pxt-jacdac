@@ -85,9 +85,11 @@ static void jd_timer0(void *dummy) {
     }
 }
 
+#ifndef CHK
 #define CHK(e)                                                                                     \
     if ((e) != ESP_OK)                                                                             \
     jd_panic()
+#endif
 
 void target_panic(int code);
 void jd_panic(void) {

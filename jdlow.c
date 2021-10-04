@@ -51,6 +51,8 @@ static void signal_write(int v) {
 static void signal_read(int v) {
     // log_pin_set(0, v);
 }
+
+__attribute__((unused))
 static void pulse_log_pin(void) {
     log_pin_set(0, 1);
     log_pin_set(0, 0);
