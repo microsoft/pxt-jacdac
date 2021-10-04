@@ -56,11 +56,7 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
 })
 
 // special handling for actuators (multi-command) and sensors (streaming)
-const knownActuators = [
-    jacdac.SRV_SERVO, 
-    jacdac.SRV_LED_PIXEL, 
-    jacdac.SRV_LED,
-]
+const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL, jacdac.SRV_LED]
 const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
@@ -121,7 +117,7 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
         const pkt = jacdac.JDPacket.jdpacked(
             jacdac.CMD_SET_REG | jacdac.LedPixelReg.Brightness,
             "u0.8",
-            [.10]
+            [0.1]
         )
         pkt.sendAsMultiCommand(jacdac.SRV_LED_PIXEL)
         setPixel(0, 0xff0000)
@@ -299,31 +295,26 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
     } else if (serviceClass === jacdac.SRV_JOYSTICK) {
         const [buttons, x, y] = pkt.jdunpack<number[]>("i32 i1.15 i1.15")
         plot(x * 100, y * 100)
+        const maxSpeed = 20
+        if (Math.abs(x) > 0.1 || Math.abs(y) > 0.1)
+            mouseMove(x * maxSpeed, y * maxSpeed)
     }
 }
 
 function plot(x: number, y: number) {
-        basic.clearScreen();
-        let dispX = 2;
-        let dispY = 2;
-        //console.log(`${x} ${y}`);
-        if (x < -30)
-            dispX--;
-        if (x < -60)
-            dispX--;
-        if (x > 30)
-            dispX++;
-        if (x > 60)
-            dispX++;
-        if (y < -30)
-            dispY--;
-        if (y < -60)
-            dispY--;
-        if (y > 30)
-            dispY++;
-        if (y > 60)
-            dispY++;
-        led.plot(dispX, dispY);
+    basic.clearScreen()
+    let dispX = 2
+    let dispY = 2
+    //console.log(`${x} ${y}`);
+    if (x < -30) dispX--
+    if (x < -60) dispX--
+    if (x > 30) dispX++
+    if (x > 60) dispX++
+    if (y < -30) dispY--
+    if (y < -60) dispY--
+    if (y > 30) dispY++
+    if (y > 60) dispY++
+    led.plot(dispX, dispY)
 }
 
 // whenever a device leaves the bus, forget about its services
@@ -366,7 +357,7 @@ function actuate(b: Button) {
             animateLEDs(b)
         } else if (sc === jacdac.SRV_LED) {
             animateLED(b)
-        }   
+        }
     })
 }
 
@@ -380,6 +371,15 @@ function setServoAngle(b: Button) {
     pkt.sendAsMultiCommand(jacdac.SRV_SERVO)
 }
 
+function mouseMove(x: number, y: number) {
+    const pkt = jacdac.JDPacket.jdpacked(
+        jacdac.HidMouseCmd.Move,
+        "i16 i16 u16",
+        [x | 0, y | 0, 0]
+    )
+    pkt.sendAsMultiCommand(jacdac.SRV_HID_MOUSE)
+}
+
 function animateLEDs(b: Button) {
     if (b === Button.A) {
         runEncoded("rotfwd 1")
@@ -391,16 +391,18 @@ function animateLEDs(b: Button) {
 }
 
 function sendColor(color: number) {
-    const pkt = jacdac.JDPacket.jdpacked(
-        jacdac.LedCmd.Animate,
-        "u8 u8 u8 u8",
-        [color >> 16, (color & 0x00FF00) >> 8, color, 50]
-    )
+    const pkt = jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, "u8 u8 u8 u8", [
+        color >> 16,
+        (color & 0x00ff00) >> 8,
+        color,
+        50,
+    ])
     pkt.sendAsMultiCommand(jacdac.SRV_LED)
 }
 
 function animateLED(b: Button) {
-    const color = b === Button.A ? 0xff0000 : b === Button.B ? 0x00ff00 : 0x0000ff
+    const color =
+        b === Button.A ? 0xff0000 : b === Button.B ? 0x00ff00 : 0x0000ff
     sendColor(color)
     pause(500)
     sendColor(0)
