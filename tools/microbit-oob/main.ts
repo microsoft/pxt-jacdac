@@ -249,8 +249,16 @@ function processEvent(serviceClass: number, pkt: jacdac.JDPacket) {
         if (pkt.eventCode === jacdac.ButtonEvent.Down) {
             basic.showIcon(buttonPressIcons[index], 0)
             scheduleTone(whichNote)
+            mouseClick(
+                jacdac.HidMouseButton.Left,
+                jacdac.HidMouseButtonEvent.Down
+            )
         } else if (pkt.eventCode === jacdac.ButtonEvent.Up) {
             basic.clearScreen()
+            mouseClick(
+                jacdac.HidMouseButton.Left,
+                jacdac.HidMouseButtonEvent.Up
+            )
         } else if (pkt.eventCode === jacdac.ButtonEvent.Hold) {
             game.addScore(1)
         }
@@ -376,6 +384,18 @@ function mouseMove(x: number, y: number) {
         jacdac.HidMouseCmd.Move,
         "i16 i16 u16",
         [x | 0, y | 0, 0]
+    )
+    pkt.sendAsMultiCommand(jacdac.SRV_HID_MOUSE)
+}
+
+function mouseClick(
+    buttons: jacdac.HidMouseButton,
+    event: jacdac.HidMouseButtonEvent
+) {
+    const pkt = jacdac.JDPacket.jdpacked(
+        jacdac.HidMouseCmd.SetButton,
+        "u16 u8",
+        [buttons, event]
     )
     pkt.sendAsMultiCommand(jacdac.SRV_HID_MOUSE)
 }
