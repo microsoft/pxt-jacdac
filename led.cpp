@@ -31,6 +31,7 @@ struct LedInfo {
     target_panic(901)
 #endif
 
+#ifndef MICROBIT_CODAL
 static LedInfo leds[3];
 static uint8_t led_init;
 
@@ -83,9 +84,13 @@ static void setup_pwm_pin(LedInfo *led) {
     set_pwm_level(led, 0);
 #endif
 }
+#endif
 
 //%
 void _setLedChannel(int ch, uint16_t val) {
+#ifdef MICROBIT_CODAL
+    // TODO?
+#else
     if (!led_init) {
         led_init = INITED;
         int lr = getConfig(CFG_PIN_LED_R, -1);
@@ -116,6 +121,7 @@ void _setLedChannel(int ch, uint16_t val) {
     } else {
         set_pwm_level(&leds[ch], leds[ch].value);
     }
+#endif
 }
 
 } // namespace jacdac
