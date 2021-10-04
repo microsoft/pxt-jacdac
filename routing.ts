@@ -1407,6 +1407,12 @@ namespace jacdac {
         noWait?: boolean
     }): void {
         if (jacdac.bus.running) return // already started
+
+        if (!productIdentifier) {
+            const id = control.getConfigValue(DAL.CFG_BOOTLOADER_BOARD_ID, 0)
+            if (id) productIdentifier = (id & 0x0fffffff) | 0x30000000
+        }
+
         // make sure we prevent re-entering this function (potentially even log() can call us)
         bus.start()
 
@@ -1447,9 +1453,7 @@ namespace jacdac {
 
     function getLed(id: number) {
         const thePin =
-            control.getConfigValue(id, -1) == -1
-                ? DAL.CFG_PIN_LED
-                : id
+            control.getConfigValue(id, -1) == -1 ? DAL.CFG_PIN_LED : id
         setPinByCfg(thePin, false)
         return thePin
     }

@@ -3,6 +3,7 @@
        "../../mkc-maker.json"
     ],
     "overrides": {
+        "name": "JM HID Servers RP2040 59 v0.1",
         "testDependencies": {
             "jacdac-brain-rp2040": "*"
         }

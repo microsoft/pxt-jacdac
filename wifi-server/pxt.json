@@ -1,26 +1,25 @@
 {
-    "name": "jacdac-hid-mouse-server",
+    "name": "jacdac-wifi-server",
     "version": "0.7.2",
-    "description": "MakeCode support for Jacdac mouse hid server",
+    "description": "MakeCode support for Jacdac WiFi server",
     "dependencies": {
         "core": "*",
-        "mouse": "*",
+        "net": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
         "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
-        "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse"
+        "jacdac-wifi": "github:microsoft/pxt-jacdac/wifi"
     },
-    "testFiles": [
-        "test.ts"
-    ],
     "files": [
         "server.ts"
     ],
+    "testFiles": [
+        "test.ts"
+    ],
     "supportedTargets": [
-        "arcade",
         "maker"
     ],
     "preferredEditor": "tsprj",
     "testDependencies": {
-        "nucleo-f411re": "*"
+        "espressif-esp32-devkit-c": "*"
     }
 }

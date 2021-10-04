@@ -22,7 +22,8 @@
         "jacdac-servers": "./servers",
         "jacdac-servo": "./servo",
         "jacdac-settings": "./settings",
-        "jacdac-tcp": "./tcp",
-        "jacdac-thermometer": "./thermometer"
+        "jacdac-thermometer": "./thermometer",
+        "jacdac-wifi": "./wifi",
+        "jacdac-tcp": "./tcp"
     }
 }

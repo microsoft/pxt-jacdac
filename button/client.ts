@@ -67,6 +67,7 @@ namespace modules {
         //% blockId=jacdac_button_pressed___get
         //% weight=98
         pressed(): boolean {
+            this.start()
             return this._pressed
         }
 

@@ -1,0 +1,25 @@
+{
+    "name": "jacdac-test-accelerometer",
+    "version": "0.7.2",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer"
+    },
+    "files": [
+        "main.ts"
+    ],
+    "targetVersions": {
+        "target": "4.0.11",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj",
+    "disableTargetTemplateFiles": true,
+    "binaryonly": true
+}
