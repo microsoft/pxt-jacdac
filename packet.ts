@@ -127,7 +127,7 @@ namespace jacdac {
         }
 
         get isEvent() {
-            return this.isReport && (this.serviceCommand & CMD_EVENT_MASK) != 0
+            return this.isReport && this.serviceIndex <= 0x30 && (this.serviceCommand & CMD_EVENT_MASK) != 0
         }
 
         get eventCode() {
