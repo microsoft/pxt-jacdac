@@ -658,7 +658,7 @@ namespace jacdac {
                 const device = this.service.currentDevice
                 if (device)
                     // tell device to refresh register
-                    device.query(this.code, 1000, this.service.serviceIndex)
+                    device.query(this.code, 250, this.service.serviceIndex)
             }
             if (!this.hasValues())
                 pauseUntil(() => this.hasValues(), timeOut || 1000)
