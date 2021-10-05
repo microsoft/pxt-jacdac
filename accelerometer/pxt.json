@@ -1,6 +1,6 @@
 {
     "name": "jacdac-accelerometer",
-    "version": "0.7.2",
+    "version": "0.7.3",
     "description": "MakeCode support for Jacdac Accelerometer service",
     "dependencies": {
         "core": "*",
@@ -16,7 +16,9 @@
         "microbit"
     ],
     "preferredEditor": "tsprj",
-    "testFiles": [ "test.microbit.ts"],
+    "testFiles": [
+        "test.microbit.ts"
+    ],
     "fileDependencies": {
         "test.microbit.ts": "target:microbit"
     }
