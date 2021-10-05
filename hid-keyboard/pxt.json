@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-keyboard",
-    "version": "0.7.4",
+    "version": "0.7.5",
     "description": "MakeCode support for Jacdac HID Keyboard client",
     "dependencies": {
         "core": "*",
