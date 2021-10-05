@@ -19,7 +19,7 @@ namespace jacdac {
                 if (pri < this.minPriority) return
 
                 // send message to console
-                const deviceName = this.currentDevice.toString()
+                const deviceName = this.device.toString()
                 const innerMsg = packet.data.toString()
                 // the initial ':' is used as marker to avoid infinite console repeat
                 const msg = `:${deviceName}> ${innerMsg}`
@@ -38,7 +38,7 @@ namespace jacdac {
                         break
                 }
                 if (this.onMessageReceived)
-                    this.onMessageReceived(pri, this.currentDevice, innerMsg)
+                    this.onMessageReceived(pri, this.device, innerMsg)
             }
         }
     }
