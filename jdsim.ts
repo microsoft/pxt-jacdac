@@ -109,4 +109,13 @@ namespace jacdac {
     export function __physGetDiagnostics(): Buffer {
         return null // TODO?
     }
+
+    /**
+     * Sets the status led value for a given channel
+     **/
+    //% shim=jacdac::_setLedChannel
+    export function _setLedChannel(ch: number, val: number) {
+        // TODO (keep return)
+        return
+    }
 }

@@ -1455,9 +1455,6 @@ namespace jacdac {
         log("jacdac started")
     }
 
-    //% shim=jacdac::_setLedChannel
-    declare function _setLedChannel(ch: number, val: number): void
-
     export enum LedChannel {
         Red = 0,
         Green = 1,
