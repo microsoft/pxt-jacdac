@@ -110,6 +110,13 @@ function setPixel(index: number, rgb: number) {
     runEncoded("setone % # wait 1", [index, rgb])
 }
 
+function rotatePixel(clicks: number) {
+    if (clicks > 0)
+        runEncoded("rotback #", [clicks])
+    else
+        runEncoded("rotfwd #", [-clicks])
+}
+
 function configureActuator(dev: jacdac.Device, serviceClass: number) {
     if (serviceClass === jacdac.SRV_SERVO) {
         // nothing to do here
@@ -277,8 +284,10 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
     if (serviceClass === jacdac.SRV_ROTARY_ENCODER) {
         const position = pkt.jdunpack<number[]>("u32")[0]
         if (position !== sensorMap[lookup]) {
+            const diff = position - (sensorMap[lookup] || 0)
             sensorMap[lookup] = position
             led.plotBarGraph(position % 20, 19)
+            rotatePixel(diff)
         }
     } else if (
         serviceClass === jacdac.SRV_POTENTIOMETER ||
