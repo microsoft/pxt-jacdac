@@ -111,10 +111,17 @@ function setPixel(index: number, rgb: number) {
 }
 
 function rotatePixel(clicks: number) {
-    if (clicks > 0)
-        runEncoded("rotback #", [clicks])
-    else
-        runEncoded("rotfwd #", [-clicks])
+    if (clicks > 0) runEncoded("rotback #", [clicks])
+    else runEncoded("rotfwd #", [-clicks])
+}
+
+function setPixelBrightness(ratio: number) {
+    const pkt = jacdac.JDPacket.jdpacked(
+        jacdac.CMD_SET_REG | jacdac.LedPixelReg.Brightness,
+        "u0.8",
+        [ratio]
+    )
+    pkt.sendAsMultiCommand(jacdac.SRV_LED_PIXEL)
 }
 
 function configureActuator(dev: jacdac.Device, serviceClass: number) {
@@ -298,6 +305,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
         if (position !== sensorMap[lookup]) {
             sensorMap[lookup] = position
             led.plotBarGraph(position, 100)
+            setPixelBrightness(position / 200) // don't go above 50%
         }
     } else if (serviceClass === jacdac.SRV_THERMOMETER) {
         const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
