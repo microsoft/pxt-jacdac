@@ -14,6 +14,7 @@ void jd_seed_random(uint32_t s) {
     seed = (seed * 0x1000193) ^ s;
 }
 
+REAL_TIME_FUNC
 uint32_t jd_random() {
     if (seed == 0)
         jd_seed_random(13);
@@ -28,6 +29,7 @@ uint32_t jd_random() {
 }
 
 // return v +/- 25% or so
+REAL_TIME_FUNC
 uint32_t jd_random_around(uint32_t v) {
     uint32_t mask = 0xfffffff;
     while (mask > v)
@@ -36,6 +38,7 @@ uint32_t jd_random_around(uint32_t v) {
 }
 
 // https://wiki.nicksoft.info/mcu:pic16:crc-16:home
+REAL_TIME_FUNC
 uint16_t jd_crc16(const void *data, uint32_t size) {
     const uint8_t *ptr = (const uint8_t *)data;
     uint16_t crc = 0xffff;

@@ -34,30 +34,36 @@ jd_diagnostics_t *jd_get_diagnostics(void) {
     return &jd_diagnostics;
 }
 
+REAL_TIME_FUNC
 static void pulse1(void) {
     log_pin_set(1, 1);
     log_pin_set(1, 0);
 }
 
+REAL_TIME_FUNC
 static void signal_error(void) {
     log_pin_set(2, 1);
     log_pin_set(2, 0);
 }
 
+REAL_TIME_FUNC
 static void signal_write(int v) {
     log_pin_set(4, v);
 }
 
+REAL_TIME_FUNC
 static void signal_read(int v) {
     // log_pin_set(0, v);
 }
 
 __attribute__((unused))
+REAL_TIME_FUNC
 static void pulse_log_pin(void) {
     log_pin_set(0, 1);
     log_pin_set(0, 0);
 }
 
+REAL_TIME_FUNC
 static void check_announce(void) {
     if (tim_get_micros() > nextAnnounce) {
         // pulse_log_pin();
@@ -83,6 +89,7 @@ int jd_is_busy(void) {
     return status != 0;
 }
 
+REAL_TIME_FUNC
 static void tx_done(void) {
     signal_write(0);
     set_tick_timer(JD_STATUS_TX_ACTIVE);
@@ -101,8 +108,9 @@ static void tick(void) {
     set_tick_timer(0);
 }
 
+REAL_TIME_FUNC
 static void flush_tx_queue(void) {
-    // pulse1();
+    pulse1();
     if (annCounter++ == 0)
         check_announce();
 
@@ -136,6 +144,7 @@ static void flush_tx_queue(void) {
     set_tick_timer(0);
 }
 
+REAL_TIME_FUNC
 static void set_tick_timer(uint8_t statusClear) {
     target_disable_irq();
     if (statusClear) {
@@ -227,6 +236,7 @@ void jd_line_falling() {
     // target_enable_irq();
 }
 
+REAL_TIME_FUNC
 void jd_rx_completed(int dataLeft) {
     //pulse_log_pin();
 
@@ -280,6 +290,7 @@ void jd_rx_completed(int dataLeft) {
         jd_diagnostics.packets_dropped++;
 }
 
+REAL_TIME_FUNC
 void jd_packet_ready(void) {
     target_disable_irq();
     txPending = 1;

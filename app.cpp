@@ -31,7 +31,8 @@ static LinkedFrame *volatile rxQ;
 static LinkedFrame *volatile txQ;
 static LinkedFrame *superFrameRX;
 
-extern "C" jd_frame_t *app_pull_frame() {
+extern "C" REAL_TIME_FUNC
+jd_frame_t *app_pull_frame() {
     target_disable_irq();
     jd_frame_t *res = NULL;
     if (txQ) {

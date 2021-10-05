@@ -28,7 +28,6 @@ static uint32_t *logPinMasks;
 #include "hardware/gpio.h"
 #endif
 
-REAL_TIME_FUNC
 static void init_log_pins() {
     logPins = new DevicePin *[NUM_LOG_PINS];
 #ifdef PICO_BOARD
@@ -103,6 +102,7 @@ void jd_panic(void) {
     target_panic(PANIC_JACDAC);
 }
 
+REAL_TIME_FUNC
 static void tim_callback(Event e) {
     cb_t f = tim_cb;
     if (f && e.value == currEvent) {
@@ -117,6 +117,7 @@ void tim_init() {
     EventModel::defaultEventBus->listen(DEVICE_ID, 0, tim_callback, MESSAGE_BUS_LISTENER_IMMEDIATE);
 }
 
+REAL_TIME_FUNC
 uint64_t tim_get_micros(void) {
     return current_time_us();
 }
@@ -126,6 +127,7 @@ uint64_t tim_get_micros(void) {
 // ATSAMD51  - +13us +10.8us
 // ATSAMD21  - +29us +20us
 
+REAL_TIME_FUNC
 void tim_set_timer(int delta, cb_t cb) {
     // compensate for overheads
     delta -= JD_TIM_OVERHEAD;
@@ -142,6 +144,7 @@ void tim_set_timer(int delta, cb_t cb) {
     target_enable_irq();
 }
 
+REAL_TIME_FUNC
 static void setup_exti() {
     // LOG("setup exti; %d", sws->p.name);
     sws->setMode(SingleWireDisconnected);
@@ -214,7 +217,6 @@ static void sws_done(uint16_t errCode) {
         break;
     }
     setup_exti();
-
     pin_pulse();
 }
 
