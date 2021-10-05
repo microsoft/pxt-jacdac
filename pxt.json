@@ -17,6 +17,8 @@
         "led.cpp",
         "hw-esp32.c",
         "jdsim.ts",
+        "nonmaker.ts",
+        "maker.ts",
         "hw.h",
         "mbbridge.h",
         "mbbridge.cpp",
@@ -62,6 +64,8 @@
     "testDependencies": {},
     "fileDependencies": {
         "mbcompat.ts": "target:microbit",
+        "nonmaker.ts": "!target:maker",
+        "maker.ts": "target:maker",
         "test.microbit.ts": "target:microbit",
         "hw.cpp": "!core---esp32 && !core---esp32s2",
         "hw-esp32.c": "core---esp32 || core---esp32s2"
