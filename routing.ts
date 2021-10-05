@@ -656,9 +656,10 @@ namespace jacdac {
                 !(isConstRegister(this.code) && !!this._data)
             ) {
                 const device = this.service.currentDevice
-                if (device)
+                if (device) {
                     // tell device to refresh register
                     device.query(this.code, 250, this.service.serviceIndex)
+                }
             }
             if (!this.hasValues())
                 pauseUntil(() => this.hasValues(), timeOut || 1000)
@@ -839,6 +840,7 @@ namespace jacdac {
                 }`
             )
             dev.clients.push(this)
+            this.currentDevice = dev
             this.handleConnected()
             return true
         }
@@ -1132,16 +1134,19 @@ namespace jacdac {
             this.lastSeen = control.millis()
             this.emit(PACKET_RECEIVE, pkt)
 
+            const serviceIndex = pkt.serviceIndex
             if (pkt.isRegGet && this.queries) {
-                const q = this.lookupQuery(pkt.regCode, pkt.serviceIndex)
+                const q = this.lookupQuery(pkt.regCode, serviceIndex)
                 if (q) {
                     q.value = pkt.data
                     q.lastReport = control.millis()
                 }
             }
 
-            const serviceClass = this.serviceClassAt(pkt.serviceIndex)
-            if (!serviceClass || serviceClass == 0xffffffff) return
+            const serviceClass = this.serviceClassAt(serviceIndex)
+            if (!serviceClass || serviceClass == 0xffffffff) {
+                return
+            }
 
             if (pkt.isEvent) {
                 let ec = this._eventCounter
@@ -1164,11 +1169,10 @@ namespace jacdac {
             const client = this.clients.find(c =>
                 c.broadcast
                     ? c.serviceClass == serviceClass
-                    : c.serviceIndex == pkt.serviceIndex
+                    : c.serviceIndex == serviceIndex
             )
             if (client) {
                 // log(`handle pkt at ${client.role} rep=${pkt.serviceCommand}`)
-                client.currentDevice = this
                 client.handlePacketOuter(pkt)
             }
         }
