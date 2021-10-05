@@ -39,9 +39,9 @@ static void set_pwm_level(LedInfo *led, uint16_t level) {
     if (led_init & ACTIVE_LOW)
         level = 0xffff - level;
 #if defined(PICO_BOARD)
-    pwm_set_chan_level(pwm_gpio_to_slice_num(led->pinid), pwm_gpio_to_channel(led->pinid), level);
+    pwm_set_gpio_level(led->pinid, level >> 6);
 #elif defined(PXT_ESP32)
-    CHK(ledc_set_duty_with_hpoint(LEDC_LOW_SPEED_MODE, (ledc_channel_t)(led->ch), level >> 2, 0));
+    CHK(ledc_set_duty_with_hpoint(LEDC_LOW_SPEED_MODE, (ledc_channel_t)(led->ch), level >> 6, 0));
     CHK(ledc_update_duty(LEDC_LOW_SPEED_MODE, (ledc_channel_t)(led->ch)));
 #else
     led->pinobj->setAnalogValue(level >> 6);
@@ -53,7 +53,8 @@ static void setup_pwm_pin(LedInfo *led) {
 #if defined(PICO_BOARD)
     gpio_set_function(pin, GPIO_FUNC_PWM);
     int slice = pwm_gpio_to_slice_num(pin);
-    pwm_set_wrap(slice, 0xfffe);
+    pwm_set_clkdiv_int_frac(slice, 1, 0);
+    pwm_set_wrap(slice, (1 << 10) - 2); // 10 bit
     set_pwm_level(led, 0);
     pwm_set_enabled(slice, true);
 #elif defined(PXT_ESP32)
@@ -62,8 +63,8 @@ static void setup_pwm_pin(LedInfo *led) {
         ledc_fade_func_install(0);
         ledc_timer_config_t ledc_timer;
         memset(&ledc_timer, 0, sizeof(ledc_timer));
-        ledc_timer.duty_resolution = LEDC_TIMER_14_BIT;
-        ledc_timer.freq_hz = 1000;
+        ledc_timer.duty_resolution = LEDC_TIMER_10_BIT;
+        ledc_timer.freq_hz = 50000;
         ledc_timer.speed_mode = LEDC_LOW_SPEED_MODE;
         ledc_timer.timer_num = LEDC_TIMER_1;
         ledc_timer.clk_cfg = LEDC_AUTO_CLK;
@@ -75,7 +76,7 @@ static void setup_pwm_pin(LedInfo *led) {
     cfg.gpio_num = pin;
     cfg.timer_sel = LEDC_TIMER_1;
     cfg.speed_mode = LEDC_LOW_SPEED_MODE;
-    cfg.duty = 1 << 14;
+    cfg.duty = 1 << 10;
     CHK(ledc_channel_config(&cfg));
     set_pwm_level(led, 0);
 #else
