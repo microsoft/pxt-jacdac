@@ -655,7 +655,7 @@ namespace jacdac {
                 // don't double query consts
                 !(isConstRegister(this.code) && !!this._data)
             ) {
-                const device = this.service.currentDevice
+                const device = this.service.device
                 if (device) {
                     // tell device to refresh register
                     device.query(this.code, 250, this.service.serviceIndex)
@@ -705,8 +705,7 @@ namespace jacdac {
 
     //% fixedInstances
     export class Client extends EventSource {
-        device: Device
-        _currentDevice: Device
+        _device: Device
         protected readonly eventId: number
         broadcast: boolean // when true, this.device is never set
         serviceIndex: number
@@ -726,13 +725,13 @@ namespace jacdac {
             if (!this.role) throw "no role"
         }
 
-        get currentDevice() {
-            return this._currentDevice
+        get device() {
+            return this._device
         }
 
-        set currentDevice(device: Device) {
-            if (this._currentDevice !== device) {
-                this._currentDevice = device
+        set device(device: Device) {
+            if (this._device !== device) {
+                this._device = device
                 this.registers.forEach(reg => reg.reset())
             }
         }
@@ -840,7 +839,6 @@ namespace jacdac {
                 }`
             )
             dev.clients.push(this)
-            this.currentDevice = dev
             this.handleConnected()
             return true
         }
