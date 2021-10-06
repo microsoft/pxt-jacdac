@@ -1,56 +1,102 @@
 namespace servers {
     export class WiFiServer extends jacdac.Server {
+        enabled = true
+
         constructor(dev: string) {
             super(dev, jacdac.SRV_WIFI)
-        }
-
-        private handleScan(pkt: jacdac.JDPacket) {
-            const knowns = net.knownAccessPoints()
-            const aps: net.AccessPoint[] = net.instance().scanNetworks()
-            const jdaps = aps.map(ap => {
-                // TODO flags
-                const rssi = ap.rssi
-                const ssid = ap.ssid
-                const flags: jacdac.WifiAPFlags = knowns[ssid]
-                    ? jacdac.WifiAPFlags.HasPassword
-                    : 0
-                const bssid = Buffer.fromUTF8(ssid)
-                const channel = 0
-                return [flags, rssi, channel, bssid, ssid]
+            const controller = net.instance().controller
+            controller.onEvent(net.ControllerEvent.GotIP, () => this.sendEvent(jacdac.WifiEvent.GotIp))
+            controller.onEvent(net.ControllerEvent.LostIP, () => this.sendEvent(jacdac.WifiEvent.LostIp))
+            controller.onEvent(net.ControllerEvent.NewScan, () => {
+                const wifis = net.knownAccessPoints()
+                const total = controller.lastScanResults.length
+                const known = controller.lastScanResults.filter(ap => wifis[ap.ssid] !== undefined).length
+                this.sendEvent(jacdac.WifiEvent.ScanComplete, jacdac.jdpack("u16 u16", [total, known]))
             })
-            jacdac.OutPipe.respondForEach(pkt, jdaps, jdap =>
-                jacdac.jdpack("u32 x[4] i8 u8 b[6] s[33]", jdap)
-            )
         }
 
-        private handleConnect(pkt: jacdac.JDPacket) {
-            const controller = net.instance().controller
-            if (controller) controller.connect()
-            // TODO events
-        }
-
-        private handleDisconnect(pkt: jacdac.JDPacket) {
-            const controller = net.instance().controller
-            // TODO: support for disconnect
+        private apChanged() {
+            this.sendEvent(jacdac.WifiEvent.ScanComplete + 1)
         }
 
         handlePacket(pkt: jacdac.JDPacket) {
             const controller = net.instance().controller
+
             this.handleRegBool(
                 pkt,
                 jacdac.WifiReg.Connected,
-                controller && controller.isConnected
+                controller.isConnected
             )
+
+            const newEn = this.handleRegBool(
+                pkt,
+                jacdac.WifiReg.Enabled,
+                this.enabled
+            )
+            if (newEn != this.enabled) {
+                this.enabled = newEn
+                if (this.enabled) controller.autoconnect()
+                else controller.disconnect()
+            }
+
             switch (pkt.serviceCommand) {
+                case jacdac.WifiReg.IpAddress | jacdac.CMD_GET_REG:
+                    pkt.respond(
+                        controller.isConnected
+                            ? controller.IPaddress
+                            : Buffer.create(0)
+                    )
+                    break
+                case jacdac.WifiReg.Eui48 | jacdac.CMD_GET_REG:
+                    pkt.respond(controller.MACaddress)
+                    break
+                case jacdac.WifiReg.Ssid | jacdac.CMD_GET_REG:
+                    pkt.respond(Buffer.fromUTF8(controller.ssid))
+                    break
+                case jacdac.WifiCmd.LastScanResults:
+                    jacdac.OutPipe.respondForEach(
+                        pkt,
+                        controller.lastScanResults || [],
+                        ap => ap.toBuffer()
+                    )
+                    break
+                case jacdac.WifiCmd.Reconnect:
+                    controller.disconnectAP()
+                    break
                 case jacdac.WifiCmd.Scan:
-                    this.handleScan(pkt)
+                    control.runInBackground(() => controller.scanNetworks())
                     break
-                case jacdac.WifiCmd.Disconnect:
-                    this.handleDisconnect(pkt)
+                case jacdac.WifiCmd.AddNetwork: {
+                    const [ssid, pwd] = pkt.jdunpack("z z")
+                    net.updateAccessPoint(ssid, pwd)
+                    this.apChanged()
                     break
-                case jacdac.WifiCmd.Connect:
-                    this.handleConnect(pkt)
+                }
+                case jacdac.WifiCmd.SetNetworkPriority: {
+                    const [pri, ssid] = pkt.jdunpack("i16 s")
+                    net.setAccessPointPriority(ssid, pri)
+                    this.apChanged()
                     break
+                }
+                case jacdac.WifiCmd.ForgetNetwork: {
+                    const ssid = pkt.stringData
+                    net.clearAccessPoint(ssid)
+                    this.apChanged()
+                    break
+                }
+                case jacdac.WifiCmd.ForgetAllNetworks:
+                    net.clearAccessPoints()
+                    this.apChanged()
+                    break
+                case jacdac.WifiCmd.ListKnownNetworks: {
+                    const pri = net.accessPointPriorities()
+                    jacdac.OutPipe.respondForEach(
+                        pkt,
+                        Object.keys(net.knownAccessPoints()),
+                        ap => jacdac.jdpack("i16 i16 s", [pri[ap] || 0, 0, ap])
+                    )
+                    break
+                }
             }
         }
     }

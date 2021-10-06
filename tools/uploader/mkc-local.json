@@ -5,6 +5,7 @@
     "links": {
         "wifi---esp32": "../../../../../pxt-common-packages/libs/wifi---esp32",
         "net": "../../../../../pxt-common-packages/libs/net",
+        "settings---esp32": "../../../../../pxt-common-packages/libs/settings---esp32",
         "azureiot": "../../../../../pxt-common-packages/libs/azureiot"
     }
 }

@@ -18,3 +18,4 @@ jacdac.twins.init()
 
 const iotHubHealthServer = new jacdac.AzureIotHubHealthServer("iot hub")
 iotHubHealthServer.start()
+servers.wifi.start()

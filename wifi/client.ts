@@ -6,17 +6,6 @@ namespace jacdac {
     const EV_GOT_IP = 0x01
     const EV_LOST_IP = 0x02
 
-    function decodeAP(buf: Buffer): net.AccessPoint {
-        const [flags, reserved, rssi, channel] = buf.unpack("IIbB")
-        let p = 16
-        while (buf[p]) p++
-        const ssid = buf.slice(16, p - 16).toString()
-        const r = new net.AccessPoint(ssid)
-        r.encryption = flags & 0x0001 ? 4 : 7
-        r.rssi = rssi
-        return r
-    }
-
     export class WifiClient extends Client {
         constructor(role: string) {
             super(jacdac.SRV_WIFI, role)
@@ -30,7 +19,7 @@ namespace jacdac {
             if (!this.device) return []
             const s = new InPipe()
             this.sendCommandWithAck(s.openCommand(CMD_SCAN))
-            const elts = s.readList(decodeAP)
+            const elts = s.readList(b => net.AccessPoint.fromBuffer(b))
             elts.sort((x, y) => y.rssi - x.rssi)
             return elts
         }
@@ -42,6 +31,7 @@ namespace jacdac {
             )
             pauseUntil(() => this.hasIP, 15000)
             if (!this.hasIP) throw "Can't connect"
+            return true
         }
     }
     export class WifiController extends net.Controller {
@@ -141,29 +131,8 @@ namespace jacdac {
         /**
          * Uses RSSID and password in settings to connect to a compatible AP
          */
-        public connect(): boolean {
-            if (this.isConnected) return true
-
-            const wifis = net.knownAccessPoints()
-            const ssids = Object.keys(wifis)
-            const networks = this.scanNetworks().filter(
-                network => ssids.indexOf(network.ssid) > -1
-            )
-            // try connecting to known networks
-            for (const network of networks) {
-                try {
-                    this.wifiClient.connect(network.ssid, wifis[network.ssid])
-                    this._ssid = network.ssid
-                    net.log(`connected to '${network.ssid}'`)
-                    return true
-                } catch {
-                    net.log(`can't connect to '${network.ssid}'`)
-                }
-            }
-
-            // no compatible SSID
-            net.log(`connection failed`)
-            return false
+        public connectAP(ssid: string, pwd: string): boolean {
+            return this.wifiClient.connect(ssid, pwd)
         }
 
         get ssid(): string {

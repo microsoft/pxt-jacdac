@@ -7,13 +7,7 @@
         "net": "*",
         "azureiot": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer",
-        "jacdac-servo": "github:microsoft/pxt-jacdac/servo",
-        "jacdac-motor": "github:microsoft/pxt-jacdac/motor",
-        "jacdac-button": "github:microsoft/pxt-jacdac/button",
-        "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
-        "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
-        "jacdac-led": "github:microsoft/pxt-jacdac/led",
+        "jacdac-wifi-server": "github:microsoft/pxt-jacdac/wifi-server",
         "jacdac-azure-iot-hub-health-server": "github:microsoft/pxt-jacdac/azure-iot-hub-health-server"
     },
     "files": [

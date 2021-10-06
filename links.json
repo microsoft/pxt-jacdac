@@ -24,6 +24,7 @@
         "jacdac-settings": "./settings",
         "jacdac-thermometer": "./thermometer",
         "jacdac-wifi": "./wifi",
+        "jacdac-wifi-server": "./wifi-server",
         "jacdac-tcp": "./tcp"
     }
 }
