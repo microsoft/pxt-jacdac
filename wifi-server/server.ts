@@ -15,10 +15,6 @@ namespace servers {
             })
         }
 
-        private apChanged() {
-            this.sendEvent(jacdac.WifiEvent.ScanComplete + 1)
-        }
-
         handlePacket(pkt: jacdac.JDPacket) {
             const controller = net.instance().controller
 
@@ -69,24 +65,24 @@ namespace servers {
                 case jacdac.WifiCmd.AddNetwork: {
                     const [ssid, pwd] = pkt.jdunpack("z z")
                     net.updateAccessPoint(ssid, pwd)
-                    this.apChanged()
+                    this.sendEvent(jacdac.WifiEvent.NetworksChanged)
                     break
                 }
                 case jacdac.WifiCmd.SetNetworkPriority: {
                     const [pri, ssid] = pkt.jdunpack("i16 s")
                     net.setAccessPointPriority(ssid, pri)
-                    this.apChanged()
+                    this.sendEvent(jacdac.WifiEvent.NetworksChanged)
                     break
                 }
                 case jacdac.WifiCmd.ForgetNetwork: {
                     const ssid = pkt.stringData
                     net.clearAccessPoint(ssid)
-                    this.apChanged()
+                    this.sendEvent(jacdac.WifiEvent.NetworksChanged)
                     break
                 }
                 case jacdac.WifiCmd.ForgetAllNetworks:
                     net.clearAccessPoints()
-                    this.apChanged()
+                    this.sendEvent(jacdac.WifiEvent.NetworksChanged)
                     break
                 case jacdac.WifiCmd.ListKnownNetworks: {
                     const pri = net.accessPointPriorities()

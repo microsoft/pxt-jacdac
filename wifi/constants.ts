@@ -183,6 +183,12 @@ namespace jacdac {
          */
         //% block="scan complete"
         ScanComplete = 0x80,
+
+        /**
+         * Emitted whenever the list of known networks is updated.
+         */
+        //% block="networks changed"
+        NetworksChanged = 0x81,
     }
 
 }
