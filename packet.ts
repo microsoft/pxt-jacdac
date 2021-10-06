@@ -230,6 +230,12 @@ namespace jacdac {
             return msg
         }
 
+        respond(data: Buffer) {
+            const p = JDPacket.from(this.serviceCommand, data)
+            p.serviceIndex = this.serviceIndex
+            this._sendReport(bus.selfDevice)
+        }
+
         _sendCore() {
             if (this._data.length != this._header[12]) throw "jdsize mismatch"
             jacdac.__physSendPacket(this._header, this._data)

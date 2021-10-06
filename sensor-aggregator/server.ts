@@ -239,9 +239,7 @@ namespace jacdac {
 
             switch (packet.serviceCommand) {
                 case jacdac.SensorAggregatorReg.Inputs | CMD_GET_REG:
-                    this.sendReport(
-                        JDPacket.from(packet.serviceCommand, this.inputSettings)
-                    )
+                    packet.respond(this.inputSettings)
                     break
                 case jacdac.SensorAggregatorReg.Inputs | CMD_SET_REG:
                     if (
