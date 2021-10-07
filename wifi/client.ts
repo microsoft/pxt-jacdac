@@ -152,5 +152,5 @@ namespace jacdac {
     }
 
     // initialize default controller and net.Net instance
-    new net.Net(() => new WifiController())
+    // new net.Net(() => new WifiController())
 }
