@@ -140,7 +140,7 @@ namespace jacdac {
         IpAddress = 0x181,
 
         /**
-         * Read-only bytes. The 6-byte MAC address of the device.
+         * Constant bytes. The 6-byte MAC address of the device. If a device does MAC address randomization it will have to "restart".
          *
          * ```
          * const [eui48] = jdunpack<[Buffer]>(buf, "b[6]")
@@ -157,6 +157,15 @@ namespace jacdac {
          * ```
          */
         Ssid = 0x183,
+
+        /**
+         * Read-only dB int8_t. Current signal strength. Returns -128 when not connected.
+         *
+         * ```
+         * const [rssi] = jdunpack<[number]>(buf, "i8")
+         * ```
+         */
+        Rssi = 0x184,
     }
 
     export const enum WifiEvent {

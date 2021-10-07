@@ -5,13 +5,22 @@ namespace servers {
         constructor(dev: string) {
             super(dev, jacdac.SRV_WIFI)
             const controller = net.instance().controller
-            controller.onEvent(net.ControllerEvent.GotIP, () => this.sendEvent(jacdac.WifiEvent.GotIp))
-            controller.onEvent(net.ControllerEvent.LostIP, () => this.sendEvent(jacdac.WifiEvent.LostIp))
+            controller.onEvent(net.ControllerEvent.GotIP, () =>
+                this.sendEvent(jacdac.WifiEvent.GotIp)
+            )
+            controller.onEvent(net.ControllerEvent.LostIP, () =>
+                this.sendEvent(jacdac.WifiEvent.LostIp)
+            )
             controller.onEvent(net.ControllerEvent.NewScan, () => {
                 const wifis = net.knownAccessPoints()
                 const total = controller.lastScanResults.length
-                const known = controller.lastScanResults.filter(ap => wifis[ap.ssid] !== undefined).length
-                this.sendEvent(jacdac.WifiEvent.ScanComplete, jacdac.jdpack("u16 u16", [total, known]))
+                const known = controller.lastScanResults.filter(
+                    ap => wifis[ap.ssid] !== undefined
+                ).length
+                this.sendEvent(
+                    jacdac.WifiEvent.ScanComplete,
+                    jacdac.jdpack("u16 u16", [total, known])
+                )
             })
             controller.autoconnect()
         }
@@ -49,6 +58,9 @@ namespace servers {
                     break
                 case jacdac.WifiReg.Ssid | jacdac.CMD_GET_REG:
                     pkt.respond(Buffer.fromUTF8(controller.ssid))
+                    break
+                case jacdac.WifiReg.Rssi | jacdac.CMD_GET_REG:
+                    pkt.respond(jacdac.jdpack("i8", [controller.rssi || 0]))
                     break
                 case jacdac.WifiCmd.LastScanResults:
                     jacdac.OutPipe.respondForEach(
