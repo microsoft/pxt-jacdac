@@ -13,6 +13,7 @@ namespace servers {
                 const known = controller.lastScanResults.filter(ap => wifis[ap.ssid] !== undefined).length
                 this.sendEvent(jacdac.WifiEvent.ScanComplete, jacdac.jdpack("u16 u16", [total, known]))
             })
+            controller.autoconnect()
         }
 
         handlePacket(pkt: jacdac.JDPacket) {
