@@ -233,7 +233,7 @@ namespace jacdac {
         respond(data: Buffer) {
             const p = JDPacket.from(this.serviceCommand, data)
             p.serviceIndex = this.serviceIndex
-            this._sendReport(bus.selfDevice)
+            p._sendReport(bus.selfDevice)
         }
 
         _sendCore() {
