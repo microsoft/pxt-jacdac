@@ -9,17 +9,11 @@
         "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
         "jacdac-wifi": "github:microsoft/pxt-jacdac/wifi"
     },
-    "files": [
-        "server.ts"
-    ],
-    "testFiles": [
-        "test.ts"
-    ],
-    "supportedTargets": [
-        "maker"
-    ],
+    "files": ["server.ts"],
+    "testFiles": ["test.ts"],
+    "supportedTargets": ["maker"],
     "preferredEditor": "tsprj",
     "testDependencies": {
-        "espressif-esp32-devkit-c": "*"
+        "jacdac-iot-s2": "*"
     }
 }
