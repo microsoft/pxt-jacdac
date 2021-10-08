@@ -41,6 +41,23 @@ namespace modules {
         }
 
         /**
+         * The current LED color as an 24bit RGB color
+         */
+        //% callInDebugger
+        //% group="Light"
+        //% weight=100
+        //% blockCombine block="color" blockSetVariable="led1"
+        get color(): number {
+            this.start()
+            const values = this._color.pauseUntilValues() as any[]
+            return values.length === 3
+                ? ((values[0] & 0xff) << 16) |
+                      ((values[1] & 0xff) << 8) |
+                      (values[2] & 0xff)
+                : 0
+        }
+
+        /**
          * The current red channel of LED color.
          */
         //% callInDebugger
@@ -50,7 +67,7 @@ namespace modules {
         get red(): number {
             this.start()
             const values = this._color.pauseUntilValues() as any[]
-            return values[0]
+            return values[0] | 0
         }
 
         /**
@@ -63,7 +80,7 @@ namespace modules {
         get green(): number {
             this.start()
             const values = this._color.pauseUntilValues() as any[]
-            return values[1]
+            return values[1] | 0
         }
 
         /**
@@ -76,7 +93,7 @@ namespace modules {
         get blue(): number {
             this.start()
             const values = this._color.pauseUntilValues() as any[]
-            return values[2]
+            return values[2] | 0
         }
 
         /**
