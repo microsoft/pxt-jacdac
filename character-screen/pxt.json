@@ -1,14 +1,17 @@
 {
     "name": "jacdac-characterscreen",
-    "version": "0.7.6",
+    "version": "0.7.8",
     "description": "A screen that displays characters.",
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.ts"
     ],
     "testFiles": [
-        "test.ts"
+        "test.microbit.ts"
     ],
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit"
+    },
     "supportedTargets": [
         "arcade",
         "microbit",
@@ -17,8 +20,5 @@
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
     }
 }

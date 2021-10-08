@@ -41,39 +41,59 @@ namespace modules {
         }
 
         /**
-         * The current color of the LED.
+         * The current LED color as an 24bit RGB color
          */
         //% callInDebugger
         //% group="Light"
         //% weight=100
-        colorRed(): number {
+        //% blockCombine block="color" blockSetVariable="led1"
+        get color(): number {
             this.start()
             const values = this._color.pauseUntilValues() as any[]
-            return values[0]
+            return values.length === 3
+                ? ((values[0] & 0xff) << 16) |
+                      ((values[1] & 0xff) << 8) |
+                      (values[2] & 0xff)
+                : 0
         }
 
         /**
-         * The current color of the LED.
+         * The current red channel of LED color.
+         */
+        //% callInDebugger
+        //% group="Light"
+        //% weight=100
+        //% blockCombine block="red" blockSetVariable="led1"
+        get red(): number {
+            this.start()
+            const values = this._color.pauseUntilValues() as any[]
+            return values[0] | 0
+        }
+
+        /**
+         * The current green channel of LED color.
          */
         //% callInDebugger
         //% group="Light"
         //% weight=99
-        colorGreen(): number {
+        //% blockCombine block="green" blockSetVariable="led1"
+        get green(): number {
             this.start()
             const values = this._color.pauseUntilValues() as any[]
-            return values[1]
+            return values[1] | 0
         }
 
         /**
-         * The current color of the LED.
+         * The current blue channel of LED color.
          */
         //% callInDebugger
         //% group="Light"
         //% weight=98
-        colorBlue(): number {
+        //% blockCombine block="blue" blockSetVariable="led1"
+        get blue(): number {
             this.start()
             const values = this._color.pauseUntilValues() as any[]
-            return values[2]
+            return values[2] | 0
         }
 
         /**
@@ -165,11 +185,7 @@ namespace modules {
             const g = (color >> 8) & 0xff
             const b = color & 0xff
             const s =
-                speed <= 0
-                    ? 0x01
-                    : speed >= 100
-                    ? 0
-                    : ((speed / 100) * 0xff) | 0
+                speed <= 0 ? 0 : speed >= 100 ? 0 : ((speed / 100) * 0xff) | 0
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, "u8 u8 u8 u8", [
                     r,

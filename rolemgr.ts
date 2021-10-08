@@ -249,18 +249,14 @@ namespace jacdac._rolemgr {
             )
             if (!devs.length) return // nothing to do here
 
-            this.log(`check proxy self ${((now / 100000) | 0) / 10}s`)
+            //this.log(`check proxy self ${((now / 100000) | 0) / 10}s`)
             for (const device of devs) {
                 const uptime = device.uptime
                 if (uptime === undefined) {
-                    this.log(`check proxy ${device.shortId}: no uptime`)
+                    //this.log(`check proxy ${device.shortId}: no uptime`)
                     device.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime)
                 } else {
-                    this.log(
-                        `check proxy ${device.shortId}: ${
-                            ((uptime / 100000) | 0) / 10
-                        }s`
-                    )
+                    //this.log(`check proxy ${device.shortId}: ${((uptime / 100000) | 0) / 10}s`)
                     if (now > uptime) {
                         this.resetToProxy()
                     }

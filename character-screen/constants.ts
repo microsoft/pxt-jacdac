@@ -7,6 +7,8 @@ namespace jacdac {
         LCD = 0x1,
         //% block="oled"
         OLED = 0x2,
+        //% block="braille"
+        Braille = 0x3,
     }
 
 

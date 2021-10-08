@@ -142,12 +142,12 @@ namespace jacdac {
                     jdpack("u32", [this.resetIn])
                 ).sendAsMultiCommand(SRV_CONTROL)
 
-            // always try autoBind - we may want to bind to local services
+            // notify other devices that we've freshly restarted
+            if (this.restartCounter < 4) this.controlServer.sendUptime()
 
             // check for proxy mode
             jacdac.roleManagerServer.checkProxy()
 
-            // auto bind
             if (jacdac.roleManagerServer.autoBind) {
                 this.autoBindCnt++
                 // also, only do it every two announces (TBD)
