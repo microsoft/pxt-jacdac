@@ -57,7 +57,7 @@ namespace servers {
                     pkt.respond(controller.MACaddress)
                     break
                 case jacdac.WifiReg.Ssid | jacdac.CMD_GET_REG:
-                    pkt.respond(Buffer.fromUTF8(controller.ssid))
+                    pkt.respond(Buffer.fromUTF8(controller.ssid || ""))
                     break
                 case jacdac.WifiReg.Rssi | jacdac.CMD_GET_REG:
                     pkt.respond(jacdac.jdpack("i8", [controller.rssi || 0]))
