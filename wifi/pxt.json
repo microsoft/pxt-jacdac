@@ -7,7 +7,6 @@
         "client.ts"
     ],
     "supportedTargets": [
-        "arcade",
         "maker"
     ],
     "dependencies": {
