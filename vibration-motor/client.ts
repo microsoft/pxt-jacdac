@@ -48,7 +48,7 @@ namespace modules {
          */
         //% group="Vibration motor"
         //% blockId=jacdac_vibration_vibrate_multi_cmd
-        //% block="%vibration vibrate $duration ms at $intensity %"
+        //% block="%vibration vibrate $millis ms at $intensity %"
         //% weight=98
         //% millis.min=0
         //% millis.defl=500
