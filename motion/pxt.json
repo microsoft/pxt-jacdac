@@ -1,6 +1,6 @@
 {
     "name": "jacdac-motion",
-    "version": "0.7.9",
+    "version": "0.7.10",
     "description": "A sensor, typically PIR, that detects object motion within a certain range",
     "files": [
         "constants.ts",

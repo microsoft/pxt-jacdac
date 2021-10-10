@@ -1,6 +1,6 @@
 {
     "name": "jacdac-barometer",
-    "version": "0.7.9",
+    "version": "0.7.10",
     "description": "A sensor measuring air pressure of outside environment.",
     "files": [
         "constants.ts",
