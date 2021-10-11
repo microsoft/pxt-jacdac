@@ -36,7 +36,7 @@ namespace jacdac {
         readonly hostServices: Server[] = []
         readonly devices: Device[] = []
         private _myDevice: Device
-        private restartCounter = 0
+        private resetCount = 0
         private resetIn = 2000000 // 2s
         private autoBindCnt = 0
         private _eventCounter = 0
@@ -57,7 +57,6 @@ namespace jacdac {
 
             this.controlServer = new ControlServer()
             this.controlServer.start()
-            this.controlServer.sendUptime()
         }
 
         private gcDevices() {
@@ -118,9 +117,9 @@ namespace jacdac {
             const ids = this.hostServices.map(h =>
                 h.running ? h.serviceClass : -1
             )
-            if (this.restartCounter < 0xf) this.restartCounter++
+            if (this.resetCount < 0xf) this.resetCount++
             ids[0] =
-                this.restartCounter |
+                this.resetCount |
                 (roleManagerServer.running
                     ? ControlAnnounceFlags.IsClient
                     : 0) |
@@ -141,12 +140,6 @@ namespace jacdac {
                     ControlReg.ResetIn | CMD_SET_REG,
                     jdpack("u32", [this.resetIn])
                 ).sendAsMultiCommand(SRV_CONTROL)
-
-            // notify other devices that we've freshly restarted
-            if (this.restartCounter < 4) this.controlServer.sendUptime()
-
-            // check for proxy mode
-            jacdac.roleManagerServer.checkProxy()
 
             if (jacdac.roleManagerServer.autoBind) {
                 this.autoBindCnt++
@@ -271,7 +264,8 @@ namespace jacdac {
 
                 if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
                     if (pkt.serviceCommand == SystemCmd.Announce) {
-                        if (dev && dev.resetCount > (pkt.data[0] & 0xf)) {
+                        const pktResetCount = pkt.data[0] & 0xf
+                        if (dev && dev.resetCount > pktResetCount) {
                             // if the reset counter went down, it means the device reseted;
                             // treat it as new device
                             log(`device ${dev.shortId} resetted`)
@@ -284,12 +278,16 @@ namespace jacdac {
                         let matches = false
                         if (!dev) {
                             dev = new Device(pkt.deviceIdentifier, pkt.data)
-                            // ask for uptime
-                            dev.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime)
                             this.emit(DEVICE_CONNECT, dev)
                         } else {
                             matches = serviceMatches(dev, pkt.data)
                             dev.services = pkt.data
+                        }
+
+                        if (dev.isClient && dev.resetCount < this.resetCount) {
+                            // the device restarted earlier than us
+                            log(`device ${dev.shortId} new proxy`)
+                            resetToProxy()
                         }
 
                         if (!matches) this.reattach(dev)
@@ -1043,6 +1041,10 @@ namespace jacdac {
             return this.clients != null
         }
 
+        get isClient() {
+            return !!(this.announceflags & ControlAnnounceFlags.IsClient)
+        }
+
         get shortId() {
             // TODO measure if caching is worth it
             if (!this._shortId) this._shortId = shortDeviceId(this.deviceId)
@@ -1290,7 +1292,7 @@ namespace jacdac {
                         this.handleFloodPing(pkt)
                         break
                     case ControlCmd.Proxy:
-                        jacdac.roleManagerServer.resetToProxy()
+                        resetToProxy()
                         break
                 }
             }
@@ -1389,6 +1391,11 @@ namespace jacdac {
         while (true) {
             pause(100)
         }
+    }
+    function resetToProxy() {
+        log(`reset into proxy mode`)
+        settings.writeNumber(JACDAC_PROXY_SETTING, 1)
+        control.reset()
     }
 
     function consumePackets() {
