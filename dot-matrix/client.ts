@@ -120,6 +120,20 @@ namespace modules {
             this.setDots(data)
         }
 
+        /**
+         * Clear all dots
+        //% group="Display"
+        //% block="%dotmatrix clear dots"
+        //% blockId=jacdac_dotmatrix_clear
+        //% weight=98
+        */        
+        clearDots() {
+            const data = this.dots()
+            if (data)
+                for (let i = 0; i < data.length; ++i) data[i] = 0
+            this.setDots(data)
+        }
+
         private dots(): Buffer {
             this.start()
             const values = this._dots.pauseUntilValues() as any[]
