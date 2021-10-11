@@ -1,6 +1,6 @@
 {
     "name": "jacdac-joystick",
-    "version": "0.7.10",
+    "version": "0.7.11",
     "description": "A two axis directional joystick",
     "files": [
         "constants.ts",
