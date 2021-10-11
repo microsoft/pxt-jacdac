@@ -57,7 +57,6 @@ namespace jacdac {
 
             this.controlServer = new ControlServer()
             this.controlServer.start()
-            this.controlServer.sendUptime()
         }
 
         private gcDevices() {
@@ -114,6 +113,10 @@ namespace jacdac {
             }
         }
 
+        get isClient() {
+            return roleManagerServer.running
+        }
+
         queueAnnounce() {
             const ids = this.hostServices.map(h =>
                 h.running ? h.serviceClass : -1
@@ -121,9 +124,7 @@ namespace jacdac {
             if (this.restartCounter < 0xf) this.restartCounter++
             ids[0] =
                 this.restartCounter |
-                (roleManagerServer.running
-                    ? ControlAnnounceFlags.IsClient
-                    : 0) |
+                (this.isClient ? ControlAnnounceFlags.IsClient : 0) |
                 ControlAnnounceFlags.SupportsACK |
                 ControlAnnounceFlags.SupportsBroadcast |
                 ControlAnnounceFlags.SupportsFrames
@@ -141,12 +142,6 @@ namespace jacdac {
                     ControlReg.ResetIn | CMD_SET_REG,
                     jdpack("u32", [this.resetIn])
                 ).sendAsMultiCommand(SRV_CONTROL)
-
-            // notify other devices that we've freshly restarted
-            if (this.restartCounter < 4) this.controlServer.sendUptime()
-
-            // check for proxy mode
-            jacdac.roleManagerServer.checkProxy()
 
             if (jacdac.roleManagerServer.autoBind) {
                 this.autoBindCnt++
@@ -271,7 +266,8 @@ namespace jacdac {
 
                 if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
                     if (pkt.serviceCommand == SystemCmd.Announce) {
-                        if (dev && dev.resetCount > (pkt.data[0] & 0xf)) {
+                        const pktRestartCounter = pkt.data[0] & 0xf
+                        if (dev && dev.restartCounter > pktRestartCounter) {
                             // if the reset counter went down, it means the device reseted;
                             // treat it as new device
                             log(`device ${dev.shortId} resetted`)
@@ -284,12 +280,20 @@ namespace jacdac {
                         let matches = false
                         if (!dev) {
                             dev = new Device(pkt.deviceIdentifier, pkt.data)
-                            // ask for uptime
-                            dev.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime)
                             this.emit(DEVICE_CONNECT, dev)
                         } else {
                             matches = serviceMatches(dev, pkt.data)
                             dev.services = pkt.data
+                        }
+
+                        if (
+                            this.isClient &&
+                            dev.isClient &&
+                            dev.restartCounter < this.restartCounter
+                        ) {
+                            // the device restarted earlier than us
+                            log(`device ${dev.shortId} new proxy`)
+                            resetToProxy()
                         }
 
                         if (!matches) this.reattach(dev)
@@ -1029,7 +1033,7 @@ namespace jacdac {
             return this.services.getNumber(NumberFormat.UInt16LE, 0)
         }
 
-        get resetCount() {
+        get restartCounter() {
             return (
                 this.announceflags & ControlAnnounceFlags.RestartCounterSteady
             )
@@ -1041,6 +1045,10 @@ namespace jacdac {
 
         get isConnected() {
             return this.clients != null
+        }
+
+        get isClient() {
+            return !!(this.announceflags & ControlAnnounceFlags.IsClient)
         }
 
         get shortId() {
@@ -1290,7 +1298,7 @@ namespace jacdac {
                         this.handleFloodPing(pkt)
                         break
                     case ControlCmd.Proxy:
-                        jacdac.roleManagerServer.resetToProxy()
+                        resetToProxy()
                         break
                 }
             }
@@ -1389,6 +1397,11 @@ namespace jacdac {
         while (true) {
             pause(100)
         }
+    }
+    function resetToProxy() {
+        log(`reset into proxy mode`)
+        settings.writeNumber(JACDAC_PROXY_SETTING, 1)
+        control.reset()
     }
 
     function consumePackets() {

@@ -232,38 +232,6 @@ namespace jacdac._rolemgr {
             return buf.hash(32)
         }
 
-        resetToProxy() {
-            this.log(`reset into proxy mode`)
-            settings.writeNumber(JACDAC_PROXY_SETTING, 1)
-            control.reset()
-        }
-
-        checkProxy() {
-            if (!this.running) return
-            const now = control.micros()
-            const self = jacdac.bus.selfDevice
-            const devs = jacdac.bus.devices.filter(
-                d =>
-                    d !== self &&
-                    !!(d.announceflags & ControlAnnounceFlags.IsClient)
-            )
-            if (!devs.length) return // nothing to do here
-
-            //this.log(`check proxy self ${((now / 100000) | 0) / 10}s`)
-            for (const device of devs) {
-                const uptime = device.uptime
-                if (uptime === undefined) {
-                    //this.log(`check proxy ${device.shortId}: no uptime`)
-                    device.sendCtrlCommand(CMD_GET_REG | ControlReg.Uptime)
-                } else {
-                    //this.log(`check proxy ${device.shortId}: ${((uptime / 100000) | 0) / 10}s`)
-                    if (now > uptime) {
-                        this.resetToProxy()
-                    }
-                }
-            }
-        }
-
         bindRoles() {
             if (!this.running) return
             if (jacdac.bus.unattachedClients.length == 0) {
