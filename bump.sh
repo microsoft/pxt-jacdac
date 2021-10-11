@@ -2,4 +2,4 @@
 
 set -e
 git pull
-makecode --mono-repo --bump
+makecode bump
