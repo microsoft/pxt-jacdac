@@ -36,7 +36,7 @@ namespace jacdac {
         readonly hostServices: Server[] = []
         readonly devices: Device[] = []
         private _myDevice: Device
-        private resetCount = 0
+        private restartCounter = 0
         private resetIn = 2000000 // 2s
         private autoBindCnt = 0
         private _eventCounter = 0
@@ -117,9 +117,9 @@ namespace jacdac {
             const ids = this.hostServices.map(h =>
                 h.running ? h.serviceClass : -1
             )
-            if (this.resetCount < 0xf) this.resetCount++
+            if (this.restartCounter < 0xf) this.restartCounter++
             ids[0] =
-                this.resetCount |
+                this.restartCounter |
                 (roleManagerServer.running
                     ? ControlAnnounceFlags.IsClient
                     : 0) |
@@ -264,8 +264,8 @@ namespace jacdac {
 
                 if (pkt.serviceIndex == JD_SERVICE_INDEX_CTRL) {
                     if (pkt.serviceCommand == SystemCmd.Announce) {
-                        const pktResetCount = pkt.data[0] & 0xf
-                        if (dev && dev.resetCount > pktResetCount) {
+                        const pktRestartCounter = pkt.data[0] & 0xf
+                        if (dev && dev.restartCounter > pktRestartCounter) {
                             // if the reset counter went down, it means the device reseted;
                             // treat it as new device
                             log(`device ${dev.shortId} resetted`)
@@ -284,7 +284,7 @@ namespace jacdac {
                             dev.services = pkt.data
                         }
 
-                        if (dev.isClient && dev.resetCount < this.resetCount) {
+                        if (dev.isClient && dev.restartCounter < this.restartCounter) {
                             // the device restarted earlier than us
                             log(`device ${dev.shortId} new proxy`)
                             resetToProxy()
@@ -1027,7 +1027,7 @@ namespace jacdac {
             return this.services.getNumber(NumberFormat.UInt16LE, 0)
         }
 
-        get resetCount() {
+        get restartCounter() {
             return (
                 this.announceflags & ControlAnnounceFlags.RestartCounterSteady
             )
