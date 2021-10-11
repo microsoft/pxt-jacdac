@@ -113,6 +113,10 @@ namespace jacdac {
             }
         }
 
+        get isClient() {
+            return roleManagerServer.running
+        }
+
         queueAnnounce() {
             const ids = this.hostServices.map(h =>
                 h.running ? h.serviceClass : -1
@@ -120,9 +124,7 @@ namespace jacdac {
             if (this.restartCounter < 0xf) this.restartCounter++
             ids[0] =
                 this.restartCounter |
-                (roleManagerServer.running
-                    ? ControlAnnounceFlags.IsClient
-                    : 0) |
+                (this.isClient ? ControlAnnounceFlags.IsClient : 0) |
                 ControlAnnounceFlags.SupportsACK |
                 ControlAnnounceFlags.SupportsBroadcast |
                 ControlAnnounceFlags.SupportsFrames
@@ -284,7 +286,11 @@ namespace jacdac {
                             dev.services = pkt.data
                         }
 
-                        if (dev.isClient && dev.restartCounter < this.restartCounter) {
+                        if (
+                            this.isClient &&
+                            dev.isClient &&
+                            dev.restartCounter < this.restartCounter
+                        ) {
                             // the device restarted earlier than us
                             log(`device ${dev.shortId} new proxy`)
                             resetToProxy()
