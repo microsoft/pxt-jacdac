@@ -123,7 +123,7 @@ namespace modules {
         /**
          * Clear all dots
         //% group="Display"
-        //% block="%dotmatrix clear dots"
+        //% block="clear %dotmatrix dots"
         //% blockId=jacdac_dotmatrix_clear
         //% weight=98
         */        
