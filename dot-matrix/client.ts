@@ -67,7 +67,7 @@ namespace modules {
         //% weight=99
         */
         setDot(x: number, y: number, on: boolean) {
-            const data = this.dots()
+            const data = this.dotsBuffer()
             const columns = this.columns()
             const rows = this.rows()
             const row = y | 0
@@ -86,7 +86,7 @@ namespace modules {
             const columnspadded = columns + (8 - (columns % 8))
             const bitindex = row * columnspadded + col
             setBit(data, bitindex, !on)
-            this.setDots(data)
+            this.setDotsBuffer(data)
         }
 
         /**
@@ -97,7 +97,7 @@ namespace modules {
         //% weight=99
         */
         toggleDot(x: number, y: number) {
-            const data = this.dots()
+            const data = this.dotsBuffer()
             const columns = this.columns()
             const rows = this.rows()
             const row = y | 0
@@ -117,7 +117,7 @@ namespace modules {
             const bitindex = row * columnspadded + col
             const on = getBit(data, bitindex)
             setBit(data, bitindex, !on)
-            this.setDots(data)
+            this.setDotsBuffer(data)
         }
 
         /**
@@ -126,21 +126,20 @@ namespace modules {
         //% block="clear %dotmatrix dots"
         //% blockId=jacdac_dotmatrix_clear
         //% weight=98
-        */        
+        */
         clearDots() {
-            const data = this.dots()
-            if (data)
-                for (let i = 0; i < data.length; ++i) data[i] = 0
-            this.setDots(data)
+            const data = this.dotsBuffer()
+            if (data) for (let i = 0; i < data.length; ++i) data[i] = 0
+            this.setDotsBuffer(data)
         }
 
-        private dots(): Buffer {
+        private dotsBuffer(): Buffer {
             this.start()
             const values = this._dots.pauseUntilValues() as any[]
             return values[0]
         }
 
-        private setDots(value: Buffer) {
+        private setDotsBuffer(value: Buffer) {
             this.start()
             const values = this._dots.values as any[]
             values[0] = value
@@ -183,7 +182,9 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Display"
-        //% weight=96
+        //% weight=94
+        //% blockId=jacdac_dotmatrix_rows_get
+        //% block="%dotmatrix rows"
         rows(): number {
             this.start()
             const values = this._rows.pauseUntilValues() as any[]
@@ -195,7 +196,9 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Display"
-        //% weight=95
+        //% weight=93
+        //% blockId=jacdac_dotmatrix_columns_get
+        //% block="%dotmatrix columns"
         columns(): number {
             this.start()
             const values = this._columns.pauseUntilValues() as any[]
