@@ -15,6 +15,7 @@ namespace servers {
 
         private handleSendCommand(pkt: jacdac.JDPacket) {
             const [source, value] = pkt.jdunpack<[number,  number]>("u16 u16")
+            this.log(`raise ${source} ${value}`)
             control.raiseEvent(source, value)
         }
     }

@@ -5,3 +5,6 @@ input.onButtonPressed(Button.A, () => {
 input.onButtonPressed(Button.B, () => {
     basic.showString("B")
 })
+control.onEvent(14000, 1, () => {
+    console.log("ping")
+})
