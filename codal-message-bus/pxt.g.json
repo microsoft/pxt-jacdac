@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-prototest",
+    "name": "jacdac-codalmessagebus",
     "version": "0.0.0",
-    "description": "This is test service to validate the protocol packet transmissions between the browser and a MCU.\nUse this page if you are porting Jacdac to a new platform.",
+    "description": "A service that uses the [CODAL message bus](https://lancaster-university.github.io/microbit-docs/ubit/messageBus/) to send and receive small messages.",
     "files": [
         "constants.ts",
         "client.g.ts"
