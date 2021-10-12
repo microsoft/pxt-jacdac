@@ -10,15 +10,12 @@
         "test.ts"
     ],
     "supportedTargets": [
-        "arcade",
         "microbit",
+        "arcade",
         "maker"
     ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
     }
 }
