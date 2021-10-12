@@ -26,6 +26,7 @@
         "jacdac-wifi": "./wifi",
         "jacdac-wifi-server": "./wifi-server",
         "jacdac-tcp": "./tcp",
-        "jacdac-dotmatrix": "./dot-matrix"
+        "jacdac-dotmatrix": "./dot-matrix",
+        "jacdac-codalmessagebus": "./codal-message-bus"
     }
 }
