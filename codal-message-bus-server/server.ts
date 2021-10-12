@@ -20,6 +20,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed block="CODAL message bus"
     export const codalMessageBus = new CODALMessageBusServer("codal")
 }
