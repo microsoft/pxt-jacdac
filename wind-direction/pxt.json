@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-winddirection",
+    "name": "jacdac-wind-direction",
     "version": "0.7.13",
     "description": "A sensor that measures wind direction.",
     "files": [

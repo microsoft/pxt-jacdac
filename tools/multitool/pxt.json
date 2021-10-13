@@ -12,8 +12,8 @@
         "jacdac-motor": "github:microsoft/pxt-jacdac/motor",
         "jacdac-button": "github:microsoft/pxt-jacdac/button",
         "jacdac-buzzer": "github:microsoft/pxt-jacdac/buzzer",
-        "jacdac-rotaryencoder": "github:microsoft/pxt-jacdac/rotary-encoder",
-        "jacdac-ledpixel": "github:microsoft/pxt-jacdac/led-pixel",
+        "jacdac-rotary-encoder": "github:microsoft/pxt-jacdac/rotary-encoder",
+        "jacdac-led-pixel": "github:microsoft/pxt-jacdac/led-pixel",
         "jacdac-led": "github:microsoft/pxt-jacdac/led"
     },
     "files": [

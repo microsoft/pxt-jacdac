@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-codalmessagebus-server",
+    "name": "jacdac-codal-message-bus-server",
     "version": "0.7.13",
     "description": "A service that uses the [CODAL message bus](https://lancaster-university.github.io/microbit-docs/ubit/messageBus/) to send and receive small messages.",
     "files": [
@@ -20,6 +20,6 @@
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-codalmessagebus": "github:microsoft/pxt-jacdac/codal-message-bus"
+        "jacdac-codal-message-bus": "github:microsoft/pxt-jacdac/codal-message-bus"
     }
 }

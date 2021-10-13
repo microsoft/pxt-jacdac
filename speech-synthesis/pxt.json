@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-speechsynthesis",
+    "name": "jacdac-speech-synthesis",
     "version": "0.7.13",
     "description": "A speech synthesizer",
     "files": [

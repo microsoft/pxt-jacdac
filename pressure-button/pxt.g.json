@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-pressurebutton",
+    "name": "jacdac-pressure-button",
     "version": "0.0.0",
     "description": "A pressure sensitive push-button.",
     "files": [

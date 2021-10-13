@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-lightlevel",
+    "name": "jacdac-light-level",
     "version": "0.7.13",
     "description": "A sensor that measures luminosity level.",
     "files": [

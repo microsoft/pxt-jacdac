@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-capacitivebutton",
+    "name": "jacdac-capacitive-button",
     "version": "0.0.0",
     "description": "A configuration service for a capacitive push-button.",
     "files": [

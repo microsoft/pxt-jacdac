@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-dotmatrix",
+    "name": "jacdac-dot-matrix",
     "version": "0.7.13",
     "description": "A rectangular dot matrix display, made of monochrome LEDs or braille pins.",
     "files": [

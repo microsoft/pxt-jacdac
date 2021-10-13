@@ -13,12 +13,12 @@
         "jacdac-hid-mouse-server": "./hid-mouse-server",
         "jacdac-joystick": "./joystick",
         "jacdac-led": "./led",
-        "jacdac-ledpixel": "./led-pixel",
+        "jacdac-led-pixel": "./led-pixel",
         "jacdac-light-level": "./light-level",
         "jacdac-microbit": "./devices/microbit",
         "jacdac-motor": "./motor",
         "jacdac-potentiometer": "./potentiometer",
-        "jacdac-rotaryencoder": "./rotary-encoder",
+        "jacdac-rotary-encoder": "./rotary-encoder",
         "jacdac-servers": "./servers",
         "jacdac-servo": "./servo",
         "jacdac-settings": "./settings",
@@ -27,6 +27,6 @@
         "jacdac-wifi-server": "./wifi-server",
         "jacdac-tcp": "./tcp",
         "jacdac-dotmatrix": "./dot-matrix",
-        "jacdac-codalmessagebus": "./codal-message-bus"
+        "jacdac-codal-message-bus": "./codal-message-bus"
     }
 }

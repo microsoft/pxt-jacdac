@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-matrixkeypad",
+    "name": "jacdac-matrix-keypad",
     "version": "0.0.0",
     "description": "A matrix of buttons connected as a keypad",
     "files": [

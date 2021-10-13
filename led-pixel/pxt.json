@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-ledpixel",
+    "name": "jacdac-led-pixel",
     "version": "0.7.13",
     "description": "MakeCode support for Jacdac LED pixel",
     "dependencies": {
