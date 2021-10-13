@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-windspeed",
+    "name": "jacdac-wind-speed",
     "version": "0.7.13",
     "description": "A sensor that measures wind speed.",
     "files": [

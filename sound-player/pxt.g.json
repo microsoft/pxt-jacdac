@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-soundplayer",
+    "name": "jacdac-sound-player",
     "version": "0.0.0",
     "description": "A device that can play various sounds stored locally. This service is typically paired with a ``storage`` service for storing sounds.",
     "files": [

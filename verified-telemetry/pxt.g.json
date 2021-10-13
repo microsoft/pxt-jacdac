@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-verifiedtelemetrysensor",
+    "name": "jacdac-verified-telemetry",
     "version": "0.0.0",
     "description": "A mixin service that exposes verified telemetry information for a sensor (see https://github.com/Azure/Verified-Telemetry/tree/main/PnPModel).",
     "files": [

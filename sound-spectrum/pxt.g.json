@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-soundspectrum",
+    "name": "jacdac-sound-spectrum",
     "version": "0.0.0",
     "description": "A microphone that analyzes the sound specturm",
     "files": [

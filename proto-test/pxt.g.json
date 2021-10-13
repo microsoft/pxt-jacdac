@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-prototest",
+    "name": "jacdac-proto-test",
     "version": "0.0.0",
     "description": "This is test service to validate the protocol packet transmissions between the browser and a MCU.\nUse this page if you are porting Jacdac to a new platform.",
     "files": [

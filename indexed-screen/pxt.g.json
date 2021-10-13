@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-indexedscreen",
+    "name": "jacdac-indexed-screen",
     "version": "0.0.0",
     "description": "A screen with indexed colors.\n\nThis is often run over an SPI connection, not regular single-wire JACDAC.",
     "files": [
