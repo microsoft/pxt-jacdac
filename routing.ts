@@ -270,7 +270,9 @@ namespace jacdac {
                         if (dev && dev.restartCounter > pktRestartCounter) {
                             // if the reset counter went down, it means the device reseted;
                             // treat it as new device
-                            log(`device ${dev.shortId} resetted`)
+                            log(
+                                `device ${dev.shortId} resetted (${dev.restartCounter} > ${pktRestartCounter})`
+                            )
                             this.devices.removeElement(dev)
                             dev._destroy()
                             dev = null
