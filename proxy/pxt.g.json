@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-proxy",
+    "version": "0.0.0",
+    "description": "A service that tags a device as a packet proxy.\n\n\nA device in proxy mode will proxy Jacdac packets and typically has its core logic halted.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
