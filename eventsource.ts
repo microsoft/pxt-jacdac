@@ -100,6 +100,7 @@ namespace jacdac {
             }
 
             // cleanup the "once"
+            // TODO this will not work if handler() above just added a new "once" listener
             if (someOnce) {
                 let i = 0
                 while (i < this.listeners.length) {

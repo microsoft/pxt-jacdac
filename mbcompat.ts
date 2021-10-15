@@ -48,12 +48,14 @@ function handleStatusEvent(event: jacdac.StatusEvent) {
             identifyAnimation()
             break
         case jacdac.StatusEvent.ProxyPacketReceived:
-            basic.plotLeds(`
-                . . . . .
-                # # # # .
-                # # # # .
-                # # # . .
-                . . . . .
+            // it looks like if we queue *two* plotLeds() when animation is running, one of them never finishes
+            if (!identifyAnimationRunning)
+                basic.plotLeds(`
+                    . . . . .
+                    # # # # .
+                    # # # # .
+                    # # # . .
+                    . . . . .
                 `)
             break
         case jacdac.StatusEvent.Identify:
