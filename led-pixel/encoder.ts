@@ -34,6 +34,40 @@ namespace jacdac {
         return code == 32 || code == 13 || code == 10 || code == 9
     }
 
+    /*
+       Syntax: the input is split at spaces. The following tokens are supported:
+          - a command name (see below)
+          - a decimal number (0-16383)
+          - a color, in HTML syntax '#ff0000' for red, etc
+          - a single '#' which will take color (24-bit number) from list of arguments;
+            the list of arguments has an array or colors it will encode all elements of the array
+          - a single '%' which takes a number (0-16383) from the list of arguments
+        
+        Commands:
+          - `setall C+` - set all pixels in current range to given color pattern
+          - `fade C+` - set pixels in current range to colors between colors in sequence
+          - `fadehsv C+` - similar to `fade()`, but colors are specified and faded in HSV
+          - `rotfwd K` - rotate (shift) pixels by `K` positions away from the connector
+          - `rotback K` - same, but towards the connector
+          - `show M=50` - send buffer to strip and wait `M` milliseconds
+          - `range P=0 N=length W=1 S=0` - range from pixel `P`, `N` pixels long (currently unsupported: every `W` pixels skip `S` pixels)
+          - `mode K=0` - set update mode
+          - `tmpmode K=0` - set update mode for next command only
+          - `setone P C` - set one pixel at `P` (in current range) to given color
+          - `mult V` - macro to multiply current range by given value (float)
+        
+        C+ means one or more colors
+        V is a floating point number
+        Other letters (K, M, N, P, W, S) represent integers, with their default values if omitted
+
+        Examples:
+           lightEncode("setall #000000", []) - turn off all lights
+           lightEncode("setall #", [0]) - the same
+           lightEncode("fade # #", [0xff0000, 0x0000ff]) - set first pixel to red, last to blue, and interpolate the ones in between
+           lightEncode("fade #", [[0xff0000, 0x0000ff]]) - the same; note double [[]]
+           lightEncode("range 2 5 setall #ffffff", []) - set pixels 2-7 to white
+           lightEncode("range % % setall #", [2, 5, 0xffffff]) - the same
+    */
     export function lightEncode(format: string, args: (number | number[])[]) {
         const outarr: number[] = []
         let colors: number[] = []
