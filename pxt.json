@@ -50,6 +50,7 @@
         "sensor/constants.ts",
         "sensor/client.ts",
         "sensor/server.ts",
+        "proxy/constants.ts",
         "role-manager/constants.ts",
         "rolemgr.ts",
         "proto-test/constants.ts",

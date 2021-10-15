@@ -1216,7 +1216,13 @@ namespace jacdac {
         }
     }
 
-    function doNothing() {}
+    function doNothing() { }
+    
+    class ProxyServer extends Server {
+        constructor() {
+            super("proxy", SRV_PROXY)
+        }
+    }
 
     export class ControlServer extends Server {
         constructor() {
@@ -1384,12 +1390,16 @@ namespace jacdac {
         // clear proxy flag
         settings.remove(JACDAC_PROXY_SETTING)
 
-        // start jacdac in proxy mode
-        control.internalOnEvent(jacdac.__physId(), EVT_DATA_READY, () => {
-            let buf: Buffer
-            while (null != (buf = jacdac.__physGetPacket())) {
-                jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyPacketReceived)
-            }
+        start({
+            disableLogger: true,
+            disableRoleManager: true,
+            noWait: true,
+        })
+
+        new ProxyServer().start()
+
+        jacdac.bus.on(PACKET_PROCESS, () => {
+            jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyPacketReceived)
         })
 
         // start animation
