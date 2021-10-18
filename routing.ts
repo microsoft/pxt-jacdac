@@ -383,11 +383,13 @@ namespace jacdac {
         }
 
         protected sendReport(pkt: JDPacket) {
+            if (this.serviceIndex == null) return
             pkt.serviceIndex = this.serviceIndex
             pkt._sendReport(bus.selfDevice)
         }
 
         protected sendEvent(eventCode: number, data?: Buffer) {
+            if (this.serviceIndex == null) return
             const pkt = JDPacket.from(
                 bus.mkEventCmd(eventCode),
                 data || Buffer.create(0)
@@ -1216,8 +1218,8 @@ namespace jacdac {
         }
     }
 
-    function doNothing() { }
-    
+    function doNothing() {}
+
     class ProxyServer extends Server {
         constructor() {
             super("proxy", SRV_PROXY)
