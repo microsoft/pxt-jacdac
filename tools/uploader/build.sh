@@ -8,6 +8,4 @@ else
   cfg=mkc.json
 fi
 mkc --java-script --config-path $cfg
-#mkc init --symlink-pxt-modules
-#rm -rf pxt_modules/jacdac*
 cp built/binary.js ../../docs/assets/js/binary-local.js

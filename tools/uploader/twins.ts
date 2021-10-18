@@ -166,15 +166,19 @@ namespace jacdac.twins {
         const cached = settings.readString(key)
         if (cached) return JSON.parse(cached)
 
-        let json = net.getJSON(
-            `https://microsoft.github.io/jacdac-docs/services/twin/x${toHexNum(
-                serviceClass
-            )}.json`
-        )
+        const url = `https://microsoft.github.io/jacdac-docs/services/twin/x${toHexNum(
+            serviceClass
+        )}.json`
+        let json = net.getJSON(url)
         if (!json) {
-            console.log("failed to get serv: " + serviceClass)
+            console.log("failed to get serv: " + url)
             json = null
         }
+        console.log(
+            `got serv: ${url} / ${json} ${
+                JSON.stringify(json).length
+            } bytes`
+        )
         settings.writeString(key, JSON.stringify(json))
         return json
     }
@@ -200,7 +204,7 @@ namespace jacdac.twins {
                 if (!spec) continue
 
                 const newServ = new ServiceTwin(this, servIdx, spec)
-                if (this.services.find(s => s.id == newServ.id)) {
+                if (this.services.find(s => s && s.id == newServ.id)) {
                     let i = 2
                     while (
                         this.services.find(s => s.id == newServ.id + "_" + i)
@@ -289,7 +293,11 @@ namespace jacdac.twins {
             currTwin = fullTwin
         }
 
-        console.debug(`pending readings: ${pendingReadings}, last sent ${control.millis() - lastReadingsSent}`)
+        console.debug(
+            `pending readings: ${pendingReadings}, last sent ${
+                control.millis() - lastReadingsSent
+            }`
+        )
         if (
             pendingReadings > MAX_READINGS_PER_PACKET ||
             (pendingReadings > 0 &&
@@ -331,6 +339,8 @@ namespace jacdac.twins {
     }
 
     function connect() {
+        if (!net.Net.instance.controller.isConnected) return false
+
         try {
             // connection key may not be set
             azureiot.connect()
@@ -350,6 +360,20 @@ namespace jacdac.twins {
         exclusions.push("control.mcu_temperature")
 
         lastReadingsSent = control.millis()
+
+        console.log("waiting for enumeration...")
+        pause(1000)
+        console.log("waiting until connected...")
+        pauseUntil(() => net.Net.instance.controller.isConnected)
+        console.log("getting specs...")
+        for (const d of jacdac.bus.devices) {
+            for (let servIdx = 0; servIdx < d.serviceClassLength; ++servIdx) {
+                const cl = d.serviceClassAt(servIdx)
+                getServiceTwinSpec(cl)
+            }
+        }
+
+        console.log("starting scan...")
         setInterval(rescanDevices, 1000)
     }
 }

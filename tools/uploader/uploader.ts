@@ -12,8 +12,6 @@ jacdac.bus.on(jacdac.SELF_ANNOUNCE, () => {
 })
 */
 
-net.instance().controller.connect()
-
 jacdac.twins.init()
 
 const iotHubHealthServer = new jacdac.AzureIotHubHealthServer("iot hub")
