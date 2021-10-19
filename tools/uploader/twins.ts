@@ -161,6 +161,8 @@ namespace jacdac.twins {
         return buf.toHex()
     }
 
+    const specCache: any = {}
+
     function getServiceTwinSpec(serviceClass: number): ServiceTwinSpec {
         const key = "st-" + serviceClass
         const cached = settings.readString(key)
@@ -169,15 +171,22 @@ namespace jacdac.twins {
         const url = `https://microsoft.github.io/jacdac-docs/services/twin/x${toHexNum(
             serviceClass
         )}.json`
+
+        if (azureiot.isConnected()) {
+            if (!specCache[serviceClass + ""]) {
+                specCache[serviceClass + ""] = 1
+                console.warn(`can't get spec ${url}; already connected to mqtt`)
+            }
+            return null
+        }
+
         let json = net.getJSON(url)
         if (!json) {
             console.log("failed to get serv: " + url)
             json = null
         }
         console.log(
-            `got serv: ${url} / ${json} ${
-                JSON.stringify(json).length
-            } bytes`
+            `got serv: ${url} / ${json} ${JSON.stringify(json).length} bytes`
         )
         settings.writeString(key, JSON.stringify(json))
         return json
