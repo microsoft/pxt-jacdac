@@ -39,6 +39,8 @@
         "ns.ts",
         "system/constants.ts",
         "base/constants.ts",
+        "infrastructure/constants.ts",
+        "proxy/constants.ts",
         "bootloader/constants.ts",
         "control/constants.ts",
         "logger/constants.ts",
@@ -50,7 +52,6 @@
         "sensor/constants.ts",
         "sensor/client.ts",
         "sensor/server.ts",
-        "proxy/constants.ts",
         "role-manager/constants.ts",
         "rolemgr.ts",
         "proto-test/constants.ts",
@@ -58,10 +59,7 @@
         "routing.ts",
         "eventsource.ts"
     ],
-    "testFiles": [
-        "test.microbit.ts",
-        "test.ts"
-    ],
+    "testFiles": ["test.microbit.ts", "test.ts"],
     "testDependencies": {},
     "fileDependencies": {
         "mbcompat.ts": "target:microbit",
@@ -76,15 +74,9 @@
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": [
-        "arcade",
-        "maker",
-        "microbit"
-    ],
+    "supportedTargets": ["arcade", "maker", "microbit"],
     "preferredEditor": "tsprj",
-    "disablesVariants": [
-        "mbdal"
-    ],
+    "disablesVariants": ["mbdal"],
     "binaryonly": true,
     "extension": {
         "namespace": "modules",

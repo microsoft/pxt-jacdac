@@ -162,8 +162,19 @@ namespace jacdac.twins {
     }
 
     const specCache: any = {}
+    const ignoredServices = [
+        SRV_CONTROL,
+        SRV_ROLE_MANAGER,
+        SRV_LOGGER,
+        SRV_SETTINGS,
+        SRV_BOOTLOADER,
+        SRV_PROTO_TEST,
+        SRV_INFRASTRUCTURE,
+        SRV_PROXY,
+    ]
 
     function getServiceTwinSpec(serviceClass: number): ServiceTwinSpec {
+        if (ignoredServices.indexOf(serviceClass) > -1) return null
         const key = "st-" + serviceClass
         const cached = settings.readString(key)
         if (cached) return JSON.parse(cached)
