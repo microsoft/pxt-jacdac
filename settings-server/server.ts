@@ -101,7 +101,6 @@ namespace jacdac {
             )
         }
     }
-
     //% fixedInstance whenUsed block="settings"
     export const settingsServer = new SettingsServer("settings")
 }

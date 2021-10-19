@@ -1,4 +1,4 @@
-namespace jacdac {
+namespace servers {
     export class AzureIotHubHealthServer extends jacdac.Server {
         private _connectionStatus: jacdac.AzureIotHubHealthConnectionStatus
         constructor(dev: string) {
@@ -37,7 +37,7 @@ namespace jacdac {
                 this.log(`conn status: ${this._connectionStatus}`)
                 this.sendEvent(
                     jacdac.AzureIotHubHealthEvent.ConnectionStatusChange,
-                    jdpack<[number]>("u8", [this._connectionStatus])
+                    jacdac.jdpack<[number]>("u8", [this._connectionStatus])
                 )
             }
         }
@@ -46,16 +46,16 @@ namespace jacdac {
             if (!azureiot.isConnected()) {
                 this.log(`connecting`)
                 this.setConnectionStatus(
-                    AzureIotHubHealthConnectionStatus.Connecting
+                    jacdac.AzureIotHubHealthConnectionStatus.Connecting
                 )
                 try {
                     azureiot.connect()
                     this.setConnectionStatus(
-                        AzureIotHubHealthConnectionStatus.Connected
+                        jacdac.AzureIotHubHealthConnectionStatus.Connected
                     )
                 } catch {
                     this.setConnectionStatus(
-                        AzureIotHubHealthConnectionStatus.Disconnected
+                        jacdac.AzureIotHubHealthConnectionStatus.Disconnected
                     )
                 }
             }
@@ -66,7 +66,7 @@ namespace jacdac {
             this.log(`disconnecting`)
         }
 
-        private handleSetConnectionString(pkt: JDPacket) {
+        private handleSetConnectionString(pkt: jacdac.JDPacket) {
             const newConnString = pkt.stringData
             const connString = settings.programSecrets.readSecret(
                 azureiot.SECRETS_KEY,
@@ -128,4 +128,9 @@ namespace jacdac {
             }
         }
     }
+
+    //% fixedInstance whenUsed block="Azure IoT Hub"
+    export const azureIotHubHealth = new AzureIotHubHealthServer(
+        "Azure IoT Hub"
+    )
 }
