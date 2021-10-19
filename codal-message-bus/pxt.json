@@ -1,6 +1,6 @@
 {
     "name": "jacdac-codal-message-bus",
-    "version": "0.7.16",
+    "version": "0.7.17",
     "description": "A service that uses the [CODAL message bus](https://lancaster-university.github.io/microbit-docs/ubit/messageBus/) to send and receive small messages.",
     "files": [
         "constants.ts"
