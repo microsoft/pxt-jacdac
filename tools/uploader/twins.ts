@@ -72,6 +72,7 @@ namespace jacdac.twins {
                     "u8",
                     [254]
                 )
+                payload.serviceIndex = this.serviceIdx
                 payload._sendCmd(this.parent.device)
             }
         }
