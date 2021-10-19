@@ -12,8 +12,9 @@ jacdac.bus.on(jacdac.SELF_ANNOUNCE, () => {
 })
 */
 
-jacdac.twins.init()
-
 const iotHubHealthServer = new jacdac.AzureIotHubHealthServer("iot hub")
 servers.wifi.start()
 iotHubHealthServer.start()
+
+jacdac.twins.init()
+
