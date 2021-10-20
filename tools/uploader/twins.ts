@@ -208,8 +208,7 @@ namespace jacdac.twins {
                 json = null
             }
             console.log(
-                `got serv: ${url} / ${json} ${
-                    JSON.stringify(json).length
+                `got serv: ${url} / ${json} ${JSON.stringify(json).length
                 } bytes`
             )
         }
@@ -328,8 +327,7 @@ namespace jacdac.twins {
         }
 
         console.debug(
-            `pending readings: ${pendingReadings}, last sent ${
-                control.millis() - lastReadingsSent
+            `pending readings: ${pendingReadings}, last sent ${control.millis() - lastReadingsSent
             }`
         )
         if (
@@ -385,6 +383,38 @@ namespace jacdac.twins {
         }
     }
 
+    let statusPhase = 0
+    function statusLight() {
+        const controller = net.instance().controller
+
+        statusPhase += 4
+
+        let phase = statusPhase
+        let r = 0
+        let g = 0x0800
+        let b = 0
+
+        if (controller.isConnected) {
+            b = 0x1000
+            // cyan
+            if (azureiot.isConnected()) {
+                phase >>= 2 // slower blink
+            } else {
+                // quick
+            }
+        } else {
+            // quick green
+        }
+
+        phase = Math.abs((phase & 31) - 16)
+        if (phase > 15) phase = 15
+        r = (r * phase) >> 4
+        g = (g * phase) >> 4
+        b = (b * phase) >> 4
+
+        jacdac.setLed(r, g, b)
+    }
+
     export function init() {
         if (twins) return
         twins = []
@@ -394,6 +424,8 @@ namespace jacdac.twins {
         exclusions.push("control.mcu_temperature")
 
         lastReadingsSent = control.millis()
+
+        setInterval(statusLight, 100)
 
         console.log("waiting for enumeration...")
         pause(1000)
