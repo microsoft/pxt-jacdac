@@ -342,7 +342,7 @@ namespace jacdac.twins {
                 t.computeReadings(lastReadingsSent, readings)
             }
             if (Object.keys(readings).length > 0) {
-                console.log(JSON.stringify(readings, null, 1))
+                // console.log(JSON.stringify(readings, null, 1))
                 azureiot.publishMessageJSON({
                     readings: readings,
                     deviceTime: lastReadingsSent,
