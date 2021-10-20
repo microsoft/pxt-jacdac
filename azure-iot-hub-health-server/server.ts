@@ -130,7 +130,5 @@ namespace servers {
     }
 
     //% fixedInstance whenUsed block="Azure IoT Hub"
-    export const azureIotHubHealth = new AzureIotHubHealthServer(
-        "Azure IoT Hub"
-    )
+    export const azureIotHubHealth = new AzureIotHubHealthServer("iothub")
 }
