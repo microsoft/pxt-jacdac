@@ -496,12 +496,6 @@ namespace jacdac.twins {
             }
         }
 
-        if (connect()) {
-            azureiot.publishMessageBuffer(Buffer.fromHex("deadf00d12345678"), {
-                binary: "1",
-            })
-        }
-
         console.log("starting scan...")
         setInterval(rescanDevices, 1000)
     }
