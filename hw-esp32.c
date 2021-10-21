@@ -399,8 +399,11 @@ void uart_start_rx(void *data, uint32_t maxbytes) {
 
     log_pin_pulse(0, 3);
 
+    target_disable_irq();
     context.fifo_buf = data;
     context.rx_len = maxbytes;
+    target_enable_irq();
+
     LOG("ini rx=%d", maxbytes);
 
     uart_flush_rx();
@@ -408,15 +411,18 @@ void uart_start_rx(void *data, uint32_t maxbytes) {
     // log_pin_pulse(0, 2);
 
     if (context.rx_ended) {
+        target_disable_irq();
         context.rx_ended = 0;
         context.rx_len = 0;
         context.fifo_buf = NULL;
+        target_enable_irq();
         // log_pin_pulse(0, 2);
         jd_rx_completed(0);
     }
 }
 
 void uart_disable() {
+    target_disable_irq();
     context.uart_hw->int_clr.val = 0xffffffff;
     context.uart_hw->int_ena.val = UART_BRK_DET_INT_ENA;
     context.seen_low = 0;
@@ -424,6 +430,7 @@ void uart_disable() {
     context.fifo_buf = NULL;
     context.rx_ended = 0;
     read_fifo(1);
+    target_enable_irq();
     pin_rx();
     log_pin_pulse(1, 1);
 }
