@@ -389,10 +389,12 @@ namespace jacdac.twins {
             writeBuffer(Buffer.create(32))
             const prev = messagePtr
             for (const t of twins) t.serialize(lastReadingsSent)
-            if (messagePtr != prev)
+            if (messagePtr != prev) {
                 azureiot.publishMessageHex(messageBuffer, messagePtr, {
                     jdbr: "1",
                 })
+                sendTick = 2
+            }
         }
     }
 
@@ -429,6 +431,7 @@ namespace jacdac.twins {
     }
 
     let statusPhase = 0
+    let sendTick = 0
     function statusLight() {
         const controller = net.instance().controller
 
@@ -456,6 +459,13 @@ namespace jacdac.twins {
         r = (r * phase) >> 4
         g = (g * phase) >> 4
         b = (b * phase) >> 4
+
+        if (sendTick) {
+            sendTick--
+            r = 0x1000
+            g = 0
+            b = 0x1000
+        }
 
         jacdac.setLed(r, g, b)
     }
