@@ -1176,6 +1176,9 @@ namespace jacdac {
                 this._eventCounter = pkt.eventCounter
             }
 
+            if (!this.clients)
+                return // some sort of race
+
             const client = this.clients.find(c =>
                 c.broadcast
                     ? c.serviceClass == serviceClass
