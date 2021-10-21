@@ -189,6 +189,7 @@ namespace jacdac.twins {
                 this.readingPtr += 8
                 pendingReadings++
                 pendingMessageSize += 8
+                checkPendingReadings()
             }
         }
     }
@@ -358,25 +359,28 @@ namespace jacdac.twins {
             }
             currTwin = fullTwin
         }
+        checkPendingReadings(true)
+    }
 
-        console.debug(
-            `pending readings: ${pendingReadings}, last sent ${
-                control.millis() - lastReadingsSent
-            }`
-        )
+    function checkPendingReadings(checkTime = false) {
         if (
-            pendingMessageSize > (messageBuffer.length >> 1) ||
+            pendingMessageSize > messageBuffer.length - 64 ||
             pendingReadings > MAX_READINGS_PER_PACKET ||
-            (pendingReadings > 0 &&
+            (checkTime &&
+                pendingReadings > 0 &&
                 control.millis() - lastReadingsSent > READINGS_SEND_INTERVAL)
         ) {
+            console.debug(
+                `sending readings: #${pendingReadings} ${pendingMessageSize} bytes, delta ${
+                    control.millis() - lastReadingsSent
+                }ms`
+            )
+
             lastReadingsSent = control.millis()
             pendingReadings = 0
             pendingMessageSize = 0
             messagePtr = 0
-            writeBuffer(
-                jdpack("s[4] u32", ["JDBR", lastReadingsSent])
-            )
+            writeBuffer(jdpack("s[4] u32", ["JDBR", lastReadingsSent]))
             writeBuffer(Buffer.create(32))
             const prev = messagePtr
             for (const t of twins) t.serialize(lastReadingsSent)
@@ -459,7 +463,7 @@ namespace jacdac.twins {
         exclusions.push("control.uptime")
         exclusions.push("control.mcu_temperature")
 
-        messageBuffer = Buffer.create(2048) // TODO?
+        messageBuffer = Buffer.create(1000) // TODO?
 
         lastReadingsSent = control.millis()
 
