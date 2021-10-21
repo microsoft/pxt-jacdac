@@ -6,7 +6,15 @@ namespace jacdac.twins {
     let exclusions: string[]
     let currTwin: Json
     let pendingReadings = 0
+    let pendingMessageSize = 0
     let lastReadingsSent: number
+    let messageBuffer: Buffer
+    let messagePtr = 0
+
+    function writeBuffer(buf: Buffer) {
+        messageBuffer.write(messagePtr, buf)
+        messagePtr += buf.length
+    }
 
     const streamingIntervalSpec: ServiceTwinRegisterSpec = {
         name: "streaming_interval",
@@ -37,8 +45,9 @@ namespace jacdac.twins {
     class ServiceTwin {
         id: string
         enabled: boolean
-        readings: number[] = []
-        timestamps: number[] = []
+        readingBuffer: Buffer
+        readingPtr = 0
+        header: Buffer
 
         constructor(
             public parent: DeviceTwin,
@@ -50,19 +59,25 @@ namespace jacdac.twins {
                 this.spec.registers.push(streamingIntervalSpec)
                 this.enabled = true
             }
+            this.header = Buffer.fromUTF8(
+                this.parent.id + ":" + this.id + "\u0000"
+            )
         }
 
-        extract(now: number) {
-            if (this.readings.length == 0) return null
-            const readings = this.readings
-            const timedelta = this.timestamps
-            this.readings = []
-            this.timestamps = []
-            for (let i = 0; i < timedelta.length; ++i) timedelta[i] -= now
-            return {
-                readings: readings,
-                timedelta: timedelta,
+        serialize(now: number) {
+            if (!this.readingPtr) return // skip
+
+            const len = this.readingPtr
+            const buf = this.readingBuffer
+            for (let i = 0; i < len; i += 8) {
+                const ts = buf.getNumber(NumberFormat.UInt32LE, i)
+                buf.setNumber(NumberFormat.UInt32LE, i, now - ts)
             }
+            writeBuffer(this.header)
+            writeBuffer(jdpack("u32", [this.readingPtr]))
+            writeBuffer(buf.slice(0, this.readingPtr))
+            this.readingPtr = 0
+            if (len < this.readingBuffer.length >> 1) this.readingBuffer = null
         }
 
         tick() {
@@ -148,9 +163,32 @@ namespace jacdac.twins {
                     r => r.code == SystemReg.Reading
                 )
                 const v = jdunpack(pkt.data, rspec.packf)[0]
-                this.readings.push(v)
-                this.timestamps.push(control.millis())
+
+                if (
+                    !this.readingBuffer ||
+                    this.readingPtr + 8 > this.readingBuffer.length
+                ) {
+                    const prev = this.readingBuffer
+                    this.readingBuffer = Buffer.create(
+                        this.readingBuffer ? this.readingPtr + 32 : 16
+                    )
+                    if (prev) this.readingBuffer.write(0, prev)
+                }
+                this.readingBuffer.setNumber(
+                    NumberFormat.UInt32LE,
+                    this.readingPtr,
+                    control.millis()
+                )
+                this.readingBuffer.setNumber(
+                    NumberFormat.Float32LE,
+                    this.readingPtr + 4,
+                    v
+                )
+                if (this.readingPtr == 0)
+                    pendingMessageSize += this.header.length
+                this.readingPtr += 8
                 pendingReadings++
+                pendingMessageSize += 8
             }
         }
     }
@@ -208,7 +246,8 @@ namespace jacdac.twins {
                 json = null
             }
             console.log(
-                `got serv: ${url} / ${json} ${JSON.stringify(json).length
+                `got serv: ${url} / ${json} ${
+                    JSON.stringify(json).length
                 } bytes`
             )
         }
@@ -261,16 +300,9 @@ namespace jacdac.twins {
             }
         }
 
-        computeReadings(now: number, target: Json) {
-            const rd: Json = {}
+        serialize(now: number) {
             for (const serv of this.services) {
-                if (serv) {
-                    const ex = serv.extract(now)
-                    if (ex) rd[serv.id] = ex
-                }
-            }
-            if (Object.keys(rd).length > 0) {
-                target[this.id] = rd
+                if (serv) serv.serialize(now)
             }
         }
 
@@ -291,6 +323,7 @@ namespace jacdac.twins {
         try {
             scan()
         } catch (e) {
+            console.error("unhandled scan exception:")
             console.error(e)
         }
     }
@@ -327,27 +360,30 @@ namespace jacdac.twins {
         }
 
         console.debug(
-            `pending readings: ${pendingReadings}, last sent ${control.millis() - lastReadingsSent
+            `pending readings: ${pendingReadings}, last sent ${
+                control.millis() - lastReadingsSent
             }`
         )
         if (
+            pendingMessageSize > (messageBuffer.length >> 1) ||
             pendingReadings > MAX_READINGS_PER_PACKET ||
             (pendingReadings > 0 &&
                 control.millis() - lastReadingsSent > READINGS_SEND_INTERVAL)
         ) {
             lastReadingsSent = control.millis()
             pendingReadings = 0
-            const readings = {}
-            for (const t of twins) {
-                t.computeReadings(lastReadingsSent, readings)
-            }
-            if (Object.keys(readings).length > 0) {
-                // console.log(JSON.stringify(readings, null, 1))
-                azureiot.publishMessageJSON({
-                    readings: readings,
-                    deviceTime: lastReadingsSent,
+            pendingMessageSize = 0
+            messagePtr = 0
+            writeBuffer(
+                jdpack("s[4] u32", ["JDBR", lastReadingsSent])
+            )
+            writeBuffer(Buffer.create(32))
+            const prev = messagePtr
+            for (const t of twins) t.serialize(lastReadingsSent)
+            if (messagePtr != prev)
+                azureiot.publishMessageHex(messageBuffer, messagePtr, {
+                    jdbr: "1",
                 })
-            }
         }
     }
 
@@ -423,6 +459,8 @@ namespace jacdac.twins {
         exclusions.push("control.uptime")
         exclusions.push("control.mcu_temperature")
 
+        messageBuffer = Buffer.create(2048) // TODO?
+
         lastReadingsSent = control.millis()
 
         setInterval(statusLight, 100)
@@ -437,6 +475,12 @@ namespace jacdac.twins {
                 const cl = d.serviceClassAt(servIdx)
                 getServiceTwinSpec(cl)
             }
+        }
+
+        if (connect()) {
+            azureiot.publishMessageBuffer(Buffer.fromHex("deadf00d12345678"), {
+                binary: "1",
+            })
         }
 
         console.log("starting scan...")
