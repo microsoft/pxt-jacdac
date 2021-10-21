@@ -1,6 +1,8 @@
 namespace jacdac.twins {
     const MAX_READINGS_PER_PACKET = 100 // TODO
     const READINGS_SEND_INTERVAL = 5000
+    const MAX_HEADER_SIZE = 200
+    const MAX_PACKET_SIZE = 1000 // this is transmitted as HEX, so grows 2x
 
     let twins: DeviceTwin[]
     let exclusions: string[]
@@ -62,6 +64,8 @@ namespace jacdac.twins {
             this.header = Buffer.fromUTF8(
                 this.parent.id + ":" + this.id + "\u0000"
             )
+            if (this.header.length > MAX_HEADER_SIZE - 8)
+                throw "header too large"
         }
 
         serialize(now: number) {
@@ -330,6 +334,7 @@ namespace jacdac.twins {
     }
 
     function scan() {
+        // console.log(`scan: ${jacdac.bus.devices.length} / ${twins.length}`)
         for (const d of jacdac.bus.devices) {
             if (!twins.some(t => t.device == d)) new DeviceTwin(d)
         }
@@ -364,7 +369,7 @@ namespace jacdac.twins {
 
     function checkPendingReadings(checkTime = false) {
         if (
-            pendingMessageSize > messageBuffer.length - 64 ||
+            pendingMessageSize > messageBuffer.length - MAX_HEADER_SIZE ||
             pendingReadings > MAX_READINGS_PER_PACKET ||
             (checkTime &&
                 pendingReadings > 0 &&
@@ -463,7 +468,7 @@ namespace jacdac.twins {
         exclusions.push("control.uptime")
         exclusions.push("control.mcu_temperature")
 
-        messageBuffer = Buffer.create(1000) // TODO?
+        messageBuffer = Buffer.create(MAX_PACKET_SIZE)
 
         lastReadingsSent = control.millis()
 
