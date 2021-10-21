@@ -3,6 +3,7 @@ jacdac.logPriority = ConsolePriority.Log
 
 namespace userconfig {}
 
+jacdac.logPriority = ConsolePriority.Log
 jacdac.start()
 
 /*
@@ -16,4 +17,3 @@ servers.wifi.start()
 servers.azureIotHubHealth.start()
 
 jacdac.twins.init()
-
