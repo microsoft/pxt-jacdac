@@ -12,6 +12,7 @@ namespace jacdac.twins {
     let lastReadingsSent: number
     let messageBuffer: Buffer
     let messagePtr = 0
+    let numMsg = 0
 
     function writeBuffer(buf: Buffer) {
         messageBuffer.write(messagePtr, buf)
@@ -375,8 +376,8 @@ namespace jacdac.twins {
                 pendingReadings > 0 &&
                 control.millis() - lastReadingsSent > READINGS_SEND_INTERVAL)
         ) {
-            console.debug(
-                `sending readings: #${pendingReadings} ${pendingMessageSize} bytes, delta ${
+            console.log(
+                `sending readings: #${numMsg++} ${pendingReadings} readings, ${pendingMessageSize} bytes, delta ${
                     control.millis() - lastReadingsSent
                 }ms`
             )
