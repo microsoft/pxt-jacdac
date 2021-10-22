@@ -432,6 +432,8 @@ namespace jacdac.twins {
 
     let statusPhase = 0
     let sendTick = 0
+    const sim = control.deviceDalVersion() == "sim"
+
     function statusLight() {
         const controller = net.instance().controller
 
@@ -439,11 +441,11 @@ namespace jacdac.twins {
 
         let phase = statusPhase
         let r = 0
-        let g = 0x0800
+        let g = sim ? 0xf000 : 0x0800
         let b = 0
 
         if (controller.isConnected) {
-            b = 0x1000
+            b = sim ? 0xf000 : 0x1000
             // cyan
             if (azureiot.isConnected()) {
                 phase >>= 2 // slower blink
