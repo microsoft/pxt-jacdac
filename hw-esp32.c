@@ -338,7 +338,8 @@ static void tx_race() {
         ;
     }
     pin_rx();
-    start_bg_rx();
+    if (!context.seen_low)
+        start_bg_rx(); // some rare race here
 }
 
 int uart_start_tx(const void *data, uint32_t numbytes) {
@@ -426,6 +427,7 @@ void uart_disable() {
     context.uart_hw->int_clr.val = 0xffffffff;
     context.uart_hw->int_ena.val = UART_BRK_DET_INT_ENA;
     context.seen_low = 0;
+    context.cb_fall = 0;
     context.rx_len = context.tx_len = 0;
     context.fifo_buf = NULL;
     context.rx_ended = 0;
