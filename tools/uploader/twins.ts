@@ -167,7 +167,10 @@ namespace jacdac.twins {
                 const rspec = this.spec.registers.find(
                     r => r.code == SystemReg.Reading
                 )
-                const v = jdunpack(pkt.data, rspec.packf)[0]
+                let v = jdunpack(pkt.data, rspec.packf)[0]
+                const scaleToPercent = rspec.packf.slice(0, "u0.".length) == "u0."
+                if (scaleToPercent)
+                    v *= 100;
 
                 if (
                     !this.readingBuffer ||
