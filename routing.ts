@@ -290,8 +290,8 @@ namespace jacdac {
                         }
 
                         if (
-                            this.isClient &&
-                            dev.isClient &&
+                            this.selfDevice.isBrain &&
+                            dev.isBrain &&
                             dev.restartCounter < this.restartCounter
                         ) {
                             // the device restarted earlier than us
@@ -1034,6 +1034,10 @@ namespace jacdac {
             bus.devices.push(this)
         }
 
+        get isBrain() {
+            return this.hasService(SRV_UNIQUE_BRAIN)
+        }
+
         get announceflags(): ControlAnnounceFlags {
             return this.services.getNumber(NumberFormat.UInt16LE, 0)
         }
@@ -1229,6 +1233,12 @@ namespace jacdac {
         }
     }
 
+    class BrainServer extends Server {
+        constructor() {
+            super("brain", SRV_UNIQUE_BRAIN)
+        }
+    }
+
     export class ControlServer extends Server {
         constructor() {
             super("ctrl", 0)
@@ -1332,6 +1342,8 @@ namespace jacdac {
     const CFG_PIN_JDPWR_OVERLOAD_LED = 1103
     const CFG_PIN_JDPWR_ENABLE = 1104
     const CFG_PIN_JDPWR_FAULT = 1105
+
+    const SRV_UNIQUE_BRAIN = 0x103c4ee5
 
     function setPinByCfg(cfg: number, val: boolean) {
         const pin = pins.pinByCfg(cfg)
@@ -1438,6 +1450,7 @@ namespace jacdac {
         disableLogger?: boolean
         disableRoleManager?: boolean
         noWait?: boolean
+        disableBrain?: boolean
     }): void {
         if (jacdac.bus.running) return // already started
 
@@ -1451,6 +1464,8 @@ namespace jacdac {
 
         log("jacdac starting")
         options = options || {}
+        if (options.disableBrain === undefined)
+            options.disableBrain = !!options.disableRoleManager
 
         //jacdac.__physStart();
         control.internalOnEvent(
@@ -1465,6 +1480,9 @@ namespace jacdac {
         enablePower(true)
         enablePowerFaultPin()
         enableIdentityLED()
+
+        if (!options.disableBrain)
+            new BrainServer().start()
 
         if (!options.disableLogger) {
             console.addListener(function (pri, msg) {
