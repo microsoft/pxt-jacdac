@@ -13,6 +13,10 @@ namespace control {
     export function getConfigValue(key: number, defl: number): number {
         return defl
     }
+
+    export function deviceDalVersion() {
+        return control.ramSize() > 1024 * 1024 ? "sim" : "2.0"
+    }
 }
 
 namespace pins {
