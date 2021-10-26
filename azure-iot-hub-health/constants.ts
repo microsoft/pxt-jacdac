@@ -73,6 +73,12 @@ namespace jacdac {
          */
         //% block="connection status change"
         ConnectionStatusChange = 0x3,
+
+        /**
+         * Raised when a message has been sent to the hub.
+         */
+        //% block="message sent"
+        MessageSent = 0x80,
     }
 
 }

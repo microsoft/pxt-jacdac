@@ -15,6 +15,9 @@ namespace servers {
                     jacdac.AzureIotHubHealthConnectionStatus.Disconnected
                 )
             )
+            azureiot.mqttClient().on("published", () => {
+                this.sendEvent(jacdac.AzureIotHubHealthEvent.MessageSent)
+            })
         }
 
         get connectionStatus() {
