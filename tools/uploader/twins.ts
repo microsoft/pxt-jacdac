@@ -168,9 +168,9 @@ namespace jacdac.twins {
                     r => r.code == SystemReg.Reading
                 )
                 let v = jdunpack(pkt.data, rspec.packf)[0]
-                const scaleToPercent = rspec.packf.slice(0, "u0.".length) == "u0."
-                if (scaleToPercent)
-                    v *= 100;
+                const scaleToPercent =
+                    rspec.packf.slice(0, "u0.".length) == "u0."
+                if (scaleToPercent) v *= 100
 
                 if (
                     !this.readingBuffer ||
@@ -244,21 +244,16 @@ namespace jacdac.twins {
         const head = net.request("HEAD", url)
         const statusCode = head.status_code
         head.close()
-        console.log(`head: ${statusCode}`)
         if (statusCode !== 200) {
             console.log(`service spec not found at ${url} (${statusCode}})`)
             json = null
         } else {
             json = net.getJSON(url)
             if (!json) {
-                console.log("failed to get serv: " + url)
+                console.warn("failed to get serv: " + url)
                 json = null
             }
-            console.log(
-                `got serv: ${url} / ${json} ${
-                    JSON.stringify(json).length
-                } bytes`
-            )
+            console.log(`got serv: ${url} ${JSON.stringify(json).length} bytes`)
         }
         settings.writeString(key, JSON.stringify(json))
         return json
