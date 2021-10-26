@@ -209,7 +209,6 @@ namespace jacdac.twins {
         return buf.toHex()
     }
 
-    const specCache: any = {}
     const ignoredServices = [
         SRV_CONTROL,
         SRV_ROLE_MANAGER,
@@ -219,11 +218,14 @@ namespace jacdac.twins {
         SRV_PROTO_TEST,
         SRV_INFRASTRUCTURE,
         SRV_PROXY,
+        0x103c4ee5, // srv unique brain
+        SRV_WIFI,
+        SRV_AZURE_IOT_HUB_HEALTH,
     ]
 
     function getServiceTwinSpec(serviceClass: number): ServiceTwinSpec {
         if (ignoredServices.indexOf(serviceClass) > -1) return null
-        const key = "st-" + serviceClass
+        const key = "x7-" + serviceClass
         const cached = settings.readString(key)
         if (cached) return JSON.parse(cached)
 
@@ -232,11 +234,8 @@ namespace jacdac.twins {
         )}.json`
 
         if (azureiot.isConnected()) {
-            if (!specCache[serviceClass + ""]) {
-                specCache[serviceClass + ""] = 1
-                console.warn(`can't get spec ${url}; already connected to mqtt`)
-            }
-            return null
+            console.log(`disconnecting MQTT to fetch ${url}`)
+            azureiot.disconnect()
         }
 
         // query HEAD initially to probe if the file exists
@@ -245,7 +244,7 @@ namespace jacdac.twins {
         const statusCode = head.status_code
         head.close()
         if (statusCode !== 200) {
-            console.log(`service spec not found at ${url} (${statusCode}})`)
+            console.log(`service spec not found at ${url} (${statusCode})`)
             json = null
         } else {
             json = net.getJSON(url)
@@ -338,6 +337,7 @@ namespace jacdac.twins {
             if (!twins.some(t => t.device == d)) new DeviceTwin(d)
         }
         for (const t of twins) t.tick()
+        if (!azureiot.isConnected()) return
         for (let i = 0; i < 2; ++i) {
             for (const t of twins) {
                 t.computeTwin(false)

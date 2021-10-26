@@ -5,19 +5,25 @@ namespace servers {
             super(dev, jacdac.SRV_AZURE_IOT_HUB_HEALTH)
             this._connectionStatus =
                 jacdac.AzureIotHubHealthConnectionStatus.Disconnected
-            azureiot.onEvent(AzureIotEvent.Connected, () =>
+            let hasPub = false
+            azureiot.onEvent(AzureIotEvent.Connected, () => {
                 this.setConnectionStatus(
                     jacdac.AzureIotHubHealthConnectionStatus.Connected
                 )
-            )
+                if (!hasPub) {
+                    hasPub = true
+                    azureiot.mqttClient().on("published", () => {
+                        this.sendEvent(
+                            jacdac.AzureIotHubHealthEvent.MessageSent
+                        )
+                    })
+                }
+            })
             azureiot.onEvent(AzureIotEvent.Disconnected, () =>
                 this.setConnectionStatus(
                     jacdac.AzureIotHubHealthConnectionStatus.Disconnected
                 )
             )
-            azureiot.mqttClient().on("published", () => {
-                this.sendEvent(jacdac.AzureIotHubHealthEvent.MessageSent)
-            })
         }
 
         get connectionStatus() {
