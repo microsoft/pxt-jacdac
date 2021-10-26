@@ -41,6 +41,7 @@ namespace jacdac {
         private autoBindCnt = 0
         private _eventCounter = 0
         private controlServer: ControlServer
+        public proxyMode = false
         public readonly unattachedClients: Client[] = []
         public readonly allClients: Client[] = []
 
@@ -1176,8 +1177,7 @@ namespace jacdac {
                 this._eventCounter = pkt.eventCounter
             }
 
-            if (!this.clients)
-                return // some sort of race
+            if (!this.clients) return // some sort of race
 
             const client = this.clients.find(c =>
                 c.broadcast
@@ -1311,7 +1311,7 @@ namespace jacdac {
                         this.handleFloodPing(pkt)
                         break
                     case ControlCmd.Proxy:
-                        resetToProxy()
+                        if (!jacdac.bus.proxyMode) resetToProxy()
                         break
                 }
             }
@@ -1402,6 +1402,7 @@ namespace jacdac {
         })
 
         new ProxyServer().start()
+        jacdac.bus.proxyMode = true
 
         jacdac.bus.on(PACKET_PROCESS, () => {
             jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyPacketReceived)
