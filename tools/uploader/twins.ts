@@ -389,10 +389,12 @@ namespace jacdac.twins {
             const prev = messagePtr
             for (const t of twins) t.serialize(lastReadingsSent)
             if (messagePtr != prev) {
-                azureiot.publishMessageHex(messageBuffer, messagePtr, {
-                    jdbr: "1",
-                })
-                sendTick = 2
+                if (azureiot.isConnected()) {
+                    azureiot.publishMessageHex(messageBuffer, messagePtr, {
+                        jdbr: "1",
+                    })
+                    sendTick = 2
+                }
             }
         }
     }
@@ -440,19 +442,18 @@ namespace jacdac.twins {
 
         let phase = statusPhase
         let r = 0
-        let g = sim ? 0xf000 : 0x0800
+        let g = 0
         let b = 0
 
         if (controller.isConnected) {
-            b = sim ? 0xf000 : 0x1000
-            // cyan
+            g = sim ? 0xf000 : 0x0800
             if (azureiot.isConnected()) {
                 phase >>= 2 // slower blink
             } else {
                 // quick
             }
         } else {
-            // quick green
+            r = sim ? 0xf000 : 0x2000
         }
 
         phase = Math.abs((phase & 31) - 16)
@@ -463,9 +464,9 @@ namespace jacdac.twins {
 
         if (sendTick) {
             sendTick--
-            r = 0x1000
+            r = 0
             g = 0
-            b = 0x1000
+            b = sim ? 0xf000 : 0x2000
         }
 
         jacdac.setLed(r, g, b)
