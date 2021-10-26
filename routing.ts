@@ -1423,8 +1423,26 @@ namespace jacdac {
         // start animation
         jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyStarted)
 
+        let statusPhase = 0
+        const sim = control.deviceDalVersion() == "sim"
+
         // don't allow main to run until next reset
         while (true) {
+            statusPhase++
+
+            let phase = statusPhase
+            let r = sim ? 0xf000 : 0x1600
+            let g = sim ? 0xf000 : 0x0400
+            let b = 0
+
+            phase = Math.abs((phase & 31) - 16)
+            if (phase > 15) phase = 15
+            r = (r * phase) >> 4
+            g = (g * phase) >> 4
+            b = (b * phase) >> 4
+
+            setLed(r, g, b)
+
             pause(100)
         }
     }
@@ -1481,8 +1499,7 @@ namespace jacdac {
         enablePowerFaultPin()
         enableIdentityLED()
 
-        if (!options.disableBrain)
-            new BrainServer().start()
+        if (!options.disableBrain) new BrainServer().start()
 
         if (!options.disableLogger) {
             console.addListener(function (pri, msg) {
