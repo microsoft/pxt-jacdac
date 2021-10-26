@@ -22,9 +22,11 @@ git commit -m "new build of uploader"
 
 ## LED modes
 
-* quick fade in/out green = looking for wifi
-* quick fade in/out cyan = connecting to IoT Hub
-* slow (~3s) fade in/out cyan = connected
-* magenta flash = trying to send data
+* quick fade in/out red = looking for wifi
+* quick fade in/out green = connecting to IoT Hub
+* slow (~3s) fade in/out green = connected
+* blue flash = data sent
+* slow fade in/out yellow - proxy mode (not sending data)
 
-Normal state is slow cyan fade with magenta flashes every ~5s (or more often when lots of sensors connected).
+Normal state is slow green fade with blue flashes every ~5s (or more often when lots of sensors connected).
+
