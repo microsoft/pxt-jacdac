@@ -87,15 +87,23 @@ namespace jacdac {
 
             // run handlers
             let someOnce = false
+            let useTry = false
+
+            for (const listener of this.listeners) {
+                if (listener.key == ERROR) useTry = true
+            }
+
             for (const listener of this.listeners) {
                 if (listener.key === eventName) {
-                    someOnce = someOnce || listener.once
+                    if (listener.once) someOnce = true
                     const handler = listener.handler
-                    try {
-                        handler(arg)
-                    } catch (e) {
-                        this.emit(ERROR, e)
-                    }
+                    if (useTry)
+                        try {
+                            handler(arg)
+                        } catch (e) {
+                            this.emit(ERROR, e)
+                        }
+                    else handler(arg)
                 }
             }
 
