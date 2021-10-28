@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-unique-brain",
+    "version": "0.0.0",
+    "description": "The presence of this service indicates that this device is a client that controls sensors and actuators.\nIf a unique brain detects another younger unique brain (determined by reset counter in announce packets),\nthen the older brain should switch into proxy mode.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}

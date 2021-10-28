@@ -11,7 +11,7 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_LIGHT_BULB, role);
 
-            this._brightness = this.addRegister<[number]>(jacdac.LightBulbReg.Brightness, "u16");
+            this._brightness = this.addRegister<[number]>(jacdac.LightBulbReg.Brightness, "u0.16");
             this._dimmeable = this.addRegister<[boolean]>(jacdac.LightBulbReg.Dimmeable, "u8");            
         }
     
@@ -28,7 +28,7 @@ namespace modules {
         brightness(): number {
             this.start();            
             const values = this._brightness.pauseUntilValues() as any[];
-            return values[0];
+            return values[0] * 100;
         }
 
         /**
@@ -40,11 +40,12 @@ namespace modules {
         //% block="set %lightbulb brightness to %value"
         //% weight=99
         //% value.min=0
-        //% value.max=65535
+        //% value.max=100
+        //% value.defl=100
         setBrightness(value: number) {
             this.start();
             const values = this._brightness.values as any[];
-            values[0] = value;
+            values[0] = value / 100;
             this._brightness.values = values as [number];
         }
 

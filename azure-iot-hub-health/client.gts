@@ -64,6 +64,16 @@ namespace modules {
         onConnectionStatusChange(handler: () => void): void {
             this.registerEvent(jacdac.AzureIotHubHealthEvent.ConnectionStatusChange, handler);
         }
+        /**
+         * Raised when a message has been sent to the hub.
+         */
+        //% group="Iot"
+        //% blockId=jacdac_on_azureiothubhealth_message_sent
+        //% block="on %azureiothubhealth message sent"
+        //% weight=96
+        onMessageSent(handler: () => void): void {
+            this.registerEvent(jacdac.AzureIotHubHealthEvent.MessageSent, handler);
+        }
 
         /**
         * Starts a connection to the IoT hub service
@@ -71,7 +81,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_azureiothubhealth_connect_cmd
         //% block="%azureiothubhealth connect"
-        //% weight=96
+        //% weight=95
         connect(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.AzureIotHubHealthCmd.Connect))
@@ -83,7 +93,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_azureiothubhealth_disconnect_cmd
         //% block="%azureiothubhealth disconnect"
-        //% weight=95
+        //% weight=94
         disconnect(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.AzureIotHubHealthCmd.Disconnect))

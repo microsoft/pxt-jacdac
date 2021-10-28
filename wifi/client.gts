@@ -6,12 +6,16 @@ namespace modules {
      * To that end, it keeps a list of known WiFi networks, with priorities and passwords.
      * It will connect to the available network with numerically highest priority,
      * breaking ties in priority by signal strength (typically all known networks have priority of `0`).
+     * If the connection fails (due to wrong password, radio failure, or other problem)
+     * an `connection_failed` event is emitted, and the device will try to connect to the next eligible network.
+     * When networks are exhausted, the scan is performed again and the connection process restarts.
+     * 
+     * Updating networks (setting password, priorties, forgetting) does not trigger an automatic reconnect.
      **/
     //% fixedInstances blockGap=8
     export class WifiClient extends jacdac.Client {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-        private readonly _connected : jacdac.RegisterClient<[boolean]>;
         private readonly _ipAddress : jacdac.RegisterClient<[Buffer]>;
         private readonly _eui48 : jacdac.RegisterClient<[Buffer]>;
         private readonly _ssid : jacdac.RegisterClient<[string]>;
@@ -21,7 +25,6 @@ namespace modules {
             super(jacdac.SRV_WIFI, role);
 
             this._enabled = this.addRegister<[boolean]>(jacdac.WifiReg.Enabled, "u8");
-            this._connected = this.addRegister<[boolean]>(jacdac.WifiReg.Connected, "u8");
             this._ipAddress = this.addRegister<[Buffer]>(jacdac.WifiReg.IpAddress, "b[16]");
             this._eui48 = this.addRegister<[Buffer]>(jacdac.WifiReg.Eui48, "b[6]");
             this._ssid = this.addRegister<[string]>(jacdac.WifiReg.Ssid, "s[32]");
@@ -58,23 +61,11 @@ namespace modules {
         }
 
         /**
-        * Indicates whether or not we currently have an IP address assigned.
-        */
-        //% callInDebugger
-        //% group="Iot"
-        //% weight=98
-        connected(): boolean {
-            this.start();            
-            const values = this._connected.pauseUntilValues() as any[];
-            return !!values[0];
-        }
-
-        /**
         * 0, 4 or 16 byte buffer with the IPv4 or IPv6 address assigned to device if any.
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=97
+        //% weight=98
         ipAddress(): Buffer {
             this.start();            
             const values = this._ipAddress.pauseUntilValues() as any[];
@@ -86,7 +77,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=96
+        //% weight=97
         eui48(): Buffer {
             this.start();            
             const values = this._eui48.pauseUntilValues() as any[];
@@ -99,7 +90,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=95
+        //% weight=96
         ssid(): string {
             this.start();            
             const values = this._ssid.pauseUntilValues() as any[];
@@ -111,7 +102,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=94
+        //% weight=95
         rssi(): number {
             this.start();            
             const values = this._rssi.pauseUntilValues() as any[];
@@ -124,7 +115,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_got_ip
         //% block="on %wifi got ip"
-        //% weight=93
+        //% weight=94
         onGotIp(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.GotIp, handler);
         }
@@ -134,7 +125,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_lost_ip
         //% block="on %wifi lost ip"
-        //% weight=92
+        //% weight=93
         onLostIp(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.LostIp, handler);
         }
@@ -146,7 +137,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_scan_complete
         //% block="on %wifi scan complete"
-        //% weight=91
+        //% weight=92
         onScanComplete(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.ScanComplete, handler);
         }
@@ -156,9 +147,21 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_networks_changed
         //% block="on %wifi networks changed"
-        //% weight=90
+        //% weight=91
         onNetworksChanged(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.NetworksChanged, handler);
+        }
+        /**
+         * Emitted when when a network was detected in scan, the device tried to connect to it
+        * and failed.
+        * This may be because of wrong password or other random failure.
+         */
+        //% group="Iot"
+        //% blockId=jacdac_on_wifi_connection_failed
+        //% block="on %wifi connection failed"
+        //% weight=90
+        onConnectionFailed(handler: () => void): void {
+            this.registerEvent(jacdac.WifiEvent.ConnectionFailed, handler);
         }
 
         /**
@@ -174,7 +177,7 @@ namespace modules {
         }
 
         /**
-        * Initiate a scan, wait for results, disconnect from current WiFi network if any,
+        * Enable the WiFi (if disabled), initiate a scan, wait for results, disconnect from current WiFi network if any,
         * and then reconnect (using regular algorithm, see `set_network_priority`).
         */
         //% group="Iot"
