@@ -28,12 +28,6 @@ namespace servers {
         handlePacket(pkt: jacdac.JDPacket) {
             const controller = net.instance().controller
 
-            this.handleRegBool(
-                pkt,
-                jacdac.WifiReg.Connected,
-                controller.isConnected
-            )
-
             const newEn = this.handleRegBool(
                 pkt,
                 jacdac.WifiReg.Enabled,
