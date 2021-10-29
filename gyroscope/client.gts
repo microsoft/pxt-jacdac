@@ -6,18 +6,20 @@ namespace modules {
     export class GyroscopeClient extends jacdac.SensorClient {
 
         private readonly _rotationRatesError : jacdac.RegisterClient<[number]>;
-        private readonly _maxRate : jacdac.RegisterClient<[number]>;            
+        private readonly _maxRate : jacdac.RegisterClient<[number]>;
+        private readonly _maxRatesSupported : jacdac.RegisterClient<[number[]]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_GYROSCOPE, role, "i12.20 i12.20 i12.20");
 
-            this._rotationRatesError = this.addRegister<[number]>(jacdac.GyroscopeReg.RotationRatesError, "i12.20");
-            this._maxRate = this.addRegister<[number]>(jacdac.GyroscopeReg.MaxRate, "i12.20");            
+            this._rotationRatesError = this.addRegister<[number]>(jacdac.GyroscopeReg.RotationRatesError, "u12.20");
+            this._maxRate = this.addRegister<[number]>(jacdac.GyroscopeReg.MaxRate, "u12.20");
+            this._maxRatesSupported = this.addRegister<[number[]]>(jacdac.GyroscopeReg.MaxRatesSupported, "r: u12.20");            
         }
     
 
         /**
-        * Indicates the current forces acting on accelerometer.
+        * Indicates the current rates acting on gyroscope.
         */
         //% callInDebugger
         //% group="Movement"
@@ -31,7 +33,7 @@ namespace modules {
         }
 
         /**
-        * Indicates the current forces acting on accelerometer.
+        * Indicates the current rates acting on gyroscope.
         */
         //% callInDebugger
         //% group="Movement"
@@ -45,7 +47,7 @@ namespace modules {
         }
 
         /**
-        * Indicates the current forces acting on accelerometer.
+        * Indicates the current rates acting on gyroscope.
         */
         //% callInDebugger
         //% group="Movement"
@@ -71,7 +73,8 @@ namespace modules {
         }
 
         /**
-        * Configures the range of range of rotation rates.
+        * Configures the range of rotation rates.
+        * The value will be "rounded up" to one of `max_rates_supported`.
         */
         //% callInDebugger
         //% group="Movement"
@@ -83,7 +86,8 @@ namespace modules {
         }
 
         /**
-        * Configures the range of range of rotation rates.
+        * Configures the range of rotation rates.
+        * The value will be "rounded up" to one of `max_rates_supported`.
         */
         //% group="Movement"
         //% weight=95
@@ -92,6 +96,18 @@ namespace modules {
             const values = this._maxRate.values as any[];
             values[0] = value;
             this._maxRate.values = values as [number];
+        }
+
+        /**
+        * Lists values supported for writing `max_rate`.
+        */
+        //% callInDebugger
+        //% group="Movement"
+        //% weight=94
+        maxRatesSupportedMaxRate(): number[] {
+            this.start();            
+            const values = this._maxRatesSupported.pauseUntilValues() as any[];
+            return values[0];
         }
 
     

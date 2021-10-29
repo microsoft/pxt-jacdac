@@ -6,13 +6,15 @@ namespace modules {
     export class AccelerometerClient extends jacdac.SensorClient {
 
         private readonly _forcesError : jacdac.RegisterClient<[number]>;
-        private readonly _maxForce : jacdac.RegisterClient<[number]>;            
+        private readonly _maxForce : jacdac.RegisterClient<[number]>;
+        private readonly _maxForcesSupported : jacdac.RegisterClient<[number[]]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_ACCELEROMETER, role, "i12.20 i12.20 i12.20");
 
-            this._forcesError = this.addRegister<[number]>(jacdac.AccelerometerReg.ForcesError, "i12.20");
-            this._maxForce = this.addRegister<[number]>(jacdac.AccelerometerReg.MaxForce, "i12.20");            
+            this._forcesError = this.addRegister<[number]>(jacdac.AccelerometerReg.ForcesError, "u12.20");
+            this._maxForce = this.addRegister<[number]>(jacdac.AccelerometerReg.MaxForce, "u12.20");
+            this._maxForcesSupported = this.addRegister<[number[]]>(jacdac.AccelerometerReg.MaxForcesSupported, "r: u12.20");            
         }
     
 
@@ -72,7 +74,7 @@ namespace modules {
 
         /**
         * Configures the range forces detected.
-        * Read-back after setting to get current value.
+        * The value will be "rounded up" to one of `max_forces_supported`.
         */
         //% callInDebugger
         //% group="Movement"
@@ -85,7 +87,7 @@ namespace modules {
 
         /**
         * Configures the range forces detected.
-        * Read-back after setting to get current value.
+        * The value will be "rounded up" to one of `max_forces_supported`.
         */
         //% group="Movement"
         //% weight=95
@@ -97,12 +99,24 @@ namespace modules {
         }
 
         /**
+        * Lists values supported for writing `max_force`.
+        */
+        //% callInDebugger
+        //% group="Movement"
+        //% weight=94
+        maxForcesSupportedMaxForce(): number[] {
+            this.start();            
+            const values = this._maxForcesSupported.pauseUntilValues() as any[];
+            return values[0];
+        }
+
+        /**
          * Emitted when accelerometer is tilted in the given direction.
          */
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_tilt_up
         //% block="on %accelerometer tilt up"
-        //% weight=94
+        //% weight=93
         onTiltUp(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.TiltUp, handler);
         }
@@ -112,7 +126,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_tilt_down
         //% block="on %accelerometer tilt down"
-        //% weight=93
+        //% weight=92
         onTiltDown(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.TiltDown, handler);
         }
@@ -122,7 +136,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_tilt_left
         //% block="on %accelerometer tilt left"
-        //% weight=92
+        //% weight=91
         onTiltLeft(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.TiltLeft, handler);
         }
@@ -132,7 +146,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_tilt_right
         //% block="on %accelerometer tilt right"
-        //% weight=91
+        //% weight=90
         onTiltRight(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.TiltRight, handler);
         }
@@ -142,7 +156,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_face_up
         //% block="on %accelerometer face up"
-        //% weight=90
+        //% weight=89
         onFaceUp(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.FaceUp, handler);
         }
@@ -152,7 +166,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_face_down
         //% block="on %accelerometer face down"
-        //% weight=89
+        //% weight=88
         onFaceDown(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.FaceDown, handler);
         }
@@ -162,7 +176,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_freefall
         //% block="on %accelerometer freefall"
-        //% weight=88
+        //% weight=87
         onFreefall(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Freefall, handler);
         }
@@ -172,7 +186,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_shake
         //% block="on %accelerometer shake"
-        //% weight=87
+        //% weight=86
         onShake(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Shake, handler);
         }
@@ -182,7 +196,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_force_2g
         //% block="on %accelerometer force 2g"
-        //% weight=86
+        //% weight=85
         onForce2g(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Force2g, handler);
         }
@@ -192,7 +206,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_force_3g
         //% block="on %accelerometer force 3g"
-        //% weight=85
+        //% weight=84
         onForce3g(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Force3g, handler);
         }
@@ -202,7 +216,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_force_6g
         //% block="on %accelerometer force 6g"
-        //% weight=84
+        //% weight=83
         onForce6g(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Force6g, handler);
         }
@@ -212,7 +226,7 @@ namespace modules {
         //% group="Movement"
         //% blockId=jacdac_on_accelerometer_force_8g
         //% block="on %accelerometer force 8g"
-        //% weight=83
+        //% weight=82
         onForce8g(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Force8g, handler);
         }
