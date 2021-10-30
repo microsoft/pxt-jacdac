@@ -1,6 +1,6 @@
 {
     "name": "jacdac-sound-level",
-    "version": "0.7.20",
+    "version": "0.7.21",
     "description": "Jacdac sound level service",
     "dependencies": {
         "core": "*",
