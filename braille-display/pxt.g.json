@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-braille-display",
+    "version": "0.0.0",
+    "description": "A Braille pattern display module. This module display [unicode braille patterns](https://www.unicode.org/charts/PDF/U2800.pdf), country specific encoding have to be implemented by the clients.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
