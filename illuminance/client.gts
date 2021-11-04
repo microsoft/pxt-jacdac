@@ -20,7 +20,7 @@ namespace modules {
         * The amount of illuminance, as lumens per square metre.
         */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% block="%illuminance light"
         //% blockId=jacdac_illuminance_light___get
         //% weight=100
@@ -33,7 +33,7 @@ namespace modules {
         * Error on the reported sensor value.
         */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% weight=99
         lightError(): number {
             this.start();            
@@ -44,7 +44,7 @@ namespace modules {
         /**
          * Run code when the light changes by the given threshold value.
         */
-        //% group="Imaging"
+        //% group="Environment"
         //% blockId=jacdac_illuminance_on_light_change
         //% block="on %illuminance light changed by %threshold"
         //% weight=98

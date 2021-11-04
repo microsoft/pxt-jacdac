@@ -18,7 +18,7 @@ namespace modules {
         * Detect light level
         */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% block="%lightlevel light level"
         //% blockId=jacdac_lightlevel_light_level___get
         //% weight=100
@@ -31,7 +31,7 @@ namespace modules {
         * The type of physical sensor.
         */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% weight=99
         variant(): jacdac.LightLevelVariant {
             this.start();            
@@ -42,7 +42,7 @@ namespace modules {
         /**
          * Run code when the light level changes by the given threshold value.
         */
-        //% group="Imaging"
+        //% group="Environment"
         //% blockId=jacdac_lightlevel_on_light_level_change
         //% block="on %lightlevel light level changed by %threshold"
         //% weight=98

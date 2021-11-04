@@ -18,7 +18,7 @@ namespace modules {
         * Reports the reflected brightness. It may be a digital value or, for some sensor, analog value.
         */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% block="%reflectedlight brightness"
         //% blockId=jacdac_reflectedlight_brightness___get
         //% weight=100
@@ -31,7 +31,7 @@ namespace modules {
         * Type of physical sensor used
         */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% weight=99
         variant(): jacdac.ReflectedLightVariant {
             this.start();            
@@ -42,7 +42,7 @@ namespace modules {
         /**
          * Run code when the brightness changes by the given threshold value.
         */
-        //% group="Imaging"
+        //% group="Environment"
         //% blockId=jacdac_reflectedlight_on_brightness_change
         //% block="on %reflectedlight brightness changed by %threshold"
         //% weight=98
@@ -56,7 +56,7 @@ namespace modules {
         /**
          * The sensor detected a transition from light to dark
          */
-        //% group="Imaging"
+        //% group="Environment"
         //% blockId=jacdac_on_reflectedlight_dark
         //% block="on %reflectedlight dark"
         //% weight=97
@@ -66,7 +66,7 @@ namespace modules {
         /**
          * The sensor detected a transition from dark to light
          */
-        //% group="Imaging"
+        //% group="Environment"
         //% blockId=jacdac_on_reflectedlight_light
         //% block="on %reflectedlight light"
         //% weight=96
