@@ -1,8 +1,6 @@
-jacdac.logPriority = ConsolePriority.Log
-// console.minPriority = ConsolePriority.Log
+namespace userconfig { }
 
-namespace userconfig {}
-
+jacdac.firmwareVersion = jacdac.VERSION
 jacdac.logPriority = ConsolePriority.Log
 jacdac.start()
 

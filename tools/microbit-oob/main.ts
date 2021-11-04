@@ -446,6 +446,7 @@ function animateLED(b: Button) {
 }
 
 // leave role manager on so that modules don't blink
+jacdac.firmwareVersion = jacdac.VERSION
 jacdac.start({ disableRoleManager: false })
 
 basic.showIcon(IconNames.Happy)

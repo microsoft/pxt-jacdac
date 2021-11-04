@@ -142,5 +142,6 @@ function main() {
     mainMenu()
 }
 
+jacdac.firmwareVersion = jacdac.VERSION
 jacdac.start({ disableRoleManager: true })
 control.runInBackground(main)
