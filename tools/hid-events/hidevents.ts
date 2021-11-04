@@ -51,6 +51,7 @@ namespace hidevents {
     }
 
     function start() {
+        jacdac.firmwareVersion = jacdac.VERSION
         jacdac.startServer()
         jacdac.settingsServer.start()
         jacdac.settingsServer.on(jacdac.CHANGE, () => decodeBindings())
