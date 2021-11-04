@@ -1292,11 +1292,19 @@ namespace jacdac {
                         this.sendUptime()
                         break
                     }
+                    case ControlReg.FirmwareVersion:
+                        this.sendReport(
+                            JDPacket.from(
+                                pkt.serviceCommand,
+                                jdpack("s", [jacdac.VERSION])
+                            )
+                        )
+                        break
                     case ControlReg.DeviceDescription: {
                         this.sendReport(
                             JDPacket.from(
                                 pkt.serviceCommand,
-                                Buffer.fromUTF8(control.programName())
+                                jdpack("s", [control.programName()])
                             )
                         )
                         break

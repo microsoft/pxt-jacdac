@@ -2,4 +2,4 @@
 
 set -e
 git pull
-makecode bump
+makecode bump --version-file version.ts
