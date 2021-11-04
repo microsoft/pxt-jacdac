@@ -1,6 +1,6 @@
 {
     "name": "jacdac",
-    "version": "0.7.21",
+    "version": "0.7.22",
     "description": "Jacdac for MakeCode",
     "dependencies": {
         "core": "*",
@@ -60,7 +60,10 @@
         "eventsource.ts",
         "version.ts"
     ],
-    "testFiles": ["test.microbit.ts", "test.ts"],
+    "testFiles": [
+        "test.microbit.ts",
+        "test.ts"
+    ],
     "testDependencies": {},
     "fileDependencies": {
         "mbcompat.ts": "target:microbit",
@@ -75,9 +78,15 @@
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": ["arcade", "maker", "microbit"],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit"
+    ],
     "preferredEditor": "tsprj",
-    "disablesVariants": ["mbdal"],
+    "disablesVariants": [
+        "mbdal"
+    ],
     "binaryonly": true,
     "extension": {
         "namespace": "modules",
