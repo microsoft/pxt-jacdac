@@ -84,11 +84,15 @@ namespace servers {
                 case jacdac.WifiCmd.ForgetNetwork: {
                     const ssid = pkt.stringData
                     net.clearAccessPoint(ssid)
+                    // force reconnect
+                    controller.disconnectAP()
                     this.sendEvent(jacdac.WifiEvent.NetworksChanged)
                     break
                 }
                 case jacdac.WifiCmd.ForgetAllNetworks:
                     net.clearAccessPoints()
+                    // force reconnect
+                    controller.disconnectAP()
                     this.sendEvent(jacdac.WifiEvent.NetworksChanged)
                     break
                 case jacdac.WifiCmd.ListKnownNetworks: {
