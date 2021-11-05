@@ -1,6 +1,6 @@
 {
     "name": "jacdac-wind-speed",
-    "version": "0.7.24",
+    "version": "0.7.25",
     "description": "A sensor that measures wind speed.",
     "files": [
         "constants.ts",

@@ -1,6 +1,6 @@
 {
     "name": "jacdac",
-    "version": "0.7.24",
+    "version": "0.7.25",
     "description": "Jacdac for MakeCode",
     "dependencies": {
         "core": "*",
