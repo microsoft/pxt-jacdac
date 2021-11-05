@@ -5,6 +5,11 @@ namespace servers {
         constructor(dev: string) {
             super(dev, jacdac.SRV_WIFI)
             const controller = net.instance().controller
+            controller.onConnectSSIDFailed = (ssid: string) =>
+                this.sendEvent(
+                    jacdac.WifiEvent.ConnectionFailed,
+                    jacdac.jdpack("s", [ssid])
+                )
             controller.onEvent(net.ControllerEvent.GotIP, () =>
                 this.sendEvent(jacdac.WifiEvent.GotIp)
             )
