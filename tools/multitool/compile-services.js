@@ -1,6 +1,6 @@
 const fs = require("fs")
 
-// usage: node compile-services.js ../jacdac-docs/jacdac-ts/jacdac-spec/dist/services.json
+// usage: node compile-services.js ../../../jacdac-spec/dist/services.json
 
 const serv = JSON.parse(fs.readFileSync(process.argv[2], "utf8"))
 let r = []

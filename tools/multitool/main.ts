@@ -79,26 +79,6 @@ function startConsole() {
     hideConsole()
 }
 
-function wifi() {
-    showConsole()
-
-    //net.updateAccessPoint("SSID", "pass")
-
-    console.log("WiFi starting...")
-    net.logPriority = ConsolePriority.Log
-    const n = net.instance()
-    const cl = n.controller
-    cl.connect()
-    pauseUntil(() => cl.isConnected)
-    console.log("connected; MAC:" + cl.MACaddress.toHex())
-
-    const resp = net.get("https://pxt.io/api/ping")
-    console.log("resp: " + resp.toString())
-    console.log("cont: " + resp.content)
-
-    hideConsole()
-}
-
 function deviceBrowser() {
     let devs: jacdac.Device[] = []
     menu.show({
@@ -119,10 +99,6 @@ function deviceBrowser() {
     })
 }
 
-interface FnMap {
-    [index: string]: () => void
-}
-
 function mainMenu() {
     menu.show({
         title: "JACDAC tool",
@@ -130,7 +106,6 @@ function mainMenu() {
             // opts.elements = allDNSes().map(d => menu.item("DNS: " + describe(d), () => operateDNS(d)))
             opts.elements = []
             opts.elements.push(menu.item("Device browser", deviceBrowser))
-            opts.elements.push(menu.item("WiFi", wifi))
             opts.elements.push(menu.item("Console", startConsole))
             opts.elements.push(menu.item("Reset all devices", resetAll))
         },
