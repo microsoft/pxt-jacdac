@@ -102,6 +102,8 @@
         <script type="text/javascript">
             const tool = /tool=microbit-oob/.test(window.location)
                 ? "microbit-oob"
+                : /tool=multitool/.test(window.location)
+                ? "multitool"
                 : "binary"
             const local = /^http:\/\/localhost:/.test(window.location.href)
             makeCodeRun({
