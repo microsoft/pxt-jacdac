@@ -109,7 +109,7 @@ const serviceDescs: ServiceDesc[] = [
     }),
     new ServiceDesc(jacdac.SRV_SERVO, "servo", num =>
         (num & 3) == 0
-            ? modules.servo1.turnOff()
+            ? modules.servo1.setEnabled(false)
             : modules.servo1.setAngle(num & 1 ? 90 : 45)
     ),
     new ServiceDesc(jacdac.SRV_MOTOR, "motor", num =>
