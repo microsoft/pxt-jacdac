@@ -6,20 +6,20 @@ namespace modules {
             super(jacdac.SRV_SERVO, role)
         }
 
-        private pulse: number
+        private angle: number = null
         private autoOff: number
         private lastSet: number
 
-        private sync(n: number) {
+        private sync(angle: number) {
             this.lastSet = control.millis()
-            if (n === this.pulse) return
-            if (n == null) {
+            if (angle === this.angle) return
+            if (angle == null) {
                 this.setReg(jacdac.ServoReg.Enabled, "u8", [0])
             } else {
-                this.setReg(jacdac.ServoReg.Angle, "u8", [n | 0])
+                this.setReg(jacdac.ServoReg.Angle, "i16.16", [this.angle])
                 this.setReg(jacdac.ServoReg.Enabled, "u8", [1])
             }
-            this.pulse = n
+            this.angle = angle
         }
 
         setAutoOff(ms: number) {
@@ -28,7 +28,7 @@ namespace modules {
             if (this.autoOff === undefined)
                 jacdac.bus.on(jacdac.SELF_ANNOUNCE, () => {
                     if (
-                        this.pulse != null &&
+                        this.angle != null &&
                         this.autoOff &&
                         control.millis() - this.lastSet > this.autoOff
                     ) {
@@ -54,12 +54,7 @@ namespace modules {
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
         setAngle(degrees: number) {
-            // this isn't exactly what the internets say, but it's what codal does
-            const center = 1500
-            const range = 2000
-            const lower = (center - (range >> 1)) << 10
-            const scaled = lower + range * Math.idiv(degrees << 10, 180)
-            this.setPulse(scaled >> 10)
+            this.sync(degrees)
         }
 
         /**
@@ -74,23 +69,6 @@ namespace modules {
         //% servo.fieldOptions.columns=2
         run(speed: number): void {
             this.setAngle(Math.map(speed, -100, 100, 0, 180))
-        }
-
-        /*
-         * Set the pulse width to the servo in microseconds
-         */
-        //% group="Servos"
-        //% weight=10 help=servos/set-pulse
-        //% blockId=jdservoservosetpulse block="set %servo pulse to $micros μs"
-        //% micros.min=500 micros.max=2500
-        //% micros.defl=1500
-        //% servo.fieldEditor="gridpicker"
-        //% servo.fieldOptions.width=220
-        //% servo.fieldOptions.columns=2
-        setPulse(micros: number) {
-            micros = micros | 0
-            micros = Math.clamp(500, 2500, micros)
-            this.sync(micros)
         }
     }
 
