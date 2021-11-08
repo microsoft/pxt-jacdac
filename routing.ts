@@ -184,7 +184,8 @@ namespace jacdac {
         reattach(dev: Device) {
             dev.lastSeen = control.millis()
             log(
-                `reattaching services to ${dev.toString()}; cl=${this.unattachedClients.length
+                `reattaching services to ${dev.toString()}; cl=${
+                    this.unattachedClients.length
                 }/${this.allClients.length}`
             )
             const newClients: Client[] = []
@@ -376,7 +377,7 @@ namespace jacdac {
             }
         }
 
-        handlePacket(pkt: JDPacket) { }
+        handlePacket(pkt: JDPacket) {}
 
         isConnected() {
             return this.running
@@ -573,9 +574,10 @@ namespace jacdac {
             const dev = bus.selfDevice.toString()
             console.add(
                 logPriority,
-                `${dev}${this.instanceName
-                    ? `.${this.instanceName}`
-                    : `[${this.serviceIndex}]`
+                `${dev}${
+                    this.instanceName
+                        ? `.${this.instanceName}`
+                        : `[${this.serviceIndex}]`
                 }>${text}`
             )
         }
@@ -584,7 +586,7 @@ namespace jacdac {
     class ClientPacketQueue {
         private pkts: Buffer[] = []
 
-        constructor(public readonly parent: Client) { }
+        constructor(public readonly parent: Client) {}
 
         private updateQueue(pkt: JDPacket) {
             const cmd = pkt.serviceCommand
@@ -632,7 +634,7 @@ namespace jacdac {
 
     export class RegisterClient<
         TValues extends PackSimpleDataType[]
-        > extends EventSource {
+    > extends EventSource {
         private _data: Buffer
         private _localTime: number
 
@@ -834,7 +836,7 @@ namespace jacdac {
             this.handlePacket(pkt)
         }
 
-        handlePacket(pkt: JDPacket) { }
+        handlePacket(pkt: JDPacket) {}
 
         _attach(dev: Device, serviceNum: number) {
             if (this.device) throw "Invalid attach"
@@ -845,7 +847,8 @@ namespace jacdac {
                 bus.attachClient(this)
             }
             log(
-                `attached ${dev.toString()}/${serviceNum} to client ${this.role
+                `attached ${dev.toString()}/${serviceNum} to client ${
+                    this.role
                 }`
             )
             dev.clients.push(this)
@@ -1000,7 +1003,7 @@ namespace jacdac {
             jacdac.bus.destroyClient(this)
         }
 
-        announceCallback() { }
+        announceCallback() {}
     }
 
     // 2 letter + 2 digit ID; 1.8%/0.3%/0.07%/0.015% collision probability among 50/20/10/5 devices
@@ -1018,7 +1021,8 @@ namespace jacdac {
         lastQuery = 0
         lastReport = 0
         value: Buffer
-        constructor(public reg: number, public serviceIdx: number) { }
+        notImplemented: boolean
+        constructor(public reg: number, public serviceIdx: number) {}
     }
 
     export class Device extends EventSource {
@@ -1095,14 +1099,16 @@ namespace jacdac {
             return serviceIndex == 0
                 ? 0
                 : this.services.getNumber(
-                    NumberFormat.UInt32LE,
-                    serviceIndex << 2
-                )
+                      NumberFormat.UInt32LE,
+                      serviceIndex << 2
+                  )
         }
 
         query(reg: number, refreshRate = 1000, servIdx = 0) {
             let q = this.lookupQuery(reg, servIdx)
             if (!q) this.queries.push((q = new RegQuery(reg, servIdx)))
+
+            if (q.notImplemented) return undefined
 
             const now = control.millis()
             const constreg = isConstRegister(reg)
@@ -1149,6 +1155,20 @@ namespace jacdac {
         processPacket(pkt: JDPacket) {
             this.lastSeen = control.millis()
             this.emit(PACKET_RECEIVE, pkt)
+
+            if (
+                pkt.serviceCommand == BaseCmd.CommandNotImplemented &&
+                this.queries
+            ) {
+                const cmd = pkt.getNumber(NumberFormat.UInt16LE, 0)
+                if (cmd >> 12 == CMD_GET_REG >> 12) {
+                    const q = this.lookupQuery(
+                        cmd & CMD_REG_MASK,
+                        pkt.serviceIndex
+                    )
+                    if (q) q.notImplemented = true
+                }
+            }
 
             const serviceIndex = pkt.serviceIndex
             if (pkt.isRegGet && this.queries) {
@@ -1226,7 +1246,7 @@ namespace jacdac {
         }
     }
 
-    function doNothing() { }
+    function doNothing() {}
 
     class ProxyServer extends Server {
         constructor() {
