@@ -1,6 +1,6 @@
 {
     "name": "jacdac-character-screen",
-    "version": "0.7.29",
+    "version": "0.7.30",
     "description": "A screen that displays characters.",
     "files": [
         "constants.ts",
