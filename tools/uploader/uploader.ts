@@ -1,6 +1,7 @@
 namespace userconfig { }
 
 jacdac.firmwareVersion = jacdac.VERSION
+jacdac.productIdentifier = 0x3fa1aea9
 jacdac.logPriority = ConsolePriority.Log
 jacdac.start()
 

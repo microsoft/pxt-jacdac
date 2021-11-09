@@ -1,3 +1,4 @@
+jacdac.productIdentifier = 0x34f4c157
 music.setVolume(100)
 music.setTempo(180)
 
