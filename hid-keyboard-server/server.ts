@@ -204,6 +204,9 @@ namespace servers {
                 case jacdac.HidKeyboardCmd.Key:
                     this.handleKeyCommand(packet)
                     break
+                default:
+                    packet.possiblyNotImplemented()
+                    break
             }
         }
     }

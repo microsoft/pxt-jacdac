@@ -361,9 +361,6 @@ namespace jacdac {
 
         handlePacketOuter(pkt: JDPacket) {
             switch (pkt.serviceCommand) {
-                case jacdac.SystemCmd.Announce:
-                    this.handleAnnounce(pkt)
-                    break
                 case SystemReg.StatusCode | SystemCmd.GetRegister:
                     this.handleStatusCode(pkt)
                     break
@@ -381,10 +378,6 @@ namespace jacdac {
 
         isConnected() {
             return this.running
-        }
-
-        advertisementData() {
-            return Buffer.create(0)
         }
 
         protected sendReport(pkt: JDPacket) {
@@ -410,15 +403,6 @@ namespace jacdac {
             this.emit(CHANGE)
         }
 
-        private handleAnnounce(pkt: JDPacket) {
-            this.sendReport(
-                JDPacket.from(
-                    jacdac.SystemCmd.Announce,
-                    this.advertisementData()
-                )
-            )
-        }
-
         private handleStatusCode(pkt: JDPacket) {
             this.handleRegUInt32(pkt, SystemReg.StatusCode, this._statusCode)
         }
@@ -442,6 +426,7 @@ namespace jacdac {
             if (getset == 0 || getset > 2) return current
             const reg = pkt.serviceCommand & 0xfff
             if (reg != register) return current
+            pkt.markHandled()
             if (getset == 1) {
                 this.sendReport(
                     JDPacket.jdpacked(pkt.serviceCommand, fmt, current)
@@ -468,6 +453,7 @@ namespace jacdac {
             if (getset == 0 || getset > 2) return current
             const reg = pkt.serviceCommand & 0xfff
             if (reg != register) return current
+            pkt.markHandled()
             // make sure there's no null/undefined
             if (getset == 1) {
                 this.sendReport(
@@ -526,6 +512,7 @@ namespace jacdac {
             const reg = pkt.serviceCommand & 0xfff
             if (reg != register) return current
 
+            pkt.markHandled()
             if (getset == 1) {
                 this.sendReport(JDPacket.from(pkt.serviceCommand, current))
             } else {
@@ -1331,6 +1318,9 @@ namespace jacdac {
                         )
                         break
                     }
+                    default:
+                        pkt.possiblyNotImplemented()
+                        break
                 }
             } else {
                 switch (pkt.serviceCommand) {
@@ -1352,6 +1342,9 @@ namespace jacdac {
                         break
                     case ControlCmd.Proxy:
                         if (!jacdac.bus.proxyMode) resetToProxy()
+                        break
+                    default:
+                        pkt.possiblyNotImplemented()
                         break
                 }
             }

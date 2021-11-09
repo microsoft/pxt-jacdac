@@ -120,6 +120,9 @@ namespace servers {
                         )
                         break
                     }
+                    default:
+                        pkt.possiblyNotImplemented()
+                        break
                 }
                 return
             }
@@ -133,6 +136,9 @@ namespace servers {
                     break
                 case jacdac.AzureIotHubHealthCmd.SetConnectionString:
                     this.handleSetConnectionString(pkt)
+                    break
+                default:
+                    pkt.possiblyNotImplemented()
                     break
             }
         }

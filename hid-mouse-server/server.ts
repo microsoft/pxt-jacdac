@@ -15,6 +15,9 @@ namespace servers {
                 case jacdac.HidMouseCmd.Wheel:
                     this.handleWheel(packet)
                     break
+                default:
+                    packet.possiblyNotImplemented()
+                    break
             }
         }
 

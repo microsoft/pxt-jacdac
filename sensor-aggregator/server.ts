@@ -253,6 +253,9 @@ namespace jacdac {
                 case jacdac.SensorAggregatorReg.CurrentSample | CMD_GET_REG:
                     this.sendLastSample()
                     break
+                default:
+                    packet.possiblyNotImplemented()
+                    break
             }
         }
     }

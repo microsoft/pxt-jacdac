@@ -63,7 +63,6 @@ namespace servers {
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {
-            super.handlePacket(pkt)
             this.handleRegValue(
                 pkt,
                 ThermometerReg.MinTemperature,
@@ -83,6 +82,7 @@ namespace servers {
                 3
             )
             this.handleRegValue(pkt, ThermometerReg.Variant, "u8", this.variant)
+            pkt.possiblyNotImplemented()
         }
 
         public serializeState(): Buffer {

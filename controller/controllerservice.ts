@@ -104,6 +104,7 @@ namespace jacdac {
                 case JDControllerCommand.ControlServer:
                     return this.processControlServer(address, data)
                 default:
+                    packet.possiblyNotImplemented()
                     return
             }
         }

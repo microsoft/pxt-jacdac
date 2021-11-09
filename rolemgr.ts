@@ -201,6 +201,9 @@ namespace jacdac._rolemgr {
                 case jacdac.RoleManagerCmd.ClearAllRoles:
                     clearRoles()
                     break
+                default:
+                    packet.possiblyNotImplemented()
+                    break
             }
 
             function packName(c: Client) {

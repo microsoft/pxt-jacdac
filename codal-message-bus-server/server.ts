@@ -10,6 +10,9 @@ namespace servers {
                 case jacdac.CodalMessageBusCmd.Send:
                     this.handleSendCommand(packet)
                     break
+                default:
+                    packet.possiblyNotImplemented()
+                    break
             }
         }
 

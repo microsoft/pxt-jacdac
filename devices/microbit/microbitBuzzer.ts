@@ -32,8 +32,6 @@ namespace servers {
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {
-            super.handlePacket(pkt)
-
             // registers
             const oldVol = music.volume()
             const vol =
@@ -51,6 +49,9 @@ namespace servers {
             switch (pkt.serviceCommand) {
                 case BuzzerCmd.PlayTone:
                     this.handlePlayToneCommand(pkt)
+                    break
+                default:
+                    pkt.possiblyNotImplemented()
                     break
             }
         }

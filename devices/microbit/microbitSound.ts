@@ -102,7 +102,6 @@ namespace servers {
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {
-            super.handlePacket(pkt)
             const oldEnabled = this.enabled
             this.enabled = this.handleRegBool(
                 pkt,
@@ -124,6 +123,7 @@ namespace servers {
             if (this.enabled && oldEnabled !== this.enabled)
                 this.registerEvents()
             if (this.enabled) this.setThresholds()
+            pkt.possiblyNotImplemented()
         }
 
         private registerEvents() {

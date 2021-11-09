@@ -38,6 +38,7 @@ namespace jacdac {
         _header: Buffer
         _data: Buffer
         timestamp: number
+        _handled: boolean
 
         private constructor() {
             this.timestamp = control.millis()
@@ -72,6 +73,30 @@ namespace jacdac {
             for (let i = 0; i < data.length; i += JD_SERIAL_MAX_PAYLOAD_SIZE)
                 res.push(data.slice(i, JD_SERIAL_MAX_PAYLOAD_SIZE))
             return res
+        }
+
+        get handled() {
+            return !!this._handled
+        }
+
+        markHandled() {
+            this._handled = true
+        }
+
+        possiblyNotImplemented() {
+            if (
+                this.handled ||
+                this.packetFlags & JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS
+            )
+                return
+            this.markHandled() // don't send again
+            const p = JDPacket.jdpacked(
+                BaseCmd.CommandNotImplemented,
+                "u16 u16",
+                [this.serviceCommand, this.crc]
+            )
+            p.serviceIndex = this.serviceIndex
+            p._sendReport(bus.selfDevice)
         }
 
         get deviceIdentifier() {
@@ -127,7 +152,11 @@ namespace jacdac {
         }
 
         get isEvent() {
-            return this.isReport && this.serviceIndex <= 0x30 && (this.serviceCommand & CMD_EVENT_MASK) != 0
+            return (
+                this.isReport &&
+                this.serviceIndex <= 0x30 &&
+                (this.serviceCommand & CMD_EVENT_MASK) != 0
+            )
         }
 
         get eventCode() {
@@ -234,6 +263,7 @@ namespace jacdac {
             const p = JDPacket.from(this.serviceCommand, data)
             p.serviceIndex = this.serviceIndex
             p._sendReport(bus.selfDevice)
+            this.markHandled()
         }
 
         _sendCore() {

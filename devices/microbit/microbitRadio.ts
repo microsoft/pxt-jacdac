@@ -125,8 +125,6 @@ namespace servers {
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {
-            super.handlePacket(pkt)
-
             // registers
             this.handleRegBool(pkt, BitRadioReg.Enabled, this.enabled)
             const oldGroup = this.group
@@ -160,6 +158,9 @@ namespace servers {
                     break
                 case BitRadioCmd.SendValue:
                     this.handleSendValue(pkt)
+                    break
+                default:
+                    pkt.possiblyNotImplemented()
                     break
             }
         }

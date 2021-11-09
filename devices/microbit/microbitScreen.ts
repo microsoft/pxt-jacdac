@@ -40,6 +40,8 @@ namespace servers {
                 }
             } else if (packet.regCode == 0x181 || packet.regCode == 0x182) {
                 this.handleRegValue(packet, packet.regCode, "u16", 5)
+            } else {
+                packet.possiblyNotImplemented()
             }
         }
     }

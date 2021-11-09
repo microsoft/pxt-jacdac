@@ -38,8 +38,6 @@ namespace servers {
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {
-            super.handlePacket(pkt)
-
             // registers
             const oldVol = music.volume()
             const vol =
@@ -60,6 +58,9 @@ namespace servers {
                     break
                 case SoundPlayerCmd.ListSounds:
                     this.handleListSoundsCommand(pkt)
+                    break
+                default:
+                    pkt.possiblyNotImplemented()
                     break
             }
         }

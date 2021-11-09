@@ -45,7 +45,6 @@ namespace servers {
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {
-            super.handlePacket(pkt)
             const oldEnabled = this.enabled
             this.enabled = this.handleRegBool(
                 pkt,
@@ -57,6 +56,8 @@ namespace servers {
             // trigger calibration
             if (this.enabled && oldEnabled !== this.enabled)
                 this.startCalibration()
+
+            pkt.possiblyNotImplemented()
         }
 
         private startCalibration() {

@@ -104,6 +104,9 @@ namespace jacdac {
                     OutPipe.respondForEach(pkt, bs, b => jdpack("u8", [b]))
                     break
                 }
+                default:
+                    pkt.possiblyNotImplemented()
+                    break
             }
 
             // events

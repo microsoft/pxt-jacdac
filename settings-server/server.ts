@@ -25,6 +25,9 @@ namespace jacdac {
                 case jacdac.SettingsCmd.Clear:
                     this.handleClearCommand(packet)
                     break
+                default:
+                    packet.possiblyNotImplemented()
+                    break
             }
         }
 

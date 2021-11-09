@@ -32,6 +32,9 @@ namespace jacdac {
                         console.minPriority = this.minPriority as number as ConsolePriority
                     break
                 }
+                default:
+                    packet.possiblyNotImplemented()
+                    break
             }
         }
 

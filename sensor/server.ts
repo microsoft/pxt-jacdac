@@ -45,9 +45,13 @@ namespace jacdac {
         }
 
         // override
-        protected handleCalibrateCommand(pkt: JDPacket) {}
+        protected handleCalibrateCommand(pkt: JDPacket) {
+            pkt.possiblyNotImplemented()
+        }
 
-        protected handleCustomCommand(pkt: JDPacket) {}
+        protected handleCustomCommand(pkt: JDPacket) {
+            pkt.possiblyNotImplemented()
+        }
 
         protected raiseServerEvent(value: number) {
             this.sendEvent(value)

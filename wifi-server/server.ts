@@ -109,6 +109,9 @@ namespace servers {
                     )
                     break
                 }
+                default:
+                    pkt.possiblyNotImplemented()
+                    break
             }
         }
     }
