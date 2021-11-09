@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-events",
-    "version": "0.7.26",
+    "version": "0.7.27",
     "description": "Mapping Events to Hid Keyboard keys.",
     "files": [
         "hidevents.ts"
