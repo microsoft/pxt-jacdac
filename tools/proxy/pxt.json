@@ -1,6 +1,6 @@
 {
     "name": "jacdac-proxy",
-    "version": "0.7.28",
+    "version": "0.7.29",
     "description": "",
     "dependencies": {
         "jacdac-brain-rp2040": "*",

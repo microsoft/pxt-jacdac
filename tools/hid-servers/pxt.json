@@ -1,9 +1,15 @@
 {
     "name": "jacdac-hid-servers",
-    "version": "0.7.28",
+    "version": "0.7.29",
     "description": "HID Keyboard, mouse servers",
-    "files": ["config.f4.ts", "config.rp2.ts", "main.ts"],
-    "supportedTargets": ["maker"],
+    "files": [
+        "config.f4.ts",
+        "config.rp2.ts",
+        "main.ts"
+    ],
+    "supportedTargets": [
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
