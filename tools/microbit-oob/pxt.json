@@ -1,6 +1,6 @@
 {
     "name": "jacdac-microbit-oob",
-    "version": "0.7.27",
+    "version": "0.7.28",
     "description": "",
     "dependencies": {
         "core": "*",
