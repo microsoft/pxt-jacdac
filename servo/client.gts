@@ -57,6 +57,7 @@ namespace modules {
         //% value.max=90
         setAngle(value: number) {
             this.start();
+            this.enabled = true;
             const values = this._angle.values as any[];
             values[0] = value;
             this._angle.values = values as [number];

@@ -50,6 +50,7 @@ namespace modules {
         //% value.defl=100
         setDuty(value: number) {
             this.start();
+            this.enabled = true;
             const values = this._duty.values as any[];
             values[0] = value / 100;
             this._duty.values = values as [number];

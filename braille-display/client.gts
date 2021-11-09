@@ -69,6 +69,7 @@ namespace modules {
         //% weight=97
         setPatterns(value: string) {
             this.start();
+            this.enabled = true;
             const values = this._patterns.values as any[];
             values[0] = value;
             this._patterns.values = values as [string];
