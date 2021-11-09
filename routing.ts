@@ -651,9 +651,9 @@ namespace jacdac {
         pauseUntilValues(timeOut?: number) {
             if (
                 // streaming handled elsewhere
-                this.code !== SystemReg.Reading &&
+                this.code !== SystemReg.Reading
                 // don't double query consts
-                !(isConstRegister(this.code) && !!this._data)
+                // TODO
             ) {
                 const device = this.service.device
                 if (device) {
@@ -812,9 +812,7 @@ namespace jacdac {
                 else if (code == SystemEvent.Inactive) this.systemActive = false
                 else if (code == SystemEvent.Change)
                     // refresh all non-const registers
-                    this.registers
-                        .filter(r => !isConstRegister(r.code))
-                        .forEach(r => r.reset())
+                    this.registers.forEach(r => r.reset())
                 this.emit(EVENT, pkt)
                 this.raiseEvent(code, pkt.intData)
             } else
@@ -1098,16 +1096,13 @@ namespace jacdac {
             if (q.notImplemented) return undefined
 
             const now = control.millis()
-            const constreg = isConstRegister(reg)
             if (
                 // not queried before
                 !q.lastQuery ||
                 // no data yet and last query was a while ago
                 (q.value === undefined && now - q.lastQuery > 500) ||
                 // regular refresh, for non-const registers
-                (!constreg &&
-                    refreshRate != null &&
-                    now - q.lastQuery > refreshRate)
+                (refreshRate != null && now - q.lastQuery > refreshRate)
             ) {
                 q.lastQuery = now
                 const pkt = JDPacket.onlyHeader(CMD_GET_REG | reg)
