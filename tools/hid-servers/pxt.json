@@ -1,5 +1,5 @@
 {
-    "name": "JM HID Servers F4 41 v0.2",
+    "name": "jacdac-hid-servers",
     "version": "0.7.28",
     "description": "HID Keyboard, mouse servers",
     "files": [
