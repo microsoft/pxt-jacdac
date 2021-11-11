@@ -51,7 +51,7 @@ function proxyAnimation() {
 
     animationRunning = true
     control.runInParallel(() => {
-        basic.showString("JACDAC MODE PRESS A TO RESET")
+        basic.showString("JACDAC DONGLE MODE PRESS A TO RESET")
         animationRunning = false
     })
 }
