@@ -45,25 +45,28 @@ function identifyAnimation() {
         identifyAnimationRunning = false
     })
 }
+function proxyAnimation() {
+    control.runInParallel(() => {
+        led.stopAnimation()
+        while (true) {
+            basic.showString("JACDAC DONGLE MODE PRESS A TO RESET")
+        }
+    })
+}
 
+let proxyMode = false
 function handleStatusEvent(event: jacdac.StatusEvent) {
     switch (event) {
         case jacdac.StatusEvent.ProxyStarted:
-            identifyAnimation()
+            proxyMode = true
+            proxyAnimation()
             break
         case jacdac.StatusEvent.ProxyPacketReceived:
-            // it looks like if we queue *two* plotLeds() when animation is running, one of them never finishes
-            if (!identifyAnimationRunning)
-                basic.plotLeds(`
-                    . . . . .
-                    # # # # .
-                    # # # # .
-                    # # # . .
-                    . . . . .
-                `)
+            //led.toggle(4, 4)
             break
         case jacdac.StatusEvent.Identify:
-            identifyAnimation()
+            if (!proxyMode)
+                identifyAnimation()
             break
     }
 }
