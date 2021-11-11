@@ -4,45 +4,47 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class LightLevelClient extends jacdac.SimpleSensorClient {
-
-        private readonly _variant : jacdac.RegisterClient<[jacdac.LightLevelVariant]>;            
+        private readonly _variant: jacdac.RegisterClient<
+            [jacdac.LightLevelVariant]
+        >
 
         constructor(role: string) {
-            super(jacdac.SRV_LIGHT_LEVEL, role, "u0.16");
+            super(jacdac.SRV_LIGHT_LEVEL, role, "u0.16")
 
-            this._variant = this.addRegister<[jacdac.LightLevelVariant]>(jacdac.LightLevelReg.Variant, "u8");            
+            this._variant = this.addRegister<[jacdac.LightLevelVariant]>(
+                jacdac.LightLevelReg.Variant,
+                "u8"
+            )
         }
-    
 
         /**
-        * Detect light level
-        */
+         * Detect light level
+         */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% block="%lightlevel light level"
         //% blockId=jacdac_lightlevel_light_level___get
         //% weight=100
         lightLevel(): number {
-            return this.reading() * 100;
-        
+            return this.reading() * 100
         }
 
         /**
-        * The type of physical sensor.
-        */
+         * The type of physical sensor.
+         */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% weight=99
         variant(): jacdac.LightLevelVariant {
-            this.start();            
-            const values = this._variant.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._variant.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
          * Run code when the light level changes by the given threshold value.
-        */
-        //% group="Imaging"
+         */
+        //% group="Environment"
         //% blockId=jacdac_lightlevel_on_light_level_change
         //% block="on %lightlevel light level changed by %threshold"
         //% weight=98
@@ -50,11 +52,9 @@ namespace modules {
         //% threshold.max=100
         //% threshold.defl=5
         onLightLevelChangedBy(threshold: number, handler: () => void): void {
-            this.onReadingChangedBy(threshold / 100, handler);
+            this.onReadingChangedBy(threshold / 100, handler)
         }
-
-    
     }
-    //% fixedInstance whenUsed block="light level 1"
-    export const lightLevel1 = new LightLevelClient("light Level1");
+    //% fixedInstance whenUsed block="light level1"
+    export const lightLevel1 = new LightLevelClient("light Level1")
 }
