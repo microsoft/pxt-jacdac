@@ -27,6 +27,10 @@
         "jacdac-wifi-server": "./wifi-server",
         "jacdac-tcp": "./tcp",
         "jacdac-dotmatrix": "./dot-matrix",
-        "jacdac-codal-message-bus": "./codal-message-bus"
+        "jacdac-codal-message-bus": "./codal-message-bus",
+        "jacdac-humidity": "./humidity",
+        "jacdac-uv-index": "./uv-index",
+        "jacdac-relay": "./relay",
+        "jacdac-soil-moisture": "./soil-moisture"
     }
 }

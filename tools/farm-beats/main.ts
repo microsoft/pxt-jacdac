@@ -1,0 +1,46 @@
+jacdac.logPriority = -1
+const airthermometer = new modules.ThermometerClient("airthermometer")
+const soilthermometer = new modules.ThermometerClient("soilthermometer")
+const airhumidity = new modules.HumidityClient("airhumidity")
+const sunlightvisible = new modules.LightLevelClient("sunlightvisible")
+const sunlightuv = new modules.UvIndexClient("sunlightuv")
+const soilmoisture = new modules.SoilMoistureClient("soilmoisture")
+const relay = new modules.RelayClient("relay")
+jacdac.start({ disableLogger: true })
+
+function boolToNumber(value: boolean) {
+    if (value) {
+        return 1
+    } else {
+        return 0
+    }
+}
+function toF(celcius: number) {
+    if (isNaN(celcius)) return undefined
+    return celcius * 1.8 + 32
+}
+
+basic.showIcon(IconNames.Heart)
+basic.forever(function () {
+    led.toggle(0, 0)
+    dataStreamer.writeNumber(input.runningTime())
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(toF(soilthermometer.temperature()))
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(soilmoisture.moisture())
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(toF(airthermometer.temperature()))
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(airhumidity.humidity())
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(sunlightvisible.lightLevel())
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(sunlightuv.uvIndex())
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(0)
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(boolToNumber(relay.closed()))
+    dataStreamer.writeString(",")
+    dataStreamer.writeNumber(boolToNumber(input.buttonIsPressed(Button.A)))
+    dataStreamer.writeLine()
+})
