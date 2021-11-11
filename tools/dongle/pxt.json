@@ -1,0 +1,14 @@
+{
+    "name": "jacdac-dongle",
+    "version": "0.7.30",
+    "description": "",
+    "dependencies": {
+        "jacdac-brain-rp2040": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "files": ["main.ts", "README.md"],
+    "supportedTargets": ["maker"],
+    "preferredEditor": "tsprj",
+    "disableTargetTemplateFiles": true,
+    "binaryonly": true
+}
