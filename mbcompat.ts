@@ -25,11 +25,12 @@ namespace pins {
     }
 }
 
-let identifyAnimationRunning = false
+let proxyMode = false
+let animationRunning = false
 function identifyAnimation() {
-    if (identifyAnimationRunning) return
+    if (animationRunning || proxyMode) return
 
-    identifyAnimationRunning = true
+    animationRunning = true
     const sc = led.screenshot()
     control.runInParallel(() => {
         led.stopAnimation()
@@ -42,25 +43,27 @@ function identifyAnimation() {
             250
         )
         sc.plotFrame(0)
-        identifyAnimationRunning = false
+        animationRunning = false
+    })
+}
+function proxyAnimation() {
+    if (animationRunning || !proxyMode) return
+
+    animationRunning = true
+    control.runInParallel(() => {
+        basic.showString("JACDAC MODE PRESS A TO RESET")
+        animationRunning = false
     })
 }
 
 function handleStatusEvent(event: jacdac.StatusEvent) {
     switch (event) {
         case jacdac.StatusEvent.ProxyStarted:
-            identifyAnimation()
+            proxyMode = true
+            proxyAnimation()
             break
         case jacdac.StatusEvent.ProxyPacketReceived:
-            // it looks like if we queue *two* plotLeds() when animation is running, one of them never finishes
-            if (!identifyAnimationRunning)
-                basic.plotLeds(`
-                    . . . . .
-                    # # # # .
-                    # # # # .
-                    # # # . .
-                    . . . . .
-                `)
+            proxyAnimation()
             break
         case jacdac.StatusEvent.Identify:
             identifyAnimation()
