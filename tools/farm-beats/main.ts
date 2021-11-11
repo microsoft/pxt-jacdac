@@ -1,3 +1,4 @@
+jacdac.productIdentifier = 0x1e53ec38
 jacdac.logPriority = -1
 const airthermometer = new modules.ThermometerClient("airthermometer")
 const soilthermometer = new modules.ThermometerClient("soilthermometer")
