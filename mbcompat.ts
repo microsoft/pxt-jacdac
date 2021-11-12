@@ -49,7 +49,7 @@ function proxyAnimation() {
     control.runInParallel(() => {
         led.stopAnimation()
         while (true) {
-            basic.showString("JACDAC DONGLE MODE PRESS A TO RESET")
+            basic.showString("JACDAC DONGLE MODE PRESS A TO RESET", 120)
         }
     })
 }
