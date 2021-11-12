@@ -23,6 +23,15 @@ function toF(celcius: number) {
 }
 
 basic.showIcon(IconNames.Heart)
+
+airthermometer.start()
+soilthermometer.start()
+airhumidity.start()
+sunlightvisible.start()
+sunlightuv.start()
+soilmoisture.start()
+relay.start()
+
 basic.forever(function () {
     led.toggle(0, 0)
     dataStreamer.writeNumber(input.runningTime())
