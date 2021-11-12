@@ -662,7 +662,7 @@ namespace jacdac {
                 }
             }
             if (!this.hasValues())
-                pauseUntil(() => this.hasValues(), timeOut || 1000)
+                pauseUntil(() => this.hasValues(), timeOut || 100)
             return this.values
         }
 

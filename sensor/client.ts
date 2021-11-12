@@ -3,7 +3,8 @@ namespace jacdac {
     //% weight=1
     export class SensorClient extends Client {
         protected readonly _reading: RegisterClient<PackSimpleDataType[]>
-
+        private readonly _streamingSamples: RegisterClient<number[]>
+        private samples = 0
         public isStreaming = false
 
         constructor(deviceClass: number, role: string, stateFormat: string) {
@@ -12,13 +13,27 @@ namespace jacdac {
                 jacdac.SystemReg.Reading,
                 stateFormat
             )
+            this._streamingSamples = this.addRegister(
+                jacdac.SystemReg.StreamingSamples,
+                "u8"
+            )
+            this._reading.on(REPORT_RECEIVE, () => this.samples--)
+            this._streamingSamples.on(REPORT_UPDATE, () => this.updateSamples())
+        }
+
+        private updateSamples() {
+            this.samples = this._streamingSamples.values[0] || 0
+        }
+
+        private checkSamples() {
+            if (this.isStreaming && this.samples < 0x20) {
+                this._streamingSamples.values = [0xff]
+                this.samples = 0xff
+            }
         }
 
         announceCallback() {
-            if (this.isStreaming)
-                this.setReg(jacdac.SystemReg.StreamingSamples, "u8", [
-                    this.isStreaming ? 255 : 0,
-                ])
+            this.checkSamples()
         }
 
         /**
@@ -27,10 +42,9 @@ namespace jacdac {
          */
         public setStreaming(on: boolean, interval_ms?: number) {
             this.start()
+            const wasStreaming = this.isStreaming
             this.isStreaming = on
-            this.setReg(jacdac.SystemReg.StreamingSamples, "u8", [
-                this.isStreaming ? 255 : 0,
-            ])
+            if (on && !wasStreaming) this.checkSamples()
             if (interval_ms != undefined)
                 this.setReg(jacdac.SystemReg.StreamingInterval, "u32", [
                     interval_ms,
