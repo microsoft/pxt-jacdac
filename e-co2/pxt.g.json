@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-eco2",
+    "name": "jacdac-e-co2",
     "version": "0.0.0",
     "description": "Measures equivalent CO₂ levels.",
     "files": [
@@ -10,15 +10,12 @@
         "test.ts"
     ],
     "supportedTargets": [
-        "arcade",
         "microbit",
+        "arcade",
         "maker"
     ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
     }
 }

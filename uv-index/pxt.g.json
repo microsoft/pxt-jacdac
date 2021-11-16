@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-servo",
+    "name": "jacdac-uv-index",
     "version": "0.0.0",
-    "description": "Servo is a small motor with arm that can be pointing at a specific direction.\n\nThe `min/max_angle/pulse` may be read-only if the servo is permanently affixed to its Jacdac controller.",
+    "description": "The UV Index is a measure of the intensity of ultraviolet (UV) rays from the Sun.",
     "files": [
         "constants.ts",
         "client.g.ts"

@@ -1,7 +1,7 @@
 {
     "name": "jacdac-wifi",
     "version": "0.0.0",
-    "description": "Discovery and connection to WiFi networks. Separate TCP service is used for data transfer.",
+    "description": "Discovery and connection to WiFi networks. Separate TCP service can be used for data transfer.\n\nThe device controlled by this service is meant to connect automatically, once configured.\nTo that end, it keeps a list of known WiFi networks, with priorities and passwords.\nIt will connect to the available network with numerically highest priority,\nbreaking ties in priority by signal strength (typically all known networks have priority of `0`).\nIf the connection fails (due to wrong password, radio failure, or other problem)\nan `connection_failed` event is emitted, and the device will try to connect to the next eligible network.\nWhen networks are exhausted, the scan is performed again and the connection process restarts.\n\nUpdating networks (setting password, priorties, forgetting) does not trigger an automatic reconnect.",
     "files": [
         "constants.ts",
         "client.g.ts"
@@ -10,15 +10,12 @@
         "test.ts"
     ],
     "supportedTargets": [
-        "arcade",
         "microbit",
+        "arcade",
         "maker"
     ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
     }
 }
