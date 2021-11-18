@@ -25,7 +25,7 @@ namespace modules {
         * If you set it, read it back, as the value may be rounded up or down.
         */
         //% callInDebugger
-        //% group="Arcade sound"
+        //% group="Arcade Sound"
         //% weight=100
         sampleRate(): number {
             this.start();            
@@ -37,7 +37,7 @@ namespace modules {
         * Get or set playback sample rate (in samples per second).
         * If you set it, read it back, as the value may be rounded up or down.
         */
-        //% group="Arcade sound"
+        //% group="Arcade Sound"
         //% weight=99
         //% value.defl=44100
         setSampleRate(value: number) {
@@ -51,7 +51,7 @@ namespace modules {
         * The size of the internal audio buffer.
         */
         //% callInDebugger
-        //% group="Arcade sound"
+        //% group="Arcade Sound"
         //% weight=98
         bufferSize(): number {
             this.start();            
@@ -66,7 +66,7 @@ namespace modules {
         * of audio playback.
         */
         //% callInDebugger
-        //% group="Arcade sound"
+        //% group="Arcade Sound"
         //% weight=97
         bufferPending(): number {
             this.start();            
@@ -78,7 +78,7 @@ namespace modules {
         /**
         * Play samples, which are single channel, signed 16-bit little endian values.
         */
-        //% group="Arcade sound"
+        //% group="Arcade Sound"
         //% blockId=jacdac_arcadesound_play_cmd
         //% block="%arcadesound play $samples"
         //% weight=96
