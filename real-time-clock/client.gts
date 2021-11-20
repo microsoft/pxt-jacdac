@@ -5,14 +5,14 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class RealTimeClockClient extends jacdac.SensorClient {
 
-        private readonly _error : jacdac.RegisterClient<[number]>;
+        private readonly _drift : jacdac.RegisterClient<[number]>;
         private readonly _precision : jacdac.RegisterClient<[number]>;
         private readonly _variant : jacdac.RegisterClient<[jacdac.RealTimeClockVariant]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_REAL_TIME_CLOCK, role, "u16 u8 u8 u8 u8 u8 u8");
 
-            this._error = this.addRegister<[number]>(jacdac.RealTimeClockReg.Error, "u16.16");
+            this._drift = this.addRegister<[number]>(jacdac.RealTimeClockReg.Drift, "u16.16");
             this._precision = this.addRegister<[number]>(jacdac.RealTimeClockReg.Precision, "u16.16");
             this._variant = this.addRegister<[jacdac.RealTimeClockVariant]>(jacdac.RealTimeClockReg.Variant, "u8");            
         }
@@ -143,9 +143,9 @@ namespace modules {
         //% callInDebugger
         //% group="Real time clock"
         //% weight=93
-        error(): number {
+        drift(): number {
             this.start();            
-            const values = this._error.pauseUntilValues() as any[];
+            const values = this._drift.pauseUntilValues() as any[];
             return values[0];
         }
 
