@@ -19,7 +19,7 @@ namespace modules {
     
 
         /**
-        * Something like `my-iot-hub.azure-devices.net`; empty string when not properly configured
+        * Something like `my-iot-hub.azure-devices.net` if available.
         */
         //% callInDebugger
         //% group="Iot"
@@ -31,7 +31,7 @@ namespace modules {
         }
 
         /**
-        * Device identifier in Azure Iot Hub
+        * Device identifier in Azure Iot Hub if available.
         */
         //% callInDebugger
         //% group="Iot"
