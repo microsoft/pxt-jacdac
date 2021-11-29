@@ -1,6 +1,6 @@
 {
     "name": "jacdac-wifi-server",
-    "version": "0.7.35",
+    "version": "0.7.36",
     "description": "MakeCode support for Jacdac WiFi server",
     "dependencies": {
         "core": "*",
