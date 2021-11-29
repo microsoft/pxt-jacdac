@@ -8,7 +8,15 @@ This will run the simulator and compilation in watch mode.
 If it detects a local checkout of `pxt-common-packages` in the right spot, it will try to use it
 (for freshest version of `azureiot`, `mqtt`, etc.).
 
-To test, head to 
+To test locally, 
+
+* start a local server from the `docs` folder
+
+```
+npx http-server docs -p 3232
+```
+
+* head to 
 https://microsoft.github.io/jacdac-docs/dashboard/?localhost=1
 and spin up "Azure IoT (localhost)" simulator.
 
