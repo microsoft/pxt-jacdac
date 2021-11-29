@@ -113,10 +113,15 @@ namespace jacdac._rolemgr {
         }
     }
 
-    function maxIn<T>(arr: T[], cmp: (a: T, b: T) => number) {
+    function maxIn<T>(
+        arr: T[],
+        cmp: (a: T, b: T) => number,
+        cmdTie: (a: T, b: T) => number
+    ) {
         let maxElt = arr[0]
         for (let i = 1; i < arr.length; ++i) {
-            if (cmp(maxElt, arr[i]) < 0) maxElt = arr[i]
+            const c = cmp(maxElt, arr[i])
+            if (c < 0 || (c == 0 && cmdTie(maxElt, arr[i]) < 0)) maxElt = arr[i]
         }
         return maxElt
     }
@@ -285,18 +290,16 @@ namespace jacdac._rolemgr {
                 // This gives priority to assignment of "more complicated" hosts, which are generally more difficult to assign
                 const h = maxIn(
                     servers,
-                    (a, b) =>
-                        a.bindings.length - b.bindings.length ||
-                        b.host.compare(a.host)
+                    (a, b) => a.bindings.length - b.bindings.length,
+                    (a, b) => b.host.compare(a.host)
                 )
 
                 for (const d of wraps) d.score = h.scoreFor(d)
 
                 const dev = maxIn(
                     wraps,
-                    (a, b) =>
-                        a.score - b.score ||
-                        b.device.deviceId.compare(a.device.deviceId)
+                    (a, b) => a.score - b.score,
+                    (a, b) => b.device.deviceId.compare(a.device.deviceId)
                 )
 
                 if (dev.score == 0) {
