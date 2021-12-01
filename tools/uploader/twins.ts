@@ -14,6 +14,10 @@ namespace jacdac.twins {
     let messagePtr = 0
     let numMsg = 0
 
+    function feedWatchdog() {
+        control.feedWatchdog()
+    }
+
     function writeBuffer(buf: Buffer) {
         messageBuffer.write(messagePtr, buf)
         messagePtr += buf.length
@@ -51,6 +55,7 @@ namespace jacdac.twins {
         readingBuffer: Buffer
         readingPtr = 0
         header: Buffer
+        pendingSamples = 0
 
         constructor(
             public parent: DeviceTwin,
@@ -86,7 +91,8 @@ namespace jacdac.twins {
         }
 
         tick() {
-            if (this.enabled) {
+            if (this.enabled && this.pendingSamples < 100) {
+                this.pendingSamples = 254
                 const payload = JDPacket.jdpacked(
                     CMD_SET_REG | SystemReg.StreamingSamples,
                     "u8",
@@ -134,11 +140,26 @@ namespace jacdac.twins {
                     continue
                 if (r.code == SystemReg.Reading) continue
 
-                const buf = d.query(
+                let buf = d.query(
                     r.code,
                     r.flags & ServiceTwinRegisterFlag.Const ? null : 500,
                     this.serviceIdx
                 )
+
+                if (buf && r.code == SystemReg.StreamingInterval) {
+                    const v = jdunpack(buf, "u32")[0]
+                    if (v < 1000) {
+                        const payload = JDPacket.jdpacked(
+                            CMD_SET_REG | SystemReg.StreamingInterval,
+                            "u32",
+                            [1000]
+                        )
+                        payload.serviceIndex = this.serviceIdx
+                        payload._sendCmd(this.parent.device)
+                        buf = payload.data.slice()
+                    }
+                }
+
                 if (forReal && buf) {
                     const vals = jdunpack(buf, r.packf)
                     let rv: any
@@ -197,6 +218,7 @@ namespace jacdac.twins {
                 this.readingPtr += 8
                 pendingReadings++
                 pendingMessageSize += 8
+                this.pendingSamples--
                 checkPendingReadings()
             }
         }
@@ -394,6 +416,7 @@ namespace jacdac.twins {
                         jdbr: "1",
                     })
                     sendTick = 2
+                    feedWatchdog()
                 }
             }
         }
@@ -476,6 +499,16 @@ namespace jacdac.twins {
         if (twins) return
         twins = []
 
+        jacdac.bus.on(PACKET_PROCESS, (pkt: JDPacket) => {
+            // feed watchdog when connected to the dashboard
+            if (pkt.isReport && pkt.serviceCommand == 0) {
+                for (let i = 0; i < pkt.data.length; i += 4) {
+                    const service = pkt.data.getNumber(NumberFormat.UInt32LE, i)
+                    if (service == 0x1e1589eb) feedWatchdog()
+                }
+            }
+        })
+
         exclusions = []
         exclusions.push("control.uptime")
         exclusions.push("control.mcu_temperature")
@@ -488,16 +521,19 @@ namespace jacdac.twins {
 
         console.log("waiting for enumeration...")
         pause(1000)
+        feedWatchdog()
         console.log("waiting until connected...")
         pauseUntil(() => net.Net.instance.controller.isConnected)
         console.log("getting specs...")
         for (const d of jacdac.bus.devices) {
+            feedWatchdog()
             for (let servIdx = 0; servIdx < d.serviceClassLength; ++servIdx) {
                 const cl = d.serviceClassAt(servIdx)
                 getServiceTwinSpec(cl)
             }
         }
 
+        feedWatchdog()
         console.log("starting scan...")
         setInterval(rescanDevices, 1000)
     }
