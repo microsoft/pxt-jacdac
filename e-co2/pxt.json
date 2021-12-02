@@ -1,6 +1,6 @@
 {
     "name": "jacdac-eco2",
-    "version": "0.7.36",
+    "version": "0.8.0",
     "description": "Measures equivalent CO₂ levels.",
     "files": [
         "constants.ts",
