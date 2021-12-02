@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-dashboard",
+    "version": "0.0.0",
+    "description": "Device that interacts, configure or inspects with the services on the bus. While a dashboard is on the bus, heuristics like device reset should be disabled.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
