@@ -504,7 +504,7 @@ namespace jacdac.twins {
             if (pkt.isReport && pkt.serviceCommand == 0) {
                 for (let i = 0; i < pkt.data.length; i += 4) {
                     const service = pkt.data.getNumber(NumberFormat.UInt32LE, i)
-                    if (service == 0x1e1589eb) feedWatchdog()
+                    if (service == 0x1be59107) feedWatchdog()
                 }
             }
         })
