@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-bridge",
+    "version": "0.0.0",
+    "description": "Indicates that the device acts as a bridge to the Jacdac bus.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
