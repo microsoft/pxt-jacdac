@@ -1,9 +1,6 @@
-modules.relay1.onActive(() => {
-    // when relay transitions from closed to open
-    console.log("on")
-})
-
-modules.relay1.onInactive(() => {
-    // when relay transitions from open to closed
-    console.log("off")
+forever(() => {
+    modules.relay1.setClosed(true)
+    pause(1000)
+    modules.relay1.setClosed(false)
+    pause(1000)
 })

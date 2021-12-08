@@ -1,14 +1,6 @@
 namespace jacdac {
     // Service: Flex
     export const SRV_FLEX = 0x1f47c6c6
-
-    export const enum FlexVariant { // uint8_t
-        //% block="linear22inch"
-        Linear22Inch = 0x1,
-        //% block="linear45inch"
-        Linear45Inch = 0x2,
-    }
-
     export const enum FlexReg {
         /**
          * Read-only ratio u0.16 (uint16_t). The relative position of the slider.
@@ -20,13 +12,22 @@ namespace jacdac {
         Bending = 0x101,
 
         /**
-         * Constant Variant (uint8_t). Specifies the physical layout of the flex sensor.
+         * Read-only ratio u0.16 (uint16_t). Absolute error on the reading value.
          *
          * ```
-         * const [variant] = jdunpack<[jacdac.FlexVariant]>(buf, "u8")
+         * const [bendingError] = jdunpack<[number]>(buf, "u0.16")
          * ```
          */
-        Variant = 0x107,
+        BendingError = 0x106,
+
+        /**
+         * Constant mm uint16_t. Length of the flex sensor
+         *
+         * ```
+         * const [length] = jdunpack<[number]>(buf, "u16")
+         * ```
+         */
+        Length = 0x180,
     }
 
 }

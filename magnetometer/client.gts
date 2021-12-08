@@ -60,7 +60,7 @@ namespace modules {
         }
 
         /**
-        * Error on the readings.
+        * Absolute estimated error on the readings.
         */
         //% callInDebugger
         //% group="Magnetometer"

@@ -53,26 +53,6 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler);
         }
 
-        /**
-         * The sensor detected a transition from light to dark
-         */
-        //% group="Environment"
-        //% blockId=jacdac_on_reflectedlight_dark
-        //% block="on %reflectedlight dark"
-        //% weight=97
-        onDark(handler: () => void): void {
-            this.registerEvent(jacdac.ReflectedLightEvent.Dark, handler);
-        }
-        /**
-         * The sensor detected a transition from dark to light
-         */
-        //% group="Environment"
-        //% blockId=jacdac_on_reflectedlight_light
-        //% block="on %reflectedlight light"
-        //% weight=96
-        onLight(handler: () => void): void {
-            this.registerEvent(jacdac.ReflectedLightEvent.Light, handler);
-        }
     
     }
     //% fixedInstance whenUsed block="reflected light1"

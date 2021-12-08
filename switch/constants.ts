@@ -53,13 +53,13 @@ namespace jacdac {
 
     export const enum SwitchEvent {
         /**
-         * Emitted when switch goes from ``off`` to ``on``.
+         * Emitted when switch goes from `off` to `on`.
          */
         //% block="on"
         On = 0x1,
 
         /**
-         * Emitted when switch goes from ``on`` to ``off``.
+         * Emitted when switch goes from `on` to `off`.
          */
         //% block="off"
         Off = 0x2,

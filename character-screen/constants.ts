@@ -30,10 +30,10 @@ namespace jacdac {
         Message = 0x2,
 
         /**
-         * Read-write ratio u0.8 (uint8_t). Brightness of the screen. `0` means off.
+         * Read-write ratio u0.16 (uint16_t). Brightness of the screen. `0` means off.
          *
          * ```
-         * const [brightness] = jdunpack<[number]>(buf, "u0.8")
+         * const [brightness] = jdunpack<[number]>(buf, "u0.16")
          * ```
          */
         Brightness = 0x1,
@@ -73,22 +73,6 @@ namespace jacdac {
          * ```
          */
         Columns = 0x181,
-    }
-
-    export const enum CharacterScreenCmd {
-        /**
-         * Overrides the content of a single line at a 0-based index.
-         *
-         * ```
-         * const [index, message] = jdunpack<[number, string]>(buf, "u16 s")
-         * ```
-         */
-        SetLine = 0x80,
-
-        /**
-         * No args. Clears all text from the display.
-         */
-        Clear = 0x81,
     }
 
 }

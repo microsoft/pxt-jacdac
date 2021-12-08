@@ -56,7 +56,7 @@ namespace modules {
         }
 
         /**
-         * Emitted when switch goes from ``off`` to ``on``.
+         * Emitted when switch goes from `off` to `on`.
          */
         //% group="Button"
         //% blockId=jacdac_on_switch_on
@@ -66,7 +66,7 @@ namespace modules {
             this.registerEvent(jacdac.SwitchEvent.On, handler);
         }
         /**
-         * Emitted when switch goes from ``on`` to ``off``.
+         * Emitted when switch goes from `on` to `off`.
          */
         //% group="Button"
         //% blockId=jacdac_on_switch_off

@@ -140,8 +140,8 @@ namespace modules {
         }
 
         /**
-        * The averaging constant with the last analysis frame. 
-        * If ``0`` is set, there is no averaging done, whereas a value of ``1`` means "overlap the previous and current buffer quite a lot while computing the value".
+        * The averaging constant with the last analysis frame.
+        * If `0` is set, there is no averaging done, whereas a value of `1` means "overlap the previous and current buffer quite a lot while computing the value".
         */
         //% callInDebugger
         //% group="Sound"
@@ -153,8 +153,8 @@ namespace modules {
         }
 
         /**
-        * The averaging constant with the last analysis frame. 
-        * If ``0`` is set, there is no averaging done, whereas a value of ``1`` means "overlap the previous and current buffer quite a lot while computing the value".
+        * The averaging constant with the last analysis frame.
+        * If `0` is set, there is no averaging done, whereas a value of `1` means "overlap the previous and current buffer quite a lot while computing the value".
         */
         //% group="Sound"
         //% weight=90

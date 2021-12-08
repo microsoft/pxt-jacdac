@@ -5,8 +5,8 @@ namespace jacdac {
         /**
          * Read-write bytes. Each byte encodes the display status of a digit using,
          * where bit 0 encodes segment `A`, bit 1 encodes segments `B`, ..., bit 6 encodes segments `G`, and bit 7 encodes the decimal point (if present).
-         * If incoming ``digits`` data is smaller than `digit_count`, the remaining digits will be cleared.
-         * Thus, sending an empty ``digits`` payload clears the screen.
+         * If incoming `digits` data is smaller than `digit_count`, the remaining digits will be cleared.
+         * Thus, sending an empty `digits` payload clears the screen.
          *
          * ```
          * const [digits] = jdunpack<[Buffer]>(buf, "b")
@@ -15,7 +15,7 @@ namespace jacdac {
         Digits = 0x2,
 
         /**
-         * Read-write ratio u0.16 (uint16_t). Controls the brightness of the LEDs. ``0`` means off.
+         * Read-write ratio u0.16 (uint16_t). Controls the brightness of the LEDs. `0` means off.
          *
          * ```
          * const [brightness] = jdunpack<[number]>(buf, "u0.16")

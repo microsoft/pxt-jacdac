@@ -3,7 +3,7 @@ namespace jacdac {
     export const SRV_BUTTON = 0x1473a263
     export const enum ButtonReg {
         /**
-         * Read-only ratio u0.16 (uint16_t). Indicates the pressure state of the button, where ``0`` is open.
+         * Read-only ratio u0.16 (uint16_t). Indicates the pressure state of the button, where `0` is open.
          *
          * ```
          * const [pressure] = jdunpack<[number]>(buf, "u0.16")
@@ -12,7 +12,7 @@ namespace jacdac {
         Pressure = 0x101,
 
         /**
-         * Constant bool (uint8_t). Indicates if the button provides analog ``pressure`` readings.
+         * Constant bool (uint8_t). Indicates if the button provides analog `pressure` readings.
          *
          * ```
          * const [analog] = jdunpack<[number]>(buf, "u8")

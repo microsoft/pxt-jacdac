@@ -57,6 +57,18 @@ namespace modules {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SoundPlayerCmd.Play, "s", [name]))
         }
+
+        /**
+        * Cancel any sound playing.
+        */
+        //% group="Sound"
+        //% blockId=jacdac_soundplayer_cancel_cmd
+        //% block="%soundplayer cancel"
+        //% weight=97
+        cancel(): void {
+            this.start();
+            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.SoundPlayerCmd.Cancel))
+        }
     
     }
     //% fixedInstance whenUsed block="sound player1"

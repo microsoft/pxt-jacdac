@@ -70,28 +70,6 @@ namespace modules {
             return values[0];
         }
 
-        /**
-         * Emitted when relay goes from `inactive` to `active` state.
-        * Normally open (NO) relays close the circuit when activated.
-         */
-        //% group="Relay"
-        //% blockId=jacdac_on_relay_active
-        //% block="on %relay active"
-        //% weight=96
-        onActive(handler: () => void): void {
-            this.registerEvent(jacdac.RelayEvent.Active, handler);
-        }
-        /**
-         * Emitted when relay goes from `active` to `inactive` state.
-        * Normally closed (NC) relays open the circuit when activated.
-         */
-        //% group="Relay"
-        //% blockId=jacdac_on_relay_inactive
-        //% block="on %relay inactive"
-        //% weight=95
-        onInactive(handler: () => void): void {
-            this.registerEvent(jacdac.RelayEvent.Inactive, handler);
-        }
     
     }
     //% fixedInstance whenUsed block="relay1"

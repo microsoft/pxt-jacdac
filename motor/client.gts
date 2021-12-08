@@ -1,6 +1,6 @@
 namespace modules {
     /**
-     * A bi-directional DC motor.
+     * A DC motor.
      **/
     //% fixedInstances blockGap=8
     export class MotorClient extends jacdac.Client {
@@ -8,7 +8,8 @@ namespace modules {
         private readonly _duty : jacdac.RegisterClient<[number]>;
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
         private readonly _loadTorque : jacdac.RegisterClient<[number]>;
-        private readonly _loadSpeed : jacdac.RegisterClient<[number]>;            
+        private readonly _loadSpeed : jacdac.RegisterClient<[number]>;
+        private readonly _reversible : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_MOTOR, role);
@@ -16,7 +17,8 @@ namespace modules {
             this._duty = this.addRegister<[number]>(jacdac.MotorReg.Duty, "i1.15");
             this._enabled = this.addRegister<[boolean]>(jacdac.MotorReg.Enabled, "u8");
             this._loadTorque = this.addRegister<[number]>(jacdac.MotorReg.LoadTorque, "u16.16");
-            this._loadSpeed = this.addRegister<[number]>(jacdac.MotorReg.LoadSpeed, "u16.16");            
+            this._loadSpeed = this.addRegister<[number]>(jacdac.MotorReg.LoadSpeed, "u16.16");
+            this._reversible = this.addRegister<[boolean]>(jacdac.MotorReg.Reversible, "u8");            
         }
     
 
@@ -106,6 +108,18 @@ namespace modules {
             this.start();            
             const values = this._loadSpeed.pauseUntilValues() as any[];
             return values[0];
+        }
+
+        /**
+        * Indicates if the motor can run backwards.
+        */
+        //% callInDebugger
+        //% group="Motor"
+        //% weight=94
+        reversible(): boolean {
+            this.start();            
+            const values = this._reversible.pauseUntilValues() as any[];
+            return !!values[0];
         }
 
     

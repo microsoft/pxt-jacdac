@@ -17,7 +17,7 @@ namespace modules {
     
 
         /**
-        * Indicates the wetness of the soil, from ``dry`` to ``wet``.
+        * Indicates the wetness of the soil, from `dry` to `wet`.
         */
         //% callInDebugger
         //% group="Environment"

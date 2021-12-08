@@ -2,17 +2,17 @@ namespace modules {
     /**
      * Detects the amount of light falling onto a given surface area.
      * 
-     * Note that this is different from *luminance*, the amount of light that passes through, emits from, or reflects off an object.
+     * Note that this is different from _luminance_, the amount of light that passes through, emits from, or reflects off an object.
      **/
     //% fixedInstances blockGap=8
     export class IlluminanceClient extends jacdac.SimpleSensorClient {
 
-        private readonly _lightError : jacdac.RegisterClient<[number]>;            
+        private readonly _illuminanceError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_ILLUMINANCE, role, "u22.10");
 
-            this._lightError = this.addRegister<[number]>(jacdac.IlluminanceReg.LightError, "u22.10");            
+            this._illuminanceError = this.addRegister<[number]>(jacdac.IlluminanceReg.IlluminanceError, "u22.10");            
         }
     
 
@@ -21,10 +21,10 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Environment"
-        //% block="%illuminance light"
-        //% blockId=jacdac_illuminance_light___get
+        //% block="%illuminance illuminance"
+        //% blockId=jacdac_illuminance_illuminance___get
         //% weight=100
-        light(): number {
+        illuminance(): number {
             return this.reading();
         
         }
@@ -35,23 +35,23 @@ namespace modules {
         //% callInDebugger
         //% group="Environment"
         //% weight=99
-        lightError(): number {
+        illuminanceError(): number {
             this.start();            
-            const values = this._lightError.pauseUntilValues() as any[];
+            const values = this._illuminanceError.pauseUntilValues() as any[];
             return values[0];
         }
 
         /**
-         * Run code when the light changes by the given threshold value.
+         * Run code when the illuminance changes by the given threshold value.
         */
         //% group="Environment"
-        //% blockId=jacdac_illuminance_on_light_change
-        //% block="on %illuminance light changed by %threshold"
+        //% blockId=jacdac_illuminance_on_illuminance_change
+        //% block="on %illuminance illuminance changed by %threshold"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100000
         //% threshold.defl=1
-        onLightChangedBy(threshold: number, handler: () => void): void {
+        onIlluminanceChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler);
         }
 

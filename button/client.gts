@@ -15,7 +15,7 @@ namespace modules {
     
 
         /**
-        * Indicates the pressure state of the button, where ``0`` is open.
+        * Indicates the pressure state of the button, where `0` is open.
         */
         //% callInDebugger
         //% group="Button"
@@ -28,7 +28,7 @@ namespace modules {
         }
 
         /**
-        * Indicates if the button provides analog ``pressure`` readings.
+        * Indicates if the button provides analog `pressure` readings.
         */
         //% callInDebugger
         //% group="Button"
@@ -42,8 +42,8 @@ namespace modules {
         /**
         * Determines if the button is pressed currently.
         * 
-        * If the event ``down`` is observed, ``pressed`` is true; if ``up`` or ``hold`` are observed, ``pressed`` is false.
-        * To initialize, wait for any event or timeout to ``pressed`` is true after 750ms (1.5x hold time).
+        * If the event `down` is observed, `pressed` is true; if `up` or `hold` are observed, `pressed` is false.
+        * To initialize, wait for any event or timeout to `pressed` is true after 750ms (1.5x hold time).
         */
         //% callInDebugger
         //% group="Button"
@@ -78,7 +78,7 @@ namespace modules {
             this.registerEvent(jacdac.ButtonEvent.Down, handler);
         }
         /**
-         * Emitted when button goes from active to inactive. The 'time' parameter 
+         * Emitted when button goes from active to inactive. The 'time' parameter
         * records the amount of time between the down and up events.
          */
         //% group="Button"
@@ -89,7 +89,7 @@ namespace modules {
             this.registerEvent(jacdac.ButtonEvent.Up, handler);
         }
         /**
-         * Emitted when the press time is greater than 500ms, and then at least every 500ms 
+         * Emitted when the press time is greater than 500ms, and then at least every 500ms
         * as long as the button remains pressed. The 'time' parameter records the the amount of time
         * that the button has been held (since the down event).
          */

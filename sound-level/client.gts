@@ -6,8 +6,6 @@ namespace modules {
     export class SoundLevelClient extends jacdac.SimpleSensorClient {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
-        private readonly _minDecibels : jacdac.RegisterClient<[number]>;
-        private readonly _maxDecibels : jacdac.RegisterClient<[number]>;
         private readonly _loudThreshold : jacdac.RegisterClient<[number]>;
         private readonly _quietThreshold : jacdac.RegisterClient<[number]>;            
 
@@ -15,8 +13,6 @@ namespace modules {
             super(jacdac.SRV_SOUND_LEVEL, role, "u0.16");
 
             this._enabled = this.addRegister<[boolean]>(jacdac.SoundLevelReg.Enabled, "u8");
-            this._minDecibels = this.addRegister<[number]>(jacdac.SoundLevelReg.MinDecibels, "i16");
-            this._maxDecibels = this.addRegister<[number]>(jacdac.SoundLevelReg.MaxDecibels, "i16");
             this._loudThreshold = this.addRegister<[number]>(jacdac.SoundLevelReg.LoudThreshold, "u0.16");
             this._quietThreshold = this.addRegister<[number]>(jacdac.SoundLevelReg.QuietThreshold, "u0.16");            
         }
@@ -64,71 +60,11 @@ namespace modules {
         }
 
         /**
-        * The minimum power value considered by the sensor.
-        * If both ``min_decibels`` and ``max_decibels`` are supported,
-        * the volume in deciment can be linearly interpolated between
-        * ``[min_decibels, max_decibels]``.
-        */
-        //% callInDebugger
-        //% group="Sound"
-        //% weight=97
-        minDecibels(): number {
-            this.start();            
-            const values = this._minDecibels.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
-        * The minimum power value considered by the sensor.
-        * If both ``min_decibels`` and ``max_decibels`` are supported,
-        * the volume in deciment can be linearly interpolated between
-        * ``[min_decibels, max_decibels]``.
-        */
-        //% group="Sound"
-        //% weight=96
-        setMinDecibels(value: number) {
-            this.start();
-            const values = this._minDecibels.values as any[];
-            values[0] = value;
-            this._minDecibels.values = values as [number];
-        }
-
-        /**
-        * The maximum power value considered by the sensor.
-        * If both ``min_decibels`` and ``max_decibels`` are supported,
-        * the volume in deciment can be linearly interpolated between
-        * ``[min_decibels, max_decibels]``.
-        */
-        //% callInDebugger
-        //% group="Sound"
-        //% weight=95
-        maxDecibels(): number {
-            this.start();            
-            const values = this._maxDecibels.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
-        * The maximum power value considered by the sensor.
-        * If both ``min_decibels`` and ``max_decibels`` are supported,
-        * the volume in deciment can be linearly interpolated between
-        * ``[min_decibels, max_decibels]``.
-        */
-        //% group="Sound"
-        //% weight=94
-        setMaxDecibels(value: number) {
-            this.start();
-            const values = this._maxDecibels.values as any[];
-            values[0] = value;
-            this._maxDecibels.values = values as [number];
-        }
-
-        /**
         * The sound level to trigger a loud event.
         */
         //% callInDebugger
         //% group="Sound"
-        //% weight=93
+        //% weight=97
         loudThreshold(): number {
             this.start();            
             const values = this._loudThreshold.pauseUntilValues() as any[];
@@ -139,7 +75,7 @@ namespace modules {
         * The sound level to trigger a loud event.
         */
         //% group="Sound"
-        //% weight=92
+        //% weight=96
         //% value.min=0
         //% value.max=100
         //% value.defl=100
@@ -155,7 +91,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Sound"
-        //% weight=91
+        //% weight=95
         quietThreshold(): number {
             this.start();            
             const values = this._quietThreshold.pauseUntilValues() as any[];
@@ -166,7 +102,7 @@ namespace modules {
         * The sound level to trigger a quiet event.
         */
         //% group="Sound"
-        //% weight=90
+        //% weight=94
         //% value.min=0
         //% value.max=100
         //% value.defl=100
@@ -183,7 +119,7 @@ namespace modules {
         //% group="Sound"
         //% blockId=jacdac_soundlevel_on_sound_level_change
         //% block="on %soundlevel sound level changed by %threshold"
-        //% weight=89
+        //% weight=93
         //% threshold.min=0
         //% threshold.max=100
         //% threshold.defl=5
@@ -197,7 +133,7 @@ namespace modules {
         //% group="Sound"
         //% blockId=jacdac_on_soundlevel_loud
         //% block="on %soundlevel loud"
-        //% weight=88
+        //% weight=92
         onLoud(handler: () => void): void {
             this.registerEvent(jacdac.SoundLevelEvent.Loud, handler);
         }
@@ -207,7 +143,7 @@ namespace modules {
         //% group="Sound"
         //% blockId=jacdac_on_soundlevel_quiet
         //% block="on %soundlevel quiet"
-        //% weight=87
+        //% weight=91
         onQuiet(handler: () => void): void {
             this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler);
         }

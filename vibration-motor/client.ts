@@ -8,39 +8,6 @@ namespace modules {
 
         constructor(role: string) {
             super(jacdac.SRV_VIBRATION_MOTOR, role)
-
-            this._enabled = this.addRegister<[boolean]>(
-                jacdac.VibrationMotorReg.Enabled,
-                "u8"
-            )
-        }
-
-        /**
-         * Determines if the vibration motor responds to vibrate commands.
-         */
-        //% callInDebugger
-        //% group="Vibration motor"
-        //% block="%vibration enabled"
-        //% blockId=jacdac_vibration_enabled___get
-        //% weight=100
-        enabled(): boolean {
-            this.start()
-            const values = this._enabled.pauseUntilValues() as any[]
-            return !!values[0]
-        }
-
-        /**
-         * Determines if the vibration motor responds to vibrate commands.
-         */
-        //% group="Vibration motor"
-        //% blockId=jacdac_vibration_enabled___set
-        //% block="set %vibration %value=toggleOnOff"
-        //% weight=99
-        setEnabled(value: boolean) {
-            this.start()
-            const values = this._enabled.values as any[]
-            values[0] = value ? 1 : 0
-            this._enabled.values = values as [boolean]
         }
 
         /**

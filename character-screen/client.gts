@@ -1,6 +1,6 @@
 namespace modules {
     /**
-     * A screen that displays characters.
+     * A screen that displays characters, typically a LCD/OLED character screen.
      **/
     //% fixedInstances blockGap=8
     export class CharacterScreenClient extends jacdac.Client {
@@ -16,7 +16,7 @@ namespace modules {
             super(jacdac.SRV_CHARACTER_SCREEN, role);
 
             this._message = this.addRegister<[string]>(jacdac.CharacterScreenReg.Message, "s");
-            this._brightness = this.addRegister<[number]>(jacdac.CharacterScreenReg.Brightness, "u0.8");
+            this._brightness = this.addRegister<[number]>(jacdac.CharacterScreenReg.Brightness, "u0.16");
             this._variant = this.addRegister<[jacdac.CharacterScreenVariant]>(jacdac.CharacterScreenReg.Variant, "u8");
             this._textDirection = this.addRegister<[jacdac.CharacterScreenTextDirection]>(jacdac.CharacterScreenReg.TextDirection, "u8");
             this._rows = this.addRegister<[number]>(jacdac.CharacterScreenReg.Rows, "u8");
@@ -143,30 +143,6 @@ namespace modules {
             return values[0];
         }
 
-
-        /**
-        * Overrides the content of a single line at a 0-based index.
-        */
-        //% group="Display"
-        //% blockId=jacdac_characterscreen_set_line_cmd
-        //% block="%characterscreen set line |index $index |message $message"
-        //% weight=91
-        setLine(index: number, message: string): void {
-            this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.CharacterScreenCmd.SetLine, "u16 s", [index, message]))
-        }
-
-        /**
-        * Clears all text from the display.
-        */
-        //% group="Display"
-        //% blockId=jacdac_characterscreen_clear_cmd
-        //% block="%characterscreen clear"
-        //% weight=90
-        clear(): void {
-            this.start();
-            this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.CharacterScreenCmd.Clear))
-        }
     
     }
     //% fixedInstance whenUsed block="character screen1"

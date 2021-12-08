@@ -13,7 +13,7 @@ namespace jacdac {
         Forces = 0x101,
 
         /**
-         * Read-only nT int32_t. Error on the readings.
+         * Read-only nT int32_t. Absolute estimated error on the readings.
          *
          * ```
          * const [forcesError] = jdunpack<[number]>(buf, "i32")

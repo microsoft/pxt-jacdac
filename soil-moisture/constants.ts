@@ -11,7 +11,7 @@ namespace jacdac {
 
     export const enum SoilMoistureReg {
         /**
-         * Read-only ratio u0.16 (uint16_t). Indicates the wetness of the soil, from ``dry`` to ``wet``.
+         * Read-only ratio u0.16 (uint16_t). Indicates the wetness of the soil, from `dry` to `wet`.
          *
          * ```
          * const [moisture] = jdunpack<[number]>(buf, "u0.16")

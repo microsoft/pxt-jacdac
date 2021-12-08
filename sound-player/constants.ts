@@ -23,13 +23,18 @@ namespace jacdac {
         Play = 0x80,
 
         /**
+         * No args. Cancel any sound playing.
+         */
+        Cancel = 0x81,
+
+        /**
          * Argument: sounds_port pipe (bytes). Returns the list of sounds available to play.
          *
          * ```
          * const [soundsPort] = jdunpack<[Buffer]>(buf, "b[12]")
          * ```
          */
-        ListSounds = 0x81,
+        ListSounds = 0x82,
     }
 
 

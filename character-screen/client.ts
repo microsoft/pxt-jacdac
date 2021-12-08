@@ -169,14 +169,10 @@ namespace modules {
         //% weight=91
         setLine(index: number, message: any): void {
             this.start()
-            const value = message + ""
-            this.sendCommand(
-                jacdac.JDPacket.jdpacked(
-                    jacdac.CharacterScreenCmd.SetLine,
-                    "u16 s",
-                    [index, value]
-                )
-            )
+            const msg = this.message() || ""
+            const lines = msg.split("\n")
+            lines[index | 0] = message + ""
+            this.setMessage(lines.join("\n"))
         }
 
         /**
@@ -188,9 +184,7 @@ namespace modules {
         //% weight=90
         clear(): void {
             this.start()
-            this.sendCommand(
-                jacdac.JDPacket.onlyHeader(jacdac.CharacterScreenCmd.Clear)
-            )
+            this.setMessage("")
         }
     }
     //% fixedInstance whenUsed block="character screen1"

@@ -3,7 +3,7 @@ namespace jacdac {
     export const SRV_DMX = 0x11cf8c05
     export const enum DmxReg {
         /**
-         * Read-write bool (uint8_t). Determines if the DMX bridge is active
+         * Read-write bool (uint8_t). Determines if the DMX bridge is active.
          *
          * ```
          * const [enabled] = jdunpack<[number]>(buf, "u8")

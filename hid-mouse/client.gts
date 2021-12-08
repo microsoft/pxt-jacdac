@@ -15,8 +15,8 @@ namespace modules {
 
         /**
         * Sets the up/down state of one or more buttons.
-        * A ``Click`` is the same as ``Down`` followed by ``Up`` after 100ms.
-        * A ``DoubleClick`` is two clicks with ``150ms`` gap between them (that is, ``100ms`` first click, ``150ms`` gap, ``100ms`` second click).
+        * A `Click` is the same as `Down` followed by `Up` after 100ms.
+        * A `DoubleClick` is two clicks with `150ms` gap between them (that is, `100ms` first click, `150ms` gap, `100ms` second click).
         */
         //% group="HID Mouse"
         //% blockId=jacdac_hidmouse_set_button_cmd

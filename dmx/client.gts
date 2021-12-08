@@ -15,7 +15,7 @@ namespace modules {
     
 
         /**
-        * Determines if the DMX bridge is active
+        * Determines if the DMX bridge is active.
         */
         //% callInDebugger
         //% group="DMX"
@@ -29,7 +29,7 @@ namespace modules {
         }
 
         /**
-        * Determines if the DMX bridge is active
+        * Determines if the DMX bridge is active.
         */
         //% group="DMX"
         //% blockId=jacdac_dmx_enabled___set

@@ -1,6 +1,6 @@
 namespace modules {
     /**
-     * A sensor approximating the oxygen level. 
+     * A sensor approximating the oxygen level.
      * 
      * **Jacdac is not suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**
      **/

@@ -29,18 +29,4 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum ReflectedLightEvent {
-        /**
-         * The sensor detected a transition from light to dark
-         */
-        //% block="dark"
-        Dark = 0x2,
-
-        /**
-         * The sensor detected a transition from dark to light
-         */
-        //% block="light"
-        Light = 0x1,
-    }
-
 }

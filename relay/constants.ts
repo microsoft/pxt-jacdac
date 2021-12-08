@@ -40,20 +40,4 @@ namespace jacdac {
         MaxSwitchingCurrent = 0x180,
     }
 
-    export const enum RelayEvent {
-        /**
-         * Emitted when relay goes from `inactive` to `active` state.
-         * Normally open (NO) relays close the circuit when activated.
-         */
-        //% block="active"
-        Active = 0x1,
-
-        /**
-         * Emitted when relay goes from `active` to `inactive` state.
-         * Normally closed (NC) relays open the circuit when activated.
-         */
-        //% block="inactive"
-        Inactive = 0x2,
-    }
-
 }
