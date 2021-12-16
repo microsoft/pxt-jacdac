@@ -5,22 +5,20 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class FlexClient extends jacdac.SimpleSensorClient {
 
-        private readonly _bendingError : jacdac.RegisterClient<[number]>;
         private readonly _length : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_FLEX, role, "u0.16");
+            super(jacdac.SRV_FLEX, role, "i1.15");
 
-            this._bendingError = this.addRegister<[number]>(jacdac.FlexReg.BendingError, "u0.16");
             this._length = this.addRegister<[number]>(jacdac.FlexReg.Length, "u16");            
         }
     
 
         /**
-        * The relative position of the slider.
+        * A measure of the bending.
         */
         //% callInDebugger
-        //% group="Slider"
+        //% group="Sensor"
         //% block="%flex bending"
         //% blockId=jacdac_flex_bending___get
         //% weight=100
@@ -30,23 +28,11 @@ namespace modules {
         }
 
         /**
-        * Absolute error on the reading value.
-        */
-        //% callInDebugger
-        //% group="Slider"
-        //% weight=99
-        bendingError(): number {
-            this.start();            
-            const values = this._bendingError.pauseUntilValues() as any[];
-            return values[0] * 100;
-        }
-
-        /**
         * Length of the flex sensor
         */
         //% callInDebugger
-        //% group="Slider"
-        //% weight=98
+        //% group="Sensor"
+        //% weight=99
         length(): number {
             this.start();            
             const values = this._length.pauseUntilValues() as any[];
@@ -56,10 +42,10 @@ namespace modules {
         /**
          * Run code when the bending changes by the given threshold value.
         */
-        //% group="Slider"
+        //% group="Sensor"
         //% blockId=jacdac_flex_on_bending_change
         //% block="on %flex bending changed by %threshold"
-        //% weight=97
+        //% weight=98
         //% threshold.min=0
         //% threshold.max=100
         //% threshold.defl=5

@@ -1,8 +1,8 @@
 jacdac.firmwareVersion = jacdac.VERSION
 jacdac.productIdentifier = 0x1e53ec38
 jacdac.logPriority = -1
-const airthermometer = new modules.ThermometerClient("airthermometer")
-const soilthermometer = new modules.ThermometerClient("soilthermometer")
+const airthermometer = new modules.TemperatureClient("airthermometer")
+const soilthermometer = new modules.TemperatureClient("soilthermometer")
 const airhumidity = new modules.HumidityClient("airhumidity")
 const sunlightvisible = new modules.LightLevelClient("sunlightvisible")
 const sunlightuv = new modules.UvIndexClient("sunlightuv")

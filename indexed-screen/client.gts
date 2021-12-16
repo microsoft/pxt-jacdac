@@ -2,7 +2,7 @@ namespace modules {
     /**
      * A screen with indexed colors.
      * 
-     * This is often run over an SPI connection, not regular single-wire JACDAC.
+     * This is often run over an SPI connection, not regular single-wire Jacdac.
      **/
     //% fixedInstances blockGap=8
     export class IndexedScreenClient extends jacdac.Client {

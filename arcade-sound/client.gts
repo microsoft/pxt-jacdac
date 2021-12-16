@@ -2,7 +2,7 @@ namespace modules {
     /**
      * A sound playing device.
      * 
-     * This is typically run over an SPI connection, not regular single-wire JACDAC.
+     * This is typically run over an SPI connection, not regular single-wire Jacdac.
      **/
     //% fixedInstances blockGap=8
     export class ArcadeSoundClient extends jacdac.Client {

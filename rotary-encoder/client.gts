@@ -5,12 +5,14 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class RotaryEncoderClient extends jacdac.SimpleSensorClient {
 
-        private readonly _clicksPerTurn : jacdac.RegisterClient<[number]>;            
+        private readonly _clicksPerTurn : jacdac.RegisterClient<[number]>;
+        private readonly _clicker : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_ROTARY_ENCODER, role, "i32");
 
-            this._clicksPerTurn = this.addRegister<[number]>(jacdac.RotaryEncoderReg.ClicksPerTurn, "u16");            
+            this._clicksPerTurn = this.addRegister<[number]>(jacdac.RotaryEncoderReg.ClicksPerTurn, "u16");
+            this._clicker = this.addRegister<[boolean]>(jacdac.RotaryEncoderReg.Clicker, "u8");            
         }
     
 
@@ -41,12 +43,25 @@ namespace modules {
         }
 
         /**
+        * The encoder is combined with a clicker. If this is the case, the clicker button service
+        * should follow this service in the service list of the device.
+        */
+        //% callInDebugger
+        //% group="Slider"
+        //% weight=98
+        clicker(): boolean {
+            this.start();            
+            const values = this._clicker.pauseUntilValues() as any[];
+            return !!values[0];
+        }
+
+        /**
          * Run code when the position changes by the given threshold value.
         */
         //% group="Slider"
         //% blockId=jacdac_rotaryencoder_on_position_change
         //% block="on %rotaryencoder position changed by %threshold"
-        //% weight=98
+        //% weight=97
         //% threshold.min=0
         //% threshold.defl=1
         onPositionChangedBy(threshold: number, handler: () => void): void {

@@ -1,22 +1,22 @@
 namespace modules {
     /**
-     * A thermocouple using a heat probe to gather temperatures.
+     * A thermometer measuring outside or inside environment.
      **/
     //% fixedInstances blockGap=8
-    export class ThermocoupleClient extends jacdac.SimpleSensorClient {
+    export class TemperatureClient extends jacdac.SimpleSensorClient {
 
         private readonly _minTemperature : jacdac.RegisterClient<[number]>;
         private readonly _maxTemperature : jacdac.RegisterClient<[number]>;
         private readonly _temperatureError : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.ThermocoupleVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.TemperatureVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_THERMOCOUPLE, role, "i22.10");
+            super(jacdac.SRV_TEMPERATURE, role, "i22.10");
 
-            this._minTemperature = this.addRegister<[number]>(jacdac.ThermocoupleReg.MinTemperature, "i22.10");
-            this._maxTemperature = this.addRegister<[number]>(jacdac.ThermocoupleReg.MaxTemperature, "i22.10");
-            this._temperatureError = this.addRegister<[number]>(jacdac.ThermocoupleReg.TemperatureError, "u22.10");
-            this._variant = this.addRegister<[jacdac.ThermocoupleVariant]>(jacdac.ThermocoupleReg.Variant, "u8");            
+            this._minTemperature = this.addRegister<[number]>(jacdac.TemperatureReg.MinTemperature, "i22.10");
+            this._maxTemperature = this.addRegister<[number]>(jacdac.TemperatureReg.MaxTemperature, "i22.10");
+            this._temperatureError = this.addRegister<[number]>(jacdac.TemperatureReg.TemperatureError, "u22.10");
+            this._variant = this.addRegister<[jacdac.TemperatureVariant]>(jacdac.TemperatureReg.Variant, "u8");            
         }
     
 
@@ -25,8 +25,8 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Environment"
-        //% block="%thermocouple temperature"
-        //% blockId=jacdac_thermocouple_temperature___get
+        //% block="%temperature temperature"
+        //% blockId=jacdac_temperature_temperature___get
         //% weight=100
         temperature(): number {
             return this.reading();
@@ -75,7 +75,7 @@ namespace modules {
         //% callInDebugger
         //% group="Environment"
         //% weight=96
-        variant(): jacdac.ThermocoupleVariant {
+        variant(): jacdac.TemperatureVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -85,8 +85,8 @@ namespace modules {
          * Run code when the temperature changes by the given threshold value.
         */
         //% group="Environment"
-        //% blockId=jacdac_thermocouple_on_temperature_change
-        //% block="on %thermocouple temperature changed by %threshold"
+        //% blockId=jacdac_temperature_on_temperature_change
+        //% block="on %temperature temperature changed by %threshold"
         //% weight=95
         //% threshold.min=0
         //% threshold.defl=1
@@ -96,6 +96,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="thermocouple1"
-    export const thermocouple1 = new ThermocoupleClient("thermocouple1");
+    //% fixedInstance whenUsed block="temperature1"
+    export const temperature1 = new TemperatureClient("temperature1");
 }

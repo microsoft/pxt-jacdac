@@ -1,4 +1,4 @@
-# JACDAC Multitool
+# Jacdac Multitool
 
 Usage: Drop the `.uf2` generated in [Actions](https://github.com/microsoft/jacdac-multitool/actions) (or from a release) on your Arcade device.
 

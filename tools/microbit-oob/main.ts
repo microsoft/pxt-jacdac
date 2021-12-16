@@ -62,9 +62,9 @@ const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
     jacdac.SRV_ACCELEROMETER,
-    jacdac.SRV_THERMOMETER,
+    jacdac.SRV_TEMPERATURE,
     jacdac.SRV_LIGHT_LEVEL,
-    jacdac.SRV_JOYSTICK,
+    jacdac.SRV_GAMEPAD,
 ]
 
 let serviceKeys: number[] = []
@@ -308,7 +308,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
             led.plotBarGraph(position, 100)
             setPixelBrightness(position / 200) // don't go above 50%
         }
-    } else if (serviceClass === jacdac.SRV_THERMOMETER) {
+    } else if (serviceClass === jacdac.SRV_TEMPERATURE) {
         const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
         if (temp !== sensorMap[lookup]) {
             sensorMap[lookup] = temp
@@ -318,7 +318,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
                 else whaleysans.showNumber(temp)
             })
         }
-    } else if (serviceClass === jacdac.SRV_JOYSTICK) {
+    } else if (serviceClass === jacdac.SRV_GAMEPAD) {
         const [buttons, x, y] = pkt.jdunpack<number[]>("i32 i1.15 i1.15")
         plot(x * 100, y * 100)
         const maxSpeed = 20

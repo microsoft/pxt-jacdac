@@ -1,18 +1,18 @@
 namespace modules {
     /**
-     * A two axis directional joystick
+     * A two axis directional joystick with optional buttons.
      **/
     //% fixedInstances blockGap=8
-    export class JoystickClient extends jacdac.SensorClient {
+    export class GamepadClient extends jacdac.SensorClient {
 
-        private readonly _variant : jacdac.RegisterClient<[jacdac.JoystickVariant]>;
-        private readonly _buttonsAvailable : jacdac.RegisterClient<[jacdac.JoystickButtons]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.GamepadVariant]>;
+        private readonly _buttonsAvailable : jacdac.RegisterClient<[jacdac.GamepadButtons]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_JOYSTICK, role, "u32 i1.15 i1.15");
+            super(jacdac.SRV_GAMEPAD, role, "u32 i1.15 i1.15");
 
-            this._variant = this.addRegister<[jacdac.JoystickVariant]>(jacdac.JoystickReg.Variant, "u8");
-            this._buttonsAvailable = this.addRegister<[jacdac.JoystickButtons]>(jacdac.JoystickReg.ButtonsAvailable, "u32");            
+            this._variant = this.addRegister<[jacdac.GamepadVariant]>(jacdac.GamepadReg.Variant, "u8");
+            this._buttonsAvailable = this.addRegister<[jacdac.GamepadButtons]>(jacdac.GamepadReg.ButtonsAvailable, "u32");            
         }
     
 
@@ -24,10 +24,10 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
-        //% block="%joystick buttons"
-        //% blockId=jacdac_joystick_direction_buttons_get
+        //% block="%gamepad buttons"
+        //% blockId=jacdac_gamepad_direction_buttons_get
         //% weight=100
-        buttons(): jacdac.JoystickButtons {
+        buttons(): jacdac.GamepadButtons {
             this.setStreaming(true);            
             const values = this._reading.pauseUntilValues() as any[];
             return values[0];
@@ -41,8 +41,8 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
-        //% block="%joystick x"
-        //% blockId=jacdac_joystick_direction_x_get
+        //% block="%gamepad x"
+        //% blockId=jacdac_gamepad_direction_x_get
         //% weight=99
         x(): number {
             this.setStreaming(true);            
@@ -58,8 +58,8 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Button"
-        //% block="%joystick y"
-        //% blockId=jacdac_joystick_direction_y_get
+        //% block="%gamepad y"
+        //% blockId=jacdac_gamepad_direction_y_get
         //% weight=98
         y(): number {
             this.setStreaming(true);            
@@ -73,7 +73,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=97
-        variant(): jacdac.JoystickVariant {
+        variant(): jacdac.GamepadVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -87,7 +87,7 @@ namespace modules {
         //% callInDebugger
         //% group="Button"
         //% weight=96
-        buttonsAvailable(): jacdac.JoystickButtons {
+        buttonsAvailable(): jacdac.GamepadButtons {
             this.start();            
             const values = this._buttonsAvailable.pauseUntilValues() as any[];
             return values[0];
@@ -97,14 +97,14 @@ namespace modules {
          * Emitted whenever the state of buttons changes.
          */
         //% group="Button"
-        //% blockId=jacdac_on_joystick_buttons_changed
-        //% block="on %joystick buttons changed"
+        //% blockId=jacdac_on_gamepad_buttons_changed
+        //% block="on %gamepad buttons changed"
         //% weight=95
         onButtonsChanged(handler: () => void): void {
-            this.registerEvent(jacdac.JoystickEvent.ButtonsChanged, handler);
+            this.registerEvent(jacdac.GamepadEvent.ButtonsChanged, handler);
         }
     
     }
-    //% fixedInstance whenUsed block="joystick1"
-    export const joystick1 = new JoystickClient("joystick1");
+    //% fixedInstance whenUsed block="gamepad1"
+    export const gamepad1 = new GamepadClient("gamepad1");
 }
