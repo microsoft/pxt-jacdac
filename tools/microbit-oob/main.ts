@@ -62,7 +62,7 @@ const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
     jacdac.SRV_ACCELEROMETER,
-    jacdac.SRV_THERMOMETER,
+    jacdac.SRV_TEMPERATURE,
     jacdac.SRV_LIGHT_LEVEL,
     jacdac.SRV_GAMEPAD,
 ]
@@ -308,7 +308,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
             led.plotBarGraph(position, 100)
             setPixelBrightness(position / 200) // don't go above 50%
         }
-    } else if (serviceClass === jacdac.SRV_THERMOMETER) {
+    } else if (serviceClass === jacdac.SRV_TEMPERATURE) {
         const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
         if (temp !== sensorMap[lookup]) {
             sensorMap[lookup] = temp
