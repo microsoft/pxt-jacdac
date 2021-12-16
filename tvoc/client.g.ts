@@ -7,16 +7,14 @@ namespace modules {
 
         private readonly _tVOCError : jacdac.RegisterClient<[number]>;
         private readonly _minTVOC : jacdac.RegisterClient<[number]>;
-        private readonly _maxTVOC : jacdac.RegisterClient<[number]>;
-        private readonly _conditioningPeriod : jacdac.RegisterClient<[number]>;            
+        private readonly _maxTVOC : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_TVOC, role, "u22.10");
 
             this._tVOCError = this.addRegister<[number]>(jacdac.TvocReg.TVOCError, "u22.10");
             this._minTVOC = this.addRegister<[number]>(jacdac.TvocReg.MinTVOC, "u22.10");
-            this._maxTVOC = this.addRegister<[number]>(jacdac.TvocReg.MaxTVOC, "u22.10");
-            this._conditioningPeriod = this.addRegister<[number]>(jacdac.TvocReg.ConditioningPeriod, "u32");            
+            this._maxTVOC = this.addRegister<[number]>(jacdac.TvocReg.MaxTVOC, "u22.10");            
         }
     
 
@@ -58,7 +56,7 @@ namespace modules {
         }
 
         /**
-        * Minimum measurable value
+        * Minimum measurable value.
         */
         //% callInDebugger
         //% group="Environment"
@@ -70,24 +68,12 @@ namespace modules {
         }
 
         /**
-        * Time required to achieve good sensor stability before measuring after long idle period.
-        */
-        //% callInDebugger
-        //% group="Environment"
-        //% weight=96
-        conditioningPeriod(): number {
-            this.start();            
-            const values = this._conditioningPeriod.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
          * Run code when the TVOC changes by the given threshold value.
         */
         //% group="Environment"
         //% blockId=jacdac_tvoc_on_TVOC_change
         //% block="on %tvoc TVOC changed by %threshold"
-        //% weight=95
+        //% weight=96
         //% threshold.min=0
         //% threshold.max=1187
         //% threshold.defl=1
