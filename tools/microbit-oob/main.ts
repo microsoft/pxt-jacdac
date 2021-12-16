@@ -64,7 +64,7 @@ const knownSensors = [
     jacdac.SRV_ACCELEROMETER,
     jacdac.SRV_THERMOMETER,
     jacdac.SRV_LIGHT_LEVEL,
-    jacdac.SRV_JOYSTICK,
+    jacdac.SRV_GAMEPAD,
 ]
 
 let serviceKeys: number[] = []
@@ -318,7 +318,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
                 else whaleysans.showNumber(temp)
             })
         }
-    } else if (serviceClass === jacdac.SRV_JOYSTICK) {
+    } else if (serviceClass === jacdac.SRV_GAMEPAD) {
         const [buttons, x, y] = pkt.jdunpack<number[]>("i32 i1.15 i1.15")
         plot(x * 100, y * 100)
         const maxSpeed = 20

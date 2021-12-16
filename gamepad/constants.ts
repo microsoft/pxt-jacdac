@@ -1,67 +1,90 @@
 namespace jacdac {
     // Service: Gamepad
-    export const SRV_GAMEPAD = 0x1deaa06e
+    export const SRV_GAMEPAD = 0x108f7456
 
-    export const enum GamepadButton { // uint16_t
+    export const enum GamepadButtons { // uint32_t
+        //% block="left"
         Left = 0x1,
+        //% block="up"
         Up = 0x2,
-        Right = 0x3,
-        Down = 0x4,
-        A = 0x5,
-        B = 0x6,
-        Menu = 0x7,
-        MenuAlt = 0x8,
-        Reset = 0x9,
-        Exit = 0xa,
+        //% block="right"
+        Right = 0x4,
+        //% block="down"
+        Down = 0x8,
+        //% block="a"
+        A = 0x10,
+        //% block="b"
+        B = 0x20,
+        //% block="menu"
+        Menu = 0x40,
+        //% block="select"
+        Select = 0x80,
+        //% block="reset"
+        Reset = 0x100,
+        //% block="exit"
+        Exit = 0x200,
+        //% block="x"
+        X = 0x400,
+        //% block="y"
+        Y = 0x800,
     }
 
-    export const enum GamepadCmd {
-        /**
-         * No args. Indicates number of players supported and which buttons are present on the controller.
-         */
-        Announce = 0x0,
 
-        /**
-         * report Announce
-         * ```
-         * const [flags, numPlayers, buttonPresent] = jdunpack<[number, number, GamepadButton[]]>(buf, "u8 u8 u16[]")
-         * ```
-         */
+    export const enum GamepadVariant { // uint8_t
+        //% block="thumb"
+        Thumb = 0x1,
+        //% block="arcade ball"
+        ArcadeBall = 0x2,
+        //% block="arcade stick"
+        ArcadeStick = 0x3,
+        //% block="gamepad"
+        Gamepad = 0x4,
     }
 
     export const enum GamepadReg {
         /**
-         * Indicates which buttons are currently active (pressed).
-         * `pressure` should be `0xff` for digital buttons, and proportional for analog ones.
+         * If the joystick is analog, the directional buttons should be "simulated", based on joystick position
+         * (`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).
+         * If the joystick is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).
+         * The primary button on the joystick is `A`.
          *
          * ```
-         * const [rest] = jdunpack<[([GamepadButton, number, number])[]]>(buf, "r: u16 u8 u8")
-         * const [button, playerIndex, pressure] = rest[0]
+         * const [buttons, x, y] = jdunpack<[jacdac.GamepadButtons, number, number]>(buf, "u32 i1.15 i1.15")
          * ```
          */
-        Buttons = 0x101,
+        Direction = 0x101,
+
+        /**
+         * Constant Variant (uint8_t). The type of physical joystick.
+         *
+         * ```
+         * const [variant] = jdunpack<[jacdac.GamepadVariant]>(buf, "u8")
+         * ```
+         */
+        Variant = 0x107,
+
+        /**
+         * Constant Buttons (uint32_t). Indicates a bitmask of the buttons that are mounted on the joystick.
+         * If the `Left`/`Up`/`Right`/`Down` buttons are marked as available here, the joystick is digital.
+         * Even when marked as not available, they will still be simulated based on the analog joystick.
+         *
+         * ```
+         * const [buttonsAvailable] = jdunpack<[jacdac.GamepadButtons]>(buf, "u32")
+         * ```
+         */
+        ButtonsAvailable = 0x180,
     }
 
     export const enum GamepadEvent {
         /**
-         * Emitted when button goes from inactive to active.
+         * Argument: buttons Buttons (uint32_t). Emitted whenever the state of buttons changes.
          *
          * ```
-         * const [button, playerIndex] = jdunpack<[GamepadButton, number]>(buf, "u16 u16")
+         * const [buttons] = jdunpack<[jacdac.GamepadButtons]>(buf, "u32")
          * ```
          */
-        //% block="down"
-        Down = 0x1,
-
-        /**
-         * Emitted when button goes from active to inactive.
-         *
-         * ```
-         * const [button, playerIndex] = jdunpack<[GamepadButton, number]>(buf, "u16 u16")
-         * ```
-         */
-        //% block="up"
-        Up = 0x2,
+        //% block="buttons changed"
+        ButtonsChanged = 0x3,
     }
 
 }

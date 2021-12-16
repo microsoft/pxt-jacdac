@@ -47,15 +47,6 @@ namespace jacdac {
         MaxECO2 = 0x105,
 
         /**
-         * Constant s uint32_t. Time required to achieve good sensor stability before measuring after long idle period.
-         *
-         * ```
-         * const [conditioningPeriod] = jdunpack<[number]>(buf, "u32")
-         * ```
-         */
-        ConditioningPeriod = 0x180,
-
-        /**
          * Constant Variant (uint8_t). Type of physical sensor and capabilities.
          *
          * ```

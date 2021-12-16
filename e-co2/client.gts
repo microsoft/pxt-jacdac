@@ -8,7 +8,6 @@ namespace modules {
         private readonly _eCO2Error : jacdac.RegisterClient<[number]>;
         private readonly _minECO2 : jacdac.RegisterClient<[number]>;
         private readonly _maxECO2 : jacdac.RegisterClient<[number]>;
-        private readonly _conditioningPeriod : jacdac.RegisterClient<[number]>;
         private readonly _variant : jacdac.RegisterClient<[jacdac.ECO2Variant]>;            
 
         constructor(role: string) {
@@ -17,7 +16,6 @@ namespace modules {
             this._eCO2Error = this.addRegister<[number]>(jacdac.ECO2Reg.ECO2Error, "u22.10");
             this._minECO2 = this.addRegister<[number]>(jacdac.ECO2Reg.MinECO2, "u22.10");
             this._maxECO2 = this.addRegister<[number]>(jacdac.ECO2Reg.MaxECO2, "u22.10");
-            this._conditioningPeriod = this.addRegister<[number]>(jacdac.ECO2Reg.ConditioningPeriod, "u32");
             this._variant = this.addRegister<[jacdac.ECO2Variant]>(jacdac.ECO2Reg.Variant, "u8");            
         }
     
@@ -72,23 +70,11 @@ namespace modules {
         }
 
         /**
-        * Time required to achieve good sensor stability before measuring after long idle period.
-        */
-        //% callInDebugger
-        //% group="Environment"
-        //% weight=96
-        conditioningPeriod(): number {
-            this.start();            
-            const values = this._conditioningPeriod.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
         * Type of physical sensor and capabilities.
         */
         //% callInDebugger
         //% group="Environment"
-        //% weight=95
+        //% weight=96
         variant(): jacdac.ECO2Variant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
@@ -101,7 +87,7 @@ namespace modules {
         //% group="Environment"
         //% blockId=jacdac_eco2_on_e_CO2_change
         //% block="on %eco2 e CO2 changed by %threshold"
-        //% weight=94
+        //% weight=95
         //% threshold.min=0
         //% threshold.max=8192
         //% threshold.defl=1
