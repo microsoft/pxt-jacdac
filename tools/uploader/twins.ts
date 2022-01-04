@@ -240,8 +240,9 @@ namespace jacdac.twins {
         SRV_PROTO_TEST,
         SRV_INFRASTRUCTURE,
         SRV_PROXY,
-        0x103c4ee5, // srv unique brain
+        SRV_UNIQUE_BRAIN,
         SRV_WIFI,
+        SRV_BRIDGE,
         SRV_AZURE_IOT_HUB_HEALTH,
     ]
 
