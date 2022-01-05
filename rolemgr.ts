@@ -158,21 +158,6 @@ namespace jacdac._rolemgr {
                         )
                     )
                     break
-                case jacdac.RoleManagerCmd.GetRole:
-                    if (packet.data.length == 9) {
-                        const name =
-                            getRole(
-                                packet.data.slice(0, 8).toHex(),
-                                packet.data[8]
-                            ) || ""
-                        this.sendReport(
-                            JDPacket.from(
-                                jacdac.RoleManagerCmd.GetRole,
-                                packet.data.concat(Buffer.fromUTF8(name))
-                            )
-                        )
-                    }
-                    break
                 case jacdac.RoleManagerCmd.SetRole:
                     if (packet.data.length >= 9)
                         setRole(
