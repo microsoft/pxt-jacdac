@@ -55,6 +55,8 @@
         "rolemgr.ts",
         "proto-test/constants.ts",
         "proto-test/server.ts",
+        "unique-brain/constants.ts",
+        "bridge/constants.ts",
         "routing.ts",
         "eventsource.ts",
         "version.ts"
