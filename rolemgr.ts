@@ -181,22 +181,7 @@ namespace jacdac._rolemgr {
                             packet.data.slice(9).toString()
                         )
                     break
-                case jacdac.RoleManagerCmd.ListStoredRoles:
-                    OutPipe.respondForEach(
-                        packet,
-                        settings.list(roleSettingPrefix),
-                        k => {
-                            const name = settings.readString(k)
-                            const len = roleSettingPrefix.length
-                            return jdpack("b[8] u8 s", [
-                                Buffer.fromHex(k.slice(len, len + 16)),
-                                parseInt(k.slice(len + 16)),
-                                name,
-                            ])
-                        }
-                    )
-                    break
-                case jacdac.RoleManagerCmd.ListRequiredRoles:
+                case jacdac.RoleManagerCmd.ListRoles:
                     OutPipe.respondForEach(
                         packet,
                         jacdac.bus.allClients,
