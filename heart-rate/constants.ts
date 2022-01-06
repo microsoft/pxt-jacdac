@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Heart Rate
+    // Service Heart Rate constants
     export const SRV_HEART_RATE = 0x166c6dc4
 
     export const enum HeartRateVariant { // uint8_t

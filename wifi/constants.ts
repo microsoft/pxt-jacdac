@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: WIFI
+    // Service WIFI constants
     export const SRV_WIFI = 0x18aae1fa
 
     export const enum WifiAPFlags { // uint32_t

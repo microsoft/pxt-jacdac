@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Sound level
+    // Service Sound level constants
     export const SRV_SOUND_LEVEL = 0x14ad1a5d
     export const enum SoundLevelReg {
         /**

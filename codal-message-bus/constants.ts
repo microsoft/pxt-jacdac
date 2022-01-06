@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: CODAL Message Bus
+    // Service CODAL Message Bus constants
     export const SRV_CODAL_MESSAGE_BUS = 0x121ff81d
     export const enum CodalMessageBusCmd {
         /**

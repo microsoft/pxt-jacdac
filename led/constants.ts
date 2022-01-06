@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: LED
+    // Service LED constants
     export const SRV_LED = 0x1e3048f8
 
     export const enum LedVariant { // uint8_t

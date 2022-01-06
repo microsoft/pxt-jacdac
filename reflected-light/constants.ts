@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Reflected light
+    // Service Reflected light constants
     export const SRV_REFLECTED_LIGHT = 0x126c4cb2
 
     export const enum ReflectedLightVariant { // uint8_t

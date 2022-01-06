@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: 7-segment display
+    // Service 7-segment display constants
     export const SRV_SEVEN_SEGMENT_DISPLAY = 0x196158f7
     export const enum SevenSegmentDisplayReg {
         /**

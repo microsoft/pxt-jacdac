@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Logger
+    // Service Logger constants
     export const SRV_LOGGER = 0x12dc1fca
 
     export const enum LoggerPriority { // uint8_t

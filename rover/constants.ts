@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Rover
+    // Service Rover constants
     export const SRV_ROVER = 0x19f4d06b
     export const enum RoverReg {
         /**

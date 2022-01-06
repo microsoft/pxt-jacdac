@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Motion
+    // Service Motion constants
     export const SRV_MOTION = 0x1179a749
 
     export const enum MotionVariant { // uint8_t

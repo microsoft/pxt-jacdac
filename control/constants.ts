@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Control
+    // Service Control constants
     export const SRV_CONTROL = 0x0
 
     export const enum ControlAnnounceFlags { // uint16_t

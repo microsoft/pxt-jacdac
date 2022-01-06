@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Speech synthesis
+    // Service Speech synthesis constants
     export const SRV_SPEECH_SYNTHESIS = 0x1204d995
     export const enum SpeechSynthesisReg {
         /**

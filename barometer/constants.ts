@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Barometer
+    // Service Barometer constants
     export const SRV_BAROMETER = 0x1e117cea
     export const enum BarometerReg {
         /**

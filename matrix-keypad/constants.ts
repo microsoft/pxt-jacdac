@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Matrix Keypad
+    // Service Matrix Keypad constants
     export const SRV_MATRIX_KEYPAD = 0x13062dc8
 
     export const enum MatrixKeypadVariant { // uint8_t

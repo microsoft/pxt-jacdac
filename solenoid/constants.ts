@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Solenoid
+    // Service Solenoid constants
     export const SRV_SOLENOID = 0x171723ca
 
     export const enum SolenoidVariant { // uint8_t

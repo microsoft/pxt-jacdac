@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Azure IoT Hub Health
+    // Service Azure IoT Hub Health constants
     export const SRV_AZURE_IOT_HUB_HEALTH = 0x1462eefc
 
     export const enum AzureIotHubHealthConnectionStatus { // uint16_t

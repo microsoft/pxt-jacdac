@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Sound player
+    // Service Sound player constants
     export const SRV_SOUND_PLAYER = 0x1403d338
     export const enum SoundPlayerReg {
         /**

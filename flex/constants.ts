@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Flex
+    // Service Flex constants
     export const SRV_FLEX = 0x1f47c6c6
     export const enum FlexReg {
         /**

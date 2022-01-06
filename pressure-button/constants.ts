@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Pressure Button
+    // Service Pressure Button constants
     export const SRV_PRESSURE_BUTTON = 0x281740c3
     export const enum PressureButtonReg {
         /**

@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Compass
+    // Service Compass constants
     export const SRV_COMPASS = 0x15b7b9bf
     export const enum CompassReg {
         /**

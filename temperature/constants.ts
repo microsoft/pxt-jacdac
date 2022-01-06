@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Temperature
+    // Service Temperature constants
     export const SRV_TEMPERATURE = 0x1421bac7
 
     export const enum TemperatureVariant { // uint8_t

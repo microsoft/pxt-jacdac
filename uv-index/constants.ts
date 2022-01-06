@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: UV index
+    // Service UV index constants
     export const SRV_UV_INDEX = 0x1f6e0d90
 
     export const enum UvIndexVariant { // uint8_t

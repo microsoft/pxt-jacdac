@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Color
+    // Service Color constants
     export const SRV_COLOR = 0x1630d567
     export const enum ColorReg {
         /**

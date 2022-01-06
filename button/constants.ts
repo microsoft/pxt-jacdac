@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Button
+    // Service Button constants
     export const SRV_BUTTON = 0x1473a263
     export const enum ButtonReg {
         /**

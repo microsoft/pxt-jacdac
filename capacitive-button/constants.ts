@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Capacitive Button
+    // Service Capacitive Button constants
     export const SRV_CAPACITIVE_BUTTON = 0x2865adc9
     export const enum CapacitiveButtonReg {
         /**

@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Character Screen
+    // Service Character Screen constants
     export const SRV_CHARACTER_SCREEN = 0x1f37c56a
 
     export const enum CharacterScreenVariant { // uint8_t

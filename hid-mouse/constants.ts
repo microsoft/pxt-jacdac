@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: HID Mouse
+    // Service HID Mouse constants
     export const SRV_HID_MOUSE = 0x1885dc1c
 
     export const enum HidMouseButton { // uint16_t

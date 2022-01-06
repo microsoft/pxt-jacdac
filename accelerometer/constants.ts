@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Accelerometer
+    // Service Accelerometer constants
     export const SRV_ACCELEROMETER = 0x1f140409
     export const enum AccelerometerReg {
         /**

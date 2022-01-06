@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Braille display
+    // Service Braille display constants
     export const SRV_BRAILLE_DISPLAY = 0x13bfb7cc
     export const enum BrailleDisplayReg {
         /**

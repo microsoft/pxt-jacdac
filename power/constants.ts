@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Power
+    // Service Power constants
     export const SRV_POWER = 0x1fa4c95a
 
     export const enum PowerPowerStatus { // uint8_t

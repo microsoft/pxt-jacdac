@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: MIDI output
+    // Service MIDI output constants
     export const SRV_MIDI_OUTPUT = 0x1a848cd7
     export const enum MidiOutputReg {
         /**

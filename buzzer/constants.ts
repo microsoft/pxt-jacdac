@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Buzzer
+    // Service Buzzer constants
     export const SRV_BUZZER = 0x1b57b1d7
     export const enum BuzzerReg {
         /**

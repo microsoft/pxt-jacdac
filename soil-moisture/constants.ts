@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Soil moisture
+    // Service Soil moisture constants
     export const SRV_SOIL_MOISTURE = 0x1d4aa3b3
 
     export const enum SoilMoistureVariant { // uint8_t

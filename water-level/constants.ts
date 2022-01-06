@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Water level
+    // Service Water level constants
     export const SRV_WATER_LEVEL = 0x147b62ed
 
     export const enum WaterLevelVariant { // uint8_t

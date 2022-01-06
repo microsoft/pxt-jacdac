@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Distance
+    // Service Distance constants
     export const SRV_DISTANCE = 0x141a6b8a
 
     export const enum DistanceVariant { // uint8_t

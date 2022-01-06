@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Weight Scale
+    // Service Weight Scale constants
     export const SRV_WEIGHT_SCALE = 0x1f4d5040
 
     export const enum WeightScaleVariant { // uint8_t

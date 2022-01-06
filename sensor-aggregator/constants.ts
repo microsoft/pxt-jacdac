@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Sensor Aggregator
+    // Service Sensor Aggregator constants
     export const SRV_SENSOR_AGGREGATOR = 0x1d90e1c5
 
     export const enum SensorAggregatorSampleType { // uint8_t

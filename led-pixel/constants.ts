@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: LED Pixel
+    // Service LED Pixel constants
     export const SRV_LED_PIXEL = 0x126f00e0
 
     export const enum LedPixelLightType { // uint8_t

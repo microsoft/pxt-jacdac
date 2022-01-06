@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: DMX
+    // Service DMX constants
     export const SRV_DMX = 0x11cf8c05
     export const enum DmxReg {
         /**

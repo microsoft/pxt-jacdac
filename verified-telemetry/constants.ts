@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Verified Telemetry
+    // Service Verified Telemetry constants
     export const SRV_VERIFIED_TELEMETRY = 0x2194841f
 
     export const enum VerifiedTelemetryStatus { // uint8_t

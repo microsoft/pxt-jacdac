@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Rain gauge
+    // Service Rain gauge constants
     export const SRV_RAIN_GAUGE = 0x13734c95
     export const enum RainGaugeReg {
         /**

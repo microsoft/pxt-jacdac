@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Dot Matrix
+    // Service Dot Matrix constants
     export const SRV_DOT_MATRIX = 0x110d154b
 
     export const enum DotMatrixVariant { // uint8_t

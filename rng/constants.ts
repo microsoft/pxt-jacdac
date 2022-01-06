@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Random Number Generator
+    // Service Random Number Generator constants
     export const SRV_RNG = 0x1789f0a2
 
     export const enum RngVariant { // uint8_t

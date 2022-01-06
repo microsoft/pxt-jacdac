@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Total Volatile organic compound
+    // Service Total Volatile organic compound constants
     export const SRV_TVOC = 0x12a5b597
     export const enum TvocReg {
         /**

@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: HID Keyboard
+    // Service HID Keyboard constants
     export const SRV_HID_KEYBOARD = 0x18b05b6a
 
     export const enum HidKeyboardModifiers { // uint8_t

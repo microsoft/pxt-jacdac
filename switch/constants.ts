@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Switch
+    // Service Switch constants
     export const SRV_SWITCH = 0x1ad29402
 
     export const enum SwitchVariant { // uint8_t

@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Bridge
+    // Service Bridge constants
     export const SRV_BRIDGE = 0x1fe5b46f
     export const enum BridgeReg {
         /**

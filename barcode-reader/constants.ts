@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Barcode reader
+    // Service Barcode reader constants
     export const SRV_BARCODE_READER = 0x1c739e6c
 
     export const enum BarcodeReaderFormat { // uint8_t

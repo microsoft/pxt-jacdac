@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Vibration motor
+    // Service Vibration motor constants
     export const SRV_VIBRATION_MOTOR = 0x183fc4a2
     export const enum VibrationMotorCmd {
         /**

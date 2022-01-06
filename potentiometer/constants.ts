@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Potentiometer
+    // Service Potentiometer constants
     export const SRV_POTENTIOMETER = 0x1f274746
 
     export const enum PotentiometerVariant { // uint8_t

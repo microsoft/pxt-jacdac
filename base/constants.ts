@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Base service
+    // Service Base service constants
     export const enum BaseCmd {
         /**
          * This report may be emitted by a server in response to a command (action or register operation)

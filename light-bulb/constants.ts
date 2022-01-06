@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Light bulb
+    // Service Light bulb constants
     export const SRV_LIGHT_BULB = 0x1cab054c
     export const enum LightBulbReg {
         /**

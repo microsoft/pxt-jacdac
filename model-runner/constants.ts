@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Model Runner
+    // Service Model Runner constants
     export const SRV_MODEL_RUNNER = 0x140f9a78
 
     export const enum ModelRunnerModelFormat { // uint32_t

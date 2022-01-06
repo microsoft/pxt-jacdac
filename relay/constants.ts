@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Relay
+    // Service Relay constants
     export const SRV_RELAY = 0x183fe656
 
     export const enum RelayVariant { // uint8_t

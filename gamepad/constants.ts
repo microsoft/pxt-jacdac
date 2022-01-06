@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Gamepad
+    // Service Gamepad constants
     export const SRV_GAMEPAD = 0x108f7456
 
     export const enum GamepadButtons { // uint32_t

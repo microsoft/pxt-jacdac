@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Role Manager
+    // Service Role Manager constants
     export const SRV_ROLE_MANAGER = 0x1e4b7e66
     export const enum RoleManagerReg {
         /**

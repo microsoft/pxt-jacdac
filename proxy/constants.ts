@@ -1,4 +1,4 @@
 namespace jacdac {
-    // Service: Proxy
+    // Service Proxy constants
     export const SRV_PROXY = 0x16f19949
 }

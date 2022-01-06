@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Wind direction
+    // Service Wind direction constants
     export const SRV_WIND_DIRECTION = 0x186be92b
     export const enum WindDirectionReg {
         /**

@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Bootloader
+    // Service Bootloader constants
     export const SRV_BOOTLOADER = 0x1ffa9948
 
     export const enum BootloaderError { // uint32_t

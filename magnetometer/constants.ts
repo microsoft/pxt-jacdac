@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Magnetometer
+    // Service Magnetometer constants
     export const SRV_MAGNETOMETER = 0x13029088
     export const enum MagnetometerReg {
         /**

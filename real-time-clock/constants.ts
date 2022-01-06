@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: Real time clock
+    // Service Real time clock constants
     export const SRV_REAL_TIME_CLOCK = 0x1a8b1a28
 
     export const enum RealTimeClockVariant { // uint8_t

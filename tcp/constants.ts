@@ -1,5 +1,5 @@
 namespace jacdac {
-    // Service: TCP
+    // Service TCP constants
     export const SRV_TCP = 0x1b43b70b
 
     export const enum TcpTcpError { // int32_t
