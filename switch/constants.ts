@@ -41,11 +41,11 @@ namespace jacdac {
         Variant = 0x107,
 
         /**
-         * Constant s u16.16 (uint32_t). Specifies the delay without activity to automatically turn off after turning on.
+         * Constant s u22.10 (uint32_t). Specifies the delay without activity to automatically turn off after turning on.
          * For example, some light switches in staircases have such a capability.
          *
          * ```
-         * const [autoOffDelay] = jdunpack<[number]>(buf, "u16.16")
+         * const [autoOffDelay] = jdunpack<[number]>(buf, "u22.10")
          * ```
          */
         AutoOffDelay = 0x180,

@@ -47,15 +47,6 @@ namespace jacdac {
         SetRegister = 0x2000,
 
         /**
-         * Event from sensor or a broadcast service.
-         *
-         * ```
-         * const [eventId, eventArgument] = jdunpack<[number, number]>(buf, "u32 u32")
-         * ```
-         */
-        Event = 0x1,
-
-        /**
          * No args. Request to calibrate a sensor. The report indicates the calibration is done.
          */
         Calibrate = 0x2,

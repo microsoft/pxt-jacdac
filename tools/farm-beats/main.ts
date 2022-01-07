@@ -50,7 +50,7 @@ basic.forever(function () {
     dataStreamer.writeString(",")
     dataStreamer.writeNumber(0)
     dataStreamer.writeString(",")
-    dataStreamer.writeNumber(boolToNumber(relay.closed()))
+    dataStreamer.writeNumber(boolToNumber(relay.active()))
     dataStreamer.writeString(",")
     dataStreamer.writeNumber(boolToNumber(input.buttonIsPressed(Button.A)))
     dataStreamer.writeLine()
