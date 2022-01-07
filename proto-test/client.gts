@@ -401,7 +401,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=71
-        rwU8StringString(): string {
+        rwU8StringStr(): string {
             this.start();            
             const values = this._rwU8String.pauseUntilValues() as any[];
             return values[1];
@@ -412,7 +412,7 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% weight=70
-        setRwU8StringString(value: string) {
+        setRwU8StringStr(value: string) {
             this.start();
             const values = this._rwU8String.values as any[];
             values[1] = value;
@@ -437,7 +437,7 @@ namespace modules {
         //% callInDebugger
         //% group="Protocol Test"
         //% weight=68
-        roU8StringString(): string {
+        roU8StringStr(): string {
             this.start();            
             const values = this._roU8String.pauseUntilValues() as any[];
             return values[1];
@@ -519,11 +519,11 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_bool_cmd
-        //% block="%prototest c bool $bool"
+        //% block="%prototest c bool $bo"
         //% weight=60
-        cBool(bool: boolean): void {
+        cBool(bo: boolean): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CBool, "u8", [bool]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CBool, "u8", [bo]))
         }
 
         /**
@@ -555,11 +555,11 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_string_cmd
-        //% block="%prototest c string $string"
+        //% block="%prototest c string $str"
         //% weight=57
-        cString(string: string): void {
+        cString(str: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CString, "s", [string]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CString, "s", [str]))
         }
 
         /**
@@ -591,11 +591,11 @@ namespace modules {
         */
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_u8_string_cmd
-        //% block="%prototest c u8 string |u8 $u8 |string $string"
+        //% block="%prototest c u8 string |u8 $u8 |str $str"
         //% weight=54
-        cU8String(u8: number, string: string): void {
+        cU8String(u8: number, str: string): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CU8String, "u8 s", [u8, string]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CU8String, "u8 s", [u8, str]))
         }
     
     }

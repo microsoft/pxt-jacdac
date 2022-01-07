@@ -114,7 +114,7 @@ namespace jacdac {
          * A read write u8, string register.
          *
          * ```
-         * const [u8, string] = jdunpack<[number, string]>(buf, "u8 s")
+         * const [u8, str] = jdunpack<[number, string]>(buf, "u8 s")
          * ```
          */
         RwU8String = 0x87,
@@ -123,7 +123,7 @@ namespace jacdac {
          * A read only u8, string register.. Mirrors rw_u8_string.
          *
          * ```
-         * const [u8, string] = jdunpack<[number, string]>(buf, "u8 s")
+         * const [u8, str] = jdunpack<[number, string]>(buf, "u8 s")
          * ```
          */
         RoU8String = 0x187,
@@ -131,10 +131,10 @@ namespace jacdac {
 
     export const enum ProtoTestEvent {
         /**
-         * Argument: bool bool (uint8_t). An event raised when rw_bool is modified
+         * Argument: bo bool (uint8_t). An event raised when rw_bool is modified
          *
          * ```
-         * const [bool] = jdunpack<[number]>(buf, "u8")
+         * const [bo] = jdunpack<[number]>(buf, "u8")
          * ```
          */
         //% block="e bool"
@@ -161,10 +161,10 @@ namespace jacdac {
         EI32 = 0x83,
 
         /**
-         * Argument: string string (bytes). An event raised when rw_string is modified
+         * Argument: str string (bytes). An event raised when rw_string is modified
          *
          * ```
-         * const [string] = jdunpack<[string]>(buf, "s")
+         * const [str] = jdunpack<[string]>(buf, "s")
          * ```
          */
         //% block="e string"
@@ -194,7 +194,7 @@ namespace jacdac {
          * An event raised when rw_u8_string is modified
          *
          * ```
-         * const [u8, string] = jdunpack<[number, string]>(buf, "u8 s")
+         * const [u8, str] = jdunpack<[number, string]>(buf, "u8 s")
          * ```
          */
         //% block="e u8 string"
@@ -203,10 +203,10 @@ namespace jacdac {
 
     export const enum ProtoTestCmd {
         /**
-         * Argument: bool bool (uint8_t). A command to set rw_bool.
+         * Argument: bo bool (uint8_t). A command to set rw_bool.
          *
          * ```
-         * const [bool] = jdunpack<[number]>(buf, "u8")
+         * const [bo] = jdunpack<[number]>(buf, "u8")
          * ```
          */
         CBool = 0x81,
@@ -230,10 +230,10 @@ namespace jacdac {
         CI32 = 0x83,
 
         /**
-         * Argument: string string (bytes). A command to set rw_string.
+         * Argument: str string (bytes). A command to set rw_string.
          *
          * ```
-         * const [string] = jdunpack<[string]>(buf, "s")
+         * const [str] = jdunpack<[string]>(buf, "s")
          * ```
          */
         CString = 0x84,
@@ -260,7 +260,7 @@ namespace jacdac {
          * A command to set rw_u8_string.
          *
          * ```
-         * const [u8, string] = jdunpack<[number, string]>(buf, "u8 s")
+         * const [u8, str] = jdunpack<[number, string]>(buf, "u8 s")
          * ```
          */
         CU8String = 0x87,

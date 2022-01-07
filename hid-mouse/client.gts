@@ -20,11 +20,11 @@ namespace modules {
         */
         //% group="HID Mouse"
         //% blockId=jacdac_hidmouse_set_button_cmd
-        //% block="%hidmouse set button |buttons $buttons |event $event"
+        //% block="%hidmouse set button |buttons $buttons |ev $ev"
         //% weight=100
-        setButton(buttons: jacdac.HidMouseButton, event: jacdac.HidMouseButtonEvent): void {
+        setButton(buttons: jacdac.HidMouseButton, ev: jacdac.HidMouseButtonEvent): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidMouseCmd.SetButton, "u16 u8", [buttons, event]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.HidMouseCmd.SetButton, "u16 u8", [buttons, ev]))
         }
 
         /**
