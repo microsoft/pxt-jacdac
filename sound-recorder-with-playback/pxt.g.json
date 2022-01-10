@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-sound-recorder-with-playback",
+    "version": "0.0.0",
+    "description": "A record and replay module. You can record a few seconds of audio and play it back.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
