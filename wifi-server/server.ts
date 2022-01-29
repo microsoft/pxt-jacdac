@@ -34,7 +34,7 @@ namespace servers {
                     this.scanFailed++;
                 if (this.scanFailed > 1) {
                     this.log("starting login server");
-                    controller.startLoginServer();
+                    controller.startLoginServer("jacdac");
                 }
             })
             controller.autoconnect()
