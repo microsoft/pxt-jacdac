@@ -443,7 +443,9 @@ namespace jacdac.twins {
     }
 
     function connect() {
-        if (!net.Net.instance.controller.isConnected) return false
+        if (!net.Net.instance.controller.isConnected) {
+            return false
+        }
 
         try {
             // connection key may not be set
@@ -524,18 +526,26 @@ namespace jacdac.twins {
         pause(1000)
         feedWatchdog()
         console.log("waiting until connected...")
-        pauseUntil(() => net.Net.instance.controller.isConnected)
-        console.log("getting specs...")
-        for (const d of jacdac.bus.devices) {
-            feedWatchdog()
-            for (let servIdx = 0; servIdx < d.serviceClassLength; ++servIdx) {
-                const cl = d.serviceClassAt(servIdx)
-                getServiceTwinSpec(cl)
-            }
+        let now = control.millis()
+        while(!net.Net.instance.controller.isConnected && control.millis() - now < 15000) {
+            console.log("connecting...")
+            pause(5000)
         }
-
-        feedWatchdog()
-        console.log("starting scan...")
-        setInterval(rescanDevices, 1000)
+        if (!net.Net.instance.controller.isConnected) {
+            console.log("connection failed, starting login portal")
+            net.Net.instance.controller.startLoginServer("jacdac")
+        } else {
+            console.log("getting specs...")
+            for (const d of jacdac.bus.devices) {
+                feedWatchdog()
+                for (let servIdx = 0; servIdx < d.serviceClassLength; ++servIdx) {
+                    const cl = d.serviceClassAt(servIdx)
+                    getServiceTwinSpec(cl)
+                }
+            }    
+            feedWatchdog()
+            console.log("starting scan...")
+            setInterval(rescanDevices, 1000)    
+        }
     }
 }

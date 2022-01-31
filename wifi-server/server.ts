@@ -1,7 +1,6 @@
 namespace servers {
     export class WiFiServer extends jacdac.Server {
         enabled = true
-        scanFailed = 0
         loginServerStarted = false
 
         constructor(dev: string) {
@@ -33,15 +32,6 @@ namespace servers {
                     jacdac.WifiEvent.ScanComplete,
                     jacdac.jdpack("u16 u16", [total, known])
                 )
-
-                if (known > 0)
-                    this.scanFailed = 0;
-                else
-                    this.scanFailed++;
-
-                if (this.scanFailed > 2) {
-                    this.startLoginServer()
-                }
             })
             controller.autoconnect()
         }
