@@ -2,6 +2,7 @@ namespace servers {
     export class WiFiServer extends jacdac.Server {
         enabled = true
         scanFailed = 0
+        loginServerStarted = false
 
         constructor(dev: string) {
             super(dev, jacdac.SRV_WIFI)
@@ -37,9 +38,9 @@ namespace servers {
                     this.scanFailed = 0;
                 else
                     this.scanFailed++;
+
                 if (this.scanFailed > 1) {
-                    this.log("starting login server");
-                    controller.startLoginServer("jacdac");
+                    this.startLoginServer()
                 }
             })
             controller.autoconnect()
@@ -128,6 +129,13 @@ namespace servers {
                     pkt.possiblyNotImplemented()
                     break
             }
+        }
+
+        startLoginServer() {
+            if (this.loginServerStarted) return
+
+            const controller = net.instance().controller
+            controller.startLoginServer("jacdac")
         }
     }
 
