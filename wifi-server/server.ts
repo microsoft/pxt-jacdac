@@ -5,6 +5,11 @@ namespace servers {
 
         constructor(dev: string) {
             super(dev, jacdac.SRV_WIFI)
+        }
+
+        start(): void {
+            if (this.running) return
+            super.start()
             const controller = net.instance().controller
             controller.onConnectSSIDFailed = (ssid: string) =>
                 this.sendEvent(
