@@ -39,7 +39,7 @@ namespace servers {
                 else
                     this.scanFailed++;
 
-                if (this.scanFailed > 1) {
+                if (this.scanFailed > 2) {
                     this.startLoginServer()
                 }
             })
