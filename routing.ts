@@ -329,7 +329,7 @@ namespace jacdac {
     export let logPriority = ConsolePriority.Debug
 
     function log(msg: string) {
-        console.add(logPriority, msg)
+        console.add(logPriority, "jd: " + msg)
     }
 
     //% fixedInstances
@@ -1534,7 +1534,7 @@ namespace jacdac {
             if (roleManagerServer.running) roleManagerServer.bindRoles()
         }
         // and we're done
-        log("jacdac started")
+        log("started")
     }
 
     export enum LedChannel {

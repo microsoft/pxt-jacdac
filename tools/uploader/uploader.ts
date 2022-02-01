@@ -1,6 +1,6 @@
 namespace userconfig { }
 
-control.setWatchdog(120)
+control.setWatchdog(180)
 
 jacdac.firmwareVersion = jacdac.VERSION
 jacdac.productIdentifier = 0x3fa1aea9

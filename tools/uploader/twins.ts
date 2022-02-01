@@ -3,6 +3,7 @@ namespace jacdac.twins {
     const READINGS_SEND_INTERVAL = 5000
     const MAX_HEADER_SIZE = 200
     const MAX_PACKET_SIZE = 1000 // this is transmitted as HEX, so grows 2x
+    const LOGIN_PORTAL_TIMEOUT = 60000 // try to connect for 1 minute, then give up
 
     let twins: DeviceTwin[]
     let exclusions: string[]
@@ -443,7 +444,9 @@ namespace jacdac.twins {
     }
 
     function connect() {
-        if (!net.Net.instance.controller.isConnected) return false
+        if (!net.Net.instance.controller.isConnected) {
+            return false
+        }
 
         try {
             // connection key may not be set
@@ -457,6 +460,7 @@ namespace jacdac.twins {
 
     let statusPhase = 0
     let sendTick = 0
+    let loginPortal = false
     const sim = control.deviceDalVersion() == "sim"
 
     function statusLight() {
@@ -476,8 +480,12 @@ namespace jacdac.twins {
             } else {
                 // quick
             }
+        } else if (loginPortal) {
+                r = sim ? 0xc000 : 0x0f00
+                g = sim ? 0xd000 : 0x0400
+                phase >>= 1 // slower blink
         } else {
-            r = sim ? 0xf000 : 0x2000
+                r = sim ? 0xf000 : 0x2000
         }
 
         phase = Math.abs((phase & 31) - 16)
@@ -523,8 +531,30 @@ namespace jacdac.twins {
         console.log("waiting for enumeration...")
         pause(1000)
         feedWatchdog()
-        console.log("waiting until connected...")
-        pauseUntil(() => net.Net.instance.controller.isConnected)
+
+        const knownAccessPoints = net.knownAccessPoints()
+        if (Object.keys(knownAccessPoints).length == 0) {
+            loginPortal = true
+            console.log("no known access points, starting login portal")
+            feedWatchdog()
+            net.Net.instance.controller.startLoginServer("jacdac")
+            return;
+        }
+        
+        let now = control.millis()
+        while(!net.Net.instance.controller.isConnected && control.millis() - now < LOGIN_PORTAL_TIMEOUT) {
+            console.log("connecting...")
+            pause(5000)
+        }
+        if (!net.Net.instance.controller.isConnected) {
+            loginPortal = true
+            console.log("connection failed, starting login portal")
+            feedWatchdog()
+            net.Net.instance.controller.startLoginServer("jacdac")
+            return;
+
+        }
+
         console.log("getting specs...")
         for (const d of jacdac.bus.devices) {
             feedWatchdog()
@@ -532,10 +562,9 @@ namespace jacdac.twins {
                 const cl = d.serviceClassAt(servIdx)
                 getServiceTwinSpec(cl)
             }
-        }
-
+        }    
         feedWatchdog()
         console.log("starting scan...")
-        setInterval(rescanDevices, 1000)
+        setInterval(rescanDevices, 1000)    
     }
 }

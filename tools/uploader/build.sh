@@ -2,7 +2,7 @@
 
 set -e
 set -x
-if test -d ../../../../../pxt-common-packages/libs/wifi---esp32 ; then
+if test -d ../../../../pxt-common-packages/libs/wifi---esp32 ; then
   cfg=mkc-local.json
 else
   cfg=mkc.json

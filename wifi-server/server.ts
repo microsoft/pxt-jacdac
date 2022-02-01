@@ -1,9 +1,15 @@
 namespace servers {
     export class WiFiServer extends jacdac.Server {
         enabled = true
+        loginServerStarted = false
 
         constructor(dev: string) {
             super(dev, jacdac.SRV_WIFI)
+        }
+
+        start(): void {
+            if (this.running) return
+            super.start()
             const controller = net.instance().controller
             controller.onConnectSSIDFailed = (ssid: string) =>
                 this.sendEvent(
@@ -113,6 +119,13 @@ namespace servers {
                     pkt.possiblyNotImplemented()
                     break
             }
+        }
+
+        startLoginServer() {
+            if (this.loginServerStarted) return
+
+            const controller = net.instance().controller
+            controller.startLoginServer("jacdac")
         }
     }
 

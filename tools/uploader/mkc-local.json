@@ -3,9 +3,9 @@
         "../../mkc-maker.json"
     ],
     "links": {
-        "wifi---esp32": "../../../../../pxt-common-packages/libs/wifi---esp32",
-        "net": "../../../../../pxt-common-packages/libs/net",
-        "mqtt": "../../../../../pxt-common-packages/libs/mqtt",
-        "azureiot": "../../../../../pxt-common-packages/libs/azureiot"
+        "wifi---esp32": "../../../../pxt-common-packages/libs/wifi---esp32",
+        "net": "../../../../pxt-common-packages/libs/net",
+        "mqtt": "../../../../pxt-common-packages/libs/mqtt",
+        "azureiot": "../../../../pxt-common-packages/libs/azureiot"
     }
 }
