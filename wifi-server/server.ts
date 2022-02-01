@@ -46,6 +46,7 @@ namespace servers {
             )
             if (newEn != this.enabled) {
                 this.enabled = newEn
+                if (this.loginServerStarted) return
                 if (this.enabled) controller.autoconnect()
                 else controller.disconnect()
             }
@@ -75,9 +76,11 @@ namespace servers {
                     )
                     break
                 case jacdac.WifiCmd.Reconnect:
+                    if (this.loginServerStarted) return
                     controller.disconnectAP()
                     break
                 case jacdac.WifiCmd.Scan:
+                    if (this.loginServerStarted) return
                     control.runInBackground(() => controller.scanNetworks())
                     break
                 case jacdac.WifiCmd.AddNetwork: {
