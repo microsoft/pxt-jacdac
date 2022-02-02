@@ -361,7 +361,7 @@ namespace jacdac {
         }
 
         get statusVendorCode() {
-            return this._statusCode
+            return this._statusVendorCode
         }
 
         setStatusCode(code: number) {
