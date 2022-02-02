@@ -332,6 +332,10 @@ namespace jacdac {
         console.add(logPriority, "jd: " + msg)
     }
 
+    export interface ServerOptions {
+        variant?: number;
+    }
+
     //% fixedInstances
     export class Server extends EventSource {
         protected supressLog: boolean
@@ -339,12 +343,16 @@ namespace jacdac {
         serviceIndex: number
         protected stateUpdated: boolean
         private _statusCode = 0 // u16, u16
+        private variant?: number;
 
         constructor(
             public readonly instanceName: string,
-            public readonly serviceClass: number
+            public readonly serviceClass: number,
+            options?: ServerOptions
         ) {
             super()
+
+            this.variant = options ? options.variant : undefined
         }
 
         get statusCode() {
@@ -366,6 +374,9 @@ namespace jacdac {
                     break
                 case SystemReg.InstanceName | SystemCmd.GetRegister:
                     this.handleInstanceName(pkt)
+                    break
+                case SystemReg.Variant | SystemCmd.GetRegister:
+                    this.handleVariant(pkt)
                     break
                 default:
                     this.stateUpdated = false
@@ -414,6 +425,16 @@ namespace jacdac {
                 "s",
                 this.instanceName || ""
             )
+        }
+
+        private handleVariant(pkt: JDPacket) {
+            if (this.variant != undefined)
+                this.handleRegValue(
+                    pkt,
+                    SystemReg.Variant,
+                    "u8",
+                    this.variant
+                )
         }
 
         protected handleRegFormat<T extends any[]>(
