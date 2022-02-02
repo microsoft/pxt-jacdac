@@ -538,6 +538,7 @@ namespace jacdac.twins {
             console.log("no known access points, starting login portal")
             feedWatchdog()
             net.Net.instance.controller.startLoginServer("jacdac")
+            servers.wifi.setStatusCode(jacdac.SystemStatusCodes.WaitingForInput)
             return;
         }
         
