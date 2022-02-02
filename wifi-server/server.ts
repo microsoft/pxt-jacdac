@@ -33,10 +33,12 @@ namespace servers {
                     jacdac.jdpack("u16 u16", [total, known])
                 )
             })
-            //controller.onEvent(net.Controller.LoginServerStarted, () => {
-            //    this.setStatusCode(jacdac.SystemStatusCodes.WaitingForInput)
-            //})
+            controller.onEvent(net.ControllerEvent.LoginServerStarted, () => {
+                this.setStatusCode(jacdac.SystemStatusCodes.WaitingForInput)
+            })
             controller.autoconnect()
+            if (net.instance().controller.isLoginServerEnabled())
+                this.setStatusCode(jacdac.SystemStatusCodes.WaitingForInput)
         }
 
         handlePacket(pkt: jacdac.JDPacket) {
