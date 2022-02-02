@@ -11,6 +11,8 @@ namespace servers {
             minReading: -10,
             maxReading: 50,
             variant: VARIANT,
+            streamingInterval: 1000,
+            readingError: () => 3,
         }
     )
 }
