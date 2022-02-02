@@ -342,7 +342,8 @@ namespace jacdac {
         running: boolean
         serviceIndex: number
         protected stateUpdated: boolean
-        private _statusCode = 0 // u16, u16
+        private _statusCode = 0
+        private _statusVendorCode = 0
         private variant?: number;
 
         constructor(
@@ -359,10 +360,22 @@ namespace jacdac {
             return this._statusCode
         }
 
-        setStatusCode(code: number, vendorCode: number) {
-            const c = ((code & 0xffff) << 16) | (vendorCode & 0xffff)
-            if (c !== this._statusCode) {
-                this._statusCode = c
+        get statusVendorCode() {
+            return this._statusCode
+        }
+
+        setStatusCode(code: number) {
+            const cc = (code & 0xffff)
+            if (cc !== this._statusCode) {
+                this._statusCode = cc
+                this.sendChangeEvent()
+            }
+        }
+
+        setStatusVendorCode(vendorCode: number) {
+            const cc = (vendorCode & 0xffff)
+            if (cc !== this._statusVendorCode) {
+                this._statusVendorCode = cc
                 this.sendChangeEvent()
             }
         }
@@ -415,7 +428,7 @@ namespace jacdac {
         }
 
         private handleStatusCode(pkt: JDPacket) {
-            this.handleRegUInt32(pkt, SystemReg.StatusCode, this._statusCode)
+            this.handleRegFormat(pkt, SystemReg.StatusCode, "u16 u16", [this._statusCode, this._statusVendorCode])
         }
 
         private handleInstanceName(pkt: JDPacket) {
