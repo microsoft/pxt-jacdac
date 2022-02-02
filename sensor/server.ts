@@ -1,4 +1,8 @@
 namespace jacdac {
+    export interface SensorServerOptions extends ServerOptions {
+        streamingInterval?: number
+    }
+
     /**
      * JacDac service running on sensor and streaming data out
      */
@@ -6,10 +10,16 @@ namespace jacdac {
         public streamingInterval: number // millis
         public streamingSamples: number
 
-        constructor(name: string, deviceClass: number) {
-            super(name, deviceClass)
-            this.streamingInterval = 100
+        constructor(
+            name: string,
+            serviceClass: number,
+            options?: SensorServerOptions
+        ) {
+            super(name, serviceClass, options)
+            options = options || {}
+
             this.streamingSamples = 0
+            this.streamingInterval = options.streamingInterval || 100
         }
 
         public handlePacket(packet: JDPacket) {
@@ -114,5 +124,81 @@ namespace jacdac {
                 pauseUntil(() => this.streamingSamples === 0)
             }
         }
+    }
+
+    export interface SimpleSensorServerOptions extends SensorServerOptions {
+        minReading?: number
+        maxReading?: number
+        readingError?: () => number
+    }
+
+    class SimpleSensorServer extends SensorServer {
+        readonly packFormat: string
+        readonly stateReader: () => number
+        private minReading?: number
+        private maxReading?: number
+        private readingError?: () => number
+
+        constructor(
+            name: string,
+            serviceClass: number,
+            packFormat: string,
+            stateReader: () => number,
+            options?: SimpleSensorServerOptions
+        ) {
+            super(name, serviceClass, options)
+
+            this.packFormat = packFormat
+            this.stateReader = stateReader
+            this.minReading = options ? options.minReading : undefined
+            this.maxReading = options ? options.maxReading : undefined
+            this.readingError = options ? options.readingError : undefined
+        }
+
+        public handlePacket(pkt: jacdac.JDPacket) {
+            super.handlePacket(pkt)
+            if (this.minReading !== undefined)
+                this.handleRegValue(
+                    pkt,
+                    jacdac.SystemReg.MinReading,
+                    this.packFormat,
+                    this.minReading
+                )
+            if (this.maxReading !== undefined)
+                this.handleRegValue(
+                    pkt,
+                    jacdac.SystemReg.MaxReading,
+                    this.packFormat,
+                    this.maxReading
+                )
+            if (this.readingError !== undefined)
+                this.handleRegValue(
+                    pkt,
+                    jacdac.SystemReg.MaxReading,
+                    this.packFormat,
+                    this.readingError()
+                )
+        }
+
+        serializeState() {
+            const v = this.stateReader()
+            return jacdac.jdpack(this.packFormat, [v])
+        }
+    }
+
+    export function createSimpleSensorServer(
+        name: string,
+        serviceClass: number,
+        packFormat: string,
+        stateReader: () => number,
+        options?: SimpleSensorServerOptions
+    ): SensorServer {
+        return new SimpleSensorServer(
+            name,
+            serviceClass,
+            packFormat,
+            stateReader,
+            options
+        )
     }
 }

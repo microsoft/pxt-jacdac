@@ -16,7 +16,7 @@ namespace servers {
         servers.screenServer.start()
         servers.soundLevelServer.start()
         servers.lightLevelServer.start()
-        servers.thermometerServer.start()
+        servers.temperatureServer.start()
         servers.accelerometerServer.start()
         servers.buzzerServer.start()
         servers.soundPlayerServer.start()
