@@ -1,16 +1,6 @@
 namespace modules {
     /**
      * Discovery and connection to WiFi networks. Separate TCP service can be used for data transfer.
-     * 
-     * The device controlled by this service is meant to connect automatically, once configured.
-     * To that end, it keeps a list of known WiFi networks, with priorities and passwords.
-     * It will connect to the available network with numerically highest priority,
-     * breaking ties in priority by signal strength (typically all known networks have priority of `0`).
-     * If the connection fails (due to wrong password, radio failure, or other problem)
-     * an `connection_failed` event is emitted, and the device will try to connect to the next eligible network.
-     * When networks are exhausted, the scan is performed again and the connection process restarts.
-     * 
-     * Updating networks (setting password, priorties, forgetting) does not trigger an automatic reconnect.
      **/
     //% fixedInstances blockGap=8
     export class WifiClient extends jacdac.Client {

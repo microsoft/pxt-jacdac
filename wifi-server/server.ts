@@ -124,6 +124,7 @@ namespace servers {
         startLoginServer() {
             if (this.loginServerStarted) return
 
+            this.setStatusCode(jacdac.SystemStatusCodes.WaitingForInput, 0);
             const controller = net.instance().controller
             controller.startLoginServer("jacdac")
         }

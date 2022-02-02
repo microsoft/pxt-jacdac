@@ -1,6 +1,16 @@
 namespace jacdac {
     // Service Jacscript Cloud constants
     export const SRV_JACSCRIPT_CLOUD = 0x14606e9c
+
+    export const enum JacscriptCloudCommandStatus { // uint32_t
+        //% block="ok"
+        OK = 0xc8,
+        //% block="not found"
+        NotFound = 0x194,
+        //% block="busy"
+        Busy = 0x1ad,
+    }
+
     export const enum JacscriptCloudCmd {
         /**
          * Upload a labelled tuple of values to the cloud.
@@ -30,20 +40,10 @@ namespace jacdac {
          */
 
         /**
-         * Argument: path string (bytes). Subscribe to updates to twin at specific path.
-         * Generates `twin_changed` events.
-         *
-         * ```
-         * const [path] = jdunpack<[string]>(buf, "s")
-         * ```
-         */
-        SubscribeTwin = 0x82,
-
-        /**
          * Should be called by jacscript when it finishes handling a `cloud_command`.
          *
          * ```
-         * const [seqNo, result] = jdunpack<[number, number[]]>(buf, "u32 f64[]")
+         * const [seqNo, status, result] = jdunpack<[number, jacdac.JacscriptCloudCommandStatus, number[]]>(buf, "u32 u32 f64[]")
          * ```
          */
         AckCloudCommand = 0x83,
@@ -63,17 +63,6 @@ namespace jacdac {
 
     export const enum JacscriptCloudEvent {
         /**
-         * Emitted when a twin is updated at given path.
-         * It will be also emitted once immediately after `subscribe_twin`.
-         *
-         * ```
-         * const [path, value] = jdunpack<[string, number]>(buf, "z f64")
-         * ```
-         */
-        //% block="twin changed"
-        TwinChanged = 0x80,
-
-        /**
          * Emitted when cloud requests jacscript to run some action.
          *
          * ```
@@ -82,6 +71,12 @@ namespace jacdac {
          */
         //% block="cloud command"
         CloudCommand = 0x81,
+
+        /**
+         * Emitted whenever any of the twin properties change.
+         */
+        //% block="twin change"
+        TwinChange = 0x3,
     }
 
 }
