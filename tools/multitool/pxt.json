@@ -13,7 +13,7 @@
         "jacdac-button": "github:microsoft/pxt-jacdac/button",
         "jacdac-buzzer": "github:microsoft/pxt-jacdac/buzzer",
         "jacdac-rotary-encoder": "github:microsoft/pxt-jacdac/rotary-encoder",
-        "jacdac-led-pixel": "github:microsoft/pxt-jacdac/led-pixel",
+        "jacdac-led-strip": "github:microsoft/pxt-jacdac/led-strip",
         "jacdac-led": "github:microsoft/pxt-jacdac/led"
     },
     "files": [
