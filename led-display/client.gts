@@ -1,6 +1,9 @@
 namespace modules {
     /**
      * A controller for small displays of individually controlled RGB LEDs.
+     * 
+     * This service handles displays with 64 or less LEDs.
+     * Use the [LED strip service](/services/ledstrip) for longer light strips.
      **/
     //% fixedInstances blockGap=8
     export class LedDisplayClient extends jacdac.Client {
@@ -29,7 +32,7 @@ namespace modules {
     
 
         /**
-        * For short LED strips, less than `max_pixels_length`, a buffer of 24bit RGB color entries for each LED.
+        * A buffer of 24bit RGB color entries for each LED, in R, G, B order.
         */
         //% callInDebugger
         //% group="Light"
@@ -43,7 +46,7 @@ namespace modules {
         }
 
         /**
-        * For short LED strips, less than `max_pixels_length`, a buffer of 24bit RGB color entries for each LED.
+        * A buffer of 24bit RGB color entries for each LED, in R, G, B order.
         */
         //% group="Light"
         //% blockId=jacdac_leddisplay_pixels___set
@@ -105,8 +108,6 @@ namespace modules {
 
         /**
         * Specifies the type of light strip connected to controller.
-        * Controllers which are sold with lights should default to the correct type
-        * and could not allow change.
         */
         //% callInDebugger
         //% group="Light"
@@ -119,8 +120,6 @@ namespace modules {
 
         /**
         * Specifies the number of pixels in the strip.
-        * Controllers which are sold with lights should default to the correct length
-        * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
         */
         //% callInDebugger
         //% group="Light"
@@ -132,8 +131,7 @@ namespace modules {
         }
 
         /**
-        * If the LED pixel strip is a matrix, specifies the number of columns. Otherwise, a square shape is assumed. Controllers which are sold with lights should default to the correct length
-        * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
+        * If the LED pixel strip is a matrix, specifies the number of columns.
         */
         //% callInDebugger
         //% group="Light"
