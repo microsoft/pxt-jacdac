@@ -3,30 +3,30 @@ namespace modules {
      * A controller for strips of individually controlled RGB LEDs.
      **/
     //% fixedInstances blockGap=8
-    export class LedPixelClient extends jacdac.Client {
+    export class LedStripClient extends jacdac.Client {
 
         private readonly _brightness : jacdac.RegisterClient<[number]>;
         private readonly _actualBrightness : jacdac.RegisterClient<[number]>;
-        private readonly _lightType : jacdac.RegisterClient<[jacdac.LedPixelLightType]>;
+        private readonly _lightType : jacdac.RegisterClient<[jacdac.LedStripLightType]>;
         private readonly _numPixels : jacdac.RegisterClient<[number]>;
         private readonly _numColumns : jacdac.RegisterClient<[number]>;
         private readonly _maxPower : jacdac.RegisterClient<[number]>;
         private readonly _maxPixels : jacdac.RegisterClient<[number]>;
         private readonly _numRepeats : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.LedPixelVariant]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.LedStripVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_LED_PIXEL, role);
+            super(jacdac.SRV_LED_STRIP, role);
 
-            this._brightness = this.addRegister<[number]>(jacdac.LedPixelReg.Brightness, "u0.8");
-            this._actualBrightness = this.addRegister<[number]>(jacdac.LedPixelReg.ActualBrightness, "u0.8");
-            this._lightType = this.addRegister<[jacdac.LedPixelLightType]>(jacdac.LedPixelReg.LightType, "u8");
-            this._numPixels = this.addRegister<[number]>(jacdac.LedPixelReg.NumPixels, "u16");
-            this._numColumns = this.addRegister<[number]>(jacdac.LedPixelReg.NumColumns, "u16");
-            this._maxPower = this.addRegister<[number]>(jacdac.LedPixelReg.MaxPower, "u16");
-            this._maxPixels = this.addRegister<[number]>(jacdac.LedPixelReg.MaxPixels, "u16");
-            this._numRepeats = this.addRegister<[number]>(jacdac.LedPixelReg.NumRepeats, "u16");
-            this._variant = this.addRegister<[jacdac.LedPixelVariant]>(jacdac.LedPixelReg.Variant, "u8");            
+            this._brightness = this.addRegister<[number]>(jacdac.LedStripReg.Brightness, "u0.8");
+            this._actualBrightness = this.addRegister<[number]>(jacdac.LedStripReg.ActualBrightness, "u0.8");
+            this._lightType = this.addRegister<[jacdac.LedStripLightType]>(jacdac.LedStripReg.LightType, "u8");
+            this._numPixels = this.addRegister<[number]>(jacdac.LedStripReg.NumPixels, "u16");
+            this._numColumns = this.addRegister<[number]>(jacdac.LedStripReg.NumColumns, "u16");
+            this._maxPower = this.addRegister<[number]>(jacdac.LedStripReg.MaxPower, "u16");
+            this._maxPixels = this.addRegister<[number]>(jacdac.LedStripReg.MaxPixels, "u16");
+            this._numRepeats = this.addRegister<[number]>(jacdac.LedStripReg.NumRepeats, "u16");
+            this._variant = this.addRegister<[jacdac.LedStripVariant]>(jacdac.LedStripReg.Variant, "u8");            
         }
     
 
@@ -36,8 +36,8 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Light"
-        //% block="%ledpixel brightness"
-        //% blockId=jacdac_ledpixel_brightness___get
+        //% block="%ledstrip brightness"
+        //% blockId=jacdac_ledstrip_brightness___get
         //% weight=100
         brightness(): number {
             this.start();            
@@ -50,8 +50,8 @@ namespace modules {
         * At `0` the power to the strip is completely shut down.
         */
         //% group="Light"
-        //% blockId=jacdac_ledpixel_brightness___set
-        //% block="set %ledpixel brightness to %value"
+        //% blockId=jacdac_ledstrip_brightness___set
+        //% block="set %ledstrip brightness to %value"
         //% weight=99
         //% value.min=0
         //% value.max=100
@@ -85,7 +85,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=97
-        lightType(): jacdac.LedPixelLightType {
+        lightType(): jacdac.LedStripLightType {
             this.start();            
             const values = this._lightType.pauseUntilValues() as any[];
             return values[0];
@@ -98,11 +98,11 @@ namespace modules {
         */
         //% group="Light"
         //% weight=96
-        setLightType(value: jacdac.LedPixelLightType) {
+        setLightType(value: jacdac.LedStripLightType) {
             this.start();
             const values = this._lightType.values as any[];
             values[0] = value;
-            this._lightType.values = values as [jacdac.LedPixelLightType];
+            this._lightType.values = values as [jacdac.LedStripLightType];
         }
 
         /**
@@ -241,7 +241,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=86
-        variant(): jacdac.LedPixelVariant {
+        variant(): jacdac.LedStripVariant {
             this.start();            
             const values = this._variant.pauseUntilValues() as any[];
             return values[0];
@@ -252,15 +252,15 @@ namespace modules {
         * Run the given light "program". See service description for details.
         */
         //% group="Light"
-        //% blockId=jacdac_ledpixel_run_cmd
-        //% block="%ledpixel run $program"
+        //% blockId=jacdac_ledstrip_run_cmd
+        //% block="%ledstrip run $program"
         //% weight=85
         run(program: Buffer): void {
             this.start();
-            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.LedPixelCmd.Run, "b", [program]))
+            this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.LedStripCmd.Run, "b", [program]))
         }
     
     }
-    //% fixedInstance whenUsed block="led pixel1"
-    export const ledPixel1 = new LedPixelClient("led Pixel1");
+    //% fixedInstance whenUsed block="led strip1"
+    export const ledStrip1 = new LedStripClient("led Strip1");
 }

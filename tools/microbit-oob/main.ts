@@ -57,7 +57,7 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
 })
 
 // special handling for actuators (multi-command) and sensors (streaming)
-const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_PIXEL, jacdac.SRV_LED]
+const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_STRIP, jacdac.SRV_LED]
 const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
@@ -98,8 +98,8 @@ function checkForKnownService(
 // led pixel functions
 
 function runProgram(prog: Buffer) {
-    const pkt = jacdac.JDPacket.from(jacdac.LedPixelCmd.Run, prog)
-    pkt.sendAsMultiCommand(jacdac.SRV_LED_PIXEL)
+    const pkt = jacdac.JDPacket.from(jacdac.LedStripCmd.Run, prog)
+    pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
 }
 
 function runEncoded(prog: string, args?: number[]) {
@@ -118,23 +118,23 @@ function rotatePixel(clicks: number) {
 
 function setPixelBrightness(ratio: number) {
     const pkt = jacdac.JDPacket.jdpacked(
-        jacdac.CMD_SET_REG | jacdac.LedPixelReg.Brightness,
+        jacdac.CMD_SET_REG | jacdac.LedStripReg.Brightness,
         "u0.8",
         [ratio]
     )
-    pkt.sendAsMultiCommand(jacdac.SRV_LED_PIXEL)
+    pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
 }
 
 function configureActuator(dev: jacdac.Device, serviceClass: number) {
     if (serviceClass === jacdac.SRV_SERVO) {
         // nothing to do here
-    } else if (serviceClass === jacdac.SRV_LED_PIXEL) {
+    } else if (serviceClass === jacdac.SRV_LED_STRIP) {
         const pkt = jacdac.JDPacket.jdpacked(
-            jacdac.CMD_SET_REG | jacdac.LedPixelReg.Brightness,
+            jacdac.CMD_SET_REG | jacdac.LedStripReg.Brightness,
             "u0.8",
             [0.1]
         )
-        pkt.sendAsMultiCommand(jacdac.SRV_LED_PIXEL)
+        pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
         setPixel(0, 0xff0000)
     } else if (serviceClass === jacdac.SRV_LED) {
         // nothing to do here
@@ -379,7 +379,7 @@ function actuate(b: Button) {
     serviceKeys.forEach((sc: number) => {
         if (sc === jacdac.SRV_SERVO) {
             setServoAngle(b)
-        } else if (sc === jacdac.SRV_LED_PIXEL) {
+        } else if (sc === jacdac.SRV_LED_STRIP) {
             animateLEDs(b)
         } else if (sc === jacdac.SRV_LED) {
             animateLED(b)

@@ -58,11 +58,11 @@ const serviceDescs: ServiceDesc[] = [
     new ServiceDesc(jacdac.SRV_ACCELEROMETER, "acc", num =>
         modules.accelerometer1.setStreaming(num & 1 ? true : false)
     ),
-    new ServiceDesc(jacdac.SRV_LED_PIXEL, "light", num => {
-        const cl = modules.ledPixel1
+    new ServiceDesc(jacdac.SRV_LED_STRIP, "light", num => {
+        const cl = modules.ledStrip1
         cl.setBrightness(10)
         //cl.setStrip(128, jacdac.LightType.WS2812B_SK9822)
-        cl.configure(80, jacdac.LedPixelLightType.WS2812B_GRB)
+        cl.configure(80, jacdac.LedStripLightType.WS2812B_GRB)
 
         const duration = 30 * 1000
         //cl.showAnimation(new jacdac.lightanimation.ColorWipe, duration)

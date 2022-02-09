@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-led-pixel",
+    "name": "jacdac-led-display",
     "version": "0.0.0",
-    "description": "A controller for strips of individually controlled RGB LEDs.",
+    "description": "A controller for small displays of individually controlled RGB LEDs.",
     "files": [
         "constants.ts",
         "client.g.ts"
