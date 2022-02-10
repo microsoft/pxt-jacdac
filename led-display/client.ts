@@ -118,7 +118,9 @@ namespace modules {
             if (!pixels) return;
 
             this.start()
-            this._pixels.values = [pixels];
+            const currentPixels = this.pixels()
+            pixels.write(currentPixels, 0)
+            this._pixels.values = [currentPixels] as [Buffer];
         }
 
         /**
@@ -247,7 +249,7 @@ namespace modules {
          * Set a single of the pixels on the strip to one RGB color.
          * @param rgb RGB color of the LED
          */
-        //% blockId="jacdac_leddisplay_set_pixel_color" block="set %strip color at %index pixels to %rgb=colorNumberPicker"
+        //% blockId="jacdac_leddisplay_set_pixel_color" block="set %display color at %index pixels to %rgb=colorNumberPicker"
         //% weight=81 blockGap=8
         //% group="LED Pixel"
         setPixel(index: number, rgb: number) {
@@ -265,7 +267,7 @@ namespace modules {
          * Set all of the pixels on the strip to one RGB color.
          * @param rgb RGB color of the LED
          */
-        //% blockId="jacdac_leddisplay_set_strip_color" block="set %strip all pixels to %rgb=colorNumberPicker"
+        //% blockId="jacdac_leddisplay_set_strip_color" block="set %display all pixels to %rgb=colorNumberPicker"
         //% weight=80 blockGap=8
         //% group="LED Pixel"
         setAll(rgb: number) {
