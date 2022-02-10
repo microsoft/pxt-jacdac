@@ -333,7 +333,7 @@ namespace jacdac {
     }
 
     export interface ServerOptions {
-        variant?: number;
+        variant?: number
     }
 
     //% fixedInstances
@@ -344,7 +344,7 @@ namespace jacdac {
         protected stateUpdated: boolean
         private _statusCode = 0
         private _statusVendorCode = 0
-        private variant?: number;
+        private variant?: number
 
         constructor(
             public readonly instanceName: string,
@@ -365,7 +365,7 @@ namespace jacdac {
         }
 
         setStatusCode(code: number) {
-            const cc = (code & 0xffff)
+            const cc = code & 0xffff
             if (cc !== this._statusCode) {
                 this._statusCode = cc
                 this.sendChangeEvent()
@@ -373,7 +373,7 @@ namespace jacdac {
         }
 
         setStatusVendorCode(vendorCode: number) {
-            const cc = (vendorCode & 0xffff)
+            const cc = vendorCode & 0xffff
             if (cc !== this._statusVendorCode) {
                 this._statusVendorCode = cc
                 this.sendChangeEvent()
@@ -428,7 +428,10 @@ namespace jacdac {
         }
 
         private handleStatusCode(pkt: JDPacket) {
-            this.handleRegFormat(pkt, SystemReg.StatusCode, "u16 u16", [this._statusCode, this._statusVendorCode])
+            this.handleRegFormat(pkt, SystemReg.StatusCode, "u16 u16", [
+                this._statusCode,
+                this._statusVendorCode,
+            ])
         }
 
         private handleInstanceName(pkt: JDPacket) {
@@ -442,12 +445,7 @@ namespace jacdac {
 
         private handleVariant(pkt: JDPacket) {
             if (this.variant != undefined)
-                this.handleRegValue(
-                    pkt,
-                    SystemReg.Variant,
-                    "u8",
-                    this.variant
-                )
+                this.handleRegValue(pkt, SystemReg.Variant, "u8", this.variant)
         }
 
         protected handleRegFormat<T extends any[]>(
@@ -1450,24 +1448,7 @@ namespace jacdac {
         }
     }
 
-    export const JACDAC_PROXY_SETTING = "__jacdac_proxy"
-    function startProxy() {
-        // check if a proxy restart was requested
-        if (!settings.exists(JACDAC_PROXY_SETTING)) return
-
-        log(`jacdac starting proxy`)
-        // clear proxy flag
-        settings.remove(JACDAC_PROXY_SETTING)
-
-        start({
-            disableLogger: true,
-            disableRoleManager: true,
-            noWait: true,
-        })
-
-        new ProxyServer().start()
-        jacdac.bus.proxyMode = true
-
+    function proxyLoop() {
         jacdac.bus.on(PACKET_PROCESS, () => {
             jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyPacketReceived)
         })
@@ -1477,7 +1458,6 @@ namespace jacdac {
 
         let statusPhase = 0
         const sim = control.deviceDalVersion() == "sim"
-
         // don't allow main to run until next reset
         while (true) {
             statusPhase++
@@ -1498,6 +1478,50 @@ namespace jacdac {
             pause(100)
         }
     }
+
+    /*
+    Usage: in your library top-level code add:
+    if (jacdac.checkProxy()) {
+        // do special proxy stuff
+        jacdac.proxyFinalize()
+    }
+    */
+
+    export function checkProxy() {
+        settings.writeString(JACDAC_PROXY_SETTING_LATE, "1")
+        return jacdac.bus.proxyMode
+    }
+
+    export function proxyFinalize() {
+        if (!jacdac.bus.proxyMode) throw "oops"
+        proxyLoop()
+    }
+
+    export const JACDAC_PROXY_SETTING = "__jacdac_proxy"
+    export const JACDAC_PROXY_SETTING_LATE = "__jacdac_proxy_late"
+    function startProxy() {
+        let isLate = settings.exists(JACDAC_PROXY_SETTING_LATE)
+        if (isLate) settings.remove(JACDAC_PROXY_SETTING_LATE)
+
+        // check if a proxy restart was requested
+        if (!settings.exists(JACDAC_PROXY_SETTING)) return
+
+        log(`jacdac starting proxy`)
+        // clear proxy flag
+        settings.remove(JACDAC_PROXY_SETTING)
+
+        start({
+            disableLogger: true,
+            disableRoleManager: true,
+            noWait: true,
+        })
+
+        new ProxyServer().start()
+        jacdac.bus.proxyMode = true
+
+        if (!isLate) proxyLoop()
+    }
+
     function resetToProxy() {
         log(`reset into proxy mode`)
         settings.writeNumber(JACDAC_PROXY_SETTING, 1)
