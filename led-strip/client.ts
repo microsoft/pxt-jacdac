@@ -62,7 +62,7 @@ namespace modules {
          * At `0` the power to the strip is completely shut down.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% block="%ledpixel brightness"
         //% blockId=jacdac_ledpixel_brightness___get
         //% weight=100
@@ -76,7 +76,7 @@ namespace modules {
          * Set the luminosity of the strip.
          * At `0` the power to the strip is completely shut down.
          */
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% blockId=jacdac_ledpixel_brightness___set
         //% block="set %ledpixel brightness to %value"
         //% weight=99
@@ -96,7 +96,7 @@ namespace modules {
          * It will rise slowly (few seconds) back to `brightness` is limits are no longer required.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=98
         actualBrightness(): number {
             this.start()
@@ -110,7 +110,7 @@ namespace modules {
          * and could not allow change.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=97
         lightType(): jacdac.LedStripLightType {
             this.start()
@@ -123,7 +123,7 @@ namespace modules {
          * Controllers which are sold with lights should default to the correct type
          * and could not allow change.
          */
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=96
         setLightType(value: jacdac.LedStripLightType) {
             this.start()
@@ -138,7 +138,7 @@ namespace modules {
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=95
         //% blockId=jacdac_ledpixel_numpixels___get
         //% block="%ledpixel number of pixels"
@@ -153,7 +153,7 @@ namespace modules {
          * Controllers which are sold with lights should default to the correct length
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=94
         //% value.defl=15
         setNumPixels(value: number) {
@@ -168,7 +168,7 @@ namespace modules {
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=93
         numColumns(): number {
             this.start()
@@ -180,7 +180,7 @@ namespace modules {
          * If the LED pixel strip is a matrix, specifies the number of columns. Otherwise, a square shape is assumed. Controllers which are sold with lights should default to the correct length
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=92
         setNumColumns(value: number) {
             this.start()
@@ -193,7 +193,7 @@ namespace modules {
          * Limit the power drawn by the light-strip (and controller).
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=91
         maxPower(): number {
             this.start()
@@ -204,7 +204,7 @@ namespace modules {
         /**
          * Limit the power drawn by the light-strip (and controller).
          */
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=90
         //% value.defl=200
         setMaxPower(value: number) {
@@ -219,7 +219,7 @@ namespace modules {
          * All writes to `num_pixels` are clamped to `max_pixels`.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=89
         maxPixels(): number {
             this.start()
@@ -233,7 +233,7 @@ namespace modules {
          * Setting to `0` means to repeat forever.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=88
         numRepeats(): number {
             this.start()
@@ -246,7 +246,7 @@ namespace modules {
          * Should be set before the `run` command.
          * Setting to `0` means to repeat forever.
          */
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=87
         //% value.defl=1
         setNumRepeats(value: number) {
@@ -260,7 +260,7 @@ namespace modules {
          * Specifies the shape of the light strip.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=86
         variant(): jacdac.LedStripVariant {
             this.start()
@@ -273,7 +273,7 @@ namespace modules {
          */
         //% blockId=jacdaclightsetstrip
         //% block="configure %light with $numpixels LEDs $type||$maxpower"
-        //% group="LED Pixel"
+        //% group="LED Strip"
         //% weight=0
         //% numpixels.min=0
         //% numpixels.defl=30
@@ -304,7 +304,7 @@ namespace modules {
          */
         //% blockId="jdlight_set_pixel_color" block="set %strip color at %index pixels to %rgb=colorNumberPicker"
         //% weight=81 blockGap=8
-        //% group="LED Pixel"
+        //% group="LED Strip"
         setPixel(index: number, rgb: number) {
             this.runEncoded("setone % # wait 1", [index, rgb])
         }
@@ -315,7 +315,7 @@ namespace modules {
          */
         //% blockId="jdlight_set_strip_color" block="set %strip all pixels to %rgb=colorNumberPicker"
         //% weight=80 blockGap=8
-        //% group="LED Pixel"
+        //% group="LED Strip"
         setAll(rgb: number) {
             this.runEncoded("fade # wait 1", [rgb])
         }
@@ -329,7 +329,7 @@ namespace modules {
          */
         //% blockId=jdlight_show_animation block="show %strip animation %animation for %duration=timePicker ms"
         //% weight=90 blockGap=8
-        //% group="LED Pixel"
+        //% group="LED Strip"
         showAnimation(
             animation: ledPixelAnimations.Animation,
             duration: number,
