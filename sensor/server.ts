@@ -23,7 +23,6 @@ namespace jacdac {
         }
 
         public handlePacket(packet: JDPacket) {
-            this.log(`hpkt ${packet.serviceCommand}`)
             this.stateUpdated = false
             this.streamingInterval = this.handleRegUInt32(
                 packet,

@@ -120,6 +120,8 @@ namespace servers {
                 "u0.16",
                 this.quietThreshold
             )
+            super.handlePacket(pkt)
+
             if (this.enabled && oldEnabled !== this.enabled)
                 this.registerEvents()
             if (this.enabled) this.setThresholds()
@@ -143,7 +145,7 @@ namespace servers {
         }
 
         public serializeState(): Buffer {
-            const soundLevel = this.enabled ? input.soundLevel() / 255 : 0.0
+            const soundLevel = this.enabled ? input.soundLevel() / 255.0 : 0.0
             return jacdac.jdpack("u0.16", [soundLevel])
         }
     }
