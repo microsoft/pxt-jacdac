@@ -1448,6 +1448,11 @@ namespace jacdac {
         }
     }
 
+    export function isSimulator() {
+        const sim = control.deviceDalVersion() == "sim"
+        return sim
+    }
+
     function proxyLoop() {
         jacdac.bus.on(PACKET_PROCESS, () => {
             jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyPacketReceived)
@@ -1457,7 +1462,7 @@ namespace jacdac {
         jacdac.bus.emit(STATUS_EVENT, StatusEvent.ProxyStarted)
 
         let statusPhase = 0
-        const sim = control.deviceDalVersion() == "sim"
+        const sim = isSimulator()
         // don't allow main to run until next reset
         while (true) {
             statusPhase++
