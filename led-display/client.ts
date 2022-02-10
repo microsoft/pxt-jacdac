@@ -138,20 +138,6 @@ namespace modules {
         }
 
         /**
-         * Specifies the type of light strip connected to controller.
-         * Controllers which are sold with lights should default to the correct type
-         * and could not allow change.
-         */
-        //% group="LED Display"
-        //% weight=96
-        setLightType(value: jacdac.LedDisplayLightType) {
-            this.start()
-            const values = this._lightType.values as any[]
-            values[0] = value
-            this._lightType.values = values as [jacdac.LedDisplayLightType]
-        }
-
-        /**
          * Specifies the number of pixels in the strip.
          * Controllers which are sold with lights should default to the correct length
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
@@ -168,21 +154,6 @@ namespace modules {
         }
 
         /**
-         * Specifies the number of pixels in the strip.
-         * Controllers which are sold with lights should default to the correct length
-         * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
-         */
-        //% group="LED Display"
-        //% weight=94
-        //% value.defl=15
-        setNumPixels(value: number) {
-            this.start()
-            const values = this._numPixels.values as any[]
-            values[0] = value
-            this._numPixels.values = values as [number]
-        }
-
-        /**
          * If the LED pixel strip is a matrix, specifies the number of columns. Otherwise, a square shape is assumed. Controllers which are sold with lights should default to the correct length
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
@@ -193,19 +164,6 @@ namespace modules {
             this.start()
             const values = this._numColumns.pauseUntilValues() as any[]
             return values[0]
-        }
-
-        /**
-         * If the LED pixel strip is a matrix, specifies the number of columns. Otherwise, a square shape is assumed. Controllers which are sold with lights should default to the correct length
-         * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
-         */
-        //% group="LED Display"
-        //% weight=92
-        setNumColumns(value: number) {
-            this.start()
-            const values = this._numColumns.values as any[]
-            values[0] = value
-            this._numColumns.values = values as [number]
         }
 
         /**
