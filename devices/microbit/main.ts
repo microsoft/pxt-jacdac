@@ -24,9 +24,13 @@ namespace servers {
         // microbit.compassServer.start()
         servers.radioServer.start()
 
-        control.runInBackground(function () {
-            pause(100)
-            basic.showIcon(IconNames.Happy)
-        })
+        if (jacdac.checkProxy())
+            jacdac.proxyFinalize()
+        else {
+            control.runInBackground(function () {
+                pause(100)
+                basic.showIcon(IconNames.Happy)
+            })
+        }
     }
 }
