@@ -53,7 +53,7 @@ namespace modules {
          * At `0` the power to the strip is completely shut down.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% block="%leddisplay brightness"
         //% blockId=jacdac_leddisplay_brightness___get
         //% weight=100
@@ -67,7 +67,7 @@ namespace modules {
          * Set the luminosity of the strip.
          * At `0` the power to the strip is completely shut down.
          */
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% blockId=jacdac_leddisplay_brightness___set
         //% block="set %leddisplay brightness to %value"
         //% weight=99
@@ -87,7 +87,7 @@ namespace modules {
          * It will rise slowly (few seconds) back to `brightness` is limits are no longer required.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=98
         actualBrightness(): number {
             this.start()
@@ -99,7 +99,7 @@ namespace modules {
          * Gets the pixel color buffer, where every pixel color is encoded as a 24 bit RGB color.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=98
         pixels(): Buffer {
             this.start()
@@ -112,14 +112,14 @@ namespace modules {
          * Sets the pixel color buffer, where every pixel color is encoded as a 24 bit RGB color.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=98
         setPixels(pixels: Buffer) {
             if (!pixels) return;
 
             this.start()
             const currentPixels = this.pixels()
-            pixels.write(currentPixels, 0)
+            pixels.write(0, currentPixels)
             this._pixels.values = [currentPixels] as [Buffer];
         }
 
@@ -129,7 +129,7 @@ namespace modules {
          * and could not allow change.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=97
         lightType(): jacdac.LedDisplayLightType {
             this.start()
@@ -142,7 +142,7 @@ namespace modules {
          * Controllers which are sold with lights should default to the correct type
          * and could not allow change.
          */
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=96
         setLightType(value: jacdac.LedDisplayLightType) {
             this.start()
@@ -157,7 +157,7 @@ namespace modules {
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=95
         //% blockId=jacdac_leddisplay_numpixels___get
         //% block="%leddisplay number of pixels"
@@ -172,7 +172,7 @@ namespace modules {
          * Controllers which are sold with lights should default to the correct length
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=94
         //% value.defl=15
         setNumPixels(value: number) {
@@ -187,7 +187,7 @@ namespace modules {
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=93
         numColumns(): number {
             this.start()
@@ -199,7 +199,7 @@ namespace modules {
          * If the LED pixel strip is a matrix, specifies the number of columns. Otherwise, a square shape is assumed. Controllers which are sold with lights should default to the correct length
          * and could not allow change. Increasing length at runtime leads to ineffective use of memory and may lead to controller reboot.
          */
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=92
         setNumColumns(value: number) {
             this.start()
@@ -212,7 +212,7 @@ namespace modules {
          * Limit the power drawn by the light-strip (and controller).
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=91
         maxPower(): number {
             this.start()
@@ -223,7 +223,7 @@ namespace modules {
         /**
          * Limit the power drawn by the light-strip (and controller).
          */
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=90
         //% value.defl=200
         setMaxPower(value: number) {
@@ -237,7 +237,7 @@ namespace modules {
          * Specifies the shape of the light strip.
          */
         //% callInDebugger
-        //% group="LED Pixel"
+        //% group="LED Display"
         //% weight=86
         variant(): jacdac.LedDisplayVariant {
             this.start()
@@ -251,8 +251,8 @@ namespace modules {
          */
         //% blockId="jacdac_leddisplay_set_pixel_color" block="set %display color at %index pixels to %rgb=colorNumberPicker"
         //% weight=81 blockGap=8
-        //% group="LED Pixel"
-        setPixel(index: number, rgb: number) {
+        //% group="LED Display"
+        setPixelColor(index: number, rgb: number) {
             index = index | 0
             const pixels = this.pixels()
             if (index > 0 && (index + 1) * 3 < pixels.length) {
@@ -269,7 +269,7 @@ namespace modules {
          */
         //% blockId="jacdac_leddisplay_set_strip_color" block="set %display all pixels to %rgb=colorNumberPicker"
         //% weight=80 blockGap=8
-        //% group="LED Pixel"
+        //% group="LED Display"
         setAll(rgb: number) {
             const pixels = this.pixels()
             const r = (rgb >> 16) & 0xff
@@ -280,6 +280,38 @@ namespace modules {
                 pixels[i + 1] = g
                 pixels[i + 2] = b
             }
+            this.setPixels(pixels)
+        }
+
+        /**
+         * Shift LEDs forward and clear with zeros.
+         * You need to call ``show`` to make the changes visible.
+         * @param offset number of pixels to shift forward, eg: 1
+         */
+        //% blockId="jacdac_leddisplay_shift" block="shift %display pixels by %offset" blockGap=8
+        //% weight=40
+        //% group="LED Display"
+        shift(offset: number = 1): void {
+            offset = offset >> 0;
+            const stride = 3;
+            const pixels = this.pixels()
+            pixels.shift(-offset * stride)
+            this.setPixels(pixels)
+        }
+
+        /**
+         * Rotate LEDs forward.
+         * You need to call ``show`` to make the changes visible.
+         * @param offset number of pixels to rotate forward, eg: 1
+         */
+        //% blockId="jacdac_leddisplay_rotate" block="rotate %display pixels by %offset" blockGap=8
+        //% weight=39
+        //% parts="neopixel"
+        rotate(offset: number = 1): void {
+            offset = offset >> 0;
+            const stride = 3;
+            const pixels = this.pixels()
+            pixels.rotate(-offset * stride)
             this.setPixels(pixels)
         }
     }
