@@ -242,13 +242,40 @@ namespace jacdac.twins {
         SRV_INFRASTRUCTURE,
         SRV_PROXY,
         SRV_UNIQUE_BRAIN,
-        SRV_WIFI,
         SRV_BRIDGE,
         SRV_AZURE_IOT_HUB_HEALTH,
     ]
 
+    const customSpecs: ServiceTwinSpec[] = [
+        {
+            serviceClass: SRV_WIFI,
+            name: "wifi",
+            registers: [
+                {
+                    code: WifiReg.Rssi,
+                    packf: "i8",
+                    name: "rssi",
+                    flags: ServiceTwinRegisterFlag.Volatile,
+                },
+                {
+                    code: WifiReg.Ssid,
+                    packf: "s",
+                    name: "ssid",
+                    flags: 0,
+                },
+            ],
+        },
+    ]
+
     function getServiceTwinSpec(serviceClass: number): ServiceTwinSpec {
         if (ignoredServices.indexOf(serviceClass) > -1) return null
+
+        const customSpec = customSpecs.filter(spec => spec.serviceClass == serviceClass)[0]
+        if (customSpec) {
+            console.log(`found builtin spec for ${customSpec.name}`)
+            return customSpec
+        }
+        
         const key = "x7-" + serviceClass
         const cached = settings.readString(key)
         if (cached) return JSON.parse(cached)
@@ -481,11 +508,11 @@ namespace jacdac.twins {
                 // quick
             }
         } else if (loginPortal) {
-                r = sim ? 0xc000 : 0x0f00
-                g = sim ? 0xd000 : 0x0400
-                phase >>= 1 // slower blink
+            r = sim ? 0xc000 : 0x0f00
+            g = sim ? 0xd000 : 0x0400
+            phase >>= 1 // slower blink
         } else {
-                r = sim ? 0xf000 : 0x2000
+            r = sim ? 0xf000 : 0x2000
         }
 
         phase = Math.abs((phase & 31) - 16)
@@ -538,11 +565,14 @@ namespace jacdac.twins {
             console.log("no known access points, starting login portal")
             feedWatchdog()
             net.Net.instance.controller.startLoginServer("jacdac")
-            return;
+            return
         }
-        
+
         let now = control.millis()
-        while(!net.Net.instance.controller.isConnected && control.millis() - now < LOGIN_PORTAL_TIMEOUT) {
+        while (
+            !net.Net.instance.controller.isConnected &&
+            control.millis() - now < LOGIN_PORTAL_TIMEOUT
+        ) {
             console.log("connecting...")
             pause(5000)
         }
@@ -551,8 +581,7 @@ namespace jacdac.twins {
             console.log("connection failed, starting login portal")
             feedWatchdog()
             net.Net.instance.controller.startLoginServer("jacdac")
-            return;
-
+            return
         }
 
         console.log("getting specs...")
@@ -562,9 +591,9 @@ namespace jacdac.twins {
                 const cl = d.serviceClassAt(servIdx)
                 getServiceTwinSpec(cl)
             }
-        }    
+        }
         feedWatchdog()
         console.log("starting scan...")
-        setInterval(rescanDevices, 1000)    
+        setInterval(rescanDevices, 1000)
     }
 }
