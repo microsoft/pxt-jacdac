@@ -249,7 +249,7 @@ namespace jacdac.twins {
     const customSpecs: ServiceTwinSpec[] = [
         {
             serviceClass: SRV_WIFI,
-            name: "Wifi",
+            name: "wifi",
             registers: [
                 {
                     code: WifiReg.Rssi,
