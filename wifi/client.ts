@@ -6,15 +6,23 @@ namespace jacdac {
     const EV_GOT_IP = 0x01
     const EV_LOST_IP = 0x02
 
-    export class WifiClient extends Client {
+    export class WifiClient extends jacdac.SimpleSensorClient {
         constructor(role: string) {
-            super(jacdac.SRV_WIFI, role)
+            super(jacdac.SRV_WIFI, role, "i8")
         }
 
         get hasIP() {
             return this.systemActive
         }
 
+        /**
+        * Current signal strength. Returns -128 when not connected.
+        */
+        rssi(): number {
+            return this.reading();
+        
+        }
+                
         scan() {
             if (!this.device) return []
             const s = new InPipe()

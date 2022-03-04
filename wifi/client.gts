@@ -3,24 +3,35 @@ namespace modules {
      * Discovery and connection to WiFi networks. Separate TCP service can be used for data transfer.
      **/
     //% fixedInstances blockGap=8
-    export class WifiClient extends jacdac.Client {
+    export class WifiClient extends jacdac.SimpleSensorClient {
 
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;
         private readonly _ipAddress : jacdac.RegisterClient<[Buffer]>;
         private readonly _eui48 : jacdac.RegisterClient<[Buffer]>;
-        private readonly _ssid : jacdac.RegisterClient<[string]>;
-        private readonly _rssi : jacdac.RegisterClient<[number]>;            
+        private readonly _ssid : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WIFI, role);
+            super(jacdac.SRV_WIFI, role, "i8");
 
             this._enabled = this.addRegister<[boolean]>(jacdac.WifiReg.Enabled, "u8");
             this._ipAddress = this.addRegister<[Buffer]>(jacdac.WifiReg.IpAddress, "b[16]");
             this._eui48 = this.addRegister<[Buffer]>(jacdac.WifiReg.Eui48, "b[6]");
-            this._ssid = this.addRegister<[string]>(jacdac.WifiReg.Ssid, "s[32]");
-            this._rssi = this.addRegister<[number]>(jacdac.WifiReg.Rssi, "i8");            
+            this._ssid = this.addRegister<[string]>(jacdac.WifiReg.Ssid, "s[32]");            
         }
     
+
+        /**
+        * Current signal strength. Returns -128 when not connected.
+        */
+        //% callInDebugger
+        //% group="Iot"
+        //% block="%wifi rssi"
+        //% blockId=jacdac_wifi_rssi___get
+        //% weight=100
+        rssi(): number {
+            return this.reading();
+        
+        }
 
         /**
         * Determines whether the WiFi radio is enabled. It starts enabled upon reset.
@@ -29,7 +40,7 @@ namespace modules {
         //% group="Iot"
         //% block="%wifi enabled"
         //% blockId=jacdac_wifi_enabled___get
-        //% weight=100
+        //% weight=99
         enabled(): boolean {
             this.start();            
             const values = this._enabled.pauseUntilValues() as any[];
@@ -42,7 +53,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_enabled___set
         //% block="set %wifi %value=toggleOnOff"
-        //% weight=99
+        //% weight=98
         setEnabled(value: boolean) {
             this.start();
             const values = this._enabled.values as any[];
@@ -55,7 +66,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=98
+        //% weight=97
         ipAddress(): Buffer {
             this.start();            
             const values = this._ipAddress.pauseUntilValues() as any[];
@@ -67,7 +78,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=97
+        //% weight=96
         eui48(): Buffer {
             this.start();            
             const values = this._eui48.pauseUntilValues() as any[];
@@ -80,7 +91,7 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Iot"
-        //% weight=96
+        //% weight=95
         ssid(): string {
             this.start();            
             const values = this._ssid.pauseUntilValues() as any[];
@@ -88,15 +99,17 @@ namespace modules {
         }
 
         /**
-        * Current signal strength. Returns -128 when not connected.
+         * Run code when the rssi changes by the given threshold value.
         */
-        //% callInDebugger
         //% group="Iot"
-        //% weight=95
-        rssi(): number {
-            this.start();            
-            const values = this._rssi.pauseUntilValues() as any[];
-            return values[0];
+        //% blockId=jacdac_wifi_on_rssi_change
+        //% block="on %wifi rssi changed by %threshold"
+        //% weight=94
+        //% threshold.min=0
+        //% threshold.max=-20
+        //% threshold.defl=1
+        onRssiChangedBy(threshold: number, handler: () => void): void {
+            this.onReadingChangedBy(threshold, handler);
         }
 
         /**
@@ -105,7 +118,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_got_ip
         //% block="on %wifi got ip"
-        //% weight=94
+        //% weight=93
         onGotIp(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.GotIp, handler);
         }
@@ -115,7 +128,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_lost_ip
         //% block="on %wifi lost ip"
-        //% weight=93
+        //% weight=92
         onLostIp(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.LostIp, handler);
         }
@@ -127,7 +140,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_scan_complete
         //% block="on %wifi scan complete"
-        //% weight=92
+        //% weight=91
         onScanComplete(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.ScanComplete, handler);
         }
@@ -137,7 +150,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_networks_changed
         //% block="on %wifi networks changed"
-        //% weight=91
+        //% weight=90
         onNetworksChanged(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.NetworksChanged, handler);
         }
@@ -149,7 +162,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_on_wifi_connection_failed
         //% block="on %wifi connection failed"
-        //% weight=90
+        //% weight=89
         onConnectionFailed(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.ConnectionFailed, handler);
         }
@@ -160,7 +173,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_add_network_cmd
         //% block="%wifi add network |ssid $ssid |password $password"
-        //% weight=89
+        //% weight=88
         addNetwork(ssid: string, password: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WifiCmd.AddNetwork, "z z", [ssid, password]))
@@ -173,7 +186,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_reconnect_cmd
         //% block="%wifi reconnect"
-        //% weight=88
+        //% weight=87
         reconnect(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WifiCmd.Reconnect))
@@ -186,7 +199,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_forget_network_cmd
         //% block="%wifi forget network $ssid"
-        //% weight=87
+        //% weight=86
         forgetNetwork(ssid: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WifiCmd.ForgetNetwork, "s", [ssid]))
@@ -198,7 +211,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_forget_all_networks_cmd
         //% block="%wifi forget all networks"
-        //% weight=86
+        //% weight=85
         forgetAllNetworks(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WifiCmd.ForgetAllNetworks))
@@ -211,7 +224,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_set_network_priority_cmd
         //% block="%wifi set network priority |priority $priority |ssid $ssid"
-        //% weight=85
+        //% weight=84
         setNetworkPriority(priority: number, ssid: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WifiCmd.SetNetworkPriority, "i16 s", [priority, ssid]))
@@ -223,7 +236,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_scan_cmd
         //% block="%wifi scan"
-        //% weight=84
+        //% weight=83
         scan(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WifiCmd.Scan))

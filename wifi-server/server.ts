@@ -1,5 +1,5 @@
 namespace servers {
-    export class WiFiServer extends jacdac.Server {
+    export class WiFiServer extends jacdac.SensorServer {
         enabled = true
         loginServerStarted = false
 
@@ -41,6 +41,11 @@ namespace servers {
                 this.setStatusCode(jacdac.SystemStatusCodes.WaitingForInput)
         }
 
+        public serializeState(): Buffer {
+            const rssi = this.enabled ? controller.rssi || -128 : -128
+            return jacdac.jdpack("i8", [rssi])
+        }        
+
         handlePacket(pkt: jacdac.JDPacket) {
             const controller = net.instance().controller
 
@@ -70,7 +75,7 @@ namespace servers {
                     pkt.respond(Buffer.fromUTF8(controller.ssid || ""))
                     break
                 case jacdac.WifiReg.Rssi | jacdac.CMD_GET_REG:
-                    pkt.respond(jacdac.jdpack("i8", [controller.rssi || 0]))
+                    pkt.respond(jacdac.jdpack("i8", [controller.rssi || -128]))
                     break
                 case jacdac.WifiCmd.LastScanResults:
                     jacdac.OutPipe.respondForEach(

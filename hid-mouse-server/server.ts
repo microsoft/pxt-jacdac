@@ -38,7 +38,7 @@ namespace servers {
                     pause(200)
                     mouse.setButton(buttons, false)
                     break
-                case jacdac.HidMouseButtonEvent.Click:
+                case jacdac.HidMouseButtonEvent.DoubleClick:
                     mouse.setButton(buttons, true)
                     pause(100)
                     mouse.setButton(buttons, false)

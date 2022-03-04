@@ -1,6 +1,6 @@
 namespace modules {
     /**
-     * A two axis directional joystick with optional buttons.
+     * A two axis directional gamepad with optional buttons.
      **/
     //% fixedInstances blockGap=8
     export class GamepadClient extends jacdac.SensorClient {
@@ -17,10 +17,10 @@ namespace modules {
     
 
         /**
-        * If the joystick is analog, the directional buttons should be "simulated", based on joystick position
+        * If the gamepad is analog, the directional buttons should be "simulated", based on gamepad position
         * (`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).
-        * If the joystick is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).
-        * The primary button on the joystick is `A`.
+        * If the gamepad is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).
+        * The primary button on the gamepad is `A`.
         */
         //% callInDebugger
         //% group="Button"
@@ -34,10 +34,10 @@ namespace modules {
         }
 
         /**
-        * If the joystick is analog, the directional buttons should be "simulated", based on joystick position
+        * If the gamepad is analog, the directional buttons should be "simulated", based on gamepad position
         * (`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).
-        * If the joystick is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).
-        * The primary button on the joystick is `A`.
+        * If the gamepad is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).
+        * The primary button on the gamepad is `A`.
         */
         //% callInDebugger
         //% group="Button"
@@ -51,10 +51,10 @@ namespace modules {
         }
 
         /**
-        * If the joystick is analog, the directional buttons should be "simulated", based on joystick position
+        * If the gamepad is analog, the directional buttons should be "simulated", based on gamepad position
         * (`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).
-        * If the joystick is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).
-        * The primary button on the joystick is `A`.
+        * If the gamepad is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).
+        * The primary button on the gamepad is `A`.
         */
         //% callInDebugger
         //% group="Button"
@@ -68,7 +68,7 @@ namespace modules {
         }
 
         /**
-        * The type of physical joystick.
+        * The type of physical gamepad.
         */
         //% callInDebugger
         //% group="Button"
@@ -80,9 +80,9 @@ namespace modules {
         }
 
         /**
-        * Indicates a bitmask of the buttons that are mounted on the joystick.
-        * If the `Left`/`Up`/`Right`/`Down` buttons are marked as available here, the joystick is digital.
-        * Even when marked as not available, they will still be simulated based on the analog joystick.
+        * Indicates a bitmask of the buttons that are mounted on the gamepad.
+        * If the `Left`/`Up`/`Right`/`Down` buttons are marked as available here, the gamepad is digital.
+        * Even when marked as not available, they will still be simulated based on the analog gamepad.
         */
         //% callInDebugger
         //% group="Button"
