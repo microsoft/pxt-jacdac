@@ -1,6 +1,11 @@
 namespace jacdac.twins {
     const MAX_READINGS_PER_PACKET = 100 // TODO
     const READINGS_SEND_INTERVAL = 5000
+
+    const STREAMING_INTERVAL_INIT = 1000 // when device connected, stream every 1s
+    const STREAMING_INTERVAL_MULT = 1.2 // every sample, increase streaming interval 1.2x
+    const STREAMING_INTERVAL_MAX = 60 * 1000 // eventually, stream every minute
+
     const MAX_HEADER_SIZE = 200
     const MAX_PACKET_SIZE = 1000 // this is transmitted as HEX, so grows 2x
     const LOGIN_PORTAL_TIMEOUT = 60000 // try to connect for 1 minute, then give up
@@ -58,6 +63,13 @@ namespace jacdac.twins {
         header: Buffer
         pendingSamples = 0
 
+        avgSum = 0
+        avgMin = 0
+        avgMax = 0
+        avgSamples = 0
+        avgTimestamp = 0
+        avgInterval = STREAMING_INTERVAL_INIT
+
         constructor(
             public parent: DeviceTwin,
             public serviceIdx: number,
@@ -92,10 +104,59 @@ namespace jacdac.twins {
             if (len < this.readingBuffer.length >> 1) this.readingBuffer = null
         }
 
+        private flushValue(v: number, timestamp: number) {
+            console.log(`${this.id}: ${v}`)
+            if (
+                !this.readingBuffer ||
+                this.readingPtr + 8 > this.readingBuffer.length
+            ) {
+                const prev = this.readingBuffer
+                this.readingBuffer = Buffer.create(
+                    this.readingBuffer ? this.readingPtr + 32 : 16
+                )
+                if (prev) this.readingBuffer.write(0, prev)
+            }
+            this.readingBuffer.setNumber(
+                NumberFormat.UInt32LE,
+                this.readingPtr,
+                timestamp
+            )
+            this.readingBuffer.setNumber(
+                NumberFormat.Float32LE,
+                this.readingPtr + 4,
+                v
+            )
+            if (this.readingPtr == 0) pendingMessageSize += this.header.length
+            this.readingPtr += 8
+            pendingReadings++
+            pendingMessageSize += 8
+            checkPendingReadings()
+        }
+
+        private tryFlush() {
+            if (this.avgSamples == 0) return
+            const now = control.millis()
+            const delta = now - this.avgTimestamp
+            if (delta < this.avgInterval) return
+
+            this.flushValue(this.avgSum / this.avgSamples, now)
+            this.avgSamples = 0
+            this.avgTimestamp = now
+
+            if (this.avgInterval < STREAMING_INTERVAL_MAX) {
+                this.avgInterval =
+                    (this.avgInterval * STREAMING_INTERVAL_MULT) | 0
+                if (this.avgInterval > STREAMING_INTERVAL_MAX)
+                    this.avgInterval = STREAMING_INTERVAL_MAX
+            }
+        }
+
         // called about 1/second
         tick() {
+            if (!this.enabled) return
+
             // we decrement pendingSamples here in addition to the actual sample in case some packets are lost etc
-            if (this.enabled && this.pendingSamples-- < 200) {
+            if (this.pendingSamples-- < 200) {
                 this.pendingSamples = 254
                 const payload = JDPacket.jdpacked(
                     CMD_SET_REG | SystemReg.StreamingSamples,
@@ -105,6 +166,10 @@ namespace jacdac.twins {
                 payload.serviceIndex = this.serviceIdx
                 payload._sendCmd(this.parent.device)
             }
+
+            if (this.avgTimestamp == 0) this.avgTimestamp = control.millis()
+
+            this.tryFlush()
         }
 
         applyTwinUpdate(upd: Json) {
@@ -197,33 +262,18 @@ namespace jacdac.twins {
                     rspec.packf.slice(0, "u0.".length) == "u0."
                 if (scaleToPercent) v *= 100
 
-                if (
-                    !this.readingBuffer ||
-                    this.readingPtr + 8 > this.readingBuffer.length
-                ) {
-                    const prev = this.readingBuffer
-                    this.readingBuffer = Buffer.create(
-                        this.readingBuffer ? this.readingPtr + 32 : 16
-                    )
-                    if (prev) this.readingBuffer.write(0, prev)
-                }
-                this.readingBuffer.setNumber(
-                    NumberFormat.UInt32LE,
-                    this.readingPtr,
-                    control.millis()
-                )
-                this.readingBuffer.setNumber(
-                    NumberFormat.Float32LE,
-                    this.readingPtr + 4,
-                    v
-                )
-                if (this.readingPtr == 0)
-                    pendingMessageSize += this.header.length
-                this.readingPtr += 8
-                pendingReadings++
-                pendingMessageSize += 8
                 this.pendingSamples--
-                checkPendingReadings()
+
+                const now = control.millis()
+                if (this.avgSamples == 0) {
+                    this.avgSamples = 1
+                    this.avgMax = this.avgMin = this.avgSum = v
+                } else {
+                    this.avgSamples++
+                    this.avgSum += v
+                    this.avgMax = Math.max(this.avgMax, v)
+                    this.avgMin = Math.min(this.avgMin, v)
+                }
             }
         }
     }
