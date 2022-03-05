@@ -4,7 +4,7 @@ namespace servers {
         loginServerStarted = false
 
         constructor(dev: string) {
-            super(dev, jacdac.SRV_WIFI)
+            super(dev, jacdac.SRV_WIFI, { streamingInterval: 1000 })
         }
 
         start(): void {
@@ -42,11 +42,12 @@ namespace servers {
         }
 
         public serializeState(): Buffer {
+            const controller = net.instance().controller
             const rssi = this.enabled ? controller.rssi || -128 : -128
             return jacdac.jdpack("i8", [rssi])
-        }        
+        }
 
-        handlePacket(pkt: jacdac.JDPacket) {
+        handleCustomCommand(pkt: jacdac.JDPacket) {
             const controller = net.instance().controller
 
             const newEn = this.handleRegBool(
