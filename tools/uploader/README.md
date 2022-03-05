@@ -60,3 +60,37 @@ Each data point consists of `UINT32` and `FLOAT32`.
 The uint encodes time delta (in milliseconds) between
 the time the reading was taken and the current device time (from the global header).
 The float encodes the reading value.
+
+## JSON format
+
+Example:
+
+```json
+{
+  "deviceTime": 329273,
+  "readings": {
+    "BQ87_b8c300f2bb8f922d": {
+      "potentiometer": {
+        "readings": [
+          41.9921875,
+          42.0166015625,
+          42.0166015625,
+          41.9921875,
+          42.0166015625,
+          42.0166015625,
+          46.4599609375
+        ],
+        "timedelta": [
+          -6168,
+          -5160,
+          -4160,
+          -3149,
+          -2139,
+          -1129,
+          -120
+        ]
+      }
+    }
+  }
+}
+```
