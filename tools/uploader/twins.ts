@@ -67,6 +67,7 @@ namespace jacdac.twins {
             if (this.spec.registers.some(r => r.code == SystemReg.Reading)) {
                 this.spec.registers.push(streamingIntervalSpec)
                 this.enabled = true
+                console.log(`enable ${parent.device.shortId}:${spec.name}`)
             }
             this.header = Buffer.fromUTF8(
                 this.parent.id + ":" + this.id + "\u0000"
@@ -91,8 +92,10 @@ namespace jacdac.twins {
             if (len < this.readingBuffer.length >> 1) this.readingBuffer = null
         }
 
+        // called about 1/second
         tick() {
-            if (this.enabled && this.pendingSamples < 100) {
+            // we decrement pendingSamples here in addition to the actual sample in case some packets are lost etc
+            if (this.enabled && this.pendingSamples-- < 200) {
                 this.pendingSamples = 254
                 const payload = JDPacket.jdpacked(
                     CMD_SET_REG | SystemReg.StreamingSamples,
@@ -252,10 +255,10 @@ namespace jacdac.twins {
             name: "wifi",
             registers: [
                 {
-                    code: WifiReg.Rssi,
+                    code: SystemReg.Reading,
                     packf: "i8",
                     name: "rssi",
-                    flags: ServiceTwinRegisterFlag.Volatile,
+                    flags: 0,
                 },
                 {
                     code: WifiReg.Ssid,
@@ -270,12 +273,14 @@ namespace jacdac.twins {
     function getServiceTwinSpec(serviceClass: number): ServiceTwinSpec {
         if (ignoredServices.indexOf(serviceClass) > -1) return null
 
-        const customSpec = customSpecs.filter(spec => spec.serviceClass == serviceClass)[0]
+        const customSpec = customSpecs.filter(
+            spec => spec.serviceClass == serviceClass
+        )[0]
         if (customSpec) {
             console.log(`found builtin spec for ${customSpec.name}`)
             return customSpec
         }
-        
+
         const key = "x7-" + serviceClass
         const cached = settings.readString(key)
         if (cached) return JSON.parse(cached)
@@ -593,6 +598,10 @@ namespace jacdac.twins {
             }
         }
         feedWatchdog()
+
+        azureiot.logPriority = ConsolePriority.Log
+        // azureiot.mqttClient().tracePriority = ConsolePriority.Log
+
         console.log("starting scan...")
         setInterval(rescanDevices, 1000)
     }
