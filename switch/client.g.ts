@@ -5,14 +5,12 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SwitchClient extends jacdac.SensorClient {
 
-        private readonly _variant : jacdac.RegisterClient<[jacdac.SwitchVariant]>;
-        private readonly _autoOffDelay : jacdac.RegisterClient<[number]>;            
+        private readonly _variant : jacdac.RegisterClient<[jacdac.SwitchVariant]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_SWITCH, role, "u8");
 
-            this._variant = this.addRegister<[jacdac.SwitchVariant]>(jacdac.SwitchReg.Variant, "u8");
-            this._autoOffDelay = this.addRegister<[number]>(jacdac.SwitchReg.AutoOffDelay, "u22.10");            
+            this._variant = this.addRegister<[jacdac.SwitchVariant]>(jacdac.SwitchReg.Variant, "u8");            
         }
     
 
@@ -43,25 +41,12 @@ namespace modules {
         }
 
         /**
-        * Specifies the delay without activity to automatically turn off after turning on.
-        * For example, some light switches in staircases have such a capability.
-        */
-        //% callInDebugger
-        //% group="Button"
-        //% weight=98
-        autoOffDelay(): number {
-            this.start();            
-            const values = this._autoOffDelay.pauseUntilValues() as any[];
-            return values[0];
-        }
-
-        /**
          * Emitted when switch goes from `off` to `on`.
          */
         //% group="Button"
         //% blockId=jacdac_on_switch_on
         //% block="on %switch on"
-        //% weight=97
+        //% weight=98
         onOn(handler: () => void): void {
             this.registerEvent(jacdac.SwitchEvent.On, handler);
         }
@@ -71,7 +56,7 @@ namespace modules {
         //% group="Button"
         //% blockId=jacdac_on_switch_off
         //% block="on %switch off"
-        //% weight=96
+        //% weight=97
         onOff(handler: () => void): void {
             this.registerEvent(jacdac.SwitchEvent.Off, handler);
         }
