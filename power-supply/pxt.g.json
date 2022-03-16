@@ -1,7 +1,7 @@
 {
     "name": "jacdac-power-supply",
     "version": "0.0.0",
-    "description": "A power supply with a static or variable voltage range",
+    "description": "A power supply with a fixed or variable voltage range",
     "files": [
         "constants.ts",
         "client.g.ts"

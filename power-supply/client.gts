@@ -1,6 +1,6 @@
 namespace modules {
     /**
-     * A power supply with a static or variable voltage range
+     * A power supply with a fixed or variable voltage range
      **/
     //% fixedInstances blockGap=8
     export class PowerSupplyClient extends jacdac.Client {
@@ -78,7 +78,7 @@ namespace modules {
         }
 
         /**
-        * The minimum output voltage of the power supply. For static power supplies, `minimum_voltage` should be equal to `maximum_voltage`.
+        * The minimum output voltage of the power supply. For fixed power supplies, `minimum_voltage` should be equal to `maximum_voltage`.
         */
         //% callInDebugger
         //% group="Power supply"
@@ -90,7 +90,7 @@ namespace modules {
         }
 
         /**
-        * The maximum output voltage of the power supply. For static power supplies, `minimum_voltage` should be equal to `maximum_voltage`.
+        * The maximum output voltage of the power supply. For fixed power supplies, `minimum_voltage` should be equal to `maximum_voltage`.
         */
         //% callInDebugger
         //% group="Power supply"
