@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-power-supply",
+    "version": "0.0.0",
+    "description": "A power supply with a static or variable voltage range",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
