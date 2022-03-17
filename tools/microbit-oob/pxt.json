@@ -19,6 +19,7 @@
         "jacdac-flex": "github:microsoft/pxt-jacdac/flex",
         "jacdac-gamepad": "github:microsoft/pxt-jacdac/gamepad",
         "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse",
+        "jacdac-illuminance": "github:microsoft/pxt-jacdac/illuminance",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
     "files": [

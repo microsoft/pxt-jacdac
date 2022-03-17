@@ -64,6 +64,7 @@ const knownSensors = [
     jacdac.SRV_ACCELEROMETER,
     jacdac.SRV_TEMPERATURE,
     jacdac.SRV_LIGHT_LEVEL,
+    jacdac.SRV_ILLUMINANCE,
     jacdac.SRV_GAMEPAD,
 ]
 
@@ -307,6 +308,12 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
             sensorMap[lookup] = position
             led.plotBarGraph(position, 100)
             setPixelBrightness(position / 200) // don't go above 50%
+        }
+    } else if (serviceClass === jacdac.SRV_ILLUMINANCE) {
+        const illuminance = Math.round(pkt.jdunpack<[number]>("u22.10")[0])
+        if (illuminance !== sensorMap[lookup]) {
+            sensorMap[lookup] = illuminance
+            led.plotBarGraph(illuminance, 100)
         }
     } else if (serviceClass === jacdac.SRV_TEMPERATURE) {
         const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
