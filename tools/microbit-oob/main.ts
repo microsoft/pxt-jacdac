@@ -38,7 +38,7 @@ interface ServicesMap {
 let dev2Services: ServicesMap = {}
 
 interface LedDisplayMap {
-    [index: string]: Buffer
+    [index: string]: modules.LedDisplayClient
 }
 
 let onlyLedDisplay: LedDisplayMap = {}
@@ -53,10 +53,6 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
             const id = d.serviceClassAt(i)
             dev2Services[d.deviceId].push(id)
             checkForKnownService(d, id, i)
-            if (d.serviceClassLength === 2 && id == jacdac.SRV_LED_DISPLAY) {
-                // TODO: need to create a buffer of appropriate size
-                onlyLedDisplay[d.deviceId] = undefined
-            }
         }
     }
     // play sound
@@ -147,14 +143,10 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
         pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
         setPixel(0, 0xff0000)
     } else if (serviceClass === jacdac.SRV_LED_DISPLAY) {
-        const pkt = jacdac.JDPacket.jdpacked(
-            jacdac.CMD_SET_REG | jacdac.LedDisplayReg.Brightness,
-            "u0.8",
-            [0.1]
-        )
-        pkt.sendAsMultiCommand(jacdac.SRV_LED_DISPLAY)
-        // TODO
-        // setPixel(0, 0xff0000)
+        const ledDisplay = new modules.LedDisplayClient(dev.deviceId)
+        ledDisplay.device = dev
+        onlyLedDisplay[dev.deviceId] = ledDisplay
+        ledDisplay.setPixelColor(0,0xFF0000)
     } else if (serviceClass === jacdac.SRV_LED) {
         // nothing to do here
     }
@@ -374,8 +366,9 @@ jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
             }
         }
     })
-    if (d.deviceId in onlyLedDisplay)
+    if (onlyLedDisplay[d.deviceId]) {
         delete onlyLedDisplay[d.deviceId]
+    }
     delete dev2Services[d.deviceId]
 })
 
