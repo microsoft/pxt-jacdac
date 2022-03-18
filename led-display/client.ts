@@ -119,7 +119,7 @@ namespace modules {
 
             this.start()
             const currentPixels = this.pixels()
-            pixels.write(0, currentPixels)
+            currentPixels.write(0, pixels)
             this._pixels.values = [currentPixels] as [Buffer];
         }
 
