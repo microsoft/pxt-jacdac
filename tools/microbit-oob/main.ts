@@ -37,6 +37,12 @@ interface ServicesMap {
 }
 let dev2Services: ServicesMap = {}
 
+interface LedDisplayMap {
+    [index: string]: Buffer
+}
+
+let onlyLedDisplay: LedDisplayMap = {}
+
 jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
     if (d === jacdac.bus.selfDevice) return
     // whenever a device announces itself,
@@ -47,6 +53,10 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
             const id = d.serviceClassAt(i)
             dev2Services[d.deviceId].push(id)
             checkForKnownService(d, id, i)
+            if (d.serviceClassLength === 2 && id == jacdac.SRV_LED_DISPLAY) {
+                // TODO: need to create a buffer of appropriate size
+                onlyLedDisplay[d.deviceId] = undefined
+            }
         }
     }
     // play sound
@@ -57,7 +67,7 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
 })
 
 // special handling for actuators (multi-command) and sensors (streaming)
-const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_STRIP, jacdac.SRV_LED]
+const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_STRIP, jacdac.SRV_LED, jacdac.SRV_LED_DISPLAY]
 const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
@@ -136,6 +146,15 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
         )
         pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
         setPixel(0, 0xff0000)
+    } else if (serviceClass === jacdac.SRV_LED_DISPLAY) {
+        const pkt = jacdac.JDPacket.jdpacked(
+            jacdac.CMD_SET_REG | jacdac.LedDisplayReg.Brightness,
+            "u0.8",
+            [0.1]
+        )
+        pkt.sendAsMultiCommand(jacdac.SRV_LED_DISPLAY)
+        // TODO
+        // setPixel(0, 0xff0000)
     } else if (serviceClass === jacdac.SRV_LED) {
         // nothing to do here
     }
@@ -355,6 +374,8 @@ jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
             }
         }
     })
+    if (d.deviceId in onlyLedDisplay)
+        delete onlyLedDisplay[d.deviceId]
     delete dev2Services[d.deviceId]
 })
 
