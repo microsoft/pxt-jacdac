@@ -149,11 +149,12 @@ function configureActuator(dev: jacdac.Device, serviceClass: number, serviceInde
         pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
         setPixel(0, 0xff0000)
     } else if (serviceClass === jacdac.SRV_LED_DISPLAY) {
-        const ledDisplay = new modules.LedDisplayClient(`${dev.deviceId}:${serviceIndex}`)
+        const ledDisplay = new modules.LedDisplayClient(dev.deviceId)
         ledDisplay.start()
         jacdac.bus.reattach(dev)
         onlyLedDisplay.push(ledDisplay);
-        // ledDisplay.setPixelColor(1, 0x00FF00)
+        ledDisplay.setPixelColor(1, 0x00FF00)
+        ledDisplay.show()
         // ledDisplay.setAll(0xFF0000)
     } else if (serviceClass === jacdac.SRV_LED) {
         // nothing to do here
@@ -374,9 +375,8 @@ jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
             }
         }
     })
-    const ld = onlyLedDisplay.find(c => c.device.deviceId === d.deviceId)
+    const ld = onlyLedDisplay.find(c => c.role === d.deviceId)
     if (ld) {
-        ld.destroy()
         onlyLedDisplay.removeElement(ld)
     }
     delete dev2Services[d.deviceId]
@@ -443,7 +443,6 @@ function mouseClick(
     pkt.sendAsMultiCommand(jacdac.SRV_HID_MOUSE)
 }
 
-
 function animateLEDs(b: Button) {
     if (b === Button.A) {
         runEncoded("rotfwd 1")            
@@ -482,7 +481,6 @@ function animateDisplayLEDs(b: Button) {
     }
 }
 
-
 function sendColor(color: number) {
     const pkt = jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, "u8 u8 u8 u8", [
         color >> 16,
@@ -501,9 +499,7 @@ function animateLED(b: Button) {
     sendColor(0)
 }
 
-// leave role manager on so that modules don't blink
 jacdac.firmwareVersion = jacdac.VERSION
 jacdac.start();
-
 basic.showIcon(IconNames.Happy)
 
