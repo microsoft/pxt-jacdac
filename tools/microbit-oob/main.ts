@@ -119,7 +119,7 @@ function rotatePixel(clicks: number) {
         rotateDisplayPixel(clicks)
     } else {
         runEncoded("rotfwd #", [-clicks])
-        rotateDisplayPixel(-clicks)
+        rotateDisplayPixel(clicks)
     }
 }
 
