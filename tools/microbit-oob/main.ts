@@ -122,7 +122,8 @@ function rotatePixel(clicks: number) {
 function rotateDisplayPixel(clicks: number) {
     if (clicks > 0) {
         onlyLedDisplay.forEach(d => {
-            d.rotate(1)
+            d.rotate(clicks)
+            d.show()
         })
     }
 }
@@ -453,30 +454,30 @@ function animateLEDs(b: Button) {
     }
 }
 
-const pattern = [0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff]
+const pattern = [0x000000, 0xff0000, 0x00ff00, 0x0000ff]
 
 function animateDisplayLEDs(b: Button) {
     if (b === Button.A) {        
         onlyLedDisplay.forEach(d => {
             d.rotate(1)
+            d.show()
         })
     } else if (b === Button.B) {
         onlyLedDisplay.forEach(d => {
             d.rotate(-1)
+            d.show()
         })
     } else {
         onlyLedDisplay.forEach(d => {
-            const pixels = d.pixels()
-            let j = 0;
-            for (let i = 0; i < pixels.length - 2; i += 3) {
-                pixels[i] = pattern[j]
-                pixels[i + 1] = pattern[j + 1]
-                pixels[i + 2] = pattern[j + 2]
-                j += 3
-                if (j >= pattern.length)
+            const numPixels = d.numPixels()
+            let j = 0
+            for (let i = 0; i < numPixels; i++) {
+                d.setPixelColor(i, pattern[j])
+                j++
+                if (j === pattern.length)
                     j = 0
             }
-            d.setPixels(pixels)
+            d.show()
         })
     }
 }

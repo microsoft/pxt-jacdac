@@ -2,7 +2,7 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class LedDisplayClient extends jacdac.Client {
-        private _localPixels: Buffer = new Buffer[64 * 3]                 // maximum size (may be reduced on call to show)
+        private _localPixels: Buffer;
         private readonly _pixels: jacdac.RegisterClient<[Buffer]>
         private readonly _brightness: jacdac.RegisterClient<[number]>
         private readonly _actualBrightness: jacdac.RegisterClient<[number]>
@@ -47,6 +47,8 @@ namespace modules {
                 jacdac.LedDisplayReg.MaxPower,
                 "u16"
             )
+
+            this._localPixels = Buffer.create(64 * 3)                 // maximum size (may be reduced on call to show)
         }
 
         /**
@@ -124,7 +126,7 @@ namespace modules {
             const numPixels = this.numPixels()
             if (numPixels > 0 && numPixels * 3 !== this._localPixels.length) {
                 // create a new buffer of the correct length and copy over
-                const newBuf = new Buffer[numPixels * 3]
+                const newBuf = Buffer.create(numPixels * 3)
                 newBuf.write(0, this._localPixels)
                 this._localPixels = newBuf
             }
