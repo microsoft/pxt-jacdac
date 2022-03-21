@@ -119,7 +119,7 @@ namespace modules {
 
             this.start()
             const currentPixels = this.pixels()
-            pixels.write(0, currentPixels)
+            currentPixels.write(0, pixels)
             this._pixels.values = [currentPixels] as [Buffer];
         }
 
@@ -213,7 +213,7 @@ namespace modules {
         setPixelColor(index: number, rgb: number) {
             index = index | 0
             const pixels = this.pixels()
-            if (index > 0 && (index + 1) * 3 < pixels.length) {
+            if (index >= 0 && (index + 1) * 3 <= pixels.length) {
                 pixels[index * 3] = (rgb >> 16) & 0xff
                 pixels[index * 3 + 1] = (rgb >> 8) & 0xff
                 pixels[index * 3 + 2] = rgb & 0xff

@@ -95,7 +95,7 @@ function checkForKnownService(
         }
         service2dev[serviceClass].push(dev.deviceId)
         if (knownActuators.indexOf(serviceClass) >= 0)
-            configureActuator(dev, serviceClass)
+            configureActuator(dev, serviceClass, serviceIndex)
         else if (knownSensors.indexOf(serviceClass) >= 0)
             configureSensor(dev, serviceClass, serviceIndex)
     }
@@ -131,7 +131,7 @@ function setPixelBrightness(ratio: number) {
     pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
 }
 
-function configureActuator(dev: jacdac.Device, serviceClass: number) {
+function configureActuator(dev: jacdac.Device, serviceClass: number, serviceIndex: number) {
     if (serviceClass === jacdac.SRV_SERVO) {
         // nothing to do here
     } else if (serviceClass === jacdac.SRV_LED_STRIP) {
@@ -143,8 +143,9 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
         pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
         setPixel(0, 0xff0000)
     } else if (serviceClass === jacdac.SRV_LED_DISPLAY) {
-        const ledDisplay = new modules.LedDisplayClient(dev.deviceId)
-        ledDisplay.device = dev
+        const ledDisplay = new modules.LedDisplayClient(dev.deviceId+":"+serviceIndex)
+        ledDisplay.start()
+        jacdac.bus.reattach(dev)
         onlyLedDisplay[dev.deviceId] = ledDisplay
         ledDisplay.setPixelColor(0,0xFF0000)
     } else if (serviceClass === jacdac.SRV_LED) {
