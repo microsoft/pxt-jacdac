@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-relay",
-    "version": "0.8.9",
-    "description": "A switching relay.",
+    "name": "jacdac-analog-measurement",
+    "version": "0.0.0",
+    "description": "A service that reports the output of an analog to digital converter (ADC).",
     "files": [
         "constants.ts",
         "client.g.ts"
@@ -10,15 +10,12 @@
         "test.ts"
     ],
     "supportedTargets": [
-        "arcade",
         "microbit",
+        "arcade",
         "maker"
     ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
     }
 }

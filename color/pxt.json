@@ -1,6 +1,6 @@
 {
     "name": "jacdac-color",
-    "version": "0.8.8",
+    "version": "0.8.9",
     "description": "Senses RGB colors",
     "files": [
         "constants.ts",
