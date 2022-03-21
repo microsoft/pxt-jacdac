@@ -114,9 +114,13 @@ function setPixel(index: number, rgb: number) {
 }
 
 function rotatePixel(clicks: number) {
-    if (clicks > 0) runEncoded("rotback #", [clicks])
-    else runEncoded("rotfwd #", [-clicks])
-    rotateDisplayPixel(clicks)
+    if (clicks > 0) {
+        runEncoded("rotback #", [clicks])
+        rotateDisplayPixel(clicks)
+    } else {
+        runEncoded("rotfwd #", [-clicks])
+        rotateDisplayPixel(-clicks)
+    }
 }
 
 function rotateDisplayPixel(clicks: number) {
@@ -135,6 +139,12 @@ function setPixelBrightness(ratio: number) {
         [ratio]
     )
     pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
+    const pkt2 = jacdac.JDPacket.jdpacked(
+        jacdac.CMD_SET_REG | jacdac.LedDisplayReg.Brightness,
+        "u0.8",
+        [ratio]
+    )
+    pkt2.sendAsMultiCommand(jacdac.SRV_LED_DISPLAY)
 }
 
 function configureActuator(dev: jacdac.Device, serviceClass: number, serviceIndex: number) {
