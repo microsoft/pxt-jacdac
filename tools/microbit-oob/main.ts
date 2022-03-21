@@ -37,11 +37,7 @@ interface ServicesMap {
 }
 let dev2Services: ServicesMap = {}
 
-interface LedDisplayMap {
-    [index: string]: modules.LedDisplayClient
-}
-
-let onlyLedDisplay: LedDisplayMap = {}
+let onlyLedDisplay: modules.LedDisplayClient[] = []
 
 jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
     if (d === jacdac.bus.selfDevice) return
@@ -143,11 +139,12 @@ function configureActuator(dev: jacdac.Device, serviceClass: number, serviceInde
         pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
         setPixel(0, 0xff0000)
     } else if (serviceClass === jacdac.SRV_LED_DISPLAY) {
-        const ledDisplay = new modules.LedDisplayClient(dev.deviceId+":"+serviceIndex)
+        const ledDisplay = new modules.LedDisplayClient(`${dev.deviceId}:${serviceIndex}`)
         ledDisplay.start()
         jacdac.bus.reattach(dev)
-        onlyLedDisplay[dev.deviceId] = ledDisplay
-        ledDisplay.setPixelColor(0,0xFF0000)
+        onlyLedDisplay.push(ledDisplay);
+        // ledDisplay.setPixelColor(1, 0x00FF00)
+        // ledDisplay.setAll(0xFF0000)
     } else if (serviceClass === jacdac.SRV_LED) {
         // nothing to do here
     }
@@ -367,8 +364,10 @@ jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
             }
         }
     })
-    if (onlyLedDisplay[d.deviceId]) {
-        delete onlyLedDisplay[d.deviceId]
+    const ld = onlyLedDisplay.find(c => c.device.deviceId === d.deviceId)
+    if (ld) {
+        ld.destroy()
+        onlyLedDisplay.removeElement(ld)
     }
     delete dev2Services[d.deviceId]
 })
@@ -400,6 +399,7 @@ function actuate(b: Button) {
             animateLED(b)
         }
     })
+    animateDisplayLEDs(b)
 }
 
 function setServoAngle(b: Button) {
@@ -433,15 +433,45 @@ function mouseClick(
     pkt.sendAsMultiCommand(jacdac.SRV_HID_MOUSE)
 }
 
+
 function animateLEDs(b: Button) {
     if (b === Button.A) {
-        runEncoded("rotfwd 1")
+        runEncoded("rotfwd 1")            
     } else if (b === Button.B) {
         runEncoded("rotback 1")
     } else {
         runEncoded("setall #000000 #ff0000 #00ff00 #0000ff")
     }
 }
+
+const pattern = [0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff]
+
+function animateDisplayLEDs(b: Button) {
+    if (b === Button.A) {        
+        onlyLedDisplay.forEach(d => {
+            d.rotate(1)
+        })
+    } else if (b === Button.B) {
+        onlyLedDisplay.forEach(d => {
+            d.rotate(-1)
+        })
+    } else {
+        onlyLedDisplay.forEach(d => {
+            const pixels = d.pixels()
+            let j = 0;
+            for (let i = 0; i < pixels.length - 2; i += 3) {
+                pixels[i] = pattern[j]
+                pixels[i + 1] = pattern[j + 1]
+                pixels[i + 2] = pattern[j + 2]
+                j += 3
+                if (j >= pattern.length)
+                    j = 0
+            }
+            d.setPixels(pixels)
+        })
+    }
+}
+
 
 function sendColor(color: number) {
     const pkt = jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, "u8 u8 u8 u8", [
@@ -463,6 +493,7 @@ function animateLED(b: Button) {
 
 // leave role manager on so that modules don't blink
 jacdac.firmwareVersion = jacdac.VERSION
-jacdac.start({ disableRoleManager: false })
+jacdac.start();
 
 basic.showIcon(IconNames.Happy)
+
