@@ -215,6 +215,7 @@ namespace modules {
 
         /**
          * Set a single of the pixels on the strip to one RGB color.
+         * You need to call ``show`` to make the changes visible.
          * @param rgb RGB color of the LED
          */
         //% blockId="jacdac_leddisplay_set_pixel_color" block="set %display color at %index pixels to %rgb=colorNumberPicker"
@@ -233,6 +234,7 @@ namespace modules {
 
         /**
          * Set all of the pixels on the strip to one RGB color.
+         * You need to call ``show`` to make the changes visible.
          * @param rgb RGB color of the LED
          */
         //% blockId="jacdac_leddisplay_set_strip_color" block="set %display all pixels to %rgb=colorNumberPicker"

@@ -124,12 +124,10 @@ function rotatePixel(clicks: number) {
 }
 
 function rotateDisplayPixel(clicks: number) {
-    if (clicks > 0) {
-        onlyLedDisplay.forEach(d => {
-            d.rotate(clicks)
-            d.show()
-        })
-    }
+    onlyLedDisplay.forEach(d => {
+        d.rotate(clicks)
+        d.show()
+    })
 }
 
 function setPixelBrightness(ratio: number) {
