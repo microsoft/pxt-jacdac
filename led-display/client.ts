@@ -2,6 +2,7 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class LedDisplayClient extends jacdac.Client {
+        private _localPixels: Buffer = new Buffer[64 * 3]                 // maximum size (may be reduced on call to show)
         private readonly _pixels: jacdac.RegisterClient<[Buffer]>
         private readonly _brightness: jacdac.RegisterClient<[number]>
         private readonly _actualBrightness: jacdac.RegisterClient<[number]>
@@ -107,7 +108,6 @@ namespace modules {
             return values[0]
         }
 
-
         /**
          * Sets the pixel color buffer, where every pixel color is encoded as a 24 bit RGB color.
          */
@@ -116,11 +116,19 @@ namespace modules {
         //% weight=98
         setPixels(pixels: Buffer) {
             if (!pixels) return;
+            this._localPixels = pixels;
+        }
 
+        show() {
             this.start()
-            const currentPixels = this.pixels()
-            currentPixels.write(0, pixels)
-            this._pixels.values = [currentPixels] as [Buffer];
+            const numPixels = this.numPixels()
+            if (numPixels > 0 && numPixels * 3 !== this._localPixels.length) {
+                // create a new buffer of the correct length and copy over
+                const newBuf = new Buffer[numPixels * 3]
+                newBuf.write(0, this._localPixels)
+                this._localPixels = newBuf
+            }
+            this._pixels.values = [this._localPixels] as [Buffer];
         }
 
         /**
@@ -212,13 +220,13 @@ namespace modules {
         //% group="LED Display"
         setPixelColor(index: number, rgb: number) {
             index = index | 0
-            const pixels = this.pixels()
+            const pixels = this._localPixels;
+            if (!pixels) return
             if (index >= 0 && (index + 1) * 3 <= pixels.length) {
                 pixels[index * 3] = (rgb >> 16) & 0xff
                 pixels[index * 3 + 1] = (rgb >> 8) & 0xff
                 pixels[index * 3 + 2] = rgb & 0xff
             }
-            this.setPixels(pixels)
         }
 
         /**
@@ -229,7 +237,8 @@ namespace modules {
         //% weight=80 blockGap=8
         //% group="LED Display"
         setAll(rgb: number) {
-            const pixels = this.pixels()
+            const pixels = this._localPixels;
+            if (!pixels) return
             const r = (rgb >> 16) & 0xff
             const g = (rgb >> 8) & 0xff
             const b = (rgb >> 0) & 0xff
@@ -238,7 +247,6 @@ namespace modules {
                 pixels[i + 1] = g
                 pixels[i + 2] = b
             }
-            this.setPixels(pixels)
         }
 
         /**
@@ -252,9 +260,9 @@ namespace modules {
         shift(offset: number = 1): void {
             offset = offset >> 0;
             const stride = 3;
-            const pixels = this.pixels()
+            const pixels = this._localPixels;
+            if (!pixels) return
             pixels.shift(-offset * stride)
-            this.setPixels(pixels)
         }
 
         /**
@@ -268,9 +276,9 @@ namespace modules {
         rotate(offset: number = 1): void {
             offset = offset >> 0;
             const stride = 3;
-            const pixels = this.pixels()
+            const pixels = this._localPixels
+            if (!pixels) return
             pixels.rotate(-offset * stride)
-            this.setPixels(pixels)
         }
     }
 

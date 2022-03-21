@@ -116,6 +116,15 @@ function setPixel(index: number, rgb: number) {
 function rotatePixel(clicks: number) {
     if (clicks > 0) runEncoded("rotback #", [clicks])
     else runEncoded("rotfwd #", [-clicks])
+    rotateDisplayPixel(clicks)
+}
+
+function rotateDisplayPixel(clicks: number) {
+    if (clicks > 0) {
+        onlyLedDisplay.forEach(d => {
+            d.rotate(1)
+        })
+    }
 }
 
 function setPixelBrightness(ratio: number) {
