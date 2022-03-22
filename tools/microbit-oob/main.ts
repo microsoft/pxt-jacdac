@@ -37,6 +37,8 @@ interface ServicesMap {
 }
 let dev2Services: ServicesMap = {}
 
+let onlyLedDisplay: modules.LedDisplayClient[] = []
+
 jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
     if (d === jacdac.bus.selfDevice) return
     // whenever a device announces itself,
@@ -57,7 +59,7 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
 })
 
 // special handling for actuators (multi-command) and sensors (streaming)
-const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_STRIP, jacdac.SRV_LED]
+const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_STRIP, jacdac.SRV_LED, jacdac.SRV_LED_DISPLAY]
 const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
@@ -89,7 +91,7 @@ function checkForKnownService(
         }
         service2dev[serviceClass].push(dev.deviceId)
         if (knownActuators.indexOf(serviceClass) >= 0)
-            configureActuator(dev, serviceClass)
+            configureActuator(dev, serviceClass, serviceIndex)
         else if (knownSensors.indexOf(serviceClass) >= 0)
             configureSensor(dev, serviceClass, serviceIndex)
     }
@@ -112,8 +114,20 @@ function setPixel(index: number, rgb: number) {
 }
 
 function rotatePixel(clicks: number) {
-    if (clicks > 0) runEncoded("rotback #", [clicks])
-    else runEncoded("rotfwd #", [-clicks])
+    if (clicks > 0) {
+        runEncoded("rotback #", [clicks])
+        rotateDisplayPixel(clicks)
+    } else {
+        runEncoded("rotfwd #", [-clicks])
+        rotateDisplayPixel(clicks)
+    }
+}
+
+function rotateDisplayPixel(clicks: number) {
+    onlyLedDisplay.forEach(d => {
+        d.rotate(clicks)
+        d.show()
+    })
 }
 
 function setPixelBrightness(ratio: number) {
@@ -123,9 +137,15 @@ function setPixelBrightness(ratio: number) {
         [ratio]
     )
     pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
+    const pkt2 = jacdac.JDPacket.jdpacked(
+        jacdac.CMD_SET_REG | jacdac.LedDisplayReg.Brightness,
+        "u0.8",
+        [ratio]
+    )
+    pkt2.sendAsMultiCommand(jacdac.SRV_LED_DISPLAY)
 }
 
-function configureActuator(dev: jacdac.Device, serviceClass: number) {
+function configureActuator(dev: jacdac.Device, serviceClass: number, serviceIndex: number) {
     if (serviceClass === jacdac.SRV_SERVO) {
         // nothing to do here
     } else if (serviceClass === jacdac.SRV_LED_STRIP) {
@@ -136,6 +156,14 @@ function configureActuator(dev: jacdac.Device, serviceClass: number) {
         )
         pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
         setPixel(0, 0xff0000)
+    } else if (serviceClass === jacdac.SRV_LED_DISPLAY) {
+        const ledDisplay = new modules.LedDisplayClient(dev.deviceId)
+        ledDisplay.start()
+        jacdac.bus.reattach(dev)
+        onlyLedDisplay.push(ledDisplay);
+        ledDisplay.setPixelColor(1, 0x00FF00)
+        ledDisplay.show()
+        // ledDisplay.setAll(0xFF0000)
     } else if (serviceClass === jacdac.SRV_LED) {
         // nothing to do here
     }
@@ -355,6 +383,10 @@ jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
             }
         }
     })
+    const ld = onlyLedDisplay.find(c => c.role === d.deviceId)
+    if (ld) {
+        onlyLedDisplay.removeElement(ld)
+    }
     delete dev2Services[d.deviceId]
 })
 
@@ -385,6 +417,7 @@ function actuate(b: Button) {
             animateLED(b)
         }
     })
+    animateDisplayLEDs(b)
 }
 
 function setServoAngle(b: Button) {
@@ -420,11 +453,39 @@ function mouseClick(
 
 function animateLEDs(b: Button) {
     if (b === Button.A) {
-        runEncoded("rotfwd 1")
+        runEncoded("rotfwd 1")            
     } else if (b === Button.B) {
         runEncoded("rotback 1")
     } else {
         runEncoded("setall #000000 #ff0000 #00ff00 #0000ff")
+    }
+}
+
+const pattern = [0x000000, 0xff0000, 0x00ff00, 0x0000ff]
+
+function animateDisplayLEDs(b: Button) {
+    if (b === Button.A) {        
+        onlyLedDisplay.forEach(d => {
+            d.rotate(1)
+            d.show()
+        })
+    } else if (b === Button.B) {
+        onlyLedDisplay.forEach(d => {
+            d.rotate(-1)
+            d.show()
+        })
+    } else {
+        onlyLedDisplay.forEach(d => {
+            const numPixels = d.numPixels()
+            let j = 0
+            for (let i = 0; i < numPixels; i++) {
+                d.setPixelColor(i, pattern[j])
+                j++
+                if (j === pattern.length)
+                    j = 0
+            }
+            d.show()
+        })
     }
 }
 
@@ -446,8 +507,7 @@ function animateLED(b: Button) {
     sendColor(0)
 }
 
-// leave role manager on so that modules don't blink
 jacdac.firmwareVersion = jacdac.VERSION
-jacdac.start({ disableRoleManager: false })
-
+jacdac.start();
 basic.showIcon(IconNames.Happy)
+
