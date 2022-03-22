@@ -43,7 +43,7 @@ To refresh the `constants.ts` files, build jacdac-spec (`yarn buildspecs` from j
 If you do not have access to USB drive, launch a local web service and download `built/binary.hex`
 
 ```
-npx http-serve
+npx http-serve -c-1
 ```
 
 ### Building local projects

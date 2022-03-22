@@ -7,10 +7,8 @@ namespace servers {
         "u0.16",
         () => input.lightLevel() / 255.0,
         {
-            minReading: 0,
-            maxReading: 100,
             streamingInterval: 50,
-            readingError: () => 3
+            readingError: () => 0.05,
         }
     )
 }
