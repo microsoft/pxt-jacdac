@@ -40,11 +40,13 @@ To refresh the `constants.ts` files, build jacdac-spec (`yarn buildspecs` from j
 
 ### Deploying in WSL/Codespaces
 
-If you do not have access to USB drive, launch a local web service and download `built/binary.hex`
+If you do not have access to USB drive, launch a local web service and download the built `binary.hex`
 
 ```
-npx http-serve -c-1
+mkc build --watch --serve
 ```
+
+then navigate to the firmware web server
 
 ### Building local projects
 
