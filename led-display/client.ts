@@ -111,7 +111,7 @@ namespace modules {
         }
 
         /**
-         * Sets the pixel color buffer, where every pixel color is encoded as a 24 bit RGB color.
+         * Sets the local pixel color buffer, where every pixel color is encoded as a 24 bit RGB color.
          */
         //% callInDebugger
         //% group="LED Display"
@@ -121,6 +121,12 @@ namespace modules {
             this._localPixels = pixels;
         }
 
+        /**
+         * Sends the local pixel buffer to device
+         */
+        //% callInDebugger
+        //% group="LED Display"
+        //% weight=98
         show() {
             this.start()
             const numPixels = this.numPixels()
