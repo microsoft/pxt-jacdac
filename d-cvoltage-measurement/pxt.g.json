@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-voltage-measurement",
+    "name": "jacdac-d-cvoltage-measurement",
     "version": "0.0.0",
     "description": "A service that reports a voltage measurement.",
     "files": [

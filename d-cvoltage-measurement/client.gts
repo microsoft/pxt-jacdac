@@ -1,18 +1,18 @@
 namespace modules {
     /**
-     * A service that reports the output of an analog to digital converter (ADC).
+     * A service that reports a voltage measurement.
      **/
     //% fixedInstances blockGap=8
-    export class AnalogMeasurementClient extends jacdac.SimpleSensorClient {
+    export class DCVoltageMeasurementClient extends jacdac.SimpleSensorClient {
 
-        private readonly _measurementType : jacdac.RegisterClient<[jacdac.AnalogMeasurementADCMeasurementType]>;
+        private readonly _measurementType : jacdac.RegisterClient<[jacdac.DCVoltageMeasurementVoltageMeasurementType]>;
         private readonly _measurementName : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_ANALOG_MEASUREMENT, role, "f64");
+            super(jacdac.SRV_D_CVOLTAGE_MEASUREMENT, role, "f64");
 
-            this._measurementType = this.addRegister<[jacdac.AnalogMeasurementADCMeasurementType]>(jacdac.AnalogMeasurementReg.MeasurementType, "u8");
-            this._measurementName = this.addRegister<[string]>(jacdac.AnalogMeasurementReg.MeasurementName, "s");            
+            this._measurementType = this.addRegister<[jacdac.DCVoltageMeasurementVoltageMeasurementType]>(jacdac.DCVoltageMeasurementReg.MeasurementType, "u8");
+            this._measurementName = this.addRegister<[string]>(jacdac.DCVoltageMeasurementReg.MeasurementName, "s");            
         }
     
 
@@ -20,9 +20,9 @@ namespace modules {
         * The type of measurement that is taking place. Absolute results are measured with respect to ground, whereas differential results are measured against another signal that is not ground.
         */
         //% callInDebugger
-        //% group="Analog Measurement"
+        //% group="DC Voltage Measurement"
         //% weight=100
-        measurementType(): jacdac.AnalogMeasurementADCMeasurementType {
+        measurementType(): jacdac.DCVoltageMeasurementVoltageMeasurementType {
             this.start();            
             const values = this._measurementType.pauseUntilValues() as any[];
             return values[0];
@@ -32,7 +32,7 @@ namespace modules {
         * A string containing the net name that is being measured e.g. `POWER_DUT` or a reference e.g. `DIFF_DEV1_DEV2`. These constants can be used to identify a measurement from client code.
         */
         //% callInDebugger
-        //% group="Analog Measurement"
+        //% group="DC Voltage Measurement"
         //% weight=99
         measurementName(): string {
             this.start();            
@@ -41,12 +41,12 @@ namespace modules {
         }
 
         /**
-        * The result of the ADC measurement.
+        * The voltage measurement.
         */
         //% callInDebugger
-        //% group="Analog Measurement"
-        //% block="%analogmeasurement measurement"
-        //% blockId=jacdac_analogmeasurement_measurement___get
+        //% group="DC Voltage Measurement"
+        //% block="%dcvoltagemeasurement measurement"
+        //% blockId=jacdac_dcvoltagemeasurement_measurement___get
         //% weight=98
         measurement(): number {
             return this.reading();
@@ -56,9 +56,9 @@ namespace modules {
         /**
          * Run code when the measurement changes by the given threshold value.
         */
-        //% group="Analog Measurement"
-        //% blockId=jacdac_analogmeasurement_on_measurement_change
-        //% block="on %analogmeasurement measurement changed by %threshold"
+        //% group="DC Voltage Measurement"
+        //% blockId=jacdac_dcvoltagemeasurement_on_measurement_change
+        //% block="on %dcvoltagemeasurement measurement changed by %threshold"
         //% weight=97
         //% threshold.min=0
         //% threshold.defl=1
@@ -68,6 +68,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="analog measurement1"
-    export const analogMeasurement1 = new AnalogMeasurementClient("analog Measurement1");
+    //% fixedInstance whenUsed block="d cvoltage measurement1"
+    export const dCVoltageMeasurement1 = new DCVoltageMeasurementClient("d CVoltage Measurement1");
 }

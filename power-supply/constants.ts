@@ -12,28 +12,28 @@ namespace jacdac {
         Enabled = 0x1,
 
         /**
-         * Read-write mV i22.10 (int32_t). The current output voltage of the power supply. Values provided must be in the range `minimum_voltage` to `maximum_voltage`
+         * Read-write V f64 (uint64_t). The current output voltage of the power supply. Values provided must be in the range `minimum_voltage` to `maximum_voltage`
          *
          * ```
-         * const [outputVoltage] = jdunpack<[number]>(buf, "i22.10")
+         * const [outputVoltage] = jdunpack<[number]>(buf, "f64")
          * ```
          */
         OutputVoltage = 0x2,
 
         /**
-         * Constant mV i22.10 (int32_t). The minimum output voltage of the power supply. For fixed power supplies, `minimum_voltage` should be equal to `maximum_voltage`.
+         * Constant V f64 (uint64_t). The minimum output voltage of the power supply. For fixed power supplies, `minimum_voltage` should be equal to `maximum_voltage`.
          *
          * ```
-         * const [minimumVoltage] = jdunpack<[number]>(buf, "i22.10")
+         * const [minimumVoltage] = jdunpack<[number]>(buf, "f64")
          * ```
          */
         MinimumVoltage = 0x110,
 
         /**
-         * Constant mV i22.10 (int32_t). The maximum output voltage of the power supply. For fixed power supplies, `minimum_voltage` should be equal to `maximum_voltage`.
+         * Constant V f64 (uint64_t). The maximum output voltage of the power supply. For fixed power supplies, `minimum_voltage` should be equal to `maximum_voltage`.
          *
          * ```
-         * const [maximumVoltage] = jdunpack<[number]>(buf, "i22.10")
+         * const [maximumVoltage] = jdunpack<[number]>(buf, "f64")
          * ```
          */
         MaximumVoltage = 0x111,

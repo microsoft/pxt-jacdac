@@ -3,14 +3,14 @@ namespace modules {
      * A service that reports a current measurement.
      **/
     //% fixedInstances blockGap=8
-    export class CurrentMeasurementClient extends jacdac.SimpleSensorClient {
+    export class DCCurrentMeasurementClient extends jacdac.SimpleSensorClient {
 
         private readonly _measurementName : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_CURRENT_MEASUREMENT, role, "f64");
+            super(jacdac.SRV_D_CCURRENT_MEASUREMENT, role, "f64");
 
-            this._measurementName = this.addRegister<[string]>(jacdac.CurrentMeasurementReg.MeasurementName, "s");            
+            this._measurementName = this.addRegister<[string]>(jacdac.DCCurrentMeasurementReg.MeasurementName, "s");            
         }
     
 
@@ -18,7 +18,7 @@ namespace modules {
         * A string containing the net name that is being measured e.g. `POWER_DUT` or a reference e.g. `DIFF_DEV1_DEV2`. These constants can be used to identify a measurement from client code.
         */
         //% callInDebugger
-        //% group="Current Measurement"
+        //% group="DC Current Measurement"
         //% weight=100
         measurementName(): string {
             this.start();            
@@ -30,9 +30,9 @@ namespace modules {
         * The current measurement.
         */
         //% callInDebugger
-        //% group="Current Measurement"
-        //% block="%currentmeasurement measurement"
-        //% blockId=jacdac_currentmeasurement_measurement___get
+        //% group="DC Current Measurement"
+        //% block="%dccurrentmeasurement measurement"
+        //% blockId=jacdac_dccurrentmeasurement_measurement___get
         //% weight=99
         measurement(): number {
             return this.reading();
@@ -42,9 +42,9 @@ namespace modules {
         /**
          * Run code when the measurement changes by the given threshold value.
         */
-        //% group="Current Measurement"
-        //% blockId=jacdac_currentmeasurement_on_measurement_change
-        //% block="on %currentmeasurement measurement changed by %threshold"
+        //% group="DC Current Measurement"
+        //% blockId=jacdac_dccurrentmeasurement_on_measurement_change
+        //% block="on %dccurrentmeasurement measurement changed by %threshold"
         //% weight=98
         //% threshold.min=0
         //% threshold.defl=1
@@ -54,6 +54,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="current measurement1"
-    export const currentMeasurement1 = new CurrentMeasurementClient("current Measurement1");
+    //% fixedInstance whenUsed block="d ccurrent measurement1"
+    export const dCCurrentMeasurement1 = new DCCurrentMeasurementClient("d CCurrent Measurement1");
 }

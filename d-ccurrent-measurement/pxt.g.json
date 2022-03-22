@@ -1,5 +1,5 @@
 {
-    "name": "jacdac-current-measurement",
+    "name": "jacdac-d-ccurrent-measurement",
     "version": "0.0.0",
     "description": "A service that reports a current measurement.",
     "files": [
