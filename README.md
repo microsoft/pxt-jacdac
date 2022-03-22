@@ -38,6 +38,14 @@ Run `makecode --pxt-modules` to create files in `pxt_modules/*`, which help with
 
 To refresh the `constants.ts` files, build jacdac-spec (`yarn buildspecs` from jacdac-ts) from https://github.com/microsoft/jacdac-ts .
 
+### Deploying in WSL/Codespaces
+
+If you do not have access to USB drive, launch a local web service and download `built/binary.hex`
+
+```
+npx http-serve
+```
+
 ### Building local projects
 
 Typically you can do ``makecode` from any subproject to build for micro:bit. To use another config, for example arcade,
