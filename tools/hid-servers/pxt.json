@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-servers",
-    "version": "0.8.10",
+    "version": "0.8.11",
     "description": "HID Keyboard, mouse servers",
     "files": [
         "config.f4.ts",
