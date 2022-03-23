@@ -37,14 +37,23 @@ namespace jacdac {
             )
             this.setStreaming(samples)
 
-            switch (packet.serviceCommand) {
-                case jacdac.SystemCmd.Calibrate:
-                    this.handleCalibrateCommand(packet)
-                    break
-                default:
-                    // let the user deal with it
-                    this.handleCustomCommand(packet)
-                    break
+            // register get, on a sensor
+            if (packet.isRegGet && packet.regCode == jacdac.SystemReg.Reading) {
+                const state = this.serializeState()
+                this.sendReport(
+                    JDPacket.from(CMD_GET_REG | jacdac.SystemReg.Reading, state)
+                )
+                packet.markHandled()
+            } else {
+                switch (packet.serviceCommand) {
+                    case jacdac.SystemCmd.Calibrate:
+                        this.handleCalibrateCommand(packet)
+                        break
+                    default:
+                        // let the user deal with it
+                        this.handleCustomCommand(packet)
+                        break
+                }
             }
         }
 
