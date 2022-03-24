@@ -2,15 +2,12 @@
     "compilerOptions": {
         "target": "ES5",
         "noImplicitAny": true,
-        "outDir": "built",
-        "rootDir": "."
+        "outDir": "built"
     },
-    "include": [
-        "**/*.ts",
-        "../../**/*.ts"
-    ],
+    "include": ["*.ts", "**/*.ts", "../../**/*.ts"],
     "exclude": [
         "built/**",
-        "pxt_modules/**/*test.ts"
+        "pxt_modules/**/*test.ts",
+        "../microbit-oob/main.ts"
     ]
 }
