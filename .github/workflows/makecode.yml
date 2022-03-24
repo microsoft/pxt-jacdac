@@ -49,6 +49,7 @@ jobs:
             - run: cd tools/hid-servers && makecode
             - run: cd tools/hid-servers && makecode -c mkc-rp2040.json
             - run: cd tools/microbit-oob && makecode
+            - run: cd tools/microbit-machine && makecode
             - run: cd tools/farm-beats && makecode
             - run: ./copy-release-files.sh
             - name: Upload release files

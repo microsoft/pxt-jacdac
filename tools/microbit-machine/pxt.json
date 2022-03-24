@@ -1,0 +1,34 @@
+{
+    "name": "jacdac-microbit-machine",
+    "version": "0.8.11",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer",
+        "jacdac-servo": "github:microsoft/pxt-jacdac/servo",
+        "jacdac-button": "github:microsoft/pxt-jacdac/button",
+        "jacdac-rotary-encoder": "github:microsoft/pxt-jacdac/rotary-encoder",
+        "jacdac-led-strip": "github:microsoft/pxt-jacdac/led-strip",
+        "jacdac-led": "github:microsoft/pxt-jacdac/led",
+        "jacdac-led-display": "github:microsoft/pxt-jacdac/led-display",
+        "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer",
+        "jacdac-temperature": "github:microsoft/pxt-jacdac/temperature",
+        "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
+        "jacdac-flex": "github:microsoft/pxt-jacdac/flex",
+        "jacdac-gamepad": "github:microsoft/pxt-jacdac/gamepad",
+        "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse",
+        "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
+    },
+    "files": ["runtime.ts", "potentiometer.ts", "main.ts", "README.md"],
+    "targetVersions": {
+        "target": "4.0.11",
+        "targetId": "microbit"
+    },
+    "supportedTargets": ["microbit"],
+    "preferredEditor": "tsprj",
+    "disableTargetTemplateFiles": true,
+    "binaryonly": true
+}
