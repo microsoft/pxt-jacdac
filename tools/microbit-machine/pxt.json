@@ -29,6 +29,7 @@
         "button.ts",
         "humidity.ts",
         "temperature.ts",
+        "rotaryencoder.ts",
         "README.md"
     ],
     "targetVersions": {
