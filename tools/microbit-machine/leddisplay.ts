@@ -1,35 +1,45 @@
 const pattern = [0x000000, 0xff0000, 0x00ff00, 0x0000ff]
 
-/*
-function animateDisplayLEDs(b: Button) {
-    if (b === Button.A) {        
-        onlyLedDisplay.forEach(d => {
-            d.rotate(1)
-            d.show()
-        })
-    } else if (b === Button.B) {
-        onlyLedDisplay.forEach(d => {
-            d.rotate(-1)
-            d.show()
-        })
-    } else {
-        onlyLedDisplay.forEach(d => {
-            const numPixels = d.numPixels()
+machine.addClientFactory(jacdac.SRV_LED_DISPLAY, devid => {
+    const client = new modules.LedDisplayClient(devid)
+    machine.microbit.onEvent(
+        client,
+        EventBusSource.MICROBIT_ID_BUTTON_A,
+        EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
+        () => {
+            client.rotate(1)
+            client.show()
+        }
+    )
+    machine.microbit.onEvent(
+        client,
+        EventBusSource.MICROBIT_ID_BUTTON_B,
+        EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
+        () => {
+            client.rotate(-1)
+            client.show()
+        }
+    )
+    machine.microbit.onEvent(
+        client,
+        EventBusSource.MICROBIT_ID_BUTTON_AB,
+        EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
+        () => {
+            const numPixels = client.numPixels()
             let j = 0
             for (let i = 0; i < numPixels; i++) {
-                d.setPixelColor(i, pattern[j])
+                client.setPixelColor(i, pattern[j])
                 j++
                 if (j === pattern.length)
                     j = 0
             }
-            d.show()
-        })
-    }
-}
-*/
-
-machine.addClientFactory(jacdac.SRV_LED_DISPLAY, devid => {
-    const client = new modules.LedDisplayClient(devid)
+            client.show()
+        }
+    )
     client.setPixelColor(1, 0x00FF00)
     client.show()
 })
+
+
+
+
