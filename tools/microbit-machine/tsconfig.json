@@ -4,13 +4,10 @@
         "noImplicitAny": true,
         "outDir": "built"
     },
-    "include": [
-        "*.ts",
-        "**/*.ts",
-        "../../**/*.ts"
-    ],
+    "include": ["*.ts", "**/*.ts", "../../**/*.ts"],
     "exclude": [
         "built/**",
-        "pxt_modules/**/*test.ts"
+        "pxt_modules/**/*test.ts",
+        "../microbit-oob/main.ts"
     ]
 }
