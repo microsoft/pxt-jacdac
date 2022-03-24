@@ -51,7 +51,7 @@ namespace machine {
 
 // factory registration
 namespace machine {
-    export function ignoreDevice(d: jacdac.Device) {
+    function ignoreDevice(d: jacdac.Device) {
         return (
             d === jacdac.bus.selfDevice ||
             d.hasService(jacdac.SRV_INFRASTRUCTURE) ||
@@ -79,21 +79,20 @@ namespace machine {
         if (devices) devices.forEach(startClients)
     }
 
+    function startClient(d: jacdac.Device, serviceIndex: number) {
+        const serviceClass = d.serviceClassAt(serviceIndex)
+        const factory = factories.find(f => f.serviceClass === serviceClass)
+        if (factory) return factory.handler(d.deviceId, serviceIndex)
+        return null
+    }
+
     function startClients(d: jacdac.Device) {
         if (machine.ignoreDevice(d)) return
         // whenever a device announces itself,
         // cache its services, if not already done
         // spin up clients
         if (!d.clients.length)
-            for (let i = 1; i < d.serviceClassLength; i++)
-                machine.startClient(d, i)
-    }
-
-    export function startClient(d: jacdac.Device, serviceIndex: number) {
-        const serviceClass = d.serviceClassAt(serviceIndex)
-        const factory = factories.find(f => f.serviceClass === serviceClass)
-        if (factory) return factory.handler(d.deviceId, serviceIndex)
-        return null
+            for (let i = 1; i < d.serviceClassLength; i++) startClient(d, i)
     }
 
     function start() {
