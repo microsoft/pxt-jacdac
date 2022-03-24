@@ -3,6 +3,30 @@ music.setVolume(100)
 music.setTempo(180)
 jacdac.firmwareVersion = jacdac.VERSION
 
+// microbit wrapper
+namespace machine {
+    class MicrobitMachine extends jacdac.EventSource {
+        constructor() {
+            super()
+        }
+
+        onEvent(
+            client: jacdac.Client,
+            src: number,
+            value: number,
+            handler: () => void
+        ) {
+            const key = `${src}:${value}`
+            if (this.listenerCount(key) == 0) {
+                control.onEvent(src, value, () => this.emit(key))
+            }
+            const unsub = this.subscribe(key, handler)
+            client.on(jacdac.DISCONNECT, unsub)
+        }
+    }
+    export const microbit = new MicrobitMachine()
+}
+
 // tone player
 namespace machine {
     let nextTone: number
