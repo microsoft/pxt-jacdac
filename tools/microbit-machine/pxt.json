@@ -22,7 +22,13 @@
         "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
-    "files": ["runtime.ts", "potentiometer.ts", "main.ts", "README.md"],
+    "files": [
+        "runtime.ts",
+        "potentiometer.ts",
+        "presence.ts",
+        "main.ts",
+        "README.md"
+    ],
     "targetVersions": {
         "target": "4.0.11",
         "targetId": "microbit"

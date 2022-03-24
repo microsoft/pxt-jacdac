@@ -40,6 +40,7 @@
         "base/constants.ts",
         "infrastructure/constants.ts",
         "proxy/constants.ts",
+        "infrastructure/constants.ts",
         "bootloader/constants.ts",
         "control/constants.ts",
         "logger/constants.ts",
