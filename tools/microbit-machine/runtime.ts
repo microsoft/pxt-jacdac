@@ -51,7 +51,7 @@ namespace machine {
 
 // factory registration
 namespace machine {
-    function ignoreDevice(d: jacdac.Device) {
+    export function ignoreDevice(d: jacdac.Device) {
         return (
             d === jacdac.bus.selfDevice ||
             d.hasService(jacdac.SRV_INFRASTRUCTURE) ||
