@@ -9,22 +9,22 @@ namespace machine {
 
     class ClientFactory {
         constructor(
-            public serviceIndex: number,
+            public serviceClass: number,
             public handler: (devid: string, serviceIndex: number) => void
         ) {}
     }
     const factories: ClientFactory[] = []
     export function addClientFactory(
-        serviceIndex: number,
+        serviceClass: number,
         handler: (devid: string, serviceIndex: number) => void
     ) {
-        console.log(`modules: register ${serviceIndex}`)
-        factories.push(new ClientFactory(serviceIndex, handler))
+        console.log(`modules: register ${serviceClass}`)
+        factories.push(new ClientFactory(serviceClass, handler))
     }
 
     export function startClient(d: jacdac.Device, serviceIndex: number) {
         const serviceClass = d.serviceClassAt(serviceIndex)
-        const factory = factories.find(f => f.serviceIndex === serviceIndex)
+        const factory = factories.find(f => f.serviceClass === serviceClass)
         if (factory) return factory.handler(d.deviceId, serviceIndex)
         return null
     }
