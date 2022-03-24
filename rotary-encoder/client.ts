@@ -41,16 +41,14 @@ namespace modules {
         }
 
         /**
-         * Run code when the position changes by the given threshold value.
+         * Run code when the position changes
         */
         //% group="Slider"
         //% blockId=jacdac_rotaryencoder_on_position_change
-        //% block="on %rotaryencoder position changed by %threshold"
+        //% block="on %rotaryencoder position changed"
         //% weight=98
-        //% threshold.min=0
-        //% threshold.defl=1
-        onPositionChangedBy(threshold: number, handler: () => void): void {
-            this.onReadingChangedBy(threshold, handler);
+        onPositionChangedBy(handler: () => void): void {
+            this.onReadingChangedBy(1, handler);
         }
 
     

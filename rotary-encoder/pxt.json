@@ -4,7 +4,7 @@
     "description": "An incremental rotary encoder - converts angular motion of a shaft to digital signal.",
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.ts"
     ],
     "supportedTargets": [
         "arcade",
