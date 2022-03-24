@@ -10,7 +10,22 @@ namespace machine {
             super()
         }
 
-        onEvent(
+        /**
+         * Registers a handler that will be unsubscribed when the client disconnects
+         */
+        onClient(
+            client: jacdac.Client,
+            eventName: string,
+            handler: () => void
+        ) {
+            const unsub = this.subscribe(eventName, handler)
+            client.on(jacdac.DISCONNECT, unsub)
+        }
+
+        /**
+         * Registers a control event handler that will be unsubscribed when the client disconnects
+         */
+        onControlEvent(
             client: jacdac.Client,
             src: number,
             value: number,
@@ -20,8 +35,7 @@ namespace machine {
             if (this.listenerCount(key) == 0) {
                 control.onEvent(src, value, () => this.emit(key))
             }
-            const unsub = this.subscribe(key, handler)
-            client.on(jacdac.DISCONNECT, unsub)
+            this.onClient(client, key, handler)
         }
     }
     export const microbit = new MicrobitMachine()
