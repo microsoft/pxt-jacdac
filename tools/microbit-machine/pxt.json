@@ -30,6 +30,7 @@
         "humidity.ts",
         "temperature.ts",
         "rotaryencoder.ts",
+        "leddisplay.ts",
         "servo.ts",
         "README.md"
     ],
