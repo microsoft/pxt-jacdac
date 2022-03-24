@@ -1,3 +1,8 @@
+jacdac.productIdentifier = 0x3dbc99b9
+music.setVolume(100)
+music.setTempo(180)
+jacdac.firmwareVersion = jacdac.VERSION
+
 // tone player
 namespace machine {
     let nextTone: number
@@ -15,6 +20,37 @@ namespace machine {
         nextTone = f
         startTonePlayer()
         music.stopAllSounds()
+    }
+}
+
+// number display
+namespace machine {
+    class NumberToShow {
+        constructor(public icon: IconNames, public x: number) {}
+    }
+    const numbersToShow: NumberToShow[] = []
+
+    function flushNumbers() {
+        control.inBackground(() => {
+            while (numbersToShow.length > 0) {
+                const n = numbersToShow.pop()
+                const icon = n.icon
+                const x = n.x
+                led.stopAnimation()
+                basic.showIcon(icon, 700)
+                if (x < 0 || x > 99) basic.showNumber(x)
+                else {
+                    whaleysans.showNumber(x)
+                    basic.pause(700)
+                }
+            }
+        })
+    }
+
+    export function showNumber(icon: IconNames, x: number) {
+        if (numbersToShow.length == 0) flushNumbers()
+        if (!numbersToShow.find(n => n.icon === icon))
+            numbersToShow.push(new NumberToShow(icon, x))
     }
 }
 

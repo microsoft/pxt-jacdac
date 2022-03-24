@@ -16,13 +16,21 @@
         "jacdac-led-display": "github:microsoft/pxt-jacdac/led-display",
         "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer",
         "jacdac-temperature": "github:microsoft/pxt-jacdac/temperature",
+        "jacdac-humidity": "github:microsoft/pxt-jacdac/humidity",
         "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",
         "jacdac-flex": "github:microsoft/pxt-jacdac/flex",
         "jacdac-gamepad": "github:microsoft/pxt-jacdac/gamepad",
         "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
-    "files": ["runtime.ts", "potentiometer.ts", "button.ts", "README.md"],
+    "files": [
+        "runtime.ts",
+        "potentiometer.ts",
+        "button.ts",
+        "humidity.ts",
+        "temperature.ts",
+        "README.md"
+    ],
     "targetVersions": {
         "target": "4.0.11",
         "targetId": "microbit"
