@@ -1,1 +1,0 @@
-basic.showIcon(IconNames.Happy)
