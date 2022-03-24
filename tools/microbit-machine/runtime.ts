@@ -1,4 +1,21 @@
 namespace machine {
+    let nextTone: number
+    function startTonePlayer() {
+        control.inBackground(() => {
+            while (nextTone) {
+                const t = nextTone
+                nextTone = 0
+                music.playTone(t, music.beat(BeatFraction.Half))
+                basic.pause(20)
+            }
+        })
+    }
+    export function scheduleTone(f: number) {
+        nextTone = f
+        startTonePlayer()
+        music.stopAllSounds()
+    }
+
     export function ignoreDevice(d: jacdac.Device) {
         return (
             d === jacdac.bus.selfDevice ||

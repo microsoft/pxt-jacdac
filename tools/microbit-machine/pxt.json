@@ -25,6 +25,7 @@
     "files": [
         "runtime.ts",
         "potentiometer.ts",
+        "button.ts",
         "presence.ts",
         "main.ts",
         "README.md"
