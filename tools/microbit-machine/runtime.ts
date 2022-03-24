@@ -7,6 +7,7 @@ jacdac.firmwareVersion = jacdac.VERSION
 namespace machine {
     let nextTone: number
     function startTonePlayer() {
+        music.stopAllSounds()
         control.inBackground(() => {
             while (nextTone) {
                 const t = nextTone
@@ -19,7 +20,18 @@ namespace machine {
     export function scheduleTone(f: number) {
         nextTone = f
         startTonePlayer()
-        music.stopAllSounds()
+    }
+
+    export function sonify(value: number, max: number) {
+        const fmin = 200
+        const fmax = 10000
+        const f = Math.map(Math.abs(value), 0, max, fmin, fmax)
+        scheduleTone(f)
+    }
+
+    export function plot(value: number, max: number) {
+        led.plotBarGraph(value, max)
+        machine.sonify(value, max)
     }
 }
 
