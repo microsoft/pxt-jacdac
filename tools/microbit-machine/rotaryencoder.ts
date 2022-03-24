@@ -5,6 +5,6 @@ machine.addClientFactory(jacdac.SRV_ROTARY_ENCODER, devid => {
         //console.log(`SRV_ROTARY_ENCODER: clicks = ${clicks}`)
         clicks = clicks ? clicks : 24;
         const current = client.position() % clicks 
-        led.plotBarGraph(current, clicks)
+        machine.plot(current, clicks)
     })
 })
