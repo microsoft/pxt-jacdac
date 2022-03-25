@@ -21,17 +21,19 @@
         "jacdac-flex": "github:microsoft/pxt-jacdac/flex",
         "jacdac-gamepad": "github:microsoft/pxt-jacdac/gamepad",
         "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse",
+        "jacdac-relay": "github:microsoft/pxt-jacdac/relay",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
     "files": [
         "runtime.ts",
-        "potentiometer.ts",
         "button.ts",
         "humidity.ts",
-        "temperature.ts",
-        "rotaryencoder.ts",
         "leddisplay.ts",
+        "potentiometer.ts",
+        "relay.ts",
+        "rotaryencoder.ts",
         "servo.ts",
+        "temperature.ts",
         "README.md"
     ],
     "targetVersions": {
