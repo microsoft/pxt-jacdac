@@ -2,28 +2,18 @@ const pattern = [0x000000, 0xff0000, 0x00ff00, 0x0000ff]
 
 machine.addClientFactory(jacdac.SRV_LED_DISPLAY, devid => {
     const client = new modules.LedDisplayClient(devid)
-    machine.microbit.onControlEvent(
-        client,
-        EventBusSource.MICROBIT_ID_BUTTON_A,
-        EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
-        () => {
-            client.rotate(1)
-            client.show()
-        }
-    )
-    machine.microbit.onControlEvent(
-        client,
-        EventBusSource.MICROBIT_ID_BUTTON_B,
-        EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
-        () => {
-            client.rotate(-1)
-            client.show()
-        }
-    )
-    machine.microbit.onControlEvent(
-        client,
-        EventBusSource.MICROBIT_ID_BUTTON_AB,
-        EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
+
+    machine.microbit.onClient(client, machine.EVENT_A, () => {
+        client.rotate(1)
+        client.show()
+    })
+    
+    machine.microbit.onClient(client, machine.EVENT_B, () => {
+        client.rotate(-1)
+        client.show()
+    })
+
+    machine.microbit.onClient(client, machine.EVENT_AB,
         () => {
             const numPixels = client.numPixels()
             let j = 0

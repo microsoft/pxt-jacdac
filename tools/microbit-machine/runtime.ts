@@ -3,11 +3,33 @@ music.setVolume(100)
 music.setTempo(180)
 jacdac.firmwareVersion = jacdac.VERSION
 
+
+
 // microbit wrapper
 namespace machine {
+    
+    export const EVENT_A = "event_a"
+    export const EVENT_B = "event_b"
+    export const EVENT_AB = "event_ab"
+
     class MicrobitMachine extends jacdac.EventSource {
         constructor() {
             super()
+            control.onEvent(
+                EventBusSource.MICROBIT_ID_BUTTON_A,
+                EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
+                () => this.emit(EVENT_A)
+            )
+            control.onEvent(
+                EventBusSource.MICROBIT_ID_BUTTON_B,
+                EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
+                () => this.emit(EVENT_B)
+            )
+            control.onEvent(
+                EventBusSource.MICROBIT_ID_BUTTON_AB,
+                EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
+                () => this.emit(EVENT_AB)
+            )
         }
 
         /**
