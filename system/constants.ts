@@ -1,6 +1,6 @@
 namespace jacdac {
     // Service Common registers and commands constants
-    export const ANNOUNCE_INTERVAL = 0x1f4
+    export const SYSTEM_ANNOUNCE_INTERVAL = 0x1f4
 
     export const enum SystemReadingThreshold { // uint8_t
         //% block="neutral"
