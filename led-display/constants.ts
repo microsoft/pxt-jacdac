@@ -1,7 +1,7 @@
 namespace jacdac {
     // Service LED Display constants
     export const SRV_LED_DISPLAY = 0x1609d4f0
-    export const MAX_PIXELS_LENGTH = 0x40
+    export const LED_DISPLAY_MAX_PIXELS_LENGTH = 0x40
 
     export const enum LedDisplayLightType { // uint8_t
         //% block="ws2812b grb"
