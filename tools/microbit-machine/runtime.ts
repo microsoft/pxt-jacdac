@@ -11,8 +11,11 @@ namespace machine {
     export const EVENT_A = "event_a"
     export const EVENT_B = "event_b"
     export const EVENT_AB = "event_ab"
+    export const EVENT_TONE = "event_tone"
 
     class MicrobitMachine extends jacdac.EventSource {
+        tone: number
+
         constructor() {
             super()
             control.onEvent(
@@ -59,6 +62,16 @@ namespace machine {
             }
             this.onClient(client, key, handler)
         }
+
+        /**
+         * Schedules a tone to be played
+         * @param tone 
+         */
+        playTone(tone: number) {
+            this.tone = tone
+            if (tone)
+                this.emit(EVENT_TONE)
+        }
     }
     export const microbit = new MicrobitMachine()
 }
@@ -72,6 +85,7 @@ namespace machine {
             while (nextTone) {
                 const t = nextTone
                 nextTone = 0
+                machine.microbit.playTone(t)
                 music.playTone(t, music.beat(BeatFraction.Half))
                 basic.pause(20)
             }
