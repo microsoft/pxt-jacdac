@@ -3,14 +3,14 @@ namespace modules {
      * A sensor measuring air pressure of outside environment.
      **/
     //% fixedInstances blockGap=8
-    export class BarometerClient extends jacdac.SimpleSensorClient {
+    export class AirPressureClient extends jacdac.SimpleSensorClient {
 
         private readonly _pressureError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_BAROMETER, role, "u22.10");
+            super(jacdac.SRV_AIR_PRESSURE, role, "u22.10");
 
-            this._pressureError = this.addRegister<[number]>(jacdac.BarometerReg.PressureError, "u22.10");            
+            this._pressureError = this.addRegister<[number]>(jacdac.AirPressureReg.PressureError, "u22.10");            
         }
     
 
@@ -19,8 +19,8 @@ namespace modules {
         */
         //% callInDebugger
         //% group="Environment"
-        //% block="%barometer pressure"
-        //% blockId=jacdac_barometer_pressure___get
+        //% block="%airpressure pressure"
+        //% blockId=jacdac_airpressure_pressure___get
         //% weight=100
         pressure(): number {
             return this.reading();
@@ -43,8 +43,8 @@ namespace modules {
          * Run code when the pressure changes by the given threshold value.
         */
         //% group="Environment"
-        //% blockId=jacdac_barometer_on_pressure_change
-        //% block="on %barometer pressure changed by %threshold"
+        //% blockId=jacdac_airpressure_on_pressure_change
+        //% block="on %airpressure pressure changed by %threshold"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=1040
@@ -55,6 +55,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="barometer1"
-    export const barometer1 = new BarometerClient("barometer1");
+    //% fixedInstance whenUsed block="air pressure1"
+    export const airPressure1 = new AirPressureClient("air Pressure1");
 }

@@ -1,0 +1,11 @@
+{
+    "name": "jacdac-air-pressure",
+    "version": "0.0.0",
+    "description": "A sensor measuring air pressure of outside environment.",
+    "files": ["constants.ts", "client.g.ts"],
+    "supportedTargets": ["microbit", "arcade", "maker"],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}

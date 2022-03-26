@@ -1,7 +1,7 @@
 namespace jacdac {
-    // Service Barometer constants
-    export const SRV_BAROMETER = 0x1e117cea
-    export const enum BarometerReg {
+    // Service Air Pressure constants
+    export const SRV_AIR_PRESSURE = 0x1e117cea
+    export const enum AirPressureReg {
         /**
          * Read-only hPa u22.10 (uint32_t). The air pressure.
          *

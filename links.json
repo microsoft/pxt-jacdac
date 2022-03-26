@@ -2,6 +2,7 @@
     "links": {
         "jacdac": ".",
         "jacdac-accelerometer": "./accelerometer",
+        "jacdac-air-pressure": "./air-pressure",
         "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
         "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server",
         "jacdac-button": "./button",

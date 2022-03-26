@@ -8,6 +8,7 @@
         "microphone": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
         "jacdac-accelerometer": "github:microsoft/pxt-jacdac/accelerometer",
+        "jacdac-air-pressure": "github:microsoft/pxt-jacdac/air-pressure",
         "jacdac-servo": "github:microsoft/pxt-jacdac/servo",
         "jacdac-button": "github:microsoft/pxt-jacdac/button",
         "jacdac-rotary-encoder": "github:microsoft/pxt-jacdac/rotary-encoder",
@@ -27,6 +28,7 @@
     },
     "files": [
         "runtime.ts",
+        "airpressure.ts",
         "button.ts",
         "humidity.ts",
         "leddisplay.ts",
