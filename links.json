@@ -33,6 +33,7 @@
         "jacdac-humidity": "./humidity",
         "jacdac-uv-index": "./uv-index",
         "jacdac-relay": "./relay",
-        "jacdac-soil-moisture": "./soil-moisture"
+        "jacdac-soil-moisture": "./soil-moisture",
+        "jacdac-switch": "./switch"
     }
 }
