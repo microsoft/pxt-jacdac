@@ -1,6 +1,6 @@
 namespace jacdac {
-    export enum HidKeyboardKey {
-        //% block="None"
+    export const enum HidKeyboardKey {
+        //% block="no key"
         None = 0,
         //% block="a"
         A = 4,
@@ -285,20 +285,21 @@ namespace modules {
          */
         //% group="HID Keyboard"
         //% blockId=jacdac_hidkeyboard_key_cmd
-        //% block="%hidkeyboard key $action $modifiers $selector||$selector2|$selector3"
+        //% block="%hidkeyboard key $action $modifiers|$selector||$selector2|$selector3"
         //% inlineInputMode=inline
         //% weight=100
-        //% modifiers.defl=jacdac.HidKeyboardModifiers.LeftControl
+        //% modifiers.shadow=jacdac_hidkeyboard_modifiers
         //% selector.defl=jacdac.HidKeyboardKey.Enter
         key(
             action: jacdac.HidKeyboardAction,
-            modifiers: jacdac.HidKeyboardModifiers,
+            modifiers: number,
             selector: jacdac.HidKeyboardKey,
             selector2?: jacdac.HidKeyboardKey,
             selector3?: jacdac.HidKeyboardKey
         ): void {
             this.start()
             const entries: number[][] = []
+            modifiers = modifiers | 0
             if (selector) entries.push([selector, modifiers, action])
             if (selector2) entries.push([selector2, modifiers, action])
             if (selector3) entries.push([selector3, modifiers, action])
@@ -327,6 +328,26 @@ namespace modules {
             )
         }
     }
+
+    /**
+     * A combinator of modifiers
+     */
+    //% group="HID Keyboard"
+    //% blockId="jacdac_hidkeyboard_modifiers"
+    //% modifier1.defl=jacdac.HidKeyboardModifiers.LeftControl
+    //% block="$modifier1||$modifier2|$modifier3|$modifier4"
+    //% inlineInputMode=inline
+    export function keyboardModifiers(
+        modifier1: jacdac.HidKeyboardModifiers,
+        modifier2?: jacdac.HidKeyboardModifiers,
+        modifier3?: jacdac.HidKeyboardModifiers,
+        modifier4?: jacdac.HidKeyboardModifiers
+    ) {
+        return (
+            modifier1 | 0 | (modifier2 | 0) | (modifier3 | 0) | (modifier4 | 0)
+        )
+    }
+
     //% fixedInstance whenUsed block="hid keyboard 1"
     export const hidKeyboard1 = new HidKeyboardClient("hid Keyboard1")
 }
