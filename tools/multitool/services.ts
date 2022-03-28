@@ -122,9 +122,6 @@ const serviceDescs: ServiceDesc[] = [
     new ServiceDesc(jacdac.SRV_BUTTON, "btn", num =>
         modules.rotaryEncoder1.setStreaming(num & 1 ? true : false)
     ),
-    new ServiceDesc(jacdac.SRV_BUZZER, "buz", num =>
-        modules.buzzer1.playMelody(music.jumpDown, 20)
-    ),
 ]
 
 class RawSensorClient extends jacdac.SensorClient {
