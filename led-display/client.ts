@@ -2,7 +2,8 @@ namespace modules {
     //% fixedInstances
     //% blockGap=8
     export class LedDisplayClient extends jacdac.Client {
-        private _localPixels: Buffer;
+        private _dirty = false
+        private _localPixels: Buffer
         private readonly _pixels: jacdac.RegisterClient<[Buffer]>
         private readonly _brightness: jacdac.RegisterClient<[number]>
         private readonly _actualBrightness: jacdac.RegisterClient<[number]>
@@ -15,6 +16,9 @@ namespace modules {
         private readonly _variant: jacdac.RegisterClient<
             [jacdac.LedDisplayVariant]
         >
+        private _autoShow = true
+        private _autoShowUnsub: () => void
+        private _lastShow = 0
 
         constructor(role: string) {
             super(jacdac.SRV_LED_DISPLAY, role)
@@ -48,7 +52,45 @@ namespace modules {
                 "u16"
             )
 
-            this._localPixels = Buffer.create(64 * 3)                 // maximum size (may be reduced on call to show)
+            // maximum size (may be reduced on call to show)
+            this._localPixels = Buffer.create(
+                jacdac.CONST_LED_DISPLAY_MAX_PIXELS_LENGTH * 3
+            )
+        }
+
+        /**
+         * Turn on/off the ability to automatically show changes. If false, the user must call 'show'.
+         * @param value
+         */
+        setAutoShow(value: boolean) {
+            this._autoShow = !!value
+            if (this._autoShow) this.show()
+            else this.stopAutoShow()
+        }
+
+        private startAutoShow() {
+            if (this._autoShowUnsub) return
+            this._autoShowUnsub = jacdac.bus.subscribeRefresh(() =>
+                this.refresh()
+            )
+            this.on(jacdac.DISCONNECT, () => this.stopAutoShow())
+            this.show()
+        }
+        private stopAutoShow() {
+            const unsub = this._autoShowUnsub
+            this._autoShowUnsub = undefined
+            if (unsub) unsub()
+        }
+        private setDirty() {
+            if (!this._dirty) {
+                this._dirty = true
+                if (!this._autoShowUnsub) this.startAutoShow()
+            }
+        }
+        private refresh() {
+            if (this._dirty) {
+                this.show()
+            }
         }
 
         /**
@@ -117,12 +159,13 @@ namespace modules {
         //% group="LED Display"
         //% weight=98
         setPixels(pixels: Buffer) {
-            if (!pixels) return;
-            this._localPixels = pixels;
+            if (!pixels) return
+            this._localPixels = pixels
+            this.setDirty()
         }
 
         /**
-         * Sends the local pixel buffer to device
+         * Sends the local pixel buffer to device immediately, instead of waiting for the rendering loop
          */
         //% callInDebugger
         //% group="LED Display"
@@ -136,7 +179,8 @@ namespace modules {
                 newBuf.write(0, this._localPixels)
                 this._localPixels = newBuf
             }
-            this._pixels.values = [this._localPixels] as [Buffer];
+            this._pixels.values = [this._localPixels] as [Buffer]
+            this._dirty = false
         }
 
         /**
@@ -229,12 +273,23 @@ namespace modules {
         //% group="LED Display"
         setPixelColor(index: number, rgb: number) {
             index = index | 0
-            const pixels = this._localPixels;
+            const pixels = this._localPixels
             if (!pixels) return
             if (index >= 0 && (index + 1) * 3 <= pixels.length) {
-                pixels[index * 3] = (rgb >> 16) & 0xff
-                pixels[index * 3 + 1] = (rgb >> 8) & 0xff
-                pixels[index * 3 + 2] = rgb & 0xff
+                const r = (rgb >> 16) & 0xff
+                const g = (rgb >> 8) & 0xff
+                const b = rgb & 0xff
+                const k = index * 3
+                if (
+                    pixels[k] != r ||
+                    pixels[k + 1] != g ||
+                    pixels[k + 2] != b
+                ) {
+                    pixels[k] = r
+                    pixels[k + 1] = g
+                    pixels[k + 2] = b
+                    this.setDirty()
+                }
             }
         }
 
@@ -247,16 +302,23 @@ namespace modules {
         //% weight=80 blockGap=8
         //% group="LED Display"
         setAll(rgb: number) {
-            const pixels = this._localPixels;
+            const pixels = this._localPixels
             if (!pixels) return
             const r = (rgb >> 16) & 0xff
             const g = (rgb >> 8) & 0xff
             const b = (rgb >> 0) & 0xff
-            for(let i = 0; i + 2 < pixels.length; i += 3) {
+            let dirty = this._dirty
+            for (let i = 0; i + 2 < pixels.length; i += 3) {
+                dirty =
+                    dirty ||
+                    pixels[i] != r ||
+                    pixels[i + 1] != g ||
+                    pixels[i + 2] != b
                 pixels[i] = r
                 pixels[i + 1] = g
                 pixels[i + 2] = b
             }
+            if (dirty) this.setDirty()
         }
 
         /**
@@ -267,12 +329,14 @@ namespace modules {
         //% blockId="jacdac_leddisplay_shift" block="shift %display pixels by %offset" blockGap=8
         //% weight=40
         //% group="LED Display"
-        shift(offset: number = 1): void {
-            offset = offset >> 0;
-            const stride = 3;
-            const pixels = this._localPixels;
+        shift(offset = 1): void {
+            offset = offset >> 0
+            if (!offset) return
+            const stride = 3
+            const pixels = this._localPixels
             if (!pixels) return
             pixels.shift(-offset * stride)
+            this.setDirty()
         }
 
         /**
@@ -283,12 +347,14 @@ namespace modules {
         //% blockId="jacdac_leddisplay_rotate" block="rotate %display pixels by %offset" blockGap=8
         //% weight=39
         //% parts="neopixel"
-        rotate(offset: number = 1): void {
-            offset = offset >> 0;
-            const stride = 3;
+        rotate(offset = 1): void {
+            offset = offset >> 0
+            if (!offset) return
+            const stride = 3
             const pixels = this._localPixels
             if (!pixels) return
             pixels.rotate(-offset * stride)
+            this.setDirty()
         }
     }
 

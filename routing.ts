@@ -35,6 +35,8 @@ namespace jacdac {
     export const EVENT = "packetEvent"
     export const STATUS_EVENT = "statusEvent"
     export const IDENTIFY = "identify"
+    export const REFRESH = "refresh"
+    export const REFRESH_REGISTER_POLL = 50
 
     export class Bus extends jacdac.EventSource {
         readonly hostServices: Server[] = []
@@ -317,6 +319,31 @@ namespace jacdac {
                     return
                 dev.processPacket(pkt)
             }
+        }
+
+        private _refreshing = false
+        private startRefresh() {
+            if (this._refreshing) return;
+
+            this._refreshing = true
+            control.inBackground(() => this.refreshLoop())
+        }
+
+        private refreshLoop() {
+            try {
+                while(this.hasListener(jacdac.REFRESH)) {
+                    this.emit(jacdac.REFRESH)
+                    pause(50)
+                }
+            } finally {
+                this._refreshing = false
+            }
+        }
+
+        subscribeRefresh(handler: () => void) {
+            const unsub = this.subscribe(jacdac.REFRESH, handler)
+            this.startRefresh()
+            return unsub
         }
     }
 

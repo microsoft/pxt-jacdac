@@ -125,6 +125,16 @@ namespace jacdac {
             return true
         }
 
+        hasListener(eventName: string): boolean {
+            if (!eventName) return false
+            for (const listener of this.listeners) {
+                if (listener.key === eventName) {
+                    return true
+                }
+            }
+            return false
+        }
+
         listenerCount(eventName: string): number {
             if (!eventName) return 0
             let k = 0
