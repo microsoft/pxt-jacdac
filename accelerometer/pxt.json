@@ -1,6 +1,6 @@
 {
     "name": "jacdac-accelerometer",
-    "version": "0.8.14",
+    "version": "0.8.15",
     "description": "MakeCode support for Jacdac Accelerometer service",
     "dependencies": {
         "core": "*",
