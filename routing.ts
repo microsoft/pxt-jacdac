@@ -111,7 +111,7 @@ namespace jacdac {
         }
 
         clearAttachCache() {
-            for (let d of this.devices) {
+            for (const d of this.devices) {
                 // add a dummy byte at the end (if not done already), to force re-attach of services
                 if ((d.services.length & 3) == 0)
                     d.services = d.services.concat(Buffer.create(1))
@@ -190,7 +190,7 @@ namespace jacdac {
             )
             const newClients: Client[] = []
             const occupied = Buffer.create(dev.services.length >> 2)
-            for (let c of dev.clients) {
+            for (const c of dev.clients) {
                 if (c.broadcast) {
                     c._detach()
                     continue // will re-attach
@@ -221,7 +221,7 @@ namespace jacdac {
                     NumberFormat.UInt32LE,
                     i
                 )
-                for (let cc of this.unattachedClients) {
+                for (const cc of this.unattachedClients) {
                     if (cc.serviceClass == serviceClass) {
                         if (cc._attach(dev, i >> 2)) break
                     }
@@ -552,6 +552,7 @@ namespace jacdac {
                 let data = pkt.data
                 const diff = current.length - data.length
                 if (diff == 0) {
+                    //
                 } else if (diff < 0) data = data.slice(0, current.length)
                 else data = data.concat(Buffer.create(diff))
 
@@ -886,6 +887,7 @@ namespace jacdac {
             this.emit(CONNECT)
         }
 
+        /*
         private connectedBlink() {
             // double quick blink, pause, 4x
             const g = 0xff >> 2
@@ -936,6 +938,7 @@ namespace jacdac {
             }
             off._sendCmd(this.device)
         }
+        */
 
         _detach() {
             log(`dettached ${this.role}`)
@@ -998,8 +1001,8 @@ namespace jacdac {
 
         protected log(text: string) {
             if (this.supressLog || logPriority < console.minPriority) return
-            let dev = bus.selfDevice.toString()
-            let other = this.device ? this.device.toString() : "<unbound>"
+            const dev = bus.selfDevice.toString()
+            const other = this.device ? this.device.toString() : "<unbound>"
             console.add(
                 logPriority,
                 `${dev}/${other}:${this.serviceClass}>${this.role}>${text}`
@@ -1253,7 +1256,7 @@ namespace jacdac {
 
         _destroy() {
             log("destroy " + this.shortId)
-            for (let c of this.clients) c._detach()
+            for (const c of this.clients) c._detach()
             this.clients = null
             this.emit(DEVICE_DISCONNECT)
             bus.emit(DEVICE_DISCONNECT, this)
@@ -1505,7 +1508,7 @@ namespace jacdac {
     export const JACDAC_PROXY_SETTING = "__jacdac_proxy"
     export const JACDAC_PROXY_SETTING_LATE = "__jacdac_proxy_late"
     function startProxy() {
-        let isLate = settings.exists(JACDAC_PROXY_SETTING_LATE)
+        const isLate = settings.exists(JACDAC_PROXY_SETTING_LATE)
         if (isLate) settings.remove(JACDAC_PROXY_SETTING_LATE)
 
         // check if a proxy restart was requested

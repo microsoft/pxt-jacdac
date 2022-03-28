@@ -3,11 +3,8 @@ music.setVolume(100)
 music.setTempo(180)
 jacdac.firmwareVersion = jacdac.VERSION
 
-
-
 // microbit wrapper
 namespace machine {
-    
     export const EVENT_A = "event_a"
     export const EVENT_B = "event_b"
     export const EVENT_AB = "event_ab"
@@ -65,12 +62,11 @@ namespace machine {
 
         /**
          * Schedules a tone to be played
-         * @param tone 
+         * @param tone
          */
         playTone(tone: number) {
             this.tone = tone
-            if (tone)
-                this.emit(EVENT_TONE)
+            if (tone) this.emit(EVENT_TONE)
         }
     }
     export const microbit = new MicrobitMachine()
@@ -177,7 +173,12 @@ namespace machine {
         return (
             d === jacdac.bus.selfDevice ||
             d.hasService(jacdac.SRV_INFRASTRUCTURE) ||
-            d.hasService(jacdac.SRV_PROXY)
+            d.hasService(jacdac.SRV_PROXY) ||
+            // this device was previously connected
+            // and clients are already instantiated for it
+            jacdac.bus.unattachedClients.some(
+                client => client.role === d.deviceId
+            )
         )
     }
 
@@ -217,8 +218,17 @@ namespace machine {
             for (let i = 1; i < d.serviceClassLength; i++) startClient(d, i)
     }
 
+    function destroyClients(d: jacdac.Device) {
+        const clients = jacdac.bus.unattachedClients.slice(0)
+        const devid = d.deviceId
+        clients
+            .filter(client => client.role === devid)
+            .forEach(client => client.destroy())
+    }
+
     function start() {
         jacdac.bus.on(jacdac.DEVICE_ANNOUNCE, startClients)
+        jacdac.bus.on(jacdac.DEVICE_DISCONNECT, destroyClients)
         basic.showIcon(IconNames.Happy)
     }
 
