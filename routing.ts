@@ -326,7 +326,7 @@ namespace jacdac {
             if (this._refreshing) return;
 
             this._refreshing = true
-            control.inBackground(() => this.refreshLoop())
+            control.runInBackground(() => this.refreshLoop())
         }
 
         private refreshLoop() {
