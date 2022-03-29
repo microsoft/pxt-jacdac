@@ -3,14 +3,14 @@ namespace modules {
      * A service that reports a current measurement.
      **/
     //% fixedInstances blockGap=8
-    export class DCCurrentMeasurementClient extends jacdac.SimpleSensorClient {
+    export class DcCurrentMeasurementClient extends jacdac.SimpleSensorClient {
 
         private readonly _measurementName : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_D_CCURRENT_MEASUREMENT, role, "f64");
+            super(jacdac.SRV_DC_CURRENT_MEASUREMENT, role, "f64");
 
-            this._measurementName = this.addRegister<[string]>(jacdac.DCCurrentMeasurementReg.MeasurementName, "s");            
+            this._measurementName = this.addRegister<[string]>(jacdac.DcCurrentMeasurementReg.MeasurementName, "s");            
         }
     
 
@@ -54,6 +54,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="d ccurrent measurement1"
-    export const dCCurrentMeasurement1 = new DCCurrentMeasurementClient("d CCurrent Measurement1");
+    //% fixedInstance whenUsed block="dc current measurement1"
+    export const dcCurrentMeasurement1 = new DcCurrentMeasurementClient("dc Current Measurement1");
 }

@@ -1,13 +1,10 @@
 {
-    "name": "jacdac-d-cvoltage-measurement",
+    "name": "jacdac-dc-current-measurement",
     "version": "0.0.0",
-    "description": "A service that reports a voltage measurement.",
+    "description": "A service that reports a current measurement.",
     "files": [
         "constants.ts",
         "client.g.ts"
-    ],
-    "testFiles": [
-        "test.ts"
     ],
     "supportedTargets": [
         "microbit",

@@ -1,0 +1,11 @@
+{
+    "name": "jacdac-dc-voltage-measurement",
+    "version": "0.0.0",
+    "description": "A service that reports a voltage measurement.",
+    "files": ["constants.ts", "client.g.ts"],
+    "supportedTargets": ["microbit", "arcade", "maker"],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}

@@ -3,16 +3,16 @@ namespace modules {
      * A service that reports a voltage measurement.
      **/
     //% fixedInstances blockGap=8
-    export class DCVoltageMeasurementClient extends jacdac.SimpleSensorClient {
+    export class DcVoltageMeasurementClient extends jacdac.SimpleSensorClient {
 
-        private readonly _measurementType : jacdac.RegisterClient<[jacdac.DCVoltageMeasurementVoltageMeasurementType]>;
+        private readonly _measurementType : jacdac.RegisterClient<[jacdac.DcVoltageMeasurementVoltageMeasurementType]>;
         private readonly _measurementName : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_D_CVOLTAGE_MEASUREMENT, role, "f64");
+            super(jacdac.SRV_DC_VOLTAGE_MEASUREMENT, role, "f64");
 
-            this._measurementType = this.addRegister<[jacdac.DCVoltageMeasurementVoltageMeasurementType]>(jacdac.DCVoltageMeasurementReg.MeasurementType, "u8");
-            this._measurementName = this.addRegister<[string]>(jacdac.DCVoltageMeasurementReg.MeasurementName, "s");            
+            this._measurementType = this.addRegister<[jacdac.DcVoltageMeasurementVoltageMeasurementType]>(jacdac.DcVoltageMeasurementReg.MeasurementType, "u8");
+            this._measurementName = this.addRegister<[string]>(jacdac.DcVoltageMeasurementReg.MeasurementName, "s");            
         }
     
 
@@ -22,7 +22,7 @@ namespace modules {
         //% callInDebugger
         //% group="DC Voltage Measurement"
         //% weight=100
-        measurementType(): jacdac.DCVoltageMeasurementVoltageMeasurementType {
+        measurementType(): jacdac.DcVoltageMeasurementVoltageMeasurementType {
             this.start();            
             const values = this._measurementType.pauseUntilValues() as any[];
             return values[0];
@@ -68,6 +68,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="d cvoltage measurement1"
-    export const dCVoltageMeasurement1 = new DCVoltageMeasurementClient("d CVoltage Measurement1");
+    //% fixedInstance whenUsed block="dc voltage measurement1"
+    export const dcVoltageMeasurement1 = new DcVoltageMeasurementClient("dc Voltage Measurement1");
 }
