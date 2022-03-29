@@ -24,7 +24,7 @@ namespace modules {
             )
             this._brightness = this.addRegister<[number]>(
                 jacdac.CharacterScreenReg.Brightness,
-                "u0.8"
+                "u0.16"
             )
             this._variant = this.addRegister<[jacdac.CharacterScreenVariant]>(
                 jacdac.CharacterScreenReg.Variant,
