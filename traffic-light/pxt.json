@@ -1,9 +1,16 @@
 {
     "name": "jacdac-traffic-light",
-    "version": "0.0.0",
+    "version": "0.8.16",
     "description": "Controls a mini traffic with a red, orange and green LED.",
-    "files": ["constants.ts", "client.g.ts"],
-    "supportedTargets": ["microbit", "arcade", "maker"],
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
