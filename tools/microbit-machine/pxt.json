@@ -29,9 +29,11 @@
     },
     "files": [
         "runtime.ts",
+        "accelerometer.ts",
         "airpressure.ts",
         "buzzer.ts",
         "button.ts",
+        "gamepad.ts",
         "humidity.ts",
         "leddisplay.ts",
         "potentiometer.ts",
