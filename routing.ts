@@ -680,7 +680,7 @@ namespace jacdac {
     }
 
     export class RegisterClient<
-        TValues extends PackSimpleDataType[]
+        TValues extends PackDataType[]
     > extends EventSource {
         private _data: Buffer
         private _localTime: number
@@ -776,7 +776,7 @@ namespace jacdac {
         protected systemActive = false
 
         protected readonly config: ClientPacketQueue
-        private readonly registers: RegisterClient<PackSimpleDataType[]>[] = []
+        private readonly registers: RegisterClient<PackDataType[]>[] = []
 
         constructor(public readonly serviceClass: number, public role: string) {
             super()
@@ -796,7 +796,7 @@ namespace jacdac {
             }
         }
 
-        protected addRegister<TValues extends PackSimpleDataType[]>(
+        protected addRegister<TValues extends PackDataType[]>(
             code: number,
             packFormat: string,
             defaultValues?: TValues
@@ -993,7 +993,7 @@ namespace jacdac {
         }
 
         // this will be re-sent on (re)attach
-        setReg(reg: number, format: string, values: PackSimpleDataType[]) {
+        setReg(reg: number, format: string, values: PackDataType[]) {
             this.start()
             const payload = JDPacket.jdpacked(CMD_SET_REG | reg, format, values)
             this.config.send(payload)

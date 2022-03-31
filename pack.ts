@@ -13,7 +13,8 @@ namespace jacdac {
     const ch_sq_open = 91
     const ch_sq_close = 93
 
-    export type PackSimpleDataType = string | number | Buffer | boolean | number[]
+    export type PackSimpleDataType = string | number | Buffer | boolean
+    export type PackDataType = PackSimpleDataType | PackSimpleDataType[]
 
     function numberFormatOfType(tp: string): NumberFormat {
         switch (tp) {
