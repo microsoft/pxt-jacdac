@@ -46,14 +46,15 @@ namespace modules {
         }
 
         private get(dimension: JDDimension): number {
-            const values = this._reading.pauseUntilValues() as any[];
-            if (!values || values.length < 3) return 0
+            const values = this.values()
+            const s = this.values
+            if (!s || s.length < 6) return 0
             switch (dimension) {
                 case JDDimension.X:
                 case JDDimension.Y:
                 case JDDimension.Z:
                     return values[dimension] * 1023
-                default: {
+                default:
                     // strength
                     let r = 0
                     for (let i = 0; i < 3; ++i) {
@@ -61,7 +62,6 @@ namespace modules {
                         r += x * x
                     }
                     return Math.sqrt(r)
-                }
             }
         }
 
