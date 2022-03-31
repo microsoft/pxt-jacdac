@@ -50,6 +50,7 @@ namespace modules {
         onEvent(ev: jacdac.SwitchEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Emitted when switch goes from `off` to `on`.
          */

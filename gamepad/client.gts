@@ -103,6 +103,7 @@ namespace modules {
         onEvent(ev: jacdac.GamepadEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Emitted whenever the state of buttons changes.
          */

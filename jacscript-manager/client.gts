@@ -145,6 +145,7 @@ namespace modules {
         onEvent(ev: jacdac.JacscriptManagerEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Emitted when the program calls `panic(panic_code)` or `reboot()` (`panic_code == 0` in that case).
         * The byte offset in byte code of the call is given in `program_counter`.

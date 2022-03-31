@@ -102,6 +102,7 @@ namespace modules {
         onEvent(ev: jacdac.VerifiedTelemetryEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * The telemetry status of the device was updated.
          */

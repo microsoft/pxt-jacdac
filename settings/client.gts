@@ -22,6 +22,7 @@ namespace modules {
         onEvent(ev: jacdac.SettingsEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Notifies that some setting have been modified.
          */

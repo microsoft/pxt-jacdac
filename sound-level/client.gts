@@ -137,6 +137,7 @@ namespace modules {
         onEvent(ev: jacdac.SoundLevelEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Raised when a loud sound is detected
          */

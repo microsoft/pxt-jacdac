@@ -41,12 +41,21 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Button"
+        //% blockId=jacdac_on_switch_event
+        //% block="on %switch %event"
+        //% weight=98
+        onEvent(ev: jacdac.SwitchEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * Emitted when switch goes from `off` to `on`.
          */
         //% group="Button"
-        //% blockId=jacdac_on_switch_on
-        //% block="on %switch on"
-        //% weight=98
+        //% weight=97
         onOn(handler: () => void): void {
             this.registerEvent(jacdac.SwitchEvent.On, handler);
         }
@@ -54,9 +63,7 @@ namespace modules {
          * Emitted when switch goes from `on` to `off`.
          */
         //% group="Button"
-        //% blockId=jacdac_on_switch_off
-        //% block="on %switch off"
-        //% weight=97
+        //% weight=96
         onOff(handler: () => void): void {
             this.registerEvent(jacdac.SwitchEvent.Off, handler);
         }

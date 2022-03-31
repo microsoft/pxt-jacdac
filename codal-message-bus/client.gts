@@ -25,6 +25,7 @@ namespace modules {
         onEvent(ev: jacdac.CodalMessageBusEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Raised by the server is triggered by the server. The filtering logic of which event to send over Jacdac is up to the server implementation.
          */

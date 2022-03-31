@@ -68,6 +68,7 @@ namespace modules {
         onEvent(ev: jacdac.ArcadeGamepadEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Emitted when button goes from inactive to active.
          */

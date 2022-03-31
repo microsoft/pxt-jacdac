@@ -64,6 +64,7 @@ namespace modules {
         onEvent(ev: jacdac.AzureIotHubHealthEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Raised when the connection status changes
          */

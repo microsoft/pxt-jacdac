@@ -122,6 +122,7 @@ namespace modules {
         onEvent(ev: jacdac.WifiEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Emitted upon successful join and IP address assignment.
          */

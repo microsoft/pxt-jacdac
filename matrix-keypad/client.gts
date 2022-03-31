@@ -95,6 +95,7 @@ namespace modules {
         onEvent(ev: jacdac.MatrixKeypadEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Emitted when a key, at the given index, goes from inactive (`pressed == 0`) to active.
          */

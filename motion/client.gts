@@ -78,6 +78,7 @@ namespace modules {
         onEvent(ev: jacdac.MotionEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * A movement was detected.
          */

@@ -239,6 +239,7 @@ namespace modules {
         onEvent(ev: jacdac.PowerEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Emitted whenever `power_status` changes.
          */

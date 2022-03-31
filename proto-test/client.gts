@@ -453,6 +453,7 @@ namespace modules {
         onEvent(ev: jacdac.ProtoTestEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * An event raised when rw_bool is modified
          */

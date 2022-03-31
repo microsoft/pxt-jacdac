@@ -66,6 +66,7 @@ namespace modules {
         onEvent(ev: jacdac.BarcodeReaderEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Raised when a bar code is detected and decoded. If the reader detects multiple codes, it will issue multiple events.
         * In case of numeric barcodes, the `data` field should contain the ASCII (which is the same as UTF8 in that case) representation of the number.

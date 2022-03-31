@@ -120,6 +120,7 @@ namespace modules {
         onEvent(ev: jacdac.AccelerometerEvent, handler: () => void): void {
             this.onEvent(ev, handler);
         }
+
         /**
          * Emitted when accelerometer is tilted in the given direction.
          */
