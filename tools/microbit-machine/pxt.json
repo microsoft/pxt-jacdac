@@ -29,7 +29,6 @@
     },
     "files": [
         "runtime.ts",
-        "accelerometer.ts",
         "airpressure.ts",
         "buzzer.ts",
         "button.ts",
