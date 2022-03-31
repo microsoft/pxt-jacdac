@@ -444,12 +444,21 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Protocol Test"
+        //% blockId=jacdac_on_prototest_event
+        //% block="on %prototest %event"
+        //% weight=67
+        onEvent(ev: jacdac.ProtoTestEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * An event raised when rw_bool is modified
          */
         //% group="Protocol Test"
-        //% blockId=jacdac_on_prototest_e_bool
-        //% block="on %prototest e bool"
-        //% weight=67
+        //% weight=66
         onEBool(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EBool, handler);
         }
@@ -457,9 +466,7 @@ namespace modules {
          * An event raised when rw_u32 is modified
          */
         //% group="Protocol Test"
-        //% blockId=jacdac_on_prototest_e_u32
-        //% block="on %prototest e u32"
-        //% weight=66
+        //% weight=65
         onEU32(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EU32, handler);
         }
@@ -467,9 +474,7 @@ namespace modules {
          * An event raised when rw_i32 is modified
          */
         //% group="Protocol Test"
-        //% blockId=jacdac_on_prototest_e_i32
-        //% block="on %prototest e i32"
-        //% weight=65
+        //% weight=64
         onEI32(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EI32, handler);
         }
@@ -477,9 +482,7 @@ namespace modules {
          * An event raised when rw_string is modified
          */
         //% group="Protocol Test"
-        //% blockId=jacdac_on_prototest_e_string
-        //% block="on %prototest e string"
-        //% weight=64
+        //% weight=63
         onEString(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EString, handler);
         }
@@ -487,9 +490,7 @@ namespace modules {
          * An event raised when rw_bytes is modified
          */
         //% group="Protocol Test"
-        //% blockId=jacdac_on_prototest_e_bytes
-        //% block="on %prototest e bytes"
-        //% weight=63
+        //% weight=62
         onEBytes(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EBytes, handler);
         }
@@ -497,9 +498,7 @@ namespace modules {
          * An event raised when rw_i8_u8_u16_i32 is modified
          */
         //% group="Protocol Test"
-        //% blockId=jacdac_on_prototest_e_i8_u8_u16_i32
-        //% block="on %prototest e i8 u8 u16 i32"
-        //% weight=62
+        //% weight=61
         onEI8U8U16I32(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EI8U8U16I32, handler);
         }
@@ -507,9 +506,7 @@ namespace modules {
          * An event raised when rw_u8_string is modified
          */
         //% group="Protocol Test"
-        //% blockId=jacdac_on_prototest_e_u8_string
-        //% block="on %prototest e u8 string"
-        //% weight=61
+        //% weight=60
         onEU8String(handler: () => void): void {
             this.registerEvent(jacdac.ProtoTestEvent.EU8String, handler);
         }
@@ -520,7 +517,7 @@ namespace modules {
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_bool_cmd
         //% block="%prototest c bool $bo"
-        //% weight=60
+        //% weight=59
         cBool(bo: boolean): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CBool, "u8", [bo]))
@@ -532,7 +529,7 @@ namespace modules {
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_u32_cmd
         //% block="%prototest c u32 $u32"
-        //% weight=59
+        //% weight=58
         cU32(u32: number): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CU32, "u32", [u32]))
@@ -544,7 +541,7 @@ namespace modules {
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_i32_cmd
         //% block="%prototest c i32 $i32"
-        //% weight=58
+        //% weight=57
         cI32(i32: number): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CI32, "i32", [i32]))
@@ -556,7 +553,7 @@ namespace modules {
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_string_cmd
         //% block="%prototest c string $str"
-        //% weight=57
+        //% weight=56
         cString(str: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CString, "s", [str]))
@@ -568,7 +565,7 @@ namespace modules {
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_bytes_cmd
         //% block="%prototest c bytes $bytes"
-        //% weight=56
+        //% weight=55
         cBytes(bytes: Buffer): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CBytes, "b", [bytes]))
@@ -580,7 +577,7 @@ namespace modules {
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_i8_u8_u16_i32_cmd
         //% block="%prototest c i8 u8 u16 i32 |i8 $i8 |u8 $u8 |u16 $u16 |i32 $i32"
-        //% weight=55
+        //% weight=54
         cI8U8U16I32(i8: number, u8: number, u16: number, i32: number): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CI8U8U16I32, "i8 u8 u16 i32", [i8, u8, u16, i32]))
@@ -592,7 +589,7 @@ namespace modules {
         //% group="Protocol Test"
         //% blockId=jacdac_prototest_c_u8_string_cmd
         //% block="%prototest c u8 string |u8 $u8 |str $str"
-        //% weight=54
+        //% weight=53
         cU8String(u8: number, str: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.ProtoTestCmd.CU8String, "u8 s", [u8, str]))

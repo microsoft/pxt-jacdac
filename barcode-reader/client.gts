@@ -57,13 +57,22 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Barcode reader"
+        //% blockId=jacdac_on_barcodereader_event
+        //% block="on %barcodereader %event"
+        //% weight=97
+        onEvent(ev: jacdac.BarcodeReaderEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * Raised when a bar code is detected and decoded. If the reader detects multiple codes, it will issue multiple events.
         * In case of numeric barcodes, the `data` field should contain the ASCII (which is the same as UTF8 in that case) representation of the number.
          */
         //% group="Barcode reader"
-        //% blockId=jacdac_on_barcodereader_detect
-        //% block="on %barcodereader detect"
-        //% weight=97
+        //% weight=96
         onDetect(handler: () => void): void {
             this.registerEvent(jacdac.BarcodeReaderEvent.Detect, handler);
         }

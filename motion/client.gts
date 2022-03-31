@@ -69,12 +69,21 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Movement"
+        //% blockId=jacdac_on_motion_event
+        //% block="on %motion %event"
+        //% weight=96
+        onEvent(ev: jacdac.MotionEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * A movement was detected.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_motion_movement
-        //% block="on %motion movement"
-        //% weight=96
+        //% weight=95
         onMovement(handler: () => void): void {
             this.registerEvent(jacdac.MotionEvent.Movement, handler);
         }

@@ -13,12 +13,21 @@ namespace modules {
     
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Settings"
+        //% blockId=jacdac_on_settings_event
+        //% block="on %settings %event"
+        //% weight=100
+        onEvent(ev: jacdac.SettingsEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * Notifies that some setting have been modified.
          */
         //% group="Settings"
-        //% blockId=jacdac_on_settings_change
-        //% block="on %settings change"
-        //% weight=100
+        //% weight=99
         onChange(handler: () => void): void {
             this.registerEvent(jacdac.SettingsEvent.Change, handler);
         }
@@ -29,7 +38,7 @@ namespace modules {
         //% group="Settings"
         //% blockId=jacdac_settings_get_cmd
         //% block="%settings get $key"
-        //% weight=99
+        //% weight=98
         get(key: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.SettingsCmd.Get, "s", [key]))

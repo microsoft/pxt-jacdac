@@ -94,12 +94,21 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Button"
+        //% blockId=jacdac_on_gamepad_event
+        //% block="on %gamepad %event"
+        //% weight=95
+        onEvent(ev: jacdac.GamepadEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * Emitted whenever the state of buttons changes.
          */
         //% group="Button"
-        //% blockId=jacdac_on_gamepad_buttons_changed
-        //% block="on %gamepad buttons changed"
-        //% weight=95
+        //% weight=94
         onButtonsChanged(handler: () => void): void {
             this.registerEvent(jacdac.GamepadEvent.ButtonsChanged, handler);
         }

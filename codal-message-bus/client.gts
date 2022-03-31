@@ -16,12 +16,21 @@ namespace modules {
     
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="CODAL Message Bus"
+        //% blockId=jacdac_on_codalmessagebus_event
+        //% block="on %codalmessagebus %event"
+        //% weight=100
+        onEvent(ev: jacdac.CodalMessageBusEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * Raised by the server is triggered by the server. The filtering logic of which event to send over Jacdac is up to the server implementation.
          */
         //% group="CODAL Message Bus"
-        //% blockId=jacdac_on_codalmessagebus_message
-        //% block="on %codalmessagebus message"
-        //% weight=100
+        //% weight=99
         onMessage(handler: () => void): void {
             this.registerEvent(jacdac.CodalMessageBusEvent.Message, handler);
         }
@@ -32,7 +41,7 @@ namespace modules {
         //% group="CODAL Message Bus"
         //% blockId=jacdac_codalmessagebus_send_cmd
         //% block="%codalmessagebus send |source $source |value $value"
-        //% weight=99
+        //% weight=98
         send(source: number, value: number): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.CodalMessageBusCmd.Send, "u16 u16", [source, value]))

@@ -93,12 +93,21 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Verified Telemetry"
+        //% blockId=jacdac_on_verifiedtelemetrysensor_event
+        //% block="on %verifiedtelemetrysensor %event"
+        //% weight=94
+        onEvent(ev: jacdac.VerifiedTelemetryEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * The telemetry status of the device was updated.
          */
         //% group="Verified Telemetry"
-        //% blockId=jacdac_on_verifiedtelemetrysensor_telemetry_status_change
-        //% block="on %verifiedtelemetrysensor telemetry status change"
-        //% weight=94
+        //% weight=93
         onTelemetryStatusChange(handler: () => void): void {
             this.registerEvent(jacdac.VerifiedTelemetryEvent.TelemetryStatusChange, handler);
         }
@@ -106,9 +115,7 @@ namespace modules {
          * The fingerprint template was updated
          */
         //% group="Verified Telemetry"
-        //% blockId=jacdac_on_verifiedtelemetrysensor_fingerprint_template_change
-        //% block="on %verifiedtelemetrysensor fingerprint template change"
-        //% weight=93
+        //% weight=92
         onFingerprintTemplateChange(handler: () => void): void {
             this.registerEvent(jacdac.VerifiedTelemetryEvent.FingerprintTemplateChange, handler);
         }
@@ -119,7 +126,7 @@ namespace modules {
         //% group="Verified Telemetry"
         //% blockId=jacdac_verifiedtelemetrysensor_reset_fingerprint_template_cmd
         //% block="%verifiedtelemetrysensor reset fingerprint template"
-        //% weight=92
+        //% weight=91
         resetFingerprintTemplate(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.VerifiedTelemetryCmd.ResetFingerprintTemplate))
@@ -131,7 +138,7 @@ namespace modules {
         //% group="Verified Telemetry"
         //% blockId=jacdac_verifiedtelemetrysensor_retrain_fingerprint_template_cmd
         //% block="%verifiedtelemetrysensor retrain fingerprint template"
-        //% weight=91
+        //% weight=90
         retrainFingerprintTemplate(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.VerifiedTelemetryCmd.RetrainFingerprintTemplate))

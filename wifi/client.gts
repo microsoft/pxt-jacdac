@@ -113,12 +113,21 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Iot"
+        //% blockId=jacdac_on_wifi_event
+        //% block="on %wifi %event"
+        //% weight=93
+        onEvent(ev: jacdac.WifiEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * Emitted upon successful join and IP address assignment.
          */
         //% group="Iot"
-        //% blockId=jacdac_on_wifi_got_ip
-        //% block="on %wifi got ip"
-        //% weight=93
+        //% weight=92
         onGotIp(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.GotIp, handler);
         }
@@ -126,9 +135,7 @@ namespace modules {
          * Emitted when disconnected from network.
          */
         //% group="Iot"
-        //% blockId=jacdac_on_wifi_lost_ip
-        //% block="on %wifi lost ip"
-        //% weight=92
+        //% weight=91
         onLostIp(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.LostIp, handler);
         }
@@ -138,9 +145,7 @@ namespace modules {
         * as candidates for connection.
          */
         //% group="Iot"
-        //% blockId=jacdac_on_wifi_scan_complete
-        //% block="on %wifi scan complete"
-        //% weight=91
+        //% weight=90
         onScanComplete(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.ScanComplete, handler);
         }
@@ -148,9 +153,7 @@ namespace modules {
          * Emitted whenever the list of known networks is updated.
          */
         //% group="Iot"
-        //% blockId=jacdac_on_wifi_networks_changed
-        //% block="on %wifi networks changed"
-        //% weight=90
+        //% weight=89
         onNetworksChanged(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.NetworksChanged, handler);
         }
@@ -160,9 +163,7 @@ namespace modules {
         * This may be because of wrong password or other random failure.
          */
         //% group="Iot"
-        //% blockId=jacdac_on_wifi_connection_failed
-        //% block="on %wifi connection failed"
-        //% weight=89
+        //% weight=88
         onConnectionFailed(handler: () => void): void {
             this.registerEvent(jacdac.WifiEvent.ConnectionFailed, handler);
         }
@@ -173,7 +174,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_add_network_cmd
         //% block="%wifi add network |ssid $ssid |password $password"
-        //% weight=88
+        //% weight=87
         addNetwork(ssid: string, password: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WifiCmd.AddNetwork, "z z", [ssid, password]))
@@ -186,7 +187,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_reconnect_cmd
         //% block="%wifi reconnect"
-        //% weight=87
+        //% weight=86
         reconnect(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WifiCmd.Reconnect))
@@ -199,7 +200,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_forget_network_cmd
         //% block="%wifi forget network $ssid"
-        //% weight=86
+        //% weight=85
         forgetNetwork(ssid: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WifiCmd.ForgetNetwork, "s", [ssid]))
@@ -211,7 +212,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_forget_all_networks_cmd
         //% block="%wifi forget all networks"
-        //% weight=85
+        //% weight=84
         forgetAllNetworks(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WifiCmd.ForgetAllNetworks))
@@ -224,7 +225,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_set_network_priority_cmd
         //% block="%wifi set network priority |priority $priority |ssid $ssid"
-        //% weight=84
+        //% weight=83
         setNetworkPriority(priority: number, ssid: string): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.WifiCmd.SetNetworkPriority, "i16 s", [priority, ssid]))
@@ -236,7 +237,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_wifi_scan_cmd
         //% block="%wifi scan"
-        //% weight=83
+        //% weight=82
         scan(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.WifiCmd.Scan))

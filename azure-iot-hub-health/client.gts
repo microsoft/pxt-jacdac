@@ -55,12 +55,21 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Iot"
+        //% blockId=jacdac_on_azureiothubhealth_event
+        //% block="on %azureiothubhealth %event"
+        //% weight=97
+        onEvent(ev: jacdac.AzureIotHubHealthEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+
+        /**
          * Raised when the connection status changes
          */
         //% group="Iot"
-        //% blockId=jacdac_on_azureiothubhealth_connection_status_change
-        //% block="on %azureiothubhealth connection status change"
-        //% weight=97
+        //% weight=96
         onConnectionStatusChange(handler: () => void): void {
             this.registerEvent(jacdac.AzureIotHubHealthEvent.ConnectionStatusChange, handler);
         }
@@ -68,9 +77,7 @@ namespace modules {
          * Raised when a message has been sent to the hub.
          */
         //% group="Iot"
-        //% blockId=jacdac_on_azureiothubhealth_message_sent
-        //% block="on %azureiothubhealth message sent"
-        //% weight=96
+        //% weight=95
         onMessageSent(handler: () => void): void {
             this.registerEvent(jacdac.AzureIotHubHealthEvent.MessageSent, handler);
         }
@@ -81,7 +88,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_azureiothubhealth_connect_cmd
         //% block="%azureiothubhealth connect"
-        //% weight=95
+        //% weight=94
         connect(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.AzureIotHubHealthCmd.Connect))
@@ -93,7 +100,7 @@ namespace modules {
         //% group="Iot"
         //% blockId=jacdac_azureiothubhealth_disconnect_cmd
         //% block="%azureiothubhealth disconnect"
-        //% weight=94
+        //% weight=93
         disconnect(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.AzureIotHubHealthCmd.Disconnect))
