@@ -86,12 +86,20 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Button"
+        //% blockId=jacdac_on_matrixkeypad_event
+        //% block="on %matrixkeypad %event"
+        //% weight=95
+        onEvent(ev: jacdac.MatrixKeypadEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+        /**
          * Emitted when a key, at the given index, goes from inactive (`pressed == 0`) to active.
          */
         //% group="Button"
-        //% blockId=jacdac_on_matrixkeypad_down
-        //% block="on %matrixkeypad down"
-        //% weight=95
+        //% weight=94
         onDown(handler: () => void): void {
             this.registerEvent(jacdac.MatrixKeypadEvent.Down, handler);
         }
@@ -99,9 +107,7 @@ namespace modules {
          * Emitted when a key, at the given index, goes from active (`pressed == 1`) to inactive.
          */
         //% group="Button"
-        //% blockId=jacdac_on_matrixkeypad_up
-        //% block="on %matrixkeypad up"
-        //% weight=94
+        //% weight=93
         onUp(handler: () => void): void {
             this.registerEvent(jacdac.MatrixKeypadEvent.Up, handler);
         }
@@ -109,9 +115,7 @@ namespace modules {
          * Emitted together with `up` when the press time was not longer than 500ms.
          */
         //% group="Button"
-        //% blockId=jacdac_on_matrixkeypad_click
-        //% block="on %matrixkeypad click"
-        //% weight=93
+        //% weight=92
         onClick(handler: () => void): void {
             this.registerEvent(jacdac.MatrixKeypadEvent.Click, handler);
         }
@@ -119,9 +123,7 @@ namespace modules {
          * Emitted together with `up` when the press time was more than 500ms.
          */
         //% group="Button"
-        //% blockId=jacdac_on_matrixkeypad_long_click
-        //% block="on %matrixkeypad long click"
-        //% weight=92
+        //% weight=91
         onLongClick(handler: () => void): void {
             this.registerEvent(jacdac.MatrixKeypadEvent.LongClick, handler);
         }

@@ -59,12 +59,20 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Button"
+        //% blockId=jacdac_on_arcadegamepad_event
+        //% block="on %arcadegamepad %event"
+        //% weight=97
+        onEvent(ev: jacdac.ArcadeGamepadEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+        /**
          * Emitted when button goes from inactive to active.
          */
         //% group="Button"
-        //% blockId=jacdac_on_arcadegamepad_down
-        //% block="on %arcadegamepad down"
-        //% weight=97
+        //% weight=96
         onDown(handler: () => void): void {
             this.registerEvent(jacdac.ArcadeGamepadEvent.Down, handler);
         }
@@ -72,9 +80,7 @@ namespace modules {
          * Emitted when button goes from active to inactive.
          */
         //% group="Button"
-        //% blockId=jacdac_on_arcadegamepad_up
-        //% block="on %arcadegamepad up"
-        //% weight=96
+        //% weight=95
         onUp(handler: () => void): void {
             this.registerEvent(jacdac.ArcadeGamepadEvent.Up, handler);
         }

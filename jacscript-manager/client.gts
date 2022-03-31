@@ -136,14 +136,22 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Jacscript Manager"
+        //% blockId=jacdac_on_jacscriptmanager_event
+        //% block="on %jacscriptmanager %event"
+        //% weight=92
+        onEvent(ev: jacdac.JacscriptManagerEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+        /**
          * Emitted when the program calls `panic(panic_code)` or `reboot()` (`panic_code == 0` in that case).
         * The byte offset in byte code of the call is given in `program_counter`.
         * The program will restart immediately when `panic_code == 0` or in a few seconds otherwise.
          */
         //% group="Jacscript Manager"
-        //% blockId=jacdac_on_jacscriptmanager_program_panic
-        //% block="on %jacscriptmanager program panic"
-        //% weight=92
+        //% weight=91
         onProgramPanic(handler: () => void): void {
             this.registerEvent(jacdac.JacscriptManagerEvent.ProgramPanic, handler);
         }
@@ -151,9 +159,7 @@ namespace modules {
          * Emitted after bytecode of the program has changed.
          */
         //% group="Jacscript Manager"
-        //% blockId=jacdac_on_jacscriptmanager_program_change
-        //% block="on %jacscriptmanager program change"
-        //% weight=91
+        //% weight=90
         onProgramChange(handler: () => void): void {
             this.registerEvent(jacdac.JacscriptManagerEvent.ProgramChange, handler);
         }
@@ -170,7 +176,7 @@ namespace modules {
         //% group="Jacscript Manager"
         //% blockId=jacdac_jacscriptmanager_deploy_bytecode_cmd
         //% block="%jacscriptmanager deploy bytecode $bytecodeSize"
-        //% weight=90
+        //% weight=89
         deployBytecode(bytecodeSize: number): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.jdpacked(jacdac.JacscriptManagerCmd.DeployBytecode, "u32", [bytecodeSize]))

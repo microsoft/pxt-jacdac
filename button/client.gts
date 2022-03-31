@@ -68,12 +68,20 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Button"
+        //% blockId=jacdac_on_button_event
+        //% block="on %button %event"
+        //% weight=96
+        onEvent(ev: jacdac.ButtonEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+        /**
          * Emitted when button goes from inactive to active.
          */
         //% group="Button"
-        //% blockId=jacdac_on_button_down
-        //% block="on %button down"
-        //% weight=96
+        //% weight=95
         onDown(handler: () => void): void {
             this.registerEvent(jacdac.ButtonEvent.Down, handler);
         }
@@ -82,9 +90,7 @@ namespace modules {
         * records the amount of time between the down and up events.
          */
         //% group="Button"
-        //% blockId=jacdac_on_button_up
-        //% block="on %button up"
-        //% weight=95
+        //% weight=94
         onUp(handler: () => void): void {
             this.registerEvent(jacdac.ButtonEvent.Up, handler);
         }
@@ -94,9 +100,7 @@ namespace modules {
         * that the button has been held (since the down event).
          */
         //% group="Button"
-        //% blockId=jacdac_on_button_hold
-        //% block="on %button hold"
-        //% weight=94
+        //% weight=93
         onHold(handler: () => void): void {
             this.registerEvent(jacdac.ButtonEvent.Hold, handler);
         }

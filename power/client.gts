@@ -230,12 +230,20 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Power"
+        //% blockId=jacdac_on_power_event
+        //% block="on %power %event"
+        //% weight=86
+        onEvent(ev: jacdac.PowerEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+        /**
          * Emitted whenever `power_status` changes.
          */
         //% group="Power"
-        //% blockId=jacdac_on_power_power_status_changed
-        //% block="on %power power status changed"
-        //% weight=86
+        //% weight=85
         onPowerStatusChanged(handler: () => void): void {
             this.registerEvent(jacdac.PowerEvent.PowerStatusChanged, handler);
         }
@@ -246,7 +254,7 @@ namespace modules {
         //% group="Power"
         //% blockId=jacdac_power_shutdown_cmd
         //% block="%power shutdown"
-        //% weight=85
+        //% weight=84
         shutdown(): void {
             this.start();
             this.sendCommand(jacdac.JDPacket.onlyHeader(jacdac.PowerCmd.Shutdown))

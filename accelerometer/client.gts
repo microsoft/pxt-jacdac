@@ -111,12 +111,20 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Movement"
+        //% blockId=jacdac_on_accelerometer_event
+        //% block="on %accelerometer %event"
+        //% weight=93
+        onEvent(ev: jacdac.AccelerometerEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+        /**
          * Emitted when accelerometer is tilted in the given direction.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_tilt_up
-        //% block="on %accelerometer tilt up"
-        //% weight=93
+        //% weight=92
         onTiltUp(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.TiltUp, handler);
         }
@@ -124,9 +132,7 @@ namespace modules {
          * Emitted when accelerometer is tilted in the given direction.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_tilt_down
-        //% block="on %accelerometer tilt down"
-        //% weight=92
+        //% weight=91
         onTiltDown(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.TiltDown, handler);
         }
@@ -134,9 +140,7 @@ namespace modules {
          * Emitted when accelerometer is tilted in the given direction.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_tilt_left
-        //% block="on %accelerometer tilt left"
-        //% weight=91
+        //% weight=90
         onTiltLeft(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.TiltLeft, handler);
         }
@@ -144,9 +148,7 @@ namespace modules {
          * Emitted when accelerometer is tilted in the given direction.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_tilt_right
-        //% block="on %accelerometer tilt right"
-        //% weight=90
+        //% weight=89
         onTiltRight(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.TiltRight, handler);
         }
@@ -154,9 +156,7 @@ namespace modules {
          * Emitted when accelerometer is laying flat in the given direction.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_face_up
-        //% block="on %accelerometer face up"
-        //% weight=89
+        //% weight=88
         onFaceUp(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.FaceUp, handler);
         }
@@ -164,9 +164,7 @@ namespace modules {
          * Emitted when accelerometer is laying flat in the given direction.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_face_down
-        //% block="on %accelerometer face down"
-        //% weight=88
+        //% weight=87
         onFaceDown(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.FaceDown, handler);
         }
@@ -174,9 +172,7 @@ namespace modules {
          * Emitted when total force acting on accelerometer is much less than 1g.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_freefall
-        //% block="on %accelerometer freefall"
-        //% weight=87
+        //% weight=86
         onFreefall(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Freefall, handler);
         }
@@ -184,9 +180,7 @@ namespace modules {
          * Emitted when forces change violently a few times.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_shake
-        //% block="on %accelerometer shake"
-        //% weight=86
+        //% weight=85
         onShake(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Shake, handler);
         }
@@ -194,9 +188,7 @@ namespace modules {
          * Emitted when force in any direction exceeds given threshold.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_force_2g
-        //% block="on %accelerometer force 2g"
-        //% weight=85
+        //% weight=84
         onForce2g(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Force2g, handler);
         }
@@ -204,9 +196,7 @@ namespace modules {
          * Emitted when force in any direction exceeds given threshold.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_force_3g
-        //% block="on %accelerometer force 3g"
-        //% weight=84
+        //% weight=83
         onForce3g(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Force3g, handler);
         }
@@ -214,9 +204,7 @@ namespace modules {
          * Emitted when force in any direction exceeds given threshold.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_force_6g
-        //% block="on %accelerometer force 6g"
-        //% weight=83
+        //% weight=82
         onForce6g(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Force6g, handler);
         }
@@ -224,9 +212,7 @@ namespace modules {
          * Emitted when force in any direction exceeds given threshold.
          */
         //% group="Movement"
-        //% blockId=jacdac_on_accelerometer_force_8g
-        //% block="on %accelerometer force 8g"
-        //% weight=82
+        //% weight=81
         onForce8g(handler: () => void): void {
             this.registerEvent(jacdac.AccelerometerEvent.Force8g, handler);
         }

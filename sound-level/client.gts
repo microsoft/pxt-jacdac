@@ -128,12 +128,20 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Sound"
+        //% blockId=jacdac_on_soundlevel_event
+        //% block="on %soundlevel %event"
+        //% weight=92
+        onEvent(ev: jacdac.SoundLevelEvent, handler: () => void): void {
+            this.onEvent(ev, handler);
+        }
+        /**
          * Raised when a loud sound is detected
          */
         //% group="Sound"
-        //% blockId=jacdac_on_soundlevel_loud
-        //% block="on %soundlevel loud"
-        //% weight=92
+        //% weight=91
         onLoud(handler: () => void): void {
             this.registerEvent(jacdac.SoundLevelEvent.Loud, handler);
         }
@@ -141,9 +149,7 @@ namespace modules {
          * Raised when a period of quietness is detected
          */
         //% group="Sound"
-        //% blockId=jacdac_on_soundlevel_quiet
-        //% block="on %soundlevel quiet"
-        //% weight=91
+        //% weight=90
         onQuiet(handler: () => void): void {
             this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler);
         }
