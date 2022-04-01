@@ -48,7 +48,7 @@ namespace modules {
         //% block="on %switch %event"
         //% weight=98
         onEvent(ev: jacdac.SwitchEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

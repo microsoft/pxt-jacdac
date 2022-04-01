@@ -93,7 +93,7 @@ namespace modules {
         //% block="on %matrixkeypad %event"
         //% weight=95
         onEvent(ev: jacdac.MatrixKeypadEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

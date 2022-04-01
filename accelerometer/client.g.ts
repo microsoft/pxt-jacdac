@@ -118,7 +118,7 @@ namespace modules {
         //% block="on %accelerometer %event"
         //% weight=93
         onEvent(ev: jacdac.AccelerometerEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

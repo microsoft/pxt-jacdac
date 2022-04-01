@@ -237,7 +237,7 @@ namespace modules {
         //% block="on %power %event"
         //% weight=86
         onEvent(ev: jacdac.PowerEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

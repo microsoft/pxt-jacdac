@@ -75,7 +75,7 @@ namespace modules {
         //% block="on %button %event"
         //% weight=96
         onEvent(ev: jacdac.ButtonEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

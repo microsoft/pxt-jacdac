@@ -23,7 +23,7 @@ namespace modules {
         //% block="on %codalmessagebus %event"
         //% weight=100
         onEvent(ev: jacdac.CodalMessageBusEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

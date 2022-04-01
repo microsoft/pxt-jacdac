@@ -66,7 +66,7 @@ namespace modules {
         //% block="on %arcadegamepad %event"
         //% weight=97
         onEvent(ev: jacdac.ArcadeGamepadEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

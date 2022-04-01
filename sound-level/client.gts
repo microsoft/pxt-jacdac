@@ -135,7 +135,7 @@ namespace modules {
         //% block="on %soundlevel %event"
         //% weight=92
         onEvent(ev: jacdac.SoundLevelEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

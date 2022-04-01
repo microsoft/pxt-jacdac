@@ -122,7 +122,7 @@ namespace modules {
         //% block="on %gamepad %event"
         //% weight=95
         onEvent(ev: jacdac.GamepadEvent, handler: () => void): void {
-            this.onEvent(ev, handler)
+            this.registerEvent(ev, handler)
         }
 
         /**

@@ -100,7 +100,7 @@ namespace modules {
         //% block="on %verifiedtelemetrysensor %event"
         //% weight=94
         onEvent(ev: jacdac.VerifiedTelemetryEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

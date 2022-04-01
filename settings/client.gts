@@ -20,7 +20,7 @@ namespace modules {
         //% block="on %settings %event"
         //% weight=100
         onEvent(ev: jacdac.SettingsEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

@@ -451,7 +451,7 @@ namespace modules {
         //% block="on %prototest %event"
         //% weight=67
         onEvent(ev: jacdac.ProtoTestEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

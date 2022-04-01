@@ -120,7 +120,7 @@ namespace modules {
         //% block="on %wifi %event"
         //% weight=93
         onEvent(ev: jacdac.WifiEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

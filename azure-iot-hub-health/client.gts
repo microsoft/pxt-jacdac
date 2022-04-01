@@ -62,7 +62,7 @@ namespace modules {
         //% block="on %azureiothubhealth %event"
         //% weight=97
         onEvent(ev: jacdac.AzureIotHubHealthEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

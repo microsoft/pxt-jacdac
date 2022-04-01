@@ -64,7 +64,7 @@ namespace modules {
         //% block="on %barcodereader %event"
         //% weight=97
         onEvent(ev: jacdac.BarcodeReaderEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**

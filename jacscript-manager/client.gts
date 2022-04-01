@@ -143,7 +143,7 @@ namespace modules {
         //% block="on %jacscriptmanager %event"
         //% weight=92
         onEvent(ev: jacdac.JacscriptManagerEvent, handler: () => void): void {
-            this.onEvent(ev, handler);
+            this.registerEvent(ev, handler);
         }
 
         /**
