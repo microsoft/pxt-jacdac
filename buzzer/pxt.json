@@ -1,6 +1,6 @@
 {
     "name": "jacdac-buzzer",
-    "version": "0.8.16",
+    "version": "0.8.17",
     "description": "MakeCode support for Jacdac Buzzer service",
     "files": [
         "constants.ts",
