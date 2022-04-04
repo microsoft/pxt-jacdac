@@ -1180,9 +1180,10 @@ namespace jacdac {
                     (query.device == "self" &&
                         this.deviceId == jacdac.bus.selfDevice.deviceId)) &&
                 // precise service index match
-                (query.serviceIndex == 0 || query.serviceIndex == serviceIdx)
-            )
+                (!query.serviceIndex || query.serviceIndex == serviceIdx)
+            ) {
                 return true
+            }
 
             return jacdac._rolemgr.getRole(this.deviceId, serviceIdx) == role
         }
