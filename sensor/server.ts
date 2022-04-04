@@ -1,6 +1,7 @@
 namespace jacdac {
     export interface SensorServerOptions extends ServerOptions {
         streamingInterval?: number
+        calibrate?: () => void
     }
 
     /**
@@ -9,6 +10,7 @@ namespace jacdac {
     export class SensorServer extends Server {
         public streamingInterval: number // millis
         public streamingSamples: number
+        readonly calibrate: () => void
 
         constructor(
             name: string,
@@ -20,6 +22,7 @@ namespace jacdac {
 
             this.streamingSamples = 0
             this.streamingInterval = options.streamingInterval || 100
+            this.calibrate = options.calibrate
         }
 
         public handlePacket(packet: JDPacket) {
@@ -64,7 +67,21 @@ namespace jacdac {
 
         // override
         protected handleCalibrateCommand(pkt: JDPacket) {
-            pkt.possiblyNotImplemented()
+            if (this.statusCode === jacdac.SystemStatusCodes.Calibrating) return
+
+            if (this.calibrate) {
+                this.setStatusCode(jacdac.SystemStatusCodes.Calibrating)
+                control.runInBackground(() => this.doCalibrate())
+            } else pkt.possiblyNotImplemented()
+        }
+
+        private doCalibrate() {
+            try {
+                this.calibrate()
+                this.setStatusCode(jacdac.SystemStatusCodes.Ready)
+            } catch (e) {
+                this.setStatusCode(jacdac.SystemStatusCodes.CalibrationNeeded)
+            }
         }
 
         protected handleCustomCommand(pkt: JDPacket) {
@@ -164,7 +181,6 @@ namespace jacdac {
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {
-            super.handlePacket(pkt)
             if (this.minReading !== undefined)
                 this.handleRegValue(
                     pkt,
@@ -186,6 +202,7 @@ namespace jacdac {
                     this.packFormat,
                     this.readingError()
                 )
+            super.handlePacket(pkt)
         }
 
         serializeState() {

@@ -150,7 +150,10 @@ namespace jacdac {
                     jdpack("u32", [this.resetIn])
                 ).sendAsMultiCommand(SRV_CONTROL)
 
-            if (jacdac.roleManagerServer.autoBind) {
+            if (
+                jacdac.roleManagerServer.autoBind &&
+                jacdac.roleManagerServer.running
+            ) {
                 this.autoBindCnt++
                 // also, only do it every two announces (TBD)
                 if (this.autoBindCnt >= 2) {

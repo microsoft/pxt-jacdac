@@ -7,6 +7,8 @@
         "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server",
         "jacdac-button": "./button",
         "jacdac-buzzer": "./buzzer",
+        "jacdac-character-screen": "./character-screen",
+        "jacdac-e-co2": "./e-co2",
         "jacdac-flex": "./flex",
         "jacdac-pressure": "./pressure",
         "jacdac-hid-keyboard": "./hid-keyboard",
@@ -21,6 +23,7 @@
         "jacdac-microbit": "./devices/microbit",
         "jacdac-motor": "./motor",
         "jacdac-potentiometer": "./potentiometer",
+        "jacdac-real-time-clock": "./real-time-clock",
         "jacdac-rotary-encoder": "./rotary-encoder",
         "jacdac-servers": "./servers",
         "jacdac-servo": "./servo",
@@ -35,6 +38,7 @@
         "jacdac-uv-index": "./uv-index",
         "jacdac-relay": "./relay",
         "jacdac-soil-moisture": "./soil-moisture",
-        "jacdac-switch": "./switch"
+        "jacdac-switch": "./switch",
+        "pxt-kitronik-air-quality": "./others/pxt-kitronik-air-quality"
     }
 }
