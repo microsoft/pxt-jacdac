@@ -804,7 +804,7 @@ namespace jacdac {
 
         get roleQuery(): ClientRoleQuery {
             const i = this._role.indexOf("?")
-            if (i < 0) return undefined
+            if (i < 0) return new ClientRoleQuery(this._role)
             const query = this._role.substr(i + 1)
             const r = new ClientRoleQuery(this._role.substr(0, i))
 
