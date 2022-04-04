@@ -789,11 +789,11 @@ namespace jacdac {
 
         constructor(public readonly serviceClass: number, role: string) {
             super()
+            if (!role) throw "no role"
+
             this.eventId = control.allocateNotifyEvent()
             this.config = new ClientPacketQueue(this)
             this._role = role
-
-            if (!this.role) throw "no role"
         }
 
         get role() {
