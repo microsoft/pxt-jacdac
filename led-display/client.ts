@@ -18,7 +18,6 @@ namespace modules {
         >
         private _autoShow = true
         private _autoShowUnsub: () => void
-        private _lastShow = 0
 
         constructor(role: string) {
             super(jacdac.SRV_LED_DISPLAY, role)
