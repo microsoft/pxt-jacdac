@@ -203,7 +203,7 @@ namespace jacdac {
                 )
                 if (
                     newClass == c.serviceClass &&
-                    dev.matchesRoleAt(c.role, c.serviceIndex)
+                    dev.matchesRoleAt(c.roleQuery, c.serviceIndex)
                 ) {
                     newClients.push(c)
                     occupied[c.serviceIndex] = 1
@@ -323,7 +323,7 @@ namespace jacdac {
 
         private _refreshing = false
         private startRefresh() {
-            if (this._refreshing) return;
+            if (this._refreshing) return
 
             this._refreshing = true
             control.runInBackground(() => this.refreshLoop())
@@ -331,7 +331,7 @@ namespace jacdac {
 
         private refreshLoop() {
             try {
-                while(this.hasListener(jacdac.REFRESH)) {
+                while (this.hasListener(jacdac.REFRESH)) {
                     this.emit(jacdac.REFRESH)
                     pause(50)
                 }
@@ -763,6 +763,14 @@ namespace jacdac {
         }
     }
 
+    export class ClientRoleQuery {
+        constructor(public readonly role: string) {}
+        // ?device=...
+        device: string
+        // ?service=...
+        serviceIndex: number
+    }
+
     //% fixedInstances
     export class Client extends EventSource {
         _device: Device
@@ -777,12 +785,44 @@ namespace jacdac {
 
         protected readonly config: ClientPacketQueue
         private readonly registers: RegisterClient<PackDataType[]>[] = []
+        readonly _role: string
 
-        constructor(public readonly serviceClass: number, public role: string) {
+        constructor(public readonly serviceClass: number, role: string) {
             super()
+            if (!role) throw "no role"
+
             this.eventId = control.allocateNotifyEvent()
             this.config = new ClientPacketQueue(this)
-            if (!this.role) throw "no role"
+            this._role = role
+        }
+
+        get role() {
+            const i = this._role.indexOf("?")
+            if (i > -1) return this._role.substr(0, i)
+            else return this._role
+        }
+
+        get roleQuery(): ClientRoleQuery {
+            const i = this._role.indexOf("?")
+            if (i < 0) return new ClientRoleQuery(this._role)
+            const query = this._role.substr(i + 1)
+            const r = new ClientRoleQuery(this._role.substr(0, i))
+
+            for (const kv of query.split("&")) {
+                const i = kv.indexOf("=")
+                if (i < 0) continue
+                const key = kv.slice(0, i)
+                const value = kv.slice(i + 1)
+                switch (key) {
+                    case "device":
+                        r.device = value
+                        break
+                    case "service":
+                        r.serviceIndex = parseInt(value)
+                        break
+                }
+            }
+            return r
         }
 
         get device() {
@@ -886,7 +926,7 @@ namespace jacdac {
         _attach(dev: Device, serviceNum: number) {
             if (this.device) throw "Invalid attach"
             if (!this.broadcast) {
-                if (!dev.matchesRoleAt(this.role, serviceNum)) return false // don't attach
+                if (!dev.matchesRoleAt(this.roleQuery, serviceNum)) return false // don't attach
                 this.device = dev
                 this.serviceIndex = serviceNum
                 bus.attachClient(this)
@@ -1122,13 +1162,28 @@ namespace jacdac {
             return this.shortId
         }
 
-        matchesRoleAt(role: string, serviceIdx: number) {
+        matchesRoleAt(query: ClientRoleQuery, serviceIdx: number) {
+            const role = query.role
             if (!role) return true
 
+            // legacy binding
             if (role == this.deviceId) return true
             if (role == this.deviceId + ":" + serviceIdx) return true
-
             if (role.indexOf(":") >= 0) return false
+
+            // query based binding
+            // match device id query, device=self query + device/service query
+            if (
+                // precise device id match
+                (query.device == this.deviceId ||
+                    // self device match
+                    (query.device == "self" &&
+                        this.deviceId == jacdac.bus.selfDevice.deviceId)) &&
+                // precise service index match
+                (!query.serviceIndex || query.serviceIndex == serviceIdx)
+            ) {
+                return true
+            }
 
             return jacdac._rolemgr.getRole(this.deviceId, serviceIdx) == role
         }
