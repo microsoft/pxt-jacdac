@@ -60,10 +60,10 @@ namespace modules {
          */
         //% group="Display"
         //% weight=99
-        setMessage(value: any) {
+        setMessage(value: string) {
             this.start()
             const values = this._message.values as any[]
-            values[0] = value + ""
+            values[0] = value || ""
             this._message.values = values as [string]
         }
 
@@ -165,14 +165,14 @@ namespace modules {
          */
         //% group="Display"
         //% blockId=jacdac_characterscreen_set_line_cmd
-        //% block="%characterscreen set line |index $index |message $message"
+        //% block="set %characterscreen line |$index |to $message"
         //% weight=91
         //% message.defl=":)"
-        setLine(index: number, message: any): void {
+        setLine(index: number, message: string): void {
             this.start()
             const msg = this.message() || ""
             const lines = msg.split("\n")
-            lines[index | 0] = message + ""
+            lines[index | 0] = message || ""
             this.setMessage(lines.join("\n"))
         }
 
@@ -181,7 +181,7 @@ namespace modules {
          */
         //% group="Display"
         //% blockId=jacdac_characterscreen_clear_cmd
-        //% block="%characterscreen clear"
+        //% block="clear %characterscreen"
         //% weight=90
         clear(): void {
             this.start()
