@@ -4,7 +4,7 @@
     "description": "A 7-segment numeric display, with one or more digits.",
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.ts"
     ],
     "testFiles": [
         "test.ts"
