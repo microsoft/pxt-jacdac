@@ -1753,7 +1753,7 @@ namespace jacdac {
             const servers = createServers()
             for (const server of servers) server.start()
         }
-        if (!jacdac.checkProxy()) jacdac.proxyFinalize()
+        if (jacdac.checkProxy()) jacdac.proxyFinalize()
     }
 
     // make sure physical is started deterministically
