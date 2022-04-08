@@ -1,6 +1,6 @@
 {
     "name": "jacdac-rain-gauge",
-    "version": "0.8.22",
+    "version": "0.8.23",
     "description": "Measures the amount of liquid precipitation over an area in a predefined period of time.",
     "files": [
         "constants.ts",
