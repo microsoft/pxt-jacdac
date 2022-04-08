@@ -75,5 +75,4 @@ namespace jacdac {
         //% block="swipe neg"
         SwipeNeg = 0x91,
     }
-
 }

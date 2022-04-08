@@ -1,7 +1,7 @@
 enum Mode {
     Events,
     Pressed,
-    Pressure
+    Pressure,
 }
 
 let mode = Mode.Events
@@ -34,20 +34,13 @@ modules.button1.onUp(() => {
     basic.showString("U")
 })
 
-
 basic.forever(() => {
     if (mode === Mode.Pressed) {
-        if (modules.button1.pressed())
-            basic.showString("D")
-        else
-            basic.showString("U")
+        if (modules.button1.pressed()) basic.showString("D")
+        else basic.showString("U")
     } else if (mode === Mode.Pressure) {
-        if (modules.button1.pressure() >= 70)
-            basic.showString("D")
-        else if (modules.button1.pressure() === 0)
-            basic.showString("U")
-        else
-            basic.showString("x")
+        if (modules.button1.pressure() >= 70) basic.showString("D")
+        else if (modules.button1.pressure() === 0) basic.showString("U")
+        else basic.showString("x")
     }
 })
-

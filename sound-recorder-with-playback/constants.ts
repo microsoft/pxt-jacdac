@@ -60,5 +60,4 @@ namespace jacdac {
          */
         Volume = 0x1,
     }
-
 }

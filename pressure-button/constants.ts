@@ -11,5 +11,4 @@ namespace jacdac {
          */
         Threshold = 0x6,
     }
-
 }

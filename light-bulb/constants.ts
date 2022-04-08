@@ -21,5 +21,4 @@ namespace jacdac {
          */
         Dimmable = 0x180,
     }
-
 }

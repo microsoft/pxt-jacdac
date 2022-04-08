@@ -65,5 +65,4 @@ namespace jacdac {
          */
         CurrentSample = 0x101,
     }
-
 }

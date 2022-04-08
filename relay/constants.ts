@@ -39,5 +39,4 @@ namespace jacdac {
          */
         MaxSwitchingCurrent = 0x180,
     }
-
 }

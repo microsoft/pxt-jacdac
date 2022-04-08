@@ -12,5 +12,4 @@ namespace jacdac {
          */
         Vibrate = 0x80,
     }
-
 }

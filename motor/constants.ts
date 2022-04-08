@@ -49,5 +49,4 @@ namespace jacdac {
          */
         Reversible = 0x182,
     }
-
 }

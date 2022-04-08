@@ -11,7 +11,6 @@ namespace jacdac {
         Active = 0x3,
     }
 
-
     export const enum SystemStatusCodes { // uint16_t
         //% block="ready"
         Ready = 0x0,
@@ -290,5 +289,4 @@ namespace jacdac {
         //% block="neutral"
         Neutral = 0x7,
     }
-
 }

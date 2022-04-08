@@ -64,14 +64,12 @@ namespace jacdac {
         Clear = 0x85,
     }
 
-
     /**
      * pipe_report Configuration
      * ```
      * const [configurationNumber, bindingIndex, deviceId, serviceClass, triggerValue, triggerContext, serviceIndex, selector, modifiers] = jdunpack<[number, number, number, number, number, number, number, number, number]>(buf, "u8 u8 x[2] u64 u32 u32 u8 u8 u16 u16")
      * ```
      */
-
 
     export const enum HidAdapterEvent {
         /**
@@ -80,5 +78,4 @@ namespace jacdac {
         //% block="changed"
         Changed = 0x3,
     }
-
 }

@@ -11,5 +11,4 @@ namespace jacdac {
          */
         Kinematics = 0x101,
     }
-
 }

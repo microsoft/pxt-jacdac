@@ -38,5 +38,4 @@ namespace jacdac {
          */
         MaxTVOC = 0x105,
     }
-
 }

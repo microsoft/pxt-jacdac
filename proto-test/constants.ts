@@ -275,13 +275,10 @@ namespace jacdac {
         CReportPipe = 0x90,
     }
 
-
     /**
      * pipe_report PBytes
      * ```
      * const [byte] = jdunpack<[number]>(buf, "u8")
      * ```
      */
-
-
 }

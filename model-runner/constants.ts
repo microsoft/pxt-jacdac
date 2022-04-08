@@ -156,5 +156,4 @@ namespace jacdac {
          */
         Parallel = 0x188,
     }
-
 }

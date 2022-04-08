@@ -63,5 +63,4 @@ namespace jacdac {
          */
         Cancel = 0x81,
     }
-
 }

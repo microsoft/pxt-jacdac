@@ -20,5 +20,4 @@ namespace jacdac {
          */
         Measurement = 0x101,
     }
-
 }

@@ -38,5 +38,4 @@ namespace jacdac {
          */
         MaxHumidity = 0x105,
     }
-
 }

@@ -103,5 +103,4 @@ namespace jacdac {
          */
         BufferReceived = 0x92,
     }
-
 }

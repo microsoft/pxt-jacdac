@@ -23,5 +23,4 @@ namespace jacdac {
         //% block="message"
         Message = 0x80,
     }
-
 }

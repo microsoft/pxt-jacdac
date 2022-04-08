@@ -49,7 +49,6 @@ namespace jacdac {
         Error = 0x0,
     }
 
-
     /**
      * pipe_command Outdata
      * ```
@@ -63,6 +62,4 @@ namespace jacdac {
      * const [data] = jdunpack<[Buffer]>(buf, "b")
      * ```
      */
-
-
 }

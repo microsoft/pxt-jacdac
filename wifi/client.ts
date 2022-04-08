@@ -16,13 +16,12 @@ namespace jacdac {
         }
 
         /**
-        * Current signal strength. Returns -128 when not connected.
-        */
+         * Current signal strength. Returns -128 when not connected.
+         */
         rssi(): number {
-            return this.reading();
-        
+            return this.reading()
         }
-                
+
         scan() {
             if (!this.device) return []
             const s = new InPipe()

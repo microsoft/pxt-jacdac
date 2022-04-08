@@ -101,5 +101,4 @@ namespace jacdac {
          */
         CalibrateGain = 0x81,
     }
-
 }

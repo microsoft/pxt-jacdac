@@ -13,7 +13,6 @@ namespace jacdac {
         RightGUID = 0xe7,
     }
 
-
     export const enum KeyboardAction { // uint8_t
         Press = 0x0,
         Up = 0x1,
@@ -36,5 +35,4 @@ namespace jacdac {
          */
         Clear = 0x81,
     }
-
 }

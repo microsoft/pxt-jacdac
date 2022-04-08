@@ -38,5 +38,4 @@ namespace jacdac {
          */
         MaxAqiIndex = 0x105,
     }
-
 }

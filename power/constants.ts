@@ -123,5 +123,4 @@ namespace jacdac {
         //% block="power status changed"
         PowerStatusChanged = 0x3,
     }
-
 }

@@ -55,14 +55,12 @@ namespace jacdac {
         LogMessage = 0x82,
     }
 
-
     /**
      * pipe_report Bytecode
      * ```
      * const [data] = jdunpack<[Buffer]>(buf, "b")
      * ```
      */
-
 
     export const enum JacscriptManagerReg {
         /**
@@ -134,5 +132,4 @@ namespace jacdac {
         //% block="program change"
         ProgramChange = 0x3,
     }
-
 }

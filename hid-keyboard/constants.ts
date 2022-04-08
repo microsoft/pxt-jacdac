@@ -23,7 +23,6 @@ namespace jacdac {
         RightGUI = 0x80,
     }
 
-
     export const enum HidKeyboardAction { // uint8_t
         //% block="press"
         Press = 0x0,
@@ -49,5 +48,4 @@ namespace jacdac {
          */
         Clear = 0x81,
     }
-
 }

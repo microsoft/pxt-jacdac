@@ -95,7 +95,6 @@ namespace jacdac {
         ListKnownNetworks = 0x87,
     }
 
-
     /**
      * pipe_report Results
      * ```
@@ -109,7 +108,6 @@ namespace jacdac {
      * const [priority, flags, ssid] = jdunpack<[number, number, string]>(buf, "i16 i16 s")
      * ```
      */
-
 
     export const enum WifiReg {
         /**
@@ -202,5 +200,4 @@ namespace jacdac {
         //% block="connection failed"
         ConnectionFailed = 0x82,
     }
-
 }

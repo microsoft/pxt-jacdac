@@ -11,5 +11,4 @@ namespace jacdac {
          */
         Color = 0x101,
     }
-
 }

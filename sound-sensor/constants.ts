@@ -28,5 +28,4 @@ namespace jacdac {
          */
         MaxDecibels = 0x82,
     }
-
 }

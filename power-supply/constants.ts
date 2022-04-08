@@ -38,5 +38,4 @@ namespace jacdac {
          */
         MaximumVoltage = 0x111,
     }
-
 }

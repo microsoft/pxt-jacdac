@@ -58,5 +58,4 @@ namespace jacdac {
         //% block="inactive"
         Inactive = 0x2,
     }
-
 }

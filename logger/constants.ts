@@ -67,5 +67,4 @@ namespace jacdac {
          */
         Error = 0x83,
     }
-
 }

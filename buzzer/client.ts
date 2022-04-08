@@ -1,5 +1,4 @@
 namespace modules {
-
     function tonePayload(frequency: number, ms: number, volume: number) {
         const period = Math.idiv(1000000, frequency)
         const duty = (period * volume) >> 11

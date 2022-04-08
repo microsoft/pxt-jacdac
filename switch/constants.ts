@@ -54,5 +54,4 @@ namespace jacdac {
         //% block="off"
         Off = 0x2,
     }
-
 }

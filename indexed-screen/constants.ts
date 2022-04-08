@@ -109,5 +109,4 @@ namespace jacdac {
          */
         Rotation = 0x83,
     }
-
 }

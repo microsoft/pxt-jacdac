@@ -20,5 +20,4 @@ namespace jacdac {
          */
         PrecipitationPrecision = 0x108,
     }
-
 }

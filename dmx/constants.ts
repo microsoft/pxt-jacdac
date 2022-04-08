@@ -22,5 +22,4 @@ namespace jacdac {
          */
         Send = 0x80,
     }
-
 }

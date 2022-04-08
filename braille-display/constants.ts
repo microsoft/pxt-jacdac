@@ -29,5 +29,4 @@ namespace jacdac {
          */
         Length = 0x181,
     }
-
 }

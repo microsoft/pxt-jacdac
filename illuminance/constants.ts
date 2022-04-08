@@ -20,5 +20,4 @@ namespace jacdac {
          */
         IlluminanceError = 0x106,
     }
-
 }

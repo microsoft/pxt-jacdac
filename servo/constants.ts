@@ -92,5 +92,4 @@ namespace jacdac {
          */
         CurrentAngle = 0x101,
     }
-
 }

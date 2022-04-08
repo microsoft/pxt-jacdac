@@ -101,7 +101,6 @@ namespace jacdac {
          */
     }
 
-
     /**
      * pipe_command Message
      * ```
@@ -150,7 +149,6 @@ namespace jacdac {
      * const [json] = jdunpack<[Buffer]>(buf, "b")
      * ```
      */
-
 
     export const enum IotHubPipeCmd {
         /**
@@ -265,5 +263,4 @@ namespace jacdac {
         //% block="devicebound str"
         DeviceboundStr = 0x82,
     }
-
 }

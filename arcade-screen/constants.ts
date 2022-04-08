@@ -64,5 +64,4 @@ namespace jacdac {
          */
         Palette = 0x80,
     }
-
 }

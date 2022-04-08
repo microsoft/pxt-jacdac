@@ -28,8 +28,12 @@ namespace jacdac {
                         this.minPriority = d
                         this._lastListenerTime = now
                     }
-                    if ((console.minPriority as number) > (this.minPriority as number))
-                        console.minPriority = this.minPriority as number as ConsolePriority
+                    if (
+                        (console.minPriority as number) >
+                        (this.minPriority as number)
+                    )
+                        console.minPriority = this
+                            .minPriority as number as ConsolePriority
                     break
                 }
                 default:

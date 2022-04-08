@@ -39,5 +39,4 @@ namespace jacdac {
          */
         MaxRatesSupported = 0x10a,
     }
-
 }

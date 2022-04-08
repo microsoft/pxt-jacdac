@@ -71,5 +71,4 @@ namespace modules {
             if (startPlay) control.runInParallel(() => this.playLoop())
         }
     }
-
 }

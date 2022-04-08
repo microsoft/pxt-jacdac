@@ -29,5 +29,4 @@ namespace jacdac {
          */
         StreamingPreferredInterval = 0x102,
     }
-
 }

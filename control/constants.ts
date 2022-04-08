@@ -132,14 +132,12 @@ namespace jacdac {
          */
     }
 
-
     /**
      * pipe_command WrappedCommand
      * ```
      * const [serviceSize, serviceIndex, serviceCommand, payload] = jdunpack<[number, number, number, Buffer]>(buf, "u8 u8 u16 b")
      * ```
      */
-
 
     export const enum ControlReg {
         /**
@@ -207,5 +205,4 @@ namespace jacdac {
          */
         Uptime = 0x186,
     }
-
 }

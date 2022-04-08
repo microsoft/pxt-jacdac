@@ -20,5 +20,4 @@ namespace jacdac {
          */
         WindDirectionError = 0x106,
     }
-
 }

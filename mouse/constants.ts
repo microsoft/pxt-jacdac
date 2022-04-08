@@ -8,7 +8,6 @@ namespace jacdac {
         Left = 0x2,
     }
 
-
     export const enum MouseButtonEvent { // uint8_t
         Up = 0x1,
         Down = 0x2,
@@ -48,5 +47,4 @@ namespace jacdac {
          */
         Wheel = 0x82,
     }
-
 }

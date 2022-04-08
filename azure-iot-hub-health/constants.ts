@@ -80,5 +80,4 @@ namespace jacdac {
         //% block="message sent"
         MessageSent = 0x80,
     }
-
 }

@@ -57,5 +57,4 @@ namespace jacdac {
          */
         SmoothingTimeConstant = 0x83,
     }
-
 }

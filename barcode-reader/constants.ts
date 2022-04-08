@@ -63,5 +63,4 @@ namespace jacdac {
         //% block="detect"
         Detect = 0x1,
     }
-
 }

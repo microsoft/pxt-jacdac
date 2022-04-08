@@ -44,5 +44,4 @@ namespace jacdac {
          */
         BufferPending = 0x181,
     }
-
 }

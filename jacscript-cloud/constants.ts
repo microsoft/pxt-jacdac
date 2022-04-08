@@ -78,5 +78,4 @@ namespace jacdac {
         //% block="twin change"
         TwinChange = 0x3,
     }
-
 }

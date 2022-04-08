@@ -26,5 +26,4 @@ namespace jacdac {
          */
         SamplingPeriod = 0x80,
     }
-
 }

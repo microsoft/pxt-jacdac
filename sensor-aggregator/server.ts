@@ -64,7 +64,16 @@ namespace jacdac {
                 sampleSize,
                 sampleType,
                 sampleShift,
-            ] = jdunpack<[Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number]>(config, "b[8] u32 u8 u8 u8 i8")
+            ] = jdunpack<
+                [
+                    Buffer,
+                    number,
+                    number,
+                    number,
+                    jacdac.SensorAggregatorSampleType,
+                    number
+                ]
+            >(config, "b[8] u32 u8 u8 u8 i8")
             const devId =
                 devIdBuf.getNumber(NumberFormat.Int32LE, 0) == 0
                     ? null
@@ -169,8 +178,8 @@ namespace jacdac {
 
         private configureInputs() {
             const config = this.inputSettings
-            if (!config) return
-            /*
+            if (!config)
+                return /*
             rw inputs @ 0x80 {
                 sampling_interval: u16 ms
                 samples_in_window: u16
@@ -184,7 +193,6 @@ namespace jacdac {
                 sample_shift: i8
             }
             */
-
             ;[this.samplingInterval] = jdunpack(config, "u16")
             const entrySize = 16
             let off = 8

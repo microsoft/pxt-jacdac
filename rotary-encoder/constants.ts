@@ -31,5 +31,4 @@ namespace jacdac {
          */
         Clicker = 0x181,
     }
-
 }

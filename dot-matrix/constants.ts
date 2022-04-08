@@ -56,5 +56,4 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
-
 }

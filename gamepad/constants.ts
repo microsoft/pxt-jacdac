@@ -29,7 +29,6 @@ namespace jacdac {
         Y = 0x800,
     }
 
-
     export const enum GamepadVariant { // uint8_t
         //% block="thumb"
         Thumb = 0x1,
@@ -86,5 +85,4 @@ namespace jacdac {
         //% block="buttons changed"
         ButtonsChanged = 0x3,
     }
-
 }

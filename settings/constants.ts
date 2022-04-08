@@ -60,7 +60,6 @@ namespace jacdac {
         Clear = 0x85,
     }
 
-
     /**
      * pipe_report ListedKey
      * ```
@@ -75,7 +74,6 @@ namespace jacdac {
      * ```
      */
 
-
     export const enum SettingsEvent {
         /**
          * Notifies that some setting have been modified.
@@ -83,5 +81,4 @@ namespace jacdac {
         //% block="change"
         Change = 0x3,
     }
-
 }

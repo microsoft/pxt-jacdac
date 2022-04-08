@@ -104,5 +104,4 @@ namespace jacdac {
         //% block="long click"
         LongClick = 0x81,
     }
-
 }

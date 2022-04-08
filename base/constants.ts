@@ -52,5 +52,4 @@ namespace jacdac {
         //% block="status code changed"
         StatusCodeChanged = 0x4,
     }
-
 }

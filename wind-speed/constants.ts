@@ -29,5 +29,4 @@ namespace jacdac {
          */
         MaxWindSpeed = 0x105,
     }
-
 }

@@ -20,5 +20,4 @@ namespace jacdac {
          */
         OxygenError = 0x106,
     }
-
 }

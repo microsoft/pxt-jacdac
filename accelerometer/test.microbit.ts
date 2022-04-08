@@ -1,6 +1,6 @@
 enum Mode {
     Stream,
-    Events
+    Events,
 }
 
 let mode = Mode.Stream
@@ -13,9 +13,7 @@ input.onButtonPressed(Button.B, () => {
     mode = Mode.Stream
 })
 
-input.onButtonPressed(Button.AB, () => {
-
-})
+input.onButtonPressed(Button.AB, () => {})
 
 basic.forever(function () {
     if (mode !== Mode.Stream) return
@@ -26,7 +24,7 @@ basic.forever(function () {
     basic.pause(100)
 })
 
-function plot (x: number, y: number) {
+function plot(x: number, y: number) {
     let dispX = 2
     let dispY = 2
     if (Math.abs(x) > 30) {
@@ -46,22 +44,22 @@ function plot (x: number, y: number) {
 
 modules.accelerometer1.onTiltUp(() => {
     if (mode !== Mode.Events) return
-    basic.showArrow(ArrowNames.North,0)
+    basic.showArrow(ArrowNames.North, 0)
 })
 
 modules.accelerometer1.onTiltDown(() => {
     if (mode !== Mode.Events) return
-    basic.showArrow(ArrowNames.South,0)
+    basic.showArrow(ArrowNames.South, 0)
 })
 
 modules.accelerometer1.onTiltLeft(() => {
     if (mode !== Mode.Events) return
-    basic.showArrow(ArrowNames.West,0)
+    basic.showArrow(ArrowNames.West, 0)
 })
 
 modules.accelerometer1.onTiltRight(() => {
     if (mode !== Mode.Events) return
-    basic.showArrow(ArrowNames.East,0)
+    basic.showArrow(ArrowNames.East, 0)
 })
 
 modules.accelerometer1.onFreefall(function () {
@@ -73,7 +71,7 @@ modules.accelerometer1.onFreefall(function () {
 
 modules.accelerometer1.onShake(function () {
     if (mode !== Mode.Events) return
-    basic.showIcon(IconNames.Confused,0)
+    basic.showIcon(IconNames.Confused, 0)
 })
 
 modules.accelerometer1.onFaceDown(function () {
@@ -89,8 +87,7 @@ modules.accelerometer1.onFaceUp(function () {
 let lastForce = 0
 
 function forceOK(newForce: number) {
-    if (mode !== Mode.Events || newForce <= lastForce)
-        return false
+    if (mode !== Mode.Events || newForce <= lastForce) return false
     if (lastForce === 0) {
         control.runInBackground(() => {
             basic.pause(1000)
@@ -102,21 +99,17 @@ function forceOK(newForce: number) {
 }
 
 modules.accelerometer1.onForce2g(function () {
-    if (forceOK(2))
-        basic.showNumber(2,0)
+    if (forceOK(2)) basic.showNumber(2, 0)
 })
 
 modules.accelerometer1.onForce6g(function () {
-    if (forceOK(6))
-        basic.showNumber(6,0)
+    if (forceOK(6)) basic.showNumber(6, 0)
 })
 
 modules.accelerometer1.onForce8g(function () {
-    if (forceOK(8))
-        basic.showNumber(8,0)
+    if (forceOK(8)) basic.showNumber(8, 0)
 })
 
 modules.accelerometer1.onForce3g(function () {
-    if (forceOK(3))
-        basic.showNumber(3,0)
+    if (forceOK(3)) basic.showNumber(3, 0)
 })

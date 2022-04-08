@@ -58,5 +58,4 @@ namespace jacdac {
          */
         SetNumber = 0x80,
     }
-
 }

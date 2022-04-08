@@ -29,5 +29,4 @@ namespace jacdac {
          */
         Green = 0x82,
     }
-
 }

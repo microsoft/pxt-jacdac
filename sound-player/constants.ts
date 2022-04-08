@@ -37,13 +37,10 @@ namespace jacdac {
         ListSounds = 0x82,
     }
 
-
     /**
      * pipe_report ListSoundsPipe
      * ```
      * const [duration, name] = jdunpack<[number, string]>(buf, "u32 s")
      * ```
      */
-
-
 }

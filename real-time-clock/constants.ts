@@ -59,5 +59,4 @@ namespace jacdac {
          */
         SetTime = 0x80,
     }
-
 }

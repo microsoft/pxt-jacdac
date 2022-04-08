@@ -68,5 +68,4 @@ namespace jacdac {
         //% block="up"
         Up = 0x2,
     }
-
 }
