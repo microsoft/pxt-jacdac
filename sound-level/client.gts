@@ -156,6 +156,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="sound level1"
+    //% fixedInstance whenUsed weight=1 block="sound level1"
     export const soundLevel1 = new SoundLevelClient("sound Level1");
 }

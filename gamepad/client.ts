@@ -134,6 +134,6 @@ namespace modules {
             this.registerEvent(jacdac.GamepadEvent.ButtonsChanged, handler)
         }
     }
-    //% fixedInstance whenUsed block="gamepad1"
+    //% fixedInstance whenUsed weight=1 block="gamepad1"
     export const gamepad1 = new GamepadClient("gamepad1")
 }

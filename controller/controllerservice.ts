@@ -203,7 +203,7 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="controller service"
+    //% fixedInstance whenUsed weight=1 block="controller service"
     export const controllerService = new ControllerService()
 
     function joinGame() {

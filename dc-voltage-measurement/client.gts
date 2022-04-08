@@ -68,6 +68,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="dc voltage measurement1"
+    //% fixedInstance whenUsed weight=1 block="dc voltage measurement1"
     export const dcVoltageMeasurement1 = new DcVoltageMeasurementClient("dc Voltage Measurement1");
 }

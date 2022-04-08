@@ -93,7 +93,7 @@ namespace modules {
         //% block="on %button %event"
         //% weight=96
         onEvent(ev: jacdac.ButtonEvent, handler: () => void): void {
-            this.registerEvent(ev, handler);
+            this.registerEvent(ev, handler)
         }
 
         /**
@@ -102,28 +102,28 @@ namespace modules {
         //% group="Button"
         //% weight=95
         onDown(handler: () => void): void {
-            this.registerEvent(jacdac.ButtonEvent.Down, handler);
+            this.registerEvent(jacdac.ButtonEvent.Down, handler)
         }
         /**
          * Emitted when button goes from active to inactive. The 'time' parameter
-        * records the amount of time between the down and up events.
+         * records the amount of time between the down and up events.
          */
         //% group="Button"
         //% weight=94
         onUp(handler: () => void): void {
-            this.registerEvent(jacdac.ButtonEvent.Up, handler);
+            this.registerEvent(jacdac.ButtonEvent.Up, handler)
         }
         /**
          * Emitted when the press time is greater than 500ms, and then at least every 500ms
-        * as long as the button remains pressed. The 'time' parameter records the the amount of time
-        * that the button has been held (since the down event).
+         * as long as the button remains pressed. The 'time' parameter records the the amount of time
+         * that the button has been held (since the down event).
          */
         //% group="Button"
         //% weight=93
         onHold(handler: () => void): void {
-            this.registerEvent(jacdac.ButtonEvent.Hold, handler);
+            this.registerEvent(jacdac.ButtonEvent.Hold, handler)
         }
     }
-    //% fixedInstance whenUsed block="button1"
+    //% fixedInstance whenUsed weight=1 block="button1"
     export const button1 = new ButtonClient("button1")
 }

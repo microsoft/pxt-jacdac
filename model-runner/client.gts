@@ -211,6 +211,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="model runner1"
+    //% fixedInstance whenUsed weight=1 block="model runner1"
     export const modelRunner1 = new ModelRunnerClient("model Runner1");
 }

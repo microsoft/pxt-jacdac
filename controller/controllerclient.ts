@@ -221,6 +221,6 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="controller client"
+    //% fixedInstance whenUsed weight=1 block="controller client"
     export const controllerClient = new ControllerClient()
 }

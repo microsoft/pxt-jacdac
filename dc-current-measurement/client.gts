@@ -54,6 +54,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="dc current measurement1"
+    //% fixedInstance whenUsed weight=1 block="dc current measurement1"
     export const dcCurrentMeasurement1 = new DcCurrentMeasurementClient("dc Current Measurement1");
 }

@@ -86,6 +86,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="magnetometer1"
+    //% fixedInstance whenUsed weight=1 block="magnetometer1"
     export const magnetometer1 = new MagnetometerClient("magnetometer1");
 }

@@ -55,6 +55,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="air pressure1"
+    //% fixedInstance whenUsed weight=1 block="air pressure1"
     export const airPressure1 = new AirPressureClient("air Pressure1");
 }

@@ -17,12 +17,12 @@ namespace servers {
         }
 
         private handleSendCommand(pkt: jacdac.JDPacket) {
-            const [source, value] = pkt.jdunpack<[number,  number]>("u16 u16")
+            const [source, value] = pkt.jdunpack<[number, number]>("u16 u16")
             this.log(`raise ${source} ${value}`)
             control.raiseEvent(source, value)
         }
     }
 
-    //% fixedInstance whenUsed block="CODAL message bus"
+    //% fixedInstance whenUsed weight=1 block="CODAL message bus"
     export const codalMessageBus = new CODALMessageBusServer("codal")
 }

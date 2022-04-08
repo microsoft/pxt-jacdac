@@ -107,6 +107,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="azure iot hub health1"
+    //% fixedInstance whenUsed weight=1 block="azure iot hub health1"
     export const azureIotHubHealth1 = new AzureIotHubHealthClient("azure Iot Hub Health1");
 }

@@ -88,7 +88,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
-    //% fixedInstance whenUsed block="air quality index1"
+    //% fixedInstance whenUsed weight=1 block="air quality index1"
     export const airQualityIndex1 = new AirQualityIndexClient(
         "air Quality Index1"
     )

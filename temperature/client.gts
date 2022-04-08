@@ -96,6 +96,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="temperature1"
+    //% fixedInstance whenUsed weight=1 block="temperature1"
     export const temperature1 = new TemperatureClient("temperature1");
 }

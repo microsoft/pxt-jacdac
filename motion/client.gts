@@ -89,6 +89,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="motion1"
+    //% fixedInstance whenUsed weight=1 block="motion1"
     export const motion1 = new MotionClient("motion1");
 }

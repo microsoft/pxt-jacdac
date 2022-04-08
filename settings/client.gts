@@ -45,6 +45,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="settings1"
+    //% fixedInstance whenUsed weight=1 block="settings1"
     export const settings1 = new SettingsClient("settings1");
 }

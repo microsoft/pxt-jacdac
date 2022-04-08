@@ -217,6 +217,6 @@ namespace modules {
             return values[0]
         }
     }
-    //% fixedInstance whenUsed block="dot matrix 1"
+    //% fixedInstance whenUsed weight=1 block="dot matrix 1"
     export const dotMatrix1 = new DotMatrixClient("dot Matrix1")
 }

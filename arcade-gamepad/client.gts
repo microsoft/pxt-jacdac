@@ -87,6 +87,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="arcade gamepad1"
+    //% fixedInstance whenUsed weight=1 block="arcade gamepad1"
     export const arcadeGamepad1 = new ArcadeGamepadClient("arcade Gamepad1");
 }

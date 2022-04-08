@@ -262,6 +262,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="power1"
+    //% fixedInstance whenUsed weight=1 block="power1"
     export const power1 = new PowerClient("power1");
 }

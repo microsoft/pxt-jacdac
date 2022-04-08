@@ -42,6 +42,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="microphone1"
+    //% fixedInstance whenUsed weight=1 block="microphone1"
     export const microphone1 = new MicrophoneClient("microphone1");
 }

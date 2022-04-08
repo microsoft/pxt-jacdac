@@ -313,6 +313,6 @@ namespace jacdac._rolemgr {
 }
 
 namespace jacdac {
-    //% fixedInstance whenUsed block="role manager"
+    //% fixedInstance whenUsed weight=1 block="role manager"
     export const roleManagerServer = new _rolemgr.RoleManagerServer()
 }

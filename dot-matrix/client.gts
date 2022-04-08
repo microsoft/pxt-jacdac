@@ -147,6 +147,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="dot matrix1"
+    //% fixedInstance whenUsed weight=1 block="dot matrix1"
     export const dotMatrix1 = new DotMatrixClient("dot Matrix1");
 }

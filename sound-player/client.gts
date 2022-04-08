@@ -71,6 +71,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="sound player1"
+    //% fixedInstance whenUsed weight=1 block="sound player1"
     export const soundPlayer1 = new SoundPlayerClient("sound Player1");
 }

@@ -211,6 +211,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed block="keyboard"
+    //% fixedInstance whenUsed weight=1 block="keyboard"
     export const hidKeyboard = new HIDKeyboardServer("keyboard")
 }

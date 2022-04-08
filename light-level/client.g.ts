@@ -55,6 +55,6 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
-    //% fixedInstance whenUsed block="light level1"
+    //% fixedInstance whenUsed weight=1 block="light level1"
     export const lightLevel1 = new LightLevelClient("light Level1")
 }

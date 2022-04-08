@@ -82,6 +82,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="humidity1"
+    //% fixedInstance whenUsed weight=1 block="humidity1"
     export const humidity1 = new HumidityClient("humidity1");
 }

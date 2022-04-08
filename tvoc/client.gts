@@ -83,6 +83,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="tvoc1"
+    //% fixedInstance whenUsed weight=1 block="tvoc1"
     export const tvoc1 = new TvocClient("tvoc1");
 }

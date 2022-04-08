@@ -69,6 +69,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="water level1"
+    //% fixedInstance whenUsed weight=1 block="water level1"
     export const waterLevel1 = new WaterLevelClient("water Level1");
 }

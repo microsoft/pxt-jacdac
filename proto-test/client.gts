@@ -596,6 +596,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="proto test1"
+    //% fixedInstance whenUsed weight=1 block="proto test1"
     export const protoTest1 = new ProtoTestClient("proto Test1");
 }

@@ -84,6 +84,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="rover1"
+    //% fixedInstance whenUsed weight=1 block="rover1"
     export const rover1 = new RoverClient("rover1");
 }

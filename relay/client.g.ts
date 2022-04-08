@@ -1,7 +1,7 @@
 namespace modules {
     /**
      * A switching relay.
-     * 
+     *
      * The contacts should be labelled `NO` (normally open), `COM` (common), and `NC` (normally closed).
      * When relay is energized it connects `NO` and `COM`.
      * When relay is not energized it connects `NC` and `COM`.
@@ -10,74 +10,79 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class RelayClient extends jacdac.Client {
-
-        private readonly _active : jacdac.RegisterClient<[boolean]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.RelayVariant]>;
-        private readonly _maxSwitchingCurrent : jacdac.RegisterClient<[number]>;            
+        private readonly _active: jacdac.RegisterClient<[boolean]>
+        private readonly _variant: jacdac.RegisterClient<[jacdac.RelayVariant]>
+        private readonly _maxSwitchingCurrent: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_RELAY, role);
+            super(jacdac.SRV_RELAY, role)
 
-            this._active = this.addRegister<[boolean]>(jacdac.RelayReg.Active, "u8");
-            this._variant = this.addRegister<[jacdac.RelayVariant]>(jacdac.RelayReg.Variant, "u8");
-            this._maxSwitchingCurrent = this.addRegister<[number]>(jacdac.RelayReg.MaxSwitchingCurrent, "u32");            
+            this._active = this.addRegister<[boolean]>(
+                jacdac.RelayReg.Active,
+                "u8"
+            )
+            this._variant = this.addRegister<[jacdac.RelayVariant]>(
+                jacdac.RelayReg.Variant,
+                "u8"
+            )
+            this._maxSwitchingCurrent = this.addRegister<[number]>(
+                jacdac.RelayReg.MaxSwitchingCurrent,
+                "u32"
+            )
         }
-    
 
         /**
-        * Indicates whether the relay circuit is currently energized or not.
-        */
+         * Indicates whether the relay circuit is currently energized or not.
+         */
         //% callInDebugger
         //% group="Relay"
         //% block="%relay active"
         //% blockId=jacdac_relay_active___get
         //% weight=100
         active(): boolean {
-            this.start();            
-            const values = this._active.pauseUntilValues() as any[];
-            return !!values[0];
+            this.start()
+            const values = this._active.pauseUntilValues() as any[]
+            return !!values[0]
         }
 
         /**
-        * Indicates whether the relay circuit is currently energized or not.
-        */
+         * Indicates whether the relay circuit is currently energized or not.
+         */
         //% group="Relay"
         //% blockId=jacdac_relay_active___set
         //% block="set %relay active to %value"
         //% weight=99
         setActive(value: boolean) {
-            this.start();
-            const values = this._active.values as any[];
-            values[0] = value ? 1 : 0;
-            this._active.values = values as [boolean];
+            this.start()
+            const values = this._active.values as any[]
+            values[0] = value ? 1 : 0
+            this._active.values = values as [boolean]
         }
 
         /**
-        * Describes the type of relay used.
-        */
+         * Describes the type of relay used.
+         */
         //% callInDebugger
         //% group="Relay"
         //% weight=98
         variant(): jacdac.RelayVariant {
-            this.start();            
-            const values = this._variant.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._variant.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
-        * Maximum switching current for a resistive load.
-        */
+         * Maximum switching current for a resistive load.
+         */
         //% callInDebugger
         //% group="Relay"
         //% weight=97
         maxSwitchingCurrent(): number {
-            this.start();            
-            const values = this._maxSwitchingCurrent.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._maxSwitchingCurrent.pauseUntilValues() as any[]
+            return values[0]
         }
-
-    
     }
-    //% fixedInstance whenUsed block="relay1"
-    export const relay1 = new RelayClient("relay1");
+    //% fixedInstance whenUsed weight=1 block="relay1"
+    export const relay1 = new RelayClient("relay1")
 }

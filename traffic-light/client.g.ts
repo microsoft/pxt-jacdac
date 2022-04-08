@@ -97,6 +97,6 @@ namespace modules {
             this._green.values = values as [boolean]
         }
     }
-    //% fixedInstance whenUsed block="traffic light1"
+    //% fixedInstance whenUsed weight=1 block="traffic light1"
     export const trafficLight1 = new TrafficLightClient("traffic Light1")
 }

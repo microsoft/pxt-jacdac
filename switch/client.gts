@@ -69,6 +69,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="switch1"
+    //% fixedInstance whenUsed weight=1 block="switch1"
     export const switch_1 = new SwitchClient("switch1");
 }

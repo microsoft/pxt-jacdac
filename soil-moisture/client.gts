@@ -69,6 +69,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="soil moisture1"
+    //% fixedInstance whenUsed weight=1 block="soil moisture1"
     export const soilMoisture1 = new SoilMoistureClient("soil Moisture1");
 }

@@ -55,6 +55,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="wind direction1"
+    //% fixedInstance whenUsed weight=1 block="wind direction1"
     export const windDirection1 = new WindDirectionClient("wind Direction1");
 }

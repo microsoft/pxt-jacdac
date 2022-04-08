@@ -111,6 +111,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="sound recorder with playback1"
+    //% fixedInstance whenUsed weight=1 block="sound recorder with playback1"
     export const soundRecorderWithPlayback1 = new SoundRecorderWithPlaybackClient("sound Recorder With Playback1");
 }

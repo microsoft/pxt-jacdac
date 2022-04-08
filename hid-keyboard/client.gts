@@ -44,6 +44,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="hid keyboard1"
+    //% fixedInstance whenUsed weight=1 block="hid keyboard1"
     export const hidKeyboard1 = new HidKeyboardClient("hid Keyboard1");
 }

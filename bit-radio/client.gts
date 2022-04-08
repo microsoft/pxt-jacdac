@@ -178,6 +178,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="bit radio1"
+    //% fixedInstance whenUsed weight=1 block="bit radio1"
     export const bitRadio1 = new BitRadioClient("bit Radio1");
 }

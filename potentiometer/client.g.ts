@@ -4,44 +4,46 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class PotentiometerClient extends jacdac.SimpleSensorClient {
-
-        private readonly _variant : jacdac.RegisterClient<[jacdac.PotentiometerVariant]>;            
+        private readonly _variant: jacdac.RegisterClient<
+            [jacdac.PotentiometerVariant]
+        >
 
         constructor(role: string) {
-            super(jacdac.SRV_POTENTIOMETER, role, "u0.16");
+            super(jacdac.SRV_POTENTIOMETER, role, "u0.16")
 
-            this._variant = this.addRegister<[jacdac.PotentiometerVariant]>(jacdac.PotentiometerReg.Variant, "u8");            
+            this._variant = this.addRegister<[jacdac.PotentiometerVariant]>(
+                jacdac.PotentiometerReg.Variant,
+                "u8"
+            )
         }
-    
 
         /**
-        * The relative position of the slider between `0` and `1`.
-        */
+         * The relative position of the slider between `0` and `1`.
+         */
         //% callInDebugger
         //% group="Slider"
         //% block="%potentiometer position"
         //% blockId=jacdac_potentiometer_position___get
         //% weight=100
         position(): number {
-            return this.reading() * 100;
-        
+            return this.reading() * 100
         }
 
         /**
-        * Specifies the physical layout of the potentiometer.
-        */
+         * Specifies the physical layout of the potentiometer.
+         */
         //% callInDebugger
         //% group="Slider"
         //% weight=99
         variant(): jacdac.PotentiometerVariant {
-            this.start();            
-            const values = this._variant.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._variant.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
          * Run code when the position changes by the given threshold value.
-        */
+         */
         //% group="Slider"
         //% blockId=jacdac_potentiometer_on_position_change
         //% block="on %potentiometer position changed by %threshold"
@@ -50,11 +52,9 @@ namespace modules {
         //% threshold.max=100
         //% threshold.defl=5
         onPositionChangedBy(threshold: number, handler: () => void): void {
-            this.onReadingChangedBy(threshold / 100, handler);
+            this.onReadingChangedBy(threshold / 100, handler)
         }
-
-    
     }
-    //% fixedInstance whenUsed block="potentiometer1"
-    export const potentiometer1 = new PotentiometerClient("potentiometer1");
+    //% fixedInstance whenUsed weight=1 block="potentiometer1"
+    export const potentiometer1 = new PotentiometerClient("potentiometer1")
 }

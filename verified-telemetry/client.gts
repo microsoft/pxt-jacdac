@@ -145,6 +145,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="verified telemetry1"
+    //% fixedInstance whenUsed weight=1 block="verified telemetry1"
     export const verifiedTelemetry1 = new VerifiedTelemetryClient("verified Telemetry1");
 }

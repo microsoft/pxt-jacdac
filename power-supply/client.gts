@@ -103,6 +103,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="power supply1"
+    //% fixedInstance whenUsed weight=1 block="power supply1"
     export const powerSupply1 = new PowerSupplyClient("power Supply1");
 }

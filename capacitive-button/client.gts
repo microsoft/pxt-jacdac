@@ -56,6 +56,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="capacitive button1"
+    //% fixedInstance whenUsed weight=1 block="capacitive button1"
     export const capacitiveButton1 = new CapacitiveButtonClient("capacitive Button1");
 }

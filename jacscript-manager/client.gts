@@ -184,6 +184,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="jacscript manager1"
+    //% fixedInstance whenUsed weight=1 block="jacscript manager1"
     export const jacscriptManager1 = new JacscriptManagerClient("jacscript Manager1");
 }

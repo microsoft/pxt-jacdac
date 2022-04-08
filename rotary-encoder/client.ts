@@ -51,6 +51,6 @@ namespace modules {
             this.onReadingChangedBy(1, handler)
         }
     }
-    //% fixedInstance whenUsed block="rotary encoder 1"
+    //% fixedInstance whenUsed weight=1 block="rotary encoder 1"
     export const rotaryEncoder1 = new RotaryEncoderClient("rotary Encoder1")
 }

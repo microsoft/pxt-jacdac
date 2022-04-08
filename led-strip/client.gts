@@ -261,6 +261,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="led strip1"
+    //% fixedInstance whenUsed weight=1 block="led strip1"
     export const ledStrip1 = new LedStripClient("led Strip1");
 }

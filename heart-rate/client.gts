@@ -72,6 +72,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="heart rate1"
+    //% fixedInstance whenUsed weight=1 block="heart rate1"
     export const heartRate1 = new HeartRateClient("heart Rate1");
 }

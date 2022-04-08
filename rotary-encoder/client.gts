@@ -70,6 +70,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="rotary encoder1"
+    //% fixedInstance whenUsed weight=1 block="rotary encoder1"
     export const rotaryEncoder1 = new RotaryEncoderClient("rotary Encoder1");
 }

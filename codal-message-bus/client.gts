@@ -48,6 +48,6 @@ namespace modules {
         }
     
     }
-    //% fixedInstance whenUsed block="codal message bus1"
+    //% fixedInstance whenUsed weight=1 block="codal message bus1"
     export const codalMessageBus1 = new CodalMessageBusClient("codal Message Bus1");
 }

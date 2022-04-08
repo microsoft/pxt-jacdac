@@ -440,7 +440,7 @@ namespace modules {
                 ])
             }
         }
-        //% fixedInstance whenUsed block="rainbow cycle"
+        //% fixedInstance whenUsed weight=1 block="rainbow cycle"
         export const rainbowCycle: Animation = new RainbowCycle()
 
         function scale(col: number, level: number) {
@@ -485,7 +485,7 @@ namespace modules {
             }
         }
 
-        //% fixedInstance whenUsed block="running lights"
+        //% fixedInstance whenUsed weight=1 block="running lights"
         export const runningLights: Animation = new RunningLights()
 
         class Comet extends Animation {
@@ -511,7 +511,7 @@ namespace modules {
             }
         }
 
-        //% fixedInstance whenUsed block="comet"
+        //% fixedInstance whenUsed weight=1 block="comet"
         export const comet: Animation = new Comet()
 
         class Sparkle extends Animation {
@@ -547,7 +547,7 @@ namespace modules {
             }
         }
 
-        //% fixedInstance whenUsed block="sparkle"
+        //% fixedInstance whenUsed weight=1 block="sparkle"
         export const sparkle: Animation = new Sparkle()
 
         class ColorWipe extends Animation {
@@ -571,7 +571,7 @@ namespace modules {
             }
         }
 
-        //% fixedInstance whenUsed block="color wipe"
+        //% fixedInstance whenUsed weight=1 block="color wipe"
         export const colorWipe: Animation = new ColorWipe()
 
         class TheaterChase extends Animation {
@@ -597,7 +597,7 @@ namespace modules {
             }
         }
 
-        //% fixedInstance whenUsed block="theather chase"
+        //% fixedInstance whenUsed weight=1 block="theather chase"
         export const theatherChase: Animation = new TheaterChase()
 
         class Fireflys extends Animation {
@@ -641,7 +641,7 @@ namespace modules {
                 return jacdac.lightEncode(cmd, args)
             }
         }
-        //% fixedInstance whenUsed block="firefly"
+        //% fixedInstance whenUsed weight=1 block="firefly"
         export const firefly: Animation = new Fireflys()
     }
 

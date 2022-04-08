@@ -348,6 +348,6 @@ namespace modules {
         )
     }
 
-    //% fixedInstance whenUsed block="hid keyboard 1"
+    //% fixedInstance whenUsed weight=1 block="hid keyboard 1"
     export const hidKeyboard1 = new HidKeyboardClient("hid Keyboard1")
 }

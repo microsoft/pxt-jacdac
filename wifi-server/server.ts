@@ -133,6 +133,6 @@ namespace servers {
         }
     }
 
-    //% fixedInstance whenUsed block="wifi"
+    //% fixedInstance whenUsed weight=1 block="wifi"
     export const wifi = new WiFiServer("wifi")
 }

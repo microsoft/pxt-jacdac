@@ -89,6 +89,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="braille display1"
+    //% fixedInstance whenUsed weight=1 block="braille display1"
     export const brailleDisplay1 = new BrailleDisplayClient("braille Display1");
 }

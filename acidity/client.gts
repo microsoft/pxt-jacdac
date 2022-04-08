@@ -83,6 +83,6 @@ namespace modules {
 
     
     }
-    //% fixedInstance whenUsed block="acidity1"
+    //% fixedInstance whenUsed weight=1 block="acidity1"
     export const acidity1 = new AcidityClient("acidity1");
 }

@@ -43,6 +43,6 @@ namespace jacdac {
         }
     }
 
-    //% fixedInstance whenUsed block="logger" weight=0
+    //% fixedInstance whenUsed weight=1 block="logger" weight=0
     export const loggerClient = new LoggerClient()
 }
