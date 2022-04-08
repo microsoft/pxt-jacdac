@@ -6,14 +6,14 @@ namespace modules {
     export class TrafficLightClient extends jacdac.Client {
 
         private readonly _red : jacdac.RegisterClient<[boolean]>;
-        private readonly _orange : jacdac.RegisterClient<[boolean]>;
+        private readonly _yellow : jacdac.RegisterClient<[boolean]>;
         private readonly _green : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
             super(jacdac.SRV_TRAFFIC_LIGHT, role);
 
             this._red = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Red, "u8");
-            this._orange = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Orange, "u8");
+            this._yellow = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Yellow, "u8");
             this._green = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Green, "u8");            
         }
     
@@ -43,31 +43,31 @@ namespace modules {
         }
 
         /**
-        * The on/off state of the red light.
+        * The on/off state of the yellow light.
         */
         //% callInDebugger
         //% group="Traffic Light"
         //% weight=98
-        orange(): boolean {
+        yellow(): boolean {
             this.start();            
-            const values = this._orange.pauseUntilValues() as any[];
+            const values = this._yellow.pauseUntilValues() as any[];
             return !!values[0];
         }
 
         /**
-        * The on/off state of the red light.
+        * The on/off state of the yellow light.
         */
         //% group="Traffic Light"
         //% weight=97
-        setOrange(value: boolean) {
+        setYellow(value: boolean) {
             this.start();
-            const values = this._orange.values as any[];
+            const values = this._yellow.values as any[];
             values[0] = value ? 1 : 0;
-            this._orange.values = values as [boolean];
+            this._yellow.values = values as [boolean];
         }
 
         /**
-        * The on/off state of the red light.
+        * The on/off state of the green light.
         */
         //% callInDebugger
         //% group="Traffic Light"
@@ -79,7 +79,7 @@ namespace modules {
         }
 
         /**
-        * The on/off state of the red light.
+        * The on/off state of the green light.
         */
         //% group="Traffic Light"
         //% weight=95
