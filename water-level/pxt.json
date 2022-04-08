@@ -1,6 +1,6 @@
 {
     "name": "jacdac-water-level",
-    "version": "0.8.21",
+    "version": "0.8.22",
     "description": "A sensor that measures liquid/water level.",
     "files": [
         "constants.ts",
