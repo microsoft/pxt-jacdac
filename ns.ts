@@ -2,7 +2,7 @@
  * Jacdac services
  */
 //% icon="icons/jacdac.svg"
-//% weight=50 color="#009900" advanced=true
+//% weight=100 color="#009900" advanced=true
 //% blockGap=8
 //% groups='["Broadcast", "Console", "Controller", "Services", "Control"]'
 //% blockNamespace="Jacdac"
