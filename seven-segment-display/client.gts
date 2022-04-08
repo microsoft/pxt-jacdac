@@ -169,18 +169,6 @@ namespace modules {
             // TODO: implement client command
             throw "client command not implemented"
         }
-
-        /**
-        * Shows the text on the screen. The client may decide to scroll the text if too long.
-        */
-        //% group="Display"
-        //% blockId=jacdac_sevensegmentdisplay_set_text_cmd
-        //% block="%sevensegmentdisplay set text $text"
-        //% weight=91
-        setText(text: string): void {
-            // TODO: implement client command
-            throw "client command not implemented"
-        }
     
     }
     //% fixedInstance whenUsed block="seven segment display1"
