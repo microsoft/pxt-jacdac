@@ -1744,6 +1744,18 @@ namespace jacdac {
         })
     }
 
+    /**
+     * Starts a set of servers running on the self device
+     * @param servers
+     */
+    export function startSelfServers(createServers: () => Server[]) {
+        if (!jacdac.isSimulator()) {
+            const servers = createServers()
+            for (const server of servers) server.start()
+        }
+        if (!jacdac.checkProxy()) jacdac.proxyFinalize()
+    }
+
     // make sure physical is started deterministically
     // on micro:bit it allocates a buffer that should stay in the same place in memory
     jacdac.__physStart()
