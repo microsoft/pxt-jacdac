@@ -212,8 +212,7 @@ namespace modules {
                 // dot
                 if (c == 46) {
                     i--
-                    if (i > -1)  
-                        c = ns.charCodeAt(i)
+                    if (i > -1) c = ns.charCodeAt(i)
                     value |= 0b10000000
                 }
                 // 0-9
