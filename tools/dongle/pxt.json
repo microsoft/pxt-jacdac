@@ -1,6 +1,6 @@
 {
     "name": "jacdac-dongle",
-    "version": "0.8.19",
+    "version": "0.8.20",
     "description": "",
     "dependencies": {
         "jacdac-brain-rp2040": "*",

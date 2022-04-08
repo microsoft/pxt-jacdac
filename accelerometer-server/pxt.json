@@ -1,6 +1,6 @@
 {
     "name": "jacdac-accelerometer-server",
-    "version": "0.8.19",
+    "version": "0.8.20",
     "description": "MakeCode support for Jacdac Accelerometer server",
     "dependencies": {
         "core": "*",
