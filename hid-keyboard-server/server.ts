@@ -2,8 +2,8 @@ namespace servers {
     const REPORT_DELAY = 20
 
     export class HIDKeyboardServer extends jacdac.Server {
-        constructor(dev: string) {
-            super(dev, jacdac.SRV_HID_KEYBOARD)
+        constructor() {
+            super(jacdac.SRV_HID_KEYBOARD)
         }
 
         handleClearCommand(packet: jacdac.JDPacket) {
@@ -212,5 +212,5 @@ namespace servers {
     }
 
     //% fixedInstance whenUsed weight=1 block="keyboard"
-    export const hidKeyboard = new HIDKeyboardServer("keyboard")
+    export const hidKeyboard = new HIDKeyboardServer()
 }

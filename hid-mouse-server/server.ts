@@ -1,7 +1,7 @@
 namespace servers {
     export class HIDMouseServer extends jacdac.SensorServer {
-        constructor(dev: string) {
-            super(dev, jacdac.SRV_HID_MOUSE)
+        constructor() {
+            super(jacdac.SRV_HID_MOUSE)
         }
 
         handlePacket(packet: jacdac.JDPacket) {
@@ -63,5 +63,5 @@ namespace servers {
     }
 
     //% fixedInstance whenUsed
-    export const hidMouse = new HIDMouseServer("mouse")
+    export const hidMouse = new HIDMouseServer()
 }
