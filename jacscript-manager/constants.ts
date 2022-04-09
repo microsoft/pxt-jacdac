@@ -55,26 +55,26 @@ namespace jacdac {
         LogMessage = 0x82,
     }
 
-    export const enum JacscriptManagerCmdPack {
+    export namespace JacscriptManagerCmdPack {
         /**
          * Pack format for 'deploy_bytecode' register data.
          */
-        DeployBytecode = "u32",
+        export const DeployBytecode = "u32"
 
         /**
          * Pack format for 'deploy_bytecode' register data.
          */
-        DeployBytecodeReport = "u16",
+        export const DeployBytecodeReport = "u16"
 
         /**
          * Pack format for 'read_bytecode' register data.
          */
-        ReadBytecode = "b[12]",
+        export const ReadBytecode = "b[12]"
 
         /**
          * Pack format for 'log_message' register data.
          */
-        LogMessage = "u8 u8 s",
+        export const LogMessage = "u8 u8 s"
     }
 
     /**
@@ -84,11 +84,11 @@ namespace jacdac {
      * ```
      */
 
-    export const enum JacscriptManagerinfoPack {
+    export namespace JacscriptManagerinfoPack {
         /**
          * Pack format for 'bytecode' register data.
          */
-        Bytecode = "b",
+        export const Bytecode = "b"
     }
 
     export const enum JacscriptManagerReg {
@@ -142,31 +142,31 @@ namespace jacdac {
         ProgramHash = 0x181,
     }
 
-    export const enum JacscriptManagerRegPack {
+    export namespace JacscriptManagerRegPack {
         /**
          * Pack format for 'running' register data.
          */
-        Running = "u8",
+        export const Running = "u8"
 
         /**
          * Pack format for 'autostart' register data.
          */
-        Autostart = "u8",
+        export const Autostart = "u8"
 
         /**
          * Pack format for 'logging' register data.
          */
-        Logging = "u8",
+        export const Logging = "u8"
 
         /**
          * Pack format for 'program_size' register data.
          */
-        ProgramSize = "u32",
+        export const ProgramSize = "u32"
 
         /**
          * Pack format for 'program_hash' register data.
          */
-        ProgramHash = "u32",
+        export const ProgramHash = "u32"
     }
 
     export const enum JacscriptManagerEvent {
@@ -189,10 +189,10 @@ namespace jacdac {
         ProgramChange = 0x3,
     }
 
-    export const enum JacscriptManagerEventPack {
+    export namespace JacscriptManagerEventPack {
         /**
          * Pack format for 'program_panic' register data.
          */
-        ProgramPanic = "u32 u32",
+        export const ProgramPanic = "u32 u32"
     }
 }

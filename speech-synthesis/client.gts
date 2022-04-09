@@ -12,13 +12,13 @@ namespace modules {
         private readonly _rate : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SPEECH_SYNTHESIS, role);
+            super(jacdac.SRV_SPEECH_SYNTHESIS, role)
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.SpeechSynthesisReg.Enabled, jacdac.SpeechSynthesisRegPack.Enabled);
-            this._lang = this.addRegister<[string]>(jacdac.SpeechSynthesisReg.Lang, jacdac.SpeechSynthesisRegPack.Lang);
-            this._volume = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Volume, jacdac.SpeechSynthesisRegPack.Volume);
-            this._pitch = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Pitch, jacdac.SpeechSynthesisRegPack.Pitch);
-            this._rate = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Rate, jacdac.SpeechSynthesisRegPack.Rate);            
+            this._enabled = this.addRegister<[boolean]>(jacdac.SpeechSynthesisReg.Enabled, jacdac.SpeechSynthesisRegPack.Enabled)
+            this._lang = this.addRegister<[string]>(jacdac.SpeechSynthesisReg.Lang, jacdac.SpeechSynthesisRegPack.Lang)
+            this._volume = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Volume, jacdac.SpeechSynthesisRegPack.Volume)
+            this._pitch = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Pitch, jacdac.SpeechSynthesisRegPack.Pitch)
+            this._rate = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Rate, jacdac.SpeechSynthesisRegPack.Rate)            
         }
     
 

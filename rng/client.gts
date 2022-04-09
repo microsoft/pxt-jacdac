@@ -12,10 +12,10 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.RngVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_RNG, role);
+            super(jacdac.SRV_RNG, role)
 
-            this._random = this.addRegister<[Buffer]>(jacdac.RngReg.Random, jacdac.RngRegPack.Random);
-            this._variant = this.addRegister<[jacdac.RngVariant]>(jacdac.RngReg.Variant, jacdac.RngRegPack.Variant);            
+            this._random = this.addRegister<[Buffer]>(jacdac.RngReg.Random, jacdac.RngRegPack.Random)
+            this._variant = this.addRegister<[jacdac.RngVariant]>(jacdac.RngReg.Variant, jacdac.RngRegPack.Variant)            
         }
     
 

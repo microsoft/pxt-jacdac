@@ -48,31 +48,31 @@ namespace jacdac {
         Rate = 0x83,
     }
 
-    export const enum SpeechSynthesisRegPack {
+    export namespace SpeechSynthesisRegPack {
         /**
          * Pack format for 'enabled' register data.
          */
-        Enabled = "u8",
+        export const Enabled = "u8"
 
         /**
          * Pack format for 'lang' register data.
          */
-        Lang = "s",
+        export const Lang = "s"
 
         /**
          * Pack format for 'volume' register data.
          */
-        Volume = "u0.8",
+        export const Volume = "u0.8"
 
         /**
          * Pack format for 'pitch' register data.
          */
-        Pitch = "u16.16",
+        export const Pitch = "u16.16"
 
         /**
          * Pack format for 'rate' register data.
          */
-        Rate = "u16.16",
+        export const Rate = "u16.16"
     }
 
     export const enum SpeechSynthesisCmd {
@@ -91,10 +91,10 @@ namespace jacdac {
         Cancel = 0x81,
     }
 
-    export const enum SpeechSynthesisCmdPack {
+    export namespace SpeechSynthesisCmdPack {
         /**
          * Pack format for 'speak' register data.
          */
-        Speak = "s",
+        export const Speak = "s"
     }
 }

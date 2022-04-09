@@ -8,9 +8,9 @@ namespace modules {
         private readonly _volume : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SOUND_PLAYER, role);
+            super(jacdac.SRV_SOUND_PLAYER, role)
 
-            this._volume = this.addRegister<[number]>(jacdac.SoundPlayerReg.Volume, jacdac.SoundPlayerRegPack.Volume);            
+            this._volume = this.addRegister<[number]>(jacdac.SoundPlayerReg.Volume, jacdac.SoundPlayerRegPack.Volume)            
         }
     
 

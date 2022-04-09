@@ -7,7 +7,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_VIBRATION_MOTOR, role);
+            super(jacdac.SRV_VIBRATION_MOTOR, role)
             
         }
     

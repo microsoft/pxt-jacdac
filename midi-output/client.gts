@@ -8,9 +8,9 @@ namespace modules {
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MIDI_OUTPUT, role);
+            super(jacdac.SRV_MIDI_OUTPUT, role)
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.MidiOutputReg.Enabled, jacdac.MidiOutputRegPack.Enabled);            
+            this._enabled = this.addRegister<[boolean]>(jacdac.MidiOutputReg.Enabled, jacdac.MidiOutputRegPack.Enabled)            
         }
     
 

@@ -38,20 +38,20 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum SoilMoistureRegPack {
+    export namespace SoilMoistureRegPack {
         /**
          * Pack format for 'moisture' register data.
          */
-        Moisture = "u0.16",
+        export const Moisture = "u0.16"
 
         /**
          * Pack format for 'moisture_error' register data.
          */
-        MoistureError = "u0.16",
+        export const MoistureError = "u0.16"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
     }
 }

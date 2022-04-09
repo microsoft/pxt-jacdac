@@ -12,11 +12,11 @@ namespace jacdac {
         Enabled = 0x1,
     }
 
-    export const enum MidiOutputRegPack {
+    export namespace MidiOutputRegPack {
         /**
          * Pack format for 'enabled' register data.
          */
-        Enabled = "u8",
+        export const Enabled = "u8"
     }
 
     export const enum MidiOutputCmd {
@@ -35,10 +35,10 @@ namespace jacdac {
         Send = 0x81,
     }
 
-    export const enum MidiOutputCmdPack {
+    export namespace MidiOutputCmdPack {
         /**
          * Pack format for 'send' register data.
          */
-        Send = "b",
+        export const Send = "b"
     }
 }

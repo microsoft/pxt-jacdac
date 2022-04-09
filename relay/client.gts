@@ -16,11 +16,11 @@ namespace modules {
         private readonly _maxSwitchingCurrent : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_RELAY, role);
+            super(jacdac.SRV_RELAY, role)
 
-            this._active = this.addRegister<[boolean]>(jacdac.RelayReg.Active, jacdac.RelayRegPack.Active);
-            this._variant = this.addRegister<[jacdac.RelayVariant]>(jacdac.RelayReg.Variant, jacdac.RelayRegPack.Variant);
-            this._maxSwitchingCurrent = this.addRegister<[number]>(jacdac.RelayReg.MaxSwitchingCurrent, jacdac.RelayRegPack.MaxSwitchingCurrent);            
+            this._active = this.addRegister<[boolean]>(jacdac.RelayReg.Active, jacdac.RelayRegPack.Active)
+            this._variant = this.addRegister<[jacdac.RelayVariant]>(jacdac.RelayReg.Variant, jacdac.RelayRegPack.Variant)
+            this._maxSwitchingCurrent = this.addRegister<[number]>(jacdac.RelayReg.MaxSwitchingCurrent, jacdac.RelayRegPack.MaxSwitchingCurrent)            
         }
     
 

@@ -12,11 +12,11 @@ namespace jacdac {
         Enabled = 0x1,
     }
 
-    export const enum DmxRegPack {
+    export namespace DmxRegPack {
         /**
          * Pack format for 'enabled' register data.
          */
-        Enabled = "u8",
+        export const Enabled = "u8"
     }
 
     export const enum DmxCmd {
@@ -30,10 +30,10 @@ namespace jacdac {
         Send = 0x80,
     }
 
-    export const enum DmxCmdPack {
+    export namespace DmxCmdPack {
         /**
          * Pack format for 'send' register data.
          */
-        Send = "b",
+        export const Send = "b"
     }
 }

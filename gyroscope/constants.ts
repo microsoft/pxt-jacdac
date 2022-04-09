@@ -40,25 +40,25 @@ namespace jacdac {
         MaxRatesSupported = 0x10a,
     }
 
-    export const enum GyroscopeRegPack {
+    export namespace GyroscopeRegPack {
         /**
          * Pack format for 'rotation_rates' register data.
          */
-        RotationRates = "i12.20 i12.20 i12.20",
+        export const RotationRates = "i12.20 i12.20 i12.20"
 
         /**
          * Pack format for 'rotation_rates_error' register data.
          */
-        RotationRatesError = "u12.20",
+        export const RotationRatesError = "u12.20"
 
         /**
          * Pack format for 'max_rate' register data.
          */
-        MaxRate = "u12.20",
+        export const MaxRate = "u12.20"
 
         /**
          * Pack format for 'max_rates_supported' register data.
          */
-        MaxRatesSupported = "r: u12.20",
+        export const MaxRatesSupported = "r: u12.20"
     }
 }

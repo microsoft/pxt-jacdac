@@ -7,7 +7,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_ROVER, role, jacdac.RoverRegPack.Kinematics));
+            super(jacdac.SRV_ROVER, role, jacdac.RoverRegPack.Kinematics)
             
         }
     

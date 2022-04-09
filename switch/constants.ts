@@ -41,16 +41,16 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum SwitchRegPack {
+    export namespace SwitchRegPack {
         /**
          * Pack format for 'active' register data.
          */
-        Active = "u8",
+        export const Active = "u8"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
     }
 
     export const enum SwitchEvent {

@@ -8,9 +8,9 @@ namespace modules {
         private readonly _threshold : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_PRESSURE_BUTTON, role);
+            super(jacdac.SRV_PRESSURE_BUTTON, role)
 
-            this._threshold = this.addRegister<[number]>(jacdac.PressureButtonReg.Threshold, jacdac.PressureButtonRegPack.Threshold);            
+            this._threshold = this.addRegister<[number]>(jacdac.PressureButtonReg.Threshold, jacdac.PressureButtonRegPack.Threshold)            
         }
     
 

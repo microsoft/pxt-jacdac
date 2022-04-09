@@ -30,20 +30,20 @@ namespace jacdac {
         Green = 0x82,
     }
 
-    export const enum TrafficLightRegPack {
+    export namespace TrafficLightRegPack {
         /**
          * Pack format for 'red' register data.
          */
-        Red = "u8",
+        export const Red = "u8"
 
         /**
          * Pack format for 'yellow' register data.
          */
-        Yellow = "u8",
+        export const Yellow = "u8"
 
         /**
          * Pack format for 'green' register data.
          */
-        Green = "u8",
+        export const Green = "u8"
     }
 }

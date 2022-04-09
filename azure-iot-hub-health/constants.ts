@@ -42,21 +42,21 @@ namespace jacdac {
         ConnectionStatus = 0x182,
     }
 
-    export const enum AzureIotHubHealthRegPack {
+    export namespace AzureIotHubHealthRegPack {
         /**
          * Pack format for 'hub_name' register data.
          */
-        HubName = "s",
+        export const HubName = "s"
 
         /**
          * Pack format for 'hub_device_id' register data.
          */
-        HubDeviceId = "s",
+        export const HubDeviceId = "s"
 
         /**
          * Pack format for 'connection_status' register data.
          */
-        ConnectionStatus = "u16",
+        export const ConnectionStatus = "u16"
     }
 
     export const enum AzureIotHubHealthCmd {
@@ -80,11 +80,11 @@ namespace jacdac {
         SetConnectionString = 0x86,
     }
 
-    export const enum AzureIotHubHealthCmdPack {
+    export namespace AzureIotHubHealthCmdPack {
         /**
          * Pack format for 'set_connection_string' register data.
          */
-        SetConnectionString = "s",
+        export const SetConnectionString = "s"
     }
 
     export const enum AzureIotHubHealthEvent {
@@ -105,10 +105,10 @@ namespace jacdac {
         MessageSent = 0x80,
     }
 
-    export const enum AzureIotHubHealthEventPack {
+    export namespace AzureIotHubHealthEventPack {
         /**
          * Pack format for 'connection_status_change' register data.
          */
-        ConnectionStatusChange = "u16",
+        export const ConnectionStatusChange = "u16"
     }
 }

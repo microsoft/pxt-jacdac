@@ -63,11 +63,11 @@ namespace jacdac {
         CommandNotImplemented = 0x3,
     }
 
-    export const enum SystemCmdPack {
+    export namespace SystemCmdPack {
         /**
          * Pack format for 'command_not_implemented' register data.
          */
-        CommandNotImplemented = "u16 u16",
+        export const CommandNotImplemented = "u16 u16"
     }
 
     export const enum SystemReg {
@@ -261,106 +261,106 @@ namespace jacdac {
         InstanceName = 0x109,
     }
 
-    export const enum SystemRegPack {
+    export namespace SystemRegPack {
         /**
          * Pack format for 'intensity' register data.
          */
-        Intensity = "u32",
+        export const Intensity = "u32"
 
         /**
          * Pack format for 'value' register data.
          */
-        Value = "i32",
+        export const Value = "i32"
 
         /**
          * Pack format for 'min_value' register data.
          */
-        MinValue = "i32",
+        export const MinValue = "i32"
 
         /**
          * Pack format for 'max_value' register data.
          */
-        MaxValue = "i32",
+        export const MaxValue = "i32"
 
         /**
          * Pack format for 'max_power' register data.
          */
-        MaxPower = "u16",
+        export const MaxPower = "u16"
 
         /**
          * Pack format for 'streaming_samples' register data.
          */
-        StreamingSamples = "u8",
+        export const StreamingSamples = "u8"
 
         /**
          * Pack format for 'streaming_interval' register data.
          */
-        StreamingInterval = "u32",
+        export const StreamingInterval = "u32"
 
         /**
          * Pack format for 'reading' register data.
          */
-        Reading = "i32",
+        export const Reading = "i32"
 
         /**
          * Pack format for 'reading_range' register data.
          */
-        ReadingRange = "u32",
+        export const ReadingRange = "u32"
 
         /**
          * Pack format for 'supported_ranges' register data.
          */
-        SupportedRanges = "r: u32",
+        export const SupportedRanges = "r: u32"
 
         /**
          * Pack format for 'min_reading' register data.
          */
-        MinReading = "i32",
+        export const MinReading = "i32"
 
         /**
          * Pack format for 'max_reading' register data.
          */
-        MaxReading = "i32",
+        export const MaxReading = "i32"
 
         /**
          * Pack format for 'reading_error' register data.
          */
-        ReadingError = "u32",
+        export const ReadingError = "u32"
 
         /**
          * Pack format for 'reading_resolution' register data.
          */
-        ReadingResolution = "u32",
+        export const ReadingResolution = "u32"
 
         /**
          * Pack format for 'inactive_threshold' register data.
          */
-        InactiveThreshold = "i32",
+        export const InactiveThreshold = "i32"
 
         /**
          * Pack format for 'active_threshold' register data.
          */
-        ActiveThreshold = "i32",
+        export const ActiveThreshold = "i32"
 
         /**
          * Pack format for 'streaming_preferred_interval' register data.
          */
-        StreamingPreferredInterval = "u32",
+        export const StreamingPreferredInterval = "u32"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u32",
+        export const Variant = "u32"
 
         /**
          * Pack format for 'status_code' register data.
          */
-        StatusCode = "u16 u16",
+        export const StatusCode = "u16 u16"
 
         /**
          * Pack format for 'instance_name' register data.
          */
-        InstanceName = "s",
+        export const InstanceName = "s"
     }
 
     export const enum SystemEvent {
@@ -399,10 +399,10 @@ namespace jacdac {
         Neutral = 0x7,
     }
 
-    export const enum SystemEventPack {
+    export namespace SystemEventPack {
         /**
          * Pack format for 'status_code_changed' register data.
          */
-        StatusCodeChanged = "u16 u16",
+        export const StatusCodeChanged = "u16 u16"
     }
 }

@@ -9,10 +9,10 @@ namespace modules {
         private readonly _measurementName : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_DC_VOLTAGE_MEASUREMENT, role, jacdac.DcVoltageMeasurementRegPack.Measurement));
+            super(jacdac.SRV_DC_VOLTAGE_MEASUREMENT, role, jacdac.DcVoltageMeasurementRegPack.Measurement)
 
-            this._measurementType = this.addRegister<[jacdac.DcVoltageMeasurementVoltageMeasurementType]>(jacdac.DcVoltageMeasurementReg.MeasurementType, jacdac.DcVoltageMeasurementRegPack.MeasurementType);
-            this._measurementName = this.addRegister<[string]>(jacdac.DcVoltageMeasurementReg.MeasurementName, jacdac.DcVoltageMeasurementRegPack.MeasurementName);            
+            this._measurementType = this.addRegister<[jacdac.DcVoltageMeasurementVoltageMeasurementType]>(jacdac.DcVoltageMeasurementReg.MeasurementType, jacdac.DcVoltageMeasurementRegPack.MeasurementType)
+            this._measurementName = this.addRegister<[string]>(jacdac.DcVoltageMeasurementReg.MeasurementName, jacdac.DcVoltageMeasurementRegPack.MeasurementName)            
         }
     
 

@@ -49,26 +49,26 @@ namespace jacdac {
         AckCloudCommand = 0x83,
     }
 
-    export const enum JacscriptCloudCmdPack {
+    export namespace JacscriptCloudCmdPack {
         /**
          * Pack format for 'upload' register data.
          */
-        Upload = "z r: f64",
+        export const Upload = "z r: f64"
 
         /**
          * Pack format for 'get_twin' register data.
          */
-        GetTwin = "s",
+        export const GetTwin = "s"
 
         /**
          * Pack format for 'get_twin' register data.
          */
-        GetTwinReport = "z f64",
+        export const GetTwinReport = "z f64"
 
         /**
          * Pack format for 'ack_cloud_command' register data.
          */
-        AckCloudCommand = "u32 u32 r: f64",
+        export const AckCloudCommand = "u32 u32 r: f64"
     }
 
     export const enum JacscriptCloudReg {
@@ -83,11 +83,11 @@ namespace jacdac {
         Connected = 0x180,
     }
 
-    export const enum JacscriptCloudRegPack {
+    export namespace JacscriptCloudRegPack {
         /**
          * Pack format for 'connected' register data.
          */
-        Connected = "u8",
+        export const Connected = "u8"
     }
 
     export const enum JacscriptCloudEvent {
@@ -108,10 +108,10 @@ namespace jacdac {
         TwinChange = 0x3,
     }
 
-    export const enum JacscriptCloudEventPack {
+    export namespace JacscriptCloudEventPack {
         /**
          * Pack format for 'cloud_command' register data.
          */
-        CloudCommand = "u32 z r: f64",
+        export const CloudCommand = "u32 z r: f64"
     }
 }

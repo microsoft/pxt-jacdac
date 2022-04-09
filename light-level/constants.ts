@@ -38,20 +38,20 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum LightLevelRegPack {
+    export namespace LightLevelRegPack {
         /**
          * Pack format for 'light_level' register data.
          */
-        LightLevel = "u0.16",
+        export const LightLevel = "u0.16"
 
         /**
          * Pack format for 'light_level_error' register data.
          */
-        LightLevelError = "u0.16",
+        export const LightLevelError = "u0.16"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
     }
 }

@@ -9,10 +9,10 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.SolenoidVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SOLENOID, role);
+            super(jacdac.SRV_SOLENOID, role)
 
-            this._pulled = this.addRegister<[boolean]>(jacdac.SolenoidReg.Pulled, jacdac.SolenoidRegPack.Pulled);
-            this._variant = this.addRegister<[jacdac.SolenoidVariant]>(jacdac.SolenoidReg.Variant, jacdac.SolenoidRegPack.Variant);            
+            this._pulled = this.addRegister<[boolean]>(jacdac.SolenoidReg.Pulled, jacdac.SolenoidRegPack.Pulled)
+            this._variant = this.addRegister<[jacdac.SolenoidVariant]>(jacdac.SolenoidReg.Variant, jacdac.SolenoidRegPack.Variant)            
         }
     
 

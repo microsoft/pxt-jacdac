@@ -74,21 +74,21 @@ namespace jacdac {
         ButtonsAvailable = 0x180,
     }
 
-    export const enum GamepadRegPack {
+    export namespace GamepadRegPack {
         /**
          * Pack format for 'direction' register data.
          */
-        Direction = "u32 i1.15 i1.15",
+        export const Direction = "u32 i1.15 i1.15"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
 
         /**
          * Pack format for 'buttons_available' register data.
          */
-        ButtonsAvailable = "u32",
+        export const ButtonsAvailable = "u32"
     }
 
     export const enum GamepadEvent {
@@ -103,10 +103,10 @@ namespace jacdac {
         ButtonsChanged = 0x3,
     }
 
-    export const enum GamepadEventPack {
+    export namespace GamepadEventPack {
         /**
          * Pack format for 'buttons_changed' register data.
          */
-        ButtonsChanged = "u32",
+        export const ButtonsChanged = "u32"
     }
 }

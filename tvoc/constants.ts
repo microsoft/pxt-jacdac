@@ -39,25 +39,25 @@ namespace jacdac {
         MaxTVOC = 0x105,
     }
 
-    export const enum TvocRegPack {
+    export namespace TvocRegPack {
         /**
          * Pack format for 'TVOC' register data.
          */
-        TVOC = "u22.10",
+        export const TVOC = "u22.10"
 
         /**
          * Pack format for 'TVOC_error' register data.
          */
-        TVOCError = "u22.10",
+        export const TVOCError = "u22.10"
 
         /**
          * Pack format for 'min_TVOC' register data.
          */
-        MinTVOC = "u22.10",
+        export const MinTVOC = "u22.10"
 
         /**
          * Pack format for 'max_TVOC' register data.
          */
-        MaxTVOC = "u22.10",
+        export const MaxTVOC = "u22.10"
     }
 }

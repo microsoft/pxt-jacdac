@@ -11,12 +11,12 @@ namespace modules {
         private readonly _fingerprintTemplate : jacdac.RegisterClient<[number,Buffer]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_VERIFIED_TELEMETRY, role);
+            super(jacdac.SRV_VERIFIED_TELEMETRY, role)
 
-            this._telemetryStatus = this.addRegister<[jacdac.VerifiedTelemetryStatus]>(jacdac.VerifiedTelemetryReg.TelemetryStatus, jacdac.VerifiedTelemetryRegPack.TelemetryStatus);
-            this._telemetryStatusInterval = this.addRegister<[number]>(jacdac.VerifiedTelemetryReg.TelemetryStatusInterval, jacdac.VerifiedTelemetryRegPack.TelemetryStatusInterval);
-            this._fingerprintType = this.addRegister<[jacdac.VerifiedTelemetryFingerprintType]>(jacdac.VerifiedTelemetryReg.FingerprintType, jacdac.VerifiedTelemetryRegPack.FingerprintType);
-            this._fingerprintTemplate = this.addRegister<[number,Buffer]>(jacdac.VerifiedTelemetryReg.FingerprintTemplate, jacdac.VerifiedTelemetryRegPack.FingerprintTemplate);            
+            this._telemetryStatus = this.addRegister<[jacdac.VerifiedTelemetryStatus]>(jacdac.VerifiedTelemetryReg.TelemetryStatus, jacdac.VerifiedTelemetryRegPack.TelemetryStatus)
+            this._telemetryStatusInterval = this.addRegister<[number]>(jacdac.VerifiedTelemetryReg.TelemetryStatusInterval, jacdac.VerifiedTelemetryRegPack.TelemetryStatusInterval)
+            this._fingerprintType = this.addRegister<[jacdac.VerifiedTelemetryFingerprintType]>(jacdac.VerifiedTelemetryReg.FingerprintType, jacdac.VerifiedTelemetryRegPack.FingerprintType)
+            this._fingerprintTemplate = this.addRegister<[number,Buffer]>(jacdac.VerifiedTelemetryReg.FingerprintTemplate, jacdac.VerifiedTelemetryRegPack.FingerprintTemplate)            
         }
     
 

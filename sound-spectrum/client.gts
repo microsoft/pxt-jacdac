@@ -12,13 +12,13 @@ namespace modules {
         private readonly _smoothingTimeConstant : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SOUND_SPECTRUM, role, jacdac.SoundSpectrumRegPack.FrequencyBins));
+            super(jacdac.SRV_SOUND_SPECTRUM, role, jacdac.SoundSpectrumRegPack.FrequencyBins)
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.SoundSpectrumReg.Enabled, jacdac.SoundSpectrumRegPack.Enabled);
-            this._fftPow2Size = this.addRegister<[number]>(jacdac.SoundSpectrumReg.FftPow2Size, jacdac.SoundSpectrumRegPack.FftPow2Size);
-            this._minDecibels = this.addRegister<[number]>(jacdac.SoundSpectrumReg.MinDecibels, jacdac.SoundSpectrumRegPack.MinDecibels);
-            this._maxDecibels = this.addRegister<[number]>(jacdac.SoundSpectrumReg.MaxDecibels, jacdac.SoundSpectrumRegPack.MaxDecibels);
-            this._smoothingTimeConstant = this.addRegister<[number]>(jacdac.SoundSpectrumReg.SmoothingTimeConstant, jacdac.SoundSpectrumRegPack.SmoothingTimeConstant);            
+            this._enabled = this.addRegister<[boolean]>(jacdac.SoundSpectrumReg.Enabled, jacdac.SoundSpectrumRegPack.Enabled)
+            this._fftPow2Size = this.addRegister<[number]>(jacdac.SoundSpectrumReg.FftPow2Size, jacdac.SoundSpectrumRegPack.FftPow2Size)
+            this._minDecibels = this.addRegister<[number]>(jacdac.SoundSpectrumReg.MinDecibels, jacdac.SoundSpectrumRegPack.MinDecibels)
+            this._maxDecibels = this.addRegister<[number]>(jacdac.SoundSpectrumReg.MaxDecibels, jacdac.SoundSpectrumRegPack.MaxDecibels)
+            this._smoothingTimeConstant = this.addRegister<[number]>(jacdac.SoundSpectrumReg.SmoothingTimeConstant, jacdac.SoundSpectrumRegPack.SmoothingTimeConstant)            
         }
     
 

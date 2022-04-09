@@ -10,9 +10,9 @@ namespace modules {
         private readonly _oxygenError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_PULSE_OXIMETER, role, jacdac.PulseOximeterRegPack.Oxygen));
+            super(jacdac.SRV_PULSE_OXIMETER, role, jacdac.PulseOximeterRegPack.Oxygen)
 
-            this._oxygenError = this.addRegister<[number]>(jacdac.PulseOximeterReg.OxygenError, jacdac.PulseOximeterRegPack.OxygenError);            
+            this._oxygenError = this.addRegister<[number]>(jacdac.PulseOximeterReg.OxygenError, jacdac.PulseOximeterRegPack.OxygenError)            
         }
     
 

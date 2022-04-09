@@ -66,30 +66,30 @@ namespace jacdac {
         CurrentSample = 0x101,
     }
 
-    export const enum SensorAggregatorRegPack {
+    export namespace SensorAggregatorRegPack {
         /**
          * Pack format for 'inputs' register data.
          */
-        Inputs = "u16 u16 u32 r: b[8] u32 u8 u8 u8 i8",
+        export const Inputs = "u16 u16 u32 r: b[8] u32 u8 u8 u8 i8"
 
         /**
          * Pack format for 'num_samples' register data.
          */
-        NumSamples = "u32",
+        export const NumSamples = "u32"
 
         /**
          * Pack format for 'sample_size' register data.
          */
-        SampleSize = "u8",
+        export const SampleSize = "u8"
 
         /**
          * Pack format for 'streaming_samples' register data.
          */
-        StreamingSamples = "u32",
+        export const StreamingSamples = "u32"
 
         /**
          * Pack format for 'current_sample' register data.
          */
-        CurrentSample = "b",
+        export const CurrentSample = "b"
     }
 }

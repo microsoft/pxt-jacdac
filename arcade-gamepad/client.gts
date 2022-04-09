@@ -10,9 +10,9 @@ namespace modules {
         private readonly _availableButtons : jacdac.RegisterClient<[jacdac.ArcadeGamepadButton[]]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_ARCADE_GAMEPAD, role, jacdac.ArcadeGamepadRegPack.Buttons));
+            super(jacdac.SRV_ARCADE_GAMEPAD, role, jacdac.ArcadeGamepadRegPack.Buttons)
 
-            this._availableButtons = this.addRegister<[jacdac.ArcadeGamepadButton[]]>(jacdac.ArcadeGamepadReg.AvailableButtons, jacdac.ArcadeGamepadRegPack.AvailableButtons);            
+            this._availableButtons = this.addRegister<[jacdac.ArcadeGamepadButton[]]>(jacdac.ArcadeGamepadReg.AvailableButtons, jacdac.ArcadeGamepadRegPack.AvailableButtons)            
         }
     
 

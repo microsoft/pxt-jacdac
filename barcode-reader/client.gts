@@ -9,10 +9,10 @@ namespace modules {
         private readonly _formats : jacdac.RegisterClient<[jacdac.BarcodeReaderFormat[]]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_BARCODE_READER, role);
+            super(jacdac.SRV_BARCODE_READER, role)
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.BarcodeReaderReg.Enabled, jacdac.BarcodeReaderRegPack.Enabled);
-            this._formats = this.addRegister<[jacdac.BarcodeReaderFormat[]]>(jacdac.BarcodeReaderReg.Formats, jacdac.BarcodeReaderRegPack.Formats);            
+            this._enabled = this.addRegister<[boolean]>(jacdac.BarcodeReaderReg.Enabled, jacdac.BarcodeReaderRegPack.Enabled)
+            this._formats = this.addRegister<[jacdac.BarcodeReaderFormat[]]>(jacdac.BarcodeReaderReg.Formats, jacdac.BarcodeReaderRegPack.Formats)            
         }
     
 

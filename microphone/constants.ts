@@ -15,11 +15,11 @@ namespace jacdac {
         Sample = 0x81,
     }
 
-    export const enum MicrophoneCmdPack {
+    export namespace MicrophoneCmdPack {
         /**
          * Pack format for 'sample' register data.
          */
-        Sample = "b[12] u32",
+        export const Sample = "b[12] u32"
     }
 
     export const enum MicrophoneReg {
@@ -34,10 +34,10 @@ namespace jacdac {
         SamplingPeriod = 0x80,
     }
 
-    export const enum MicrophoneRegPack {
+    export namespace MicrophoneRegPack {
         /**
          * Pack format for 'sampling_period' register data.
          */
-        SamplingPeriod = "u32",
+        export const SamplingPeriod = "u32"
     }
 }

@@ -10,7 +10,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_CODAL_MESSAGE_BUS, role);
+            super(jacdac.SRV_CODAL_MESSAGE_BUS, role)
             
         }
     

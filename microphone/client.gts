@@ -8,9 +8,9 @@ namespace modules {
         private readonly _samplingPeriod : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MICROPHONE, role);
+            super(jacdac.SRV_MICROPHONE, role)
 
-            this._samplingPeriod = this.addRegister<[number]>(jacdac.MicrophoneReg.SamplingPeriod, jacdac.MicrophoneRegPack.SamplingPeriod);            
+            this._samplingPeriod = this.addRegister<[number]>(jacdac.MicrophoneReg.SamplingPeriod, jacdac.MicrophoneRegPack.SamplingPeriod)            
         }
     
 

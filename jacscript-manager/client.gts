@@ -21,13 +21,13 @@ namespace modules {
         private readonly _programHash : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_JACSCRIPT_MANAGER, role);
+            super(jacdac.SRV_JACSCRIPT_MANAGER, role)
 
-            this._running = this.addRegister<[boolean]>(jacdac.JacscriptManagerReg.Running, jacdac.JacscriptManagerRegPack.Running);
-            this._autostart = this.addRegister<[boolean]>(jacdac.JacscriptManagerReg.Autostart, jacdac.JacscriptManagerRegPack.Autostart);
-            this._logging = this.addRegister<[boolean]>(jacdac.JacscriptManagerReg.Logging, jacdac.JacscriptManagerRegPack.Logging);
-            this._programSize = this.addRegister<[number]>(jacdac.JacscriptManagerReg.ProgramSize, jacdac.JacscriptManagerRegPack.ProgramSize);
-            this._programHash = this.addRegister<[number]>(jacdac.JacscriptManagerReg.ProgramHash, jacdac.JacscriptManagerRegPack.ProgramHash);            
+            this._running = this.addRegister<[boolean]>(jacdac.JacscriptManagerReg.Running, jacdac.JacscriptManagerRegPack.Running)
+            this._autostart = this.addRegister<[boolean]>(jacdac.JacscriptManagerReg.Autostart, jacdac.JacscriptManagerRegPack.Autostart)
+            this._logging = this.addRegister<[boolean]>(jacdac.JacscriptManagerReg.Logging, jacdac.JacscriptManagerRegPack.Logging)
+            this._programSize = this.addRegister<[number]>(jacdac.JacscriptManagerReg.ProgramSize, jacdac.JacscriptManagerRegPack.ProgramSize)
+            this._programHash = this.addRegister<[number]>(jacdac.JacscriptManagerReg.ProgramHash, jacdac.JacscriptManagerRegPack.ProgramHash)            
         }
     
 

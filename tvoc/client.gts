@@ -10,11 +10,11 @@ namespace modules {
         private readonly _maxTVOC : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_TVOC, role, jacdac.TvocRegPack.TVOC));
+            super(jacdac.SRV_TVOC, role, jacdac.TvocRegPack.TVOC)
 
-            this._tVOCError = this.addRegister<[number]>(jacdac.TvocReg.TVOCError, jacdac.TvocRegPack.TVOCError);
-            this._minTVOC = this.addRegister<[number]>(jacdac.TvocReg.MinTVOC, jacdac.TvocRegPack.MinTVOC);
-            this._maxTVOC = this.addRegister<[number]>(jacdac.TvocReg.MaxTVOC, jacdac.TvocRegPack.MaxTVOC);            
+            this._tVOCError = this.addRegister<[number]>(jacdac.TvocReg.TVOCError, jacdac.TvocRegPack.TVOCError)
+            this._minTVOC = this.addRegister<[number]>(jacdac.TvocReg.MinTVOC, jacdac.TvocRegPack.MinTVOC)
+            this._maxTVOC = this.addRegister<[number]>(jacdac.TvocReg.MaxTVOC, jacdac.TvocRegPack.MaxTVOC)            
         }
     
 

@@ -14,11 +14,11 @@ namespace jacdac {
         CommandNotImplemented = 0x3,
     }
 
-    export const enum BaseCmdPack {
+    export namespace BaseCmdPack {
         /**
          * Pack format for 'command_not_implemented' register data.
          */
-        CommandNotImplemented = "u16 u16",
+        export const CommandNotImplemented = "u16 u16"
     }
 
     export const enum BaseReg {
@@ -48,16 +48,16 @@ namespace jacdac {
         StatusCode = 0x103,
     }
 
-    export const enum BaseRegPack {
+    export namespace BaseRegPack {
         /**
          * Pack format for 'instance_name' register data.
          */
-        InstanceName = "s",
+        export const InstanceName = "s"
 
         /**
          * Pack format for 'status_code' register data.
          */
-        StatusCode = "u16 u16",
+        export const StatusCode = "u16 u16"
     }
 
     export const enum BaseEvent {
@@ -72,10 +72,10 @@ namespace jacdac {
         StatusCodeChanged = 0x4,
     }
 
-    export const enum BaseEventPack {
+    export namespace BaseEventPack {
         /**
          * Pack format for 'status_code_changed' register data.
          */
-        StatusCodeChanged = "u16 u16",
+        export const StatusCodeChanged = "u16 u16"
     }
 }

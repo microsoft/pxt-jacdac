@@ -21,18 +21,18 @@ namespace modules {
         private readonly _parallel : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MODEL_RUNNER, role, jacdac.ModelRunnerRegPack.Outputs));
+            super(jacdac.SRV_MODEL_RUNNER, role, jacdac.ModelRunnerRegPack.Outputs)
 
-            this._autoInvokeEvery = this.addRegister<[number]>(jacdac.ModelRunnerReg.AutoInvokeEvery, jacdac.ModelRunnerRegPack.AutoInvokeEvery);
-            this._inputShape = this.addRegister<[number[]]>(jacdac.ModelRunnerReg.InputShape, jacdac.ModelRunnerRegPack.InputShape);
-            this._outputShape = this.addRegister<[number[]]>(jacdac.ModelRunnerReg.OutputShape, jacdac.ModelRunnerRegPack.OutputShape);
-            this._lastRunTime = this.addRegister<[number]>(jacdac.ModelRunnerReg.LastRunTime, jacdac.ModelRunnerRegPack.LastRunTime);
-            this._allocatedArenaSize = this.addRegister<[number]>(jacdac.ModelRunnerReg.AllocatedArenaSize, jacdac.ModelRunnerRegPack.AllocatedArenaSize);
-            this._modelSize = this.addRegister<[number]>(jacdac.ModelRunnerReg.ModelSize, jacdac.ModelRunnerRegPack.ModelSize);
-            this._lastError = this.addRegister<[string]>(jacdac.ModelRunnerReg.LastError, jacdac.ModelRunnerRegPack.LastError);
-            this._format = this.addRegister<[jacdac.ModelRunnerModelFormat]>(jacdac.ModelRunnerReg.Format, jacdac.ModelRunnerRegPack.Format);
-            this._formatVersion = this.addRegister<[number]>(jacdac.ModelRunnerReg.FormatVersion, jacdac.ModelRunnerRegPack.FormatVersion);
-            this._parallel = this.addRegister<[boolean]>(jacdac.ModelRunnerReg.Parallel, jacdac.ModelRunnerRegPack.Parallel);            
+            this._autoInvokeEvery = this.addRegister<[number]>(jacdac.ModelRunnerReg.AutoInvokeEvery, jacdac.ModelRunnerRegPack.AutoInvokeEvery)
+            this._inputShape = this.addRegister<[number[]]>(jacdac.ModelRunnerReg.InputShape, jacdac.ModelRunnerRegPack.InputShape)
+            this._outputShape = this.addRegister<[number[]]>(jacdac.ModelRunnerReg.OutputShape, jacdac.ModelRunnerRegPack.OutputShape)
+            this._lastRunTime = this.addRegister<[number]>(jacdac.ModelRunnerReg.LastRunTime, jacdac.ModelRunnerRegPack.LastRunTime)
+            this._allocatedArenaSize = this.addRegister<[number]>(jacdac.ModelRunnerReg.AllocatedArenaSize, jacdac.ModelRunnerRegPack.AllocatedArenaSize)
+            this._modelSize = this.addRegister<[number]>(jacdac.ModelRunnerReg.ModelSize, jacdac.ModelRunnerRegPack.ModelSize)
+            this._lastError = this.addRegister<[string]>(jacdac.ModelRunnerReg.LastError, jacdac.ModelRunnerRegPack.LastError)
+            this._format = this.addRegister<[jacdac.ModelRunnerModelFormat]>(jacdac.ModelRunnerReg.Format, jacdac.ModelRunnerRegPack.Format)
+            this._formatVersion = this.addRegister<[number]>(jacdac.ModelRunnerReg.FormatVersion, jacdac.ModelRunnerRegPack.FormatVersion)
+            this._parallel = this.addRegister<[boolean]>(jacdac.ModelRunnerReg.Parallel, jacdac.ModelRunnerRegPack.Parallel)            
         }
     
 

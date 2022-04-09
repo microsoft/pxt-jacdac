@@ -10,9 +10,9 @@ namespace modules {
         private readonly _illuminanceError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_ILLUMINANCE, role, jacdac.IlluminanceRegPack.Illuminance));
+            super(jacdac.SRV_ILLUMINANCE, role, jacdac.IlluminanceRegPack.Illuminance)
 
-            this._illuminanceError = this.addRegister<[number]>(jacdac.IlluminanceReg.IlluminanceError, jacdac.IlluminanceRegPack.IlluminanceError);            
+            this._illuminanceError = this.addRegister<[number]>(jacdac.IlluminanceReg.IlluminanceError, jacdac.IlluminanceRegPack.IlluminanceError)            
         }
     
 

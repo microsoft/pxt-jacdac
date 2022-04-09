@@ -17,16 +17,16 @@ namespace modules {
         private readonly _rotation : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_INDEXED_SCREEN, role);
+            super(jacdac.SRV_INDEXED_SCREEN, role)
 
-            this._brightness = this.addRegister<[number]>(jacdac.IndexedScreenReg.Brightness, jacdac.IndexedScreenRegPack.Brightness);
-            this._palette = this.addRegister<[([number, number, number])[]]>(jacdac.IndexedScreenReg.Palette, jacdac.IndexedScreenRegPack.Palette);
-            this._bitsPerPixel = this.addRegister<[number]>(jacdac.IndexedScreenReg.BitsPerPixel, jacdac.IndexedScreenRegPack.BitsPerPixel);
-            this._width = this.addRegister<[number]>(jacdac.IndexedScreenReg.Width, jacdac.IndexedScreenRegPack.Width);
-            this._height = this.addRegister<[number]>(jacdac.IndexedScreenReg.Height, jacdac.IndexedScreenRegPack.Height);
-            this._widthMajor = this.addRegister<[boolean]>(jacdac.IndexedScreenReg.WidthMajor, jacdac.IndexedScreenRegPack.WidthMajor);
-            this._upSampling = this.addRegister<[number]>(jacdac.IndexedScreenReg.UpSampling, jacdac.IndexedScreenRegPack.UpSampling);
-            this._rotation = this.addRegister<[number]>(jacdac.IndexedScreenReg.Rotation, jacdac.IndexedScreenRegPack.Rotation);            
+            this._brightness = this.addRegister<[number]>(jacdac.IndexedScreenReg.Brightness, jacdac.IndexedScreenRegPack.Brightness)
+            this._palette = this.addRegister<[([number, number, number])[]]>(jacdac.IndexedScreenReg.Palette, jacdac.IndexedScreenRegPack.Palette)
+            this._bitsPerPixel = this.addRegister<[number]>(jacdac.IndexedScreenReg.BitsPerPixel, jacdac.IndexedScreenRegPack.BitsPerPixel)
+            this._width = this.addRegister<[number]>(jacdac.IndexedScreenReg.Width, jacdac.IndexedScreenRegPack.Width)
+            this._height = this.addRegister<[number]>(jacdac.IndexedScreenReg.Height, jacdac.IndexedScreenRegPack.Height)
+            this._widthMajor = this.addRegister<[boolean]>(jacdac.IndexedScreenReg.WidthMajor, jacdac.IndexedScreenRegPack.WidthMajor)
+            this._upSampling = this.addRegister<[number]>(jacdac.IndexedScreenReg.UpSampling, jacdac.IndexedScreenRegPack.UpSampling)
+            this._rotation = this.addRegister<[number]>(jacdac.IndexedScreenReg.Rotation, jacdac.IndexedScreenRegPack.Rotation)            
         }
     
 

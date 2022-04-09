@@ -22,16 +22,16 @@ namespace jacdac {
         SetPixels = 0x83,
     }
 
-    export const enum IndexedScreenCmdPack {
+    export namespace IndexedScreenCmdPack {
         /**
          * Pack format for 'start_update' register data.
          */
-        StartUpdate = "u16 u16 u16 u16",
+        export const StartUpdate = "u16 u16 u16 u16"
 
         /**
          * Pack format for 'set_pixels' register data.
          */
-        SetPixels = "b",
+        export const SetPixels = "b"
     }
 
     export const enum IndexedScreenReg {
@@ -122,45 +122,45 @@ namespace jacdac {
         Rotation = 0x83,
     }
 
-    export const enum IndexedScreenRegPack {
+    export namespace IndexedScreenRegPack {
         /**
          * Pack format for 'brightness' register data.
          */
-        Brightness = "u0.8",
+        export const Brightness = "u0.8"
 
         /**
          * Pack format for 'palette' register data.
          */
-        Palette = "r: u8 u8 u8 u8",
+        export const Palette = "r: u8 u8 u8 u8"
 
         /**
          * Pack format for 'bits_per_pixel' register data.
          */
-        BitsPerPixel = "u8",
+        export const BitsPerPixel = "u8"
 
         /**
          * Pack format for 'width' register data.
          */
-        Width = "u16",
+        export const Width = "u16"
 
         /**
          * Pack format for 'height' register data.
          */
-        Height = "u16",
+        export const Height = "u16"
 
         /**
          * Pack format for 'width_major' register data.
          */
-        WidthMajor = "u8",
+        export const WidthMajor = "u8"
 
         /**
          * Pack format for 'up_sampling' register data.
          */
-        UpSampling = "u8",
+        export const UpSampling = "u8"
 
         /**
          * Pack format for 'rotation' register data.
          */
-        Rotation = "u16",
+        export const Rotation = "u16"
     }
 }

@@ -86,46 +86,46 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum WeightScaleRegPack {
+    export namespace WeightScaleRegPack {
         /**
          * Pack format for 'weight' register data.
          */
-        Weight = "u16.16",
+        export const Weight = "u16.16"
 
         /**
          * Pack format for 'weight_error' register data.
          */
-        WeightError = "u16.16",
+        export const WeightError = "u16.16"
 
         /**
          * Pack format for 'zero_offset' register data.
          */
-        ZeroOffset = "u16.16",
+        export const ZeroOffset = "u16.16"
 
         /**
          * Pack format for 'gain' register data.
          */
-        Gain = "u16.16",
+        export const Gain = "u16.16"
 
         /**
          * Pack format for 'max_weight' register data.
          */
-        MaxWeight = "u16.16",
+        export const MaxWeight = "u16.16"
 
         /**
          * Pack format for 'min_weight' register data.
          */
-        MinWeight = "u16.16",
+        export const MinWeight = "u16.16"
 
         /**
          * Pack format for 'weight_resolution' register data.
          */
-        WeightResolution = "u16.16",
+        export const WeightResolution = "u16.16"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
     }
 
     export const enum WeightScaleCmd {
@@ -144,10 +144,10 @@ namespace jacdac {
         CalibrateGain = 0x81,
     }
 
-    export const enum WeightScaleCmdPack {
+    export namespace WeightScaleCmdPack {
         /**
          * Pack format for 'calibrate_gain' register data.
          */
-        CalibrateGain = "u22.10",
+        export const CalibrateGain = "u22.10"
     }
 }

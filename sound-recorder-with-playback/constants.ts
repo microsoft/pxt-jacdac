@@ -32,11 +32,11 @@ namespace jacdac {
         Cancel = 0x82,
     }
 
-    export const enum SoundRecorderWithPlaybackCmdPack {
+    export namespace SoundRecorderWithPlaybackCmdPack {
         /**
          * Pack format for 'record' register data.
          */
-        Record = "u16",
+        export const Record = "u16"
     }
 
     export const enum SoundRecorderWithPlaybackReg {
@@ -68,20 +68,20 @@ namespace jacdac {
         Volume = 0x1,
     }
 
-    export const enum SoundRecorderWithPlaybackRegPack {
+    export namespace SoundRecorderWithPlaybackRegPack {
         /**
          * Pack format for 'status' register data.
          */
-        Status = "u8",
+        export const Status = "u8"
 
         /**
          * Pack format for 'time' register data.
          */
-        Time = "u16",
+        export const Time = "u16"
 
         /**
          * Pack format for 'volume' register data.
          */
-        Volume = "u0.8",
+        export const Volume = "u0.8"
     }
 }

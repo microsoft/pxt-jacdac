@@ -8,9 +8,9 @@ namespace modules {
         private readonly _measurementName : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_DC_CURRENT_MEASUREMENT, role, jacdac.DcCurrentMeasurementRegPack.Measurement));
+            super(jacdac.SRV_DC_CURRENT_MEASUREMENT, role, jacdac.DcCurrentMeasurementRegPack.Measurement)
 
-            this._measurementName = this.addRegister<[string]>(jacdac.DcCurrentMeasurementReg.MeasurementName, jacdac.DcCurrentMeasurementRegPack.MeasurementName);            
+            this._measurementName = this.addRegister<[string]>(jacdac.DcCurrentMeasurementReg.MeasurementName, jacdac.DcCurrentMeasurementRegPack.MeasurementName)            
         }
     
 

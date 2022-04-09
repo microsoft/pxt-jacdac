@@ -30,20 +30,20 @@ namespace jacdac {
         MaxWindSpeed = 0x105,
     }
 
-    export const enum WindSpeedRegPack {
+    export namespace WindSpeedRegPack {
         /**
          * Pack format for 'wind_speed' register data.
          */
-        WindSpeed = "u16.16",
+        export const WindSpeed = "u16.16"
 
         /**
          * Pack format for 'wind_speed_error' register data.
          */
-        WindSpeedError = "u16.16",
+        export const WindSpeedError = "u16.16"
 
         /**
          * Pack format for 'max_wind_speed' register data.
          */
-        MaxWindSpeed = "u16.16",
+        export const MaxWindSpeed = "u16.16"
     }
 }

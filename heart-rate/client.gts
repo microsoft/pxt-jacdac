@@ -12,10 +12,10 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.HeartRateVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_HEART_RATE, role, jacdac.HeartRateRegPack.HeartRate));
+            super(jacdac.SRV_HEART_RATE, role, jacdac.HeartRateRegPack.HeartRate)
 
-            this._heartRateError = this.addRegister<[number]>(jacdac.HeartRateReg.HeartRateError, jacdac.HeartRateRegPack.HeartRateError);
-            this._variant = this.addRegister<[jacdac.HeartRateVariant]>(jacdac.HeartRateReg.Variant, jacdac.HeartRateRegPack.Variant);            
+            this._heartRateError = this.addRegister<[number]>(jacdac.HeartRateReg.HeartRateError, jacdac.HeartRateRegPack.HeartRateError)
+            this._variant = this.addRegister<[jacdac.HeartRateVariant]>(jacdac.HeartRateReg.Variant, jacdac.HeartRateRegPack.Variant)            
         }
     
 

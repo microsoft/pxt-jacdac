@@ -8,9 +8,9 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.ReflectedLightVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_REFLECTED_LIGHT, role, jacdac.ReflectedLightRegPack.Brightness));
+            super(jacdac.SRV_REFLECTED_LIGHT, role, jacdac.ReflectedLightRegPack.Brightness)
 
-            this._variant = this.addRegister<[jacdac.ReflectedLightVariant]>(jacdac.ReflectedLightReg.Variant, jacdac.ReflectedLightRegPack.Variant);            
+            this._variant = this.addRegister<[jacdac.ReflectedLightVariant]>(jacdac.ReflectedLightReg.Variant, jacdac.ReflectedLightRegPack.Variant)            
         }
     
 

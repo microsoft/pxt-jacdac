@@ -21,15 +21,15 @@ namespace jacdac {
         Length = 0x180,
     }
 
-    export const enum FlexRegPack {
+    export namespace FlexRegPack {
         /**
          * Pack format for 'bending' register data.
          */
-        Bending = "i1.15",
+        export const Bending = "i1.15"
 
         /**
          * Pack format for 'length' register data.
          */
-        Length = "u16",
+        export const Length = "u16"
     }
 }

@@ -24,11 +24,11 @@ namespace jacdac {
         Animate = 0x80,
     }
 
-    export const enum LedCmdPack {
+    export namespace LedCmdPack {
         /**
          * Pack format for 'animate' register data.
          */
-        Animate = "u8 u8 u8 u8",
+        export const Animate = "u8 u8 u8 u8"
     }
 
     export const enum LedReg {
@@ -87,35 +87,35 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum LedRegPack {
+    export namespace LedRegPack {
         /**
          * Pack format for 'color' register data.
          */
-        Color = "u8 u8 u8",
+        export const Color = "u8 u8 u8"
 
         /**
          * Pack format for 'max_power' register data.
          */
-        MaxPower = "u16",
+        export const MaxPower = "u16"
 
         /**
          * Pack format for 'led_count' register data.
          */
-        LedCount = "u16",
+        export const LedCount = "u16"
 
         /**
          * Pack format for 'wave_length' register data.
          */
-        WaveLength = "u16",
+        export const WaveLength = "u16"
 
         /**
          * Pack format for 'luminous_intensity' register data.
          */
-        LuminousIntensity = "u16",
+        export const LuminousIntensity = "u16"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
     }
 }

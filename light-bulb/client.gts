@@ -9,10 +9,10 @@ namespace modules {
         private readonly _dimmable : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_LIGHT_BULB, role);
+            super(jacdac.SRV_LIGHT_BULB, role)
 
-            this._brightness = this.addRegister<[number]>(jacdac.LightBulbReg.Brightness, jacdac.LightBulbRegPack.Brightness);
-            this._dimmable = this.addRegister<[boolean]>(jacdac.LightBulbReg.Dimmable, jacdac.LightBulbRegPack.Dimmable);            
+            this._brightness = this.addRegister<[number]>(jacdac.LightBulbReg.Brightness, jacdac.LightBulbRegPack.Brightness)
+            this._dimmable = this.addRegister<[boolean]>(jacdac.LightBulbReg.Dimmable, jacdac.LightBulbRegPack.Dimmable)            
         }
     
 

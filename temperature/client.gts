@@ -11,12 +11,12 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.TemperatureVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_TEMPERATURE, role, jacdac.TemperatureRegPack.Temperature));
+            super(jacdac.SRV_TEMPERATURE, role, jacdac.TemperatureRegPack.Temperature)
 
-            this._minTemperature = this.addRegister<[number]>(jacdac.TemperatureReg.MinTemperature, jacdac.TemperatureRegPack.MinTemperature);
-            this._maxTemperature = this.addRegister<[number]>(jacdac.TemperatureReg.MaxTemperature, jacdac.TemperatureRegPack.MaxTemperature);
-            this._temperatureError = this.addRegister<[number]>(jacdac.TemperatureReg.TemperatureError, jacdac.TemperatureRegPack.TemperatureError);
-            this._variant = this.addRegister<[jacdac.TemperatureVariant]>(jacdac.TemperatureReg.Variant, jacdac.TemperatureRegPack.Variant);            
+            this._minTemperature = this.addRegister<[number]>(jacdac.TemperatureReg.MinTemperature, jacdac.TemperatureRegPack.MinTemperature)
+            this._maxTemperature = this.addRegister<[number]>(jacdac.TemperatureReg.MaxTemperature, jacdac.TemperatureRegPack.MaxTemperature)
+            this._temperatureError = this.addRegister<[number]>(jacdac.TemperatureReg.TemperatureError, jacdac.TemperatureRegPack.TemperatureError)
+            this._variant = this.addRegister<[jacdac.TemperatureVariant]>(jacdac.TemperatureReg.Variant, jacdac.TemperatureRegPack.Variant)            
         }
     
 

@@ -12,11 +12,11 @@ namespace modules {
         private readonly _bufferPending : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_ARCADE_SOUND, role);
+            super(jacdac.SRV_ARCADE_SOUND, role)
 
-            this._sampleRate = this.addRegister<[number]>(jacdac.ArcadeSoundReg.SampleRate, jacdac.ArcadeSoundRegPack.SampleRate);
-            this._bufferSize = this.addRegister<[number]>(jacdac.ArcadeSoundReg.BufferSize, jacdac.ArcadeSoundRegPack.BufferSize);
-            this._bufferPending = this.addRegister<[number]>(jacdac.ArcadeSoundReg.BufferPending, jacdac.ArcadeSoundRegPack.BufferPending);            
+            this._sampleRate = this.addRegister<[number]>(jacdac.ArcadeSoundReg.SampleRate, jacdac.ArcadeSoundRegPack.SampleRate)
+            this._bufferSize = this.addRegister<[number]>(jacdac.ArcadeSoundReg.BufferSize, jacdac.ArcadeSoundRegPack.BufferSize)
+            this._bufferPending = this.addRegister<[number]>(jacdac.ArcadeSoundReg.BufferPending, jacdac.ArcadeSoundRegPack.BufferPending)            
         }
     
 

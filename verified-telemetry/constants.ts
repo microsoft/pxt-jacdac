@@ -58,26 +58,26 @@ namespace jacdac {
         FingerprintTemplate = 0x182,
     }
 
-    export const enum VerifiedTelemetryRegPack {
+    export namespace VerifiedTelemetryRegPack {
         /**
          * Pack format for 'telemetry_status' register data.
          */
-        TelemetryStatus = "u8",
+        export const TelemetryStatus = "u8"
 
         /**
          * Pack format for 'telemetry_status_interval' register data.
          */
-        TelemetryStatusInterval = "u32",
+        export const TelemetryStatusInterval = "u32"
 
         /**
          * Pack format for 'fingerprint_type' register data.
          */
-        FingerprintType = "u8",
+        export const FingerprintType = "u8"
 
         /**
          * Pack format for 'fingerprint_template' register data.
          */
-        FingerprintTemplate = "u16 b",
+        export const FingerprintTemplate = "u16 b"
     }
 
     export const enum VerifiedTelemetryCmd {
@@ -110,10 +110,10 @@ namespace jacdac {
         FingerprintTemplateChange = 0x80,
     }
 
-    export const enum VerifiedTelemetryEventPack {
+    export namespace VerifiedTelemetryEventPack {
         /**
          * Pack format for 'telemetry_status_change' register data.
          */
-        TelemetryStatusChange = "u8",
+        export const TelemetryStatusChange = "u8"
     }
 }

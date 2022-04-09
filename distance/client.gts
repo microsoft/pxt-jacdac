@@ -11,12 +11,12 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.DistanceVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_DISTANCE, role, jacdac.DistanceRegPack.Distance));
+            super(jacdac.SRV_DISTANCE, role, jacdac.DistanceRegPack.Distance)
 
-            this._distanceError = this.addRegister<[number]>(jacdac.DistanceReg.DistanceError, jacdac.DistanceRegPack.DistanceError);
-            this._minRange = this.addRegister<[number]>(jacdac.DistanceReg.MinRange, jacdac.DistanceRegPack.MinRange);
-            this._maxRange = this.addRegister<[number]>(jacdac.DistanceReg.MaxRange, jacdac.DistanceRegPack.MaxRange);
-            this._variant = this.addRegister<[jacdac.DistanceVariant]>(jacdac.DistanceReg.Variant, jacdac.DistanceRegPack.Variant);            
+            this._distanceError = this.addRegister<[number]>(jacdac.DistanceReg.DistanceError, jacdac.DistanceRegPack.DistanceError)
+            this._minRange = this.addRegister<[number]>(jacdac.DistanceReg.MinRange, jacdac.DistanceRegPack.MinRange)
+            this._maxRange = this.addRegister<[number]>(jacdac.DistanceReg.MaxRange, jacdac.DistanceRegPack.MaxRange)
+            this._variant = this.addRegister<[jacdac.DistanceVariant]>(jacdac.DistanceReg.Variant, jacdac.DistanceRegPack.Variant)            
         }
     
 

@@ -26,21 +26,21 @@ namespace jacdac {
         Pressed = 0x181,
     }
 
-    export const enum ButtonRegPack {
+    export namespace ButtonRegPack {
         /**
          * Pack format for 'pressure' register data.
          */
-        Pressure = "u0.16",
+        export const Pressure = "u0.16"
 
         /**
          * Pack format for 'analog' register data.
          */
-        Analog = "u8",
+        export const Analog = "u8"
 
         /**
          * Pack format for 'pressed' register data.
          */
-        Pressed = "u8",
+        export const Pressed = "u8"
     }
 
     export const enum ButtonEvent {
@@ -74,15 +74,15 @@ namespace jacdac {
         Hold = 0x81,
     }
 
-    export const enum ButtonEventPack {
+    export namespace ButtonEventPack {
         /**
          * Pack format for 'up' register data.
          */
-        Up = "u32",
+        export const Up = "u32"
 
         /**
          * Pack format for 'hold' register data.
          */
-        Hold = "u32",
+        export const Hold = "u32"
     }
 }

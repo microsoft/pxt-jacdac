@@ -132,36 +132,36 @@ namespace jacdac {
          */
     }
 
-    export const enum ControlCmdPack {
+    export namespace ControlCmdPack {
         /**
          * Pack format for 'services' register data.
          */
-        ServicesReport = "u16 u8 u8 r: u32",
+        export const ServicesReport = "u16 u8 u8 r: u32"
 
         /**
          * Pack format for 'flood_ping' register data.
          */
-        FloodPing = "u32 u32 u8",
+        export const FloodPing = "u32 u32 u8"
 
         /**
          * Pack format for 'flood_ping' register data.
          */
-        FloodPingReport = "u32 b",
+        export const FloodPingReport = "u32 b"
 
         /**
          * Pack format for 'set_status_light' register data.
          */
-        SetStatusLight = "u8 u8 u8 u8",
+        export const SetStatusLight = "u8 u8 u8 u8"
 
         /**
          * Pack format for 'reliable_commands' register data.
          */
-        ReliableCommands = "u32",
+        export const ReliableCommands = "u32"
 
         /**
          * Pack format for 'reliable_commands' register data.
          */
-        ReliableCommandsReport = "b[12]",
+        export const ReliableCommandsReport = "b[12]"
     }
 
     /**
@@ -171,11 +171,11 @@ namespace jacdac {
      * ```
      */
 
-    export const enum ControlinfoPack {
+    export namespace ControlinfoPack {
         /**
          * Pack format for 'wrapped_command' register data.
          */
-        WrappedCommand = "u8 u8 u16 b",
+        export const WrappedCommand = "u8 u8 u16 b"
     }
 
     export const enum ControlReg {
@@ -245,40 +245,40 @@ namespace jacdac {
         Uptime = 0x186,
     }
 
-    export const enum ControlRegPack {
+    export namespace ControlRegPack {
         /**
          * Pack format for 'reset_in' register data.
          */
-        ResetIn = "u32",
+        export const ResetIn = "u32"
 
         /**
          * Pack format for 'device_description' register data.
          */
-        DeviceDescription = "s",
+        export const DeviceDescription = "s"
 
         /**
          * Pack format for 'product_identifier' register data.
          */
-        ProductIdentifier = "u32",
+        export const ProductIdentifier = "u32"
 
         /**
          * Pack format for 'bootloader_product_identifier' register data.
          */
-        BootloaderProductIdentifier = "u32",
+        export const BootloaderProductIdentifier = "u32"
 
         /**
          * Pack format for 'firmware_version' register data.
          */
-        FirmwareVersion = "s",
+        export const FirmwareVersion = "s"
 
         /**
          * Pack format for 'mcu_temperature' register data.
          */
-        McuTemperature = "i16",
+        export const McuTemperature = "i16"
 
         /**
          * Pack format for 'uptime' register data.
          */
-        Uptime = "u64",
+        export const Uptime = "u64"
     }
 }

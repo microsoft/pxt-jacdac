@@ -13,14 +13,14 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.LedVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_LED, role);
+            super(jacdac.SRV_LED, role)
 
-            this._color = this.addRegister<[number,number,number]>(jacdac.LedReg.Color, jacdac.LedRegPack.Color);
-            this._maxPower = this.addRegister<[number]>(jacdac.LedReg.MaxPower, jacdac.LedRegPack.MaxPower);
-            this._ledCount = this.addRegister<[number]>(jacdac.LedReg.LedCount, jacdac.LedRegPack.LedCount);
-            this._waveLength = this.addRegister<[number]>(jacdac.LedReg.WaveLength, jacdac.LedRegPack.WaveLength);
-            this._luminousIntensity = this.addRegister<[number]>(jacdac.LedReg.LuminousIntensity, jacdac.LedRegPack.LuminousIntensity);
-            this._variant = this.addRegister<[jacdac.LedVariant]>(jacdac.LedReg.Variant, jacdac.LedRegPack.Variant);            
+            this._color = this.addRegister<[number,number,number]>(jacdac.LedReg.Color, jacdac.LedRegPack.Color)
+            this._maxPower = this.addRegister<[number]>(jacdac.LedReg.MaxPower, jacdac.LedRegPack.MaxPower)
+            this._ledCount = this.addRegister<[number]>(jacdac.LedReg.LedCount, jacdac.LedRegPack.LedCount)
+            this._waveLength = this.addRegister<[number]>(jacdac.LedReg.WaveLength, jacdac.LedRegPack.WaveLength)
+            this._luminousIntensity = this.addRegister<[number]>(jacdac.LedReg.LuminousIntensity, jacdac.LedRegPack.LuminousIntensity)
+            this._variant = this.addRegister<[jacdac.LedVariant]>(jacdac.LedReg.Variant, jacdac.LedRegPack.Variant)            
         }
     
 

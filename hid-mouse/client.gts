@@ -7,7 +7,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_HID_MOUSE, role);
+            super(jacdac.SRV_HID_MOUSE, role)
             
         }
     

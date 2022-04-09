@@ -29,15 +29,15 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum ReflectedLightRegPack {
+    export namespace ReflectedLightRegPack {
         /**
          * Pack format for 'brightness' register data.
          */
-        Brightness = "u0.16",
+        export const Brightness = "u0.16"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
     }
 }

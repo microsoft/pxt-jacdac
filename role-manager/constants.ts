@@ -26,16 +26,16 @@ namespace jacdac {
         AllRolesAllocated = 0x181,
     }
 
-    export const enum RoleManagerRegPack {
+    export namespace RoleManagerRegPack {
         /**
          * Pack format for 'auto_bind' register data.
          */
-        AutoBind = "u8",
+        export const AutoBind = "u8"
 
         /**
          * Pack format for 'all_roles_allocated' register data.
          */
-        AllRolesAllocated = "u8",
+        export const AllRolesAllocated = "u8"
     }
 
     export const enum RoleManagerCmd {
@@ -63,16 +63,16 @@ namespace jacdac {
         ListRoles = 0x83,
     }
 
-    export const enum RoleManagerCmdPack {
+    export namespace RoleManagerCmdPack {
         /**
          * Pack format for 'set_role' register data.
          */
-        SetRole = "b[8] u8 s",
+        export const SetRole = "b[8] u8 s"
 
         /**
          * Pack format for 'list_roles' register data.
          */
-        ListRoles = "b[12]",
+        export const ListRoles = "b[12]"
     }
 
     /**
@@ -82,11 +82,11 @@ namespace jacdac {
      * ```
      */
 
-    export const enum RoleManagerinfoPack {
+    export namespace RoleManagerinfoPack {
         /**
          * Pack format for 'roles' register data.
          */
-        Roles = "b[8] u32 u8 s",
+        export const Roles = "b[8] u32 u8 s"
     }
 
     export const enum RoleManagerEvent {

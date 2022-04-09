@@ -8,9 +8,9 @@ namespace modules {
         private readonly _length : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_FLEX, role, jacdac.FlexRegPack.Bending));
+            super(jacdac.SRV_FLEX, role, jacdac.FlexRegPack.Bending)
 
-            this._length = this.addRegister<[number]>(jacdac.FlexReg.Length, jacdac.FlexRegPack.Length);            
+            this._length = this.addRegister<[number]>(jacdac.FlexReg.Length, jacdac.FlexRegPack.Length)            
         }
     
 

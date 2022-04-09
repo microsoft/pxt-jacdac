@@ -11,12 +11,12 @@ namespace modules {
         private readonly _frequencyBand : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_BIT_RADIO, role);
+            super(jacdac.SRV_BIT_RADIO, role)
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.BitRadioReg.Enabled, jacdac.BitRadioRegPack.Enabled);
-            this._group = this.addRegister<[number]>(jacdac.BitRadioReg.Group, jacdac.BitRadioRegPack.Group);
-            this._transmissionPower = this.addRegister<[number]>(jacdac.BitRadioReg.TransmissionPower, jacdac.BitRadioRegPack.TransmissionPower);
-            this._frequencyBand = this.addRegister<[number]>(jacdac.BitRadioReg.FrequencyBand, jacdac.BitRadioRegPack.FrequencyBand);            
+            this._enabled = this.addRegister<[boolean]>(jacdac.BitRadioReg.Enabled, jacdac.BitRadioRegPack.Enabled)
+            this._group = this.addRegister<[number]>(jacdac.BitRadioReg.Group, jacdac.BitRadioRegPack.Group)
+            this._transmissionPower = this.addRegister<[number]>(jacdac.BitRadioReg.TransmissionPower, jacdac.BitRadioRegPack.TransmissionPower)
+            this._frequencyBand = this.addRegister<[number]>(jacdac.BitRadioReg.FrequencyBand, jacdac.BitRadioRegPack.FrequencyBand)            
         }
     
 

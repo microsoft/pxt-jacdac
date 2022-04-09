@@ -10,11 +10,11 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.RealTimeClockVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_REAL_TIME_CLOCK, role, jacdac.RealTimeClockRegPack.LocalTime));
+            super(jacdac.SRV_REAL_TIME_CLOCK, role, jacdac.RealTimeClockRegPack.LocalTime)
 
-            this._drift = this.addRegister<[number]>(jacdac.RealTimeClockReg.Drift, jacdac.RealTimeClockRegPack.Drift);
-            this._precision = this.addRegister<[number]>(jacdac.RealTimeClockReg.Precision, jacdac.RealTimeClockRegPack.Precision);
-            this._variant = this.addRegister<[jacdac.RealTimeClockVariant]>(jacdac.RealTimeClockReg.Variant, jacdac.RealTimeClockRegPack.Variant);            
+            this._drift = this.addRegister<[number]>(jacdac.RealTimeClockReg.Drift, jacdac.RealTimeClockRegPack.Drift)
+            this._precision = this.addRegister<[number]>(jacdac.RealTimeClockReg.Precision, jacdac.RealTimeClockRegPack.Precision)
+            this._variant = this.addRegister<[jacdac.RealTimeClockVariant]>(jacdac.RealTimeClockReg.Variant, jacdac.RealTimeClockRegPack.Variant)            
         }
     
 

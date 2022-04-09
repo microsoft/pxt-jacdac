@@ -8,9 +8,9 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.PotentiometerVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_POTENTIOMETER, role, jacdac.PotentiometerRegPack.Position));
+            super(jacdac.SRV_POTENTIOMETER, role, jacdac.PotentiometerRegPack.Position)
 
-            this._variant = this.addRegister<[jacdac.PotentiometerVariant]>(jacdac.PotentiometerReg.Variant, jacdac.PotentiometerRegPack.Variant);            
+            this._variant = this.addRegister<[jacdac.PotentiometerVariant]>(jacdac.PotentiometerReg.Variant, jacdac.PotentiometerRegPack.Variant)            
         }
     
 

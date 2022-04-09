@@ -57,30 +57,30 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum DotMatrixRegPack {
+    export namespace DotMatrixRegPack {
         /**
          * Pack format for 'dots' register data.
          */
-        Dots = "b",
+        export const Dots = "b"
 
         /**
          * Pack format for 'brightness' register data.
          */
-        Brightness = "u0.8",
+        export const Brightness = "u0.8"
 
         /**
          * Pack format for 'rows' register data.
          */
-        Rows = "u16",
+        export const Rows = "u16"
 
         /**
          * Pack format for 'columns' register data.
          */
-        Columns = "u16",
+        export const Columns = "u16"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
     }
 }

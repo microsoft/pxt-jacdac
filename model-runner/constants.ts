@@ -49,26 +49,26 @@ namespace jacdac {
          */
     }
 
-    export const enum ModelRunnerCmdPack {
+    export namespace ModelRunnerCmdPack {
         /**
          * Pack format for 'set_model' register data.
          */
-        SetModel = "u32",
+        export const SetModel = "u32"
 
         /**
          * Pack format for 'set_model' register data.
          */
-        SetModelReport = "u16",
+        export const SetModelReport = "u16"
 
         /**
          * Pack format for 'predict' register data.
          */
-        Predict = "b[12]",
+        export const Predict = "b[12]"
 
         /**
          * Pack format for 'predict' register data.
          */
-        PredictReport = "u16",
+        export const PredictReport = "u16"
     }
 
     export const enum ModelRunnerReg {
@@ -179,60 +179,60 @@ namespace jacdac {
         Parallel = 0x188,
     }
 
-    export const enum ModelRunnerRegPack {
+    export namespace ModelRunnerRegPack {
         /**
          * Pack format for 'auto_invoke_every' register data.
          */
-        AutoInvokeEvery = "u16",
+        export const AutoInvokeEvery = "u16"
 
         /**
          * Pack format for 'outputs' register data.
          */
-        Outputs = "r: f32",
+        export const Outputs = "r: f32"
 
         /**
          * Pack format for 'input_shape' register data.
          */
-        InputShape = "r: u16",
+        export const InputShape = "r: u16"
 
         /**
          * Pack format for 'output_shape' register data.
          */
-        OutputShape = "r: u16",
+        export const OutputShape = "r: u16"
 
         /**
          * Pack format for 'last_run_time' register data.
          */
-        LastRunTime = "u32",
+        export const LastRunTime = "u32"
 
         /**
          * Pack format for 'allocated_arena_size' register data.
          */
-        AllocatedArenaSize = "u32",
+        export const AllocatedArenaSize = "u32"
 
         /**
          * Pack format for 'model_size' register data.
          */
-        ModelSize = "u32",
+        export const ModelSize = "u32"
 
         /**
          * Pack format for 'last_error' register data.
          */
-        LastError = "s",
+        export const LastError = "s"
 
         /**
          * Pack format for 'format' register data.
          */
-        Format = "u32",
+        export const Format = "u32"
 
         /**
          * Pack format for 'format_version' register data.
          */
-        FormatVersion = "u32",
+        export const FormatVersion = "u32"
 
         /**
          * Pack format for 'parallel' register data.
          */
-        Parallel = "u8",
+        export const Parallel = "u8"
     }
 }

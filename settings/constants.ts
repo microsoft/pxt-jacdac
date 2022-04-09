@@ -60,36 +60,36 @@ namespace jacdac {
         Clear = 0x85,
     }
 
-    export const enum SettingsCmdPack {
+    export namespace SettingsCmdPack {
         /**
          * Pack format for 'get' register data.
          */
-        Get = "s",
+        export const Get = "s"
 
         /**
          * Pack format for 'get' register data.
          */
-        GetReport = "z b",
+        export const GetReport = "z b"
 
         /**
          * Pack format for 'set' register data.
          */
-        Set = "z b",
+        export const Set = "z b"
 
         /**
          * Pack format for 'delete' register data.
          */
-        Delete = "s",
+        export const Delete = "s"
 
         /**
          * Pack format for 'list_keys' register data.
          */
-        ListKeys = "b[12]",
+        export const ListKeys = "b[12]"
 
         /**
          * Pack format for 'list' register data.
          */
-        List = "b[12]",
+        export const List = "b[12]"
     }
 
     /**
@@ -106,16 +106,16 @@ namespace jacdac {
      * ```
      */
 
-    export const enum SettingsinfoPack {
+    export namespace SettingsinfoPack {
         /**
          * Pack format for 'listed_key' register data.
          */
-        ListedKey = "s",
+        export const ListedKey = "s"
 
         /**
          * Pack format for 'listed_entry' register data.
          */
-        ListedEntry = "z b",
+        export const ListedEntry = "z b"
     }
 
     export const enum SettingsEvent {

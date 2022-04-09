@@ -65,30 +65,30 @@ namespace jacdac {
          */
     }
 
-    export const enum BootloaderCmdPack {
+    export namespace BootloaderCmdPack {
         /**
          * Pack format for 'info' register data.
          */
-        InfoReport = "u32 u32 u32 u32",
+        export const InfoReport = "u32 u32 u32 u32"
 
         /**
          * Pack format for 'set_session' register data.
          */
-        SetSession = "u32",
+        export const SetSession = "u32"
 
         /**
          * Pack format for 'set_session' register data.
          */
-        SetSessionReport = "u32",
+        export const SetSessionReport = "u32"
 
         /**
          * Pack format for 'page_data' register data.
          */
-        PageData = "u32 u16 u8 u8 u32 u32 u32 u32 u32 b[208]",
+        export const PageData = "u32 u16 u8 u8 u32 u32 u32 u32 u32 b[208]"
 
         /**
          * Pack format for 'page_data' register data.
          */
-        PageDataReport = "u32 u32 u32",
+        export const PageDataReport = "u32 u32 u32"
     }
 }

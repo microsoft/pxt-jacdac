@@ -18,17 +18,17 @@ namespace modules {
         private readonly _responseSpeed : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SERVO, role, jacdac.ServoRegPack.CurrentAngle));
+            super(jacdac.SRV_SERVO, role, jacdac.ServoRegPack.CurrentAngle)
 
-            this._angle = this.addRegister<[number]>(jacdac.ServoReg.Angle, jacdac.ServoRegPack.Angle);
-            this._enabled = this.addRegister<[boolean]>(jacdac.ServoReg.Enabled, jacdac.ServoRegPack.Enabled);
-            this._offset = this.addRegister<[number]>(jacdac.ServoReg.Offset, jacdac.ServoRegPack.Offset);
-            this._minAngle = this.addRegister<[number]>(jacdac.ServoReg.MinAngle, jacdac.ServoRegPack.MinAngle);
-            this._minPulse = this.addRegister<[number]>(jacdac.ServoReg.MinPulse, jacdac.ServoRegPack.MinPulse);
-            this._maxAngle = this.addRegister<[number]>(jacdac.ServoReg.MaxAngle, jacdac.ServoRegPack.MaxAngle);
-            this._maxPulse = this.addRegister<[number]>(jacdac.ServoReg.MaxPulse, jacdac.ServoRegPack.MaxPulse);
-            this._stallTorque = this.addRegister<[number]>(jacdac.ServoReg.StallTorque, jacdac.ServoRegPack.StallTorque);
-            this._responseSpeed = this.addRegister<[number]>(jacdac.ServoReg.ResponseSpeed, jacdac.ServoRegPack.ResponseSpeed);            
+            this._angle = this.addRegister<[number]>(jacdac.ServoReg.Angle, jacdac.ServoRegPack.Angle)
+            this._enabled = this.addRegister<[boolean]>(jacdac.ServoReg.Enabled, jacdac.ServoRegPack.Enabled)
+            this._offset = this.addRegister<[number]>(jacdac.ServoReg.Offset, jacdac.ServoRegPack.Offset)
+            this._minAngle = this.addRegister<[number]>(jacdac.ServoReg.MinAngle, jacdac.ServoRegPack.MinAngle)
+            this._minPulse = this.addRegister<[number]>(jacdac.ServoReg.MinPulse, jacdac.ServoRegPack.MinPulse)
+            this._maxAngle = this.addRegister<[number]>(jacdac.ServoReg.MaxAngle, jacdac.ServoRegPack.MaxAngle)
+            this._maxPulse = this.addRegister<[number]>(jacdac.ServoReg.MaxPulse, jacdac.ServoRegPack.MaxPulse)
+            this._stallTorque = this.addRegister<[number]>(jacdac.ServoReg.StallTorque, jacdac.ServoRegPack.StallTorque)
+            this._responseSpeed = this.addRegister<[number]>(jacdac.ServoReg.ResponseSpeed, jacdac.ServoRegPack.ResponseSpeed)            
         }
     
 

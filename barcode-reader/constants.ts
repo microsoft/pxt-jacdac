@@ -51,16 +51,16 @@ namespace jacdac {
         Formats = 0x180,
     }
 
-    export const enum BarcodeReaderRegPack {
+    export namespace BarcodeReaderRegPack {
         /**
          * Pack format for 'enabled' register data.
          */
-        Enabled = "u8",
+        export const Enabled = "u8"
 
         /**
          * Pack format for 'formats' register data.
          */
-        Formats = "r: u8",
+        export const Formats = "r: u8"
     }
 
     export const enum BarcodeReaderEvent {
@@ -76,10 +76,10 @@ namespace jacdac {
         Detect = 0x1,
     }
 
-    export const enum BarcodeReaderEventPack {
+    export namespace BarcodeReaderEventPack {
         /**
          * Pack format for 'detect' register data.
          */
-        Detect = "u8 s",
+        export const Detect = "u8 s"
     }
 }

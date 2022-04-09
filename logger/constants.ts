@@ -30,11 +30,11 @@ namespace jacdac {
         MinPriority = 0x80,
     }
 
-    export const enum LoggerRegPack {
+    export namespace LoggerRegPack {
         /**
          * Pack format for 'min_priority' register data.
          */
-        MinPriority = "u8",
+        export const MinPriority = "u8"
     }
 
     export const enum LoggerCmd {
@@ -75,25 +75,25 @@ namespace jacdac {
         Error = 0x83,
     }
 
-    export const enum LoggerCmdPack {
+    export namespace LoggerCmdPack {
         /**
          * Pack format for 'debug' register data.
          */
-        Debug = "s",
+        export const Debug = "s"
 
         /**
          * Pack format for 'log' register data.
          */
-        Log = "s",
+        export const Log = "s"
 
         /**
          * Pack format for 'warn' register data.
          */
-        Warn = "s",
+        export const Warn = "s"
 
         /**
          * Pack format for 'error' register data.
          */
-        Error = "s",
+        export const Error = "s"
     }
 }

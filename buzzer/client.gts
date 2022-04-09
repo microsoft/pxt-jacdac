@@ -8,9 +8,9 @@ namespace modules {
         private readonly _volume : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_BUZZER, role);
+            super(jacdac.SRV_BUZZER, role)
 
-            this._volume = this.addRegister<[number]>(jacdac.BuzzerReg.Volume, jacdac.BuzzerRegPack.Volume);            
+            this._volume = this.addRegister<[number]>(jacdac.BuzzerReg.Volume, jacdac.BuzzerRegPack.Volume)            
         }
     
 

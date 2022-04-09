@@ -8,9 +8,9 @@ namespace modules {
         private readonly _enabled : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_DMX, role);
+            super(jacdac.SRV_DMX, role)
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.DmxReg.Enabled, jacdac.DmxRegPack.Enabled);            
+            this._enabled = this.addRegister<[boolean]>(jacdac.DmxReg.Enabled, jacdac.DmxRegPack.Enabled)            
         }
     
 

@@ -11,12 +11,12 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.MatrixKeypadVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MATRIX_KEYPAD, role, jacdac.MatrixKeypadRegPack.Pressed));
+            super(jacdac.SRV_MATRIX_KEYPAD, role, jacdac.MatrixKeypadRegPack.Pressed)
 
-            this._rows = this.addRegister<[number]>(jacdac.MatrixKeypadReg.Rows, jacdac.MatrixKeypadRegPack.Rows);
-            this._columns = this.addRegister<[number]>(jacdac.MatrixKeypadReg.Columns, jacdac.MatrixKeypadRegPack.Columns);
-            this._labels = this.addRegister<[string[]]>(jacdac.MatrixKeypadReg.Labels, jacdac.MatrixKeypadRegPack.Labels);
-            this._variant = this.addRegister<[jacdac.MatrixKeypadVariant]>(jacdac.MatrixKeypadReg.Variant, jacdac.MatrixKeypadRegPack.Variant);            
+            this._rows = this.addRegister<[number]>(jacdac.MatrixKeypadReg.Rows, jacdac.MatrixKeypadRegPack.Rows)
+            this._columns = this.addRegister<[number]>(jacdac.MatrixKeypadReg.Columns, jacdac.MatrixKeypadRegPack.Columns)
+            this._labels = this.addRegister<[string[]]>(jacdac.MatrixKeypadReg.Labels, jacdac.MatrixKeypadRegPack.Labels)
+            this._variant = this.addRegister<[jacdac.MatrixKeypadVariant]>(jacdac.MatrixKeypadReg.Variant, jacdac.MatrixKeypadRegPack.Variant)            
         }
     
 

@@ -39,26 +39,26 @@ namespace jacdac {
         FrequencyBand = 0x82,
     }
 
-    export const enum BitRadioRegPack {
+    export namespace BitRadioRegPack {
         /**
          * Pack format for 'enabled' register data.
          */
-        Enabled = "u8",
+        export const Enabled = "u8"
 
         /**
          * Pack format for 'group' register data.
          */
-        Group = "u8",
+        export const Group = "u8"
 
         /**
          * Pack format for 'transmission_power' register data.
          */
-        TransmissionPower = "u8",
+        export const TransmissionPower = "u8"
 
         /**
          * Pack format for 'frequency_band' register data.
          */
-        FrequencyBand = "u8",
+        export const FrequencyBand = "u8"
     }
 
     export const enum BitRadioCmd {
@@ -126,40 +126,40 @@ namespace jacdac {
         BufferReceived = 0x92,
     }
 
-    export const enum BitRadioCmdPack {
+    export namespace BitRadioCmdPack {
         /**
          * Pack format for 'send_string' register data.
          */
-        SendString = "s",
+        export const SendString = "s"
 
         /**
          * Pack format for 'send_number' register data.
          */
-        SendNumber = "f64",
+        export const SendNumber = "f64"
 
         /**
          * Pack format for 'send_value' register data.
          */
-        SendValue = "f64 s",
+        export const SendValue = "f64 s"
 
         /**
          * Pack format for 'send_buffer' register data.
          */
-        SendBuffer = "b",
+        export const SendBuffer = "b"
 
         /**
          * Pack format for 'string_received' register data.
          */
-        StringReceived = "u32 u32 i8 b[1] s",
+        export const StringReceived = "u32 u32 i8 b[1] s"
 
         /**
          * Pack format for 'number_received' register data.
          */
-        NumberReceived = "u32 u32 i8 b[3] f64 s",
+        export const NumberReceived = "u32 u32 i8 b[3] f64 s"
 
         /**
          * Pack format for 'buffer_received' register data.
          */
-        BufferReceived = "u32 u32 i8 b[1] b",
+        export const BufferReceived = "u32 u32 i8 b[1] b"
     }
 }

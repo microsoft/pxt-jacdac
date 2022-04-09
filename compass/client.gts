@@ -9,10 +9,10 @@ namespace modules {
         private readonly _headingError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_COMPASS, role, jacdac.CompassRegPack.Heading));
+            super(jacdac.SRV_COMPASS, role, jacdac.CompassRegPack.Heading)
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.CompassReg.Enabled, jacdac.CompassRegPack.Enabled);
-            this._headingError = this.addRegister<[number]>(jacdac.CompassReg.HeadingError, jacdac.CompassRegPack.HeadingError);            
+            this._enabled = this.addRegister<[boolean]>(jacdac.CompassReg.Enabled, jacdac.CompassRegPack.Enabled)
+            this._headingError = this.addRegister<[number]>(jacdac.CompassReg.HeadingError, jacdac.CompassRegPack.HeadingError)            
         }
     
 

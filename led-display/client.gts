@@ -18,16 +18,16 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.LedDisplayVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_LED_DISPLAY, role);
+            super(jacdac.SRV_LED_DISPLAY, role)
 
-            this._pixels = this.addRegister<[Buffer]>(jacdac.LedDisplayReg.Pixels, jacdac.LedDisplayRegPack.Pixels);
-            this._brightness = this.addRegister<[number]>(jacdac.LedDisplayReg.Brightness, jacdac.LedDisplayRegPack.Brightness);
-            this._actualBrightness = this.addRegister<[number]>(jacdac.LedDisplayReg.ActualBrightness, jacdac.LedDisplayRegPack.ActualBrightness);
-            this._lightType = this.addRegister<[jacdac.LedDisplayLightType]>(jacdac.LedDisplayReg.LightType, jacdac.LedDisplayRegPack.LightType);
-            this._numPixels = this.addRegister<[number]>(jacdac.LedDisplayReg.NumPixels, jacdac.LedDisplayRegPack.NumPixels);
-            this._numColumns = this.addRegister<[number]>(jacdac.LedDisplayReg.NumColumns, jacdac.LedDisplayRegPack.NumColumns);
-            this._maxPower = this.addRegister<[number]>(jacdac.LedDisplayReg.MaxPower, jacdac.LedDisplayRegPack.MaxPower);
-            this._variant = this.addRegister<[jacdac.LedDisplayVariant]>(jacdac.LedDisplayReg.Variant, jacdac.LedDisplayRegPack.Variant);            
+            this._pixels = this.addRegister<[Buffer]>(jacdac.LedDisplayReg.Pixels, jacdac.LedDisplayRegPack.Pixels)
+            this._brightness = this.addRegister<[number]>(jacdac.LedDisplayReg.Brightness, jacdac.LedDisplayRegPack.Brightness)
+            this._actualBrightness = this.addRegister<[number]>(jacdac.LedDisplayReg.ActualBrightness, jacdac.LedDisplayRegPack.ActualBrightness)
+            this._lightType = this.addRegister<[jacdac.LedDisplayLightType]>(jacdac.LedDisplayReg.LightType, jacdac.LedDisplayRegPack.LightType)
+            this._numPixels = this.addRegister<[number]>(jacdac.LedDisplayReg.NumPixels, jacdac.LedDisplayRegPack.NumPixels)
+            this._numColumns = this.addRegister<[number]>(jacdac.LedDisplayReg.NumColumns, jacdac.LedDisplayRegPack.NumColumns)
+            this._maxPower = this.addRegister<[number]>(jacdac.LedDisplayReg.MaxPower, jacdac.LedDisplayRegPack.MaxPower)
+            this._variant = this.addRegister<[jacdac.LedDisplayVariant]>(jacdac.LedDisplayReg.Variant, jacdac.LedDisplayRegPack.Variant)            
         }
     
 

@@ -39,25 +39,25 @@ namespace jacdac {
         MaximumVoltage = 0x111,
     }
 
-    export const enum PowerSupplyRegPack {
+    export namespace PowerSupplyRegPack {
         /**
          * Pack format for 'enabled' register data.
          */
-        Enabled = "u8",
+        export const Enabled = "u8"
 
         /**
          * Pack format for 'output_voltage' register data.
          */
-        OutputVoltage = "f64",
+        export const OutputVoltage = "f64"
 
         /**
          * Pack format for 'minimum_voltage' register data.
          */
-        MinimumVoltage = "f64",
+        export const MinimumVoltage = "f64"
 
         /**
          * Pack format for 'maximum_voltage' register data.
          */
-        MaximumVoltage = "f64",
+        export const MaximumVoltage = "f64"
     }
 }

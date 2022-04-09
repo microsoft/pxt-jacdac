@@ -16,17 +16,17 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.LedStripVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_LED_STRIP, role);
+            super(jacdac.SRV_LED_STRIP, role)
 
-            this._brightness = this.addRegister<[number]>(jacdac.LedStripReg.Brightness, jacdac.LedStripRegPack.Brightness);
-            this._actualBrightness = this.addRegister<[number]>(jacdac.LedStripReg.ActualBrightness, jacdac.LedStripRegPack.ActualBrightness);
-            this._lightType = this.addRegister<[jacdac.LedStripLightType]>(jacdac.LedStripReg.LightType, jacdac.LedStripRegPack.LightType);
-            this._numPixels = this.addRegister<[number]>(jacdac.LedStripReg.NumPixels, jacdac.LedStripRegPack.NumPixels);
-            this._numColumns = this.addRegister<[number]>(jacdac.LedStripReg.NumColumns, jacdac.LedStripRegPack.NumColumns);
-            this._maxPower = this.addRegister<[number]>(jacdac.LedStripReg.MaxPower, jacdac.LedStripRegPack.MaxPower);
-            this._maxPixels = this.addRegister<[number]>(jacdac.LedStripReg.MaxPixels, jacdac.LedStripRegPack.MaxPixels);
-            this._numRepeats = this.addRegister<[number]>(jacdac.LedStripReg.NumRepeats, jacdac.LedStripRegPack.NumRepeats);
-            this._variant = this.addRegister<[jacdac.LedStripVariant]>(jacdac.LedStripReg.Variant, jacdac.LedStripRegPack.Variant);            
+            this._brightness = this.addRegister<[number]>(jacdac.LedStripReg.Brightness, jacdac.LedStripRegPack.Brightness)
+            this._actualBrightness = this.addRegister<[number]>(jacdac.LedStripReg.ActualBrightness, jacdac.LedStripRegPack.ActualBrightness)
+            this._lightType = this.addRegister<[jacdac.LedStripLightType]>(jacdac.LedStripReg.LightType, jacdac.LedStripRegPack.LightType)
+            this._numPixels = this.addRegister<[number]>(jacdac.LedStripReg.NumPixels, jacdac.LedStripRegPack.NumPixels)
+            this._numColumns = this.addRegister<[number]>(jacdac.LedStripReg.NumColumns, jacdac.LedStripRegPack.NumColumns)
+            this._maxPower = this.addRegister<[number]>(jacdac.LedStripReg.MaxPower, jacdac.LedStripRegPack.MaxPower)
+            this._maxPixels = this.addRegister<[number]>(jacdac.LedStripReg.MaxPixels, jacdac.LedStripRegPack.MaxPixels)
+            this._numRepeats = this.addRegister<[number]>(jacdac.LedStripReg.NumRepeats, jacdac.LedStripRegPack.NumRepeats)
+            this._variant = this.addRegister<[jacdac.LedStripVariant]>(jacdac.LedStripReg.Variant, jacdac.LedStripRegPack.Variant)            
         }
     
 

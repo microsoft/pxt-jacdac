@@ -47,16 +47,16 @@ namespace jacdac {
         AvailableButtons = 0x180,
     }
 
-    export const enum ArcadeGamepadRegPack {
+    export namespace ArcadeGamepadRegPack {
         /**
          * Pack format for 'buttons' register data.
          */
-        Buttons = "r: u8 u0.8",
+        export const Buttons = "r: u8 u0.8"
 
         /**
          * Pack format for 'available_buttons' register data.
          */
-        AvailableButtons = "r: u8",
+        export const AvailableButtons = "r: u8"
     }
 
     export const enum ArcadeGamepadEvent {
@@ -81,15 +81,15 @@ namespace jacdac {
         Up = 0x2,
     }
 
-    export const enum ArcadeGamepadEventPack {
+    export namespace ArcadeGamepadEventPack {
         /**
          * Pack format for 'down' register data.
          */
-        Down = "u8",
+        export const Down = "u8"
 
         /**
          * Pack format for 'up' register data.
          */
-        Up = "u8",
+        export const Up = "u8"
     }
 }

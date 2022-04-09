@@ -118,51 +118,51 @@ namespace jacdac {
         Variant = 0x107,
     }
 
-    export const enum LedStripRegPack {
+    export namespace LedStripRegPack {
         /**
          * Pack format for 'brightness' register data.
          */
-        Brightness = "u0.8",
+        export const Brightness = "u0.8"
 
         /**
          * Pack format for 'actual_brightness' register data.
          */
-        ActualBrightness = "u0.8",
+        export const ActualBrightness = "u0.8"
 
         /**
          * Pack format for 'light_type' register data.
          */
-        LightType = "u8",
+        export const LightType = "u8"
 
         /**
          * Pack format for 'num_pixels' register data.
          */
-        NumPixels = "u16",
+        export const NumPixels = "u16"
 
         /**
          * Pack format for 'num_columns' register data.
          */
-        NumColumns = "u16",
+        export const NumColumns = "u16"
 
         /**
          * Pack format for 'max_power' register data.
          */
-        MaxPower = "u16",
+        export const MaxPower = "u16"
 
         /**
          * Pack format for 'max_pixels' register data.
          */
-        MaxPixels = "u16",
+        export const MaxPixels = "u16"
 
         /**
          * Pack format for 'num_repeats' register data.
          */
-        NumRepeats = "u16",
+        export const NumRepeats = "u16"
 
         /**
          * Pack format for 'variant' register data.
          */
-        Variant = "u8",
+        export const Variant = "u8"
     }
 
     export const enum LedStripCmd {
@@ -176,10 +176,10 @@ namespace jacdac {
         Run = 0x81,
     }
 
-    export const enum LedStripCmdPack {
+    export namespace LedStripCmdPack {
         /**
          * Pack format for 'run' register data.
          */
-        Run = "b",
+        export const Run = "b"
     }
 }

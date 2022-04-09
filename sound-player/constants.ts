@@ -12,11 +12,11 @@ namespace jacdac {
         Volume = 0x1,
     }
 
-    export const enum SoundPlayerRegPack {
+    export namespace SoundPlayerRegPack {
         /**
          * Pack format for 'volume' register data.
          */
-        Volume = "u0.16",
+        export const Volume = "u0.16"
     }
 
     export const enum SoundPlayerCmd {
@@ -44,16 +44,16 @@ namespace jacdac {
         ListSounds = 0x82,
     }
 
-    export const enum SoundPlayerCmdPack {
+    export namespace SoundPlayerCmdPack {
         /**
          * Pack format for 'play' register data.
          */
-        Play = "s",
+        export const Play = "s"
 
         /**
          * Pack format for 'list_sounds' register data.
          */
-        ListSounds = "b[12]",
+        export const ListSounds = "b[12]"
     }
 
     /**
@@ -63,10 +63,10 @@ namespace jacdac {
      * ```
      */
 
-    export const enum SoundPlayerinfoPack {
+    export namespace SoundPlayerinfoPack {
         /**
          * Pack format for 'list_sounds_pipe' register data.
          */
-        ListSoundsPipe = "u32 s",
+        export const ListSoundsPipe = "u32 s"
     }
 }

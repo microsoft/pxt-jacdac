@@ -55,20 +55,20 @@ namespace jacdac {
         Wheel = 0x82,
     }
 
-    export const enum HidMouseCmdPack {
+    export namespace HidMouseCmdPack {
         /**
          * Pack format for 'set_button' register data.
          */
-        SetButton = "u16 u8",
+        export const SetButton = "u16 u8"
 
         /**
          * Pack format for 'move' register data.
          */
-        Move = "i16 i16 u16",
+        export const Move = "i16 i16 u16"
 
         /**
          * Pack format for 'wheel' register data.
          */
-        Wheel = "i16 u16",
+        export const Wheel = "i16 u16"
     }
 }

@@ -12,11 +12,11 @@ namespace jacdac {
         Play = 0x80,
     }
 
-    export const enum ArcadeSoundCmdPack {
+    export namespace ArcadeSoundCmdPack {
         /**
          * Pack format for 'play' register data.
          */
-        Play = "b",
+        export const Play = "b"
     }
 
     export const enum ArcadeSoundReg {
@@ -52,20 +52,20 @@ namespace jacdac {
         BufferPending = 0x181,
     }
 
-    export const enum ArcadeSoundRegPack {
+    export namespace ArcadeSoundRegPack {
         /**
          * Pack format for 'sample_rate' register data.
          */
-        SampleRate = "u22.10",
+        export const SampleRate = "u22.10"
 
         /**
          * Pack format for 'buffer_size' register data.
          */
-        BufferSize = "u32",
+        export const BufferSize = "u32"
 
         /**
          * Pack format for 'buffer_pending' register data.
          */
-        BufferPending = "u32",
+        export const BufferPending = "u32"
     }
 }

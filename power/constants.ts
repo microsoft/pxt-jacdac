@@ -105,51 +105,51 @@ namespace jacdac {
         KeepOnPulsePeriod = 0x81,
     }
 
-    export const enum PowerRegPack {
+    export namespace PowerRegPack {
         /**
          * Pack format for 'allowed' register data.
          */
-        Allowed = "u8",
+        export const Allowed = "u8"
 
         /**
          * Pack format for 'max_power' register data.
          */
-        MaxPower = "u16",
+        export const MaxPower = "u16"
 
         /**
          * Pack format for 'power_status' register data.
          */
-        PowerStatus = "u8",
+        export const PowerStatus = "u8"
 
         /**
          * Pack format for 'current_draw' register data.
          */
-        CurrentDraw = "u16",
+        export const CurrentDraw = "u16"
 
         /**
          * Pack format for 'battery_voltage' register data.
          */
-        BatteryVoltage = "u16",
+        export const BatteryVoltage = "u16"
 
         /**
          * Pack format for 'battery_charge' register data.
          */
-        BatteryCharge = "u0.16",
+        export const BatteryCharge = "u0.16"
 
         /**
          * Pack format for 'battery_capacity' register data.
          */
-        BatteryCapacity = "u32",
+        export const BatteryCapacity = "u32"
 
         /**
          * Pack format for 'keep_on_pulse_duration' register data.
          */
-        KeepOnPulseDuration = "u16",
+        export const KeepOnPulseDuration = "u16"
 
         /**
          * Pack format for 'keep_on_pulse_period' register data.
          */
-        KeepOnPulsePeriod = "u16",
+        export const KeepOnPulsePeriod = "u16"
     }
 
     export const enum PowerCmd {
@@ -171,10 +171,10 @@ namespace jacdac {
         PowerStatusChanged = 0x3,
     }
 
-    export const enum PowerEventPack {
+    export namespace PowerEventPack {
         /**
          * Pack format for 'power_status_changed' register data.
          */
-        PowerStatusChanged = "u8",
+        export const PowerStatusChanged = "u8"
     }
 }

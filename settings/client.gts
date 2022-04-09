@@ -7,7 +7,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_SETTINGS, role);
+            super(jacdac.SRV_SETTINGS, role)
             
         }
     

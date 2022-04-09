@@ -10,11 +10,11 @@ namespace modules {
         private readonly _maxHumidity : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_HUMIDITY, role, jacdac.HumidityRegPack.Humidity));
+            super(jacdac.SRV_HUMIDITY, role, jacdac.HumidityRegPack.Humidity)
 
-            this._humidityError = this.addRegister<[number]>(jacdac.HumidityReg.HumidityError, jacdac.HumidityRegPack.HumidityError);
-            this._minHumidity = this.addRegister<[number]>(jacdac.HumidityReg.MinHumidity, jacdac.HumidityRegPack.MinHumidity);
-            this._maxHumidity = this.addRegister<[number]>(jacdac.HumidityReg.MaxHumidity, jacdac.HumidityRegPack.MaxHumidity);            
+            this._humidityError = this.addRegister<[number]>(jacdac.HumidityReg.HumidityError, jacdac.HumidityRegPack.HumidityError)
+            this._minHumidity = this.addRegister<[number]>(jacdac.HumidityReg.MinHumidity, jacdac.HumidityRegPack.MinHumidity)
+            this._maxHumidity = this.addRegister<[number]>(jacdac.HumidityReg.MaxHumidity, jacdac.HumidityRegPack.MaxHumidity)            
         }
     
 

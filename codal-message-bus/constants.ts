@@ -12,11 +12,11 @@ namespace jacdac {
         Send = 0x80,
     }
 
-    export const enum CodalMessageBusCmdPack {
+    export namespace CodalMessageBusCmdPack {
         /**
          * Pack format for 'send' register data.
          */
-        Send = "u16 u16",
+        export const Send = "u16 u16"
     }
 
     export const enum CodalMessageBusEvent {
@@ -31,10 +31,10 @@ namespace jacdac {
         Message = 0x80,
     }
 
-    export const enum CodalMessageBusEventPack {
+    export namespace CodalMessageBusEventPack {
         /**
          * Pack format for 'message' register data.
          */
-        Message = "u16 u16",
+        export const Message = "u16 u16"
     }
 }

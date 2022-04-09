@@ -12,13 +12,13 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.DotMatrixVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_DOT_MATRIX, role);
+            super(jacdac.SRV_DOT_MATRIX, role)
 
-            this._dots = this.addRegister<[Buffer]>(jacdac.DotMatrixReg.Dots, jacdac.DotMatrixRegPack.Dots);
-            this._brightness = this.addRegister<[number]>(jacdac.DotMatrixReg.Brightness, jacdac.DotMatrixRegPack.Brightness);
-            this._rows = this.addRegister<[number]>(jacdac.DotMatrixReg.Rows, jacdac.DotMatrixRegPack.Rows);
-            this._columns = this.addRegister<[number]>(jacdac.DotMatrixReg.Columns, jacdac.DotMatrixRegPack.Columns);
-            this._variant = this.addRegister<[jacdac.DotMatrixVariant]>(jacdac.DotMatrixReg.Variant, jacdac.DotMatrixRegPack.Variant);            
+            this._dots = this.addRegister<[Buffer]>(jacdac.DotMatrixReg.Dots, jacdac.DotMatrixRegPack.Dots)
+            this._brightness = this.addRegister<[number]>(jacdac.DotMatrixReg.Brightness, jacdac.DotMatrixRegPack.Brightness)
+            this._rows = this.addRegister<[number]>(jacdac.DotMatrixReg.Rows, jacdac.DotMatrixRegPack.Rows)
+            this._columns = this.addRegister<[number]>(jacdac.DotMatrixReg.Columns, jacdac.DotMatrixRegPack.Columns)
+            this._variant = this.addRegister<[jacdac.DotMatrixVariant]>(jacdac.DotMatrixReg.Variant, jacdac.DotMatrixRegPack.Variant)            
         }
     
 

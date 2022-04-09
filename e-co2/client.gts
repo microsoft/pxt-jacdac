@@ -11,12 +11,12 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.ECO2Variant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_E_CO2, role, jacdac.ECO2RegPack.ECO2));
+            super(jacdac.SRV_E_CO2, role, jacdac.ECO2RegPack.ECO2)
 
-            this._eCO2Error = this.addRegister<[number]>(jacdac.ECO2Reg.ECO2Error, jacdac.ECO2RegPack.ECO2Error);
-            this._minECO2 = this.addRegister<[number]>(jacdac.ECO2Reg.MinECO2, jacdac.ECO2RegPack.MinECO2);
-            this._maxECO2 = this.addRegister<[number]>(jacdac.ECO2Reg.MaxECO2, jacdac.ECO2RegPack.MaxECO2);
-            this._variant = this.addRegister<[jacdac.ECO2Variant]>(jacdac.ECO2Reg.Variant, jacdac.ECO2RegPack.Variant);            
+            this._eCO2Error = this.addRegister<[number]>(jacdac.ECO2Reg.ECO2Error, jacdac.ECO2RegPack.ECO2Error)
+            this._minECO2 = this.addRegister<[number]>(jacdac.ECO2Reg.MinECO2, jacdac.ECO2RegPack.MinECO2)
+            this._maxECO2 = this.addRegister<[number]>(jacdac.ECO2Reg.MaxECO2, jacdac.ECO2RegPack.MaxECO2)
+            this._variant = this.addRegister<[jacdac.ECO2Variant]>(jacdac.ECO2Reg.Variant, jacdac.ECO2RegPack.Variant)            
         }
     
 
