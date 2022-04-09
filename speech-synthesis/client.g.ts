@@ -15,23 +15,23 @@ namespace modules {
 
             this._enabled = this.addRegister<[boolean]>(
                 jacdac.SpeechSynthesisReg.Enabled,
-                "u8"
+                jacdac.SpeechSynthesisRegPack.Enabled
             )
             this._lang = this.addRegister<[string]>(
                 jacdac.SpeechSynthesisReg.Lang,
-                "s"
+                jacdac.SpeechSynthesisRegPack.Lang
             )
             this._volume = this.addRegister<[number]>(
                 jacdac.SpeechSynthesisReg.Volume,
-                "u0.8"
+                jacdac.SpeechSynthesisRegPack.Volume
             )
             this._pitch = this.addRegister<[number]>(
                 jacdac.SpeechSynthesisReg.Pitch,
-                "u16.16"
+                jacdac.SpeechSynthesisRegPack.Pitch
             )
             this._rate = this.addRegister<[number]>(
                 jacdac.SpeechSynthesisReg.Rate,
-                "u16.16"
+                jacdac.SpeechSynthesisRegPack.Rate
             )
         }
 
@@ -198,7 +198,7 @@ namespace modules {
             )
         }
     }
-    //% fixedInstance whenUsed weight=1 block="speech synthesis 1"
+    //% fixedInstance whenUsed weight=1 block="speech synthesis1"
     export const speechSynthesis1 = new SpeechSynthesisClient(
         "speech Synthesis1"
     )

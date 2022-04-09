@@ -7,11 +7,15 @@ namespace modules {
         private readonly _pressureError: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_AIR_PRESSURE, role, "u22.10")
+            super(
+                jacdac.SRV_AIR_PRESSURE,
+                role,
+                jacdac.AirPressureRegPack.Pressure
+            )
 
             this._pressureError = this.addRegister<[number]>(
                 jacdac.AirPressureReg.PressureError,
-                "u22.10"
+                jacdac.AirPressureRegPack.PressureError
             )
         }
 

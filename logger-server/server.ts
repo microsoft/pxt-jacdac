@@ -32,8 +32,8 @@ namespace jacdac {
                         (console.minPriority as number) >
                         (this.minPriority as number)
                     )
-                        console.minPriority = this
-                            .minPriority as number as ConsolePriority
+                        console.minPriority = (this
+                            .minPriority as number) as ConsolePriority
                     break
                 }
                 default:

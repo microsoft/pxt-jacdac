@@ -15,35 +15,39 @@ namespace modules {
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_WEIGHT_SCALE, role, "u16.16")
+            super(
+                jacdac.SRV_WEIGHT_SCALE,
+                role,
+                jacdac.WeightScaleRegPack.Weight
+            )
 
             this._weightError = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.WeightError,
-                "u16.16"
+                jacdac.WeightScaleRegPack.WeightError
             )
             this._zeroOffset = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.ZeroOffset,
-                "u16.16"
+                jacdac.WeightScaleRegPack.ZeroOffset
             )
             this._gain = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.Gain,
-                "u16.16"
+                jacdac.WeightScaleRegPack.Gain
             )
             this._maxWeight = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.MaxWeight,
-                "u16.16"
+                jacdac.WeightScaleRegPack.MaxWeight
             )
             this._minWeight = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.MinWeight,
-                "u16.16"
+                jacdac.WeightScaleRegPack.MinWeight
             )
             this._weightResolution = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.WeightResolution,
-                "u16.16"
+                jacdac.WeightScaleRegPack.WeightResolution
             )
             this._variant = this.addRegister<[jacdac.WeightScaleVariant]>(
                 jacdac.WeightScaleReg.Variant,
-                "u8"
+                jacdac.WeightScaleRegPack.Variant
             )
         }
 
@@ -216,6 +220,6 @@ namespace modules {
             )
         }
     }
-    //% fixedInstance whenUsed weight=1 block="weight scale 1"
+    //% fixedInstance whenUsed weight=1 block="weight scale1"
     export const weightScale1 = new WeightScaleClient("weight Scale1")
 }

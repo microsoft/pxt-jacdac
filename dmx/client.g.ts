@@ -11,12 +11,12 @@ namespace modules {
 
             this._enabled = this.addRegister<[boolean]>(
                 jacdac.DmxReg.Enabled,
-                "u8"
+                jacdac.DmxRegPack.Enabled
             )
         }
 
         /**
-         * Determines if the DMX bridge is active
+         * Determines if the DMX bridge is active.
          */
         //% callInDebugger
         //% group="DMX"
@@ -30,7 +30,7 @@ namespace modules {
         }
 
         /**
-         * Determines if the DMX bridge is active
+         * Determines if the DMX bridge is active.
          */
         //% group="DMX"
         //% blockId=jacdac_dmx_enabled___set
@@ -48,7 +48,7 @@ namespace modules {
          */
         //% group="DMX"
         //% blockId=jacdac_dmx_send_cmd
-        //% block="%dmx send"
+        //% block="%dmx send $channels"
         //% weight=98
         send(channels: Buffer): void {
             this.start()

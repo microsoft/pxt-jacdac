@@ -19,15 +19,15 @@ namespace modules {
 
             this._active = this.addRegister<[boolean]>(
                 jacdac.RelayReg.Active,
-                "u8"
+                jacdac.RelayRegPack.Active
             )
             this._variant = this.addRegister<[jacdac.RelayVariant]>(
                 jacdac.RelayReg.Variant,
-                "u8"
+                jacdac.RelayRegPack.Variant
             )
             this._maxSwitchingCurrent = this.addRegister<[number]>(
                 jacdac.RelayReg.MaxSwitchingCurrent,
-                "u32"
+                jacdac.RelayRegPack.MaxSwitchingCurrent
             )
         }
 

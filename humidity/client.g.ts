@@ -9,19 +9,19 @@ namespace modules {
         private readonly _maxHumidity: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_HUMIDITY, role, "u22.10")
+            super(jacdac.SRV_HUMIDITY, role, jacdac.HumidityRegPack.Humidity)
 
             this._humidityError = this.addRegister<[number]>(
                 jacdac.HumidityReg.HumidityError,
-                "u22.10"
+                jacdac.HumidityRegPack.HumidityError
             )
             this._minHumidity = this.addRegister<[number]>(
                 jacdac.HumidityReg.MinHumidity,
-                "u22.10"
+                jacdac.HumidityRegPack.MinHumidity
             )
             this._maxHumidity = this.addRegister<[number]>(
                 jacdac.HumidityReg.MaxHumidity,
-                "u22.10"
+                jacdac.HumidityRegPack.MaxHumidity
             )
         }
 
@@ -81,7 +81,6 @@ namespace modules {
         //% block="on %humidity humidity changed by %threshold"
         //% weight=96
         //% threshold.min=0
-        //% threshold.max=100
         //% threshold.defl=1
         onHumidityChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler)

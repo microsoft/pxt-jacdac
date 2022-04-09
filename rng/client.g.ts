@@ -13,10 +13,13 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_RNG, role)
 
-            this._random = this.addRegister<[Buffer]>(jacdac.RngReg.Random, "b")
+            this._random = this.addRegister<[Buffer]>(
+                jacdac.RngReg.Random,
+                jacdac.RngRegPack.Random
+            )
             this._variant = this.addRegister<[jacdac.RngVariant]>(
                 jacdac.RngReg.Variant,
-                "u8"
+                jacdac.RngRegPack.Variant
             )
         }
 

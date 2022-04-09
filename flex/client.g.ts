@@ -7,11 +7,11 @@ namespace modules {
         private readonly _length: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_FLEX, role, "i1.15")
+            super(jacdac.SRV_FLEX, role, jacdac.FlexRegPack.Bending)
 
             this._length = this.addRegister<[number]>(
                 jacdac.FlexReg.Length,
-                "u16"
+                jacdac.FlexRegPack.Length
             )
         }
 

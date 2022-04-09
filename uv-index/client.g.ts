@@ -10,15 +10,15 @@ namespace modules {
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_UV_INDEX, role, "u16.16")
+            super(jacdac.SRV_UV_INDEX, role, jacdac.UvIndexRegPack.UvIndex)
 
             this._uvIndexError = this.addRegister<[number]>(
                 jacdac.UvIndexReg.UvIndexError,
-                "u16.16"
+                jacdac.UvIndexRegPack.UvIndexError
             )
             this._variant = this.addRegister<[jacdac.UvIndexVariant]>(
                 jacdac.UvIndexReg.Variant,
-                "u8"
+                jacdac.UvIndexRegPack.Variant
             )
         }
 
@@ -72,6 +72,6 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
-    //% fixedInstance whenUsed weight=1 block="uv index 1"
+    //% fixedInstance whenUsed weight=1 block="uv index1"
     export const uvIndex1 = new UvIndexClient("uv Index1")
 }
