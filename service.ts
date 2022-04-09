@@ -1,7 +1,7 @@
 namespace jacdac {
     export class BroadcastClient extends Client {
         // workaround for https://github.com/microsoft/pxt-arcade/issues/1831
-        constructor(public readonly parent: Broadcast, role: string) {
+        constructor(public readonly parent: BroadcastServer, role: string) {
             super(parent.serviceClass, role)
             this.broadcast = true
         }
@@ -11,11 +11,11 @@ namespace jacdac {
         }
     }
 
-    export class Broadcast extends Server {
+    export class BroadcastServer extends Server {
         readonly client: BroadcastClient
 
         constructor(name: string, serviceClass: number) {
-            super(name, serviceClass)
+            super(serviceClass)
             this.client = new BroadcastClient(this, name)
         }
 

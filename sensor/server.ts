@@ -13,11 +13,10 @@ namespace jacdac {
         readonly calibrate: () => void
 
         constructor(
-            name: string,
             serviceClass: number,
             options?: SensorServerOptions
         ) {
-            super(name, serviceClass, options)
+            super(serviceClass, options)
             options = options || {}
 
             this.streamingSamples = 0
@@ -165,13 +164,12 @@ namespace jacdac {
         private readingError?: () => number
 
         constructor(
-            name: string,
             serviceClass: number,
             packFormat: string,
             stateReader: () => number,
             options?: SimpleSensorServerOptions
         ) {
-            super(name, serviceClass, options)
+            super(serviceClass, options)
 
             this.packFormat = packFormat
             this.stateReader = stateReader
@@ -212,14 +210,12 @@ namespace jacdac {
     }
 
     export function createSimpleSensorServer(
-        name: string,
         serviceClass: number,
         packFormat: string,
         stateReader: () => number,
         options?: SimpleSensorServerOptions
     ): SensorServer {
         return new SimpleSensorServer(
-            name,
             serviceClass,
             packFormat,
             stateReader,

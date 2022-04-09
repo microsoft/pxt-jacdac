@@ -363,11 +363,13 @@ namespace jacdac {
     }
 
     export interface ServerOptions {
+        instanceName?: string
         variant?: number
     }
 
     //% fixedInstances
     export class Server extends EventSource {
+        readonly instanceName: string
         protected supressLog: boolean
         running: boolean
         serviceIndex: number
@@ -377,12 +379,12 @@ namespace jacdac {
         private variant?: number
 
         constructor(
-            public readonly instanceName: string,
             public readonly serviceClass: number,
             options?: ServerOptions
         ) {
             super()
 
+            this.instanceName = options ? options.instanceName : undefined
             this.variant = options ? options.variant : undefined
         }
 
@@ -1352,19 +1354,19 @@ namespace jacdac {
 
     class ProxyServer extends Server {
         constructor() {
-            super("proxy", SRV_PROXY)
+            super(SRV_PROXY)
         }
     }
 
     class BrainServer extends Server {
         constructor() {
-            super("brain", SRV_UNIQUE_BRAIN)
+            super(SRV_UNIQUE_BRAIN)
         }
     }
 
     export class ControlServer extends Server {
         constructor() {
-            super("ctrl", 0)
+            super(jacdac.SRV_CONTROL)
         }
 
         sendUptime() {

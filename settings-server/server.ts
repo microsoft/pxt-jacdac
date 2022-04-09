@@ -1,8 +1,8 @@
 namespace jacdac {
     export const SETTINGS_PREFIX = "jd:"
     export class SettingsServer extends Server {
-        constructor(name: string) {
-            super(name, jacdac.SRV_SETTINGS)
+        constructor() {
+            super(jacdac.SRV_SETTINGS)
         }
 
         handlePacket(packet: JDPacket) {
@@ -105,5 +105,5 @@ namespace jacdac {
         }
     }
     //% fixedInstance whenUsed weight=1 block="settings"
-    export const settingsServer = new SettingsServer("settings")
+    export const settingsServer = new SettingsServer()
 }

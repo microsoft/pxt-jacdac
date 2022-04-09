@@ -131,7 +131,7 @@ namespace jacdac._rolemgr {
         public autoBind = true
 
         constructor() {
-            super("", jacdac.SRV_ROLE_MANAGER)
+            super(jacdac.SRV_ROLE_MANAGER)
         }
 
         public handlePacket(packet: JDPacket) {
