@@ -10,7 +10,7 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_MICROPHONE, role);
 
-            this._samplingPeriod = this.addRegister<[number]>(jacdac.MicrophoneReg.SamplingPeriod, "u32");            
+            this._samplingPeriod = this.addRegister<[number]>(jacdac.MicrophoneReg.SamplingPeriod, jacdac.MicrophoneRegPack.SamplingPeriod);            
         }
     
 

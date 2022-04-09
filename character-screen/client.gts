@@ -15,12 +15,12 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_CHARACTER_SCREEN, role);
 
-            this._message = this.addRegister<[string]>(jacdac.CharacterScreenReg.Message, "s");
-            this._brightness = this.addRegister<[number]>(jacdac.CharacterScreenReg.Brightness, "u0.16");
-            this._variant = this.addRegister<[jacdac.CharacterScreenVariant]>(jacdac.CharacterScreenReg.Variant, "u8");
-            this._textDirection = this.addRegister<[jacdac.CharacterScreenTextDirection]>(jacdac.CharacterScreenReg.TextDirection, "u8");
-            this._rows = this.addRegister<[number]>(jacdac.CharacterScreenReg.Rows, "u8");
-            this._columns = this.addRegister<[number]>(jacdac.CharacterScreenReg.Columns, "u8");            
+            this._message = this.addRegister<[string]>(jacdac.CharacterScreenReg.Message, jacdac.CharacterScreenRegPack.Message);
+            this._brightness = this.addRegister<[number]>(jacdac.CharacterScreenReg.Brightness, jacdac.CharacterScreenRegPack.Brightness);
+            this._variant = this.addRegister<[jacdac.CharacterScreenVariant]>(jacdac.CharacterScreenReg.Variant, jacdac.CharacterScreenRegPack.Variant);
+            this._textDirection = this.addRegister<[jacdac.CharacterScreenTextDirection]>(jacdac.CharacterScreenReg.TextDirection, jacdac.CharacterScreenRegPack.TextDirection);
+            this._rows = this.addRegister<[number]>(jacdac.CharacterScreenReg.Rows, jacdac.CharacterScreenRegPack.Rows);
+            this._columns = this.addRegister<[number]>(jacdac.CharacterScreenReg.Columns, jacdac.CharacterScreenRegPack.Columns);            
         }
     
 

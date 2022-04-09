@@ -12,9 +12,9 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_SOUND_RECORDER_WITH_PLAYBACK, role);
 
-            this._status = this.addRegister<[jacdac.SoundRecorderWithPlaybackStatus]>(jacdac.SoundRecorderWithPlaybackReg.Status, "u8");
-            this._time = this.addRegister<[number]>(jacdac.SoundRecorderWithPlaybackReg.Time, "u16");
-            this._volume = this.addRegister<[number]>(jacdac.SoundRecorderWithPlaybackReg.Volume, "u0.8");            
+            this._status = this.addRegister<[jacdac.SoundRecorderWithPlaybackStatus]>(jacdac.SoundRecorderWithPlaybackReg.Status, jacdac.SoundRecorderWithPlaybackRegPack.Status);
+            this._time = this.addRegister<[number]>(jacdac.SoundRecorderWithPlaybackReg.Time, jacdac.SoundRecorderWithPlaybackRegPack.Time);
+            this._volume = this.addRegister<[number]>(jacdac.SoundRecorderWithPlaybackReg.Volume, jacdac.SoundRecorderWithPlaybackRegPack.Volume);            
         }
     
 

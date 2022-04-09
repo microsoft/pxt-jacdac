@@ -12,9 +12,9 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_AZURE_IOT_HUB_HEALTH, role);
 
-            this._hubName = this.addRegister<[string]>(jacdac.AzureIotHubHealthReg.HubName, "s");
-            this._hubDeviceId = this.addRegister<[string]>(jacdac.AzureIotHubHealthReg.HubDeviceId, "s");
-            this._connectionStatus = this.addRegister<[jacdac.AzureIotHubHealthConnectionStatus]>(jacdac.AzureIotHubHealthReg.ConnectionStatus, "u16");            
+            this._hubName = this.addRegister<[string]>(jacdac.AzureIotHubHealthReg.HubName, jacdac.AzureIotHubHealthRegPack.HubName);
+            this._hubDeviceId = this.addRegister<[string]>(jacdac.AzureIotHubHealthReg.HubDeviceId, jacdac.AzureIotHubHealthRegPack.HubDeviceId);
+            this._connectionStatus = this.addRegister<[jacdac.AzureIotHubHealthConnectionStatus]>(jacdac.AzureIotHubHealthReg.ConnectionStatus, jacdac.AzureIotHubHealthRegPack.ConnectionStatus);            
         }
     
 

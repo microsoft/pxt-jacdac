@@ -10,7 +10,7 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_SOUND_PLAYER, role);
 
-            this._volume = this.addRegister<[number]>(jacdac.SoundPlayerReg.Volume, "u0.16");            
+            this._volume = this.addRegister<[number]>(jacdac.SoundPlayerReg.Volume, jacdac.SoundPlayerRegPack.Volume);            
         }
     
 

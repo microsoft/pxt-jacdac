@@ -19,14 +19,14 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_INDEXED_SCREEN, role);
 
-            this._brightness = this.addRegister<[number]>(jacdac.IndexedScreenReg.Brightness, "u0.8");
-            this._palette = this.addRegister<[([number, number, number])[]]>(jacdac.IndexedScreenReg.Palette, "r: u8 u8 u8 u8");
-            this._bitsPerPixel = this.addRegister<[number]>(jacdac.IndexedScreenReg.BitsPerPixel, "u8");
-            this._width = this.addRegister<[number]>(jacdac.IndexedScreenReg.Width, "u16");
-            this._height = this.addRegister<[number]>(jacdac.IndexedScreenReg.Height, "u16");
-            this._widthMajor = this.addRegister<[boolean]>(jacdac.IndexedScreenReg.WidthMajor, "u8");
-            this._upSampling = this.addRegister<[number]>(jacdac.IndexedScreenReg.UpSampling, "u8");
-            this._rotation = this.addRegister<[number]>(jacdac.IndexedScreenReg.Rotation, "u16");            
+            this._brightness = this.addRegister<[number]>(jacdac.IndexedScreenReg.Brightness, jacdac.IndexedScreenRegPack.Brightness);
+            this._palette = this.addRegister<[([number, number, number])[]]>(jacdac.IndexedScreenReg.Palette, jacdac.IndexedScreenRegPack.Palette);
+            this._bitsPerPixel = this.addRegister<[number]>(jacdac.IndexedScreenReg.BitsPerPixel, jacdac.IndexedScreenRegPack.BitsPerPixel);
+            this._width = this.addRegister<[number]>(jacdac.IndexedScreenReg.Width, jacdac.IndexedScreenRegPack.Width);
+            this._height = this.addRegister<[number]>(jacdac.IndexedScreenReg.Height, jacdac.IndexedScreenRegPack.Height);
+            this._widthMajor = this.addRegister<[boolean]>(jacdac.IndexedScreenReg.WidthMajor, jacdac.IndexedScreenRegPack.WidthMajor);
+            this._upSampling = this.addRegister<[number]>(jacdac.IndexedScreenReg.UpSampling, jacdac.IndexedScreenRegPack.UpSampling);
+            this._rotation = this.addRegister<[number]>(jacdac.IndexedScreenReg.Rotation, jacdac.IndexedScreenRegPack.Rotation);            
         }
     
 

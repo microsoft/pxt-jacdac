@@ -12,12 +12,12 @@ namespace modules {
         private readonly _streamingSamples : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SENSOR_AGGREGATOR, role, "b");
+            super(jacdac.SRV_SENSOR_AGGREGATOR, role, jacdac.SensorAggregatorRegPack.CurrentSample));
 
-            this._inputs = this.addRegister<[number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]]>(jacdac.SensorAggregatorReg.Inputs, "u16 u16 u32 r: b[8] u32 u8 u8 u8 i8");
-            this._numSamples = this.addRegister<[number]>(jacdac.SensorAggregatorReg.NumSamples, "u32");
-            this._sampleSize = this.addRegister<[number]>(jacdac.SensorAggregatorReg.SampleSize, "u8");
-            this._streamingSamples = this.addRegister<[number]>(jacdac.SensorAggregatorReg.StreamingSamples, "u32");            
+            this._inputs = this.addRegister<[number,number,([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]]>(jacdac.SensorAggregatorReg.Inputs, jacdac.SensorAggregatorRegPack.Inputs);
+            this._numSamples = this.addRegister<[number]>(jacdac.SensorAggregatorReg.NumSamples, jacdac.SensorAggregatorRegPack.NumSamples);
+            this._sampleSize = this.addRegister<[number]>(jacdac.SensorAggregatorReg.SampleSize, jacdac.SensorAggregatorRegPack.SampleSize);
+            this._streamingSamples = this.addRegister<[number]>(jacdac.SensorAggregatorReg.StreamingSamples, jacdac.SensorAggregatorRegPack.StreamingSamples);            
         }
     
 

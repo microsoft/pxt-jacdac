@@ -15,16 +15,16 @@ namespace modules {
         private readonly _keepOnPulsePeriod : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_POWER, role, "u16");
+            super(jacdac.SRV_POWER, role, jacdac.PowerRegPack.CurrentDraw));
 
-            this._allowed = this.addRegister<[boolean]>(jacdac.PowerReg.Allowed, "u8");
-            this._maxPower = this.addRegister<[number]>(jacdac.PowerReg.MaxPower, "u16");
-            this._powerStatus = this.addRegister<[jacdac.PowerPowerStatus]>(jacdac.PowerReg.PowerStatus, "u8");
-            this._batteryVoltage = this.addRegister<[number]>(jacdac.PowerReg.BatteryVoltage, "u16");
-            this._batteryCharge = this.addRegister<[number]>(jacdac.PowerReg.BatteryCharge, "u0.16");
-            this._batteryCapacity = this.addRegister<[number]>(jacdac.PowerReg.BatteryCapacity, "u32");
-            this._keepOnPulseDuration = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulseDuration, "u16");
-            this._keepOnPulsePeriod = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulsePeriod, "u16");            
+            this._allowed = this.addRegister<[boolean]>(jacdac.PowerReg.Allowed, jacdac.PowerRegPack.Allowed);
+            this._maxPower = this.addRegister<[number]>(jacdac.PowerReg.MaxPower, jacdac.PowerRegPack.MaxPower);
+            this._powerStatus = this.addRegister<[jacdac.PowerPowerStatus]>(jacdac.PowerReg.PowerStatus, jacdac.PowerRegPack.PowerStatus);
+            this._batteryVoltage = this.addRegister<[number]>(jacdac.PowerReg.BatteryVoltage, jacdac.PowerRegPack.BatteryVoltage);
+            this._batteryCharge = this.addRegister<[number]>(jacdac.PowerReg.BatteryCharge, jacdac.PowerRegPack.BatteryCharge);
+            this._batteryCapacity = this.addRegister<[number]>(jacdac.PowerReg.BatteryCapacity, jacdac.PowerRegPack.BatteryCapacity);
+            this._keepOnPulseDuration = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulseDuration, jacdac.PowerRegPack.KeepOnPulseDuration);
+            this._keepOnPulsePeriod = this.addRegister<[number]>(jacdac.PowerReg.KeepOnPulsePeriod, jacdac.PowerRegPack.KeepOnPulsePeriod);            
         }
     
 

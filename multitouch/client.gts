@@ -7,7 +7,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_MULTITOUCH, role, "r: i16");
+            super(jacdac.SRV_MULTITOUCH, role, jacdac.MultitouchRegPack.Capacity));
             
         }
     

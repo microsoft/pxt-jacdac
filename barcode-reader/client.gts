@@ -11,8 +11,8 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_BARCODE_READER, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.BarcodeReaderReg.Enabled, "u8");
-            this._formats = this.addRegister<[jacdac.BarcodeReaderFormat[]]>(jacdac.BarcodeReaderReg.Formats, "r: u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.BarcodeReaderReg.Enabled, jacdac.BarcodeReaderRegPack.Enabled);
+            this._formats = this.addRegister<[jacdac.BarcodeReaderFormat[]]>(jacdac.BarcodeReaderReg.Formats, jacdac.BarcodeReaderRegPack.Formats);            
         }
     
 

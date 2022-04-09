@@ -8,9 +8,9 @@ namespace modules {
         private readonly _analog : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_BUTTON, role, "u0.16");
+            super(jacdac.SRV_BUTTON, role, jacdac.ButtonRegPack.Pressure));
 
-            this._analog = this.addRegister<[boolean]>(jacdac.ButtonReg.Analog, "u8");            
+            this._analog = this.addRegister<[boolean]>(jacdac.ButtonReg.Analog, jacdac.ButtonRegPack.Analog);            
         }
     
 

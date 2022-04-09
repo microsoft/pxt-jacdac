@@ -18,15 +18,15 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_LED_STRIP, role);
 
-            this._brightness = this.addRegister<[number]>(jacdac.LedStripReg.Brightness, "u0.8");
-            this._actualBrightness = this.addRegister<[number]>(jacdac.LedStripReg.ActualBrightness, "u0.8");
-            this._lightType = this.addRegister<[jacdac.LedStripLightType]>(jacdac.LedStripReg.LightType, "u8");
-            this._numPixels = this.addRegister<[number]>(jacdac.LedStripReg.NumPixels, "u16");
-            this._numColumns = this.addRegister<[number]>(jacdac.LedStripReg.NumColumns, "u16");
-            this._maxPower = this.addRegister<[number]>(jacdac.LedStripReg.MaxPower, "u16");
-            this._maxPixels = this.addRegister<[number]>(jacdac.LedStripReg.MaxPixels, "u16");
-            this._numRepeats = this.addRegister<[number]>(jacdac.LedStripReg.NumRepeats, "u16");
-            this._variant = this.addRegister<[jacdac.LedStripVariant]>(jacdac.LedStripReg.Variant, "u8");            
+            this._brightness = this.addRegister<[number]>(jacdac.LedStripReg.Brightness, jacdac.LedStripRegPack.Brightness);
+            this._actualBrightness = this.addRegister<[number]>(jacdac.LedStripReg.ActualBrightness, jacdac.LedStripRegPack.ActualBrightness);
+            this._lightType = this.addRegister<[jacdac.LedStripLightType]>(jacdac.LedStripReg.LightType, jacdac.LedStripRegPack.LightType);
+            this._numPixels = this.addRegister<[number]>(jacdac.LedStripReg.NumPixels, jacdac.LedStripRegPack.NumPixels);
+            this._numColumns = this.addRegister<[number]>(jacdac.LedStripReg.NumColumns, jacdac.LedStripRegPack.NumColumns);
+            this._maxPower = this.addRegister<[number]>(jacdac.LedStripReg.MaxPower, jacdac.LedStripRegPack.MaxPower);
+            this._maxPixels = this.addRegister<[number]>(jacdac.LedStripReg.MaxPixels, jacdac.LedStripRegPack.MaxPixels);
+            this._numRepeats = this.addRegister<[number]>(jacdac.LedStripReg.NumRepeats, jacdac.LedStripRegPack.NumRepeats);
+            this._variant = this.addRegister<[jacdac.LedStripVariant]>(jacdac.LedStripReg.Variant, jacdac.LedStripRegPack.Variant);            
         }
     
 

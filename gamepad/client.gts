@@ -9,10 +9,10 @@ namespace modules {
         private readonly _buttonsAvailable : jacdac.RegisterClient<[jacdac.GamepadButtons]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_GAMEPAD, role, "u32 i1.15 i1.15");
+            super(jacdac.SRV_GAMEPAD, role, jacdac.GamepadRegPack.Direction));
 
-            this._variant = this.addRegister<[jacdac.GamepadVariant]>(jacdac.GamepadReg.Variant, "u8");
-            this._buttonsAvailable = this.addRegister<[jacdac.GamepadButtons]>(jacdac.GamepadReg.ButtonsAvailable, "u32");            
+            this._variant = this.addRegister<[jacdac.GamepadVariant]>(jacdac.GamepadReg.Variant, jacdac.GamepadRegPack.Variant);
+            this._buttonsAvailable = this.addRegister<[jacdac.GamepadButtons]>(jacdac.GamepadReg.ButtonsAvailable, jacdac.GamepadRegPack.ButtonsAvailable);            
         }
     
 

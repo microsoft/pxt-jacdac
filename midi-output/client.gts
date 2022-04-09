@@ -10,7 +10,7 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_MIDI_OUTPUT, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.MidiOutputReg.Enabled, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.MidiOutputReg.Enabled, jacdac.MidiOutputRegPack.Enabled);            
         }
     
 

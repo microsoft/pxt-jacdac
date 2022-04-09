@@ -24,20 +24,20 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_PROTO_TEST, role);
 
-            this._rwBool = this.addRegister<[boolean]>(jacdac.ProtoTestReg.RwBool, "u8");
-            this._roBool = this.addRegister<[boolean]>(jacdac.ProtoTestReg.RoBool, "u8");
-            this._rwU32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RwU32, "u32");
-            this._roU32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RoU32, "u32");
-            this._rwI32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RwI32, "i32");
-            this._roI32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RoI32, "i32");
-            this._rwString = this.addRegister<[string]>(jacdac.ProtoTestReg.RwString, "s");
-            this._roString = this.addRegister<[string]>(jacdac.ProtoTestReg.RoString, "s");
-            this._rwBytes = this.addRegister<[Buffer]>(jacdac.ProtoTestReg.RwBytes, "b");
-            this._roBytes = this.addRegister<[Buffer]>(jacdac.ProtoTestReg.RoBytes, "b");
-            this._rwI8U8U16I32 = this.addRegister<[number,number,number,number]>(jacdac.ProtoTestReg.RwI8U8U16I32, "i8 u8 u16 i32");
-            this._roI8U8U16I32 = this.addRegister<[number,number,number,number]>(jacdac.ProtoTestReg.RoI8U8U16I32, "i8 u8 u16 i32");
-            this._rwU8String = this.addRegister<[number,string]>(jacdac.ProtoTestReg.RwU8String, "u8 s");
-            this._roU8String = this.addRegister<[number,string]>(jacdac.ProtoTestReg.RoU8String, "u8 s");            
+            this._rwBool = this.addRegister<[boolean]>(jacdac.ProtoTestReg.RwBool, jacdac.ProtoTestRegPack.RwBool);
+            this._roBool = this.addRegister<[boolean]>(jacdac.ProtoTestReg.RoBool, jacdac.ProtoTestRegPack.RoBool);
+            this._rwU32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RwU32, jacdac.ProtoTestRegPack.RwU32);
+            this._roU32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RoU32, jacdac.ProtoTestRegPack.RoU32);
+            this._rwI32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RwI32, jacdac.ProtoTestRegPack.RwI32);
+            this._roI32 = this.addRegister<[number]>(jacdac.ProtoTestReg.RoI32, jacdac.ProtoTestRegPack.RoI32);
+            this._rwString = this.addRegister<[string]>(jacdac.ProtoTestReg.RwString, jacdac.ProtoTestRegPack.RwString);
+            this._roString = this.addRegister<[string]>(jacdac.ProtoTestReg.RoString, jacdac.ProtoTestRegPack.RoString);
+            this._rwBytes = this.addRegister<[Buffer]>(jacdac.ProtoTestReg.RwBytes, jacdac.ProtoTestRegPack.RwBytes);
+            this._roBytes = this.addRegister<[Buffer]>(jacdac.ProtoTestReg.RoBytes, jacdac.ProtoTestRegPack.RoBytes);
+            this._rwI8U8U16I32 = this.addRegister<[number,number,number,number]>(jacdac.ProtoTestReg.RwI8U8U16I32, jacdac.ProtoTestRegPack.RwI8U8U16I32);
+            this._roI8U8U16I32 = this.addRegister<[number,number,number,number]>(jacdac.ProtoTestReg.RoI8U8U16I32, jacdac.ProtoTestRegPack.RoI8U8U16I32);
+            this._rwU8String = this.addRegister<[number,string]>(jacdac.ProtoTestReg.RwU8String, jacdac.ProtoTestRegPack.RwU8String);
+            this._roU8String = this.addRegister<[number,string]>(jacdac.ProtoTestReg.RoU8String, jacdac.ProtoTestRegPack.RoU8String);            
         }
     
 

@@ -14,15 +14,15 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.WeightScaleVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WEIGHT_SCALE, role, "u16.16");
+            super(jacdac.SRV_WEIGHT_SCALE, role, jacdac.WeightScaleRegPack.Weight));
 
-            this._weightError = this.addRegister<[number]>(jacdac.WeightScaleReg.WeightError, "u16.16");
-            this._zeroOffset = this.addRegister<[number]>(jacdac.WeightScaleReg.ZeroOffset, "u16.16");
-            this._gain = this.addRegister<[number]>(jacdac.WeightScaleReg.Gain, "u16.16");
-            this._maxWeight = this.addRegister<[number]>(jacdac.WeightScaleReg.MaxWeight, "u16.16");
-            this._minWeight = this.addRegister<[number]>(jacdac.WeightScaleReg.MinWeight, "u16.16");
-            this._weightResolution = this.addRegister<[number]>(jacdac.WeightScaleReg.WeightResolution, "u16.16");
-            this._variant = this.addRegister<[jacdac.WeightScaleVariant]>(jacdac.WeightScaleReg.Variant, "u8");            
+            this._weightError = this.addRegister<[number]>(jacdac.WeightScaleReg.WeightError, jacdac.WeightScaleRegPack.WeightError);
+            this._zeroOffset = this.addRegister<[number]>(jacdac.WeightScaleReg.ZeroOffset, jacdac.WeightScaleRegPack.ZeroOffset);
+            this._gain = this.addRegister<[number]>(jacdac.WeightScaleReg.Gain, jacdac.WeightScaleRegPack.Gain);
+            this._maxWeight = this.addRegister<[number]>(jacdac.WeightScaleReg.MaxWeight, jacdac.WeightScaleRegPack.MaxWeight);
+            this._minWeight = this.addRegister<[number]>(jacdac.WeightScaleReg.MinWeight, jacdac.WeightScaleRegPack.MinWeight);
+            this._weightResolution = this.addRegister<[number]>(jacdac.WeightScaleReg.WeightResolution, jacdac.WeightScaleRegPack.WeightResolution);
+            this._variant = this.addRegister<[jacdac.WeightScaleVariant]>(jacdac.WeightScaleReg.Variant, jacdac.WeightScaleRegPack.Variant);            
         }
     
 

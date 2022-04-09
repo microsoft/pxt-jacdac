@@ -14,11 +14,11 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_SPEECH_SYNTHESIS, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.SpeechSynthesisReg.Enabled, "u8");
-            this._lang = this.addRegister<[string]>(jacdac.SpeechSynthesisReg.Lang, "s");
-            this._volume = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Volume, "u0.8");
-            this._pitch = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Pitch, "u16.16");
-            this._rate = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Rate, "u16.16");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.SpeechSynthesisReg.Enabled, jacdac.SpeechSynthesisRegPack.Enabled);
+            this._lang = this.addRegister<[string]>(jacdac.SpeechSynthesisReg.Lang, jacdac.SpeechSynthesisRegPack.Lang);
+            this._volume = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Volume, jacdac.SpeechSynthesisRegPack.Volume);
+            this._pitch = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Pitch, jacdac.SpeechSynthesisRegPack.Pitch);
+            this._rate = this.addRegister<[number]>(jacdac.SpeechSynthesisReg.Rate, jacdac.SpeechSynthesisRegPack.Rate);            
         }
     
 

@@ -14,9 +14,9 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_ARCADE_SOUND, role);
 
-            this._sampleRate = this.addRegister<[number]>(jacdac.ArcadeSoundReg.SampleRate, "u22.10");
-            this._bufferSize = this.addRegister<[number]>(jacdac.ArcadeSoundReg.BufferSize, "u32");
-            this._bufferPending = this.addRegister<[number]>(jacdac.ArcadeSoundReg.BufferPending, "u32");            
+            this._sampleRate = this.addRegister<[number]>(jacdac.ArcadeSoundReg.SampleRate, jacdac.ArcadeSoundRegPack.SampleRate);
+            this._bufferSize = this.addRegister<[number]>(jacdac.ArcadeSoundReg.BufferSize, jacdac.ArcadeSoundRegPack.BufferSize);
+            this._bufferPending = this.addRegister<[number]>(jacdac.ArcadeSoundReg.BufferPending, jacdac.ArcadeSoundRegPack.BufferPending);            
         }
     
 

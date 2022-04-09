@@ -10,7 +10,7 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_BUZZER, role);
 
-            this._volume = this.addRegister<[number]>(jacdac.BuzzerReg.Volume, "u0.8");            
+            this._volume = this.addRegister<[number]>(jacdac.BuzzerReg.Volume, jacdac.BuzzerRegPack.Volume);            
         }
     
 

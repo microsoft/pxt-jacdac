@@ -8,9 +8,9 @@ namespace modules {
         private readonly _windDirectionError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WIND_DIRECTION, role, "u16");
+            super(jacdac.SRV_WIND_DIRECTION, role, jacdac.WindDirectionRegPack.WindDirection));
 
-            this._windDirectionError = this.addRegister<[number]>(jacdac.WindDirectionReg.WindDirectionError, "u16");            
+            this._windDirectionError = this.addRegister<[number]>(jacdac.WindDirectionReg.WindDirectionError, jacdac.WindDirectionRegPack.WindDirectionError);            
         }
     
 

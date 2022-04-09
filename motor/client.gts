@@ -14,11 +14,11 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_MOTOR, role);
 
-            this._duty = this.addRegister<[number]>(jacdac.MotorReg.Duty, "i1.15");
-            this._enabled = this.addRegister<[boolean]>(jacdac.MotorReg.Enabled, "u8");
-            this._loadTorque = this.addRegister<[number]>(jacdac.MotorReg.LoadTorque, "u16.16");
-            this._loadSpeed = this.addRegister<[number]>(jacdac.MotorReg.LoadSpeed, "u16.16");
-            this._reversible = this.addRegister<[boolean]>(jacdac.MotorReg.Reversible, "u8");            
+            this._duty = this.addRegister<[number]>(jacdac.MotorReg.Duty, jacdac.MotorRegPack.Duty);
+            this._enabled = this.addRegister<[boolean]>(jacdac.MotorReg.Enabled, jacdac.MotorRegPack.Enabled);
+            this._loadTorque = this.addRegister<[number]>(jacdac.MotorReg.LoadTorque, jacdac.MotorRegPack.LoadTorque);
+            this._loadSpeed = this.addRegister<[number]>(jacdac.MotorReg.LoadSpeed, jacdac.MotorRegPack.LoadSpeed);
+            this._reversible = this.addRegister<[boolean]>(jacdac.MotorReg.Reversible, jacdac.MotorRegPack.Reversible);            
         }
     
 

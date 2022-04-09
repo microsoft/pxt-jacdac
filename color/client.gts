@@ -7,7 +7,7 @@ namespace modules {
             
 
         constructor(role: string) {
-            super(jacdac.SRV_COLOR, role, "u0.16 u0.16 u0.16");
+            super(jacdac.SRV_COLOR, role, jacdac.ColorRegPack.Color));
             
         }
     

@@ -10,11 +10,11 @@ namespace modules {
         private readonly _quietThreshold : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SOUND_LEVEL, role, "u0.16");
+            super(jacdac.SRV_SOUND_LEVEL, role, jacdac.SoundLevelRegPack.SoundLevel));
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.SoundLevelReg.Enabled, "u8");
-            this._loudThreshold = this.addRegister<[number]>(jacdac.SoundLevelReg.LoudThreshold, "u0.16");
-            this._quietThreshold = this.addRegister<[number]>(jacdac.SoundLevelReg.QuietThreshold, "u0.16");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.SoundLevelReg.Enabled, jacdac.SoundLevelRegPack.Enabled);
+            this._loudThreshold = this.addRegister<[number]>(jacdac.SoundLevelReg.LoudThreshold, jacdac.SoundLevelRegPack.LoudThreshold);
+            this._quietThreshold = this.addRegister<[number]>(jacdac.SoundLevelReg.QuietThreshold, jacdac.SoundLevelRegPack.QuietThreshold);            
         }
     
 

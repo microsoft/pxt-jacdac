@@ -13,10 +13,10 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_BIT_RADIO, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.BitRadioReg.Enabled, "u8");
-            this._group = this.addRegister<[number]>(jacdac.BitRadioReg.Group, "u8");
-            this._transmissionPower = this.addRegister<[number]>(jacdac.BitRadioReg.TransmissionPower, "u8");
-            this._frequencyBand = this.addRegister<[number]>(jacdac.BitRadioReg.FrequencyBand, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.BitRadioReg.Enabled, jacdac.BitRadioRegPack.Enabled);
+            this._group = this.addRegister<[number]>(jacdac.BitRadioReg.Group, jacdac.BitRadioRegPack.Group);
+            this._transmissionPower = this.addRegister<[number]>(jacdac.BitRadioReg.TransmissionPower, jacdac.BitRadioRegPack.TransmissionPower);
+            this._frequencyBand = this.addRegister<[number]>(jacdac.BitRadioReg.FrequencyBand, jacdac.BitRadioRegPack.FrequencyBand);            
         }
     
 

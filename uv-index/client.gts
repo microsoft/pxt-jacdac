@@ -9,10 +9,10 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.UvIndexVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_UV_INDEX, role, "u16.16");
+            super(jacdac.SRV_UV_INDEX, role, jacdac.UvIndexRegPack.UvIndex));
 
-            this._uvIndexError = this.addRegister<[number]>(jacdac.UvIndexReg.UvIndexError, "u16.16");
-            this._variant = this.addRegister<[jacdac.UvIndexVariant]>(jacdac.UvIndexReg.Variant, "u8");            
+            this._uvIndexError = this.addRegister<[number]>(jacdac.UvIndexReg.UvIndexError, jacdac.UvIndexRegPack.UvIndexError);
+            this._variant = this.addRegister<[jacdac.UvIndexVariant]>(jacdac.UvIndexReg.Variant, jacdac.UvIndexRegPack.Variant);            
         }
     
 

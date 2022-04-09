@@ -9,10 +9,10 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.LightLevelVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_LIGHT_LEVEL, role, "u0.16");
+            super(jacdac.SRV_LIGHT_LEVEL, role, jacdac.LightLevelRegPack.LightLevel));
 
-            this._lightLevelError = this.addRegister<[number]>(jacdac.LightLevelReg.LightLevelError, "u0.16");
-            this._variant = this.addRegister<[jacdac.LightLevelVariant]>(jacdac.LightLevelReg.Variant, "u8");            
+            this._lightLevelError = this.addRegister<[number]>(jacdac.LightLevelReg.LightLevelError, jacdac.LightLevelRegPack.LightLevelError);
+            this._variant = this.addRegister<[jacdac.LightLevelVariant]>(jacdac.LightLevelReg.Variant, jacdac.LightLevelRegPack.Variant);            
         }
     
 

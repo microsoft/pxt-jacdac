@@ -10,7 +10,7 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_DMX, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.DmxReg.Enabled, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.DmxReg.Enabled, jacdac.DmxRegPack.Enabled);            
         }
     
 

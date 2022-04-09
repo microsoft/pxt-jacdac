@@ -11,12 +11,12 @@ namespace modules {
         private readonly _ssid : jacdac.RegisterClient<[string]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WIFI, role, "i8");
+            super(jacdac.SRV_WIFI, role, jacdac.WifiRegPack.Rssi));
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.WifiReg.Enabled, "u8");
-            this._ipAddress = this.addRegister<[Buffer]>(jacdac.WifiReg.IpAddress, "b[16]");
-            this._eui48 = this.addRegister<[Buffer]>(jacdac.WifiReg.Eui48, "b[6]");
-            this._ssid = this.addRegister<[string]>(jacdac.WifiReg.Ssid, "s[32]");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.WifiReg.Enabled, jacdac.WifiRegPack.Enabled);
+            this._ipAddress = this.addRegister<[Buffer]>(jacdac.WifiReg.IpAddress, jacdac.WifiRegPack.IpAddress);
+            this._eui48 = this.addRegister<[Buffer]>(jacdac.WifiReg.Eui48, jacdac.WifiRegPack.Eui48);
+            this._ssid = this.addRegister<[string]>(jacdac.WifiReg.Ssid, jacdac.WifiRegPack.Ssid);            
         }
     
 

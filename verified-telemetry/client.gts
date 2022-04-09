@@ -13,10 +13,10 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_VERIFIED_TELEMETRY, role);
 
-            this._telemetryStatus = this.addRegister<[jacdac.VerifiedTelemetryStatus]>(jacdac.VerifiedTelemetryReg.TelemetryStatus, "u8");
-            this._telemetryStatusInterval = this.addRegister<[number]>(jacdac.VerifiedTelemetryReg.TelemetryStatusInterval, "u32");
-            this._fingerprintType = this.addRegister<[jacdac.VerifiedTelemetryFingerprintType]>(jacdac.VerifiedTelemetryReg.FingerprintType, "u8");
-            this._fingerprintTemplate = this.addRegister<[number,Buffer]>(jacdac.VerifiedTelemetryReg.FingerprintTemplate, "u16 b");            
+            this._telemetryStatus = this.addRegister<[jacdac.VerifiedTelemetryStatus]>(jacdac.VerifiedTelemetryReg.TelemetryStatus, jacdac.VerifiedTelemetryRegPack.TelemetryStatus);
+            this._telemetryStatusInterval = this.addRegister<[number]>(jacdac.VerifiedTelemetryReg.TelemetryStatusInterval, jacdac.VerifiedTelemetryRegPack.TelemetryStatusInterval);
+            this._fingerprintType = this.addRegister<[jacdac.VerifiedTelemetryFingerprintType]>(jacdac.VerifiedTelemetryReg.FingerprintType, jacdac.VerifiedTelemetryRegPack.FingerprintType);
+            this._fingerprintTemplate = this.addRegister<[number,Buffer]>(jacdac.VerifiedTelemetryReg.FingerprintTemplate, jacdac.VerifiedTelemetryRegPack.FingerprintTemplate);            
         }
     
 

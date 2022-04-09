@@ -8,9 +8,9 @@ namespace modules {
         private readonly _precipitationPrecision : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_RAIN_GAUGE, role, "u16.16");
+            super(jacdac.SRV_RAIN_GAUGE, role, jacdac.RainGaugeRegPack.Precipitation));
 
-            this._precipitationPrecision = this.addRegister<[number]>(jacdac.RainGaugeReg.PrecipitationPrecision, "u16.16");            
+            this._precipitationPrecision = this.addRegister<[number]>(jacdac.RainGaugeReg.PrecipitationPrecision, jacdac.RainGaugeRegPack.PrecipitationPrecision);            
         }
     
 

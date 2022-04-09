@@ -9,10 +9,10 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.WaterLevelVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_WATER_LEVEL, role, "u0.16");
+            super(jacdac.SRV_WATER_LEVEL, role, jacdac.WaterLevelRegPack.Level));
 
-            this._levelError = this.addRegister<[number]>(jacdac.WaterLevelReg.LevelError, "u0.16");
-            this._variant = this.addRegister<[jacdac.WaterLevelVariant]>(jacdac.WaterLevelReg.Variant, "u8");            
+            this._levelError = this.addRegister<[number]>(jacdac.WaterLevelReg.LevelError, jacdac.WaterLevelRegPack.LevelError);
+            this._variant = this.addRegister<[jacdac.WaterLevelVariant]>(jacdac.WaterLevelReg.Variant, jacdac.WaterLevelRegPack.Variant);            
         }
     
 

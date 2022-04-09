@@ -9,10 +9,10 @@ namespace modules {
         private readonly _clicker : jacdac.RegisterClient<[boolean]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_ROTARY_ENCODER, role, "i32");
+            super(jacdac.SRV_ROTARY_ENCODER, role, jacdac.RotaryEncoderRegPack.Position));
 
-            this._clicksPerTurn = this.addRegister<[number]>(jacdac.RotaryEncoderReg.ClicksPerTurn, "u16");
-            this._clicker = this.addRegister<[boolean]>(jacdac.RotaryEncoderReg.Clicker, "u8");            
+            this._clicksPerTurn = this.addRegister<[number]>(jacdac.RotaryEncoderReg.ClicksPerTurn, jacdac.RotaryEncoderRegPack.ClicksPerTurn);
+            this._clicker = this.addRegister<[boolean]>(jacdac.RotaryEncoderReg.Clicker, jacdac.RotaryEncoderRegPack.Clicker);            
         }
     
 

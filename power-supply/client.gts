@@ -13,10 +13,10 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_POWER_SUPPLY, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.PowerSupplyReg.Enabled, "u8");
-            this._outputVoltage = this.addRegister<[number]>(jacdac.PowerSupplyReg.OutputVoltage, "f64");
-            this._minimumVoltage = this.addRegister<[number]>(jacdac.PowerSupplyReg.MinimumVoltage, "f64");
-            this._maximumVoltage = this.addRegister<[number]>(jacdac.PowerSupplyReg.MaximumVoltage, "f64");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.PowerSupplyReg.Enabled, jacdac.PowerSupplyRegPack.Enabled);
+            this._outputVoltage = this.addRegister<[number]>(jacdac.PowerSupplyReg.OutputVoltage, jacdac.PowerSupplyRegPack.OutputVoltage);
+            this._minimumVoltage = this.addRegister<[number]>(jacdac.PowerSupplyReg.MinimumVoltage, jacdac.PowerSupplyRegPack.MinimumVoltage);
+            this._maximumVoltage = this.addRegister<[number]>(jacdac.PowerSupplyReg.MaximumVoltage, jacdac.PowerSupplyRegPack.MaximumVoltage);            
         }
     
 

@@ -11,8 +11,8 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_SOLENOID, role);
 
-            this._pulled = this.addRegister<[boolean]>(jacdac.SolenoidReg.Pulled, "u8");
-            this._variant = this.addRegister<[jacdac.SolenoidVariant]>(jacdac.SolenoidReg.Variant, "u8");            
+            this._pulled = this.addRegister<[boolean]>(jacdac.SolenoidReg.Pulled, jacdac.SolenoidRegPack.Pulled);
+            this._variant = this.addRegister<[jacdac.SolenoidVariant]>(jacdac.SolenoidReg.Variant, jacdac.SolenoidRegPack.Variant);            
         }
     
 

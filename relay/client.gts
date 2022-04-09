@@ -18,9 +18,9 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_RELAY, role);
 
-            this._active = this.addRegister<[boolean]>(jacdac.RelayReg.Active, "u8");
-            this._variant = this.addRegister<[jacdac.RelayVariant]>(jacdac.RelayReg.Variant, "u8");
-            this._maxSwitchingCurrent = this.addRegister<[number]>(jacdac.RelayReg.MaxSwitchingCurrent, "u32");            
+            this._active = this.addRegister<[boolean]>(jacdac.RelayReg.Active, jacdac.RelayRegPack.Active);
+            this._variant = this.addRegister<[jacdac.RelayVariant]>(jacdac.RelayReg.Variant, jacdac.RelayRegPack.Variant);
+            this._maxSwitchingCurrent = this.addRegister<[number]>(jacdac.RelayReg.MaxSwitchingCurrent, jacdac.RelayRegPack.MaxSwitchingCurrent);            
         }
     
 

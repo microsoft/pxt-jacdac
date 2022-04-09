@@ -10,11 +10,11 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.MotionVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MOTION, role, "u8");
+            super(jacdac.SRV_MOTION, role, jacdac.MotionRegPack.Moving));
 
-            this._maxDistance = this.addRegister<[number]>(jacdac.MotionReg.MaxDistance, "u16.16");
-            this._angle = this.addRegister<[number]>(jacdac.MotionReg.Angle, "u16");
-            this._variant = this.addRegister<[jacdac.MotionVariant]>(jacdac.MotionReg.Variant, "u8");            
+            this._maxDistance = this.addRegister<[number]>(jacdac.MotionReg.MaxDistance, jacdac.MotionRegPack.MaxDistance);
+            this._angle = this.addRegister<[number]>(jacdac.MotionReg.Angle, jacdac.MotionRegPack.Angle);
+            this._variant = this.addRegister<[jacdac.MotionVariant]>(jacdac.MotionReg.Variant, jacdac.MotionRegPack.Variant);            
         }
     
 

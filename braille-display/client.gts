@@ -12,9 +12,9 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_BRAILLE_DISPLAY, role);
 
-            this._enabled = this.addRegister<[boolean]>(jacdac.BrailleDisplayReg.Enabled, "u8");
-            this._patterns = this.addRegister<[string]>(jacdac.BrailleDisplayReg.Patterns, "s");
-            this._length = this.addRegister<[number]>(jacdac.BrailleDisplayReg.Length, "u8");            
+            this._enabled = this.addRegister<[boolean]>(jacdac.BrailleDisplayReg.Enabled, jacdac.BrailleDisplayRegPack.Enabled);
+            this._patterns = this.addRegister<[string]>(jacdac.BrailleDisplayReg.Patterns, jacdac.BrailleDisplayRegPack.Patterns);
+            this._length = this.addRegister<[number]>(jacdac.BrailleDisplayReg.Length, jacdac.BrailleDisplayRegPack.Length);            
         }
     
 

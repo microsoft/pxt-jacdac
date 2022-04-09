@@ -8,9 +8,9 @@ namespace modules {
         private readonly _forcesError : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_MAGNETOMETER, role, "i32 i32 i32");
+            super(jacdac.SRV_MAGNETOMETER, role, jacdac.MagnetometerRegPack.Forces));
 
-            this._forcesError = this.addRegister<[number]>(jacdac.MagnetometerReg.ForcesError, "i32");            
+            this._forcesError = this.addRegister<[number]>(jacdac.MagnetometerReg.ForcesError, jacdac.MagnetometerRegPack.ForcesError);            
         }
     
 

@@ -12,9 +12,9 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_TRAFFIC_LIGHT, role);
 
-            this._red = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Red, "u8");
-            this._yellow = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Yellow, "u8");
-            this._green = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Green, "u8");            
+            this._red = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Red, jacdac.TrafficLightRegPack.Red);
+            this._yellow = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Yellow, jacdac.TrafficLightRegPack.Yellow);
+            this._green = this.addRegister<[boolean]>(jacdac.TrafficLightReg.Green, jacdac.TrafficLightRegPack.Green);            
         }
     
 

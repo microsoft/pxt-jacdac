@@ -11,11 +11,11 @@ namespace modules {
         private readonly _maxAqiIndex : jacdac.RegisterClient<[number]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_AIR_QUALITY_INDEX, role, "u16.16");
+            super(jacdac.SRV_AIR_QUALITY_INDEX, role, jacdac.AirQualityIndexRegPack.AqiIndex));
 
-            this._aqiIndexError = this.addRegister<[number]>(jacdac.AirQualityIndexReg.AqiIndexError, "u16.16");
-            this._minAqiIndex = this.addRegister<[number]>(jacdac.AirQualityIndexReg.MinAqiIndex, "u16.16");
-            this._maxAqiIndex = this.addRegister<[number]>(jacdac.AirQualityIndexReg.MaxAqiIndex, "u16.16");            
+            this._aqiIndexError = this.addRegister<[number]>(jacdac.AirQualityIndexReg.AqiIndexError, jacdac.AirQualityIndexRegPack.AqiIndexError);
+            this._minAqiIndex = this.addRegister<[number]>(jacdac.AirQualityIndexReg.MinAqiIndex, jacdac.AirQualityIndexRegPack.MinAqiIndex);
+            this._maxAqiIndex = this.addRegister<[number]>(jacdac.AirQualityIndexReg.MaxAqiIndex, jacdac.AirQualityIndexRegPack.MaxAqiIndex);            
         }
     
 

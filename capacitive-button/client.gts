@@ -10,7 +10,7 @@ namespace modules {
         constructor(role: string) {
             super(jacdac.SRV_CAPACITIVE_BUTTON, role);
 
-            this._threshold = this.addRegister<[number]>(jacdac.CapacitiveButtonReg.Threshold, "u0.16");            
+            this._threshold = this.addRegister<[number]>(jacdac.CapacitiveButtonReg.Threshold, jacdac.CapacitiveButtonRegPack.Threshold);            
         }
     
 

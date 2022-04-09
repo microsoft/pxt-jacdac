@@ -9,10 +9,10 @@ namespace modules {
         private readonly _variant : jacdac.RegisterClient<[jacdac.SoilMoistureVariant]>;            
 
         constructor(role: string) {
-            super(jacdac.SRV_SOIL_MOISTURE, role, "u0.16");
+            super(jacdac.SRV_SOIL_MOISTURE, role, jacdac.SoilMoistureRegPack.Moisture));
 
-            this._moistureError = this.addRegister<[number]>(jacdac.SoilMoistureReg.MoistureError, "u0.16");
-            this._variant = this.addRegister<[jacdac.SoilMoistureVariant]>(jacdac.SoilMoistureReg.Variant, "u8");            
+            this._moistureError = this.addRegister<[number]>(jacdac.SoilMoistureReg.MoistureError, jacdac.SoilMoistureRegPack.MoistureError);
+            this._variant = this.addRegister<[jacdac.SoilMoistureVariant]>(jacdac.SoilMoistureReg.Variant, jacdac.SoilMoistureRegPack.Variant);            
         }
     
 
