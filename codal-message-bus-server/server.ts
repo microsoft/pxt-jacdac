@@ -1,7 +1,7 @@
 namespace servers {
     export class CODALMessageBusServer extends jacdac.Server {
-        constructor(dev: string) {
-            super(dev, jacdac.SRV_CODAL_MESSAGE_BUS)
+        constructor() {
+            super(jacdac.SRV_CODAL_MESSAGE_BUS)
             // TODO: implement events
         }
 
@@ -24,5 +24,5 @@ namespace servers {
     }
 
     //% fixedInstance whenUsed weight=1 block="CODAL message bus"
-    export const codalMessageBus = new CODALMessageBusServer("codal")
+    export const codalMessageBus = new CODALMessageBusServer()
 }
