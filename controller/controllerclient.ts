@@ -11,7 +11,7 @@ namespace jacdac {
     }
 
     //% fixedInstances
-    export class ControllerClient extends Broadcast {
+    export class ControllerClient extends BroadcastServer {
         state: Buffer
         streamingState: jacdac.SensorStateTODO
         streamingInterval: number
@@ -20,7 +20,7 @@ namespace jacdac {
         controlData: Buffer
 
         constructor() {
-            super("controller", jd_class.CONTROLLER)
+            super(jd_class.CONTROLLER)
             this.controlData = Buffer.create(3)
             this.controlData[0] = JDControllerCommand.ControlClient
             this.serverAddress = 0
