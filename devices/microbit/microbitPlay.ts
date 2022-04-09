@@ -34,7 +34,7 @@ namespace servers {
 
     export class SoundPlayerServer extends jacdac.Server {
         constructor() {
-            super("sound player", SRV_SOUND_PLAYER)
+            super(SRV_SOUND_PLAYER)
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {

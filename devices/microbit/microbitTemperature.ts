@@ -3,7 +3,6 @@ namespace servers {
     const VARIANT = 0x2 // indoor
     //% fixedInstance whenUsed block="temperature"
     export const temperatureServer = jacdac.createSimpleSensorServer(
-        "temperature",
         SRV_TEMPERATURE,
         "i22.10",
         () => input.temperature(),

@@ -13,7 +13,7 @@ namespace servers {
     }
     export class ScreenServer extends jacdac.Server {
         constructor() {
-            super("screen", SRV_DOT_MATRIX)
+            super(SRV_DOT_MATRIX)
         }
 
         handlePacket(packet: jacdac.JDPacket) {
