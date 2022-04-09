@@ -95,6 +95,33 @@ namespace jacdac {
         ListKnownNetworks = 0x87,
     }
 
+    export const enum WifiCmdPack {
+        /**
+         * Pack format for 'last_scan_results' register data.
+         */
+        LastScanResults = "b[12]",
+
+        /**
+         * Pack format for 'add_network' register data.
+         */
+        AddNetwork = "z z",
+
+        /**
+         * Pack format for 'forget_network' register data.
+         */
+        ForgetNetwork = "s",
+
+        /**
+         * Pack format for 'set_network_priority' register data.
+         */
+        SetNetworkPriority = "i16 s",
+
+        /**
+         * Pack format for 'list_known_networks' register data.
+         */
+        ListKnownNetworks = "b[12]",
+    }
+
     /**
      * pipe_report Results
      * ```
@@ -108,6 +135,18 @@ namespace jacdac {
      * const [priority, flags, ssid] = jdunpack<[number, number, string]>(buf, "i16 i16 s")
      * ```
      */
+
+    export const enum WifiinfoPack {
+        /**
+         * Pack format for 'results' register data.
+         */
+        Results = "u32 u32 i8 u8 b[6] s[33]",
+
+        /**
+         * Pack format for 'network_results' register data.
+         */
+        NetworkResults = "i16 i16 s",
+    }
 
     export const enum WifiReg {
         /**
@@ -157,6 +196,33 @@ namespace jacdac {
         Ssid = 0x183,
     }
 
+    export const enum WifiRegPack {
+        /**
+         * Pack format for 'rssi' register data.
+         */
+        Rssi = "i8",
+
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        Enabled = "u8",
+
+        /**
+         * Pack format for 'ip_address' register data.
+         */
+        IpAddress = "b[16]",
+
+        /**
+         * Pack format for 'eui_48' register data.
+         */
+        Eui48 = "b[6]",
+
+        /**
+         * Pack format for 'ssid' register data.
+         */
+        Ssid = "s[32]",
+    }
+
     export const enum WifiEvent {
         /**
          * Emitted upon successful join and IP address assignment.
@@ -199,5 +265,17 @@ namespace jacdac {
          */
         //% block="connection failed"
         ConnectionFailed = 0x82,
+    }
+
+    export const enum WifiEventPack {
+        /**
+         * Pack format for 'scan_complete' register data.
+         */
+        ScanComplete = "u16 u16",
+
+        /**
+         * Pack format for 'connection_failed' register data.
+         */
+        ConnectionFailed = "s",
     }
 }

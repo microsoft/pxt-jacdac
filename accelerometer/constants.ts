@@ -40,6 +40,28 @@ namespace jacdac {
         MaxForcesSupported = 0x10a,
     }
 
+    export const enum AccelerometerRegPack {
+        /**
+         * Pack format for 'forces' register data.
+         */
+        Forces = "i12.20 i12.20 i12.20",
+
+        /**
+         * Pack format for 'forces_error' register data.
+         */
+        ForcesError = "u12.20",
+
+        /**
+         * Pack format for 'max_force' register data.
+         */
+        MaxForce = "u12.20",
+
+        /**
+         * Pack format for 'max_forces_supported' register data.
+         */
+        MaxForcesSupported = "r: u12.20",
+    }
+
     export const enum AccelerometerEvent {
         /**
          * Emitted when accelerometer is tilted in the given direction.

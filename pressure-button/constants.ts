@@ -11,4 +11,11 @@ namespace jacdac {
          */
         Threshold = 0x6,
     }
+
+    export const enum PressureButtonRegPack {
+        /**
+         * Pack format for 'threshold' register data.
+         */
+        Threshold = "u0.16",
+    }
 }

@@ -14,6 +14,13 @@ namespace jacdac {
         Capacity = 0x101,
     }
 
+    export const enum MultitouchRegPack {
+        /**
+         * Pack format for 'capacity' register data.
+         */
+        Capacity = "r: i16",
+    }
+
     export const enum MultitouchEvent {
         /**
          * Argument: channel uint8_t. Emitted when an input is touched.
@@ -74,5 +81,37 @@ namespace jacdac {
          */
         //% block="swipe neg"
         SwipeNeg = 0x91,
+    }
+
+    export const enum MultitouchEventPack {
+        /**
+         * Pack format for 'touch' register data.
+         */
+        Touch = "u8",
+
+        /**
+         * Pack format for 'release' register data.
+         */
+        Release = "u8",
+
+        /**
+         * Pack format for 'tap' register data.
+         */
+        Tap = "u8",
+
+        /**
+         * Pack format for 'long_press' register data.
+         */
+        LongPress = "u8",
+
+        /**
+         * Pack format for 'swipe_pos' register data.
+         */
+        SwipePos = "u16 u8 u8",
+
+        /**
+         * Pack format for 'swipe_neg' register data.
+         */
+        SwipeNeg = "u16 u8 u8",
     }
 }

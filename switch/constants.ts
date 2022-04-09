@@ -41,6 +41,18 @@ namespace jacdac {
         Variant = 0x107,
     }
 
+    export const enum SwitchRegPack {
+        /**
+         * Pack format for 'active' register data.
+         */
+        Active = "u8",
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        Variant = "u8",
+    }
+
     export const enum SwitchEvent {
         /**
          * Emitted when switch goes from `off` to `on`.

@@ -129,6 +129,78 @@ namespace jacdac {
         RoU8String = 0x187,
     }
 
+    export const enum ProtoTestRegPack {
+        /**
+         * Pack format for 'rw_bool' register data.
+         */
+        RwBool = "u8",
+
+        /**
+         * Pack format for 'ro_bool' register data.
+         */
+        RoBool = "u8",
+
+        /**
+         * Pack format for 'rw_u32' register data.
+         */
+        RwU32 = "u32",
+
+        /**
+         * Pack format for 'ro_u32' register data.
+         */
+        RoU32 = "u32",
+
+        /**
+         * Pack format for 'rw_i32' register data.
+         */
+        RwI32 = "i32",
+
+        /**
+         * Pack format for 'ro_i32' register data.
+         */
+        RoI32 = "i32",
+
+        /**
+         * Pack format for 'rw_string' register data.
+         */
+        RwString = "s",
+
+        /**
+         * Pack format for 'ro_string' register data.
+         */
+        RoString = "s",
+
+        /**
+         * Pack format for 'rw_bytes' register data.
+         */
+        RwBytes = "b",
+
+        /**
+         * Pack format for 'ro_bytes' register data.
+         */
+        RoBytes = "b",
+
+        /**
+         * Pack format for 'rw_i8_u8_u16_i32' register data.
+         */
+        RwI8U8U16I32 = "i8 u8 u16 i32",
+
+        /**
+         * Pack format for 'ro_i8_u8_u16_i32' register data.
+         */
+        RoI8U8U16I32 = "i8 u8 u16 i32",
+
+        /**
+         * Pack format for 'rw_u8_string' register data.
+         */
+        RwU8String = "u8 s",
+
+        /**
+         * Pack format for 'ro_u8_string' register data.
+         */
+        RoU8String = "u8 s",
+    }
+
     export const enum ProtoTestEvent {
         /**
          * Argument: bo bool (uint8_t). An event raised when rw_bool is modified
@@ -199,6 +271,43 @@ namespace jacdac {
          */
         //% block="e u8 string"
         EU8String = 0x87,
+    }
+
+    export const enum ProtoTestEventPack {
+        /**
+         * Pack format for 'e_bool' register data.
+         */
+        EBool = "u8",
+
+        /**
+         * Pack format for 'e_u32' register data.
+         */
+        EU32 = "u32",
+
+        /**
+         * Pack format for 'e_i32' register data.
+         */
+        EI32 = "i32",
+
+        /**
+         * Pack format for 'e_string' register data.
+         */
+        EString = "s",
+
+        /**
+         * Pack format for 'e_bytes' register data.
+         */
+        EBytes = "b",
+
+        /**
+         * Pack format for 'e_i8_u8_u16_i32' register data.
+         */
+        EI8U8U16I32 = "i8 u8 u16 i32",
+
+        /**
+         * Pack format for 'e_u8_string' register data.
+         */
+        EU8String = "u8 s",
     }
 
     export const enum ProtoTestCmd {
@@ -275,10 +384,59 @@ namespace jacdac {
         CReportPipe = 0x90,
     }
 
+    export const enum ProtoTestCmdPack {
+        /**
+         * Pack format for 'c_bool' register data.
+         */
+        CBool = "u8",
+
+        /**
+         * Pack format for 'c_u32' register data.
+         */
+        CU32 = "u32",
+
+        /**
+         * Pack format for 'c_i32' register data.
+         */
+        CI32 = "i32",
+
+        /**
+         * Pack format for 'c_string' register data.
+         */
+        CString = "s",
+
+        /**
+         * Pack format for 'c_bytes' register data.
+         */
+        CBytes = "b",
+
+        /**
+         * Pack format for 'c_i8_u8_u16_i32' register data.
+         */
+        CI8U8U16I32 = "i8 u8 u16 i32",
+
+        /**
+         * Pack format for 'c_u8_string' register data.
+         */
+        CU8String = "u8 s",
+
+        /**
+         * Pack format for 'c_report_pipe' register data.
+         */
+        CReportPipe = "b[12]",
+    }
+
     /**
      * pipe_report PBytes
      * ```
      * const [byte] = jdunpack<[number]>(buf, "u8")
      * ```
      */
+
+    export const enum ProtoTestinfoPack {
+        /**
+         * Pack format for 'p_bytes' register data.
+         */
+        PBytes = "u8",
+    }
 }

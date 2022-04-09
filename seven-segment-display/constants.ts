@@ -52,10 +52,44 @@ namespace jacdac {
         DecimalPoint = 0x181,
     }
 
+    export const enum SevenSegmentDisplayRegPack {
+        /**
+         * Pack format for 'digits' register data.
+         */
+        Digits = "b",
+
+        /**
+         * Pack format for 'brightness' register data.
+         */
+        Brightness = "u0.16",
+
+        /**
+         * Pack format for 'double_dots' register data.
+         */
+        DoubleDots = "u8",
+
+        /**
+         * Pack format for 'digit_count' register data.
+         */
+        DigitCount = "u8",
+
+        /**
+         * Pack format for 'decimal_point' register data.
+         */
+        DecimalPoint = "u8",
+    }
+
     export const enum SevenSegmentDisplayCmd {
         /**
          * Argument: value f64 (uint64_t). Shows the number on the screen using the decimal dot if available.
          */
         SetNumber = 0x80,
+    }
+
+    export const enum SevenSegmentDisplayCmdPack {
+        /**
+         * Pack format for 'set_number' register data.
+         */
+        SetNumber = "f64",
     }
 }

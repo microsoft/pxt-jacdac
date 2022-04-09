@@ -12,4 +12,11 @@ namespace jacdac {
          */
         Vibrate = 0x80,
     }
+
+    export const enum VibrationMotorCmdPack {
+        /**
+         * Pack format for 'vibrate' register data.
+         */
+        Vibrate = "r: u8 u0.8",
+    }
 }

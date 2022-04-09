@@ -39,6 +39,28 @@ namespace jacdac {
         FrequencyBand = 0x82,
     }
 
+    export const enum BitRadioRegPack {
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        Enabled = "u8",
+
+        /**
+         * Pack format for 'group' register data.
+         */
+        Group = "u8",
+
+        /**
+         * Pack format for 'transmission_power' register data.
+         */
+        TransmissionPower = "u8",
+
+        /**
+         * Pack format for 'frequency_band' register data.
+         */
+        FrequencyBand = "u8",
+    }
+
     export const enum BitRadioCmd {
         /**
          * Argument: message string (bytes). Sends a string payload as a radio message, maximum 18 characters.
@@ -102,5 +124,42 @@ namespace jacdac {
          * ```
          */
         BufferReceived = 0x92,
+    }
+
+    export const enum BitRadioCmdPack {
+        /**
+         * Pack format for 'send_string' register data.
+         */
+        SendString = "s",
+
+        /**
+         * Pack format for 'send_number' register data.
+         */
+        SendNumber = "f64",
+
+        /**
+         * Pack format for 'send_value' register data.
+         */
+        SendValue = "f64 s",
+
+        /**
+         * Pack format for 'send_buffer' register data.
+         */
+        SendBuffer = "b",
+
+        /**
+         * Pack format for 'string_received' register data.
+         */
+        StringReceived = "u32 u32 i8 b[1] s",
+
+        /**
+         * Pack format for 'number_received' register data.
+         */
+        NumberReceived = "u32 u32 i8 b[3] f64 s",
+
+        /**
+         * Pack format for 'buffer_received' register data.
+         */
+        BufferReceived = "u32 u32 i8 b[1] b",
     }
 }

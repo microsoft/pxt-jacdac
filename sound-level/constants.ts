@@ -39,6 +39,28 @@ namespace jacdac {
         QuietThreshold = 0x5,
     }
 
+    export const enum SoundLevelRegPack {
+        /**
+         * Pack format for 'sound_level' register data.
+         */
+        SoundLevel = "u0.16",
+
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        Enabled = "u8",
+
+        /**
+         * Pack format for 'loud_threshold' register data.
+         */
+        LoudThreshold = "u0.16",
+
+        /**
+         * Pack format for 'quiet_threshold' register data.
+         */
+        QuietThreshold = "u0.16",
+    }
+
     export const enum SoundLevelEvent {
         /**
          * Raised when a loud sound is detected

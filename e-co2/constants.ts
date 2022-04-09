@@ -55,4 +55,31 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export const enum ECO2RegPack {
+        /**
+         * Pack format for 'e_CO2' register data.
+         */
+        ECO2 = "u22.10",
+
+        /**
+         * Pack format for 'e_CO2_error' register data.
+         */
+        ECO2Error = "u22.10",
+
+        /**
+         * Pack format for 'min_e_CO2' register data.
+         */
+        MinECO2 = "u22.10",
+
+        /**
+         * Pack format for 'max_e_CO2' register data.
+         */
+        MaxECO2 = "u22.10",
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        Variant = "u8",
+    }
 }

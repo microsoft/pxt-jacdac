@@ -49,6 +49,28 @@ namespace jacdac {
         Variant = 0x107,
     }
 
+    export const enum RealTimeClockRegPack {
+        /**
+         * Pack format for 'local_time' register data.
+         */
+        LocalTime = "u16 u8 u8 u8 u8 u8 u8",
+
+        /**
+         * Pack format for 'drift' register data.
+         */
+        Drift = "u16.16",
+
+        /**
+         * Pack format for 'precision' register data.
+         */
+        Precision = "u16.16",
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        Variant = "u8",
+    }
+
     export const enum RealTimeClockCmd {
         /**
          * Sets the current time and resets the error.
@@ -58,5 +80,12 @@ namespace jacdac {
          * ```
          */
         SetTime = 0x80,
+    }
+
+    export const enum RealTimeClockCmdPack {
+        /**
+         * Pack format for 'set_time' register data.
+         */
+        SetTime = "u16 u8 u8 u8 u8 u8 u8",
     }
 }

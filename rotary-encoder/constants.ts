@@ -31,4 +31,21 @@ namespace jacdac {
          */
         Clicker = 0x181,
     }
+
+    export const enum RotaryEncoderRegPack {
+        /**
+         * Pack format for 'position' register data.
+         */
+        Position = "i32",
+
+        /**
+         * Pack format for 'clicks_per_turn' register data.
+         */
+        ClicksPerTurn = "u16",
+
+        /**
+         * Pack format for 'clicker' register data.
+         */
+        Clicker = "u8",
+    }
 }

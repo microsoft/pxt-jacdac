@@ -29,4 +29,21 @@ namespace jacdac {
          */
         Length = 0x181,
     }
+
+    export const enum BrailleDisplayRegPack {
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        Enabled = "u8",
+
+        /**
+         * Pack format for 'patterns' register data.
+         */
+        Patterns = "s",
+
+        /**
+         * Pack format for 'length' register data.
+         */
+        Length = "u8",
+    }
 }

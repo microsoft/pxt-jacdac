@@ -92,4 +92,56 @@ namespace jacdac {
          */
         CurrentAngle = 0x101,
     }
+
+    export const enum ServoRegPack {
+        /**
+         * Pack format for 'angle' register data.
+         */
+        Angle = "i16.16",
+
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        Enabled = "u8",
+
+        /**
+         * Pack format for 'offset' register data.
+         */
+        Offset = "i16.16",
+
+        /**
+         * Pack format for 'min_angle' register data.
+         */
+        MinAngle = "i16.16",
+
+        /**
+         * Pack format for 'min_pulse' register data.
+         */
+        MinPulse = "u16",
+
+        /**
+         * Pack format for 'max_angle' register data.
+         */
+        MaxAngle = "i16.16",
+
+        /**
+         * Pack format for 'max_pulse' register data.
+         */
+        MaxPulse = "u16",
+
+        /**
+         * Pack format for 'stall_torque' register data.
+         */
+        StallTorque = "u16.16",
+
+        /**
+         * Pack format for 'response_speed' register data.
+         */
+        ResponseSpeed = "u16.16",
+
+        /**
+         * Pack format for 'current_angle' register data.
+         */
+        CurrentAngle = "i16.16",
+    }
 }

@@ -86,6 +86,48 @@ namespace jacdac {
         Variant = 0x107,
     }
 
+    export const enum WeightScaleRegPack {
+        /**
+         * Pack format for 'weight' register data.
+         */
+        Weight = "u16.16",
+
+        /**
+         * Pack format for 'weight_error' register data.
+         */
+        WeightError = "u16.16",
+
+        /**
+         * Pack format for 'zero_offset' register data.
+         */
+        ZeroOffset = "u16.16",
+
+        /**
+         * Pack format for 'gain' register data.
+         */
+        Gain = "u16.16",
+
+        /**
+         * Pack format for 'max_weight' register data.
+         */
+        MaxWeight = "u16.16",
+
+        /**
+         * Pack format for 'min_weight' register data.
+         */
+        MinWeight = "u16.16",
+
+        /**
+         * Pack format for 'weight_resolution' register data.
+         */
+        WeightResolution = "u16.16",
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        Variant = "u8",
+    }
+
     export const enum WeightScaleCmd {
         /**
          * No args. Call this command when there is nothing on the scale. If supported, the module should save the calibration data.
@@ -100,5 +142,12 @@ namespace jacdac {
          * ```
          */
         CalibrateGain = 0x81,
+    }
+
+    export const enum WeightScaleCmdPack {
+        /**
+         * Pack format for 'calibrate_gain' register data.
+         */
+        CalibrateGain = "u22.10",
     }
 }

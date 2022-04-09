@@ -37,4 +37,21 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export const enum UvIndexRegPack {
+        /**
+         * Pack format for 'uv_index' register data.
+         */
+        UvIndex = "u16.16",
+
+        /**
+         * Pack format for 'uv_index_error' register data.
+         */
+        UvIndexError = "u16.16",
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        Variant = "u8",
+    }
 }

@@ -12,6 +12,13 @@ namespace jacdac {
         Volume = 0x1,
     }
 
+    export const enum SoundPlayerRegPack {
+        /**
+         * Pack format for 'volume' register data.
+         */
+        Volume = "u0.16",
+    }
+
     export const enum SoundPlayerCmd {
         /**
          * Argument: name string (bytes). Starts playing a sound.
@@ -37,10 +44,29 @@ namespace jacdac {
         ListSounds = 0x82,
     }
 
+    export const enum SoundPlayerCmdPack {
+        /**
+         * Pack format for 'play' register data.
+         */
+        Play = "s",
+
+        /**
+         * Pack format for 'list_sounds' register data.
+         */
+        ListSounds = "b[12]",
+    }
+
     /**
      * pipe_report ListSoundsPipe
      * ```
      * const [duration, name] = jdunpack<[number, string]>(buf, "u32 s")
      * ```
      */
+
+    export const enum SoundPlayerinfoPack {
+        /**
+         * Pack format for 'list_sounds_pipe' register data.
+         */
+        ListSoundsPipe = "u32 s",
+    }
 }

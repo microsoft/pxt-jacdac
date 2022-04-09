@@ -12,10 +12,7 @@ namespace jacdac {
         public streamingSamples: number
         readonly calibrate: () => void
 
-        constructor(
-            serviceClass: number,
-            options?: SensorServerOptions
-        ) {
+        constructor(serviceClass: number, options?: SensorServerOptions) {
             super(serviceClass, options)
             options = options || {}
 

@@ -21,4 +21,16 @@ namespace jacdac {
          */
         Dimmable = 0x180,
     }
+
+    export const enum LightBulbRegPack {
+        /**
+         * Pack format for 'brightness' register data.
+         */
+        Brightness = "u0.16",
+
+        /**
+         * Pack format for 'dimmable' register data.
+         */
+        Dimmable = "u8",
+    }
 }

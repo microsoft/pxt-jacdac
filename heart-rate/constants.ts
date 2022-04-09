@@ -43,4 +43,21 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export const enum HeartRateRegPack {
+        /**
+         * Pack format for 'heart_rate' register data.
+         */
+        HeartRate = "u16.16",
+
+        /**
+         * Pack format for 'heart_rate_error' register data.
+         */
+        HeartRateError = "u16.16",
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        Variant = "u8",
+    }
 }

@@ -37,4 +37,21 @@ namespace jacdac {
          */
         Measurement = 0x101,
     }
+
+    export const enum DcVoltageMeasurementRegPack {
+        /**
+         * Pack format for 'measurement_type' register data.
+         */
+        MeasurementType = "u8",
+
+        /**
+         * Pack format for 'measurement_name' register data.
+         */
+        MeasurementName = "s",
+
+        /**
+         * Pack format for 'measurement' register data.
+         */
+        Measurement = "f64",
+    }
 }

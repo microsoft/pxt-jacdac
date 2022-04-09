@@ -48,4 +48,11 @@ namespace jacdac {
          */
         Clear = 0x81,
     }
+
+    export const enum HidKeyboardCmdPack {
+        /**
+         * Pack format for 'key' register data.
+         */
+        Key = "r: u16 u8 u8",
+    }
 }

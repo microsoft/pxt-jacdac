@@ -39,4 +39,21 @@ namespace jacdac {
          */
         MaxSwitchingCurrent = 0x180,
     }
+
+    export const enum RelayRegPack {
+        /**
+         * Pack format for 'active' register data.
+         */
+        Active = "u8",
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        Variant = "u8",
+
+        /**
+         * Pack format for 'max_switching_current' register data.
+         */
+        MaxSwitchingCurrent = "u32",
+    }
 }

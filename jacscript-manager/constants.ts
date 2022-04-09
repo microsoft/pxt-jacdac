@@ -55,12 +55,41 @@ namespace jacdac {
         LogMessage = 0x82,
     }
 
+    export const enum JacscriptManagerCmdPack {
+        /**
+         * Pack format for 'deploy_bytecode' register data.
+         */
+        DeployBytecode = "u32",
+
+        /**
+         * Pack format for 'deploy_bytecode' register data.
+         */
+        DeployBytecodeReport = "u16",
+
+        /**
+         * Pack format for 'read_bytecode' register data.
+         */
+        ReadBytecode = "b[12]",
+
+        /**
+         * Pack format for 'log_message' register data.
+         */
+        LogMessage = "u8 u8 s",
+    }
+
     /**
      * pipe_report Bytecode
      * ```
      * const [data] = jdunpack<[Buffer]>(buf, "b")
      * ```
      */
+
+    export const enum JacscriptManagerinfoPack {
+        /**
+         * Pack format for 'bytecode' register data.
+         */
+        Bytecode = "b",
+    }
 
     export const enum JacscriptManagerReg {
         /**
@@ -113,6 +142,33 @@ namespace jacdac {
         ProgramHash = 0x181,
     }
 
+    export const enum JacscriptManagerRegPack {
+        /**
+         * Pack format for 'running' register data.
+         */
+        Running = "u8",
+
+        /**
+         * Pack format for 'autostart' register data.
+         */
+        Autostart = "u8",
+
+        /**
+         * Pack format for 'logging' register data.
+         */
+        Logging = "u8",
+
+        /**
+         * Pack format for 'program_size' register data.
+         */
+        ProgramSize = "u32",
+
+        /**
+         * Pack format for 'program_hash' register data.
+         */
+        ProgramHash = "u32",
+    }
+
     export const enum JacscriptManagerEvent {
         /**
          * Emitted when the program calls `panic(panic_code)` or `reboot()` (`panic_code == 0` in that case).
@@ -131,5 +187,12 @@ namespace jacdac {
          */
         //% block="program change"
         ProgramChange = 0x3,
+    }
+
+    export const enum JacscriptManagerEventPack {
+        /**
+         * Pack format for 'program_panic' register data.
+         */
+        ProgramPanic = "u32 u32",
     }
 }

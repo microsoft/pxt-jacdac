@@ -57,4 +57,36 @@ namespace jacdac {
          */
         SmoothingTimeConstant = 0x83,
     }
+
+    export const enum SoundSpectrumRegPack {
+        /**
+         * Pack format for 'frequency_bins' register data.
+         */
+        FrequencyBins = "b",
+
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        Enabled = "u8",
+
+        /**
+         * Pack format for 'fft_pow2_size' register data.
+         */
+        FftPow2Size = "u8",
+
+        /**
+         * Pack format for 'min_decibels' register data.
+         */
+        MinDecibels = "i16",
+
+        /**
+         * Pack format for 'max_decibels' register data.
+         */
+        MaxDecibels = "i16",
+
+        /**
+         * Pack format for 'smoothing_time_constant' register data.
+         */
+        SmoothingTimeConstant = "u0.8",
+    }
 }

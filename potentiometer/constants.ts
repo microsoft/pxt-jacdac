@@ -28,4 +28,16 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export const enum PotentiometerRegPack {
+        /**
+         * Pack format for 'position' register data.
+         */
+        Position = "u0.16",
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        Variant = "u8",
+    }
 }

@@ -20,4 +20,16 @@ namespace jacdac {
          */
         OxygenError = 0x106,
     }
+
+    export const enum PulseOximeterRegPack {
+        /**
+         * Pack format for 'oxygen' register data.
+         */
+        Oxygen = "u8.8",
+
+        /**
+         * Pack format for 'oxygen_error' register data.
+         */
+        OxygenError = "u8.8",
+    }
 }

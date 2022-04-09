@@ -20,4 +20,16 @@ namespace jacdac {
          */
         Measurement = 0x101,
     }
+
+    export const enum DcCurrentMeasurementRegPack {
+        /**
+         * Pack format for 'measurement_name' register data.
+         */
+        MeasurementName = "s",
+
+        /**
+         * Pack format for 'measurement' register data.
+         */
+        Measurement = "f64",
+    }
 }

@@ -12,6 +12,13 @@ namespace jacdac {
         Volume = 0x1,
     }
 
+    export const enum BuzzerRegPack {
+        /**
+         * Pack format for 'volume' register data.
+         */
+        Volume = "u0.8",
+    }
+
     export const enum BuzzerCmd {
         /**
          * Play a PWM tone with given period and duty for given duration.
@@ -29,5 +36,17 @@ namespace jacdac {
          * Play a note at the given frequency and volume.
          */
         PlayNote = 0x81,
+    }
+
+    export const enum BuzzerCmdPack {
+        /**
+         * Pack format for 'play_tone' register data.
+         */
+        PlayTone = "u16 u16 u16",
+
+        /**
+         * Pack format for 'play_note' register data.
+         */
+        PlayNote = "u16 u0.16 u16",
     }
 }

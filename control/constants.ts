@@ -132,12 +132,51 @@ namespace jacdac {
          */
     }
 
+    export const enum ControlCmdPack {
+        /**
+         * Pack format for 'services' register data.
+         */
+        ServicesReport = "u16 u8 u8 r: u32",
+
+        /**
+         * Pack format for 'flood_ping' register data.
+         */
+        FloodPing = "u32 u32 u8",
+
+        /**
+         * Pack format for 'flood_ping' register data.
+         */
+        FloodPingReport = "u32 b",
+
+        /**
+         * Pack format for 'set_status_light' register data.
+         */
+        SetStatusLight = "u8 u8 u8 u8",
+
+        /**
+         * Pack format for 'reliable_commands' register data.
+         */
+        ReliableCommands = "u32",
+
+        /**
+         * Pack format for 'reliable_commands' register data.
+         */
+        ReliableCommandsReport = "b[12]",
+    }
+
     /**
      * pipe_command WrappedCommand
      * ```
      * const [serviceSize, serviceIndex, serviceCommand, payload] = jdunpack<[number, number, number, Buffer]>(buf, "u8 u8 u16 b")
      * ```
      */
+
+    export const enum ControlinfoPack {
+        /**
+         * Pack format for 'wrapped_command' register data.
+         */
+        WrappedCommand = "u8 u8 u16 b",
+    }
 
     export const enum ControlReg {
         /**
@@ -204,5 +243,42 @@ namespace jacdac {
          * ```
          */
         Uptime = 0x186,
+    }
+
+    export const enum ControlRegPack {
+        /**
+         * Pack format for 'reset_in' register data.
+         */
+        ResetIn = "u32",
+
+        /**
+         * Pack format for 'device_description' register data.
+         */
+        DeviceDescription = "s",
+
+        /**
+         * Pack format for 'product_identifier' register data.
+         */
+        ProductIdentifier = "u32",
+
+        /**
+         * Pack format for 'bootloader_product_identifier' register data.
+         */
+        BootloaderProductIdentifier = "u32",
+
+        /**
+         * Pack format for 'firmware_version' register data.
+         */
+        FirmwareVersion = "s",
+
+        /**
+         * Pack format for 'mcu_temperature' register data.
+         */
+        McuTemperature = "i16",
+
+        /**
+         * Pack format for 'uptime' register data.
+         */
+        Uptime = "u64",
     }
 }
