@@ -19,8 +19,8 @@ namespace jacdac {
         lastServerTime: number
         controlData: Buffer
 
-        constructor(name: string) {
-            super(name, jd_class.CONTROLLER)
+        constructor() {
+            super("controller", jd_class.CONTROLLER)
             this.controlData = Buffer.create(3)
             this.controlData[0] = JDControllerCommand.ControlClient
             this.serverAddress = 0
@@ -222,5 +222,5 @@ namespace jacdac {
     }
 
     //% fixedInstance whenUsed weight=1 block="controller client"
-    export const controllerClient = new ControllerClient("controller")
+    export const controllerClient = new ControllerClient()
 }
