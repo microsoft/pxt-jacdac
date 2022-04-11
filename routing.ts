@@ -441,7 +441,7 @@ namespace jacdac {
             pkt._sendReport(bus.selfDevice)
         }
 
-        protected sendEvent(eventCode: number, data?: Buffer) {
+        sendEvent(eventCode: number, data?: Buffer) {
             if (this.serviceIndex == null) return
             const pkt = JDPacket.from(
                 bus.mkEventCmd(eventCode),
@@ -453,7 +453,7 @@ namespace jacdac {
             delayedSend(pkt, now + 100)
         }
 
-        protected sendChangeEvent(): void {
+        sendChangeEvent(): void {
             this.sendEvent(SystemEvent.Change)
             this.emit(CHANGE)
         }
