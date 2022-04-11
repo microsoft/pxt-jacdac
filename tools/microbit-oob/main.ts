@@ -133,13 +133,13 @@ function rotateDisplayPixel(clicks: number) {
 function setPixelBrightness(ratio: number) {
     const pkt = jacdac.JDPacket.jdpacked(
         jacdac.CMD_SET_REG | jacdac.LedStripReg.Brightness,
-        "u0.8",
+        jacdac.LedStripRegPack.Brightness,
         [ratio]
     )
     pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
     const pkt2 = jacdac.JDPacket.jdpacked(
         jacdac.CMD_SET_REG | jacdac.LedDisplayReg.Brightness,
-        "u0.8",
+        jacdac.LedDisplayRegPack.Brightness,
         [ratio]
     )
     pkt2.sendAsMultiCommand(jacdac.SRV_LED_DISPLAY)
@@ -151,7 +151,7 @@ function configureActuator(dev: jacdac.Device, serviceClass: number, serviceInde
     } else if (serviceClass === jacdac.SRV_LED_STRIP) {
         const pkt = jacdac.JDPacket.jdpacked(
             jacdac.CMD_SET_REG | jacdac.LedStripReg.Brightness,
-            "u0.8",
+            jacdac.LedStripRegPack.Brightness,
             [0.1]
         )
         pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
@@ -189,7 +189,7 @@ jacdac.bus.subscribe(jacdac.SELF_ANNOUNCE, () => {
         knownSensors.forEach(sc => {
             const pkt = jacdac.JDPacket.jdpacked(
                 jacdac.CMD_SET_REG | jacdac.SystemReg.StreamingSamples,
-                "u8",
+                jacdac.SystemRegPack.StreamingSamples,
                 [0xff]
             )
             pkt.sendAsMultiCommand(sc)
@@ -424,7 +424,7 @@ function setServoAngle(b: Button) {
     const angle = b === Button.A ? -90 : b === Button.B ? 90 : 0
     const pkt = jacdac.JDPacket.jdpacked(
         jacdac.CMD_SET_REG | jacdac.ServoReg.Angle,
-        "i16.16",
+        jacdac.ServoRegPack.Angle,
         [angle]
     )
     pkt.sendAsMultiCommand(jacdac.SRV_SERVO)
@@ -433,7 +433,7 @@ function setServoAngle(b: Button) {
 function mouseMove(x: number, y: number) {
     const pkt = jacdac.JDPacket.jdpacked(
         jacdac.HidMouseCmd.Move,
-        "i16 i16 u16",
+        jacdac.HidMouseCmdPack.Move,
         [x | 0, y | 0, 0]
     )
     pkt.sendAsMultiCommand(jacdac.SRV_HID_MOUSE)
@@ -445,7 +445,7 @@ function mouseClick(
 ) {
     const pkt = jacdac.JDPacket.jdpacked(
         jacdac.HidMouseCmd.SetButton,
-        "u16 u8",
+        jacdac.HidMouseCmdPack.SetButton,
         [buttons, event]
     )
     pkt.sendAsMultiCommand(jacdac.SRV_HID_MOUSE)
@@ -453,7 +453,7 @@ function mouseClick(
 
 function animateLEDs(b: Button) {
     if (b === Button.A) {
-        runEncoded("rotfwd 1")            
+        runEncoded("rotfwd 1")
     } else if (b === Button.B) {
         runEncoded("rotback 1")
     } else {
@@ -464,7 +464,7 @@ function animateLEDs(b: Button) {
 const pattern = [0x000000, 0xff0000, 0x00ff00, 0x0000ff]
 
 function animateDisplayLEDs(b: Button) {
-    if (b === Button.A) {        
+    if (b === Button.A) {
         onlyLedDisplay.forEach(d => {
             d.rotate(1)
             d.show()
@@ -490,7 +490,7 @@ function animateDisplayLEDs(b: Button) {
 }
 
 function sendColor(color: number) {
-    const pkt = jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, "u8 u8 u8 u8", [
+    const pkt = jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, jacdac.LedCmdPack.Animate, [
         color >> 16,
         (color & 0x00ff00) >> 8,
         color,

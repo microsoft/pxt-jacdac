@@ -131,7 +131,7 @@ namespace jacdac._rolemgr {
         public autoBind = true
 
         constructor() {
-            super("", jacdac.SRV_ROLE_MANAGER)
+            super(jacdac.SRV_ROLE_MANAGER)
         }
 
         public handlePacket(packet: JDPacket) {
@@ -147,7 +147,7 @@ namespace jacdac._rolemgr {
                         JDPacket.jdpacked(
                             jacdac.RoleManagerReg.AllRolesAllocated |
                                 CMD_GET_REG,
-                            "u8",
+                            jacdac.RoleManagerRegPack.AllRolesAllocated,
                             [
                                 jacdac.bus.allClients.every(
                                     c => c.broadcast || !!c.device

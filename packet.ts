@@ -92,7 +92,7 @@ namespace jacdac {
             this.markHandled() // don't send again
             const p = JDPacket.jdpacked(
                 BaseCmd.CommandNotImplemented,
-                "u16 u16",
+                BaseCmdPack.CommandNotImplemented,
                 [this.serviceCommand, this.crc]
             )
             p.serviceIndex = this.serviceIndex
@@ -168,7 +168,7 @@ namespace jacdac {
         get eventCounter() {
             return this.isEvent
                 ? (this.serviceCommand >> CMD_EVENT_COUNTER_POS) &
-                      CMD_EVENT_COUNTER_MASK
+                CMD_EVENT_COUNTER_MASK
                 : undefined
         }
 
@@ -249,11 +249,9 @@ namespace jacdac {
         }
 
         toString(): string {
-            let msg = `${jacdac.shortDeviceId(this.deviceIdentifier)}/${
-                this.serviceIndex
-            }[${this.packetFlags}]: ${hexNum(this.serviceCommand, 4)} sz=${
-                this.size
-            }`
+            let msg = `${jacdac.shortDeviceId(this.deviceIdentifier)}/${this.serviceIndex
+                }[${this.packetFlags}]: ${hexNum(this.serviceCommand, 4)} sz=${this.size
+                }`
             if (this.size < 20) msg += ": " + this.data.toHex()
             else msg += ": " + this.data.slice(0, 20).toHex() + "..."
             return msg

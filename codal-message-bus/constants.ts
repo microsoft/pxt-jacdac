@@ -12,6 +12,13 @@ namespace jacdac {
         Send = 0x80,
     }
 
+    export namespace CodalMessageBusCmdPack {
+        /**
+         * Pack format for 'send' register data.
+         */
+        export const Send = "u16 u16"
+    }
+
     export const enum CodalMessageBusEvent {
         /**
          * Raised by the server is triggered by the server. The filtering logic of which event to send over Jacdac is up to the server implementation.
@@ -22,5 +29,12 @@ namespace jacdac {
          */
         //% block="message"
         Message = 0x80,
+    }
+
+    export namespace CodalMessageBusEventPack {
+        /**
+         * Pack format for 'message' register data.
+         */
+        export const Message = "u16 u16"
     }
 }

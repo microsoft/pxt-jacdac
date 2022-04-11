@@ -29,4 +29,21 @@ namespace jacdac {
          */
         MaxWindSpeed = 0x105,
     }
+
+    export namespace WindSpeedRegPack {
+        /**
+         * Pack format for 'wind_speed' register data.
+         */
+        export const WindSpeed = "u16.16"
+
+        /**
+         * Pack format for 'wind_speed_error' register data.
+         */
+        export const WindSpeedError = "u16.16"
+
+        /**
+         * Pack format for 'max_wind_speed' register data.
+         */
+        export const MaxWindSpeed = "u16.16"
+    }
 }

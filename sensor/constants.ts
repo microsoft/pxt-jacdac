@@ -29,4 +29,21 @@ namespace jacdac {
          */
         StreamingPreferredInterval = 0x102,
     }
+
+    export namespace SensorRegPack {
+        /**
+         * Pack format for 'streaming_samples' register data.
+         */
+        export const StreamingSamples = "u8"
+
+        /**
+         * Pack format for 'streaming_interval' register data.
+         */
+        export const StreamingInterval = "u32"
+
+        /**
+         * Pack format for 'streaming_preferred_interval' register data.
+         */
+        export const StreamingPreferredInterval = "u32"
+    }
 }

@@ -45,6 +45,28 @@ namespace jacdac {
         Variant = 0x107,
     }
 
+    export namespace MotionRegPack {
+        /**
+         * Pack format for 'moving' register data.
+         */
+        export const Moving = "u8"
+
+        /**
+         * Pack format for 'max_distance' register data.
+         */
+        export const MaxDistance = "u16.16"
+
+        /**
+         * Pack format for 'angle' register data.
+         */
+        export const Angle = "u16"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
+
     export const enum MotionEvent {
         /**
          * A movement was detected.

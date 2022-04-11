@@ -9,11 +9,15 @@ namespace modules {
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_RAIN_GAUGE, role, "u16.16")
+            super(
+                jacdac.SRV_RAIN_GAUGE,
+                role,
+                jacdac.RainGaugeRegPack.Precipitation
+            )
 
             this._precipitationPrecision = this.addRegister<[number]>(
                 jacdac.RainGaugeReg.PrecipitationPrecision,
-                "u16.16"
+                jacdac.RainGaugeRegPack.PrecipitationPrecision
             )
         }
 
@@ -55,6 +59,6 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
-    //% fixedInstance whenUsed weight=1 block="rain gauge 1"
+    //% fixedInstance whenUsed weight=1 block="rain gauge1"
     export const rainGauge1 = new RainGaugeClient("rain Gauge1")
 }

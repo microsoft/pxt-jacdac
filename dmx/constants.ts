@@ -12,6 +12,13 @@ namespace jacdac {
         Enabled = 0x1,
     }
 
+    export namespace DmxRegPack {
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        export const Enabled = "u8"
+    }
+
     export const enum DmxCmd {
         /**
          * Argument: channels bytes. Send a DMX packet, up to 236bytes long, including the start code.
@@ -21,5 +28,12 @@ namespace jacdac {
          * ```
          */
         Send = 0x80,
+    }
+
+    export namespace DmxCmdPack {
+        /**
+         * Pack format for 'send' register data.
+         */
+        export const Send = "b"
     }
 }

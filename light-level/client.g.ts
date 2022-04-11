@@ -4,16 +4,25 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class LightLevelClient extends jacdac.SimpleSensorClient {
+        private readonly _lightLevelError: jacdac.RegisterClient<[number]>
         private readonly _variant: jacdac.RegisterClient<
             [jacdac.LightLevelVariant]
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_LIGHT_LEVEL, role, "u0.16")
+            super(
+                jacdac.SRV_LIGHT_LEVEL,
+                role,
+                jacdac.LightLevelRegPack.LightLevel
+            )
 
+            this._lightLevelError = this.addRegister<[number]>(
+                jacdac.LightLevelReg.LightLevelError,
+                jacdac.LightLevelRegPack.LightLevelError
+            )
             this._variant = this.addRegister<[jacdac.LightLevelVariant]>(
                 jacdac.LightLevelReg.Variant,
-                "u8"
+                jacdac.LightLevelRegPack.Variant
             )
         }
 
@@ -30,11 +39,23 @@ namespace modules {
         }
 
         /**
-         * The type of physical sensor.
+         * Absolute estimated error of the reading value
          */
         //% callInDebugger
         //% group="Environment"
         //% weight=99
+        lightLevelError(): number {
+            this.start()
+            const values = this._lightLevelError.pauseUntilValues() as any[]
+            return values[0] * 100
+        }
+
+        /**
+         * The type of physical sensor.
+         */
+        //% callInDebugger
+        //% group="Environment"
+        //% weight=98
         variant(): jacdac.LightLevelVariant {
             this.start()
             const values = this._variant.pauseUntilValues() as any[]
@@ -47,7 +68,7 @@ namespace modules {
         //% group="Environment"
         //% blockId=jacdac_lightlevel_on_light_level_change
         //% block="on %lightlevel light level changed by %threshold"
-        //% weight=98
+        //% weight=97
         //% threshold.min=0
         //% threshold.max=100
         //% threshold.defl=5

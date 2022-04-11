@@ -28,7 +28,7 @@ namespace servers {
 
     export class BuzzerServer extends jacdac.Server {
         constructor() {
-            super("buzzer", SRV_BUZZER)
+            super(SRV_BUZZER)
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {

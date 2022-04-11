@@ -3,8 +3,8 @@ namespace servers {
         enabled = true
         loginServerStarted = false
 
-        constructor(dev: string) {
-            super(dev, jacdac.SRV_WIFI, { streamingInterval: 1000 })
+        constructor() {
+            super(jacdac.SRV_WIFI, { streamingInterval: 1000 })
         }
 
         start(): void {
@@ -134,5 +134,5 @@ namespace servers {
     }
 
     //% fixedInstance whenUsed weight=1 block="wifi"
-    export const wifi = new WiFiServer("wifi")
+    export const wifi = new WiFiServer()
 }

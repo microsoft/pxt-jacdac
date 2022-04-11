@@ -116,7 +116,7 @@ namespace jacdac {
         newDataCallback: () => void
 
         constructor() {
-            super("agg", jacdac.SRV_SENSOR_AGGREGATOR)
+            super(jacdac.SRV_SENSOR_AGGREGATOR)
         }
 
         get samplesInWindow() {

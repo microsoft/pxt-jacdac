@@ -13,15 +13,15 @@ namespace modules {
 
             this._red = this.addRegister<[boolean]>(
                 jacdac.TrafficLightReg.Red,
-                "u8"
+                jacdac.TrafficLightRegPack.Red
             )
             this._yellow = this.addRegister<[boolean]>(
                 jacdac.TrafficLightReg.Yellow,
-                "u8"
+                jacdac.TrafficLightRegPack.Yellow
             )
             this._green = this.addRegister<[boolean]>(
                 jacdac.TrafficLightReg.Green,
-                "u8"
+                jacdac.TrafficLightRegPack.Green
             )
         }
 

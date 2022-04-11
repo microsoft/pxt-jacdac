@@ -5,14 +5,14 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class ColorClient extends jacdac.SensorClient {
         constructor(role: string) {
-            super(jacdac.SRV_COLOR, role, "u0.16 u0.16 u0.16")
+            super(jacdac.SRV_COLOR, role, jacdac.ColorRegPack.Color)
         }
 
         /**
          * Detected color in the RGB color space.
          */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% block="%color red"
         //% blockId=jacdac_color_color_red_get
         //% weight=100
@@ -26,7 +26,7 @@ namespace modules {
          * Detected color in the RGB color space.
          */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% block="%color green"
         //% blockId=jacdac_color_color_green_get
         //% weight=99
@@ -40,7 +40,7 @@ namespace modules {
          * Detected color in the RGB color space.
          */
         //% callInDebugger
-        //% group="Imaging"
+        //% group="Environment"
         //% block="%color blue"
         //% blockId=jacdac_color_color_blue_get
         //% weight=98

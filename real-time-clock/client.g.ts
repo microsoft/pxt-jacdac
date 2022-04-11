@@ -11,27 +11,31 @@ namespace modules {
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_REAL_TIME_CLOCK, role, "u16 u8 u8 u8 u8 u8 u8")
+            super(
+                jacdac.SRV_REAL_TIME_CLOCK,
+                role,
+                jacdac.RealTimeClockRegPack.LocalTime
+            )
 
             this._drift = this.addRegister<[number]>(
                 jacdac.RealTimeClockReg.Drift,
-                "u16.16"
+                jacdac.RealTimeClockRegPack.Drift
             )
             this._precision = this.addRegister<[number]>(
                 jacdac.RealTimeClockReg.Precision,
-                "u16.16"
+                jacdac.RealTimeClockRegPack.Precision
             )
             this._variant = this.addRegister<[jacdac.RealTimeClockVariant]>(
                 jacdac.RealTimeClockReg.Variant,
-                "u8"
+                jacdac.RealTimeClockRegPack.Variant
             )
         }
 
         /**
          * Current time in 24h representation.
-         * * ``day_of_month`` is day of the month, starting at ``1``
-         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
-         * Default streaming period is 1 second.
+         *
+         * -   `day_of_month` is day of the month, starting at `1`
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -46,9 +50,9 @@ namespace modules {
 
         /**
          * Current time in 24h representation.
-         * * ``day_of_month`` is day of the month, starting at ``1``
-         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
-         * Default streaming period is 1 second.
+         *
+         * -   `day_of_month` is day of the month, starting at `1`
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -63,9 +67,9 @@ namespace modules {
 
         /**
          * Current time in 24h representation.
-         * * ``day_of_month`` is day of the month, starting at ``1``
-         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
-         * Default streaming period is 1 second.
+         *
+         * -   `day_of_month` is day of the month, starting at `1`
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -80,9 +84,9 @@ namespace modules {
 
         /**
          * Current time in 24h representation.
-         * * ``day_of_month`` is day of the month, starting at ``1``
-         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
-         * Default streaming period is 1 second.
+         *
+         * -   `day_of_month` is day of the month, starting at `1`
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -97,9 +101,9 @@ namespace modules {
 
         /**
          * Current time in 24h representation.
-         * * ``day_of_month`` is day of the month, starting at ``1``
-         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
-         * Default streaming period is 1 second.
+         *
+         * -   `day_of_month` is day of the month, starting at `1`
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -114,9 +118,9 @@ namespace modules {
 
         /**
          * Current time in 24h representation.
-         * * ``day_of_month`` is day of the month, starting at ``1``
-         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
-         * Default streaming period is 1 second.
+         *
+         * -   `day_of_month` is day of the month, starting at `1`
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -131,9 +135,9 @@ namespace modules {
 
         /**
          * Current time in 24h representation.
-         * * ``day_of_month`` is day of the month, starting at ``1``
-         * * ``day_of_week`` is day of the week, starting at ``1`` as monday
-         * Default streaming period is 1 second.
+         *
+         * -   `day_of_month` is day of the month, starting at `1`
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -147,7 +151,7 @@ namespace modules {
         }
 
         /**
-         * Time drift since the last call to the ``set_time`` command.
+         * Time drift since the last call to the `set_time` command.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -202,7 +206,7 @@ namespace modules {
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.RealTimeClockCmd.SetTime,
-                    "u16 u8 u8 u8 u8 u8 u8",
+                    jacdac.RealTimeClockCmdPack.SetTime,
                     [year, month, dayOfMonth, dayOfWeek, hour, min, sec]
                 )
             )

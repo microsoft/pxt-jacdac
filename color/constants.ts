@@ -11,4 +11,11 @@ namespace jacdac {
          */
         Color = 0x101,
     }
+
+    export namespace ColorRegPack {
+        /**
+         * Pack format for 'color' register data.
+         */
+        export const Color = "u0.16 u0.16 u0.16"
+    }
 }

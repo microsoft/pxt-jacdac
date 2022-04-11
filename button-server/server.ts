@@ -3,8 +3,11 @@ import MkcdButtonEvent = ButtonEvent
 
 namespace jacdac {
     export class ButtonServer extends jacdac.SensorServer {
-        constructor(dev: string, public readonly button: Button) {
-            super(dev, jacdac.SRV_BUTTON)
+        constructor(
+            public readonly button: Button,
+            options?: jacdac.SensorServerOptions
+        ) {
+            super(jacdac.SRV_BUTTON, options)
             this.button.onEvent(MkcdButtonEvent.Down, () =>
                 this.sendEvent(JDButtonEvent.Down)
             )

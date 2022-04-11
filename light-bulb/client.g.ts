@@ -12,11 +12,11 @@ namespace modules {
 
             this._brightness = this.addRegister<[number]>(
                 jacdac.LightBulbReg.Brightness,
-                "u0.16"
+                jacdac.LightBulbRegPack.Brightness
             )
             this._dimmable = this.addRegister<[boolean]>(
                 jacdac.LightBulbReg.Dimmable,
-                "u8"
+                jacdac.LightBulbRegPack.Dimmable
             )
         }
 

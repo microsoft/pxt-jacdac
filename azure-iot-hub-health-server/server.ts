@@ -1,8 +1,8 @@
 namespace servers {
     export class AzureIotHubHealthServer extends jacdac.Server {
         private _connectionStatus: jacdac.AzureIotHubHealthConnectionStatus
-        constructor(dev: string) {
-            super(dev, jacdac.SRV_AZURE_IOT_HUB_HEALTH)
+        constructor() {
+            super(jacdac.SRV_AZURE_IOT_HUB_HEALTH)
             this._connectionStatus =
                 jacdac.AzureIotHubHealthConnectionStatus.Disconnected
             let hasPub = false
@@ -145,5 +145,5 @@ namespace servers {
     }
 
     //% fixedInstance whenUsed weight=1 block="Azure IoT Hub"
-    export const azureIotHubHealth = new AzureIotHubHealthServer("iothub")
+    export const azureIotHubHealth = new AzureIotHubHealthServer()
 }

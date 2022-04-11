@@ -3,7 +3,7 @@ namespace servers {
     export class AccelerometerServer extends jacdac.SensorServer {
         private lastEvent: number = -1
         constructor() {
-            super("accelerometer", SRV_ACCELEROMETER)
+            super(SRV_ACCELEROMETER)
             input.onGesture(Gesture.Shake, function () {
                 this.sendEvent(0x8b)
             })

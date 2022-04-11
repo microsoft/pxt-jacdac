@@ -189,8 +189,7 @@ namespace jacdac {
         reattach(dev: Device) {
             dev.lastSeen = control.millis()
             log(
-                `reattaching services to ${dev.toString()}; cl=${
-                    this.unattachedClients.length
+                `reattaching services to ${dev.toString()}; cl=${this.unattachedClients.length
                 }/${this.allClients.length}`
             )
             const newClients: Client[] = []
@@ -363,11 +362,13 @@ namespace jacdac {
     }
 
     export interface ServerOptions {
+        instanceName?: string
         variant?: number
     }
 
     //% fixedInstances
     export class Server extends EventSource {
+        readonly instanceName: string
         protected supressLog: boolean
         running: boolean
         serviceIndex: number
@@ -377,12 +378,12 @@ namespace jacdac {
         private variant?: number
 
         constructor(
-            public readonly instanceName: string,
             public readonly serviceClass: number,
             options?: ServerOptions
         ) {
             super()
 
+            this.instanceName = options ? options.instanceName : undefined
             this.variant = options ? options.variant : undefined
         }
 
@@ -428,7 +429,7 @@ namespace jacdac {
             }
         }
 
-        handlePacket(pkt: JDPacket) {}
+        handlePacket(pkt: JDPacket) { }
 
         isConnected() {
             return this.running
@@ -458,19 +459,22 @@ namespace jacdac {
         }
 
         private handleStatusCode(pkt: JDPacket) {
-            this.handleRegFormat(pkt, SystemReg.StatusCode, "u16 u16", [
+            this.handleRegFormat(pkt, SystemReg.StatusCode, SystemRegPack.StatusCode, [
                 this._statusCode,
                 this._statusVendorCode,
             ])
         }
 
         private handleInstanceName(pkt: JDPacket) {
-            this.handleRegValue(
-                pkt,
-                SystemReg.InstanceName,
-                "s",
-                this.instanceName || ""
-            )
+            if (this.instanceName)
+                this.handleRegValue(
+                    pkt,
+                    SystemReg.InstanceName,
+                    SystemRegPack.InstanceName,
+                    this.instanceName
+                )
+            else
+                pkt.possiblyNotImplemented()
         }
 
         private handleVariant(pkt: JDPacket) {
@@ -624,10 +628,9 @@ namespace jacdac {
             const dev = bus.selfDevice.toString()
             console.add(
                 logPriority,
-                `${dev}${
-                    this.instanceName
-                        ? `.${this.instanceName}`
-                        : `[${this.serviceIndex}]`
+                `${dev}${this.instanceName
+                    ? `.${this.instanceName}`
+                    : `[${this.serviceIndex}]`
                 }>${text}`
             )
         }
@@ -636,7 +639,7 @@ namespace jacdac {
     class ClientPacketQueue {
         private pkts: Buffer[] = []
 
-        constructor(public readonly parent: Client) {}
+        constructor(public readonly parent: Client) { }
 
         private updateQueue(pkt: JDPacket) {
             const cmd = pkt.serviceCommand
@@ -684,7 +687,7 @@ namespace jacdac {
 
     export class RegisterClient<
         TValues extends PackDataType[]
-    > extends EventSource {
+        > extends EventSource {
         private _data: Buffer
         private _localTime: number
 
@@ -767,7 +770,7 @@ namespace jacdac {
     }
 
     export class ClientRoleQuery {
-        constructor(public readonly role: string) {}
+        constructor(public readonly role: string) { }
         // ?device=...
         device: string
         // ?service=...
@@ -924,7 +927,7 @@ namespace jacdac {
             this.handlePacket(pkt)
         }
 
-        handlePacket(pkt: JDPacket) {}
+        handlePacket(pkt: JDPacket) { }
 
         _attach(dev: Device, serviceNum: number) {
             if (this.device) throw "Invalid attach"
@@ -935,8 +938,7 @@ namespace jacdac {
                 bus.attachClient(this)
             }
             log(
-                `attached ${dev.toString()}/${serviceNum} to client ${
-                    this.role
+                `attached ${dev.toString()}/${serviceNum} to client ${this.role
                 }`
             )
             dev.clients.push(this)
@@ -1093,7 +1095,7 @@ namespace jacdac {
             jacdac.bus.destroyClient(this)
         }
 
-        announceCallback() {}
+        announceCallback() { }
     }
 
     // 2 letter + 2 digit ID; 1.8%/0.3%/0.07%/0.015% collision probability among 50/20/10/5 devices
@@ -1112,7 +1114,7 @@ namespace jacdac {
         lastReport = 0
         value: Buffer
         notImplemented: boolean
-        constructor(public reg: number, public serviceIdx: number) {}
+        constructor(public reg: number, public serviceIdx: number) { }
     }
 
     export class Device extends EventSource {
@@ -1204,9 +1206,9 @@ namespace jacdac {
             return serviceIndex == 0
                 ? 0
                 : this.services.getNumber(
-                      NumberFormat.UInt32LE,
-                      serviceIndex << 2
-                  )
+                    NumberFormat.UInt32LE,
+                    serviceIndex << 2
+                )
         }
 
         query(reg: number, refreshRate = 1000, servIdx = 0) {
@@ -1348,23 +1350,23 @@ namespace jacdac {
         }
     }
 
-    function doNothing() {}
+    function doNothing() { }
 
     class ProxyServer extends Server {
         constructor() {
-            super("proxy", SRV_PROXY)
+            super(SRV_PROXY)
         }
     }
 
     class BrainServer extends Server {
         constructor() {
-            super("brain", SRV_UNIQUE_BRAIN)
+            super(SRV_UNIQUE_BRAIN)
         }
     }
 
     export class ControlServer extends Server {
         constructor() {
-            super("ctrl", 0)
+            super(jacdac.SRV_CONTROL)
         }
 
         sendUptime() {

@@ -32,6 +32,13 @@ namespace jacdac {
         Cancel = 0x82,
     }
 
+    export namespace SoundRecorderWithPlaybackCmdPack {
+        /**
+         * Pack format for 'record' register data.
+         */
+        export const Record = "u16"
+    }
+
     export const enum SoundRecorderWithPlaybackReg {
         /**
          * Read-only Status (uint8_t). Indicate the current status
@@ -59,5 +66,22 @@ namespace jacdac {
          * ```
          */
         Volume = 0x1,
+    }
+
+    export namespace SoundRecorderWithPlaybackRegPack {
+        /**
+         * Pack format for 'status' register data.
+         */
+        export const Status = "u8"
+
+        /**
+         * Pack format for 'time' register data.
+         */
+        export const Time = "u16"
+
+        /**
+         * Pack format for 'volume' register data.
+         */
+        export const Volume = "u0.8"
     }
 }

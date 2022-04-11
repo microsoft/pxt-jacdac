@@ -71,7 +71,7 @@ namespace modules {
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.VibrationMotorCmd.Vibrate,
-                    "r: u8 u0.8",
+                    jacdac.VibrationMotorCmdPack.Vibrate,
                     [payload]
                 )
             )

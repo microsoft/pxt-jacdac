@@ -11,7 +11,7 @@ namespace jacdac {
     }
 
     //% fixedInstances
-    export class ControllerClient extends Broadcast {
+    export class ControllerClient extends BroadcastServer {
         state: Buffer
         streamingState: jacdac.SensorStateTODO
         streamingInterval: number

@@ -39,4 +39,21 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export namespace WaterLevelRegPack {
+        /**
+         * Pack format for 'level' register data.
+         */
+        export const Level = "u0.16"
+
+        /**
+         * Pack format for 'level_error' register data.
+         */
+        export const LevelError = "u0.16"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
 }

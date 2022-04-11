@@ -7,11 +7,11 @@ namespace modules {
         private readonly _variant: jacdac.RegisterClient<[jacdac.SwitchVariant]>
 
         constructor(role: string) {
-            super(jacdac.SRV_SWITCH, role, "u8")
+            super(jacdac.SRV_SWITCH, role, jacdac.SwitchRegPack.Active)
 
             this._variant = this.addRegister<[jacdac.SwitchVariant]>(
                 jacdac.SwitchReg.Variant,
-                "u8"
+                jacdac.SwitchRegPack.Variant
             )
         }
 

@@ -49,6 +49,28 @@ namespace jacdac {
          */
     }
 
+    export namespace ModelRunnerCmdPack {
+        /**
+         * Pack format for 'set_model' register data.
+         */
+        export const SetModel = "u32"
+
+        /**
+         * Pack format for 'set_model' register data.
+         */
+        export const SetModelReport = "u16"
+
+        /**
+         * Pack format for 'predict' register data.
+         */
+        export const Predict = "b[12]"
+
+        /**
+         * Pack format for 'predict' register data.
+         */
+        export const PredictReport = "u16"
+    }
+
     export const enum ModelRunnerReg {
         /**
          * Read-write uint16_t. When register contains `N > 0`, run the model automatically every time new `N` samples are collected.
@@ -155,5 +177,62 @@ namespace jacdac {
          * ```
          */
         Parallel = 0x188,
+    }
+
+    export namespace ModelRunnerRegPack {
+        /**
+         * Pack format for 'auto_invoke_every' register data.
+         */
+        export const AutoInvokeEvery = "u16"
+
+        /**
+         * Pack format for 'outputs' register data.
+         */
+        export const Outputs = "r: f32"
+
+        /**
+         * Pack format for 'input_shape' register data.
+         */
+        export const InputShape = "r: u16"
+
+        /**
+         * Pack format for 'output_shape' register data.
+         */
+        export const OutputShape = "r: u16"
+
+        /**
+         * Pack format for 'last_run_time' register data.
+         */
+        export const LastRunTime = "u32"
+
+        /**
+         * Pack format for 'allocated_arena_size' register data.
+         */
+        export const AllocatedArenaSize = "u32"
+
+        /**
+         * Pack format for 'model_size' register data.
+         */
+        export const ModelSize = "u32"
+
+        /**
+         * Pack format for 'last_error' register data.
+         */
+        export const LastError = "s"
+
+        /**
+         * Pack format for 'format' register data.
+         */
+        export const Format = "u32"
+
+        /**
+         * Pack format for 'format_version' register data.
+         */
+        export const FormatVersion = "u32"
+
+        /**
+         * Pack format for 'parallel' register data.
+         */
+        export const Parallel = "u8"
     }
 }

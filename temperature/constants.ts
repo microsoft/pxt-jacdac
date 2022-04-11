@@ -57,4 +57,31 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export namespace TemperatureRegPack {
+        /**
+         * Pack format for 'temperature' register data.
+         */
+        export const Temperature = "i22.10"
+
+        /**
+         * Pack format for 'min_temperature' register data.
+         */
+        export const MinTemperature = "i22.10"
+
+        /**
+         * Pack format for 'max_temperature' register data.
+         */
+        export const MaxTemperature = "i22.10"
+
+        /**
+         * Pack format for 'temperature_error' register data.
+         */
+        export const TemperatureError = "u22.10"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
 }

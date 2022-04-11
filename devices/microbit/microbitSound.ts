@@ -87,7 +87,7 @@ namespace servers {
         quietThreshold: number = 0.2
 
         constructor() {
-            super("sound level", SRV_SOUND_LEVEL)
+            super(SRV_SOUND_LEVEL)
         }
 
         private setThresholds() {

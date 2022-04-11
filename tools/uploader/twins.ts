@@ -160,7 +160,7 @@ namespace jacdac.twins {
                 this.pendingSamples = 254
                 const payload = JDPacket.jdpacked(
                     CMD_SET_REG | SystemReg.StreamingSamples,
-                    "u8",
+                    SystemRegPack.StreamingSamples,
                     [254]
                 )
                 payload.serviceIndex = this.serviceIdx
@@ -220,7 +220,7 @@ namespace jacdac.twins {
                     if (v < 1000) {
                         const payload = JDPacket.jdpacked(
                             CMD_SET_REG | SystemReg.StreamingInterval,
-                            "u32",
+                            SystemRegPack.StreamingInterval,
                             [1000]
                         )
                         payload.serviceIndex = this.serviceIdx
@@ -481,8 +481,7 @@ namespace jacdac.twins {
                 control.millis() - lastReadingsSent > READINGS_SEND_INTERVAL)
         ) {
             console.log(
-                `sending readings: #${numMsg++} ${pendingReadings} readings, ${pendingMessageSize} bytes, delta ${
-                    control.millis() - lastReadingsSent
+                `sending readings: #${numMsg++} ${pendingReadings} readings, ${pendingMessageSize} bytes, delta ${control.millis() - lastReadingsSent
                 }ms`
             )
 

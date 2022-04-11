@@ -16,39 +16,39 @@ namespace modules {
         private readonly _keepOnPulsePeriod: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_POWER, role, "u16")
+            super(jacdac.SRV_POWER, role, jacdac.PowerRegPack.CurrentDraw)
 
             this._allowed = this.addRegister<[boolean]>(
                 jacdac.PowerReg.Allowed,
-                "u8"
+                jacdac.PowerRegPack.Allowed
             )
             this._maxPower = this.addRegister<[number]>(
                 jacdac.PowerReg.MaxPower,
-                "u16"
+                jacdac.PowerRegPack.MaxPower
             )
             this._powerStatus = this.addRegister<[jacdac.PowerPowerStatus]>(
                 jacdac.PowerReg.PowerStatus,
-                "u8"
+                jacdac.PowerRegPack.PowerStatus
             )
             this._batteryVoltage = this.addRegister<[number]>(
                 jacdac.PowerReg.BatteryVoltage,
-                "u16"
+                jacdac.PowerRegPack.BatteryVoltage
             )
             this._batteryCharge = this.addRegister<[number]>(
                 jacdac.PowerReg.BatteryCharge,
-                "u0.16"
+                jacdac.PowerRegPack.BatteryCharge
             )
             this._batteryCapacity = this.addRegister<[number]>(
                 jacdac.PowerReg.BatteryCapacity,
-                "u32"
+                jacdac.PowerRegPack.BatteryCapacity
             )
             this._keepOnPulseDuration = this.addRegister<[number]>(
                 jacdac.PowerReg.KeepOnPulseDuration,
-                "u16"
+                jacdac.PowerRegPack.KeepOnPulseDuration
             )
             this._keepOnPulsePeriod = this.addRegister<[number]>(
                 jacdac.PowerReg.KeepOnPulsePeriod,
-                "u16"
+                jacdac.PowerRegPack.KeepOnPulsePeriod
             )
         }
 
@@ -253,12 +253,21 @@ namespace modules {
         }
 
         /**
+         * Register code to run when an event is raised
+         */
+        //% group="Power"
+        //% blockId=jacdac_on_power_event
+        //% block="on %power %event"
+        //% weight=86
+        onEvent(ev: jacdac.PowerEvent, handler: () => void): void {
+            this.registerEvent(ev, handler)
+        }
+
+        /**
          * Emitted whenever `power_status` changes.
          */
         //% group="Power"
-        //% blockId=jacdac_on_power_power_status_changed
-        //% block="on %power power status changed"
-        //% weight=86
+        //% weight=85
         onPowerStatusChanged(handler: () => void): void {
             this.registerEvent(jacdac.PowerEvent.PowerStatusChanged, handler)
         }
@@ -269,7 +278,7 @@ namespace modules {
         //% group="Power"
         //% blockId=jacdac_power_shutdown_cmd
         //% block="%power shutdown"
-        //% weight=85
+        //% weight=84
         shutdown(): void {
             this.start()
             this.sendCommand(

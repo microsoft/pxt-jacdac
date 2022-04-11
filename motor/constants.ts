@@ -49,4 +49,31 @@ namespace jacdac {
          */
         Reversible = 0x182,
     }
+
+    export namespace MotorRegPack {
+        /**
+         * Pack format for 'duty' register data.
+         */
+        export const Duty = "i1.15"
+
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        export const Enabled = "u8"
+
+        /**
+         * Pack format for 'load_torque' register data.
+         */
+        export const LoadTorque = "u16.16"
+
+        /**
+         * Pack format for 'load_speed' register data.
+         */
+        export const LoadSpeed = "u16.16"
+
+        /**
+         * Pack format for 'reversible' register data.
+         */
+        export const Reversible = "u8"
+    }
 }

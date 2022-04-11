@@ -9,19 +9,23 @@ namespace modules {
         private readonly _maxForcesSupported: jacdac.RegisterClient<[number[]]>
 
         constructor(role: string) {
-            super(jacdac.SRV_ACCELEROMETER, role, "i12.20 i12.20 i12.20")
+            super(
+                jacdac.SRV_ACCELEROMETER,
+                role,
+                jacdac.AccelerometerRegPack.Forces
+            )
 
             this._forcesError = this.addRegister<[number]>(
                 jacdac.AccelerometerReg.ForcesError,
-                "u12.20"
+                jacdac.AccelerometerRegPack.ForcesError
             )
             this._maxForce = this.addRegister<[number]>(
                 jacdac.AccelerometerReg.MaxForce,
-                "u12.20"
+                jacdac.AccelerometerRegPack.MaxForce
             )
             this._maxForcesSupported = this.addRegister<[number[]]>(
                 jacdac.AccelerometerReg.MaxForcesSupported,
-                "r: u12.20"
+                jacdac.AccelerometerRegPack.MaxForcesSupported
             )
         }
 

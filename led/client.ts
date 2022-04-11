@@ -187,12 +187,11 @@ namespace modules {
             const s =
                 speed <= 0 ? 0 : speed >= 100 ? 0 : ((speed / 100) * 0xff) | 0
             this.sendCommand(
-                jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, "u8 u8 u8 u8", [
-                    r,
-                    g,
-                    b,
-                    s,
-                ])
+                jacdac.JDPacket.jdpacked(
+                    jacdac.LedCmd.Animate,
+                    jacdac.LedCmdPack.Animate,
+                    [r, g, b, s]
+                )
             )
         }
     }

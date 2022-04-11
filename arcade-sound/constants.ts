@@ -12,6 +12,13 @@ namespace jacdac {
         Play = 0x80,
     }
 
+    export namespace ArcadeSoundCmdPack {
+        /**
+         * Pack format for 'play' register data.
+         */
+        export const Play = "b"
+    }
+
     export const enum ArcadeSoundReg {
         /**
          * Read-write Hz u22.10 (uint32_t). Get or set playback sample rate (in samples per second).
@@ -43,5 +50,22 @@ namespace jacdac {
          * ```
          */
         BufferPending = 0x181,
+    }
+
+    export namespace ArcadeSoundRegPack {
+        /**
+         * Pack format for 'sample_rate' register data.
+         */
+        export const SampleRate = "u22.10"
+
+        /**
+         * Pack format for 'buffer_size' register data.
+         */
+        export const BufferSize = "u32"
+
+        /**
+         * Pack format for 'buffer_pending' register data.
+         */
+        export const BufferPending = "u32"
     }
 }

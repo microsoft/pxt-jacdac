@@ -12,3 +12,4 @@ _site
 docs/assets/js/binary-local.js
 dist
 others
+*.gts

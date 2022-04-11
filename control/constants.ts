@@ -132,12 +132,51 @@ namespace jacdac {
          */
     }
 
+    export namespace ControlCmdPack {
+        /**
+         * Pack format for 'services' register data.
+         */
+        export const ServicesReport = "u16 u8 u8 r: u32"
+
+        /**
+         * Pack format for 'flood_ping' register data.
+         */
+        export const FloodPing = "u32 u32 u8"
+
+        /**
+         * Pack format for 'flood_ping' register data.
+         */
+        export const FloodPingReport = "u32 b"
+
+        /**
+         * Pack format for 'set_status_light' register data.
+         */
+        export const SetStatusLight = "u8 u8 u8 u8"
+
+        /**
+         * Pack format for 'reliable_commands' register data.
+         */
+        export const ReliableCommands = "u32"
+
+        /**
+         * Pack format for 'reliable_commands' register data.
+         */
+        export const ReliableCommandsReport = "b[12]"
+    }
+
     /**
      * pipe_command WrappedCommand
      * ```
      * const [serviceSize, serviceIndex, serviceCommand, payload] = jdunpack<[number, number, number, Buffer]>(buf, "u8 u8 u16 b")
      * ```
      */
+
+    export namespace ControlinfoPack {
+        /**
+         * Pack format for 'wrapped_command' register data.
+         */
+        export const WrappedCommand = "u8 u8 u16 b"
+    }
 
     export const enum ControlReg {
         /**
@@ -204,5 +243,42 @@ namespace jacdac {
          * ```
          */
         Uptime = 0x186,
+    }
+
+    export namespace ControlRegPack {
+        /**
+         * Pack format for 'reset_in' register data.
+         */
+        export const ResetIn = "u32"
+
+        /**
+         * Pack format for 'device_description' register data.
+         */
+        export const DeviceDescription = "s"
+
+        /**
+         * Pack format for 'product_identifier' register data.
+         */
+        export const ProductIdentifier = "u32"
+
+        /**
+         * Pack format for 'bootloader_product_identifier' register data.
+         */
+        export const BootloaderProductIdentifier = "u32"
+
+        /**
+         * Pack format for 'firmware_version' register data.
+         */
+        export const FirmwareVersion = "s"
+
+        /**
+         * Pack format for 'mcu_temperature' register data.
+         */
+        export const McuTemperature = "i16"
+
+        /**
+         * Pack format for 'uptime' register data.
+         */
+        export const Uptime = "u64"
     }
 }

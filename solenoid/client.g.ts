@@ -14,11 +14,11 @@ namespace modules {
 
             this._pulled = this.addRegister<[boolean]>(
                 jacdac.SolenoidReg.Pulled,
-                "u8"
+                jacdac.SolenoidRegPack.Pulled
             )
             this._variant = this.addRegister<[jacdac.SolenoidVariant]>(
                 jacdac.SolenoidReg.Variant,
-                "u8"
+                jacdac.SolenoidRegPack.Variant
             )
         }
 

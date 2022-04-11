@@ -22,6 +22,18 @@ namespace jacdac {
         SetPixels = 0x83,
     }
 
+    export namespace IndexedScreenCmdPack {
+        /**
+         * Pack format for 'start_update' register data.
+         */
+        export const StartUpdate = "u16 u16 u16 u16"
+
+        /**
+         * Pack format for 'set_pixels' register data.
+         */
+        export const SetPixels = "b"
+    }
+
     export const enum IndexedScreenReg {
         /**
          * Read-write ratio u0.8 (uint8_t). Set backlight brightness.
@@ -108,5 +120,47 @@ namespace jacdac {
          * ```
          */
         Rotation = 0x83,
+    }
+
+    export namespace IndexedScreenRegPack {
+        /**
+         * Pack format for 'brightness' register data.
+         */
+        export const Brightness = "u0.8"
+
+        /**
+         * Pack format for 'palette' register data.
+         */
+        export const Palette = "r: u8 u8 u8 u8"
+
+        /**
+         * Pack format for 'bits_per_pixel' register data.
+         */
+        export const BitsPerPixel = "u8"
+
+        /**
+         * Pack format for 'width' register data.
+         */
+        export const Width = "u16"
+
+        /**
+         * Pack format for 'height' register data.
+         */
+        export const Height = "u16"
+
+        /**
+         * Pack format for 'width_major' register data.
+         */
+        export const WidthMajor = "u8"
+
+        /**
+         * Pack format for 'up_sampling' register data.
+         */
+        export const UpSampling = "u8"
+
+        /**
+         * Pack format for 'rotation' register data.
+         */
+        export const Rotation = "u16"
     }
 }

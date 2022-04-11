@@ -48,6 +48,33 @@ namespace jacdac {
         Rate = 0x83,
     }
 
+    export namespace SpeechSynthesisRegPack {
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        export const Enabled = "u8"
+
+        /**
+         * Pack format for 'lang' register data.
+         */
+        export const Lang = "s"
+
+        /**
+         * Pack format for 'volume' register data.
+         */
+        export const Volume = "u0.8"
+
+        /**
+         * Pack format for 'pitch' register data.
+         */
+        export const Pitch = "u16.16"
+
+        /**
+         * Pack format for 'rate' register data.
+         */
+        export const Rate = "u16.16"
+    }
+
     export const enum SpeechSynthesisCmd {
         /**
          * Argument: text string (bytes). Adds an utterance to the utterance queue; it will be spoken when any other utterances queued before it have been spoken.
@@ -62,5 +89,12 @@ namespace jacdac {
          * No args. Cancels current utterance and all utterances from the utterance queue.
          */
         Cancel = 0x81,
+    }
+
+    export namespace SpeechSynthesisCmdPack {
+        /**
+         * Pack format for 'speak' register data.
+         */
+        export const Speak = "s"
     }
 }

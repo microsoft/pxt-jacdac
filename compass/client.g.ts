@@ -8,15 +8,15 @@ namespace modules {
         private readonly _headingError: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_COMPASS, role, "u16.16")
+            super(jacdac.SRV_COMPASS, role, jacdac.CompassRegPack.Heading)
 
             this._enabled = this.addRegister<[boolean]>(
                 jacdac.CompassReg.Enabled,
-                "u8"
+                jacdac.CompassRegPack.Enabled
             )
             this._headingError = this.addRegister<[number]>(
                 jacdac.CompassReg.HeadingError,
-                "u16.16"
+                jacdac.CompassRegPack.HeadingError
             )
         }
 

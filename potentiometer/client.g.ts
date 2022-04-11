@@ -9,16 +9,20 @@ namespace modules {
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_POTENTIOMETER, role, "u0.16")
+            super(
+                jacdac.SRV_POTENTIOMETER,
+                role,
+                jacdac.PotentiometerRegPack.Position
+            )
 
             this._variant = this.addRegister<[jacdac.PotentiometerVariant]>(
                 jacdac.PotentiometerReg.Variant,
-                "u8"
+                jacdac.PotentiometerRegPack.Variant
             )
         }
 
         /**
-         * The relative position of the slider between `0` and `1`.
+         * The relative position of the slider.
          */
         //% callInDebugger
         //% group="Slider"

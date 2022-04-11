@@ -55,12 +55,41 @@ namespace jacdac {
         LogMessage = 0x82,
     }
 
+    export namespace JacscriptManagerCmdPack {
+        /**
+         * Pack format for 'deploy_bytecode' register data.
+         */
+        export const DeployBytecode = "u32"
+
+        /**
+         * Pack format for 'deploy_bytecode' register data.
+         */
+        export const DeployBytecodeReport = "u16"
+
+        /**
+         * Pack format for 'read_bytecode' register data.
+         */
+        export const ReadBytecode = "b[12]"
+
+        /**
+         * Pack format for 'log_message' register data.
+         */
+        export const LogMessage = "u8 u8 s"
+    }
+
     /**
      * pipe_report Bytecode
      * ```
      * const [data] = jdunpack<[Buffer]>(buf, "b")
      * ```
      */
+
+    export namespace JacscriptManagerinfoPack {
+        /**
+         * Pack format for 'bytecode' register data.
+         */
+        export const Bytecode = "b"
+    }
 
     export const enum JacscriptManagerReg {
         /**
@@ -113,6 +142,33 @@ namespace jacdac {
         ProgramHash = 0x181,
     }
 
+    export namespace JacscriptManagerRegPack {
+        /**
+         * Pack format for 'running' register data.
+         */
+        export const Running = "u8"
+
+        /**
+         * Pack format for 'autostart' register data.
+         */
+        export const Autostart = "u8"
+
+        /**
+         * Pack format for 'logging' register data.
+         */
+        export const Logging = "u8"
+
+        /**
+         * Pack format for 'program_size' register data.
+         */
+        export const ProgramSize = "u32"
+
+        /**
+         * Pack format for 'program_hash' register data.
+         */
+        export const ProgramHash = "u32"
+    }
+
     export const enum JacscriptManagerEvent {
         /**
          * Emitted when the program calls `panic(panic_code)` or `reboot()` (`panic_code == 0` in that case).
@@ -131,5 +187,12 @@ namespace jacdac {
          */
         //% block="program change"
         ProgramChange = 0x3,
+    }
+
+    export namespace JacscriptManagerEventPack {
+        /**
+         * Pack format for 'program_panic' register data.
+         */
+        export const ProgramPanic = "u32 u32"
     }
 }

@@ -101,4 +101,46 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export namespace LedDisplayRegPack {
+        /**
+         * Pack format for 'pixels' register data.
+         */
+        export const Pixels = "b"
+
+        /**
+         * Pack format for 'brightness' register data.
+         */
+        export const Brightness = "u0.8"
+
+        /**
+         * Pack format for 'actual_brightness' register data.
+         */
+        export const ActualBrightness = "u0.8"
+
+        /**
+         * Pack format for 'light_type' register data.
+         */
+        export const LightType = "u8"
+
+        /**
+         * Pack format for 'num_pixels' register data.
+         */
+        export const NumPixels = "u16"
+
+        /**
+         * Pack format for 'num_columns' register data.
+         */
+        export const NumColumns = "u16"
+
+        /**
+         * Pack format for 'max_power' register data.
+         */
+        export const MaxPower = "u16"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
 }

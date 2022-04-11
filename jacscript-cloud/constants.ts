@@ -49,6 +49,28 @@ namespace jacdac {
         AckCloudCommand = 0x83,
     }
 
+    export namespace JacscriptCloudCmdPack {
+        /**
+         * Pack format for 'upload' register data.
+         */
+        export const Upload = "z r: f64"
+
+        /**
+         * Pack format for 'get_twin' register data.
+         */
+        export const GetTwin = "s"
+
+        /**
+         * Pack format for 'get_twin' register data.
+         */
+        export const GetTwinReport = "z f64"
+
+        /**
+         * Pack format for 'ack_cloud_command' register data.
+         */
+        export const AckCloudCommand = "u32 u32 r: f64"
+    }
+
     export const enum JacscriptCloudReg {
         /**
          * Read-only bool (uint8_t). Indicate whether we're currently connected to the cloud server.
@@ -59,6 +81,13 @@ namespace jacdac {
          * ```
          */
         Connected = 0x180,
+    }
+
+    export namespace JacscriptCloudRegPack {
+        /**
+         * Pack format for 'connected' register data.
+         */
+        export const Connected = "u8"
     }
 
     export const enum JacscriptCloudEvent {
@@ -77,5 +106,12 @@ namespace jacdac {
          */
         //% block="twin change"
         TwinChange = 0x3,
+    }
+
+    export namespace JacscriptCloudEventPack {
+        /**
+         * Pack format for 'cloud_command' register data.
+         */
+        export const CloudCommand = "u32 z r: f64"
     }
 }

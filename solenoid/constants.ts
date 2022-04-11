@@ -30,4 +30,16 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export namespace SolenoidRegPack {
+        /**
+         * Pack format for 'pulled' register data.
+         */
+        export const Pulled = "u8"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
 }

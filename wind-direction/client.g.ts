@@ -7,11 +7,15 @@ namespace modules {
         private readonly _windDirectionError: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_WIND_DIRECTION, role, "u16")
+            super(
+                jacdac.SRV_WIND_DIRECTION,
+                role,
+                jacdac.WindDirectionRegPack.WindDirection
+            )
 
             this._windDirectionError = this.addRegister<[number]>(
                 jacdac.WindDirectionReg.WindDirectionError,
-                "u16"
+                jacdac.WindDirectionRegPack.WindDirectionError
             )
         }
 
@@ -53,6 +57,6 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
-    //% fixedInstance whenUsed weight=1 block="wind direction 1"
+    //% fixedInstance whenUsed weight=1 block="wind direction1"
     export const windDirection1 = new WindDirectionClient("wind Direction1")
 }

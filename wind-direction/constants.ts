@@ -20,4 +20,16 @@ namespace jacdac {
          */
         WindDirectionError = 0x106,
     }
+
+    export namespace WindDirectionRegPack {
+        /**
+         * Pack format for 'wind_direction' register data.
+         */
+        export const WindDirection = "u16"
+
+        /**
+         * Pack format for 'wind_direction_error' register data.
+         */
+        export const WindDirectionError = "u16"
+    }
 }

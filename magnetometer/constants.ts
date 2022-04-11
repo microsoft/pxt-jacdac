@@ -22,6 +22,18 @@ namespace jacdac {
         ForcesError = 0x106,
     }
 
+    export namespace MagnetometerRegPack {
+        /**
+         * Pack format for 'forces' register data.
+         */
+        export const Forces = "i32 i32 i32"
+
+        /**
+         * Pack format for 'forces_error' register data.
+         */
+        export const ForcesError = "i32"
+    }
+
     export const enum MagnetometerCmd {
         /**
          * No args. Forces a calibration sequence where the user/device

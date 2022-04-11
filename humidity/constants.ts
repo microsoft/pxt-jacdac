@@ -38,4 +38,26 @@ namespace jacdac {
          */
         MaxHumidity = 0x105,
     }
+
+    export namespace HumidityRegPack {
+        /**
+         * Pack format for 'humidity' register data.
+         */
+        export const Humidity = "u22.10"
+
+        /**
+         * Pack format for 'humidity_error' register data.
+         */
+        export const HumidityError = "u22.10"
+
+        /**
+         * Pack format for 'min_humidity' register data.
+         */
+        export const MinHumidity = "u22.10"
+
+        /**
+         * Pack format for 'max_humidity' register data.
+         */
+        export const MaxHumidity = "u22.10"
+    }
 }

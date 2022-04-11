@@ -38,4 +38,26 @@ namespace jacdac {
          */
         MaxHumidity = 0x105,
     }
+
+    export namespace AcidityRegPack {
+        /**
+         * Pack format for 'acidity' register data.
+         */
+        export const Acidity = "u4.12"
+
+        /**
+         * Pack format for 'acidity_error' register data.
+         */
+        export const AcidityError = "u4.12"
+
+        /**
+         * Pack format for 'min_acidity' register data.
+         */
+        export const MinAcidity = "u4.12"
+
+        /**
+         * Pack format for 'max_humidity' register data.
+         */
+        export const MaxHumidity = "u4.12"
+    }
 }

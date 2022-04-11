@@ -95,6 +95,33 @@ namespace jacdac {
         ListKnownNetworks = 0x87,
     }
 
+    export namespace WifiCmdPack {
+        /**
+         * Pack format for 'last_scan_results' register data.
+         */
+        export const LastScanResults = "b[12]"
+
+        /**
+         * Pack format for 'add_network' register data.
+         */
+        export const AddNetwork = "z z"
+
+        /**
+         * Pack format for 'forget_network' register data.
+         */
+        export const ForgetNetwork = "s"
+
+        /**
+         * Pack format for 'set_network_priority' register data.
+         */
+        export const SetNetworkPriority = "i16 s"
+
+        /**
+         * Pack format for 'list_known_networks' register data.
+         */
+        export const ListKnownNetworks = "b[12]"
+    }
+
     /**
      * pipe_report Results
      * ```
@@ -108,6 +135,18 @@ namespace jacdac {
      * const [priority, flags, ssid] = jdunpack<[number, number, string]>(buf, "i16 i16 s")
      * ```
      */
+
+    export namespace WifiinfoPack {
+        /**
+         * Pack format for 'results' register data.
+         */
+        export const Results = "u32 u32 i8 u8 b[6] s[33]"
+
+        /**
+         * Pack format for 'network_results' register data.
+         */
+        export const NetworkResults = "i16 i16 s"
+    }
 
     export const enum WifiReg {
         /**
@@ -157,6 +196,33 @@ namespace jacdac {
         Ssid = 0x183,
     }
 
+    export namespace WifiRegPack {
+        /**
+         * Pack format for 'rssi' register data.
+         */
+        export const Rssi = "i8"
+
+        /**
+         * Pack format for 'enabled' register data.
+         */
+        export const Enabled = "u8"
+
+        /**
+         * Pack format for 'ip_address' register data.
+         */
+        export const IpAddress = "b[16]"
+
+        /**
+         * Pack format for 'eui_48' register data.
+         */
+        export const Eui48 = "b[6]"
+
+        /**
+         * Pack format for 'ssid' register data.
+         */
+        export const Ssid = "s[32]"
+    }
+
     export const enum WifiEvent {
         /**
          * Emitted upon successful join and IP address assignment.
@@ -199,5 +265,17 @@ namespace jacdac {
          */
         //% block="connection failed"
         ConnectionFailed = 0x82,
+    }
+
+    export namespace WifiEventPack {
+        /**
+         * Pack format for 'scan_complete' register data.
+         */
+        export const ScanComplete = "u16 u16"
+
+        /**
+         * Pack format for 'connection_failed' register data.
+         */
+        export const ConnectionFailed = "s"
     }
 }

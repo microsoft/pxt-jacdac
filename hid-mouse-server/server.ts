@@ -1,7 +1,7 @@
 namespace servers {
     export class HIDMouseServer extends jacdac.SensorServer {
-        constructor(dev: string) {
-            super(dev, jacdac.SRV_HID_MOUSE)
+        constructor() {
+            super(jacdac.SRV_HID_MOUSE)
         }
 
         handlePacket(packet: jacdac.JDPacket) {
@@ -51,17 +51,20 @@ namespace servers {
         }
 
         private handleMove(pkt: jacdac.JDPacket) {
-            const [dx, dy, time] =
-                pkt.jdunpack<[number, number, number]>("i16 i16 u16")
+            const [dx, dy, time] = pkt.jdunpack<[number, number, number]>(
+                jacdac.HidMouseCmdPack.Move
+            )
             mouse.move(dx, dy)
         }
 
         private handleWheel(pkt: jacdac.JDPacket) {
-            const [dy, time] = pkt.jdunpack<[number, number, number]>("i16 u16")
+            const [dy, time] = pkt.jdunpack<[number, number, number]>(
+                jacdac.HidMouseCmdPack.Wheel
+            )
             mouse.turnWheel(dy)
         }
     }
 
     //% fixedInstance whenUsed
-    export const hidMouse = new HIDMouseServer("mouse")
+    export const hidMouse = new HIDMouseServer()
 }

@@ -41,7 +41,7 @@ namespace servers {
         enabled = false
 
         constructor() {
-            super("compass", SRV_COMPASS)
+            super(SRV_COMPASS)
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {

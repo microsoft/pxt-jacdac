@@ -27,6 +27,18 @@ namespace jacdac {
          */
     }
 
+    export namespace TcpCmdPack {
+        /**
+         * Pack format for 'open' register data.
+         */
+        export const Open = "b[12]"
+
+        /**
+         * Pack format for 'open' register data.
+         */
+        export const OpenReport = "u16"
+    }
+
     export const enum TcpPipeCmd {
         /**
          * Open an SSL connection to a given host:port pair. Can be issued only once on given pipe.
@@ -49,6 +61,18 @@ namespace jacdac {
         Error = 0x0,
     }
 
+    export namespace TcpPipeCmdPack {
+        /**
+         * Pack format for 'open_ssl' register data.
+         */
+        export const OpenSsl = "u16 s"
+
+        /**
+         * Pack format for 'error' register data.
+         */
+        export const Error = "i32"
+    }
+
     /**
      * pipe_command Outdata
      * ```
@@ -62,4 +86,16 @@ namespace jacdac {
      * const [data] = jdunpack<[Buffer]>(buf, "b")
      * ```
      */
+
+    export namespace TcpinfoPack {
+        /**
+         * Pack format for 'outdata' register data.
+         */
+        export const Outdata = "b"
+
+        /**
+         * Pack format for 'indata' register data.
+         */
+        export const Indata = "b"
+    }
 }

@@ -13,15 +13,19 @@ namespace modules {
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_HEART_RATE, role, "u16.16")
+            super(
+                jacdac.SRV_HEART_RATE,
+                role,
+                jacdac.HeartRateRegPack.HeartRate
+            )
 
             this._heartRateError = this.addRegister<[number]>(
                 jacdac.HeartRateReg.HeartRateError,
-                "u16.16"
+                jacdac.HeartRateRegPack.HeartRateError
             )
             this._variant = this.addRegister<[jacdac.HeartRateVariant]>(
                 jacdac.HeartRateReg.Variant,
-                "u8"
+                jacdac.HeartRateRegPack.Variant
             )
         }
 
@@ -75,6 +79,6 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
-    //% fixedInstance whenUsed weight=1 block="heart rate 1"
+    //% fixedInstance whenUsed weight=1 block="heart rate1"
     export const heartRate1 = new HeartRateClient("heart Rate1")
 }

@@ -11,4 +11,11 @@ namespace jacdac {
          */
         Kinematics = 0x101,
     }
+
+    export namespace RoverRegPack {
+        /**
+         * Pack format for 'kinematics' register data.
+         */
+        export const Kinematics = "i16.16 i16.16 i16.16 i16.16 i16.16"
+    }
 }

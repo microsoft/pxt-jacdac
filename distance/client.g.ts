@@ -4,6 +4,7 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class DistanceClient extends jacdac.SimpleSensorClient {
+        private readonly _distanceError: jacdac.RegisterClient<[number]>
         private readonly _minRange: jacdac.RegisterClient<[number]>
         private readonly _maxRange: jacdac.RegisterClient<[number]>
         private readonly _variant: jacdac.RegisterClient<
@@ -11,19 +12,23 @@ namespace modules {
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_DISTANCE, role, "u16.16")
+            super(jacdac.SRV_DISTANCE, role, jacdac.DistanceRegPack.Distance)
 
+            this._distanceError = this.addRegister<[number]>(
+                jacdac.DistanceReg.DistanceError,
+                jacdac.DistanceRegPack.DistanceError
+            )
             this._minRange = this.addRegister<[number]>(
                 jacdac.DistanceReg.MinRange,
-                "u16.16"
+                jacdac.DistanceRegPack.MinRange
             )
             this._maxRange = this.addRegister<[number]>(
                 jacdac.DistanceReg.MaxRange,
-                "u16.16"
+                jacdac.DistanceRegPack.MaxRange
             )
             this._variant = this.addRegister<[jacdac.DistanceVariant]>(
                 jacdac.DistanceReg.Variant,
-                "u8"
+                jacdac.DistanceRegPack.Variant
             )
         }
 
@@ -40,11 +45,23 @@ namespace modules {
         }
 
         /**
-         * Minimum measurable distance
+         * Absolute error on the reading value.
          */
         //% callInDebugger
         //% group="Distance"
         //% weight=99
+        distanceError(): number {
+            this.start()
+            const values = this._distanceError.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
+         * Minimum measurable distance
+         */
+        //% callInDebugger
+        //% group="Distance"
+        //% weight=98
         minRange(): number {
             this.start()
             const values = this._minRange.pauseUntilValues() as any[]
@@ -56,7 +73,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Distance"
-        //% weight=98
+        //% weight=97
         maxRange(): number {
             this.start()
             const values = this._maxRange.pauseUntilValues() as any[]
@@ -68,7 +85,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Distance"
-        //% weight=97
+        //% weight=96
         variant(): jacdac.DistanceVariant {
             this.start()
             const values = this._variant.pauseUntilValues() as any[]
@@ -81,7 +98,7 @@ namespace modules {
         //% group="Distance"
         //% blockId=jacdac_distance_on_distance_change
         //% block="on %distance distance changed by %threshold"
-        //% weight=96
+        //% weight=95
         //% threshold.min=0
         //% threshold.max=4
         //% threshold.defl=1

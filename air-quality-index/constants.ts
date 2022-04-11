@@ -38,4 +38,26 @@ namespace jacdac {
          */
         MaxAqiIndex = 0x105,
     }
+
+    export namespace AirQualityIndexRegPack {
+        /**
+         * Pack format for 'aqi_index' register data.
+         */
+        export const AqiIndex = "u16.16"
+
+        /**
+         * Pack format for 'aqi_index_error' register data.
+         */
+        export const AqiIndexError = "u16.16"
+
+        /**
+         * Pack format for 'min_aqi_index' register data.
+         */
+        export const MinAqiIndex = "u16.16"
+
+        /**
+         * Pack format for 'max_aqi_index' register data.
+         */
+        export const MaxAqiIndex = "u16.16"
+    }
 }

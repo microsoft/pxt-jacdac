@@ -28,4 +28,16 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export namespace ReflectedLightRegPack {
+        /**
+         * Pack format for 'brightness' register data.
+         */
+        export const Brightness = "u0.16"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
 }

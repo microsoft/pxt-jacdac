@@ -25,7 +25,7 @@ namespace modules {
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidMouseCmd.SetButton,
-                    "u16 u8",
+                    jacdac.HidMouseCmdPack.SetButton,
                     [buttons, event]
                 )
             )
@@ -46,7 +46,7 @@ namespace modules {
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidMouseCmd.Move,
-                    "i16 i16 u16",
+                    jacdac.HidMouseCmdPack.Move,
                     [dx, dy, time]
                 )
             )
@@ -63,10 +63,11 @@ namespace modules {
         wheel(dy: number, time: number): void {
             this.start()
             this.sendCommand(
-                jacdac.JDPacket.jdpacked(jacdac.HidMouseCmd.Wheel, "i16 u16", [
-                    dy,
-                    time,
-                ])
+                jacdac.JDPacket.jdpacked(
+                    jacdac.HidMouseCmd.Wheel,
+                    jacdac.HidMouseCmdPack.Wheel,
+                    [dy, time]
+                )
             )
         }
     }

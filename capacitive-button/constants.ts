@@ -12,6 +12,13 @@ namespace jacdac {
         Threshold = 0x6,
     }
 
+    export namespace CapacitiveButtonRegPack {
+        /**
+         * Pack format for 'threshold' register data.
+         */
+        export const Threshold = "u0.16"
+    }
+
     export const enum CapacitiveButtonCmd {
         /**
          * No args. Request to calibrate the capactive. When calibration is requested, the device expects that no object is touching the button.

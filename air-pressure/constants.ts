@@ -20,4 +20,16 @@ namespace jacdac {
          */
         PressureError = 0x106,
     }
+
+    export namespace AirPressureRegPack {
+        /**
+         * Pack format for 'pressure' register data.
+         */
+        export const Pressure = "u22.10"
+
+        /**
+         * Pack format for 'pressure_error' register data.
+         */
+        export const PressureError = "u22.10"
+    }
 }

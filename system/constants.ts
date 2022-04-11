@@ -63,6 +63,13 @@ namespace jacdac {
         CommandNotImplemented = 0x3,
     }
 
+    export namespace SystemCmdPack {
+        /**
+         * Pack format for 'command_not_implemented' register data.
+         */
+        export const CommandNotImplemented = "u16 u16"
+    }
+
     export const enum SystemReg {
         /**
          * Read-write uint32_t. This is either binary on/off (0 or non-zero), or can be gradual (eg. brightness of an RGB LED strip).
@@ -254,6 +261,108 @@ namespace jacdac {
         InstanceName = 0x109,
     }
 
+    export namespace SystemRegPack {
+        /**
+         * Pack format for 'intensity' register data.
+         */
+        export const Intensity = "u32"
+
+        /**
+         * Pack format for 'value' register data.
+         */
+        export const Value = "i32"
+
+        /**
+         * Pack format for 'min_value' register data.
+         */
+        export const MinValue = "i32"
+
+        /**
+         * Pack format for 'max_value' register data.
+         */
+        export const MaxValue = "i32"
+
+        /**
+         * Pack format for 'max_power' register data.
+         */
+        export const MaxPower = "u16"
+
+        /**
+         * Pack format for 'streaming_samples' register data.
+         */
+        export const StreamingSamples = "u8"
+
+        /**
+         * Pack format for 'streaming_interval' register data.
+         */
+        export const StreamingInterval = "u32"
+
+        /**
+         * Pack format for 'reading' register data.
+         */
+        export const Reading = "i32"
+
+        /**
+         * Pack format for 'reading_range' register data.
+         */
+        export const ReadingRange = "u32"
+
+        /**
+         * Pack format for 'supported_ranges' register data.
+         */
+        export const SupportedRanges = "r: u32"
+
+        /**
+         * Pack format for 'min_reading' register data.
+         */
+        export const MinReading = "i32"
+
+        /**
+         * Pack format for 'max_reading' register data.
+         */
+        export const MaxReading = "i32"
+
+        /**
+         * Pack format for 'reading_error' register data.
+         */
+        export const ReadingError = "u32"
+
+        /**
+         * Pack format for 'reading_resolution' register data.
+         */
+        export const ReadingResolution = "u32"
+
+        /**
+         * Pack format for 'inactive_threshold' register data.
+         */
+        export const InactiveThreshold = "i32"
+
+        /**
+         * Pack format for 'active_threshold' register data.
+         */
+        export const ActiveThreshold = "i32"
+
+        /**
+         * Pack format for 'streaming_preferred_interval' register data.
+         */
+        export const StreamingPreferredInterval = "u32"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u32"
+
+        /**
+         * Pack format for 'status_code' register data.
+         */
+        export const StatusCode = "u16 u16"
+
+        /**
+         * Pack format for 'instance_name' register data.
+         */
+        export const InstanceName = "s"
+    }
+
     export const enum SystemEvent {
         /**
          * Notifies that the service has been activated (eg. button pressed, network connected, etc.)
@@ -288,5 +397,12 @@ namespace jacdac {
          */
         //% block="neutral"
         Neutral = 0x7,
+    }
+
+    export namespace SystemEventPack {
+        /**
+         * Pack format for 'status_code_changed' register data.
+         */
+        export const StatusCodeChanged = "u16 u16"
     }
 }

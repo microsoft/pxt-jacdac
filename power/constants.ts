@@ -105,6 +105,53 @@ namespace jacdac {
         KeepOnPulsePeriod = 0x81,
     }
 
+    export namespace PowerRegPack {
+        /**
+         * Pack format for 'allowed' register data.
+         */
+        export const Allowed = "u8"
+
+        /**
+         * Pack format for 'max_power' register data.
+         */
+        export const MaxPower = "u16"
+
+        /**
+         * Pack format for 'power_status' register data.
+         */
+        export const PowerStatus = "u8"
+
+        /**
+         * Pack format for 'current_draw' register data.
+         */
+        export const CurrentDraw = "u16"
+
+        /**
+         * Pack format for 'battery_voltage' register data.
+         */
+        export const BatteryVoltage = "u16"
+
+        /**
+         * Pack format for 'battery_charge' register data.
+         */
+        export const BatteryCharge = "u0.16"
+
+        /**
+         * Pack format for 'battery_capacity' register data.
+         */
+        export const BatteryCapacity = "u32"
+
+        /**
+         * Pack format for 'keep_on_pulse_duration' register data.
+         */
+        export const KeepOnPulseDuration = "u16"
+
+        /**
+         * Pack format for 'keep_on_pulse_period' register data.
+         */
+        export const KeepOnPulsePeriod = "u16"
+    }
+
     export const enum PowerCmd {
         /**
          * No args. Sent by the power service periodically, as broadcast.
@@ -122,5 +169,12 @@ namespace jacdac {
          */
         //% block="power status changed"
         PowerStatusChanged = 0x3,
+    }
+
+    export namespace PowerEventPack {
+        /**
+         * Pack format for 'power_status_changed' register data.
+         */
+        export const PowerStatusChanged = "u8"
     }
 }

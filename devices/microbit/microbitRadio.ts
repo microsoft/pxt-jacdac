@@ -110,7 +110,7 @@ namespace servers {
         transmissionPower = 6
 
         constructor() {
-            super("radio", SRV_BIT_RADIO)
+            super(SRV_BIT_RADIO)
 
             radio.setGroup(this.group)
             radio.setTransmitPower(this.transmissionPower)

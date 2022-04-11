@@ -37,4 +37,21 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export namespace SoilMoistureRegPack {
+        /**
+         * Pack format for 'moisture' register data.
+         */
+        export const Moisture = "u0.16"
+
+        /**
+         * Pack format for 'moisture_error' register data.
+         */
+        export const MoistureError = "u0.16"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
 }

@@ -34,4 +34,16 @@ namespace jacdac {
          */
         Variant = 0x107,
     }
+
+    export namespace RngRegPack {
+        /**
+         * Pack format for 'random' register data.
+         */
+        export const Random = "b"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
 }

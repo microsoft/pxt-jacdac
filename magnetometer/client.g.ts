@@ -7,11 +7,15 @@ namespace modules {
         private readonly _forcesError: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_MAGNETOMETER, role, "i32 i32 i32")
+            super(
+                jacdac.SRV_MAGNETOMETER,
+                role,
+                jacdac.MagnetometerRegPack.Forces
+            )
 
             this._forcesError = this.addRegister<[number]>(
                 jacdac.MagnetometerReg.ForcesError,
-                "i32"
+                jacdac.MagnetometerRegPack.ForcesError
             )
         }
 
@@ -61,7 +65,7 @@ namespace modules {
         }
 
         /**
-         * Error on the readings.
+         * Absolute estimated error on the readings.
          */
         //% callInDebugger
         //% group="Magnetometer"

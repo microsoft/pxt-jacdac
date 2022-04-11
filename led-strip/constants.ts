@@ -118,6 +118,53 @@ namespace jacdac {
         Variant = 0x107,
     }
 
+    export namespace LedStripRegPack {
+        /**
+         * Pack format for 'brightness' register data.
+         */
+        export const Brightness = "u0.8"
+
+        /**
+         * Pack format for 'actual_brightness' register data.
+         */
+        export const ActualBrightness = "u0.8"
+
+        /**
+         * Pack format for 'light_type' register data.
+         */
+        export const LightType = "u8"
+
+        /**
+         * Pack format for 'num_pixels' register data.
+         */
+        export const NumPixels = "u16"
+
+        /**
+         * Pack format for 'num_columns' register data.
+         */
+        export const NumColumns = "u16"
+
+        /**
+         * Pack format for 'max_power' register data.
+         */
+        export const MaxPower = "u16"
+
+        /**
+         * Pack format for 'max_pixels' register data.
+         */
+        export const MaxPixels = "u16"
+
+        /**
+         * Pack format for 'num_repeats' register data.
+         */
+        export const NumRepeats = "u16"
+
+        /**
+         * Pack format for 'variant' register data.
+         */
+        export const Variant = "u8"
+    }
+
     export const enum LedStripCmd {
         /**
          * Argument: program bytes. Run the given light "program". See service description for details.
@@ -127,5 +174,12 @@ namespace jacdac {
          * ```
          */
         Run = 0x81,
+    }
+
+    export namespace LedStripCmdPack {
+        /**
+         * Pack format for 'run' register data.
+         */
+        export const Run = "b"
     }
 }

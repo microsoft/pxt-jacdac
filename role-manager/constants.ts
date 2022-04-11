@@ -26,6 +26,18 @@ namespace jacdac {
         AllRolesAllocated = 0x181,
     }
 
+    export namespace RoleManagerRegPack {
+        /**
+         * Pack format for 'auto_bind' register data.
+         */
+        export const AutoBind = "u8"
+
+        /**
+         * Pack format for 'all_roles_allocated' register data.
+         */
+        export const AllRolesAllocated = "u8"
+    }
+
     export const enum RoleManagerCmd {
         /**
          * Set role. Can set to empty to remove role binding.
@@ -51,12 +63,31 @@ namespace jacdac {
         ListRoles = 0x83,
     }
 
+    export namespace RoleManagerCmdPack {
+        /**
+         * Pack format for 'set_role' register data.
+         */
+        export const SetRole = "b[8] u8 s"
+
+        /**
+         * Pack format for 'list_roles' register data.
+         */
+        export const ListRoles = "b[12]"
+    }
+
     /**
      * pipe_report Roles
      * ```
      * const [deviceId, serviceClass, serviceIdx, role] = jdunpack<[Buffer, number, number, string]>(buf, "b[8] u32 u8 s")
      * ```
      */
+
+    export namespace RoleManagerinfoPack {
+        /**
+         * Pack format for 'roles' register data.
+         */
+        export const Roles = "b[8] u32 u8 s"
+    }
 
     export const enum RoleManagerEvent {
         /**

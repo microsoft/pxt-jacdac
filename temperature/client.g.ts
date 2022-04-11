@@ -12,23 +12,27 @@ namespace modules {
         >
 
         constructor(role: string) {
-            super(jacdac.SRV_TEMPERATURE, role, "i22.10")
+            super(
+                jacdac.SRV_TEMPERATURE,
+                role,
+                jacdac.TemperatureRegPack.Temperature
+            )
 
             this._minTemperature = this.addRegister<[number]>(
                 jacdac.TemperatureReg.MinTemperature,
-                "i22.10"
+                jacdac.TemperatureRegPack.MinTemperature
             )
             this._maxTemperature = this.addRegister<[number]>(
                 jacdac.TemperatureReg.MaxTemperature,
-                "i22.10"
+                jacdac.TemperatureRegPack.MaxTemperature
             )
             this._temperatureError = this.addRegister<[number]>(
                 jacdac.TemperatureReg.TemperatureError,
-                "u22.10"
+                jacdac.TemperatureRegPack.TemperatureError
             )
             this._variant = this.addRegister<[jacdac.TemperatureVariant]>(
                 jacdac.TemperatureReg.Variant,
-                "u8"
+                jacdac.TemperatureRegPack.Variant
             )
         }
 

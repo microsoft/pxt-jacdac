@@ -9,11 +9,15 @@ namespace modules {
         private readonly _oxygenError: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_PULSE_OXIMETER, role, "u8.8")
+            super(
+                jacdac.SRV_PULSE_OXIMETER,
+                role,
+                jacdac.PulseOximeterRegPack.Oxygen
+            )
 
             this._oxygenError = this.addRegister<[number]>(
                 jacdac.PulseOximeterReg.OxygenError,
-                "u8.8"
+                jacdac.PulseOximeterRegPack.OxygenError
             )
         }
 
@@ -55,6 +59,6 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
-    //% fixedInstance whenUsed weight=1 block="pulse oximeter 1"
+    //% fixedInstance whenUsed weight=1 block="pulse oximeter1"
     export const pulseOximeter1 = new PulseOximeterClient("pulse Oximeter1")
 }
