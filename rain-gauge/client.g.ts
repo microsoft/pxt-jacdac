@@ -41,7 +41,8 @@ namespace modules {
         //% weight=99
         precipitationPrecision(): number {
             this.start()
-            const values = this._precipitationPrecision.pauseUntilValues() as any[]
+            const values =
+                this._precipitationPrecision.pauseUntilValues() as any[]
             return values[0]
         }
 

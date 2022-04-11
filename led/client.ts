@@ -52,8 +52,8 @@ namespace modules {
             const values = this._color.pauseUntilValues() as any[]
             return values.length === 3
                 ? ((values[0] & 0xff) << 16) |
-                ((values[1] & 0xff) << 8) |
-                (values[2] & 0xff)
+                      ((values[1] & 0xff) << 8) |
+                      (values[2] & 0xff)
                 : 0
         }
 
@@ -187,12 +187,11 @@ namespace modules {
             const s =
                 speed <= 0 ? 0 : speed >= 100 ? 0 : ((speed / 100) * 0xff) | 0
             this.sendCommand(
-                jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, jacdac.LedCmdPack.Animate, [
-                    r,
-                    g,
-                    b,
-                    s,
-                ])
+                jacdac.JDPacket.jdpacked(
+                    jacdac.LedCmd.Animate,
+                    jacdac.LedCmdPack.Animate,
+                    [r, g, b, s]
+                )
             )
         }
     }

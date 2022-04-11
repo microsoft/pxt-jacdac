@@ -63,10 +63,11 @@ namespace modules {
         wheel(dy: number, time: number): void {
             this.start()
             this.sendCommand(
-                jacdac.JDPacket.jdpacked(jacdac.HidMouseCmd.Wheel, jacdac.HidMouseCmdPack.Wheel, [
-                    dy,
-                    time,
-                ])
+                jacdac.JDPacket.jdpacked(
+                    jacdac.HidMouseCmd.Wheel,
+                    jacdac.HidMouseCmdPack.Wheel,
+                    [dy, time]
+                )
             )
         }
     }

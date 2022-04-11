@@ -133,7 +133,7 @@ namespace jacdac {
                 if (running) {
                     return
                 }
-                const [current] = (this._reading.values as any[]) as [number]
+                const [current] = this._reading.values as any[] as [number]
                 if (current == null) return // ignore missing data
 
                 if (last == null || Math.abs(last - current) >= threshold) {
