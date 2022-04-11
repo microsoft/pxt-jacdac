@@ -147,7 +147,7 @@ namespace jacdac._rolemgr {
                         JDPacket.jdpacked(
                             jacdac.RoleManagerReg.AllRolesAllocated |
                                 CMD_GET_REG,
-                            "u8",
+                            jacdac.RoleManagerRegPack.AllRolesAllocated,
                             [
                                 jacdac.bus.allClients.every(
                                     c => c.broadcast || !!c.device
