@@ -219,4 +219,62 @@ namespace jacdac {
             options
         )
     }
+
+    export interface MultiSensorServerOptions extends SensorServerOptions {
+        readingError?: () => number
+        readingErrorPack?: string
+    }
+
+    class MultiSensorServer extends SensorServer {
+        readonly packFormat: string
+        readonly stateReader: () => number[]
+        private readingError: () => number
+        private readingErrorPack: string
+
+        constructor(
+            serviceClass: number,
+            packFormat: string,
+            stateReader: () => number[],
+            options?: MultiSensorServerOptions
+        ) {
+            super(serviceClass, options)
+
+            this.packFormat = packFormat
+            this.stateReader = stateReader
+            this.readingError = options ? options.readingError : undefined
+            this.readingErrorPack = options
+                ? options.readingErrorPack
+                : undefined
+        }
+
+        public handlePacket(pkt: jacdac.JDPacket) {
+            if (this.readingError !== undefined)
+                this.handleRegValue(
+                    pkt,
+                    jacdac.SystemReg.MaxReading,
+                    this.readingErrorPack,
+                    this.readingError()
+                )
+            super.handlePacket(pkt)
+        }
+
+        serializeState() {
+            const v = this.stateReader()
+            return jacdac.jdpack(this.packFormat, v)
+        }
+    }
+
+    export function createMultiSensorServer(
+        serviceClass: number,
+        packFormat: string,
+        stateReader: () => number[],
+        options?: MultiSensorServerOptions
+    ): SensorServer {
+        return new MultiSensorServer(
+            serviceClass,
+            packFormat,
+            stateReader,
+            options
+        )
+    }
 }

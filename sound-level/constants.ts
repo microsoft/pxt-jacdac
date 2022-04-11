@@ -28,15 +28,6 @@ namespace jacdac {
          * ```
          */
         LoudThreshold = 0x6,
-
-        /**
-         * Read-write ratio u0.16 (uint16_t). The sound level to trigger a quiet event.
-         *
-         * ```
-         * const [quietThreshold] = jdunpack<[number]>(buf, "u0.16")
-         * ```
-         */
-        QuietThreshold = 0x5,
     }
 
     export namespace SoundLevelRegPack {
@@ -54,11 +45,6 @@ namespace jacdac {
          * Pack format for 'loud_threshold' register data.
          */
         export const LoudThreshold = "u0.16"
-
-        /**
-         * Pack format for 'quiet_threshold' register data.
-         */
-        export const QuietThreshold = "u0.16"
     }
 
     export const enum SoundLevelEvent {
@@ -67,11 +53,5 @@ namespace jacdac {
          */
         //% block="loud"
         Loud = 0x1,
-
-        /**
-         * Raised when a period of quietness is detected
-         */
-        //% block="quiet"
-        Quiet = 0x2,
     }
 }
