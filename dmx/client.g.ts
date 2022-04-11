@@ -53,7 +53,11 @@ namespace modules {
         send(channels: Buffer): void {
             this.start()
             this.sendCommand(
-                jacdac.JDPacket.jdpacked(jacdac.DmxCmd.Send, "b", [channels])
+                jacdac.JDPacket.jdpacked(
+                    jacdac.DmxCmd.Send,
+                    jacdac.DmxCmdPack.Send,
+                    [channels]
+                )
             )
         }
     }

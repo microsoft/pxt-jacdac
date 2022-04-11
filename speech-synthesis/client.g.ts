@@ -178,9 +178,11 @@ namespace modules {
         speak(text: string): void {
             this.start()
             this.sendCommand(
-                jacdac.JDPacket.jdpacked(jacdac.SpeechSynthesisCmd.Speak, "s", [
-                    text,
-                ])
+                jacdac.JDPacket.jdpacked(
+                    jacdac.SpeechSynthesisCmd.Speak,
+                    jacdac.SpeechSynthesisCmdPack.Speak,
+                    [text]
+                )
             )
         }
 

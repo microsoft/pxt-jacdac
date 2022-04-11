@@ -214,7 +214,7 @@ namespace modules {
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.WeightScaleCmd.CalibrateGain,
-                    "u22.10",
+                    jacdac.WeightScaleCmdPack.CalibrateGain,
                     [weight]
                 )
             )

@@ -206,7 +206,7 @@ namespace modules {
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.RealTimeClockCmd.SetTime,
-                    "u16 u8 u8 u8 u8 u8 u8",
+                    jacdac.RealTimeClockCmdPack.SetTime,
                     [year, month, dayOfMonth, dayOfWeek, hour, min, sec]
                 )
             )
