@@ -1,6 +1,6 @@
 {
     "name": "jacdac-multitouch",
-    "version": "0.8.24",
+    "version": "0.9.1",
     "description": "MakeCode support for Jacdac Multi Touch service",
     "dependencies": {
         "core": "*",
