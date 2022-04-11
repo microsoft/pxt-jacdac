@@ -308,7 +308,7 @@ namespace modules {
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidKeyboardCmd.Key,
-                    "r: u16 u8 u8",
+                    jacdac.HidKeyboardCmdPack.Key,
                     data
                 )
             )
