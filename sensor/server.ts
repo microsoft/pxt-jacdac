@@ -31,7 +31,7 @@ namespace jacdac {
             const samples = this.handleRegValue(
                 packet,
                 jacdac.SystemReg.StreamingSamples,
-                "u8",
+                jacdac.SystemRegPack.StreamingSamples,
                 this.streamingSamples
             )
             this.setStreaming(samples)
