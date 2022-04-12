@@ -153,7 +153,7 @@ namespace jacdac {
         readingError?: () => number
     }
 
-    class SimpleSensorServer extends SensorServer {
+    export class SimpleSensorServer extends SensorServer {
         readonly packFormat: string
         readonly stateReader: () => number
         private minReading?: number
@@ -225,7 +225,7 @@ namespace jacdac {
         readingErrorPack?: string
     }
 
-    class MultiSensorServer extends SensorServer {
+    export class MultiSensorServer extends SensorServer {
         readonly packFormat: string
         readonly stateReader: () => number[]
         private readingError: () => number
