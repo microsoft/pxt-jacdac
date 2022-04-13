@@ -803,6 +803,10 @@ namespace jacdac {
         }
 
         get role() {
+            return this._role
+        }
+
+        get roleName() {
             const i = this._role.indexOf("?")
             if (i > -1) return this._role.substr(0, i)
             else return this._role
@@ -1013,7 +1017,7 @@ namespace jacdac {
         */
 
         _detach() {
-            log(`dettached ${this.role}`)
+            log(`dettached ${this.roleName}`)
             this.serviceIndex = null
             if (!this.broadcast) {
                 if (!this.device) throw "Invalid detach"
@@ -1077,7 +1081,7 @@ namespace jacdac {
             const other = this.device ? this.device.toString() : "<unbound>"
             console.add(
                 logPriority,
-                `${dev}/${other}:${this.serviceClass}>${this.role}>${text}`
+                `${dev}/${other}:${this.serviceClass}>${this.roleName}>${text}`
             )
         }
 

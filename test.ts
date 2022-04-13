@@ -109,6 +109,8 @@ addClient(0x16c810b8, "big/hum")
 addClient(0x1421bac7, "big/temp")
 addClient(0x16c810b8, "xsmall/hum")
 addClient(0x1421bac7, "xsmall/temp")
+addClient(0x1421bac7, "self1?device=self")
+addClient(0x1421bac7, "self2?device=self")
 
 jacdac._rolemgr.clearRoles()
 

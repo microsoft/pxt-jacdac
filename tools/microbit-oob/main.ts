@@ -383,7 +383,7 @@ jacdac.bus.subscribe(jacdac.DEVICE_DISCONNECT, (d: jacdac.Device) => {
             }
         }
     })
-    const ld = onlyLedDisplay.find(c => c.role === d.deviceId)
+    const ld = onlyLedDisplay.find(c => c.roleName === d.deviceId)
     if (ld) {
         onlyLedDisplay.removeElement(ld)
     }

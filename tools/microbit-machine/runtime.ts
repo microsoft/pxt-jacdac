@@ -177,7 +177,7 @@ namespace machine {
             // this device was previously connected
             // and clients are already instantiated for it
             jacdac.bus.unattachedClients.some(
-                client => client.role === d.deviceId
+                client => client.roleName === d.deviceId
             )
         )
     }
@@ -222,7 +222,7 @@ namespace machine {
         const clients = jacdac.bus.unattachedClients.slice(0)
         const devid = d.deviceId
         clients
-            .filter(client => client.role === devid)
+            .filter(client => client.roleName === devid)
             .forEach(client => client.destroy())
     }
 
