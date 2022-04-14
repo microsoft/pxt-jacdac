@@ -8,25 +8,30 @@ namespace modules {
         private readonly _enabled: jacdac.RegisterClient<[boolean]>
         private readonly _loadTorque: jacdac.RegisterClient<[number]>
         private readonly _loadSpeed: jacdac.RegisterClient<[number]>
+        private readonly _reversible: jacdac.RegisterClient<[boolean]>
 
         constructor(role: string) {
             super(jacdac.SRV_MOTOR, role)
 
             this._duty = this.addRegister<[number]>(
                 jacdac.MotorReg.Duty,
-                "i1.15"
+                jacdac.MotorRegPack.Duty
             )
             this._enabled = this.addRegister<[boolean]>(
                 jacdac.MotorReg.Enabled,
-                "u8"
+                jacdac.MotorRegPack.Enabled
             )
             this._loadTorque = this.addRegister<[number]>(
                 jacdac.MotorReg.LoadTorque,
-                "u16.16"
+                jacdac.MotorRegPack.LoadTorque
             )
             this._loadSpeed = this.addRegister<[number]>(
                 jacdac.MotorReg.LoadSpeed,
-                "u16.16"
+                jacdac.MotorRegPack.LoadSpeed
+            )
+            this._reversible = this.addRegister<[boolean]>(
+                jacdac.MotorReg.Reversible,
+                jacdac.MotorRegPack.Reversible
             )
         }
 
@@ -115,6 +120,18 @@ namespace modules {
             this.start()
             const values = this._loadSpeed.pauseUntilValues() as any[]
             return values[0]
+        }
+
+        /**
+         * Reversible.
+         */
+        //% callInDebugger
+        //% group="Motor"
+        //% weight=95
+        reversible(): boolean {
+            this.start()
+            const values = this._loadSpeed.pauseUntilValues() as any[]
+            return !!values[0]
         }
 
         /**
