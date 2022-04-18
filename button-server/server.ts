@@ -21,7 +21,9 @@ namespace jacdac {
 
         serializeState(): Buffer {
             const pressed = this.button.isPressed()
-            return jacdac.jdpack(jacdac.ButtonRegPack.Pressure, [pressed ? 1 : 0])
+            return jacdac.jdpack(jacdac.ButtonRegPack.Pressure, [
+                pressed ? 1 : 0,
+            ])
         }
     }
 }
