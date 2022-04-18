@@ -6,10 +6,10 @@ namespace jacdac {
          * Constant uint8_t. Number of button report supported
          *
          * ```
-         * const [buttonsCount] = jdunpack<[number]>(buf, "u8")
+         * const [buttonCount] = jdunpack<[number]>(buf, "u8")
          * ```
          */
-        ButtonsCount = 0x180,
+        ButtonCount = 0x180,
 
         /**
          * Constant uint32_t. A bitset that indicates which button is analog.
@@ -24,17 +24,17 @@ namespace jacdac {
          * Constant uint8_t. Number of analog input supported
          *
          * ```
-         * const [axisAvailable] = jdunpack<[number]>(buf, "u8")
+         * const [axisCount] = jdunpack<[number]>(buf, "u8")
          * ```
          */
-        AxisAvailable = 0x182,
+        AxisCount = 0x182,
     }
 
     export namespace HidJoystickRegPack {
         /**
-         * Pack format for 'buttons_count' register data.
+         * Pack format for 'button_count' register data.
          */
-        export const ButtonsCount = "u8"
+        export const ButtonCount = "u8"
 
         /**
          * Pack format for 'buttons_analog' register data.
@@ -42,9 +42,9 @@ namespace jacdac {
         export const ButtonsAnalog = "u32"
 
         /**
-         * Pack format for 'axis_available' register data.
+         * Pack format for 'axis_count' register data.
          */
-        export const AxisAvailable = "u8"
+        export const AxisCount = "u8"
     }
 
     export const enum HidJoystickCmd {

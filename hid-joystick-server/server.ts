@@ -4,13 +4,15 @@ namespace servers {
     export class HIDJoystickServer extends jacdac.Server {
         constructor() {
             super(jacdac.SRV_HID_JOYSTICK)
+            // turn on gamepad
+            gamepad.setButton(0, false)
         }
 
         handlePacket(pkt: jacdac.JDPacket) {
             this.handleRegValue(
                 pkt,
-                jacdac.HidJoystickReg.ButtonsCount,
-                jacdac.HidJoystickRegPack.ButtonsCount,
+                jacdac.HidJoystickReg.ButtonCount,
+                jacdac.HidJoystickRegPack.ButtonCount,
                 CODAL_BUTTON_COUNT
             )
             this.handleRegValue(
@@ -21,8 +23,8 @@ namespace servers {
             )
             this.handleRegValue(
                 pkt,
-                jacdac.HidJoystickReg.AxisAvailable,
-                jacdac.HidJoystickRegPack.AxisAvailable,
+                jacdac.HidJoystickReg.AxisCount,
+                jacdac.HidJoystickRegPack.AxisCount,
                 CODAL_AXIS_COUNT
             )
 
@@ -38,37 +40,37 @@ namespace servers {
         }
 
         private handleSetButtons(pkt: jacdac.JDPacket) {
-            pkt.markHandled()
-            const pressure: number[] = pkt.jdunpack(
+            const pressure: [number][] = pkt.jdunpack<[[number][]]>(
                 jacdac.HidJoystickCmdPack.SetButtons
             )[0]
             if (pressure) {
                 const n = Math.min(CODAL_BUTTON_COUNT, pressure.length)
                 for (let i = 0; i < n; ++i)
-                    gamepad.setButton(i, pressure[i] > 0 ? true : false)
+                    gamepad.setButton(i, pressure[i][0] > 0 ? true : false)
             }
+            pkt.markHandled()
         }
 
         private handleSetAxis(pkt: jacdac.JDPacket) {
-            pkt.markHandled()
-            const positions: number[] = pkt.jdunpack(
+            const positions: [number][] = pkt.jdunpack<[[number][]]>(
                 jacdac.HidJoystickCmdPack.SetAxis
-            )
+            )[0]
             if (positions && positions.length >= 6) {
                 // x0 x1 y0 y1 throttle rudder
                 gamepad.move(
                     0,
-                    Math.round(positions[0] * 0xff),
-                    Math.round(positions[1] * 0xff)
+                    Math.round(positions[0][0] * 0xff),
+                    Math.round(positions[1][0] * 0xff)
                 )
                 gamepad.move(
                     1,
-                    Math.round(positions[2] * 0xff),
-                    Math.round(positions[3] * 0xff)
+                    Math.round(positions[2][0] * 0xff),
+                    Math.round(positions[3][0] * 0xff)
                 )
-                gamepad.setThrottle(0, Math.round(positions[4] * 32))
-                gamepad.setThrottle(0, Math.round(positions[5] * 32))
+                gamepad.setThrottle(0, Math.round(positions[4][0] * 32))
+                gamepad.setThrottle(0, Math.round(positions[5][0] * 32))
             }
+            pkt.markHandled()
         }
     }
 
