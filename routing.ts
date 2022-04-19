@@ -722,7 +722,6 @@ namespace jacdac {
         }
 
         hasValues(): boolean {
-            this.service.start()
             return !!this._data
         }
 
@@ -739,7 +738,7 @@ namespace jacdac {
                 // streaming handled elsewhere
                 this.code !== SystemReg.Reading
                 // don't double query consts
-                && (this.isConst && !!this._data)
+                && (!this.isConst || !this.hasValues())
             ) {
                 const device = this.service.device
                 if (device) {
