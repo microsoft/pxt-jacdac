@@ -4,7 +4,7 @@
     "description": "Controls a HID joystick.",
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.ts"
     ],
     "testFiles": [
         "test.ts"

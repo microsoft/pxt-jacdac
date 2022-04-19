@@ -69,12 +69,14 @@ namespace modules {
         //% block="%hidjoystick set buttons $pressure"
         //% weight=97
         setButtons(pressure: number[]): void {
+            if (!pressure) return
+
             this.start()
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidJoystickCmd.SetButtons,
                     jacdac.HidJoystickCmdPack.SetButtons,
-                    [pressure]
+                    [pressure.map(p => [p])]
                 )
             )
         }
@@ -87,12 +89,13 @@ namespace modules {
         //% block="%hidjoystick set axis $position"
         //% weight=96
         setAxis(position: number[]): void {
+            if (!position) return
             this.start()
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidJoystickCmd.SetAxis,
                     jacdac.HidJoystickCmdPack.SetAxis,
-                    [position]
+                    [position.map(p => [p])]
                 )
             )
         }
