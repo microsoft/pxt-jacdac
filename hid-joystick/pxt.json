@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-joystick",
-    "version": "0.9.7",
+    "version": "0.9.8",
     "description": "Controls a HID joystick.",
     "files": [
         "constants.ts",
