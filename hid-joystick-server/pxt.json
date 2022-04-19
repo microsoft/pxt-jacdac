@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-joystick-server",
-    "version": "0.9.5",
+    "version": "0.9.6",
     "description": "MakeCode support for Jacdac HID joystick server",
     "dependencies": {
         "core": "*",
@@ -9,9 +9,15 @@
         "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
         "jacdac-hid-joystick": "github:microsoft/pxt-jacdac/hid-joystick"
     },
-    "files": ["server.ts"],
-    "testFiles": ["test.ts"],
-    "supportedTargets": ["maker"],
+    "files": [
+        "server.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "maker"
+    ],
     "preferredEditor": "tsprj",
     "testDependencies": {
         "jacdac-brain-rp2040": "*"

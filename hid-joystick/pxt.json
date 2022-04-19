@@ -1,10 +1,19 @@
 {
     "name": "jacdac-hid-joystick",
-    "version": "0.0.0",
+    "version": "0.9.6",
     "description": "Controls a HID joystick.",
-    "files": ["constants.ts", "client.ts"],
-    "testFiles": ["test.ts"],
-    "supportedTargets": ["maker", "arcade", "microbit"],
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "maker",
+        "arcade",
+        "microbit"
+    ],
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
