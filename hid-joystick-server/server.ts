@@ -4,8 +4,11 @@ namespace servers {
     export class HIDJoystickServer extends jacdac.Server {
         constructor() {
             super(jacdac.SRV_HID_JOYSTICK)
-            // turn on gamepad
+        }
+
+        start() {
             gamepad.setButton(0, false)
+            super.start()
         }
 
         handlePacket(pkt: jacdac.JDPacket) {
@@ -40,19 +43,19 @@ namespace servers {
         }
 
         private handleSetButtons(pkt: jacdac.JDPacket) {
-            const pressure: [number][] = pkt.jdunpack<[[number][]]>(
-                jacdac.HidJoystickCmdPack.SetButtons
-            )[0]
-            if (pressure) {
-                const n = Math.min(CODAL_BUTTON_COUNT, pressure.length)
-                for (let i = 0; i < n; ++i)
-                    gamepad.setButton(i, pressure[i][0] > 0 ? true : false)
+            const data = pkt.data
+            if (data) {
+                const n = Math.min(CODAL_BUTTON_COUNT, data.length)
+                for (let i = 0; i < n; ++i) {
+                    const p = data[i]
+                    gamepad.setButton(i, p > 0 ? true : false)
+                }
             }
             pkt.markHandled()
         }
 
         private handleSetAxis(pkt: jacdac.JDPacket) {
-            const positions: [number][] = pkt.jdunpack<[[number][]]>(
+            const positions: [[number]] = pkt.jdunpack<[[[number]]]>(
                 jacdac.HidJoystickCmdPack.SetAxis
             )[0]
             if (positions && positions.length >= 6) {
