@@ -15,6 +15,8 @@
         "jacdac-hid-keyboard-server": "./hid-keyboard-server",
         "jacdac-hid-mouse": "./hid-mouse",
         "jacdac-hid-mouse-server": "./hid-mouse-server",
+        "jacdac-hid-joystick": "./hid-joystick",
+        "jacdac-hid-joystick-server": "./hid-joystick-server",
         "jacdac-gamepad": "./gamepad",
         "jacdac-led": "./led",
         "jacdac-led-strip": "./led-strip",
