@@ -8,6 +8,9 @@ namespace modules {
         private readonly _buttonsAnalog: jacdac.RegisterClient<[number]>
         private readonly _axisCount: jacdac.RegisterClient<[number]>
 
+        private buttons: number[] = []
+        private axis: number[] = []
+
         constructor(role: string) {
             super(jacdac.SRV_HID_JOYSTICK, role)
 
@@ -62,42 +65,111 @@ namespace modules {
         }
 
         /**
-         * Sets the up/down button state, one byte per button, supports analog buttons. For digital buttons, use `0` for released, `1` for pressed.
+         * Sets the state of a buttons
          */
         //% group="HID Joystick"
         //% blockId=jacdac_hidjoystick_set_buttons_cmd
-        //% block="%hidjoystick set buttons $pressure"
-        //% weight=97
-        setButtons(pressure: number[]): void {
-            if (!pressure) return
+        //% block="set %hidjoystick button $index to $down"
+        //% weight=99
+        //% index.min=0
+        //% index.max=32
+        //% down.shadow=toggleUpDown
+        setButton(index: number, down: boolean) {
+            index = index | 0
+            if (index < 0) return
+            const n = this.buttonCount()
+            if (isNaN(n) || index >= n) return
+            // grow as needed
+            while (index >= this.buttons.length) this.buttons.push(0)
+            // send to hid
+            this.buttons[index] = down ? 99 : 0
+            this.syncButtons()
+        }
 
+        /**
+         * Sets the pressure of all buttons in %
+         */
+        //% group="HID Joystick"
+        //% blockId=jacdac_hidjoystick_set_all_buttons_cmd
+        //% block="set %hidjoystick all buttons to $pressure"
+        //% weight=97
+        setAllButtons(pressure: number[]): void {
+            if (!pressure) return
+            const n = this.buttonCount()
+            if (isNaN(n)) return
+            this.buttons = pressure.slice(0, Math.min(n, pressure.length))
+            this.syncButtons()
+        }
+
+        private syncButtons() {
             this.start()
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidJoystickCmd.SetButtons,
                     jacdac.HidJoystickCmdPack.SetButtons,
-                    [pressure.map(p => [p])]
+                    [this.buttons.map(p => [Math.clamp(0, 1, p / 100.0)])]
                 )
             )
         }
 
         /**
-         * Sets the state of analog inputs.
+         * Sets the state of an axis in -100%,100%
          */
         //% group="HID Joystick"
-        //% blockId=jacdac_hidjoystick_set_axis_cmd
-        //% block="%hidjoystick set axis $position"
+        //% blockId=jacdac_hidjoystick_set_buttons_cmd
+        //% block="set %hidjoystick axis $index to $position"
+        //% weight=99
+        //% position.min=-100
+        //% position.max=100
+        setAxis(index: number, position: number) {
+            index = index | 0
+            if (index < 0) return
+            const n = this.axisCount()
+            if (isNaN(n) || index >= n) return
+            // grow as needed
+            while (index >= this.axis.length) this.axis.push(0)
+            this.axis[index] = position
+            this.syncAxis()
+        }
+
+        /**
+         * Sets the state of analog inputs in -100%,100%.
+         */
+        //% group="HID Joystick"
+        //% blockId=jacdac_hidjoystick_set_all_axis_cmd
+        //% block="set %hidjoystick all axis to $position"
         //% weight=96
-        setAxis(position: number[]): void {
+        setAllAxis(position: number[]): void {
             if (!position) return
+            const n = this.axisCount()
+            if (isNaN(n)) return
+            this.axis = position.slice(0, Math.min(n, position.length))
+            this.syncAxis()
+        }
+
+        private syncAxis() {
             this.start()
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidJoystickCmd.SetAxis,
                     jacdac.HidJoystickCmdPack.SetAxis,
-                    [position.map(p => [p])]
+                    [this.axis.map(p => [Math.clamp(-1, 1, p / 100.0)])]
                 )
             )
+        }
+
+        /**
+         * Clears the joystick state
+         */
+        //% group="HID Joystick"
+        //% blockId=jacdac_hidjoystick_clear
+        //% block="clear %hidjoystick"
+        //% weight=98
+        clear() {
+            this.buttons = []
+            this.axis = []
+            this.syncButtons()
+            this.syncAxis()
         }
     }
     //% fixedInstance whenUsed weight=1 block="hid joystick1"

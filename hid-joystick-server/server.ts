@@ -44,12 +44,9 @@ namespace servers {
 
         private handleSetButtons(pkt: jacdac.JDPacket) {
             const data = pkt.data
-            if (data) {
-                const n = Math.min(CODAL_BUTTON_COUNT, data.length)
-                for (let i = 0; i < n; ++i) {
-                    const p = data[i]
-                    gamepad.setButton(i, p > 0 ? true : false)
-                }
+            for (let i = 0; i < CODAL_BUTTON_COUNT; ++i) {
+                const p = data[i] || 0
+                gamepad.setButton(i, p > 127 ? true : false)
             }
             pkt.markHandled()
         }
@@ -58,23 +55,22 @@ namespace servers {
             const positions: number[][] = pkt.jdunpack<number[][][]>(
                 jacdac.HidJoystickCmdPack.SetAxis
             )[0]
-            if (positions && positions.length >= 6) {
-                // x0 x1 y0 y1 throttle rudder
-                // -1..1 -> -127..127
-                gamepad.move(
-                    0,
-                    Math.round(positions[0][0] * 127),
-                    Math.round(positions[1][0] * 127)
-                )
-                gamepad.move(
-                    1,
-                    Math.round(positions[2][0] * 127),
-                    Math.round(positions[3][0] * 127)
-                )
-                // -1..1 -> 0..31
-                gamepad.setThrottle(0, Math.round((positions[4][0] + 1) * 16))
-                gamepad.setThrottle(1, Math.round((positions[5][0] + 1) * 16))
-            }
+            const pos = positions.map(p => p[0])
+            // x0 x1 y0 y1 throttle rudder
+            // -1..1 -> -127..127
+            gamepad.move(
+                0,
+                Math.round((pos[0] || 0) * 127),
+                Math.round((pos[1] || 0) * 127)
+            )
+            gamepad.move(
+                1,
+                Math.round((pos[2] || 0) * 127),
+                Math.round((pos[3] || 0) * 127)
+            )
+            // -1..1 -> 0..31
+            gamepad.setThrottle(0, Math.round(((pos[4] || 0) + 1) * 16))
+            gamepad.setThrottle(1, Math.round(((pos[5] || 0) + 1) * 16))
             pkt.markHandled()
         }
     }

@@ -1,6 +1,10 @@
+let k = 1
 forever(() => {
-    modules.hidJoystick1.setButtons([1])
+    led.toggle(k % 5, Math.idiv(k, 5) % 5)
+    const bn = modules.hidJoystick1.buttonCount()
+    for (let i = 0; i < bn; ++i) {
+        modules.hidJoystick1.setButton(i, (k % bn == i))
+    }
     pause(500)
-    modules.hidJoystick1.setButtons([0])
-    pause(500)
+    k++
 })
