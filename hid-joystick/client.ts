@@ -73,7 +73,7 @@ namespace modules {
         //% weight=99
         //% index.min=0
         //% index.max=32
-        //% down.shadow=toggleUpDown
+        //% down.shadow=toggleDownUp
         setButton(index: number, down: boolean) {
             index = index | 0
             if (index < 0) return
