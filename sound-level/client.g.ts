@@ -20,7 +20,8 @@ namespace modules {
             )
             this._loudThreshold = this.addRegister<[number]>(
                 jacdac.SoundLevelReg.LoudThreshold,
-                jacdac.SoundLevelRegPack.LoudThreshold
+                jacdac.SoundLevelRegPack.LoudThreshold,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 

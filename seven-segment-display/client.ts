@@ -15,23 +15,28 @@ namespace modules {
 
             this._digits = this.addRegister<[Buffer]>(
                 jacdac.SevenSegmentDisplayReg.Digits,
-                "b"
+                jacdac.SevenSegmentDisplayRegPack.Digits
             )
             this._brightness = this.addRegister<[number]>(
                 jacdac.SevenSegmentDisplayReg.Brightness,
-                "u0.16"
+                jacdac.SevenSegmentDisplayRegPack.Brightness
             )
             this._doubleDots = this.addRegister<[boolean]>(
                 jacdac.SevenSegmentDisplayReg.DoubleDots,
-                "u8"
+                jacdac.SevenSegmentDisplayRegPack.DoubleDots,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._digitCount = this.addRegister<[number]>(
                 jacdac.SevenSegmentDisplayReg.DigitCount,
-                "u8"
+                jacdac.SevenSegmentDisplayRegPack.DigitCount,
+                jacdac.RegisterClientFlags.Const
             )
             this._decimalPoint = this.addRegister<[boolean]>(
                 jacdac.SevenSegmentDisplayReg.DecimalPoint,
-                "u8"
+                jacdac.SevenSegmentDisplayRegPack.DecimalPoint,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

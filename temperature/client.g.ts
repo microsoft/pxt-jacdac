@@ -20,19 +20,24 @@ namespace modules {
 
             this._minTemperature = this.addRegister<[number]>(
                 jacdac.TemperatureReg.MinTemperature,
-                jacdac.TemperatureRegPack.MinTemperature
+                jacdac.TemperatureRegPack.MinTemperature,
+                jacdac.RegisterClientFlags.Const
             )
             this._maxTemperature = this.addRegister<[number]>(
                 jacdac.TemperatureReg.MaxTemperature,
-                jacdac.TemperatureRegPack.MaxTemperature
+                jacdac.TemperatureRegPack.MaxTemperature,
+                jacdac.RegisterClientFlags.Const
             )
             this._temperatureError = this.addRegister<[number]>(
                 jacdac.TemperatureReg.TemperatureError,
-                jacdac.TemperatureRegPack.TemperatureError
+                jacdac.TemperatureRegPack.TemperatureError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._variant = this.addRegister<[jacdac.TemperatureVariant]>(
                 jacdac.TemperatureReg.Variant,
-                jacdac.TemperatureRegPack.Variant
+                jacdac.TemperatureRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

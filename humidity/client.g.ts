@@ -13,15 +13,18 @@ namespace modules {
 
             this._humidityError = this.addRegister<[number]>(
                 jacdac.HumidityReg.HumidityError,
-                jacdac.HumidityRegPack.HumidityError
+                jacdac.HumidityRegPack.HumidityError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._minHumidity = this.addRegister<[number]>(
                 jacdac.HumidityReg.MinHumidity,
-                jacdac.HumidityRegPack.MinHumidity
+                jacdac.HumidityRegPack.MinHumidity,
+                jacdac.RegisterClientFlags.Const
             )
             this._maxHumidity = this.addRegister<[number]>(
                 jacdac.HumidityReg.MaxHumidity,
-                jacdac.HumidityRegPack.MaxHumidity
+                jacdac.HumidityRegPack.MaxHumidity,
+                jacdac.RegisterClientFlags.Const
             )
         }
 

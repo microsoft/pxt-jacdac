@@ -14,11 +14,14 @@ namespace modules {
 
             this._levelError = this.addRegister<[number]>(
                 jacdac.WaterLevelReg.LevelError,
-                jacdac.WaterLevelRegPack.LevelError
+                jacdac.WaterLevelRegPack.LevelError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._variant = this.addRegister<[jacdac.WaterLevelVariant]>(
                 jacdac.WaterLevelReg.Variant,
-                jacdac.WaterLevelRegPack.Variant
+                jacdac.WaterLevelRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

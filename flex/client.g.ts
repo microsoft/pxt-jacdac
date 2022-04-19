@@ -11,7 +11,9 @@ namespace modules {
 
             this._length = this.addRegister<[number]>(
                 jacdac.FlexReg.Length,
-                jacdac.FlexRegPack.Length
+                jacdac.FlexRegPack.Length,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

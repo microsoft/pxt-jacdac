@@ -17,15 +17,19 @@ namespace modules {
 
             this._forcesError = this.addRegister<[number]>(
                 jacdac.AccelerometerReg.ForcesError,
-                jacdac.AccelerometerRegPack.ForcesError
+                jacdac.AccelerometerRegPack.ForcesError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._maxForce = this.addRegister<[number]>(
                 jacdac.AccelerometerReg.MaxForce,
-                jacdac.AccelerometerRegPack.MaxForce
+                jacdac.AccelerometerRegPack.MaxForce,
+                jacdac.RegisterClientFlags.Optional
             )
             this._maxForcesSupported = this.addRegister<[number[]]>(
                 jacdac.AccelerometerReg.MaxForcesSupported,
-                jacdac.AccelerometerRegPack.MaxForcesSupported
+                jacdac.AccelerometerRegPack.MaxForcesSupported,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

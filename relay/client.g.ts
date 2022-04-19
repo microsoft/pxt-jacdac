@@ -23,11 +23,15 @@ namespace modules {
             )
             this._variant = this.addRegister<[jacdac.RelayVariant]>(
                 jacdac.RelayReg.Variant,
-                jacdac.RelayRegPack.Variant
+                jacdac.RelayRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._maxSwitchingCurrent = this.addRegister<[number]>(
                 jacdac.RelayReg.MaxSwitchingCurrent,
-                jacdac.RelayRegPack.MaxSwitchingCurrent
+                jacdac.RelayRegPack.MaxSwitchingCurrent,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

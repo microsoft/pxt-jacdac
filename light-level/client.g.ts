@@ -18,11 +18,14 @@ namespace modules {
 
             this._lightLevelError = this.addRegister<[number]>(
                 jacdac.LightLevelReg.LightLevelError,
-                jacdac.LightLevelRegPack.LightLevelError
+                jacdac.LightLevelRegPack.LightLevelError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._variant = this.addRegister<[jacdac.LightLevelVariant]>(
                 jacdac.LightLevelReg.Variant,
-                jacdac.LightLevelRegPack.Variant
+                jacdac.LightLevelRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

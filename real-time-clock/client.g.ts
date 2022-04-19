@@ -19,15 +19,20 @@ namespace modules {
 
             this._drift = this.addRegister<[number]>(
                 jacdac.RealTimeClockReg.Drift,
-                jacdac.RealTimeClockRegPack.Drift
+                jacdac.RealTimeClockRegPack.Drift,
+                jacdac.RegisterClientFlags.Optional
             )
             this._precision = this.addRegister<[number]>(
                 jacdac.RealTimeClockReg.Precision,
-                jacdac.RealTimeClockRegPack.Precision
+                jacdac.RealTimeClockRegPack.Precision,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._variant = this.addRegister<[jacdac.RealTimeClockVariant]>(
                 jacdac.RealTimeClockReg.Variant,
-                jacdac.RealTimeClockRegPack.Variant
+                jacdac.RealTimeClockRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

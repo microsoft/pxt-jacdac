@@ -23,31 +23,42 @@ namespace modules {
 
             this._weightError = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.WeightError,
-                jacdac.WeightScaleRegPack.WeightError
+                jacdac.WeightScaleRegPack.WeightError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._zeroOffset = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.ZeroOffset,
-                jacdac.WeightScaleRegPack.ZeroOffset
+                jacdac.WeightScaleRegPack.ZeroOffset,
+                jacdac.RegisterClientFlags.Optional
             )
             this._gain = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.Gain,
-                jacdac.WeightScaleRegPack.Gain
+                jacdac.WeightScaleRegPack.Gain,
+                jacdac.RegisterClientFlags.Optional
             )
             this._maxWeight = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.MaxWeight,
-                jacdac.WeightScaleRegPack.MaxWeight
+                jacdac.WeightScaleRegPack.MaxWeight,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._minWeight = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.MinWeight,
-                jacdac.WeightScaleRegPack.MinWeight
+                jacdac.WeightScaleRegPack.MinWeight,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._weightResolution = this.addRegister<[number]>(
                 jacdac.WeightScaleReg.WeightResolution,
-                jacdac.WeightScaleRegPack.WeightResolution
+                jacdac.WeightScaleRegPack.WeightResolution,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._variant = this.addRegister<[jacdac.WeightScaleVariant]>(
                 jacdac.WeightScaleReg.Variant,
-                jacdac.WeightScaleRegPack.Variant
+                jacdac.WeightScaleRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

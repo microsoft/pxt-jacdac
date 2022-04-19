@@ -18,15 +18,18 @@ namespace modules {
 
             this._aqiIndexError = this.addRegister<[number]>(
                 jacdac.AirQualityIndexReg.AqiIndexError,
-                jacdac.AirQualityIndexRegPack.AqiIndexError
+                jacdac.AirQualityIndexRegPack.AqiIndexError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._minAqiIndex = this.addRegister<[number]>(
                 jacdac.AirQualityIndexReg.MinAqiIndex,
-                jacdac.AirQualityIndexRegPack.MinAqiIndex
+                jacdac.AirQualityIndexRegPack.MinAqiIndex,
+                jacdac.RegisterClientFlags.Const
             )
             this._maxAqiIndex = this.addRegister<[number]>(
                 jacdac.AirQualityIndexReg.MaxAqiIndex,
-                jacdac.AirQualityIndexRegPack.MaxAqiIndex
+                jacdac.AirQualityIndexRegPack.MaxAqiIndex,
+                jacdac.RegisterClientFlags.Const
             )
         }
 

@@ -19,19 +19,23 @@ namespace modules {
             )
             this._lang = this.addRegister<[string]>(
                 jacdac.SpeechSynthesisReg.Lang,
-                jacdac.SpeechSynthesisRegPack.Lang
+                jacdac.SpeechSynthesisRegPack.Lang,
+                jacdac.RegisterClientFlags.Optional
             )
             this._volume = this.addRegister<[number]>(
                 jacdac.SpeechSynthesisReg.Volume,
-                jacdac.SpeechSynthesisRegPack.Volume
+                jacdac.SpeechSynthesisRegPack.Volume,
+                jacdac.RegisterClientFlags.Optional
             )
             this._pitch = this.addRegister<[number]>(
                 jacdac.SpeechSynthesisReg.Pitch,
-                jacdac.SpeechSynthesisRegPack.Pitch
+                jacdac.SpeechSynthesisRegPack.Pitch,
+                jacdac.RegisterClientFlags.Optional
             )
             this._rate = this.addRegister<[number]>(
                 jacdac.SpeechSynthesisReg.Rate,
-                jacdac.SpeechSynthesisRegPack.Rate
+                jacdac.SpeechSynthesisRegPack.Rate,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 

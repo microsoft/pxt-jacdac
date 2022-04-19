@@ -39,23 +39,26 @@ namespace modules {
 
             this._dots = this.addRegister<[Buffer]>(
                 jacdac.DotMatrixReg.Dots,
-                "b"
+                jacdac.DotMatrixRegPack.Dots
             )
             this._brightness = this.addRegister<[number]>(
                 jacdac.DotMatrixReg.Brightness,
-                "u0.8"
+                jacdac.DotMatrixRegPack.Brightness
             )
             this._rows = this.addRegister<[number]>(
                 jacdac.DotMatrixReg.Rows,
-                "u16"
+                jacdac.DotMatrixRegPack.Rows,
+                jacdac.RegisterClientFlags.Const
             )
             this._columns = this.addRegister<[number]>(
                 jacdac.DotMatrixReg.Columns,
-                "u16"
+                jacdac.DotMatrixRegPack.Columns,
+                jacdac.RegisterClientFlags.Const
             )
             this._variant = this.addRegister<[jacdac.DotMatrixVariant]>(
                 jacdac.DotMatrixReg.Variant,
-                "u8"
+                jacdac.DotMatrixRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
             )
         }
 

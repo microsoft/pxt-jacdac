@@ -16,7 +16,8 @@ namespace modules {
             )
             this._headingError = this.addRegister<[number]>(
                 jacdac.CompassReg.HeadingError,
-                jacdac.CompassRegPack.HeadingError
+                jacdac.CompassRegPack.HeadingError,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 

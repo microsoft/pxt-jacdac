@@ -20,26 +20,33 @@ namespace modules {
 
             this._message = this.addRegister<[string]>(
                 jacdac.CharacterScreenReg.Message,
-                "s"
+                jacdac.CharacterScreenRegPack.Message
             )
             this._brightness = this.addRegister<[number]>(
                 jacdac.CharacterScreenReg.Brightness,
-                "u0.16"
+                jacdac.CharacterScreenRegPack.Brightness
             )
             this._variant = this.addRegister<[jacdac.CharacterScreenVariant]>(
                 jacdac.CharacterScreenReg.Variant,
-                "u8"
+                jacdac.CharacterScreenRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._textDirection = this.addRegister<
                 [jacdac.CharacterScreenTextDirection]
-            >(jacdac.CharacterScreenReg.TextDirection, "u8")
+            >(
+                jacdac.CharacterScreenReg.TextDirection,
+                jacdac.CharacterScreenRegPack.TextDirection
+            )
             this._rows = this.addRegister<[number]>(
                 jacdac.CharacterScreenReg.Rows,
-                "u8"
+                jacdac.CharacterScreenRegPack.Rows,
+                jacdac.RegisterClientFlags.Const
             )
             this._columns = this.addRegister<[number]>(
                 jacdac.CharacterScreenReg.Columns,
-                "u8"
+                jacdac.CharacterScreenRegPack.Columns,
+                jacdac.RegisterClientFlags.Const
             )
         }
 

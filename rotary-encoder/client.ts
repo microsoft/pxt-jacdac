@@ -11,7 +11,8 @@ namespace modules {
 
             this._clicksPerTurn = this.addRegister<[number]>(
                 jacdac.RotaryEncoderReg.ClicksPerTurn,
-                "u16"
+                jacdac.RotaryEncoderRegPack.ClicksPerTurn,
+                jacdac.RegisterClientFlags.Const
             )
         }
 

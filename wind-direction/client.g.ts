@@ -15,7 +15,8 @@ namespace modules {
 
             this._windDirectionError = this.addRegister<[number]>(
                 jacdac.WindDirectionReg.WindDirectionError,
-                jacdac.WindDirectionRegPack.WindDirectionError
+                jacdac.WindDirectionRegPack.WindDirectionError,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 
@@ -23,7 +24,7 @@ namespace modules {
          * The direction of the wind.
          */
         //% callInDebugger
-        //% group="Wind direction"
+        //% group="Environment"
         //% block="%winddirection wind direction"
         //% blockId=jacdac_winddirection_wind_direction___get
         //% weight=100
@@ -35,7 +36,7 @@ namespace modules {
          * Error on the wind direction reading
          */
         //% callInDebugger
-        //% group="Wind direction"
+        //% group="Environment"
         //% weight=99
         windDirectionError(): number {
             this.start()
@@ -46,7 +47,7 @@ namespace modules {
         /**
          * Run code when the wind direction changes by the given threshold value.
          */
-        //% group="Wind direction"
+        //% group="Environment"
         //% blockId=jacdac_winddirection_on_wind_direction_change
         //% block="on %winddirection wind direction changed by %threshold"
         //% weight=98

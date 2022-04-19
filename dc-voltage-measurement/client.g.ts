@@ -20,11 +20,13 @@ namespace modules {
                 [jacdac.DcVoltageMeasurementVoltageMeasurementType]
             >(
                 jacdac.DcVoltageMeasurementReg.MeasurementType,
-                jacdac.DcVoltageMeasurementRegPack.MeasurementType
+                jacdac.DcVoltageMeasurementRegPack.MeasurementType,
+                jacdac.RegisterClientFlags.Const
             )
             this._measurementName = this.addRegister<[string]>(
                 jacdac.DcVoltageMeasurementReg.MeasurementName,
-                jacdac.DcVoltageMeasurementRegPack.MeasurementName
+                jacdac.DcVoltageMeasurementRegPack.MeasurementName,
+                jacdac.RegisterClientFlags.Const
             )
         }
 

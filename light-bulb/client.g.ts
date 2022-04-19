@@ -16,7 +16,9 @@ namespace modules {
             )
             this._dimmable = this.addRegister<[boolean]>(
                 jacdac.LightBulbReg.Dimmable,
-                jacdac.LightBulbRegPack.Dimmable
+                jacdac.LightBulbRegPack.Dimmable,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

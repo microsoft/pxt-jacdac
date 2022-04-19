@@ -18,11 +18,14 @@ namespace modules {
 
             this._moistureError = this.addRegister<[number]>(
                 jacdac.SoilMoistureReg.MoistureError,
-                jacdac.SoilMoistureRegPack.MoistureError
+                jacdac.SoilMoistureRegPack.MoistureError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._variant = this.addRegister<[jacdac.SoilMoistureVariant]>(
                 jacdac.SoilMoistureReg.Variant,
-                jacdac.SoilMoistureRegPack.Variant
+                jacdac.SoilMoistureRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

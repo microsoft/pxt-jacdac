@@ -14,19 +14,24 @@ namespace modules {
 
             this._eCO2Error = this.addRegister<[number]>(
                 jacdac.ECO2Reg.ECO2Error,
-                jacdac.ECO2RegPack.ECO2Error
+                jacdac.ECO2RegPack.ECO2Error,
+                jacdac.RegisterClientFlags.Optional
             )
             this._minECO2 = this.addRegister<[number]>(
                 jacdac.ECO2Reg.MinECO2,
-                jacdac.ECO2RegPack.MinECO2
+                jacdac.ECO2RegPack.MinECO2,
+                jacdac.RegisterClientFlags.Const
             )
             this._maxECO2 = this.addRegister<[number]>(
                 jacdac.ECO2Reg.MaxECO2,
-                jacdac.ECO2RegPack.MaxECO2
+                jacdac.ECO2RegPack.MaxECO2,
+                jacdac.RegisterClientFlags.Const
             )
             this._variant = this.addRegister<[jacdac.ECO2Variant]>(
                 jacdac.ECO2Reg.Variant,
-                jacdac.ECO2RegPack.Variant
+                jacdac.ECO2RegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

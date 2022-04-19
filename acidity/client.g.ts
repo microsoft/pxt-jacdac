@@ -13,15 +13,20 @@ namespace modules {
 
             this._acidityError = this.addRegister<[number]>(
                 jacdac.AcidityReg.AcidityError,
-                jacdac.AcidityRegPack.AcidityError
+                jacdac.AcidityRegPack.AcidityError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._minAcidity = this.addRegister<[number]>(
                 jacdac.AcidityReg.MinAcidity,
-                jacdac.AcidityRegPack.MinAcidity
+                jacdac.AcidityRegPack.MinAcidity,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._maxHumidity = this.addRegister<[number]>(
                 jacdac.AcidityReg.MaxHumidity,
-                jacdac.AcidityRegPack.MaxHumidity
+                jacdac.AcidityRegPack.MaxHumidity,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

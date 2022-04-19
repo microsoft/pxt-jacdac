@@ -15,7 +15,8 @@ namespace modules {
 
             this._forcesError = this.addRegister<[number]>(
                 jacdac.MagnetometerReg.ForcesError,
-                jacdac.MagnetometerRegPack.ForcesError
+                jacdac.MagnetometerRegPack.ForcesError,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 

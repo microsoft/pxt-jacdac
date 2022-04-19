@@ -17,7 +17,8 @@ namespace modules {
 
             this._illuminanceError = this.addRegister<[number]>(
                 jacdac.IlluminanceReg.IlluminanceError,
-                jacdac.IlluminanceRegPack.IlluminanceError
+                jacdac.IlluminanceRegPack.IlluminanceError,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 

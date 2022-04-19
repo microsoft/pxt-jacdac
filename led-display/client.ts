@@ -24,31 +24,35 @@ namespace modules {
 
             this._pixels = this.addRegister<[Buffer]>(
                 jacdac.LedDisplayReg.Pixels,
-                "b"
+                jacdac.LedDisplayRegPack.Pixels
             )
             this._brightness = this.addRegister<[number]>(
                 jacdac.LedDisplayReg.Brightness,
-                "u0.8"
+                jacdac.LedDisplayRegPack.Brightness
             )
             this._actualBrightness = this.addRegister<[number]>(
                 jacdac.LedDisplayReg.ActualBrightness,
-                "u0.8"
+                jacdac.LedDisplayRegPack.ActualBrightness
             )
             this._lightType = this.addRegister<[jacdac.LedDisplayLightType]>(
                 jacdac.LedDisplayReg.LightType,
-                "u8"
+                jacdac.LedDisplayRegPack.LightType,
+                jacdac.RegisterClientFlags.Const
             )
             this._numPixels = this.addRegister<[number]>(
                 jacdac.LedDisplayReg.NumPixels,
-                "u16"
+                jacdac.LedDisplayRegPack.NumPixels,
+                jacdac.RegisterClientFlags.Const
             )
             this._numColumns = this.addRegister<[number]>(
                 jacdac.LedDisplayReg.NumColumns,
-                "u16"
+                jacdac.LedDisplayRegPack.NumColumns,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._maxPower = this.addRegister<[number]>(
                 jacdac.LedDisplayReg.MaxPower,
-                "u16"
+                jacdac.LedDisplayRegPack.MaxPower
             )
 
             // maximum size (may be reduced on call to show)

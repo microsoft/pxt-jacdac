@@ -17,7 +17,9 @@ namespace modules {
 
             this._variant = this.addRegister<[jacdac.PotentiometerVariant]>(
                 jacdac.PotentiometerReg.Variant,
-                jacdac.PotentiometerRegPack.Variant
+                jacdac.PotentiometerRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

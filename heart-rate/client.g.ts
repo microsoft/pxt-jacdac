@@ -21,11 +21,14 @@ namespace modules {
 
             this._heartRateError = this.addRegister<[number]>(
                 jacdac.HeartRateReg.HeartRateError,
-                jacdac.HeartRateRegPack.HeartRateError
+                jacdac.HeartRateRegPack.HeartRateError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._variant = this.addRegister<[jacdac.HeartRateVariant]>(
                 jacdac.HeartRateReg.Variant,
-                jacdac.HeartRateRegPack.Variant
+                jacdac.HeartRateRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

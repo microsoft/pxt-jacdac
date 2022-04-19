@@ -18,7 +18,9 @@ namespace modules {
             )
             this._variant = this.addRegister<[jacdac.SolenoidVariant]>(
                 jacdac.SolenoidReg.Variant,
-                jacdac.SolenoidRegPack.Variant
+                jacdac.SolenoidRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

@@ -15,7 +15,8 @@ namespace modules {
 
             this._measurementName = this.addRegister<[string]>(
                 jacdac.DcCurrentMeasurementReg.MeasurementName,
-                jacdac.DcCurrentMeasurementRegPack.MeasurementName
+                jacdac.DcCurrentMeasurementRegPack.MeasurementName,
+                jacdac.RegisterClientFlags.Const
             )
         }
 

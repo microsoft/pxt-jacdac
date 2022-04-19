@@ -24,7 +24,8 @@ namespace modules {
             )
             this._maxPower = this.addRegister<[number]>(
                 jacdac.PowerReg.MaxPower,
-                jacdac.PowerRegPack.MaxPower
+                jacdac.PowerRegPack.MaxPower,
+                jacdac.RegisterClientFlags.Optional
             )
             this._powerStatus = this.addRegister<[jacdac.PowerPowerStatus]>(
                 jacdac.PowerReg.PowerStatus,
@@ -32,23 +33,29 @@ namespace modules {
             )
             this._batteryVoltage = this.addRegister<[number]>(
                 jacdac.PowerReg.BatteryVoltage,
-                jacdac.PowerRegPack.BatteryVoltage
+                jacdac.PowerRegPack.BatteryVoltage,
+                jacdac.RegisterClientFlags.Optional
             )
             this._batteryCharge = this.addRegister<[number]>(
                 jacdac.PowerReg.BatteryCharge,
-                jacdac.PowerRegPack.BatteryCharge
+                jacdac.PowerRegPack.BatteryCharge,
+                jacdac.RegisterClientFlags.Optional
             )
             this._batteryCapacity = this.addRegister<[number]>(
                 jacdac.PowerReg.BatteryCapacity,
-                jacdac.PowerRegPack.BatteryCapacity
+                jacdac.PowerRegPack.BatteryCapacity,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._keepOnPulseDuration = this.addRegister<[number]>(
                 jacdac.PowerReg.KeepOnPulseDuration,
-                jacdac.PowerRegPack.KeepOnPulseDuration
+                jacdac.PowerRegPack.KeepOnPulseDuration,
+                jacdac.RegisterClientFlags.Optional
             )
             this._keepOnPulsePeriod = this.addRegister<[number]>(
                 jacdac.PowerReg.KeepOnPulsePeriod,
-                jacdac.PowerRegPack.KeepOnPulsePeriod
+                jacdac.PowerRegPack.KeepOnPulsePeriod,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 

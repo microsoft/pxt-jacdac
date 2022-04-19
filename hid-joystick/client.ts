@@ -16,15 +16,19 @@ namespace modules {
 
             this._buttonCount = this.addRegister<[number]>(
                 jacdac.HidJoystickReg.ButtonCount,
-                jacdac.HidJoystickRegPack.ButtonCount
+                jacdac.HidJoystickRegPack.ButtonCount,
+                jacdac.RegisterClientFlags.Const
             )
             this._buttonsAnalog = this.addRegister<[number]>(
                 jacdac.HidJoystickReg.ButtonsAnalog,
-                jacdac.HidJoystickRegPack.ButtonsAnalog
+                jacdac.HidJoystickRegPack.ButtonsAnalog,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._axisCount = this.addRegister<[number]>(
                 jacdac.HidJoystickReg.AxisCount,
-                jacdac.HidJoystickRegPack.AxisCount
+                jacdac.HidJoystickRegPack.AxisCount,
+                jacdac.RegisterClientFlags.Const
             )
         }
 

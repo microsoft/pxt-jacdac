@@ -13,15 +13,21 @@ namespace modules {
 
             this._maxDistance = this.addRegister<[number]>(
                 jacdac.MotionReg.MaxDistance,
-                jacdac.MotionRegPack.MaxDistance
+                jacdac.MotionRegPack.MaxDistance,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._angle = this.addRegister<[number]>(
                 jacdac.MotionReg.Angle,
-                jacdac.MotionRegPack.Angle
+                jacdac.MotionRegPack.Angle,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._variant = this.addRegister<[jacdac.MotionVariant]>(
                 jacdac.MotionReg.Variant,
-                jacdac.MotionRegPack.Variant
+                jacdac.MotionRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

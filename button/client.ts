@@ -12,7 +12,9 @@ namespace modules {
 
             this._analog = this.addRegister<[boolean]>(
                 jacdac.ButtonReg.Analog,
-                "u8"
+                jacdac.ButtonRegPack.Analog,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
 
             this.on(jacdac.EVENT, pkt => this.handleEvent(pkt))

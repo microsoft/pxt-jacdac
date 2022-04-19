@@ -15,7 +15,7 @@ namespace jacdac {
             )
             this._streamingSamples = this.addRegister(
                 jacdac.SystemReg.StreamingSamples,
-                "u8"
+                jacdac.SystemRegPack.StreamingSamples
             )
             this._reading.on(REPORT_RECEIVE, () => this.samples--)
             this._streamingSamples.on(REPORT_UPDATE, () => this.updateSamples())

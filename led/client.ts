@@ -16,27 +16,34 @@ namespace modules {
 
             this._color = this.addRegister<[number, number, number]>(
                 jacdac.LedReg.Color,
-                "u8 u8 u8"
+                jacdac.LedRegPack.Color
             )
             this._maxPower = this.addRegister<[number]>(
                 jacdac.LedReg.MaxPower,
-                "u16"
+                jacdac.LedRegPack.MaxPower
             )
             this._ledCount = this.addRegister<[number]>(
                 jacdac.LedReg.LedCount,
-                "u16"
+                jacdac.LedRegPack.LedCount,
+                jacdac.RegisterClientFlags.Const
             )
             this._waveLength = this.addRegister<[number]>(
                 jacdac.LedReg.WaveLength,
-                "u16"
+                jacdac.LedRegPack.WaveLength,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._luminousIntensity = this.addRegister<[number]>(
                 jacdac.LedReg.LuminousIntensity,
-                "u16"
+                jacdac.LedRegPack.LuminousIntensity,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._variant = this.addRegister<[jacdac.LedVariant]>(
                 jacdac.LedReg.Variant,
-                "u8"
+                jacdac.LedRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

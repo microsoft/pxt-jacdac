@@ -16,11 +16,14 @@ namespace modules {
 
             this._windSpeedError = this.addRegister<[number]>(
                 jacdac.WindSpeedReg.WindSpeedError,
-                jacdac.WindSpeedRegPack.WindSpeedError
+                jacdac.WindSpeedRegPack.WindSpeedError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._maxWindSpeed = this.addRegister<[number]>(
                 jacdac.WindSpeedReg.MaxWindSpeed,
-                jacdac.WindSpeedRegPack.MaxWindSpeed
+                jacdac.WindSpeedRegPack.MaxWindSpeed,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 
@@ -28,7 +31,7 @@ namespace modules {
          * The velocity of the wind.
          */
         //% callInDebugger
-        //% group="Wind speed"
+        //% group="Environment"
         //% block="%windspeed wind speed"
         //% blockId=jacdac_windspeed_wind_speed___get
         //% weight=100
@@ -40,7 +43,7 @@ namespace modules {
          * Error on the reading
          */
         //% callInDebugger
-        //% group="Wind speed"
+        //% group="Environment"
         //% weight=99
         windSpeedError(): number {
             this.start()
@@ -52,7 +55,7 @@ namespace modules {
          * Maximum speed that can be measured by the sensor.
          */
         //% callInDebugger
-        //% group="Wind speed"
+        //% group="Environment"
         //% weight=98
         maxWindSpeed(): number {
             this.start()
@@ -63,7 +66,7 @@ namespace modules {
         /**
          * Run code when the wind speed changes by the given threshold value.
          */
-        //% group="Wind speed"
+        //% group="Environment"
         //% blockId=jacdac_windspeed_on_wind_speed_change
         //% block="on %windspeed wind speed changed by %threshold"
         //% weight=97

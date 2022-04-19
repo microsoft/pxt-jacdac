@@ -17,7 +17,9 @@ namespace modules {
 
             this._precipitationPrecision = this.addRegister<[number]>(
                 jacdac.RainGaugeReg.PrecipitationPrecision,
-                jacdac.RainGaugeRegPack.PrecipitationPrecision
+                jacdac.RainGaugeRegPack.PrecipitationPrecision,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

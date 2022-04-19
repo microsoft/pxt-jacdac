@@ -11,7 +11,9 @@ namespace modules {
 
             this._variant = this.addRegister<[jacdac.SwitchVariant]>(
                 jacdac.SwitchReg.Variant,
-                jacdac.SwitchRegPack.Variant
+                jacdac.SwitchRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

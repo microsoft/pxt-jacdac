@@ -19,7 +19,9 @@ namespace modules {
             )
             this._variant = this.addRegister<[jacdac.RngVariant]>(
                 jacdac.RngReg.Variant,
-                jacdac.RngRegPack.Variant
+                jacdac.RngRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

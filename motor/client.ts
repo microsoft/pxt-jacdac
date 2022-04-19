@@ -23,15 +23,21 @@ namespace modules {
             )
             this._loadTorque = this.addRegister<[number]>(
                 jacdac.MotorReg.LoadTorque,
-                jacdac.MotorRegPack.LoadTorque
+                jacdac.MotorRegPack.LoadTorque,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._loadSpeed = this.addRegister<[number]>(
                 jacdac.MotorReg.LoadSpeed,
-                jacdac.MotorRegPack.LoadSpeed
+                jacdac.MotorRegPack.LoadSpeed,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._reversible = this.addRegister<[boolean]>(
                 jacdac.MotorReg.Reversible,
-                jacdac.MotorRegPack.Reversible
+                jacdac.MotorRegPack.Reversible,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 
@@ -42,7 +48,6 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Motor"
-        //% block="%motor duty"
         //% blockId=jacdac_motor_duty___get
         //% weight=100
         duty(): number {
@@ -58,7 +63,6 @@ namespace modules {
          */
         //% group="Motor"
         //% blockId=jacdac_motor_duty___set
-        //% block="set %motor duty to %value"
         //% weight=99
         //% value.min=-100
         //% value.max=100
@@ -139,7 +143,7 @@ namespace modules {
          * @param speed the throttle of the motor from -100% to 100%
          */
         //% group="Motor"
-        //% weight=99
+        //% weight=100
         //% blockId=jdmotorrun block="run %motor at $speed=speedPicker \\%"
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220

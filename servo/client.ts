@@ -21,39 +21,45 @@ namespace modules {
 
             this._angle = this.addRegister<[number]>(
                 jacdac.ServoReg.Angle,
-                "i16.16"
+                jacdac.ServoRegPack.Angle
             )
             this._enabled = this.addRegister<[boolean]>(
                 jacdac.ServoReg.Enabled,
-                "u8"
+                jacdac.ServoRegPack.Enabled
             )
             this._offset = this.addRegister<[number]>(
                 jacdac.ServoReg.Offset,
-                "i16.16"
+                jacdac.ServoRegPack.Offset
             )
             this._minAngle = this.addRegister<[number]>(
                 jacdac.ServoReg.MinAngle,
-                "i16.16"
+                jacdac.ServoRegPack.MinAngle,
+                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
             )
             this._minPulse = this.addRegister<[number]>(
                 jacdac.ServoReg.MinPulse,
-                "u16"
+                jacdac.ServoRegPack.MinPulse,
+                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
             )
             this._maxAngle = this.addRegister<[number]>(
                 jacdac.ServoReg.MaxAngle,
-                "i16.16"
+                jacdac.ServoRegPack.MaxAngle,
+                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
             )
             this._maxPulse = this.addRegister<[number]>(
                 jacdac.ServoReg.MaxPulse,
-                "u16"
+                jacdac.ServoRegPack.MaxPulse,
+                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
             )
             this._stallTorque = this.addRegister<[number]>(
                 jacdac.ServoReg.StallTorque,
-                "u16.16"
+                jacdac.ServoRegPack.StallTorque,
+                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
             )
             this._responseSpeed = this.addRegister<[number]>(
                 jacdac.ServoReg.ResponseSpeed,
-                "u16.16"
+                jacdac.ServoRegPack.ResponseSpeed,
+                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
             )
         }
 

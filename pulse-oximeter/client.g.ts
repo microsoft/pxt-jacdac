@@ -17,7 +17,8 @@ namespace modules {
 
             this._oxygenError = this.addRegister<[number]>(
                 jacdac.PulseOximeterReg.OxygenError,
-                jacdac.PulseOximeterRegPack.OxygenError
+                jacdac.PulseOximeterRegPack.OxygenError,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 

@@ -16,19 +16,26 @@ namespace modules {
 
             this._distanceError = this.addRegister<[number]>(
                 jacdac.DistanceReg.DistanceError,
-                jacdac.DistanceRegPack.DistanceError
+                jacdac.DistanceRegPack.DistanceError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._minRange = this.addRegister<[number]>(
                 jacdac.DistanceReg.MinRange,
-                jacdac.DistanceRegPack.MinRange
+                jacdac.DistanceRegPack.MinRange,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._maxRange = this.addRegister<[number]>(
                 jacdac.DistanceReg.MaxRange,
-                jacdac.DistanceRegPack.MaxRange
+                jacdac.DistanceRegPack.MaxRange,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._variant = this.addRegister<[jacdac.DistanceVariant]>(
                 jacdac.DistanceReg.Variant,
-                jacdac.DistanceRegPack.Variant
+                jacdac.DistanceRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

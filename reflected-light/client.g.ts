@@ -17,7 +17,9 @@ namespace modules {
 
             this._variant = this.addRegister<[jacdac.ReflectedLightVariant]>(
                 jacdac.ReflectedLightReg.Variant,
-                jacdac.ReflectedLightRegPack.Variant
+                jacdac.ReflectedLightRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

@@ -16,11 +16,14 @@ namespace modules {
 
             this._variant = this.addRegister<[jacdac.GamepadVariant]>(
                 jacdac.GamepadReg.Variant,
-                "u8"
+                jacdac.GamepadRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._buttonsAvailable = this.addRegister<[jacdac.GamepadButtons]>(
                 jacdac.GamepadReg.ButtonsAvailable,
-                "u32"
+                jacdac.GamepadRegPack.ButtonsAvailable,
+                jacdac.RegisterClientFlags.Const
             )
         }
 

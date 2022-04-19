@@ -15,7 +15,8 @@ namespace modules {
 
             this._pressureError = this.addRegister<[number]>(
                 jacdac.AirPressureReg.PressureError,
-                jacdac.AirPressureRegPack.PressureError
+                jacdac.AirPressureRegPack.PressureError,
+                jacdac.RegisterClientFlags.Optional
             )
         }
 

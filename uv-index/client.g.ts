@@ -14,11 +14,14 @@ namespace modules {
 
             this._uvIndexError = this.addRegister<[number]>(
                 jacdac.UvIndexReg.UvIndexError,
-                jacdac.UvIndexRegPack.UvIndexError
+                jacdac.UvIndexRegPack.UvIndexError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._variant = this.addRegister<[jacdac.UvIndexVariant]>(
                 jacdac.UvIndexReg.Variant,
-                jacdac.UvIndexRegPack.Variant
+                jacdac.UvIndexRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

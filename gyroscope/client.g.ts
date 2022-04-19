@@ -17,15 +17,19 @@ namespace modules {
 
             this._rotationRatesError = this.addRegister<[number]>(
                 jacdac.GyroscopeReg.RotationRatesError,
-                jacdac.GyroscopeRegPack.RotationRatesError
+                jacdac.GyroscopeRegPack.RotationRatesError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._maxRate = this.addRegister<[number]>(
                 jacdac.GyroscopeReg.MaxRate,
-                jacdac.GyroscopeRegPack.MaxRate
+                jacdac.GyroscopeRegPack.MaxRate,
+                jacdac.RegisterClientFlags.Optional
             )
             this._maxRatesSupported = this.addRegister<[number[]]>(
                 jacdac.GyroscopeReg.MaxRatesSupported,
-                jacdac.GyroscopeRegPack.MaxRatesSupported
+                jacdac.GyroscopeRegPack.MaxRatesSupported,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

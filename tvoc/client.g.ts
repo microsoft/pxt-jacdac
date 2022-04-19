@@ -13,15 +13,18 @@ namespace modules {
 
             this._tVOCError = this.addRegister<[number]>(
                 jacdac.TvocReg.TVOCError,
-                jacdac.TvocRegPack.TVOCError
+                jacdac.TvocRegPack.TVOCError,
+                jacdac.RegisterClientFlags.Optional
             )
             this._minTVOC = this.addRegister<[number]>(
                 jacdac.TvocReg.MinTVOC,
-                jacdac.TvocRegPack.MinTVOC
+                jacdac.TvocRegPack.MinTVOC,
+                jacdac.RegisterClientFlags.Const
             )
             this._maxTVOC = this.addRegister<[number]>(
                 jacdac.TvocReg.MaxTVOC,
-                jacdac.TvocRegPack.MaxTVOC
+                jacdac.TvocRegPack.MaxTVOC,
+                jacdac.RegisterClientFlags.Const
             )
         }
 
