@@ -55,7 +55,7 @@ namespace servers {
         }
 
         private handleSetAxis(pkt: jacdac.JDPacket) {
-            const positions: [[number]] = pkt.jdunpack<[[[number]]]>(
+            const positions: number[][] = pkt.jdunpack<number[][][]>(
                 jacdac.HidJoystickCmdPack.SetAxis
             )[0]
             if (positions && positions.length >= 6) {
