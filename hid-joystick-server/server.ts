@@ -60,18 +60,20 @@ namespace servers {
             )[0]
             if (positions && positions.length >= 6) {
                 // x0 x1 y0 y1 throttle rudder
+                // -1..1 -> -127..127
                 gamepad.move(
                     0,
-                    Math.round(positions[0][0] * 0xff),
-                    Math.round(positions[1][0] * 0xff)
+                    Math.round(positions[0][0] * 127),
+                    Math.round(positions[1][0] * 127)
                 )
                 gamepad.move(
                     1,
-                    Math.round(positions[2][0] * 0xff),
-                    Math.round(positions[3][0] * 0xff)
+                    Math.round(positions[2][0] * 127),
+                    Math.round(positions[3][0] * 127)
                 )
-                gamepad.setThrottle(0, Math.round(positions[4][0] * 32))
-                gamepad.setThrottle(0, Math.round(positions[5][0] * 32))
+                // -1..1 -> 0..31
+                gamepad.setThrottle(0, Math.round((positions[4][0] + 1) * 16))
+                gamepad.setThrottle(1, Math.round((positions[5][0] + 1) * 16))
             }
             pkt.markHandled()
         }
