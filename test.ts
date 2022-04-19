@@ -84,6 +84,8 @@ function jdpackTest() {
         [hex`a1b2c3d4e5f6a7b8`, 0x12345678, 0x42, "barbaz"],
         { expectedPayload: "a1b2c3d4e5f6a7b8785634124262617262617a" }
     )
+    testOne("r: u16", [[[0], [1]]])
+    testOne("u16 r: u16", [1, [[2], [3]]])
 }
 
 // pins.A9.digitalWrite(false)
