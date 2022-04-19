@@ -91,7 +91,6 @@ namespace modules {
          */
         //% group="HID Joystick"
         //% blockId=jacdac_hidjoystick_set_all_buttons_cmd
-        //% block="set %hidjoystick all buttons to $pressure"
         //% weight=97
         setAllButtons(pressure: number[]): void {
             if (!pressure) return
@@ -116,7 +115,7 @@ namespace modules {
          * Sets the state of an axis in -100%,100%
          */
         //% group="HID Joystick"
-        //% blockId=jacdac_hidjoystick_set_buttons_cmd
+        //% blockId=jacdac_hidjoystick_set_axis_cmd
         //% block="set %hidjoystick axis $index to $position"
         //% weight=99
         //% position.min=-100
@@ -137,7 +136,6 @@ namespace modules {
          */
         //% group="HID Joystick"
         //% blockId=jacdac_hidjoystick_set_all_axis_cmd
-        //% block="set %hidjoystick all axis to $position"
         //% weight=96
         setAllAxis(position: number[]): void {
             if (!position) return
