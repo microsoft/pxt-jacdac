@@ -117,7 +117,7 @@ namespace modules {
         //% group="HID Joystick"
         //% blockId=jacdac_hidjoystick_set_axis_cmd
         //% block="set %hidjoystick axis $index to $position"
-        //% weight=99
+        //% weight=98
         //% position.min=-100
         //% position.max=100
         setAxis(index: number, position: number) {
@@ -162,7 +162,7 @@ namespace modules {
         //% group="HID Joystick"
         //% blockId=jacdac_hidjoystick_clear
         //% block="clear %hidjoystick"
-        //% weight=98
+        //% weight=97
         clear() {
             this.buttons = []
             this.axis = []
