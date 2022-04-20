@@ -39,9 +39,13 @@ namespace jacdac {
             // register get, on a sensor
             if (packet.isRegGet && packet.regCode == jacdac.SystemReg.Reading) {
                 const state = this.serializeState()
-                this.sendReport(
-                    JDPacket.from(CMD_GET_REG | jacdac.SystemReg.Reading, state)
-                )
+                if (state)
+                    this.sendReport(
+                        JDPacket.from(
+                            CMD_GET_REG | jacdac.SystemReg.Reading,
+                            state
+                        )
+                    )
                 packet.markHandled()
             } else {
                 switch (packet.serviceCommand) {
@@ -202,8 +206,7 @@ namespace jacdac {
 
         serializeState() {
             const v = this.stateReader()
-            if (v === undefined)
-                return undefined
+            if (v === undefined) return undefined
             return jacdac.jdpack(this.packFormat, [v])
         }
     }
