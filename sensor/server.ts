@@ -202,6 +202,8 @@ namespace jacdac {
 
         serializeState() {
             const v = this.stateReader()
+            if (v === undefined)
+                return undefined
             return jacdac.jdpack(this.packFormat, [v])
         }
     }
