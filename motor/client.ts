@@ -42,34 +42,34 @@ namespace modules {
         }
 
         /**
-        * Relative speed of the motor. Use positive/negative values to run the motor forwards and backwards.
-        * Positive is recommended to be clockwise rotation and negative counterclockwise. A speed of ``0`` 
-        * while ``enabled`` acts as brake.
-        */
+         * Relative speed of the motor. Use positive/negative values to run the motor forwards and backwards.
+         * Positive is recommended to be clockwise rotation and negative counterclockwise. A speed of ``0``
+         * while ``enabled`` acts as brake.
+         */
         //% callInDebugger
         //% group="Motor"
         //% weight=100
         speed(): number {
-            this.start();            
-            const values = this._speed.pauseUntilValues() as any[];
-            return values[0] * 100;
+            this.start()
+            const values = this._speed.pauseUntilValues() as any[]
+            return values[0] * 100
         }
 
         /**
-        * Relative speed of the motor. Use positive/negative values to run the motor forwards and backwards.
-        * Positive is recommended to be clockwise rotation and negative counterclockwise. A speed of ``0`` 
-        * while ``enabled`` acts as brake.
-        */
+         * Relative speed of the motor. Use positive/negative values to run the motor forwards and backwards.
+         * Positive is recommended to be clockwise rotation and negative counterclockwise. A speed of ``0``
+         * while ``enabled`` acts as brake.
+         */
         //% group="Motor"
         //% weight=99
         //% value.min=-100
         //% value.max=100
         //% value.defl=100
         setSpeed(value: number) {
-            this.start();
-            const values = this._speed.values as any[];
-            values[0] = value / 100;
-            this._speed.values = values as [number];
+            this.start()
+            const values = this._speed.values as any[]
+            values[0] = value / 100
+            this._speed.values = values as [number]
         }
 
         /**
