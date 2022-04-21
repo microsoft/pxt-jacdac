@@ -1,6 +1,6 @@
 {
     "name": "jacdac-led-display",
-    "version": "0.9.10",
+    "version": "0.9.11",
     "description": "A controller for small displays of individually controlled RGB LEDs.\n\nThis service handles displays with 64 or less LEDs.\nUse the [LED strip service](/services/ledstrip) for longer light strips.",
     "files": [
         "constants.ts",
