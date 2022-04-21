@@ -1,6 +1,6 @@
 {
     "name": "jacdac-soil-moisture",
-    "version": "0.9.9",
+    "version": "0.9.10",
     "description": "A soil moisture sensor.",
     "files": [
         "constants.ts",
