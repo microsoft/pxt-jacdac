@@ -11,3 +11,7 @@ input.onButtonPressed(Button.B, () => {
 input.onButtonPressed(Button.AB, () => {
     modules.characterScreen1.clear()
 })
+forever(() => {
+    modules.characterScreen1.setLineValue(0, "t", control.millis() / 1000.0, 2)
+    pause(500)
+})

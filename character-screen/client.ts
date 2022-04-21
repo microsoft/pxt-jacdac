@@ -172,7 +172,7 @@ namespace modules {
          */
         //% group="Display"
         //% blockId=jacdac_characterscreen_set_line_cmd
-        //% block="set %characterscreen line |$index |to $message"
+        //% block="set %characterscreen at line |$index |to $message"
         //% weight=91
         //% message.defl=":)"
         setLine(index: number, message: string): void {
@@ -181,6 +181,21 @@ namespace modules {
             const lines = msg.split("\n")
             lines[index | 0] = message || ""
             this.setMessage(lines.join("\n"))
+        }
+
+        /**
+         * Display a numeric name,value pair
+         */
+        //% group="Display"
+        //% blockId=jacdac_characterscreen_set_value_cmd
+        //% block="set %characterscreen at line |$index |to $name|= $value||with $precision"
+        //% weight=90
+        //% message.defl=":)"
+        //% precision=3
+        setLineValue(index: number, name: string, value: number, precision = 3): void {
+            const values = value === undefined || value === null ? "?" : Math.roundWithPrecision(value, precision).toString()
+            const msg = name ? `${name}: ${values}` : values
+            this.setLine(index, msg)
         }
 
         /**
