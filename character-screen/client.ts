@@ -188,10 +188,11 @@ namespace modules {
          */
         //% group="Display"
         //% blockId=jacdac_characterscreen_set_value_cmd
-        //% block="set %characterscreen at line |$index |to $name|= $value||with $precision"
+        //% block="set %characterscreen at line |$index |to $name|= $value||with $precision decimals"
         //% weight=90
         //% message.defl=":)"
         //% precision=3
+        //% inlineInputMode=inline
         setLineValue(index: number, name: string, value: number, precision = 3): void {
             const values = value === undefined || value === null ? "?" : Math.roundWithPrecision(value, precision).toString()
             const msg = name ? `${name}: ${values}` : values
