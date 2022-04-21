@@ -1,6 +1,6 @@
 {
     "name": "jacdac-traffic-light",
-    "version": "0.9.8",
+    "version": "0.9.9",
     "description": "Controls a mini traffic with a red, orange and green LED.",
     "files": [
         "constants.ts",
