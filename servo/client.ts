@@ -34,32 +34,38 @@ namespace modules {
             this._minAngle = this.addRegister<[number]>(
                 jacdac.ServoReg.MinAngle,
                 jacdac.ServoRegPack.MinAngle,
-                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._minPulse = this.addRegister<[number]>(
                 jacdac.ServoReg.MinPulse,
                 jacdac.ServoRegPack.MinPulse,
-                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._maxAngle = this.addRegister<[number]>(
                 jacdac.ServoReg.MaxAngle,
                 jacdac.ServoRegPack.MaxAngle,
-                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._maxPulse = this.addRegister<[number]>(
                 jacdac.ServoReg.MaxPulse,
                 jacdac.ServoRegPack.MaxPulse,
-                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._stallTorque = this.addRegister<[number]>(
                 jacdac.ServoReg.StallTorque,
                 jacdac.ServoRegPack.StallTorque,
-                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
             this._responseSpeed = this.addRegister<[number]>(
                 jacdac.ServoReg.ResponseSpeed,
                 jacdac.ServoRegPack.ResponseSpeed,
-                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 

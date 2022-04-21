@@ -4,18 +4,18 @@ namespace modules {
      **/
     //% fixedInstances blockGap=8
     export class MotorClient extends jacdac.Client {
-        private readonly _duty: jacdac.RegisterClient<[number]>
+        private readonly _speed: jacdac.RegisterClient<[number]>
         private readonly _enabled: jacdac.RegisterClient<[boolean]>
         private readonly _loadTorque: jacdac.RegisterClient<[number]>
-        private readonly _loadSpeed: jacdac.RegisterClient<[number]>
+        private readonly _loadRotationSpeed: jacdac.RegisterClient<[number]>
         private readonly _reversible: jacdac.RegisterClient<[boolean]>
 
         constructor(role: string) {
             super(jacdac.SRV_MOTOR, role)
 
-            this._duty = this.addRegister<[number]>(
-                jacdac.MotorReg.Duty,
-                jacdac.MotorRegPack.Duty
+            this._speed = this.addRegister<[number]>(
+                jacdac.MotorReg.Speed,
+                jacdac.MotorRegPack.Speed
             )
             this._enabled = this.addRegister<[boolean]>(
                 jacdac.MotorReg.Enabled,
@@ -27,9 +27,9 @@ namespace modules {
                 jacdac.RegisterClientFlags.Optional |
                     jacdac.RegisterClientFlags.Const
             )
-            this._loadSpeed = this.addRegister<[number]>(
-                jacdac.MotorReg.LoadSpeed,
-                jacdac.MotorRegPack.LoadSpeed,
+            this._loadRotationSpeed = this.addRegister<[number]>(
+                jacdac.MotorReg.LoadRotationSpeed,
+                jacdac.MotorRegPack.LoadRotationSpeed,
                 jacdac.RegisterClientFlags.Optional |
                     jacdac.RegisterClientFlags.Const
             )
@@ -42,36 +42,34 @@ namespace modules {
         }
 
         /**
-         * PWM duty cycle of the motor. Use negative/positive values to run the motor forwards and backwards.
-         * Positive is recommended to be clockwise rotation and negative counterclockwise. A duty of ``0``
-         * while ``enabled`` acts as brake.
-         */
+        * Relative speed of the motor. Use positive/negative values to run the motor forwards and backwards.
+        * Positive is recommended to be clockwise rotation and negative counterclockwise. A speed of ``0`` 
+        * while ``enabled`` acts as brake.
+        */
         //% callInDebugger
         //% group="Motor"
-        //% blockId=jacdac_motor_duty___get
         //% weight=100
-        duty(): number {
-            this.start()
-            const values = this._duty.pauseUntilValues() as any[]
-            return values[0] * 100
+        speed(): number {
+            this.start();            
+            const values = this._speed.pauseUntilValues() as any[];
+            return values[0] * 100;
         }
 
         /**
-         * PWM duty cycle of the motor. Use negative/positive values to run the motor forwards and backwards.
-         * Positive is recommended to be clockwise rotation and negative counterclockwise. A duty of ``0``
-         * while ``enabled`` acts as brake.
-         */
+        * Relative speed of the motor. Use positive/negative values to run the motor forwards and backwards.
+        * Positive is recommended to be clockwise rotation and negative counterclockwise. A speed of ``0`` 
+        * while ``enabled`` acts as brake.
+        */
         //% group="Motor"
-        //% blockId=jacdac_motor_duty___set
         //% weight=99
         //% value.min=-100
         //% value.max=100
         //% value.defl=100
-        setDuty(value: number) {
-            this.start()
-            const values = this._duty.values as any[]
-            values[0] = value / 100
-            this._duty.values = values as [number]
+        setSpeed(value: number) {
+            this.start();
+            const values = this._speed.values as any[];
+            values[0] = value / 100;
+            this._speed.values = values as [number];
         }
 
         /**
@@ -120,9 +118,9 @@ namespace modules {
         //% callInDebugger
         //% group="Motor"
         //% weight=95
-        loadSpeed(): number {
+        loadRotationSpeed(): number {
             this.start()
-            const values = this._loadSpeed.pauseUntilValues() as any[]
+            const values = this._loadRotationSpeed.pauseUntilValues() as any[]
             return values[0]
         }
 
@@ -134,7 +132,7 @@ namespace modules {
         //% weight=95
         reversible(): boolean {
             this.start()
-            const values = this._loadSpeed.pauseUntilValues() as any[]
+            const values = this._reversible.pauseUntilValues() as any[]
             return !!values[0]
         }
 
@@ -152,7 +150,7 @@ namespace modules {
             speed = Math.clamp(-100, 100, speed)
             if (speed == 0) this.setEnabled(false)
             else {
-                this.setDuty(speed)
+                this.setSpeed(speed)
                 this.setEnabled(true)
             }
         }

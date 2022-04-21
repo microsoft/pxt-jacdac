@@ -3,15 +3,15 @@ namespace jacdac {
     export const SRV_MOTOR = 0x17004cd8
     export const enum MotorReg {
         /**
-         * Read-write ratio i1.15 (int16_t). PWM duty cycle of the motor. Use negative/positive values to run the motor forwards and backwards.
-         * Positive is recommended to be clockwise rotation and negative counterclockwise. A duty of ``0``
+         * Read-write ratio i1.15 (int16_t). Relative speed of the motor. Use positive/negative values to run the motor forwards and backwards.
+         * Positive is recommended to be clockwise rotation and negative counterclockwise. A speed of ``0``
          * while ``enabled`` acts as brake.
          *
          * ```
-         * const [duty] = jdunpack<[number]>(buf, "i1.15")
+         * const [speed] = jdunpack<[number]>(buf, "i1.15")
          * ```
          */
-        Duty = 0x2,
+        Speed = 0x2,
 
         /**
          * Read-write bool (uint8_t). Turn the power to the motor on/off.
@@ -35,10 +35,10 @@ namespace jacdac {
          * Constant rpm u16.16 (uint32_t). Revolutions per minute of the motor under full load.
          *
          * ```
-         * const [loadSpeed] = jdunpack<[number]>(buf, "u16.16")
+         * const [loadRotationSpeed] = jdunpack<[number]>(buf, "u16.16")
          * ```
          */
-        LoadSpeed = 0x181,
+        LoadRotationSpeed = 0x181,
 
         /**
          * Constant bool (uint8_t). Indicates if the motor can run backwards.
@@ -52,9 +52,9 @@ namespace jacdac {
 
     export namespace MotorRegPack {
         /**
-         * Pack format for 'duty' register data.
+         * Pack format for 'speed' register data.
          */
-        export const Duty = "i1.15"
+        export const Speed = "i1.15"
 
         /**
          * Pack format for 'enabled' register data.
@@ -67,9 +67,9 @@ namespace jacdac {
         export const LoadTorque = "u16.16"
 
         /**
-         * Pack format for 'load_speed' register data.
+         * Pack format for 'load_rotation_speed' register data.
          */
-        export const LoadSpeed = "u16.16"
+        export const LoadRotationSpeed = "u16.16"
 
         /**
          * Pack format for 'reversible' register data.

@@ -58,7 +58,8 @@ namespace modules {
             this._variant = this.addRegister<[jacdac.DotMatrixVariant]>(
                 jacdac.DotMatrixReg.Variant,
                 jacdac.DotMatrixRegPack.Variant,
-                jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 
