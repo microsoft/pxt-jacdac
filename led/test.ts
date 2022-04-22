@@ -1,2 +1,6 @@
-modules.led1.animate(0xff0000, 0)
-modules.led1.animate(0x00ff00, 100)
+forever(() => {
+    modules.led1.setAll(0xff0f0f)
+    pause(500)
+    modules.led1.setAll(0)
+    pause(500)
+})
