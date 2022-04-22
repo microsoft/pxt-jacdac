@@ -193,8 +193,16 @@ namespace modules {
         //% message.defl=":)"
         //% precision=3
         //% inlineInputMode=inline
-        setLineValue(index: number, name: string, value: number, precision = 3): void {
-            const values = value === undefined || value === null ? "?" : Math.roundWithPrecision(value, precision).toString()
+        setLineValue(
+            index: number,
+            name: string,
+            value: number,
+            precision = 3
+        ): void {
+            const values =
+                value === undefined || value === null
+                    ? "?"
+                    : Math.roundWithPrecision(value, precision).toString()
             const msg = name ? `${name}: ${values}` : values
             this.setLine(index, msg)
         }
