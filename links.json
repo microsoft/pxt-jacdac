@@ -20,7 +20,7 @@
         "jacdac-gamepad": "./gamepad",
         "jacdac-led": "./led",
         "jacdac-led-strip": "./led-strip",
-        "jacdac-led-display": "./led-display",
+        "jacdac-led-single": "./led-single",
         "jacdac-light-level": "./light-level",
         "jacdac-microbit": "./devices/microbit",
         "jacdac-motor": "./motor",

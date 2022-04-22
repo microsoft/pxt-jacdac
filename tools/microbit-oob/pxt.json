@@ -13,7 +13,6 @@
         "jacdac-rotary-encoder": "github:microsoft/pxt-jacdac/rotary-encoder",
         "jacdac-led-strip": "github:microsoft/pxt-jacdac/led-strip",
         "jacdac-led": "github:microsoft/pxt-jacdac/led",
-        "jacdac-led-display": "github:microsoft/pxt-jacdac/led-display",
         "jacdac-potentiometer": "github:microsoft/pxt-jacdac/potentiometer",
         "jacdac-temperature": "github:microsoft/pxt-jacdac/temperature",
         "jacdac-light-level": "github:microsoft/pxt-jacdac/light-level",

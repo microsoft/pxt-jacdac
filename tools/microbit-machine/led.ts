@@ -1,7 +1,7 @@
 const pattern = [0x000000, 0xff0000, 0x00ff00, 0x0000ff]
 
-machine.addClientFactory(jacdac.SRV_LED_DISPLAY, devid => {
-    const client = new modules.LedDisplayClient(devid)
+machine.addClientFactory(jacdac.SRV_LED, devid => {
+    const client = new modules.LedClient(devid)
 
     machine.microbit.onClient(client, machine.EVENT_A, () => {
         client.rotate(1)

@@ -37,7 +37,7 @@ interface ServicesMap {
 }
 let dev2Services: ServicesMap = {}
 
-let onlyLedDisplay: modules.LedDisplayClient[] = []
+let onlyLedDisplay: modules.LedClient[] = []
 
 jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
     if (d === jacdac.bus.selfDevice) return
@@ -59,7 +59,7 @@ jacdac.bus.subscribe(jacdac.DEVICE_ANNOUNCE, (d: jacdac.Device) => {
 })
 
 // special handling for actuators (multi-command) and sensors (streaming)
-const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_STRIP, jacdac.SRV_LED, jacdac.SRV_LED_DISPLAY]
+const knownActuators = [jacdac.SRV_SERVO, jacdac.SRV_LED_STRIP, jacdac.SRV_LED]
 const knownSensors = [
     jacdac.SRV_POTENTIOMETER,
     jacdac.SRV_ROTARY_ENCODER,
@@ -138,11 +138,11 @@ function setPixelBrightness(ratio: number) {
     )
     pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
     const pkt2 = jacdac.JDPacket.jdpacked(
-        jacdac.CMD_SET_REG | jacdac.LedDisplayReg.Brightness,
-        jacdac.LedDisplayRegPack.Brightness,
+        jacdac.CMD_SET_REG | jacdac.LedReg.Brightness,
+        jacdac.LedRegPack.Brightness,
         [ratio]
     )
-    pkt2.sendAsMultiCommand(jacdac.SRV_LED_DISPLAY)
+    pkt2.sendAsMultiCommand(jacdac.SRV_LED)
 }
 
 function configureActuator(dev: jacdac.Device, serviceClass: number, serviceIndex: number) {
@@ -156,16 +156,14 @@ function configureActuator(dev: jacdac.Device, serviceClass: number, serviceInde
         )
         pkt.sendAsMultiCommand(jacdac.SRV_LED_STRIP)
         setPixel(0, 0xff0000)
-    } else if (serviceClass === jacdac.SRV_LED_DISPLAY) {
-        const ledDisplay = new modules.LedDisplayClient(dev.deviceId)
+    } else if (serviceClass === jacdac.SRV_LED) {
+        const ledDisplay = new modules.LedClient(dev.deviceId)
         ledDisplay.start()
         jacdac.bus.reattach(dev)
         onlyLedDisplay.push(ledDisplay);
         ledDisplay.setPixelColor(1, 0x00FF00)
         ledDisplay.show()
         // ledDisplay.setAll(0xFF0000)
-    } else if (serviceClass === jacdac.SRV_LED) {
-        // nothing to do here
     }
 }
 
@@ -413,8 +411,6 @@ function actuate(b: Button) {
             setServoAngle(b)
         } else if (sc === jacdac.SRV_LED_STRIP) {
             animateLEDs(b)
-        } else if (sc === jacdac.SRV_LED) {
-            animateLED(b)
         }
     })
     animateDisplayLEDs(b)
@@ -487,24 +483,6 @@ function animateDisplayLEDs(b: Button) {
             d.show()
         })
     }
-}
-
-function sendColor(color: number) {
-    const pkt = jacdac.JDPacket.jdpacked(jacdac.LedCmd.Animate, jacdac.LedCmdPack.Animate, [
-        color >> 16,
-        (color & 0x00ff00) >> 8,
-        color,
-        50,
-    ])
-    pkt.sendAsMultiCommand(jacdac.SRV_LED)
-}
-
-function animateLED(b: Button) {
-    const color =
-        b === Button.A ? 0xff0000 : b === Button.B ? 0x00ff00 : 0x0000ff
-    sendColor(color)
-    pause(500)
-    sendColor(0)
 }
 
 jacdac.firmwareVersion = jacdac.VERSION
