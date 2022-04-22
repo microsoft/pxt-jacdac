@@ -1,7 +1,7 @@
 namespace modules {
     //% fixedInstances
     //% blockGap=8
-    export class LedDisplayClient extends jacdac.Client {
+    export class LedClient extends jacdac.Client {
         private _dirty = false
         private _localPixels: Buffer
         private _autoShow = true

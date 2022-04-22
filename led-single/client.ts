@@ -9,18 +9,18 @@ namespace modules {
         private readonly _ledCount: jacdac.RegisterClient<[number]>
         private readonly _waveLength: jacdac.RegisterClient<[number]>
         private readonly _luminousIntensity: jacdac.RegisterClient<[number]>
-        private readonly _variant: jacdac.RegisterClient<[jacdac.LedVariant]>
+        private readonly _variant: jacdac.RegisterClient<[jacdac.LedSingleVariant]>
 
         constructor(role: string) {
-            super(jacdac.SRV_LED, role)
+            super(jacdac.SRV_LED_SINGLE, role)
 
             this._color = this.addRegister<[number, number, number]>(
                 jacdac.LedSingleReg.Color,
                 jacdac.LedSingleRegPack.Color
             )
             this._maxPower = this.addRegister<[number]>(
-                jacdac.LedReg.MaxPower,
-                jacdac.LedRegPack.MaxPower
+                jacdac.LedSingleReg.MaxPower,
+                jacdac.LedSingleRegPack.MaxPower
             )
             this._ledCount = this.addRegister<[number]>(
                 jacdac.LedSingleReg.LedCount,
@@ -34,12 +34,12 @@ namespace modules {
                     jacdac.RegisterClientFlags.Const
             )
             this._luminousIntensity = this.addRegister<[number]>(
-                jacdac.LedReg.LuminousIntensity,
-                jacdac.LedRegPack.LuminousIntensity,
+                jacdac.LedSingleReg.LuminousIntensity,
+                jacdac.LedSingleRegPack.LuminousIntensity,
                 jacdac.RegisterClientFlags.Optional |
                     jacdac.RegisterClientFlags.Const
             )
-            this._variant = this.addRegister<[jacdac.LedVariant]>(
+            this._variant = this.addRegister<[jacdac.LedSingleVariant]>(
                 jacdac.LedSingleReg.Variant,
                 jacdac.LedSingleRegPack.Variant,
                 jacdac.RegisterClientFlags.Optional |
@@ -170,7 +170,7 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=92
-        variant(): jacdac.LedVariant {
+        variant(): jacdac.LedSingleVariant {
             this.start()
             const values = this._variant.pauseUntilValues() as any[]
             return values[0]
@@ -203,5 +203,5 @@ namespace modules {
         }
     }
     //% fixedInstance whenUsed weight=1 block="led1"
-    export const led1 = new LedSingleClient("led1")
+    export const ledSingle1 = new LedSingleClient("led single1")
 }

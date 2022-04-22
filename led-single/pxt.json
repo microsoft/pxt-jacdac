@@ -6,9 +6,6 @@
         "constants.ts",
         "client.ts"
     ],
-    "testFiles": [
-        "test.ts"
-    ],
     "supportedTargets": [
         "microbit",
         "arcade",

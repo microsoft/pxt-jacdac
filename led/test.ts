@@ -1,5 +1,6 @@
 forever(() => {
-    modules.ledDisplay1.setAll(0xff0f0f)
+    modules.led1.setAll(0xff0f0f)
     pause(500)
-    modules.ledDisplay1.setAll(0)
+    modules.led1.setAll(0)
+    pause(500)
 })
