@@ -9,7 +9,9 @@ namespace modules {
         private readonly _ledCount: jacdac.RegisterClient<[number]>
         private readonly _waveLength: jacdac.RegisterClient<[number]>
         private readonly _luminousIntensity: jacdac.RegisterClient<[number]>
-        private readonly _variant: jacdac.RegisterClient<[jacdac.LedSingleVariant]>
+        private readonly _variant: jacdac.RegisterClient<
+            [jacdac.LedSingleVariant]
+        >
 
         constructor(role: string) {
             super(jacdac.SRV_LED_SINGLE, role)

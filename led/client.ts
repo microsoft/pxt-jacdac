@@ -7,30 +7,72 @@ namespace modules {
         private _autoShow = true
         private _autoShowUnsub: () => void
 
-        private readonly _pixels : jacdac.RegisterClient<[Buffer]>;
-        private readonly _brightness : jacdac.RegisterClient<[number]>;
-        private readonly _actualBrightness : jacdac.RegisterClient<[number]>;
-        private readonly _numPixels : jacdac.RegisterClient<[number]>;
-        private readonly _numColumns : jacdac.RegisterClient<[number]>;
-        private readonly _maxPower : jacdac.RegisterClient<[number]>;
-        private readonly _ledsPerPixel : jacdac.RegisterClient<[number]>;
-        private readonly _waveLength : jacdac.RegisterClient<[number]>;
-        private readonly _luminousIntensity : jacdac.RegisterClient<[number]>;
-        private readonly _variant : jacdac.RegisterClient<[jacdac.LedVariant]>;            
+        private readonly _pixels: jacdac.RegisterClient<[Buffer]>
+        private readonly _brightness: jacdac.RegisterClient<[number]>
+        private readonly _actualBrightness: jacdac.RegisterClient<[number]>
+        private readonly _numPixels: jacdac.RegisterClient<[number]>
+        private readonly _numColumns: jacdac.RegisterClient<[number]>
+        private readonly _maxPower: jacdac.RegisterClient<[number]>
+        private readonly _ledsPerPixel: jacdac.RegisterClient<[number]>
+        private readonly _waveLength: jacdac.RegisterClient<[number]>
+        private readonly _luminousIntensity: jacdac.RegisterClient<[number]>
+        private readonly _variant: jacdac.RegisterClient<[jacdac.LedVariant]>
 
         constructor(role: string) {
             super(jacdac.SRV_LED, role)
 
-            this._pixels = this.addRegister<[Buffer]>(jacdac.LedReg.Pixels, jacdac.LedRegPack.Pixels)
-            this._brightness = this.addRegister<[number]>(jacdac.LedReg.Brightness, jacdac.LedRegPack.Brightness)
-            this._actualBrightness = this.addRegister<[number]>(jacdac.LedReg.ActualBrightness, jacdac.LedRegPack.ActualBrightness)
-            this._numPixels = this.addRegister<[number]>(jacdac.LedReg.NumPixels, jacdac.LedRegPack.NumPixels, jacdac.RegisterClientFlags.Const)
-            this._numColumns = this.addRegister<[number]>(jacdac.LedReg.NumColumns, jacdac.LedRegPack.NumColumns, jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const)
-            this._maxPower = this.addRegister<[number]>(jacdac.LedReg.MaxPower, jacdac.LedRegPack.MaxPower, jacdac.RegisterClientFlags.Optional)
-            this._ledsPerPixel = this.addRegister<[number]>(jacdac.LedReg.LedsPerPixel, jacdac.LedRegPack.LedsPerPixel, jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const)
-            this._waveLength = this.addRegister<[number]>(jacdac.LedReg.WaveLength, jacdac.LedRegPack.WaveLength, jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const)
-            this._luminousIntensity = this.addRegister<[number]>(jacdac.LedReg.LuminousIntensity, jacdac.LedRegPack.LuminousIntensity, jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const)
-            this._variant = this.addRegister<[jacdac.LedVariant]>(jacdac.LedReg.Variant, jacdac.LedRegPack.Variant, jacdac.RegisterClientFlags.Optional | jacdac.RegisterClientFlags.Const)            
+            this._pixels = this.addRegister<[Buffer]>(
+                jacdac.LedReg.Pixels,
+                jacdac.LedRegPack.Pixels
+            )
+            this._brightness = this.addRegister<[number]>(
+                jacdac.LedReg.Brightness,
+                jacdac.LedRegPack.Brightness
+            )
+            this._actualBrightness = this.addRegister<[number]>(
+                jacdac.LedReg.ActualBrightness,
+                jacdac.LedRegPack.ActualBrightness
+            )
+            this._numPixels = this.addRegister<[number]>(
+                jacdac.LedReg.NumPixels,
+                jacdac.LedRegPack.NumPixels,
+                jacdac.RegisterClientFlags.Const
+            )
+            this._numColumns = this.addRegister<[number]>(
+                jacdac.LedReg.NumColumns,
+                jacdac.LedRegPack.NumColumns,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
+            )
+            this._maxPower = this.addRegister<[number]>(
+                jacdac.LedReg.MaxPower,
+                jacdac.LedRegPack.MaxPower,
+                jacdac.RegisterClientFlags.Optional
+            )
+            this._ledsPerPixel = this.addRegister<[number]>(
+                jacdac.LedReg.LedsPerPixel,
+                jacdac.LedRegPack.LedsPerPixel,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
+            )
+            this._waveLength = this.addRegister<[number]>(
+                jacdac.LedReg.WaveLength,
+                jacdac.LedRegPack.WaveLength,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
+            )
+            this._luminousIntensity = this.addRegister<[number]>(
+                jacdac.LedReg.LuminousIntensity,
+                jacdac.LedRegPack.LuminousIntensity,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
+            )
+            this._variant = this.addRegister<[jacdac.LedVariant]>(
+                jacdac.LedReg.Variant,
+                jacdac.LedRegPack.Variant,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
+            )
 
             // maximum size (may be reduced on call to show)
             this._localPixels = Buffer.create(
@@ -39,24 +81,24 @@ namespace modules {
         }
 
         /**
-        * Set the luminosity of the strip.
-        * At `0` the power to the strip is completely shut down.
-        */
+         * Set the luminosity of the strip.
+         * At `0` the power to the strip is completely shut down.
+         */
         //% callInDebugger
         //% group="Light"
         //% block="%led brightness"
         //% blockId=jacdac_led_brightness___get
         //% weight=98
         brightness(): number {
-            this.start();            
-            const values = this._brightness.pauseUntilValues() as any[];
-            return values[0] * 100;
+            this.start()
+            const values = this._brightness.pauseUntilValues() as any[]
+            return values[0] * 100
         }
 
         /**
-        * Set the luminosity of the strip.
-        * At `0` the power to the strip is completely shut down.
-        */
+         * Set the luminosity of the strip.
+         * At `0` the power to the strip is completely shut down.
+         */
         //% group="Light"
         //% blockId=jacdac_led_brightness___set
         //% block="set %led brightness to %value"
@@ -65,125 +107,125 @@ namespace modules {
         //% value.max=100
         //% value.defl=0.05
         setBrightness(value: number) {
-            this.start();
-            const values = this._brightness.values as any[];
-            values[0] = value / 100;
-            this._brightness.values = values as [number];
+            this.start()
+            const values = this._brightness.values as any[]
+            values[0] = value / 100
+            this._brightness.values = values as [number]
         }
 
         /**
-        * This is the luminosity actually applied to the strip.
-        * May be lower than `brightness` if power-limited by the `max_power` register.
-        * It will rise slowly (few seconds) back to `brightness` is limits are no longer required.
-        */
+         * This is the luminosity actually applied to the strip.
+         * May be lower than `brightness` if power-limited by the `max_power` register.
+         * It will rise slowly (few seconds) back to `brightness` is limits are no longer required.
+         */
         //% callInDebugger
         //% group="Light"
         //% weight=96
         actualBrightness(): number {
-            this.start();            
-            const values = this._actualBrightness.pauseUntilValues() as any[];
-            return values[0] * 100;
+            this.start()
+            const values = this._actualBrightness.pauseUntilValues() as any[]
+            return values[0] * 100
         }
 
         /**
-        * Specifies the number of pixels in the strip.
-        */
+         * Specifies the number of pixels in the strip.
+         */
         //% callInDebugger
         //% group="Light"
         //% weight=95
         numPixels(): number {
-            this.start();            
-            const values = this._numPixels.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._numPixels.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
-        * If the LED pixel strip is a matrix, specifies the number of columns.
-        */
+         * If the LED pixel strip is a matrix, specifies the number of columns.
+         */
         //% callInDebugger
         //% group="Light"
         //% weight=94
         numColumns(): number {
-            this.start();            
-            const values = this._numColumns.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._numColumns.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
-        * Limit the power drawn by the light-strip (and controller).
-        */
+         * Limit the power drawn by the light-strip (and controller).
+         */
         //% callInDebugger
         //% group="Light"
         //% weight=93
         maxPower(): number {
-            this.start();            
-            const values = this._maxPower.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._maxPower.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
-        * Limit the power drawn by the light-strip (and controller).
-        */
+         * Limit the power drawn by the light-strip (and controller).
+         */
         //% group="Light"
         //% weight=92
         //% value.min=0
         //% value.max=65535
         //% value.defl=200
         setMaxPower(value: number) {
-            this.start();
-            const values = this._maxPower.values as any[];
-            values[0] = value;
-            this._maxPower.values = values as [number];
+            this.start()
+            const values = this._maxPower.values as any[]
+            values[0] = value
+            this._maxPower.values = values as [number]
         }
 
         /**
-        * If known, specifies the number of LEDs in parallel on this device.
-        * The actual number of LEDs is `num_pixels * leds_per_pixel`.
-        */
+         * If known, specifies the number of LEDs in parallel on this device.
+         * The actual number of LEDs is `num_pixels * leds_per_pixel`.
+         */
         //% callInDebugger
         //% group="Light"
         //% weight=91
         ledsPerPixel(): number {
-            this.start();            
-            const values = this._ledsPerPixel.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._ledsPerPixel.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
-        * If monochrome LED, specifies the wave length of the LED.
-        * Register is missing for RGB LEDs.
-        */
+         * If monochrome LED, specifies the wave length of the LED.
+         * Register is missing for RGB LEDs.
+         */
         //% callInDebugger
         //% group="Light"
         //% weight=90
         waveLength(): number {
-            this.start();            
-            const values = this._waveLength.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._waveLength.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
-        * The luminous intensity of all the LEDs, at full brightness, in micro candella.
-        */
+         * The luminous intensity of all the LEDs, at full brightness, in micro candella.
+         */
         //% callInDebugger
         //% group="Light"
         //% weight=89
         luminousIntensity(): number {
-            this.start();            
-            const values = this._luminousIntensity.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._luminousIntensity.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
-        * Specifies the shape of the light strip.
-        */
+         * Specifies the shape of the light strip.
+         */
         //% callInDebugger
         //% group="Light"
         //% weight=88
         variant(): jacdac.LedVariant {
-            this.start();            
-            const values = this._variant.pauseUntilValues() as any[];
-            return values[0];
+            this.start()
+            const values = this._variant.pauseUntilValues() as any[]
+            return values[0]
         }
 
         /**
@@ -196,7 +238,7 @@ namespace modules {
             this.start()
             const values = this._pixels.pauseUntilValues() as any[]
             return values[0]
-        }        
+        }
 
         /**
          * Sets the local pixel color buffer, where every pixel color is encoded as a 24 bit RGB color.
@@ -214,7 +256,7 @@ namespace modules {
          * Turn on/off the ability to automatically show changes. If false, the user must call 'show'.
          * @param value
          */
-         setAutoShow(value: boolean) {
+        setAutoShow(value: boolean) {
             this._autoShow = !!value
             if (this._autoShow) this.show()
             else this.stopAutoShow()
@@ -243,7 +285,7 @@ namespace modules {
             if (this._dirty) {
                 this.show()
             }
-        }        
+        }
 
         /**
          * Sends the local pixel buffer to device immediately, instead of waiting for the rendering loop
