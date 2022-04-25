@@ -12,8 +12,17 @@ namespace jacdac._rolemgr {
 
     export function setRole(devid: string, servIdx: number, role: string) {
         const key = roleSettingPrefix + devid + ":" + servIdx
-        if (role) settings.writeString(key, role)
-        else settings.remove(key)
+        if (role) {
+            // drop query
+            const i = role.indexOf("?")
+            const name = i < 0 ? role : role.substr(0, i)
+            settings.writeString(key, name)
+            console.add(jacdac.logPriority, `role: set ${name} -> ${devid}:${servIdx}`)
+        }
+        else {
+            settings.remove(key)
+            console.add(jacdac.logPriority, `role: clear binding ${devid}:${servIdx}`)
+        }
         jacdac.bus.clearAttachCache()
     }
 
@@ -27,7 +36,7 @@ namespace jacdac._rolemgr {
         boundToDev: Device
         boundToServiceIdx: number
 
-        constructor(public role: string, public serviceClass: number) {}
+        constructor(public readonly role: string, public readonly serviceClass: number) {}
 
         host() {
             const slashIdx = this.role.indexOf("/")
@@ -37,8 +46,9 @@ namespace jacdac._rolemgr {
 
         select(devwrap: DeviceWrapper, serviceIdx: number) {
             const dev = devwrap.device
-            if (dev == this.boundToDev && serviceIdx == this.boundToServiceIdx)
+            if (dev == this.boundToDev && serviceIdx == this.boundToServiceIdx) {
                 return
+            }
             if (this.boundToDev)
                 setRole(this.boundToDev.deviceId, this.boundToServiceIdx, null)
             devwrap.bindings[serviceIdx] = this
@@ -85,16 +95,10 @@ namespace jacdac._rolemgr {
                         numPossible++ // this can be assigned
                         // in fact, assign if requested
                         if (select) {
+                            missing[i].select(devwrap, serviceIndex)
                             console.add(
                                 jacdac.logPriority,
-                                "autobind: " +
-                                    missing[i].role +
-                                    " -> " +
-                                    dev.shortId +
-                                    ":" +
-                                    serviceIndex
-                            )
-                            missing[i].select(devwrap, serviceIndex)
+                                `bind: ${missing[i].role} -> ${dev.shortId}:${serviceIndex} -> ${missing[i].boundToDev}:${missing[i].boundToServiceIdx}`)
                         }
                         // this one is no longer missing
                         missing.splice(i, 1)
@@ -217,7 +221,7 @@ namespace jacdac._rolemgr {
                 return
             }
             //this.log(
-            //    `autobind: devs=${bus.devices.length} clients=${jacdac.bus.unattachedClients.length}`
+            //    `autobind: devs:${jacdac.bus.devices.length}, clients:${jacdac.bus.allClients.length}, unbound:${jacdac.bus.unattachedClients.length}`
             //)
 
             const bindings: RoleBinding[] = []
@@ -283,7 +287,8 @@ namespace jacdac._rolemgr {
                 h.bindings.sort((a, b) => a.role.compare(b.role))
 
                 // "recompute" score, assigning names in process
-                h.scoreFor(dev, true)
+                const score = h.scoreFor(dev, true)
+                console.add(jacdac.logPriority, `bind score: ${score} (${h.fullyBound ? "bound" : "needs bindings"})`)
 
                 // if everything bound on this host, remove it from further consideration
                 if (h.fullyBound) servers.removeElement(h)

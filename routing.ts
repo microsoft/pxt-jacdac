@@ -189,7 +189,7 @@ namespace jacdac {
         reattach(dev: Device) {
             dev.lastSeen = control.millis()
             log(
-                `reattaching services to ${dev.toString()}; cl=${
+                `roles: attaching to ${dev.toString()}; cl=${
                     this.unattachedClients.length
                 }/${this.allClients.length}`
             )
@@ -200,10 +200,7 @@ namespace jacdac {
                     c._detach()
                     continue // will re-attach
                 }
-                const newClass = dev.services.getNumber(
-                    NumberFormat.UInt32LE,
-                    c.serviceIndex << 2
-                )
+                const newClass = dev.serviceClassAt(c.serviceIndex)
                 if (
                     newClass == c.serviceClass &&
                     dev.matchesRoleAt(
@@ -975,11 +972,7 @@ namespace jacdac {
                 this.serviceIndex = serviceNum
                 bus.attachClient(this)
             }
-            log(
-                `attached ${dev.toString()}/${serviceNum} to client ${
-                    this.role
-                }`
-            )
+            log(`role: attach ${this.role} -> ${dev.toString()}:${serviceNum}`)
             dev.clients.push(this)
             this.handleConnected()
             return true
@@ -999,7 +992,7 @@ namespace jacdac {
         }
 
         _detach() {
-            log(`dettached ${this.roleName}`)
+            log(`roles: dettached ${this.roleName}`)
             this.serviceIndex = null
             if (!this.broadcast) {
                 if (!this.device) throw "Invalid detach"
@@ -1163,7 +1156,10 @@ namespace jacdac {
 
             // legacy binding
             if (role == this.deviceId) return true
-            if (role == this.deviceId + ":" + serviceIdx) return true
+            if (role == this.deviceId + ":" + serviceIdx) {
+                log(`role: match ${role} (precise:)`)
+                return true
+            }
             if (role.indexOf(":") >= 0) return false
 
             // query based binding
@@ -1172,25 +1168,38 @@ namespace jacdac {
                 query.device == "self"
                     ? jacdac.bus.selfDevice.deviceId
                     : this.deviceId
-            if (
-                // precise device id match
-                query.device == d &&
-                // precise service index match
-                // precise service index
-                ((query.serviceIndex != undefined &&
-                    query.serviceIndex == serviceIdx) ||
-                    // precise service offset match
-                    (query.serviceOffset != undefined &&
-                        query.serviceOffset ==
-                            this.serviceOffsetAt(serviceClass, serviceIdx)) ||
-                    // pick first match
-                    (query.serviceIndex != undefined &&
-                        query.serviceOffset != undefined))
-            ) {
-                return true
+            // precise device id match
+            if (query.device == d) {
+                if (
+                    // precise service index match
+                    // precise service index
+                    query.serviceIndex != undefined &&
+                    query.serviceIndex == serviceIdx
+                ) {
+                    log(`role: match ${role} (dev:srvi)`)
+                    return true
+                }
+                // precise service offset match
+                if (
+                    query.serviceOffset != undefined &&
+                    query.serviceOffset ==
+                        this.serviceOffsetAt(serviceClass, serviceIdx)
+                ) {
+                    log(`role: match ${role} (dev:srvo)`)
+                }
+                // pick first match
+                if (
+                    query.serviceIndex != undefined &&
+                    query.serviceOffset != undefined
+                ) {
+                    log(`role: match ${role} (dev:!srv)`)
+                    return true
+                }
             }
 
-            return jacdac._rolemgr.getRole(this.deviceId, serviceIdx) == role
+            const mrole = jacdac._rolemgr.getRole(this.deviceId, serviceIdx)
+            console.log(`role: check ${mrole} = ${role}`)
+            return mrole == role
         }
 
         private lookupQuery(reg: number, serv = 0) {
