@@ -206,7 +206,11 @@ namespace jacdac {
                 )
                 if (
                     newClass == c.serviceClass &&
-                    dev.matchesRoleAt(c.roleQuery, c.serviceIndex)
+                    dev.matchesRoleAt(
+                        c.roleQuery,
+                        c.serviceClass,
+                        c.serviceIndex
+                    )
                 ) {
                     newClients.push(c)
                     occupied[c.serviceIndex] = 1
@@ -228,7 +232,7 @@ namespace jacdac {
                 )
                 for (const cc of this.unattachedClients) {
                     if (cc.serviceClass == serviceClass) {
-                        if (cc._attach(dev, i >> 2)) break
+                        if (cc._attach(dev, serviceClass, i >> 2)) break
                     }
                 }
             }
@@ -736,9 +740,9 @@ namespace jacdac {
         pauseUntilValues(timeOut?: number) {
             if (
                 // streaming handled elsewhere
-                this.code !== SystemReg.Reading
+                this.code !== SystemReg.Reading &&
                 // don't double query consts
-                && (!this.isConst || !this.hasValues())
+                (!this.isConst || !this.hasValues())
             ) {
                 const device = this.service.device
                 if (device) {
@@ -789,11 +793,32 @@ namespace jacdac {
     }
 
     export class ClientRoleQuery {
-        constructor(public readonly role: string) {}
-        // ?device=...
-        device: string
-        // ?service=...
-        serviceIndex: number
+        constructor(public readonly role: string, query?: string) {
+            if (query)
+                for (const kv of query.split("&")) {
+                    const i = kv.indexOf("=")
+                    if (i < 0) continue
+                    const key = kv.slice(0, i)
+                    const value = kv.slice(i + 1)
+                    switch (key) {
+                        case "dev":
+                            this.device = value
+                            break
+                        case "srvi":
+                            this.serviceIndex = parseInt(value)
+                            break
+                        case "srvo":
+                            this.serviceOffset = parseInt(value)
+                            break
+                    }
+                }
+        }
+        // ?dev=...
+        readonly device: string
+        // ?srvi=...
+        readonly serviceIndex: number
+        // ?srvo=...
+        readonly serviceOffset: number
     }
 
     //% fixedInstances
@@ -835,22 +860,7 @@ namespace jacdac {
             const i = this._role.indexOf("?")
             if (i < 0) return new ClientRoleQuery(this._role)
             const query = this._role.substr(i + 1)
-            const r = new ClientRoleQuery(this._role.substr(0, i))
-
-            for (const kv of query.split("&")) {
-                const i = kv.indexOf("=")
-                if (i < 0) continue
-                const key = kv.slice(0, i)
-                const value = kv.slice(i + 1)
-                switch (key) {
-                    case "device":
-                        r.device = value
-                        break
-                    case "service":
-                        r.serviceIndex = parseInt(value)
-                        break
-                }
-            }
+            const r = new ClientRoleQuery(this._role.substr(0, i), query)
             return r
         }
 
@@ -954,10 +964,13 @@ namespace jacdac {
 
         handlePacket(pkt: JDPacket) {}
 
-        _attach(dev: Device, serviceNum: number) {
+        _attach(dev: Device, serviceClass: number, serviceNum: number) {
             if (this.device) throw "Invalid attach"
             if (!this.broadcast) {
-                if (!dev.matchesRoleAt(this.roleQuery, serviceNum)) return false // don't attach
+                if (
+                    !dev.matchesRoleAt(this.roleQuery, serviceClass, serviceNum)
+                )
+                    return false // don't attach
                 this.device = dev
                 this.serviceIndex = serviceNum
                 bus.attachClient(this)
@@ -984,59 +997,6 @@ namespace jacdac {
             //}
             this.emit(CONNECT)
         }
-
-        /*
-        private connectedBlink() {
-            // double quick blink, pause, 4x
-            const g = 0xff >> 2
-            const og = 0x01
-            const tgreen = 96
-            const tgreenoff = 192
-            const toff = 512
-            const greenRepeat = 2
-            const repeat = 3
-
-            const green = JDPacket.from(
-                ControlCmd.SetStatusLight,
-                jdpack<[number, number, number, number]>("u8 u8 u8 u8", [
-                    0,
-                    g,
-                    0,
-                    0,
-                ])
-            )
-            green.serviceIndex = 0
-            const greenoff = JDPacket.from(
-                ControlCmd.SetStatusLight,
-                jdpack<[number, number, number, number]>("u8 u8 u8 u8", [
-                    0,
-                    og,
-                    0,
-                    0,
-                ])
-            )
-            greenoff.serviceIndex = 0
-            const off = JDPacket.from(
-                ControlCmd.SetStatusLight,
-                jdpack<[number, number, number, number]>(
-                    "u8 u8 u8 u8",
-                    [0, 0, 0, 0]
-                )
-            )
-            off.serviceIndex = 0
-
-            for (let i = 0; i < repeat; ++i) {
-                for (let j = 0; j < greenRepeat; ++j) {
-                    green._sendCmd(this.device)
-                    pause(tgreen)
-                    greenoff._sendCmd(this.device)
-                    pause(tgreenoff)
-                }
-                pause(toff - tgreenoff)
-            }
-            off._sendCmd(this.device)
-        }
-        */
 
         _detach() {
             log(`dettached ${this.roleName}`)
@@ -1193,7 +1153,11 @@ namespace jacdac {
             return this.shortId
         }
 
-        matchesRoleAt(query: ClientRoleQuery, serviceIdx: number) {
+        matchesRoleAt(
+            query: ClientRoleQuery,
+            serviceClass: number,
+            serviceIdx: number
+        ) {
             const role = query.role
             if (!role) return true
 
@@ -1203,15 +1167,25 @@ namespace jacdac {
             if (role.indexOf(":") >= 0) return false
 
             // query based binding
-            // match device id query, device=self query + device/service query
+            // match device id query, dev=self query + device/service query
+            const d =
+                query.device == "self"
+                    ? jacdac.bus.selfDevice.deviceId
+                    : this.deviceId
             if (
                 // precise device id match
-                (query.device == this.deviceId ||
-                    // self device match
-                    (query.device == "self" &&
-                        this.deviceId == jacdac.bus.selfDevice.deviceId)) &&
+                query.device == d &&
                 // precise service index match
-                (!query.serviceIndex || query.serviceIndex == serviceIdx)
+                // precise service index
+                ((query.serviceIndex != undefined &&
+                    query.serviceIndex == serviceIdx) ||
+                    // precise service offset match
+                    (query.serviceOffset != undefined &&
+                        query.serviceOffset ==
+                            this.serviceOffsetAt(serviceClass, serviceIdx)) ||
+                    // pick first match
+                    (query.serviceIndex != undefined &&
+                        query.serviceOffset != undefined))
             ) {
                 return true
             }
@@ -1226,6 +1200,21 @@ namespace jacdac {
 
         get serviceClassLength() {
             return this.services.length >> 2
+        }
+
+        private serviceOffsetAt(
+            serviceClass: number,
+            serviceIndex: number
+        ): number {
+            let o = -1
+            const n = this.serviceClassLength
+            for (let i = 0; i < n; ++i) {
+                if (this.serviceClassAt(i) == serviceClass) {
+                    o++
+                    if (serviceIndex == i) return o
+                }
+            }
+            return -1
         }
 
         serviceClassAt(serviceIndex: number) {

@@ -102,7 +102,7 @@ function addClient(cls: number, name: string) {
     console.log(`client: ${name} (${cls})`)
     new jacdac.Client(cls, name).start()
 }
-addClient(jacdac.SRV_PROTO_TEST, "prototest?device=self")
+addClient(jacdac.SRV_PROTO_TEST, "prototest?dev=self")
 addClient(0x1f140409, "left_leg/acc1")
 addClient(0x1473a263, "btn1")
 addClient(0x1421bac7, "small/temp")
@@ -111,8 +111,8 @@ addClient(0x16c810b8, "big/hum")
 addClient(0x1421bac7, "big/temp")
 addClient(0x16c810b8, "xsmall/hum")
 addClient(0x1421bac7, "xsmall/temp")
-addClient(0x1421bac7, "self1?device=self")
-addClient(0x1421bac7, "self2?device=self")
+addClient(0x1f37c56a, "screen1?dev=self&srvo=1")
+addClient(0x1f37c56a, "screen2?dev=self&rows=4&columns=8")
 
 jacdac._rolemgr.clearRoles()
 
