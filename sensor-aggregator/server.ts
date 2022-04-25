@@ -43,13 +43,13 @@ namespace jacdac {
             }
         }
 
-        _attach(dev: Device, serviceNum: number) {
+        _attach(dev: Device, serviceClass: number, serviceNum: number) {
             if (
                 this.requiredServiceNum &&
                 serviceNum != this.requiredServiceNum
             )
                 return false
-            return super._attach(dev, serviceNum)
+            return super._attach(dev, serviceClass, serviceNum)
         }
 
         announceCallback() {
