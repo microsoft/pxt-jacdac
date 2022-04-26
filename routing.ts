@@ -366,6 +366,7 @@ namespace jacdac {
     export interface ServerOptions {
         instanceName?: string
         variant?: number
+        statusCode?: jacdac.SystemStatusCodes
     }
 
     //% fixedInstances
@@ -375,7 +376,7 @@ namespace jacdac {
         running: boolean
         serviceIndex: number
         protected stateUpdated: boolean
-        private _statusCode = 0
+        private _statusCode = SystemStatusCodes.Ready
         private _statusVendorCode = 0
         private variant?: number
 
@@ -385,8 +386,12 @@ namespace jacdac {
         ) {
             super()
 
-            this.instanceName = options ? options.instanceName : undefined
-            this.variant = options ? options.variant : undefined
+            if (options) {
+                this.instanceName = options.instanceName
+                this.variant = options.variant
+                if (options.statusCode)
+                    this._statusCode = options.statusCode & 0xffff
+            }
         }
 
         get statusCode() {
