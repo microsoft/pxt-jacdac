@@ -31,6 +31,8 @@ namespace modules {
         //% callInDebugger
         //% group="Traffic Light"
         //% weight=100
+        //% blockId=jacdac_trafficlight_red
+        //% block="%trafficlight red"
         red(): boolean {
             this.start()
             const values = this._red.pauseUntilValues() as any[]
@@ -42,6 +44,9 @@ namespace modules {
          */
         //% group="Traffic Light"
         //% weight=99
+        //% blockId=jacdac_trafficlight_setred
+        //% block="set %trafficlight red to $value"
+        //% value.shadow=toggleOnOff
         setRed(value: boolean) {
             this.start()
             const values = this._red.values as any[]
@@ -55,6 +60,8 @@ namespace modules {
         //% callInDebugger
         //% group="Traffic Light"
         //% weight=98
+        //% blockId=jacdac_trafficlight_yellow
+        //% block="%trafficlight yellow"
         yellow(): boolean {
             this.start()
             const values = this._yellow.pauseUntilValues() as any[]
@@ -66,6 +73,9 @@ namespace modules {
          */
         //% group="Traffic Light"
         //% weight=97
+        //% blockId=jacdac_trafficlight_setyellow
+        //% block="set %trafficlight yellow to $value"
+        //% value.shadow=toggleOnOff
         setYellow(value: boolean) {
             this.start()
             const values = this._yellow.values as any[]
@@ -79,6 +89,8 @@ namespace modules {
         //% callInDebugger
         //% group="Traffic Light"
         //% weight=96
+        //% blockId=jacdac_trafficlight_green
+        //% block="%trafficlight green"
         green(): boolean {
             this.start()
             const values = this._green.pauseUntilValues() as any[]
@@ -90,6 +102,9 @@ namespace modules {
          */
         //% group="Traffic Light"
         //% weight=95
+        //% blockId=jacdac_trafficlight_setgreen
+        //% block="set %trafficlight green to $value"
+        //% value.shadow=toggleOnOff
         setGreen(value: boolean) {
             this.start()
             const values = this._green.values as any[]
