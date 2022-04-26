@@ -205,7 +205,11 @@ namespace jacdac {
         }
 
         serializeState() {
-            const v = this.stateReader()
+            const statusCode = this.statusCode
+            const v =
+                statusCode === jacdac.SystemStatusCodes.Ready
+                    ? this.stateReader()
+                    : undefined
             if (v === undefined) return undefined
             return jacdac.jdpack(this.packFormat, [v])
         }
