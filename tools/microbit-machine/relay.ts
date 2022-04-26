@@ -3,7 +3,7 @@ machine.addClientFactory(jacdac.SRV_RELAY, devid => {
     machine.microbit.onClient(client, machine.EVENT_AB, () => {
         const active = !client.active()
         client.setActive(active)
-        control.inBackground(() => {
+        control.runInBackground(() => {
             music.stopAllSounds()
             led.stopAnimation()
             if (active) basic.showIcon(IconNames.Yes, 0)

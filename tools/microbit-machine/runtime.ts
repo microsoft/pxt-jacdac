@@ -77,7 +77,7 @@ namespace machine {
     let nextTone: number
     function startTonePlayer() {
         music.stopAllSounds()
-        control.inBackground(() => {
+        control.runInBackground(() => {
             while (nextTone) {
                 const t = nextTone
                 nextTone = 0
@@ -113,7 +113,7 @@ namespace machine {
     const numbersToShow: NumberToShow[] = []
 
     function flushNumbers() {
-        control.inBackground(() => {
+        control.runInBackground(() => {
             while (numbersToShow.length > 0) {
                 const n = numbersToShow.pop()
                 const icon = n.icon
@@ -143,7 +143,7 @@ namespace machine {
     function schedulePlayDeviceCount() {
         if (playDeviceCountScheduled) return
         playDeviceCountScheduled = true
-        control.inBackground(() => {
+        control.runInBackground(() => {
             // debouncing
             pause(200)
             playDeviceCountScheduled = false

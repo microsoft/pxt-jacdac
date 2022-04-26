@@ -9,7 +9,7 @@ let playDeviceCountScheduled = false
 function schedulePlayDeviceCount() {
     if (playDeviceCountScheduled) return
     playDeviceCountScheduled = true
-    control.inBackground(() => {
+    control.runInBackground(() => {
         // debouncing
         pause(200)
         playDeviceCountScheduled = false
@@ -264,7 +264,7 @@ function getIndexFromButton(pkt: jacdac.JDPacket) {
 
 let nextTone: number
 function tonePlayer() {
-    control.inBackground(() => {
+    control.runInBackground(() => {
         while (true) {
             if (nextTone) {
                 const t = nextTone
@@ -338,7 +338,7 @@ function processSensorGetReading(serviceClass: number, pkt: jacdac.JDPacket) {
         const temp = Math.round(pkt.jdunpack<number[]>("i22.10")[0])
         if (temp !== sensorMap[lookup]) {
             sensorMap[lookup] = temp
-            control.inBackground(() => {
+            control.runInBackground(() => {
                 led.stopAnimation()
                 if (temp < 0 || temp > 99) basic.showNumber(temp)
                 else whaleysans.showNumber(temp)
