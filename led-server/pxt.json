@@ -1,0 +1,22 @@
+{
+    "name": "jacdac-led-server",
+    "version": "0.10.5",
+    "description": "MakeCode support for Jacdac LED server",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-led": "github:microsoft/pxt-jacdac/led"
+    },
+    "files": [
+        "server.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "maker",
+        "microbit",
+        "arcade"
+    ],
+    "preferredEditor": "tsprj"
+}
