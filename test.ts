@@ -93,6 +93,20 @@ function jdpackTest() {
 jacdac.logPriority = ConsolePriority.Log
 jacdac.roleManagerServer.start()
 jacdac.protoTestServer.start()
+
+jacdac.createSimpleSensorServer(0x16c810b8, "u22.10", () => 66, {
+    instanceName: "humi",
+    readingError: () => 1
+}).start()
+jacdac.createSimpleSensorServer(0x14ad1a5d, "u0.16", () => {
+    console.log(`read sound level`)
+    return 0.5 + Math.random() / 20
+}, {
+    instanceName: "slvl",
+    enabled: false,
+    streamingInterval: 50
+}).start()
+
 jacdac.start()
 jacdac.loggerServer.log("test started")
 

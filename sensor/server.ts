@@ -38,7 +38,7 @@ namespace jacdac {
 
             // register get, on a sensor
             if (packet.isRegGet && packet.regCode == jacdac.SystemReg.Reading) {
-                const state = this.serializeState()
+                const state = this.readState()
                 if (state)
                     this.sendReport(
                         JDPacket.from(
@@ -58,6 +58,10 @@ namespace jacdac {
                         break
                 }
             }
+        }
+
+        private readState(): Buffer {
+            return this.ready ? this.serializeState() : undefined
         }
 
         // override
@@ -112,7 +116,7 @@ namespace jacdac {
                     this.streamingSamples > 0
                 ) {
                     // run callback
-                    const state = this.serializeState()
+                    const state = this.readState()
                     if (state) {
                         // did the state change?
                         if (this.isConnected()) {
@@ -205,11 +209,7 @@ namespace jacdac {
         }
 
         serializeState() {
-            const statusCode = this.statusCode
-            const v =
-                statusCode === jacdac.SystemStatusCodes.Ready
-                    ? this.stateReader()
-                    : undefined
+            const v = this.stateReader()
             if (v === undefined) return undefined
             return jacdac.jdpack(this.packFormat, [v])
         }

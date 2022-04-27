@@ -367,6 +367,10 @@ namespace jacdac {
         instanceName?: string
         variant?: number
         statusCode?: jacdac.SystemStatusCodes
+        /**
+         * Provide value to implement boolean intensity register
+         */
+        enabled?: boolean
     }
 
     //% fixedInstances
@@ -378,6 +382,7 @@ namespace jacdac {
         protected stateUpdated: boolean
         private _statusCode = SystemStatusCodes.Ready
         private _statusVendorCode = 0
+        private _enabled?: boolean
         private variant?: number
 
         constructor(
@@ -391,6 +396,7 @@ namespace jacdac {
                 this.variant = options.variant
                 if (options.statusCode)
                     this._statusCode = options.statusCode & 0xffff
+                this._enabled = options.enabled
             }
         }
 
@@ -400,6 +406,25 @@ namespace jacdac {
 
         get statusVendorCode() {
             return this._statusVendorCode
+        }
+
+        /**
+         * Boolean intensity register is false
+         */
+        get disabled() {
+            return this._enabled === false
+        }
+
+        /**
+         * Indicates that the status code is ready and optional enable register is true
+         */
+        get ready() {
+            return !this.disabled && this.statusCode == SystemStatusCodes.Ready
+        }
+
+        setEnabled(enabled: boolean) {
+            if (this._enabled === undefined) throw "oops"
+            this._enabled = !!enabled
         }
 
         setStatusCode(code: number) {
@@ -419,7 +444,8 @@ namespace jacdac {
         }
 
         handlePacketOuter(pkt: JDPacket) {
-            switch (pkt.serviceCommand) {
+            const cmd = pkt.serviceCommand
+            switch (cmd) {
                 case SystemReg.StatusCode | SystemCmd.GetRegister:
                     this.handleStatusCode(pkt)
                     break
@@ -430,8 +456,17 @@ namespace jacdac {
                     this.handleVariant(pkt)
                     break
                 default:
-                    this.stateUpdated = false
-                    this.handlePacket(pkt)
+                    if (
+                        this._enabled !== undefined &&
+                        (cmd == (SystemReg.Intensity | SystemCmd.GetRegister) ||
+                            cmd ==
+                                (SystemReg.Intensity | SystemCmd.SetRegister))
+                    )
+                        this.handleEnabled(pkt)
+                    else {
+                        this.stateUpdated = false
+                        this.handlePacket(pkt)
+                    }
                     break
             }
         }
@@ -488,6 +523,16 @@ namespace jacdac {
         private handleVariant(pkt: JDPacket) {
             if (this.variant != undefined)
                 this.handleRegValue(pkt, SystemReg.Variant, "u8", this.variant)
+            else pkt.possiblyNotImplemented()
+        }
+
+        private handleEnabled(pkt: JDPacket) {
+            if (this._enabled === undefined) throw "oops"
+            this._enabled = this.handleRegBool(
+                pkt,
+                SystemReg.Intensity,
+                this._enabled
+            )
         }
 
         protected handleRegFormat<T extends any[]>(
