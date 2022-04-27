@@ -1,6 +1,6 @@
 namespace jacdac {
     export enum LedPixelLayout {
-        RgbBrg = 1,
+        RgbGrb = 1,
         Rgbw = 2,
         RgbRgb = 3,
     }
@@ -84,22 +84,22 @@ namespace jacdac {
                     }
                     break
                 }
-                case LedPixelLayout.RgbBrg: {
+                case LedPixelLayout.RgbGrb: {
                     const stride = this.stride
                     for (let i = 0; i + stride < n; i += stride) {
-                        // blue
+                        // red <- green
                         this.rendered[i] = Math.idiv(
-                            Math.imul(this.pixels[i + 2], b),
+                            Math.imul(this.pixels[i + 1], b),
                             0xff
                         )
-                        // red
+                        // green <- red
                         this.rendered[i + 1] = Math.idiv(
                             Math.imul(this.pixels[i], b),
                             0xff
                         )
-                        // green
+                        // blue <- blue
                         this.rendered[i + 2] = Math.idiv(
-                            Math.imul(this.pixels[i + 1], b),
+                            Math.imul(this.pixels[i + 2], b),
                             0xff
                         )
                     }
