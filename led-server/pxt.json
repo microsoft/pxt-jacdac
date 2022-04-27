@@ -5,14 +5,18 @@
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-led": "github:microsoft/pxt-jacdac/led"
+        "jacdac-led": "github:microsoft/pxt-jacdac/led",
+        "ws2812b": "github:microsoft/pxt-ws2812b#v0.1.1"
     },
     "files": [
         "server.ts"
     ],
     "testFiles": [
-        "test.ts"
+        "test.microbit.ts"
     ],
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit"
+    },
     "supportedTargets": [
         "maker",
         "microbit",

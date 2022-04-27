@@ -85,8 +85,8 @@ namespace jacdac {
                     break
                 }
                 case LedPixelLayout.RgbGrb: {
-                    const stride = this.stride
-                    for (let i = 0; i + stride < n; i += stride) {
+                    for (let k = 0; k < this.numPixels; k++) {
+                        const i = k * 3
                         // red <- green
                         this.rendered[i] = Math.idiv(
                             Math.imul(this.pixels[i + 1], b),
@@ -106,12 +106,13 @@ namespace jacdac {
                     break
                 }
                 case LedPixelLayout.Rgbw: {
-                    const stride = this.stride
-                    for (let i = 0; i + stride < n; i += stride) {
-                        for (let j = 0; j < stride - 1; j++) {
-                            this.rendered[i + j] = this.pixels[i + j]
+                    for (let k = 0; k < this.numPixels; k++) {
+                        const pi = k * 3
+                        const ri = k * 4
+                        for (let j = 0; j < 3; j++) {
+                            this.rendered[ri + j] = this.pixels[pi + j]
                         }
-                        this.rendered[stride - 1] = b
+                        this.rendered[ri + 3] = b
                     }
                     break
                 }
