@@ -1,14 +1,21 @@
 {
     "name": "jacdac-buzzer-server",
-    "version": "0.10.11",
+    "version": "0.10.12",
     "description": "MakeCode support for Jacdac Buzzer server",
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
         "jacdac-buzzer": "github:microsoft/pxt-jacdac/buzzer"
     },
-    "files": ["server.ts"],
-    "testFiles": ["test.ts"],
-    "supportedTargets": ["microbit", "arcade"],
+    "files": [
+        "server.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade"
+    ],
     "preferredEditor": "tsprj"
 }
