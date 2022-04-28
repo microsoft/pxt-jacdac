@@ -1,6 +1,6 @@
 {
     "name": "jacdac-light-level",
-    "version": "0.10.13",
+    "version": "0.10.14",
     "description": "A sensor that measures luminosity level.",
     "files": [
         "constants.ts",

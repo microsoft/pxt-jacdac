@@ -1,6 +1,6 @@
 {
     "name": "jacdac-rotary-encoder",
-    "version": "0.10.13",
+    "version": "0.10.14",
     "description": "An incremental rotary encoder - converts angular motion of a shaft to digital signal.",
     "files": [
         "constants.ts",
