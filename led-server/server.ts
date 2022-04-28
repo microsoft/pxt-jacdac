@@ -4,30 +4,44 @@ namespace jacdac {
         Rgbw = 2,
         RgbRgb = 3,
     }
+
+    export interface LedServerOptions extends jacdac.ServerOptions {
+        /**
+         * For matrix variant, number of columns
+         */
+        numColumns?: number
+        /**
+         * Initial maximum available power
+         */
+        maxPower?: number
+    }
+
     export class LedServer extends jacdac.Server {
         pixels: Buffer
         pixelLayout: LedPixelLayout
         rendered: Buffer
         numPixels: number
+        numColumns: number
         brightness: number
         actualBrightness: number
         maxPower: number
         sendPixels: (pixels: Buffer, brightness: number) => void
 
         constructor(
-            variant: jacdac.LedVariant,
             numPixels: number,
             pixelLayout: LedPixelLayout,
-            sendPixels: (pixels: Buffer, brightness: number) => void
+            sendPixels: (pixels: Buffer, brightness: number) => void,
+            options?: LedServerOptions
         ) {
-            super(jacdac.SRV_LED, { variant: variant })
+            super(jacdac.SRV_LED, options)
 
             this.numPixels = numPixels
             this.pixelLayout = pixelLayout
             this.sendPixels = sendPixels
             this.brightness = 0.2
             this.actualBrightness = this.brightness
-            this.maxPower = 50
+            this.maxPower = options ? (options.maxPower || 50) : 50
+            this.numColumns = options ? options.numColumns : undefined
 
             this.pixels = control.createBuffer(this.numPixels * 3)
             this.rendered = control.createBuffer(this.numPixels * this.stride)
@@ -38,12 +52,19 @@ namespace jacdac {
         }
 
         handlePacket(pkt: jacdac.JDPacket) {
-            this.handleRegFormat(
+            this.handleRegValue(
                 pkt,
                 jacdac.LedReg.NumPixels,
                 jacdac.LedRegPack.NumPixels,
-                [this.numPixels]
+                this.numPixels
             )
+            if (this.numColumns)
+                this.handleRegValue(
+                    pkt,
+                    jacdac.LedReg.NumColumns,
+                    jacdac.LedRegPack.NumColumns,
+                    this.numColumns
+                )
             this.maxPower = this.handleRegUInt32(
                 pkt,
                 jacdac.LedReg.MaxPower,

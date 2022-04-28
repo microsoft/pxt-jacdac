@@ -18,6 +18,10 @@ namespace jacdac {
      * Firmware version for this build
      */
     export let firmwareVersion: string
+    /**
+     * Device description repoted in the control service
+     */
+    export let deviceDescription: string
 
     export const CHANGE = "change"
     export const CONNECT = "connect"
@@ -1478,35 +1482,53 @@ namespace jacdac {
             if (pkt.isRegGet) {
                 switch (pkt.regCode) {
                     case ControlReg.ProductIdentifier: {
-                        if (productIdentifier)
+                        if (productIdentifier) {
                             this.sendReport(
                                 JDPacket.from(
                                     pkt.serviceCommand,
-                                    jdpack("u32", [jacdac.productIdentifier])
+                                    jdpack(
+                                        jacdac.ControlRegPack.ProductIdentifier,
+                                        [jacdac.productIdentifier]
+                                    )
                                 )
                             )
+                            pkt.markHandled()
+                        }
                         break
                     }
                     case ControlReg.Uptime: {
                         this.sendUptime()
+                        pkt.markHandled()
                         break
                     }
                     case ControlReg.FirmwareVersion:
-                        if (jacdac.firmwareVersion)
+                        if (jacdac.firmwareVersion) {
                             this.sendReport(
                                 JDPacket.from(
                                     pkt.serviceCommand,
-                                    jdpack("s", [jacdac.firmwareVersion])
+                                    jdpack(
+                                        jacdac.ControlRegPack.FirmwareVersion,
+                                        [jacdac.firmwareVersion]
+                                    )
                                 )
                             )
+                            pkt.markHandled()
+                        }
                         break
                     case ControlReg.DeviceDescription: {
                         this.sendReport(
                             JDPacket.from(
                                 pkt.serviceCommand,
-                                jdpack("s", [control.programName()])
+                                jdpack(
+                                    jacdac.ControlRegPack.DeviceDescription,
+                                    [
+                                        jacdac.deviceDescription ||
+                                            control.programName(),
+                                    ]
+                                )
                             )
                         )
+                        pkt.markHandled()
                         break
                     }
                     default:
@@ -1517,11 +1539,13 @@ namespace jacdac {
                 switch (pkt.serviceCommand) {
                     case SystemCmd.Announce:
                         bus.queueAnnounce()
+                        pkt.markHandled()
                         break
                     case ControlCmd.Identify:
                         this.log("identify")
                         bus.emit(IDENTIFY)
                         bus.emit(STATUS_EVENT, StatusEvent.Identify)
+                        pkt.markHandled()
                         break
                     case ControlCmd.Reset:
                         this.log("reset requested")
@@ -1530,9 +1554,11 @@ namespace jacdac {
                     case ControlCmd.FloodPing:
                         this.log("flood")
                         this.handleFloodPing(pkt)
+                        pkt.markHandled()
                         break
                     case ControlCmd.Proxy:
                         if (!jacdac.bus.proxyMode) resetToProxy()
+                        pkt.markHandled()
                         break
                     default:
                         pkt.possiblyNotImplemented()
