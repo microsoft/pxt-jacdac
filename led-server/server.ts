@@ -14,6 +14,7 @@ namespace jacdac {
          * Initial maximum available power
          */
         maxPower?: number
+        ledsPerPixel?: number
     }
 
     export class LedServer extends jacdac.Server {
@@ -22,6 +23,7 @@ namespace jacdac {
         rendered: Buffer
         numPixels: number
         numColumns: number
+        ledsPerPixel: number
         brightness: number
         actualBrightness: number
         maxPower: number
@@ -40,8 +42,9 @@ namespace jacdac {
             this.sendPixels = sendPixels
             this.brightness = 0.2
             this.actualBrightness = this.brightness
-            this.maxPower = options ? (options.maxPower || 50) : 50
+            this.maxPower = options ? options.maxPower || 50 : 50
             this.numColumns = options ? options.numColumns : undefined
+            this.ledsPerPixel = options ? options.ledsPerPixel : undefined
 
             this.pixels = control.createBuffer(this.numPixels * 3)
             this.rendered = control.createBuffer(this.numPixels * this.stride)
@@ -64,6 +67,13 @@ namespace jacdac {
                     jacdac.LedReg.NumColumns,
                     jacdac.LedRegPack.NumColumns,
                     this.numColumns
+                )
+            if (this.ledsPerPixel)
+                this.handleRegValue(
+                    pkt,
+                    jacdac.LedReg.LedsPerPixel,
+                    jacdac.LedRegPack.LedsPerPixel,
+                    this.ledsPerPixel
                 )
             this.maxPower = this.handleRegUInt32(
                 pkt,
