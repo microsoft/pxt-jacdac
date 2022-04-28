@@ -1,0 +1,24 @@
+{
+    "name": "jacdac-servo-server",
+    "version": "0.10.14",
+    "description": "MakeCode support for Jacdac Servo server",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac",
+        "jacdac-servo": "github:microsoft/pxt-jacdac/servo"
+    },
+    "files": [
+        "server.microbit.ts"
+    ],
+    "testFiles": [
+        "test.microbit.ts"
+    ],
+    "fileDependencies": {
+        "server.microbit.ts": "target:microbit",
+        "test.microbit.ts": "target:microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
+}
