@@ -130,6 +130,7 @@ addClient(0x1f37c56a, "screen2?dev=self&rows=4&columns=8")
 addClient(0x1609d4f0, "led stick?variant=Stick&num_pixels=8")
 addClient(0x1609d4f0, "led matrix?variant=Matrix&num_pixels=12&num_columns=4")
 addClient(0x1609d4f0, "led fixed strip?variant=Strip&num_pixels=64")
+addClient(0x108f7456, "gamepad?buttons_available=63&variant=Gamepad")
 
 jacdac._rolemgr.clearRoles()
 
