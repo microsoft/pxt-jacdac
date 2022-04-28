@@ -2,7 +2,7 @@ namespace modules {
     /**
      * Servo is a small motor with arm that can be pointing at a specific direction.
      *
-     * The `min/max_angle/pulse` may be read-only if the servo is permanently affixed to its Jacdac controller.
+     * The `min_pulse/max_pulse` may be read-only if the servo is permanently affixed to its Jacdac controller.
      **/
     //% fixedInstances blockGap=8
     export class ServoClient extends jacdac.SimpleSensorClient {
@@ -17,7 +17,7 @@ namespace modules {
         private readonly _responseSpeed: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
-            super(jacdac.SRV_SERVO, role, "i16.16")
+            super(jacdac.SRV_SERVO, role, jacdac.ServoRegPack.ActualAngle)
 
             this._angle = this.addRegister<[number]>(
                 jacdac.ServoReg.Angle,
@@ -34,26 +34,22 @@ namespace modules {
             this._minAngle = this.addRegister<[number]>(
                 jacdac.ServoReg.MinAngle,
                 jacdac.ServoRegPack.MinAngle,
-                jacdac.RegisterClientFlags.Optional |
-                    jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Const
             )
             this._minPulse = this.addRegister<[number]>(
                 jacdac.ServoReg.MinPulse,
                 jacdac.ServoRegPack.MinPulse,
-                jacdac.RegisterClientFlags.Optional |
-                    jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional
             )
             this._maxAngle = this.addRegister<[number]>(
                 jacdac.ServoReg.MaxAngle,
                 jacdac.ServoRegPack.MaxAngle,
-                jacdac.RegisterClientFlags.Optional |
-                    jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Const
             )
             this._maxPulse = this.addRegister<[number]>(
                 jacdac.ServoReg.MaxPulse,
                 jacdac.ServoRegPack.MaxPulse,
-                jacdac.RegisterClientFlags.Optional |
-                    jacdac.RegisterClientFlags.Const
+                jacdac.RegisterClientFlags.Optional
             )
             this._stallTorque = this.addRegister<[number]>(
                 jacdac.ServoReg.StallTorque,
@@ -90,10 +86,11 @@ namespace modules {
         //% blockId=jacdac_servo_angle___set
         //% block="set %servo angle to %value"
         //% weight=99
-        //% value.min=-90
-        //% value.max=90
+        //% value.min=0
+        //% value.max=180
         setAngle(value: number) {
             this.start()
+            this.setEnabled(true)
             const values = this._angle.values as any[]
             values[0] = value
             this._angle.values = values as [number]
@@ -152,7 +149,7 @@ namespace modules {
         }
 
         /**
-         * Lowest angle that can be set.
+         * Lowest angle that can be set, typiclly 0 °.
          */
         //% callInDebugger
         //% group="Servo"
@@ -191,7 +188,7 @@ namespace modules {
         }
 
         /**
-         * Highest angle that can be set.
+         * Highest angle that can be set, typically 180°.
          */
         //% callInDebugger
         //% group="Servo"
@@ -254,27 +251,27 @@ namespace modules {
         }
 
         /**
-         * The current physical position of the arm.
+         * The current physical position of the arm, if the device has a way to sense the position.
          */
         //% callInDebugger
         //% group="Servo"
-        //% block="%servo current angle"
-        //% blockId=jacdac_servo_current_angle___get
+        //% block="%servo actual angle"
+        //% blockId=jacdac_servo_actual_angle___get
         //% weight=86
-        currentAngle(): number {
+        actualAngle(): number {
             return this.reading()
         }
 
         /**
-         * Run code when the current angle changes by the given threshold value.
+         * Run code when the actual angle changes by the given threshold value.
          */
         //% group="Servo"
-        //% blockId=jacdac_servo_on_current_angle_change
-        //% block="on %servo current angle changed by %threshold"
+        //% blockId=jacdac_servo_on_actual_angle_change
+        //% block="on %servo actual angle changed by %threshold"
         //% weight=85
         //% threshold.min=0
         //% threshold.defl=1
-        onCurrentAngleChangedBy(threshold: number, handler: () => void): void {
+        onActualAngleChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler)
         }
     }
