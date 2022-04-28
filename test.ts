@@ -127,6 +127,9 @@ addClient(0x16c810b8, "xsmall/hum")
 addClient(0x1421bac7, "xsmall/temp")
 addClient(0x1f37c56a, "screen1?dev=self&srvo=1")
 addClient(0x1f37c56a, "screen2?dev=self&rows=4&columns=8")
+addClient(0x1609d4f0, "led stick?variant=Stick&num_pixels=8")
+addClient(0x1609d4f0, "led matrix?variant=Matrix&num_pixels=12&num_columns=4")
+addClient(0x1609d4f0, "led fixed strip?variant=Strip&num_pixels=64")
 
 jacdac._rolemgr.clearRoles()
 
