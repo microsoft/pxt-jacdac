@@ -995,6 +995,9 @@ namespace jacdac {
         }
 
         handlePacketOuter(pkt: JDPacket) {
+            if(jacdac.bus.proxyMode)
+                return
+
             if (pkt.serviceCommand == SystemCmd.Announce)
                 this.advertisementData = pkt.data
 
