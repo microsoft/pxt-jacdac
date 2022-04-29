@@ -75,9 +75,10 @@ namespace jacdac {
                     jacdac.LedRegPack.LedsPerPixel,
                     this.ledsPerPixel
                 )
-            this.maxPower = this.handleRegUInt32(
+            this.maxPower = this.handleRegValue(
                 pkt,
                 jacdac.LedReg.MaxPower,
+                jacdac.LedRegPack.MaxPower,
                 this.maxPower
             )
             this.brightness = this.handleRegValue(
@@ -106,7 +107,7 @@ namespace jacdac {
             // compute final color and reorder channels
             switch (this.pixelLayout) {
                 case LedPixelLayout.RgbRgb: {
-                    this.pixels.write(0, this.rendered)
+                    this.rendered.write(0, this.pixels)
                     break
                 }
                 case LedPixelLayout.RgbGrb: {
