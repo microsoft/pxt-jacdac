@@ -80,19 +80,19 @@ namespace jacdac {
                 jacdac.LedReg.MaxPower,
                 this.maxPower
             )
-            this.brightness = this.handleRegFormat(
+            this.brightness = this.handleRegValue(
                 pkt,
                 jacdac.LedReg.Brightness,
                 jacdac.LedRegPack.Brightness,
-                [this.brightness]
-            )[0]
+                this.brightness
+            )
             this.actualBrightness = this.brightness
-            this.actualBrightness = this.handleRegFormat(
+            this.actualBrightness = this.handleRegValue(
                 pkt,
                 jacdac.LedReg.ActualBrightness,
                 jacdac.LedRegPack.ActualBrightness,
-                [this.actualBrightness]
-            )[0]
+                this.actualBrightness
+            )
             this.handleRegBuffer(pkt, jacdac.LedReg.Pixels, this.pixels)
             this.show()
         }
