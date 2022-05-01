@@ -30,6 +30,7 @@
         "jacdac-servers": "./servers",
         "jacdac-servo": "./servo",
         "jacdac-settings": "./settings",
+        "jacdac-sound-level": "./sound-level",
         "jacdac-temperature": "./temperature",
         "jacdac-wifi": "./wifi",
         "jacdac-wifi-server": "./wifi-server",
