@@ -143,17 +143,33 @@ namespace modules {
         //% group="Motor"
         //% weight=100
         //% blockId=jdmotorrun block="run %motor at $speed=speedPicker \\%"
-        //% servo.fieldEditor="gridpicker"
-        //% servo.fieldOptions.width=220
-        //% servo.fieldOptions.columns=2
         run(speed: number): void {
             speed = Math.clamp(-100, 100, speed)
-            if (speed == 0) this.setEnabled(false)
-            else {
-                this.setSpeed(speed)
-                this.setEnabled(true)
-            }
+            this.setSpeed(speed)
+            this.setEnabled(true)
         }
+
+        /**
+         * Unpower motor
+         */
+        //% group="Motor"
+        //% weight=94
+        //% blockId=jdmotorstop block="stop %motor"
+        stop() {
+            this.setEnabled(false)   
+        }
+
+        /**
+         * Turn on motor and keep speed at 0
+         */
+        //% group="Motor"
+        //% weight=93
+        //% blockId=jdmotorbrake block="brake %motor"
+        brake() {
+            this.setSpeed(0)
+            this.setEnabled(true)
+        }
+
     }
 
     //% fixedInstance whenUsed
