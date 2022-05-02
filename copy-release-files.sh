@@ -12,3 +12,5 @@ cp -v tools/microbit-machine/built/binary.hex dist/microbit-machine.hex
 cp -v tools/farm-beats/built/binary.hex dist/farm-beats.hex
 cp -v tools/hid-servers/built/jacdac-brain-f4/binary.uf2 dist/hid-servers-f4.uf2
 cp -v tools/hid-servers/built/jacdac-brain-rp2040/binary.uf2 dist/hid-servers-rp2040.uf2
+cp -v tools/hid-joystick/built/jacdac-brain-f4/binary.uf2 dist/hid-joystick-f4.uf2
+cp -v tools/hid-joystick/built/jacdac-brain-rp2040/binary.uf2 dist/hid-joystick-rp2040.uf2
