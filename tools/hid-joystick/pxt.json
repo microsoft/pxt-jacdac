@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-hid-servers",
+    "name": "jacdac-hid-joystick",
     "version": "0.10.18",
-    "description": "HID Keyboard, mouse servers",
+    "description": "HID joystick server",
     "files": [
         "config.f4.ts",
         "config.rp2.ts",
@@ -13,8 +13,7 @@
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-hid-mouse-server": "github:microsoft/pxt-jacdac/hid-mouse-server",
-        "jacdac-hid-keyboard-server": "github:microsoft/pxt-jacdac/hid-keyboard-server"
+        "jacdac-hid-joystick-server": "github:microsoft/pxt-jacdac/hid-joystick-server"
     },
     "testDependencies": {
         "jacdac-brain-f4": "*"
