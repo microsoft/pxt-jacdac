@@ -8,6 +8,7 @@
         "jacdac-button": "./button",
         "jacdac-buzzer": "./buzzer",
         "jacdac-character-screen": "./character-screen",
+        "jacdac-distance": "./distance",
         "jacdac-e-co2": "./e-co2",
         "jacdac-flex": "./flex",
         "jacdac-pressure": "./pressure",
@@ -25,7 +26,9 @@
         "jacdac-light-level": "./light-level",
         "jacdac-microbit": "./devices/microbit",
         "jacdac-motor": "./motor",
+        "jacdac-motor-server": "./motor-server",
         "jacdac-potentiometer": "./potentiometer",
+        "jacdac-reflected-light": "./reflected-light",
         "jacdac-real-time-clock": "./real-time-clock",
         "jacdac-rotary-encoder": "./rotary-encoder",
         "jacdac-servers": "./servers",
@@ -46,6 +49,7 @@
         "jacdac-switch": "./switch",
         "jacdac-vibration-motor": "./vibration-motor",
         "pxt-kitronik-air-quality": "./others/pxt-kitronik-air-quality",
-        "pxt-kitronik-zip-64": "./others/pxt-kitronik-zip-64"
+        "pxt-kitronik-zip-64": "./others/pxt-kitronik-zip-64",
+        "tiny-bitlib": "./others/Tiny-bitLib"
     }
 }

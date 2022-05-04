@@ -153,7 +153,7 @@ namespace jacdac {
             this.gcDevices()
 
             // send resetin to whoever wants to listen for it
-            if (this.resetIn)
+            if (this.isClient &&this.resetIn)
                 JDPacket.from(
                     ControlReg.ResetIn | CMD_SET_REG,
                     jdpack("u32", [this.resetIn])

@@ -106,6 +106,10 @@ jacdac.createSimpleSensorServer(0x14ad1a5d, "u0.16", () => {
     enabled: false,
     streamingInterval: 50
 }).start()
+// motor
+jacdac.createActuatorServer(0x17004cd8, "u1.15", "u8", (server) => {
+    console.log(`motor: ${server.value}, ${server.intensity ? "on" : "off"}`)
+}).start()
 
 jacdac.start()
 jacdac.loggerServer.log("test started")

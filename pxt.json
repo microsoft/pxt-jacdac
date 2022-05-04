@@ -60,6 +60,7 @@
         "bridge/constants.ts",
         "routing.ts",
         "eventsource.ts",
+        "servers.ts",
         "version.ts"
     ],
     "testFiles": [
