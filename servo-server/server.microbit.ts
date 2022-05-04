@@ -66,6 +66,7 @@ namespace jacdac {
             this.sync()
         }
 
+        //% hiddenParts=servo
         sync() {
             if (!this.enabled) pins.digitalWritePin(<number>this.pin, 0)
             else {
