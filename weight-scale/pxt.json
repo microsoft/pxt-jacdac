@@ -1,6 +1,6 @@
 {
     "name": "jacdac-weight-scale",
-    "version": "0.10.20",
+    "version": "0.10.21",
     "description": "A weight measuring sensor.",
     "files": [
         "constants.ts",
