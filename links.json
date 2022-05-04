@@ -19,6 +19,7 @@
         "jacdac-hid-joystick-server": "./hid-joystick-server",
         "jacdac-gamepad": "./gamepad",
         "jacdac-led": "./led",
+        "jacdac-led-server": "./led-server",
         "jacdac-led-strip": "./led-strip",
         "jacdac-led-single": "./led-single",
         "jacdac-light-level": "./light-level",
@@ -29,6 +30,7 @@
         "jacdac-rotary-encoder": "./rotary-encoder",
         "jacdac-servers": "./servers",
         "jacdac-servo": "./servo",
+        "jacdac-servo-server": "./servo-server",
         "jacdac-settings": "./settings",
         "jacdac-sound-level": "./sound-level",
         "jacdac-temperature": "./temperature",
@@ -42,6 +44,8 @@
         "jacdac-relay": "./relay",
         "jacdac-soil-moisture": "./soil-moisture",
         "jacdac-switch": "./switch",
-        "pxt-kitronik-air-quality": "./others/pxt-kitronik-air-quality"
+        "jacdac-vibration-motor": "./vibration-motor",
+        "pxt-kitronik-air-quality": "./others/pxt-kitronik-air-quality",
+        "pxt-kitronik-zip-64": "./others/pxt-kitronik-zip-64"
     }
 }

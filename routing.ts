@@ -43,7 +43,7 @@ namespace jacdac {
     export const REFRESH_REGISTER_POLL = 50
 
     export class Bus extends jacdac.EventSource {
-        readonly hostServices: Server[] = []
+        readonly servers: Server[] = []
         readonly devices: Device[] = []
         private _myDevice: Device
         private restartCounter = 0
@@ -68,6 +68,11 @@ namespace jacdac {
 
             this.controlServer = new ControlServer()
             this.controlServer.start()
+        }
+
+        addServer(server: Server) {
+            server.serviceIndex = this.servers.length
+            this.servers.push(server)
         }
 
         private gcDevices() {
@@ -129,7 +134,7 @@ namespace jacdac {
         }
 
         queueAnnounce() {
-            const ids = this.hostServices.map(h =>
+            const ids = this.servers.map(h =>
                 h.running ? h.serviceClass : -1
             )
             if (this.restartCounter < 0xf) this.restartCounter++
@@ -260,7 +265,7 @@ namespace jacdac {
 
             if (multiCommandClass != null) {
                 if (!pkt.isCommand) return // only commands supported in multi-command
-                for (const h of this.hostServices) {
+                for (const h of this.servers) {
                     if (h.serviceClass == multiCommandClass && h.running) {
                         // pretend it's directly addressed to us
                         pkt.deviceIdentifier = this.selfDevice.deviceId
@@ -269,7 +274,7 @@ namespace jacdac {
                     }
                 }
             } else if (devId == this.selfDevice.deviceId && pkt.isCommand) {
-                const h = this.hostServices[pkt.serviceIndex]
+                const h = this.servers[pkt.serviceIndex]
                 if (h && h.running) {
                     // log(`handle pkt at ${h.name} cmd=${pkt.service_command}`)
                     h.handlePacketOuter(pkt)
@@ -667,8 +672,7 @@ namespace jacdac {
             if (this.running) return
             this.running = true
             jacdac.start()
-            this.serviceIndex = jacdac.bus.hostServices.length
-            jacdac.bus.hostServices.push(this)
+            jacdac.bus.addServer(this)
             this.log("start")
         }
 
@@ -1000,8 +1004,7 @@ namespace jacdac {
         }
 
         handlePacketOuter(pkt: JDPacket) {
-            if(jacdac.bus.proxyMode)
-                return
+            if (jacdac.bus.proxyMode) return
 
             if (pkt.serviceCommand == SystemCmd.Announce)
                 this.advertisementData = pkt.data
@@ -1717,7 +1720,7 @@ namespace jacdac {
             disableLogger: false,
             disableRoleManager: true,
             noWait: true,
-            proxyMode: true
+            proxyMode: true,
         })
 
         if (!isLate) proxyLoop()
@@ -1789,14 +1792,16 @@ namespace jacdac {
             EVT_DATA_READY,
             consumePackets
         )
-        control.internalOnEvent(jacdac.__physId(), EVT_QUEUE_ANNOUNCE, () =>
-            jacdac.bus.queueAnnounce()
+        control.internalOnEvent(
+            jacdac.__physId(), 
+            EVT_QUEUE_ANNOUNCE, 
+            () => jacdac.bus.queueAnnounce()
         )
 
         // and we're done
         log("started")
 
-        if (!options.noWait) {
+        if (!options.noWait && roleManagerServer) {
             log("waiting for devices to enumerate...")
             pause(1000)
             if (roleManagerServer.running) roleManagerServer.bindRoles()
