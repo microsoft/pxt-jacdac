@@ -12,6 +12,7 @@ namespace jacdac {
         minAngle = 0
         maxAngle = 180
 
+        //% hiddenParts=microservo
         constructor(pin: AnalogPin, options?: jacdac.ServoServerOptions) {
             super(jacdac.SRV_SERVO, options)
             this.pin = pin
@@ -66,7 +67,6 @@ namespace jacdac {
             this.sync()
         }
 
-        //% hiddenParts=servo
         sync() {
             if (!this.enabled) pins.digitalWritePin(<number>this.pin, 0)
             else {
