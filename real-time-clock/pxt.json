@@ -1,6 +1,6 @@
 {
     "name": "jacdac-real-time-clock",
-    "version": "0.10.19",
+    "version": "0.10.20",
     "description": "Real time clock to support collecting data with precise time stamps.",
     "files": [
         "constants.ts",

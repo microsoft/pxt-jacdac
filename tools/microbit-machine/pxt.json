@@ -1,6 +1,6 @@
 {
     "name": "jacdac-microbit-machine",
-    "version": "0.10.19",
+    "version": "0.10.20",
     "description": "",
     "dependencies": {
         "core": "*",
