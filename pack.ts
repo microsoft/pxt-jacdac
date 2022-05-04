@@ -222,8 +222,12 @@ namespace jacdac {
         //const storage = numberFormatOfType(fmt);
         //if (storage)
         //    return [buf.getNumber(storage, 0)] as T;
-
-        return jdunpackCore(buf, fmt, 0) as T
+        try {
+            return jdunpackCore(buf, fmt, 0) as T
+        } catch (e) {
+            console.error(e)
+            return [] as T
+        }
     }
 
     function jdpackCore(trg: Buffer, fmt: string, data: any[], off: number) {
@@ -261,7 +265,7 @@ namespace jacdac {
                         const vp = v * parser.div
                         trg.setNumber(parser.nfmt, off, vp | 0)
                         if (parser.nfmt2) {
-                            let vp32 = Math.floor(vp / 4294967296) 
+                            let vp32 = Math.floor(vp / 4294967296)
                             trg.setNumber(parser.nfmt, off + 4, vp32)
                         }
                     }
@@ -313,11 +317,15 @@ namespace jacdac {
         //    buf.setNumber(storage, 0, data[0] || 0);
         //    return buf;
         //}
-
-        const len = jdpackCore(null, fmt, data, 0)
-        const res = Buffer.create(len)
-        jdpackCore(res, fmt, data, 0)
-        return res
+        try {
+            const len = jdpackCore(null, fmt, data, 0)
+            const res = Buffer.create(len)
+            jdpackCore(res, fmt, data, 0)
+            return res
+        } catch (e) {
+            console.error(e)
+            return undefined
+        }
     }
 
     export function jdpackEqual<T extends any[]>(

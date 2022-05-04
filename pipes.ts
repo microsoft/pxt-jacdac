@@ -102,7 +102,7 @@ namespace jacdac {
 
         constructor(public readonly deviceId: string, public port: number) {}
 
-        static from(pkt: JDPacket) {
+        private static from(pkt: JDPacket) {
             const [idbuf, port] = jdunpack<[Buffer, number]>(
                 pkt.data,
                 "b[8] u16"
@@ -118,7 +118,7 @@ namespace jacdac {
                     for (const e of inp) outp.write(f(e))
                     outp.close()
                 } catch (e) {
-                    console.error("respondForEach " + e)
+                    console.error(e)
                 }
             })
         }
@@ -140,7 +140,7 @@ namespace jacdac {
             pkt.serviceIndex = JD_SERVICE_INDEX_PIPE
             if (!pkt._sendWithAck(this.deviceId)) {
                 this.port = null
-                throw "out pipe error: no ACK"
+                throw "out pipe error: no ack"
             }
         }
 

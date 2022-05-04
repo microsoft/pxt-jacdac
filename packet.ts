@@ -21,10 +21,6 @@ namespace jacdac {
 
     let ackAwaiters: AckAwaiter[]
 
-    function error(msg: string) {
-        throw msg
-    }
-
     function hexNum(n: number, len = 8) {
         const hex = "0123456789abcdef"
         let r = "0x"
@@ -105,8 +101,8 @@ namespace jacdac {
         }
         set deviceIdentifier(id: string) {
             const idb = Buffer.fromHex(id)
-            if (idb.length != 8) error("Invalid id")
-            this._header.write(4, idb)
+            if (idb.length == 8)
+                this._header.write(4, idb)
         }
 
         get packetFlags() {
@@ -135,7 +131,7 @@ namespace jacdac {
             return this._header[13] & JD_SERVICE_INDEX_MASK
         }
         set serviceIndex(serviceIdx: number) {
-            if (serviceIdx == null) throw "serviceIndex not set"
+            if (serviceIdx == null) panic("serviceIndex not set")
             this._header[13] =
                 (this._header[13] & JD_SERVICE_INDEX_INV_MASK) | serviceIdx
         }
@@ -265,7 +261,7 @@ namespace jacdac {
         }
 
         _sendCore() {
-            if (this._data.length != this._header[12]) throw "jdsize mismatch"
+            if (this._data.length != this._header[12]) panic("packet size mismatch")
             jacdac.__physSendPacket(this._header, this._data)
             bus.processPacket(this) // handle loop-back packet
         }

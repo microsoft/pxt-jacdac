@@ -108,7 +108,7 @@ namespace jacdac {
             if (!this._eventCounter) this._eventCounter = 0
             this._eventCounter =
                 (this._eventCounter + 1) & CMD_EVENT_COUNTER_MASK
-            if (evCode >> 8) throw "invalid evcode"
+            if (evCode >> 8) panic("invalid evcode")
             return (
                 CMD_EVENT_MASK |
                 (this._eventCounter << CMD_EVENT_COUNTER_POS) |
@@ -363,6 +363,11 @@ namespace jacdac {
     // common logging level for jacdac services
     export let logPriority = ConsolePriority.Debug
 
+    export function panic(message: string) {
+        console.error(message)
+        throw message
+    }
+
     function log(msg: string) {
         console.add(logPriority, "jd: " + msg)
     }
@@ -427,7 +432,7 @@ namespace jacdac {
         }
 
         setEnabled(enabled: boolean) {
-            if (this._enabled === undefined) throw "oops"
+            if (this._enabled === undefined) panic("oops")
             this._enabled = !!enabled
         }
 
@@ -531,7 +536,7 @@ namespace jacdac {
         }
 
         private handleEnabled(pkt: JDPacket) {
-            if (this._enabled === undefined) throw "oops"
+            if (this._enabled === undefined) panic("oops")
             this._enabled = this.handleRegBool(
                 pkt,
                 SystemReg.Intensity,
@@ -890,7 +895,7 @@ namespace jacdac {
 
         constructor(public readonly serviceClass: number, role: string) {
             super()
-            if (!role) throw "no role"
+            if (!role) panic("no role")
 
             this.eventId = control.allocateNotifyEvent()
             this.config = new ClientPacketQueue(this)
@@ -1019,7 +1024,7 @@ namespace jacdac {
         handlePacket(pkt: JDPacket) {}
 
         _attach(dev: Device, serviceClass: number, serviceNum: number) {
-            if (this.device) throw "Invalid attach"
+            if (this.device) panic("invalid attach")
             if (!this.broadcast) {
                 if (
                     !dev.matchesRoleAt(this.roleQuery, serviceClass, serviceNum)
@@ -1052,7 +1057,7 @@ namespace jacdac {
             log(`roles: dettached ${this.roleName}`)
             this.serviceIndex = null
             if (!this.broadcast) {
-                if (!this.device) throw "Invalid detach"
+                if (!this.device) panic("invalid detach")
                 this.device = null
                 bus.detachClient(this)
             }
@@ -1070,7 +1075,7 @@ namespace jacdac {
             this.start()
             if (this.serviceIndex == null) return
             pkt.serviceIndex = this.serviceIndex
-            if (!pkt._sendWithAck(this.device.deviceId)) throw "No ACK"
+            if (!pkt._sendWithAck(this.device.deviceId)) panic("no ack")
         }
 
         // this will be re-sent on (re)attach
@@ -1255,7 +1260,6 @@ namespace jacdac {
             }
 
             const mrole = jacdac._rolemgr.getRole(this.deviceId, serviceIdx)
-            console.log(`role: check ${mrole} = ${role}`)
             return mrole == role
         }
 
@@ -1691,7 +1695,8 @@ namespace jacdac {
     }
 
     export function proxyFinalize() {
-        if (!jacdac.bus.proxyMode) throw "oops"
+        if (!jacdac.bus.proxyMode) panic("invalid proxy finalize")
+        console.debug("jacdac: dongle finalize")
         proxyLoop()
     }
 
@@ -1704,24 +1709,22 @@ namespace jacdac {
         // check if a proxy restart was requested
         if (!settings.exists(JACDAC_PROXY_SETTING)) return
 
-        log(`jacdac starting proxy`)
+        console.debug(`jacdac: start dongle (${isLate ? "late" : "early"})`)
         // clear proxy flag
         settings.remove(JACDAC_PROXY_SETTING)
 
         start({
-            disableLogger: true,
+            disableLogger: false,
             disableRoleManager: true,
             noWait: true,
+            proxyMode: true
         })
-
-        new ProxyServer().start()
-        jacdac.bus.proxyMode = true
 
         if (!isLate) proxyLoop()
     }
 
     function resetToProxy() {
-        log(`reset into proxy mode`)
+        console.debug("jacdac: reset in dongle")
         settings.writeNumber(JACDAC_PROXY_SETTING, 1)
         control.reset()
     }
@@ -1743,6 +1746,7 @@ namespace jacdac {
         disableRoleManager?: boolean
         noWait?: boolean
         disableBrain?: boolean
+        proxyMode?: boolean
     }): void {
         if (jacdac.bus.running) return // already started
 
@@ -1759,21 +1763,15 @@ namespace jacdac {
         if (options.disableBrain === undefined)
             options.disableBrain = !!options.disableRoleManager
 
-        //jacdac.__physStart();
-        control.internalOnEvent(
-            jacdac.__physId(),
-            EVT_DATA_READY,
-            consumePackets
-        )
-        control.internalOnEvent(jacdac.__physId(), EVT_QUEUE_ANNOUNCE, () =>
-            jacdac.bus.queueAnnounce()
-        )
-
         enablePower(true)
         enablePowerFaultPin()
         enableIdentityLED()
 
         if (!options.disableBrain) new BrainServer().start()
+        if (options.proxyMode) {
+            new ProxyServer().start()
+            jacdac.bus.proxyMode = true
+        }
 
         if (!options.disableLogger) {
             console.addListener(function (pri, msg) {
@@ -1784,13 +1782,25 @@ namespace jacdac {
         if (!options.disableRoleManager) {
             roleManagerServer.start()
         }
+
+        //jacdac.__physStart();
+        control.internalOnEvent(
+            jacdac.__physId(),
+            EVT_DATA_READY,
+            consumePackets
+        )
+        control.internalOnEvent(jacdac.__physId(), EVT_QUEUE_ANNOUNCE, () =>
+            jacdac.bus.queueAnnounce()
+        )
+
+        // and we're done
+        log("started")
+
         if (!options.noWait) {
             log("waiting for devices to enumerate...")
             pause(1000)
             if (roleManagerServer.running) roleManagerServer.bindRoles()
         }
-        // and we're done
-        log("started")
     }
 
     export enum LedChannel {
@@ -1854,7 +1864,9 @@ namespace jacdac {
      * @param servers
      */
     export function startSelfServers(createServers: () => Server[]) {
+        console.debug(`jacdac: register self servers`)
         if (!jacdac.isSimulator()) {
+            console.debug(`jacdac: start self servers`)
             const servers = createServers()
             for (const server of servers) server.start()
         }
@@ -1863,6 +1875,7 @@ namespace jacdac {
 
     // make sure physical is started deterministically
     // on micro:bit it allocates a buffer that should stay in the same place in memory
+    console.debug(`jacdac: physical start`)
     jacdac.__physStart()
 
     setLed(0, 0, 0)
