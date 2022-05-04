@@ -49,7 +49,7 @@ function proxyAnimation() {
     control.runInParallel(() => {
         led.stopAnimation()
         while (true) {
-            basic.showString("JACDAC DONGLE MODE PRESS A TO RESET", 120)
+            basic.showString("JACDAC DONGLE PRESS A TO RESET", 120)
         }
     })
 }
@@ -58,6 +58,7 @@ let proxyMode = false
 function handleStatusEvent(event: jacdac.StatusEvent) {
     switch (event) {
         case jacdac.StatusEvent.ProxyStarted:
+            console.debug("jacdac: dongle started")
             proxyMode = true
             proxyAnimation()
             break
