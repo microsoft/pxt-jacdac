@@ -100,7 +100,7 @@
     },
     "yotta": {
         "config": {
-            "JACDAC": 1,
+            "JACDAC_WEBUSB": 1,
             "JACDAC_SWS_TRANSPORT": 1
         }
     }
