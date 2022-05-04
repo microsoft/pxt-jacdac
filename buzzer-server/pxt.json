@@ -1,6 +1,6 @@
 {
     "name": "jacdac-buzzer-server",
-    "version": "0.10.22",
+    "version": "0.10.23",
     "description": "MakeCode support for Jacdac Buzzer server",
     "dependencies": {
         "core": "*",
