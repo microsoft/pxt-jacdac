@@ -137,7 +137,7 @@ namespace modules {
         }
 
         /**
-         * Set the throttle on a DC motor
+         * Set the speed on a DC motor
          * @param speed the throttle of the motor from -100% to 100%
          */
         //% group="Motor"
@@ -156,7 +156,7 @@ namespace modules {
         //% weight=94
         //% blockId=jdmotorstop block="stop %motor"
         stop() {
-            this.setEnabled(false)   
+            this.setEnabled(false)
         }
 
         /**
@@ -169,7 +169,6 @@ namespace modules {
             this.setSpeed(0)
             this.setEnabled(true)
         }
-
     }
 
     //% fixedInstance whenUsed
