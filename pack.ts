@@ -63,7 +63,7 @@ namespace jacdac {
         word: string
         isArray: boolean
 
-        constructor(public fmt: string) {}
+        constructor(public fmt: string) { }
 
         parse() {
             this.div = 1
@@ -263,10 +263,15 @@ namespace jacdac {
                         throw `expecting number, got ` + typeof v
                     if (trg) {
                         const vp = v * parser.div
-                        trg.setNumber(parser.nfmt, off, vp | 0)
                         if (parser.nfmt2) {
                             let vp32 = Math.floor(vp / 4294967296)
+                            trg.setNumber(parser.nfmt, off, vp | 0)
                             trg.setNumber(parser.nfmt, off + 4, vp32)
+                        } else {
+                            if (parser.div == 1 && (parser.nfmt == NumberFormat.UInt32LE || parser.nfmt == NumberFormat.Int32LE))
+                                trg.setNumber(parser.nfmt, off, vp | 0)
+                            else
+                                trg.setNumber(parser.nfmt, off, clampWithNumberFormat(vp, parser.nfmt))
                         }
                     }
                     off += parser.size
@@ -304,6 +309,58 @@ namespace jacdac {
         if (data.length > idx) throw `format too short`
 
         return off
+    }
+
+    // only works for LE types
+    function clampWithNumberFormat(v: number, format: NumberFormat) {
+        if (format == NumberFormat.Float32LE || format == NumberFormat.Float64LE)
+            return v
+
+        if (isNaN(v))
+            return 0
+
+        if (format == NumberFormat.UInt32LE) {
+            if (v < 0) return 0
+            if (v > 0xffffffff) return 0xffffffff
+            return (v >>> 0)
+        }
+
+        if (v < 0) {
+            switch (format) {
+                case NumberFormat.UInt8LE:
+                case NumberFormat.UInt16LE:
+                    return 0
+                case NumberFormat.Int8LE:
+                    if (v <= -0x80) return -0x80
+                    break
+                case NumberFormat.Int16LE:
+                    if (v <= -0x8000) return -0x8000
+                    break
+                case NumberFormat.Int32LE:
+                    if (v <= -0x80000000) return -0x80000000
+                    break
+            }
+        } else {
+            switch (format) {
+                case NumberFormat.UInt8LE:
+                    if (v >= 0xff) return 0xff
+                    break
+                case NumberFormat.UInt16LE:
+                    if (v >= 0xffff) return 0xffff
+                    break
+                case NumberFormat.Int8LE:
+                    if (v >= 0x7f) return 0x7f
+                    break
+                case NumberFormat.Int16LE:
+                    if (v >= 0x7fff) return 0x7fff
+                    break
+                case NumberFormat.Int32LE:
+                    if (v >= 0x7fffffff) return 0x7fffffff
+                    break
+            }
+        }
+
+        return v | 0
     }
 
     export function jdpack<T extends any[]>(fmt: string, data: T): Buffer {

@@ -16,6 +16,16 @@ function ledTest() {
 }
 
 function jdpackTest() {
+    function testPayload(fmt: string, data: any[], buf: Buffer) {
+        const a = jacdac.jdpack(fmt, data).toHex()
+        const b = buf.toHex()
+        console.log(`${JSON.stringify(fmt)}: ${JSON.stringify(data)} -> ${a}`)
+        if (a != b) {
+            console.log(`expected ${b}`)
+            throw `not the same`
+        }
+    }
+
     function testOne(
         fmt: string,
         data0: any[],
@@ -86,6 +96,17 @@ function jdpackTest() {
     )
     testOne("r: u16", [[[0], [1]]])
     testOne("u16 r: u16", [1, [[2], [3]]])
+
+    testPayload("u0.8 u0.8 u0.8 u0.8", [0.999999, 1, 1.01, 10000], hex`ff ff ff ff`)
+    testPayload("u0.8 u0.8 u0.8", [0, -1, -100000], hex`00 00 00`)
+    testPayload("i1.7 i1.7 i1.7 i1.7", [0.999999, 1, 1.01, 10000], hex`7f 7f 7f 7f`)
+
+    testPayload("u0.16 u0.16 u0.16 u0.16", [0.999999, 1, 1.01, 10000], hex`ffff ffff ffff ffff`)
+    testPayload("i1.15 i1.15 i1.15 i1.15", [0.999999, 1, 1.01, 10000], hex`ff7f ff7f ff7f ff7f`)
+
+    testPayload("u32", [1 << 31], hex`00 00 00 80`) // no clamping
+    testPayload("i32", [1 << 31], hex`00 00 00 80`)
+    testPayload("u22.10", [-10], hex`00 00 00 00`) // yes clamping
 }
 
 // pins.A9.digitalWrite(false)
