@@ -4,10 +4,13 @@ namespace jacdac {
     export class SensorClient extends Client {
         protected readonly _reading: RegisterClient<PackSimpleDataType[]>
         private readonly _streamingSamples: RegisterClient<number[]>
+        private readonly _streamingInterval: RegisterClient<number[]>
         private samples = 0
+        private samplesExpiration = 0
+        private lastSample = 0
         public isStreaming = false
 
-        constructor(deviceClass: number, role: string, stateFormat: string) {
+        constructor(deviceClass: number, role: string, stateFormat: string, streamingInterval = 100) {
             super(deviceClass, role)
             this._reading = this.addRegister(
                 jacdac.SystemReg.Reading,
@@ -15,10 +18,20 @@ namespace jacdac {
             )
             this._streamingSamples = this.addRegister(
                 jacdac.SystemReg.StreamingSamples,
-                jacdac.SystemRegPack.StreamingSamples, RegisterClientFlags.None,
+                jacdac.SystemRegPack.StreamingSamples,
+                RegisterClientFlags.None,
                 [0]
             )
-            this._reading.on(REPORT_RECEIVE, () => this.samples--)
+            this._streamingInterval = this.addRegister(
+                jacdac.SystemReg.StreamingInterval,
+                jacdac.SystemRegPack.StreamingInterval,
+                RegisterClientFlags.Optional,
+                [streamingInterval]
+            )
+            this._reading.on(REPORT_RECEIVE, () => {
+                this.samples--
+                this.lastSample = control.millis()
+            })
             this._streamingSamples.on(REPORT_UPDATE, () => this.updateSamples())
         }
 
@@ -27,9 +40,17 @@ namespace jacdac {
         }
 
         private checkSamples() {
-            if (this.isStreaming) {
+            if (!this.isStreaming) return
+
+            const now = control.millis()
+            const interval = Math.max(20, this._streamingInterval.values[0] || 100)
+            if (this.samples < 0x20 // ran out of samples
+                || now - this.lastSample > (interval * 2) // missed two beats, not running?
+                || now > this.samplesExpiration) { // haven't seen any messages in a while
                 this._streamingSamples.values = [0xff]
                 this.samples = 0xff
+                this.samplesExpiration = now + interval * (0xff >> 1)
+                this.lastSample = now
                 this._streamingSamples.sendSet()
             }
         }
