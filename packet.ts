@@ -245,8 +245,7 @@ namespace jacdac {
         }
 
         toString(): string {
-            let msg = `${jacdac.shortDeviceId(this.deviceIdentifier)}/${this.serviceIndex
-                }[${this.packetFlags}]: ${hexNum(this.serviceCommand, 4)} sz=${this.size
+            let msg = `${this._header ? this._header.toHex() : ""} ${jacdac.shortDeviceId(this.deviceIdentifier)}[${this.serviceIndex}]: ${hexNum(this.serviceCommand, 4)} crc=${hexNum(this.crc, 2)}, flags=${hexNum(this.packetFlags, 1)}, sz=${this.size
                 }`
             if (this.size < 20) msg += ": " + this.data.toHex()
             else msg += ": " + this.data.slice(0, 20).toHex() + "..."

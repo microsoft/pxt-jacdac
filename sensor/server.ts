@@ -1,7 +1,6 @@
 namespace jacdac {
     export interface SensorServerOptions extends ServerOptions {
         streamingInterval?: number
-        calibrate?: () => void
     }
 
     /**
@@ -10,21 +9,20 @@ namespace jacdac {
     export class SensorServer extends Server {
         public streamingInterval: number // millis
         public streamingSamples: number
-        readonly calibrate: () => void
 
         constructor(serviceClass: number, options?: SensorServerOptions) {
             super(serviceClass, options)
 
             this.streamingSamples = 0
-            this.streamingInterval = options.streamingInterval || 100
-            this.calibrate = options ? options.calibrate : undefined
+            this.streamingInterval = (options ? options.streamingInterval : undefined) || 100
         }
 
         public handlePacket(packet: JDPacket) {
             this.stateUpdated = false
-            this.streamingInterval = this.handleRegUInt32(
+            this.streamingInterval = this.handleRegValue(
                 packet,
                 jacdac.SystemReg.StreamingInterval,
+                jacdac.SystemRegPack.StreamingInterval,
                 this.streamingInterval
             )
             const samples = this.handleRegValue(
@@ -46,17 +44,8 @@ namespace jacdac {
                         )
                     )
                 packet.markHandled()
-            } else {
-                switch (packet.serviceCommand) {
-                    case jacdac.SystemCmd.Calibrate:
-                        this.handleCalibrateCommand(packet)
-                        break
-                    default:
-                        // let the user deal with it
-                        this.handleCustomCommand(packet)
-                        break
-                }
-            }
+            } else
+                this.handleCustomCommand(packet)
         }
 
         private readState(): Buffer {
@@ -66,25 +55,6 @@ namespace jacdac {
         // override
         protected serializeState(): Buffer {
             return undefined
-        }
-
-        // override
-        protected handleCalibrateCommand(pkt: JDPacket) {
-            if (this.statusCode === jacdac.SystemStatusCodes.Calibrating) return
-
-            if (this.calibrate) {
-                this.setStatusCode(jacdac.SystemStatusCodes.Calibrating)
-                control.runInBackground(() => this.doCalibrate())
-            } else pkt.possiblyNotImplemented()
-        }
-
-        private doCalibrate() {
-            try {
-                this.calibrate()
-                this.setStatusCode(jacdac.SystemStatusCodes.Ready)
-            } catch (e) {
-                this.setStatusCode(jacdac.SystemStatusCodes.CalibrationNeeded)
-            }
         }
 
         protected handleCustomCommand(pkt: JDPacket) {
@@ -106,15 +76,13 @@ namespace jacdac {
                 this.streamingSamples = samples
                 return
             }
-
             this.log(`start`)
             this.streamingSamples = samples
             control.runInParallel(() => {
                 while (
                     this.streamingSamples !== undefined &&
                     this.streamingSamples > 0 &&
-                    this.running &&
-                    this.ready
+                    this.running
                 ) {
                     // run callback
                     const state = this.readState()

@@ -15,7 +15,8 @@ namespace jacdac {
             )
             this._streamingSamples = this.addRegister(
                 jacdac.SystemReg.StreamingSamples,
-                jacdac.SystemRegPack.StreamingSamples
+                jacdac.SystemRegPack.StreamingSamples, RegisterClientFlags.None,
+                [0]
             )
             this._reading.on(REPORT_RECEIVE, () => this.samples--)
             this._streamingSamples.on(REPORT_UPDATE, () => this.updateSamples())
@@ -26,9 +27,10 @@ namespace jacdac {
         }
 
         private checkSamples() {
-            if (this.isStreaming && this.samples < 0x20) {
+            if (this.isStreaming) {
                 this._streamingSamples.values = [0xff]
                 this.samples = 0xff
+                this._streamingSamples.sendSet()
             }
         }
 

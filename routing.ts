@@ -381,6 +381,7 @@ namespace jacdac {
         statusCode?: jacdac.SystemStatusCodes
         valuePackFormat?: string
         intensityPackFormat?: string
+        calibrate?: () => void
     }
 
     //% fixedInstances
@@ -397,6 +398,7 @@ namespace jacdac {
         readonly intensityPackFormat: string
         private _intensity?: number
         private variant?: number
+        readonly calibrate: () => void
 
         constructor(
             public readonly serviceClass: number,
@@ -412,6 +414,7 @@ namespace jacdac {
                 this.intensityPackFormat = options.intensityPackFormat
                 this.valuePackFormat = options.valuePackFormat
                 this._intensity = undefined
+                this.calibrate = options ? options.calibrate : undefined
             }
         }
 
@@ -434,7 +437,7 @@ namespace jacdac {
          * Indicates that the status code is ready and optional enable register is true
          */
         get ready() {
-            return !this.disabled && this.statusCode == SystemStatusCodes.Ready
+            return this.running && !this.disabled && this.statusCode == SystemStatusCodes.Ready
         }
 
         get intensity() {
@@ -442,6 +445,7 @@ namespace jacdac {
         }
 
         set intensity(value: number) {
+            console.log(`set intensity ${value}`)
             if (!this.intensityPackFormat) panic("invalid intensity register")
             if (this._intensity !== value) {
                 this._intensity = value
@@ -499,11 +503,14 @@ namespace jacdac {
                     if (!this.intensityPackFormat) break
                     this.handleIntensity(pkt)
                     return
+                case SystemCmd.Calibrate:
+                    this.handleCalibrateCommand(pkt)
+                    return
             }
             this.stateUpdated = false
             this.handlePacket(pkt)
         }
-
+        
         handlePacket(pkt: JDPacket) {}
 
         isConnected() {
@@ -570,6 +577,7 @@ namespace jacdac {
         }
 
         private handleIntensity(pkt: JDPacket) {
+            console.log(`handle intensity ${pkt} ${this.disabled ? 'disabled' : 'enabled'}, ${this.ready ? `ready` : `not ready`}`)
             const v = this.handleRegValue(
                 pkt,
                 SystemReg.Intensity,
@@ -577,6 +585,25 @@ namespace jacdac {
                 this._intensity
             )
             this.intensity = v
+        }
+
+        // override
+        protected handleCalibrateCommand(pkt: JDPacket) {
+            if (this.statusCode === jacdac.SystemStatusCodes.Calibrating) return
+
+            if (this.calibrate) {
+                this.setStatusCode(jacdac.SystemStatusCodes.Calibrating)
+                control.runInBackground(() => this.doCalibrate())
+            } else pkt.possiblyNotImplemented()
+        }        
+
+        private doCalibrate() {
+            try {
+                this.calibrate()
+                this.setStatusCode(jacdac.SystemStatusCodes.Ready)
+            } catch (e) {
+                this.setStatusCode(jacdac.SystemStatusCodes.CalibrationNeeded)
+            }
         }
 
         protected handleRegFormat<T extends any[]>(
@@ -815,6 +842,10 @@ namespace jacdac {
             this._localTime = control.millis()
         }
 
+        get data() {
+            return this._data ? this._data : control.createBuffer(0)
+        }
+
         hasValues(): boolean {
             return !!this._data
         }
@@ -860,6 +891,11 @@ namespace jacdac {
                 this.service.setRegBuffer(this.code, this._data)
                 this.emit(CHANGE)
             }
+        }
+
+        sendSet() {
+            if (this._data)
+                this.service.setRegBuffer(this.code, this._data)
         }
 
         get lastGetTime() {
