@@ -46,9 +46,11 @@ namespace jacdac {
             this.isStreaming = on
             if (on && !wasStreaming) this.checkSamples()
             if (interval_ms != undefined)
-                this.setReg(jacdac.SystemReg.StreamingInterval, "u32", [
-                    interval_ms,
-                ])
+                this.setReg(
+                    jacdac.SystemReg.StreamingInterval,
+                    jacdac.SystemRegPack.StreamingInterval,
+                    [interval_ms]
+                )
         }
 
         public onStateChanged(handler: () => void) {

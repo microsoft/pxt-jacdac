@@ -21,7 +21,7 @@ namespace jacdac {
 
     let ackAwaiters: AckAwaiter[]
 
-    function hexNum(n: number, len = 8) {
+    export function hexNum(n: number, len = 8) {
         const hex = "0123456789abcdef"
         let r = "0x"
         for (let i = 0; i < len; ++i) {

@@ -134,9 +134,7 @@ namespace jacdac {
         }
 
         queueAnnounce() {
-            const ids = this.servers.map(h =>
-                h.running ? h.serviceClass : -1
-            )
+            const ids = this.servers.map(h => (h.running ? h.serviceClass : -1))
             if (this.restartCounter < 0xf) this.restartCounter++
             ids[0] =
                 this.restartCounter |
@@ -153,7 +151,7 @@ namespace jacdac {
             this.gcDevices()
 
             // send resetin to whoever wants to listen for it
-            if (this.isClient &&this.resetIn)
+            if (this.isClient && this.resetIn)
                 JDPacket.from(
                     ControlReg.ResetIn | CMD_SET_REG,
                     jdpack("u32", [this.resetIn])
@@ -381,10 +379,8 @@ namespace jacdac {
         instanceName?: string
         variant?: number
         statusCode?: jacdac.SystemStatusCodes
-        /**
-         * Provide value to implement boolean intensity register
-         */
-        enabled?: boolean
+        valuePackFormat?: string
+        intensityPackFormat?: string
     }
 
     //% fixedInstances
@@ -396,7 +392,10 @@ namespace jacdac {
         protected stateUpdated: boolean
         private _statusCode = SystemStatusCodes.Ready
         private _statusVendorCode = 0
-        private _enabled?: boolean
+        readonly valuePackFormat: string
+        private _value?: number
+        readonly intensityPackFormat: string
+        private _intensity?: number
         private variant?: number
 
         constructor(
@@ -410,7 +409,9 @@ namespace jacdac {
                 this.variant = options.variant
                 if (options.statusCode)
                     this._statusCode = options.statusCode & 0xffff
-                this._enabled = options.enabled
+                this.intensityPackFormat = options.intensityPackFormat
+                this.valuePackFormat = options.valuePackFormat
+                this._intensity = undefined
             }
         }
 
@@ -426,7 +427,7 @@ namespace jacdac {
          * Boolean intensity register is false
          */
         get disabled() {
-            return this._enabled === false
+            return this.intensityPackFormat && !this._intensity
         }
 
         /**
@@ -436,9 +437,28 @@ namespace jacdac {
             return !this.disabled && this.statusCode == SystemStatusCodes.Ready
         }
 
-        setEnabled(enabled: boolean) {
-            if (this._enabled === undefined) panic("oops")
-            this._enabled = !!enabled
+        get intensity() {
+            return this._intensity
+        }
+
+        set intensity(value: number) {
+            if (!this.intensityPackFormat) panic("invalid intensity register")
+            if (this._intensity !== value) {
+                this._intensity = value
+                this.emit(CHANGE)
+            }
+        }
+
+        get value() {
+            return this._value
+        }
+
+        set value(value: number) {
+            if (!this.valuePackFormat) panic("invalid value register")
+            if (this._value !== value) {
+                this._value = value
+                this.emit(CHANGE)
+            }
         }
 
         setStatusCode(code: number) {
@@ -462,27 +482,26 @@ namespace jacdac {
             switch (cmd) {
                 case SystemReg.StatusCode | SystemCmd.GetRegister:
                     this.handleStatusCode(pkt)
-                    break
+                    return
                 case SystemReg.InstanceName | SystemCmd.GetRegister:
                     this.handleInstanceName(pkt)
-                    break
+                    return
                 case SystemReg.Variant | SystemCmd.GetRegister:
                     this.handleVariant(pkt)
-                    break
-                default:
-                    if (
-                        this._enabled !== undefined &&
-                        (cmd == (SystemReg.Intensity | SystemCmd.GetRegister) ||
-                            cmd ==
-                                (SystemReg.Intensity | SystemCmd.SetRegister))
-                    )
-                        this.handleEnabled(pkt)
-                    else {
-                        this.stateUpdated = false
-                        this.handlePacket(pkt)
-                    }
-                    break
+                    return
+                case SystemReg.Value | SystemCmd.GetRegister:
+                case SystemReg.Value | SystemCmd.SetRegister:
+                    if (!this.valuePackFormat) break
+                    this.handleValue(pkt)
+                    return
+                case SystemReg.Intensity | SystemCmd.GetRegister:
+                case SystemReg.Intensity | SystemCmd.SetRegister:
+                    if (!this.intensityPackFormat) break
+                    this.handleIntensity(pkt)
+                    return
             }
+            this.stateUpdated = false
+            this.handlePacket(pkt)
         }
 
         handlePacket(pkt: JDPacket) {}
@@ -540,13 +559,24 @@ namespace jacdac {
             else pkt.possiblyNotImplemented()
         }
 
-        private handleEnabled(pkt: JDPacket) {
-            if (this._enabled === undefined) panic("oops")
-            this._enabled = this.handleRegBool(
+        private handleValue(pkt: jacdac.JDPacket) {
+            const v = this.handleRegValue(
+                pkt,
+                SystemReg.Value,
+                this.valuePackFormat,
+                this._value
+            )
+            this.value = v
+        }
+
+        private handleIntensity(pkt: JDPacket) {
+            const v = this.handleRegValue(
                 pkt,
                 SystemReg.Intensity,
-                this._enabled
+                this.intensityPackFormat,
+                this._intensity
             )
+            this.intensity = v
         }
 
         protected handleRegFormat<T extends any[]>(
@@ -827,7 +857,7 @@ namespace jacdac {
             if (changed) {
                 this._data = d
                 // send set request to the service
-                this.service.setReg(this.code, this.packFormat, values)
+                this.service.setRegBuffer(this.code, this._data)
                 this.emit(CHANGE)
             }
         }
@@ -1792,10 +1822,8 @@ namespace jacdac {
             EVT_DATA_READY,
             consumePackets
         )
-        control.internalOnEvent(
-            jacdac.__physId(), 
-            EVT_QUEUE_ANNOUNCE, 
-            () => jacdac.bus.queueAnnounce()
+        control.internalOnEvent(jacdac.__physId(), EVT_QUEUE_ANNOUNCE, () =>
+            jacdac.bus.queueAnnounce()
         )
 
         // and we're done

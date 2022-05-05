@@ -14,11 +14,10 @@ namespace jacdac {
 
         constructor(serviceClass: number, options?: SensorServerOptions) {
             super(serviceClass, options)
-            options = options || {}
 
             this.streamingSamples = 0
             this.streamingInterval = options.streamingInterval || 100
-            this.calibrate = options.calibrate
+            this.calibrate = options ? options.calibrate : undefined
         }
 
         public handlePacket(packet: JDPacket) {
@@ -113,21 +112,20 @@ namespace jacdac {
             control.runInParallel(() => {
                 while (
                     this.streamingSamples !== undefined &&
-                    this.streamingSamples > 0
+                    this.streamingSamples > 0 &&
+                    this.running &&
+                    this.ready
                 ) {
                     // run callback
                     const state = this.readState()
                     if (state) {
-                        // did the state change?
-                        if (this.isConnected()) {
-                            // send state and record time
-                            this.sendReport(
-                                JDPacket.from(
-                                    CMD_GET_REG | jacdac.SystemReg.Reading,
-                                    state
-                                )
+                        // send state and record time
+                        this.sendReport(
+                            JDPacket.from(
+                                CMD_GET_REG | jacdac.SystemReg.Reading,
+                                state
                             )
-                        }
+                        )
                     }
                     // check streaming interval value or cancelled
                     if (
@@ -201,7 +199,7 @@ namespace jacdac {
             if (this.readingError !== undefined)
                 this.handleRegValue(
                     pkt,
-                    jacdac.SystemReg.MaxReading,
+                    jacdac.SystemReg.ReadingError,
                     this.packFormat,
                     this.readingError()
                 )
