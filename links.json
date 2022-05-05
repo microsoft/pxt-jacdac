@@ -9,6 +9,7 @@
         "jacdac-buzzer": "./buzzer",
         "jacdac-character-screen": "./character-screen",
         "jacdac-distance": "./distance",
+        "jacdac-dual-motors": "./dual-motors",
         "jacdac-e-co2": "./e-co2",
         "jacdac-flex": "./flex",
         "jacdac-pressure": "./pressure",
