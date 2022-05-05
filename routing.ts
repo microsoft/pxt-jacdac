@@ -1880,7 +1880,6 @@ namespace jacdac {
 
     // make sure physical is started deterministically
     // on micro:bit it allocates a buffer that should stay in the same place in memory
-    console.debug(`jacdac: physical start`)
     jacdac.__physStart()
 
     setLed(0, 0, 0)
