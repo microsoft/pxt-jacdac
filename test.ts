@@ -97,12 +97,28 @@ function jdpackTest() {
     testOne("r: u16", [[[0], [1]]])
     testOne("u16 r: u16", [1, [[2], [3]]])
 
-    testPayload("u0.8 u0.8 u0.8 u0.8", [0.999999, 1, 1.01, 10000], hex`ff ff ff ff`)
+    testPayload(
+        "u0.8 u0.8 u0.8 u0.8",
+        [0.999999, 1, 1.01, 10000],
+        hex`ff ff ff ff`
+    )
     testPayload("u0.8 u0.8 u0.8", [0, -1, -100000], hex`00 00 00`)
-    testPayload("i1.7 i1.7 i1.7 i1.7", [0.999999, 1, 1.01, 10000], hex`7f 7f 7f 7f`)
+    testPayload(
+        "i1.7 i1.7 i1.7 i1.7",
+        [0.999999, 1, 1.01, 10000],
+        hex`7f 7f 7f 7f`
+    )
 
-    testPayload("u0.16 u0.16 u0.16 u0.16", [0.999999, 1, 1.01, 10000], hex`ffff ffff ffff ffff`)
-    testPayload("i1.15 i1.15 i1.15 i1.15", [0.999999, 1, 1.01, 10000], hex`ff7f ff7f ff7f ff7f`)
+    testPayload(
+        "u0.16 u0.16 u0.16 u0.16",
+        [0.999999, 1, 1.01, 10000],
+        hex`ffff ffff ffff ffff`
+    )
+    testPayload(
+        "i1.15 i1.15 i1.15 i1.15",
+        [0.999999, 1, 1.01, 10000],
+        hex`ff7f ff7f ff7f ff7f`
+    )
 
     testPayload("u32", [1 << 31], hex`00 00 00 80`) // no clamping
     testPayload("i32", [1 << 31], hex`00 00 00 80`)
@@ -115,22 +131,42 @@ jacdac.logPriority = ConsolePriority.Log
 jacdac.roleManagerServer.start()
 jacdac.protoTestServer.start()
 
-jacdac.createSimpleSensorServer(0x16c810b8, "u22.10", () => 66, {
-    instanceName: "humi",
-    readingError: () => 1
-}).start()
-jacdac.createSimpleSensorServer(0x14ad1a5d, "u0.16", () => {
-    console.log(`read sound level`)
-    return 0.5 + Math.random() / 20
-}, {
-    instanceName: "slvl",
-    enabled: false,
-    streamingInterval: 50
-}).start()
+jacdac
+    .createSimpleSensorServer(0x16c810b8, "u22.10", () => 66, {
+        instanceName: "humi",
+        readingError: () => 1,
+    })
+    .start()
+jacdac
+    .createSimpleSensorServer(
+        0x14ad1a5d,
+        "u0.16",
+        () => {
+            console.log(`read sound level`)
+            return 0.5 + Math.random() / 20
+        },
+        {
+            instanceName: "slvl",
+            intensityPackFormat: "u8",
+            streamingInterval: 50,
+        }
+    )
+    .start()
 // motor
-jacdac.createActuatorServer(0x17004cd8, "u1.15", "u8", (server) => {
-    console.log(`motor: ${server.value}, ${server.intensity ? "on" : "off"}`)
-}).start()
+jacdac
+    .createActuatorServer(
+        0x17004cd8,
+        server => {
+            console.log(
+                `motor: ${server.value}, ${server.intensity ? "on" : "off"}`
+            )
+        },
+        {
+            valuePackFormat: "i1.15",
+            intensityPackFormat: "u8",
+        }
+    )
+    .start()
 
 jacdac.start()
 jacdac.loggerServer.log("test started")
@@ -154,7 +190,10 @@ addClient(0x1f37c56a, "screen1?dev=self&srvo=1")
 addClient(0x1f37c56a, "screen2?dev=self&rows=4&columns=8")
 
 addClient(0x1609d4f0, "led stick 8?variant=Stick&num_pixels=8&srvo=0")
-addClient(0x1609d4f0, "led matrix 12x4?variant=Matrix&num_pixels=12&num_columns=4&srvo=1")
+addClient(
+    0x1609d4f0,
+    "led matrix 12x4?variant=Matrix&num_pixels=12&num_columns=4&srvo=1"
+)
 addClient(0x1609d4f0, "led strip 64?variant=Strip&num_pixels=64&srvo=2")
 
 addClient(0x108f7456, "gamepad?buttons_available=63&variant=Gamepad")
