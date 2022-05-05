@@ -221,6 +221,13 @@ static void sws_done(uint16_t errCode) {
 }
 
 void uart_init_() {
+    // allow disabling SWS with the following anywhere in the TS code:
+    // namespace userconfig { export const PIN_JACK_TX = 0xdead }
+    if (getConfig(CFG_PIN_JACK_TX, 0) == 0xdead) {
+        DMESG("Jacdac SWS disabled");
+        return;
+    }
+
 #ifdef MICROBIT_CODAL
     sws = new ZSingleWireSerial(uBit.io.P12);
 #else
@@ -236,6 +243,11 @@ void uart_init_() {
 
 REAL_TIME_FUNC
 int uart_start_tx(const void *data, uint32_t numbytes) {
+    if (!sws) {
+        jd_tx_completed(0);
+        return 0;
+    }
+
     if (status & STATUS_IN_TX)
         jd_panic();
 
