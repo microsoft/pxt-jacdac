@@ -1,10 +1,10 @@
 namespace jacdac {
-    export class ActuatorServer extends jacdac.Server {
+    class ActuatorServer extends jacdac.Server {
         private readonly sync: (actuator: ActuatorServer) => void
 
         constructor(
             serviceClass: number,
-            sync: (actuator: ActuatorServer) => void,
+            sync: (server: jacdac.Server) => void,
             options?: jacdac.ServerOptions
         ) {
             super(serviceClass, options)
@@ -23,7 +23,7 @@ namespace jacdac {
         serviceClass: number,
         sync: (actuator: ActuatorServer) => void,
         options?: jacdac.ServerOptions
-    ): ActuatorServer {
+    ): jacdac.Server {
         return new ActuatorServer(serviceClass, sync, options)
     }
 }
