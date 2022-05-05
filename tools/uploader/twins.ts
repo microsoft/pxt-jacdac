@@ -11,6 +11,7 @@ namespace jacdac.twins {
     const LOGIN_PORTAL_TIMEOUT = 60000 // try to connect for 1 minute, then give up
 
     let twins: DeviceTwin[]
+    let hadTwins = false
     let exclusions: string[]
     let currTwin: Json
     let pendingReadings = 0
@@ -450,6 +451,11 @@ namespace jacdac.twins {
             }
             pause(100)
         }
+        if (hadTwins && twins.length <= 1) {
+            console.log("all devices gone; rebooting")
+            pause(200)
+            control.reset()
+        }
         const fullTwin: Json = {}
         for (const t of twins) {
             fullTwin[t.id] = t.computeTwin()
@@ -499,7 +505,10 @@ namespace jacdac.twins {
                         jdbr: "1",
                     })
                     sendTick = 2
-                    feedWatchdog()
+                    if (twins.length > 1) {
+                        hadTwins = true
+                        feedWatchdog()
+                    }
                 }
             }
         }
