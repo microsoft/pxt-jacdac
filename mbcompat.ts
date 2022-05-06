@@ -58,7 +58,7 @@ let proxyMode = false
 function handleStatusEvent(event: jacdac.StatusEvent) {
     switch (event) {
         case jacdac.StatusEvent.ProxyStarted:
-            console.debug("jacdac: dongle started")
+            control.dmesg("jacdac: dongle started")
             proxyMode = true
             proxyAnimation()
             break
