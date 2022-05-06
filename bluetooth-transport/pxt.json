@@ -1,6 +1,6 @@
 {
     "name": "jacdac-bluetooth-transport",
-    "version": "0.10.27",
+    "version": "0.10.28",
     "description": "Support for sending Jacdac packets over BLE.",
     "dependencies": {
         "core": "*",
