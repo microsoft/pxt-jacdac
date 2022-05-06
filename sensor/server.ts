@@ -235,6 +235,8 @@ namespace jacdac {
 
         serializeState() {
             const v = this.stateReader()
+            if (!v || !v.length || v.every(v => isNaN(v)))
+                    return undefined
             return jacdac.jdpack(this.packFormat, v)
         }
     }
