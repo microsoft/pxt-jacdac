@@ -454,7 +454,6 @@ namespace jacdac {
         }
 
         set intensity(value: number) {
-            console.log(`set intensity ${value}`)
             if (!this.intensityPackFormat) panic("invalid intensity register")
             if (this._intensity !== value) {
                 this._intensity = value
@@ -602,7 +601,6 @@ namespace jacdac {
         }
 
         private handleIntensity(pkt: JDPacket) {
-            console.log(`handle intensity ${pkt} ${this.disabled ? 'disabled' : 'enabled'}, ${this.ready ? `ready` : `not ready`}`)
             const v = this.handleRegValue(
                 pkt,
                 SystemReg.Intensity,
@@ -1789,7 +1787,7 @@ namespace jacdac {
 
     export function proxyFinalize() {
         if (!jacdac.bus.proxyMode) panic("invalid proxy finalize")
-        console.debug("jacdac: dongle finalize")
+        control.dmesg("jacdac: dongle finalize")
         proxyLoop()
     }
 
@@ -1802,7 +1800,7 @@ namespace jacdac {
         // check if a proxy restart was requested
         if (!settings.exists(JACDAC_PROXY_SETTING)) return
 
-        console.debug(`jacdac: start dongle (${isLate ? "late" : "early"})`)
+        control.dmesg(`jacdac: start dongle (${isLate ? "late" : "early"})`)
         // clear proxy flag
         settings.remove(JACDAC_PROXY_SETTING)
 
@@ -1817,7 +1815,7 @@ namespace jacdac {
     }
 
     function resetToProxy() {
-        console.debug("jacdac: reset in dongle")
+        control.dmesg("jacdac: reset in dongle")
         settings.writeNumber(JACDAC_PROXY_SETTING, 1)
         control.reset()
     }
@@ -1957,9 +1955,9 @@ namespace jacdac {
      * @param servers
      */
     export function startSelfServers(createServers: () => Server[]) {
-        console.debug(`jacdac: register self servers`)
+        control.dmesg(`jacdac: register self servers`)
         if (!jacdac.isSimulator()) {
-            console.debug(`jacdac: start self servers`)
+            control.dmesg(`jacdac: start self servers`)
             const servers = createServers()
             for (const server of servers) server.start()
         }
