@@ -10,7 +10,12 @@ namespace jacdac {
         private lastSample = 0
         public isStreaming = false
 
-        constructor(deviceClass: number, role: string, stateFormat: string, streamingInterval = 100) {
+        constructor(
+            deviceClass: number,
+            role: string,
+            stateFormat: string,
+            streamingInterval = 100
+        ) {
             super(deviceClass, role)
             this._reading = this.addRegister(
                 jacdac.SystemReg.Reading,
@@ -43,10 +48,16 @@ namespace jacdac {
             if (!this.isStreaming) return
 
             const now = control.millis()
-            const interval = Math.max(20, this._streamingInterval.values[0] || 100)
-            if (this.samples < 0x20 // ran out of samples
-                || now - this.lastSample > (interval * 2) // missed two beats, not running?
-                || now > this.samplesExpiration) { // haven't seen any messages in a while
+            const interval = Math.max(
+                20,
+                this._streamingInterval.values[0] || 100
+            )
+            if (
+                this.samples < 0x20 || // ran out of samples
+                now - this.lastSample > interval * 2 || // missed two beats, not running?
+                now > this.samplesExpiration
+            ) {
+                // haven't seen any messages in a while
                 this._streamingSamples.values = [0xff]
                 this.samples = 0xff
                 this.samplesExpiration = now + interval * (0xff >> 1)

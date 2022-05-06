@@ -41,7 +41,6 @@ namespace modules {
             )
         }
 
-
         /**
          * Set the speed on a DC motor
          * @param speed the throttle of the motor from -100% to 100%
@@ -63,7 +62,7 @@ namespace modules {
             values[1] = right / 100
             this._speed.values = values as [number, number]
         }
-        
+
         /**
          * Unpower motor
          */
@@ -85,7 +84,7 @@ namespace modules {
             this.start()
             this.setSpeed(0, 0)
             this.setEnabled(true)
-        }        
+        }
 
         /**
          * Relative speed of the motors. Use positive/negative values to run the motor forwards and backwards.

@@ -14,7 +14,8 @@ namespace jacdac {
             super(serviceClass, options)
 
             this.streamingSamples = 0
-            this.streamingInterval = (options ? options.streamingInterval : undefined) || 100
+            this.streamingInterval =
+                (options ? options.streamingInterval : undefined) || 100
         }
 
         public handlePacket(packet: JDPacket) {
@@ -44,8 +45,7 @@ namespace jacdac {
                         )
                     )
                 packet.markHandled()
-            } else
-                this.handleCustomCommand(packet)
+            } else this.handleCustomCommand(packet)
         }
 
         private readState(): Buffer {
@@ -235,8 +235,7 @@ namespace jacdac {
 
         serializeState() {
             const v = this.stateReader()
-            if (!v || !v.length || v.every(v => isNaN(v)))
-                    return undefined
+            if (!v || !v.length || v.every(v => isNaN(v))) return undefined
             return jacdac.jdpack(this.packFormat, v)
         }
     }
