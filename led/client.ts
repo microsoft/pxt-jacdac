@@ -389,7 +389,6 @@ namespace modules {
          */
         //% blockId="jacdac_leddisplay_rotate" block="rotate %display pixels by %offset" blockGap=8
         //% weight=39
-        //% parts="neopixel"
         rotate(offset = 1): void {
             offset = offset >> 0
             if (!offset) return
