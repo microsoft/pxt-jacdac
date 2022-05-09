@@ -1,6 +1,6 @@
 {
     "name": "jacdac-seven-segment-display",
-    "version": "0.10.28",
+    "version": "0.10.29",
     "description": "A 7-segment numeric display, with one or more digits.",
     "files": [
         "constants.ts",
