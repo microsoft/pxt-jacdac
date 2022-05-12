@@ -1950,13 +1950,21 @@ namespace jacdac {
         })
     }
 
+    export interface SelfServersOptions {
+        /**
+         * Force starting servers in simulation mode
+         */
+        simulation?: boolean
+    }
+
     /**
      * Starts a set of servers running on the self device
      * @param servers
      */
-    export function startSelfServers(createServers: () => Server[]) {
+    export function startSelfServers(createServers: () => Server[], options?: SelfServersOptions) {
         control.dmesg(`jacdac: register self servers`)
-        if (!jacdac.isSimulator()) {
+        const simulation = options && !!options.simulation
+        if (simulation || !jacdac.isSimulator()) {
             control.dmesg(`jacdac: start self servers`)
             const servers = createServers()
             for (const server of servers) server.start()
