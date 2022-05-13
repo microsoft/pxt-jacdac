@@ -196,7 +196,8 @@ namespace jacdac {
         reattach(dev: Device) {
             dev.lastSeen = control.millis()
             log(
-                `roles: attaching to ${dev.toString()}; cl=${this.unattachedClients.length
+                `roles: attaching to ${dev.toString()}; cl=${
+                    this.unattachedClients.length
                 }/${this.allClients.length}`
             )
             const newClients: Client[] = []
@@ -385,7 +386,9 @@ namespace jacdac {
         variant?: number
         statusCode?: jacdac.SystemStatusCodes
         valuePackFormat?: string
+        value?: number
         intensityPackFormat?: string
+        intensity?: number
         calibrate?: () => void
         constants?: ServerSimpleConstant[]
     }
@@ -421,8 +424,12 @@ namespace jacdac {
                     this._statusCode = options.statusCode & 0xffff
                 this.intensityPackFormat = options.intensityPackFormat
                 this.valuePackFormat = options.valuePackFormat
-                this._intensity = this.intensityPackFormat ? 0 : undefined
-                this._value = this.valuePackFormat ? 0 : undefined
+                this._intensity = this.intensityPackFormat
+                    ? options.intensity || 0
+                    : undefined
+                this._value = this.valuePackFormat
+                    ? options.value || 0
+                    : undefined
                 this.calibrate = options.calibrate
                 this.constants = options.constants
             }
@@ -447,7 +454,11 @@ namespace jacdac {
          * Indicates that the status code is ready and optional enable register is true
          */
         get ready() {
-            return this.running && !this.disabled && this.statusCode == SystemStatusCodes.Ready
+            return (
+                this.running &&
+                !this.disabled &&
+                this.statusCode == SystemStatusCodes.Ready
+            )
         }
 
         get intensity() {
@@ -523,9 +534,16 @@ namespace jacdac {
                 const isGet = pkt.isRegGet
                 if (isGet) {
                     const regCode = pkt.regCode
-                    const constant = this.constants.filter(cst => cst.code === regCode)[0]
+                    const constant = this.constants.filter(
+                        cst => cst.code === regCode
+                    )[0]
                     if (constant) {
-                        this.handleRegValue(pkt, regCode, constant.packFormat, constant.value)
+                        this.handleRegValue(
+                            pkt,
+                            regCode,
+                            constant.packFormat,
+                            constant.value
+                        )
                         return
                     }
                 }
@@ -536,7 +554,7 @@ namespace jacdac {
             this.handlePacket(pkt)
         }
 
-        handlePacket(pkt: JDPacket) { }
+        handlePacket(pkt: JDPacket) {}
 
         isConnected() {
             return this.running
@@ -686,7 +704,9 @@ namespace jacdac {
         }
 
         toString(): string {
-            return `server:${this.instanceName || jacdac.hexNum(this.serviceClass)}.${this.serviceIndex}`
+            return `server:${
+                this.instanceName || jacdac.hexNum(this.serviceClass)
+            }.${this.serviceIndex}`
         }
 
         protected handleRegBool(
@@ -780,9 +800,10 @@ namespace jacdac {
             const dev = bus.selfDevice.toString()
             console.add(
                 logPriority,
-                `${dev}${this.instanceName
-                    ? `.${this.instanceName}`
-                    : `[${this.serviceIndex}]`
+                `${dev}${
+                    this.instanceName
+                        ? `.${this.instanceName}`
+                        : `[${this.serviceIndex}]`
                 }>${text}`
             )
         }
@@ -791,7 +812,7 @@ namespace jacdac {
     class ClientPacketQueue {
         private pkts: Buffer[] = []
 
-        constructor(public readonly parent: Client) { }
+        constructor(public readonly parent: Client) {}
 
         private updateQueue(pkt: JDPacket) {
             const cmd = pkt.serviceCommand
@@ -845,7 +866,7 @@ namespace jacdac {
 
     export class RegisterClient<
         TValues extends PackDataType[]
-        > extends EventSource {
+    > extends EventSource {
         private _data: Buffer
         private _localTime: number
         public readonly flags: RegisterClientFlags
@@ -922,8 +943,7 @@ namespace jacdac {
         }
 
         sendSet() {
-            if (this._data)
-                this.service.setRegBuffer(this.code, this._data)
+            if (this._data) this.service.setRegBuffer(this.code, this._data)
         }
 
         get lastGetTime() {
@@ -1118,7 +1138,7 @@ namespace jacdac {
             this.handlePacket(pkt)
         }
 
-        handlePacket(pkt: JDPacket) { }
+        handlePacket(pkt: JDPacket) {}
 
         _attach(dev: Device, serviceClass: number, serviceNum: number) {
             if (this.device) panic("invalid attach")
@@ -1233,7 +1253,7 @@ namespace jacdac {
             jacdac.bus.destroyClient(this)
         }
 
-        announceCallback() { }
+        announceCallback() {}
     }
 
     // 2 letter + 2 digit ID; 1.8%/0.3%/0.07%/0.015% collision probability among 50/20/10/5 devices
@@ -1252,7 +1272,7 @@ namespace jacdac {
         lastReport = 0
         value: Buffer
         notImplemented: boolean
-        constructor(public reg: number, public serviceIdx: number) { }
+        constructor(public reg: number, public serviceIdx: number) {}
     }
 
     export class Device extends EventSource {
@@ -1342,7 +1362,7 @@ namespace jacdac {
                 if (
                     query.serviceOffset != undefined &&
                     query.serviceOffset ==
-                    this.serviceOffsetAt(serviceClass, serviceIdx)
+                        this.serviceOffsetAt(serviceClass, serviceIdx)
                 ) {
                     log(`role: match ${role} (dev:srvo)`)
                 }
@@ -1388,9 +1408,9 @@ namespace jacdac {
             return serviceIndex == 0
                 ? 0
                 : this.services.getNumber(
-                    NumberFormat.UInt32LE,
-                    serviceIndex << 2
-                )
+                      NumberFormat.UInt32LE,
+                      serviceIndex << 2
+                  )
         }
 
         query(reg: number, refreshRate = 1000, servIdx = 0) {
@@ -1532,7 +1552,7 @@ namespace jacdac {
         }
     }
 
-    function doNothing() { }
+    function doNothing() {}
 
     class ProxyServer extends Server {
         constructor() {
@@ -1627,7 +1647,7 @@ namespace jacdac {
                                     jacdac.ControlRegPack.DeviceDescription,
                                     [
                                         jacdac.deviceDescription ||
-                                        control.programName(),
+                                            control.programName(),
                                     ]
                                 )
                             )
@@ -1967,7 +1987,10 @@ namespace jacdac {
      * Starts a set of servers running on the self device
      * @param servers
      */
-    export function startSelfServers(createServers: () => Server[], options?: SelfServersOptions) {
+    export function startSelfServers(
+        createServers: () => Server[],
+        options?: SelfServersOptions
+    ) {
         control.dmesg(`jacdac: register self servers`)
         const simulation = options && !!options.simulation
         if (simulation || !jacdac.isSimulator()) {
