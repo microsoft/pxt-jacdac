@@ -57,7 +57,6 @@ function jdpackTest() {
         if (expectedPayload !== undefined && expectedPayload !== bufHex)
             throw `jdpack test error: payload ${bufHex}, exected ${expectedPayload}`
 
-        // console.log(fmt, data0, data1, toHex(buf))
         checksame(data0, data1)
     }
 

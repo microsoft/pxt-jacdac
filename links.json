@@ -51,6 +51,7 @@
         "jacdac-vibration-motor": "./vibration-motor",
         "pxt-kitronik-air-quality": "./others/pxt-kitronik-air-quality",
         "pxt-kitronik-zip-64": "./others/pxt-kitronik-zip-64",
-        "tiny-bitlib": "./others/Tiny-bitLib"
+        "tiny-bitlib": "./others/Tiny-bitLib",
+        "pxt-makerbit-motor": "./others/pxt-makerbit-motor"
     }
 }

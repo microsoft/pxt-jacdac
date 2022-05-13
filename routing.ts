@@ -421,7 +421,8 @@ namespace jacdac {
                     this._statusCode = options.statusCode & 0xffff
                 this.intensityPackFormat = options.intensityPackFormat
                 this.valuePackFormat = options.valuePackFormat
-                this._intensity = undefined
+                this._intensity = this.intensityPackFormat ? 0 : undefined
+                this._value = this.valuePackFormat ? 0 : undefined
                 this.calibrate = options.calibrate
                 this.constants = options.constants
             }
@@ -669,9 +670,10 @@ namespace jacdac {
             pkt.markHandled()
             // make sure there's no null/undefined
             if (getset == 1) {
-                this.sendReport(
-                    JDPacket.jdpacked(pkt.serviceCommand, fmt, [current])
-                )
+                if (current != undefined && current != null)
+                    this.sendReport(
+                        JDPacket.jdpacked(pkt.serviceCommand, fmt, [current])
+                    )
             } else {
                 if (register >> 8 == 0x1) return current // read-only
                 const v = pkt.jdunpack(fmt)
@@ -681,6 +683,10 @@ namespace jacdac {
                 }
             }
             return current
+        }
+
+        toString(): string {
+            return `server:${this.instanceName || jacdac.hexNum(this.serviceClass)}.${this.serviceIndex}`
         }
 
         protected handleRegBool(

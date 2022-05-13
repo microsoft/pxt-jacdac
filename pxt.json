@@ -32,7 +32,6 @@
         "pack.ts",
         "service.ts",
         "pipes.ts",
-        "actuator.ts",
         "diagnostics.ts",
         "eventqueue.ts",
         "ns.ts",

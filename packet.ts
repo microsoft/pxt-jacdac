@@ -185,7 +185,8 @@ namespace jacdac {
         }
 
         set data(buf: Buffer) {
-            if (buf.length > JD_SERIAL_MAX_PAYLOAD_SIZE) throw "Too big"
+            if (!buf) buf = control.createBuffer(0)
+            if (buf.length > JD_SERIAL_MAX_PAYLOAD_SIZE) throw "packet data too big"
             this._header[12] = buf.length
             this._data = buf
         }
