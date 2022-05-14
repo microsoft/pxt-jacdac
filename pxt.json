@@ -92,8 +92,8 @@
     "binaryonly": true,
     "extension": {
         "namespace": "modules",
-        "label": "Configure",
-        "group": "Services",
+        "label": "Configure roles",
+        "group": "Roles",
         "url": "https://microsoft.github.io/jacdac-docs/tools/makecode-editor-extension",
         "localUrl": "http://localhost:8000/tools/makecode-editor-extension"
     },
