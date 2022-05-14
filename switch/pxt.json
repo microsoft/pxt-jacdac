@@ -1,6 +1,6 @@
 {
     "name": "jacdac-switch",
-    "version": "0.10.31",
+    "version": "0.10.32",
     "description": "A switch, which keeps its position.",
     "files": [
         "constants.ts",
