@@ -27,7 +27,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Biometric"
-        //% block="%pulseoximeter oxygen"
+        //% block="%pulseoximeter oxygen (%)"
         //% blockId=jacdac_pulseoximeter_oxygen___get
         //% weight=100
         oxygen(): number {

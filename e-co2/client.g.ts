@@ -40,7 +40,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%eco2 e CO2"
+        //% block="%eco2 e CO2 (ppm)"
         //% blockId=jacdac_eco2_e_CO2___get
         //% weight=100
         eCO2(): number {

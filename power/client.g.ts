@@ -139,7 +139,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Power"
-        //% block="%power current draw"
+        //% block="%power current draw (mA)"
         //% blockId=jacdac_power_current_draw___get
         //% weight=95
         currentDraw(): number {

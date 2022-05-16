@@ -37,7 +37,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="DC Current Measurement"
-        //% block="%dccurrentmeasurement measurement"
+        //% block="%dccurrentmeasurement measurement (A)"
         //% blockId=jacdac_dccurrentmeasurement_measurement___get
         //% weight=99
         measurement(): number {

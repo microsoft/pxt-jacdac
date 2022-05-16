@@ -26,7 +26,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Compass"
-        //% block="%compass heading"
+        //% block="%compass heading (°)"
         //% blockId=jacdac_compass_heading___get
         //% weight=100
         heading(): number {

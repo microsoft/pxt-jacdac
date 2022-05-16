@@ -30,7 +30,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Water level"
-        //% block="%waterlevel level"
+        //% block="%waterlevel level (\\%)"
         //% blockId=jacdac_waterlevel_level___get
         //% weight=100
         level(): number {

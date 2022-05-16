@@ -25,7 +25,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%winddirection wind direction"
+        //% block="%winddirection wind direction (°)"
         //% blockId=jacdac_winddirection_wind_direction___get
         //% weight=100
         windDirection(): number {

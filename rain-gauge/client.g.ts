@@ -28,7 +28,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%raingauge precipitation"
+        //% block="%raingauge precipitation (mm)"
         //% blockId=jacdac_raingauge_precipitation___get
         //% weight=100
         precipitation(): number {

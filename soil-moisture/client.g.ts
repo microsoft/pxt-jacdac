@@ -34,7 +34,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%soilmoisture moisture"
+        //% block="%soilmoisture moisture (\\%)"
         //% blockId=jacdac_soilmoisture_moisture___get
         //% weight=100
         moisture(): number {

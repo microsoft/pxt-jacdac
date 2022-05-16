@@ -38,7 +38,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%airqualityindex aqi index"
+        //% block="%airqualityindex aqi index (AQI)"
         //% blockId=jacdac_airqualityindex_aqi_index___get
         //% weight=100
         aqiIndex(): number {

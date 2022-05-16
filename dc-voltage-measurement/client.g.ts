@@ -59,7 +59,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="DC Voltage Measurement"
-        //% block="%dcvoltagemeasurement measurement"
+        //% block="%dcvoltagemeasurement measurement (V)"
         //% blockId=jacdac_dcvoltagemeasurement_measurement___get
         //% weight=98
         measurement(): number {

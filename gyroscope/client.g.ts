@@ -38,7 +38,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Movement"
-        //% block="%gyroscope x"
+        //% block="%gyroscope x (°/s)"
         //% blockId=jacdac_gyroscope_rotation_rates_x_get
         //% weight=100
         x(): number {
@@ -52,7 +52,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Movement"
-        //% block="%gyroscope y"
+        //% block="%gyroscope y (°/s)"
         //% blockId=jacdac_gyroscope_rotation_rates_y_get
         //% weight=99
         y(): number {
@@ -66,7 +66,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Movement"
-        //% block="%gyroscope z"
+        //% block="%gyroscope z (°/s)"
         //% blockId=jacdac_gyroscope_rotation_rates_z_get
         //% weight=98
         z(): number {

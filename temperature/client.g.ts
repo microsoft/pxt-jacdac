@@ -46,7 +46,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%temperature temperature"
+        //% block="%temperature temperature (°C)"
         //% blockId=jacdac_temperature_temperature___get
         //% weight=100
         temperature(): number {

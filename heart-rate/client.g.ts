@@ -37,7 +37,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Biometric"
-        //% block="%heartrate heart rate"
+        //% block="%heartrate heart rate (bpm)"
         //% blockId=jacdac_heartrate_heart_rate___get
         //% weight=100
         heartRate(): number {

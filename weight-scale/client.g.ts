@@ -67,7 +67,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Weight Scale"
-        //% block="%weightscale weight"
+        //% block="%weightscale weight (kg)"
         //% blockId=jacdac_weightscale_weight___get
         //% weight=100
         weight(): number {

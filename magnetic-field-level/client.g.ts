@@ -36,7 +36,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%magneticfieldlevel strength"
+        //% block="%magneticfieldlevel strength (\\%)"
         //% blockId=jacdac_magneticfieldlevel_strength___get
         //% weight=100
         strength(): number {

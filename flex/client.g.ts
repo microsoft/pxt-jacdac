@@ -22,7 +22,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Sensor"
-        //% block="%flex bending"
+        //% block="%flex bending (\\%)"
         //% blockId=jacdac_flex_bending___get
         //% weight=100
         bending(): number {

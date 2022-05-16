@@ -32,7 +32,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%windspeed wind speed"
+        //% block="%windspeed wind speed (m/s)"
         //% blockId=jacdac_windspeed_wind_speed___get
         //% weight=100
         windSpeed(): number {

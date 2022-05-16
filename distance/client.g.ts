@@ -44,7 +44,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Distance"
-        //% block="%distance distance"
+        //% block="%distance distance (m)"
         //% blockId=jacdac_distance_distance___get
         //% weight=100
         distance(): number {

@@ -34,7 +34,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%lightlevel light level"
+        //% block="%lightlevel light level (\\%)"
         //% blockId=jacdac_lightlevel_light_level___get
         //% weight=100
         lightLevel(): number {

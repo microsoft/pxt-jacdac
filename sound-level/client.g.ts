@@ -24,7 +24,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Sound"
-        //% block="%soundlevel sound level"
+        //% block="%soundlevel sound level (\\%)"
         //% blockId=jacdac_soundlevel_sound_level___get
         //% weight=100
         soundLevel(): number {

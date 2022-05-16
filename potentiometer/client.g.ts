@@ -28,7 +28,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Slider"
-        //% block="%potentiometer position"
+        //% block="%potentiometer position (\\%)"
         //% blockId=jacdac_potentiometer_position___get
         //% weight=100
         position(): number {

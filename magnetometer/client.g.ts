@@ -26,7 +26,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Magnetometer"
-        //% block="%magnetomer x"
+        //% block="%magnetomer x (nT)"
         //% blockId=jacdac_magnetomer_forces_x_get
         //% weight=100
         x(): number {
@@ -41,7 +41,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Magnetometer"
-        //% block="%magnetomer y"
+        //% block="%magnetomer y (nT)"
         //% blockId=jacdac_magnetomer_forces_y_get
         //% weight=99
         y(): number {
@@ -56,7 +56,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Magnetometer"
-        //% block="%magnetomer z"
+        //% block="%magnetomer z (nT)"
         //% blockId=jacdac_magnetomer_forces_z_get
         //% weight=98
         z(): number {

@@ -33,7 +33,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%humidity humidity"
+        //% block="%humidity humidity (%RH)"
         //% blockId=jacdac_humidity_humidity___get
         //% weight=100
         humidity(): number {

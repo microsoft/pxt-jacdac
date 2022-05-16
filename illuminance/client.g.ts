@@ -27,7 +27,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%illuminance illuminance"
+        //% block="%illuminance illuminance (lux)"
         //% blockId=jacdac_illuminance_illuminance___get
         //% weight=100
         illuminance(): number {

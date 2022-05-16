@@ -28,7 +28,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%reflectedlight brightness"
+        //% block="%reflectedlight brightness (\\%)"
         //% blockId=jacdac_reflectedlight_brightness___get
         //% weight=100
         brightness(): number {

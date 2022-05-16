@@ -35,7 +35,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%acidity acidity"
+        //% block="%acidity acidity (pH)"
         //% blockId=jacdac_acidity_acidity___get
         //% weight=100
         acidity(): number {

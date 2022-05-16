@@ -30,7 +30,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%uvindex uv index"
+        //% block="%uvindex uv index (uv)"
         //% blockId=jacdac_uvindex_uv_index___get
         //% weight=100
         uvIndex(): number {

@@ -71,7 +71,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Servo"
-        //% block="%servo angle"
+        //% block="%servo angle (°)"
         //% blockId=jacdac_servo_angle___get
         //% weight=100
         angle(): number {
@@ -256,7 +256,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Servo"
-        //% block="%servo actual angle"
+        //% block="%servo actual angle (°)"
         //% blockId=jacdac_servo_actual_angle___get
         //% weight=86
         actualAngle(): number {

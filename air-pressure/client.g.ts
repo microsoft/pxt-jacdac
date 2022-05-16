@@ -25,7 +25,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%airpressure pressure"
+        //% block="%airpressure pressure (hPa)"
         //% blockId=jacdac_airpressure_pressure___get
         //% weight=100
         pressure(): number {

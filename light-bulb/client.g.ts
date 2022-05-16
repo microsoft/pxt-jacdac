@@ -28,7 +28,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Light"
-        //% block="%lightbulb brightness"
+        //% block="%lightbulb brightness (\\%)"
         //% blockId=jacdac_lightbulb_brightness___get
         //% weight=100
         brightness(): number {

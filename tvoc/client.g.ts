@@ -33,7 +33,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%tvoc TVOC"
+        //% block="%tvoc TVOC (ppb)"
         //% blockId=jacdac_tvoc_TVOC___get
         //% weight=100
         tVOC(): number {
