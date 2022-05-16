@@ -1,6 +1,6 @@
 {
     "name": "jacdac-microbit",
-    "version": "0.10.34",
+    "version": "0.10.35",
     "description": "Jacdac servers for micro:bit V2 sensors.",
     "dependencies": {
         "core": "*",
