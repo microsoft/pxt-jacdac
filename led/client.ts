@@ -133,6 +133,8 @@ namespace modules {
         //% callInDebugger
         //% group="Light"
         //% weight=95
+        //% blockId=jacdac_led_num_pixels
+        //% block="%led number of pixels"
         numPixels(): number {
             this.start()
             const values = this._numPixels.pauseUntilValues() as any[]
