@@ -1,6 +1,6 @@
 {
     "name": "jacdac-led-strip",
-    "version": "0.10.37",
+    "version": "0.10.38",
     "description": "MakeCode support for Jacdac LED pixel strips",
     "dependencies": {
         "core": "*",
