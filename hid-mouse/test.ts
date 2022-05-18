@@ -1,4 +1,4 @@
-modules.hidMouse1.onConnected(() => {
+forever(() => {
     modules.hidMouse1.move(50, 0)
     pause(500)
     modules.hidMouse1.move(0, 50)

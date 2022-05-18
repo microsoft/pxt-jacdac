@@ -995,6 +995,13 @@ namespace jacdac {
         readonly serviceOffset: number
     }
 
+    export enum ClientConnectionState {
+        //% block="connected"
+        Connected = 0x1,
+        //% block="disconnected"
+        Disconnected = 0x2,
+    }
+
     //% fixedInstances
     export class Client extends EventSource {
         _device: Device
@@ -1080,8 +1087,8 @@ namespace jacdac {
         /**
          * Indicates if the client is bound to a server
          */
-        //% blockId=jd_client_is_connected block="is %client connected"
-        //% group="Roles" weight=50
+        //% blockId=jd_client_is_connected block="%client connected"
+        //% group="Roles" weight=50 blockGap=8
         //% blockNamespace="modules"
         isConnected() {
             this.start()
@@ -1089,9 +1096,25 @@ namespace jacdac {
         }
 
         /**
+         * Raised when a server is connected or disconnected
+         */
+        //% blockId=jd_client_on_connection_changed block="on %client $state"
+        //% group="Roles" weight=49 blockGap=8
+        //% blockNamespace="modules"
+        onConnectionChanged(state: ClientConnectionState, handler: () => void) {
+            switch (state) {
+                case ClientConnectionState.Connected:
+                    this.onConnected(handler)
+                    break
+                case ClientConnectionState.Disconnected:
+                    this.onDisconnected(handler)
+                    break
+            }
+        }
+
+        /**
          * Raised when a server is connected.
          */
-        //% blockId=jd_client_on_connected block="on %client connected"
         //% group="Roles" weight=49
         //% blockNamespace="modules"
         onConnected(handler: () => void) {
@@ -1104,7 +1127,6 @@ namespace jacdac {
         /**
          * Raised when a server is connected.
          */
-        //% blockId=jd_client_on_disconnected block="on %client disconnected"
         //% group="Roles" weight=48
         //% blockNamespace="modules"
         onDisconnected(handler: () => void) {

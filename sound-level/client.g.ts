@@ -64,7 +64,7 @@ namespace modules {
          */
         //% group="Sound"
         //% blockId=jacdac_soundlevel_on_sound_level_change
-        //% block="on %soundlevel sound level changed by %threshold"
+        //% block="on %soundlevel sound level changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100

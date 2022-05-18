@@ -174,7 +174,12 @@ jdpackTest()
 
 function addClient(cls: number, name: string) {
     console.log(`client: ${name} (${cls})`)
-    new jacdac.Client(cls, name).start()
+    const client = new jacdac.Client(cls, name)
+
+    client.onConnectionChanged(jacdac.ClientConnectionState.Connected, () => console.log(`${name}: connected`))
+    client.onConnectionChanged(jacdac.ClientConnectionState.Disconnected, () => console.log(`${name}: disconnected`))
+
+    client.start()
 }
 addClient(jacdac.SRV_PROTO_TEST, "prototest?dev=self")
 addClient(0x1f140409, "left_leg/acc1")

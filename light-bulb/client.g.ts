@@ -43,7 +43,7 @@ namespace modules {
          */
         //% group="Light"
         //% blockId=jacdac_lightbulb_brightness___set
-        //% block="set %lightbulb brightness to %value"
+        //% block="set %lightbulb brightness to %value (\\%)"
         //% weight=99
         //% value.min=0
         //% value.max=100

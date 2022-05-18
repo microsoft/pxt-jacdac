@@ -81,7 +81,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_humidity_on_humidity_change
-        //% block="on %humidity humidity changed by %threshold"
+        //% block="on %humidity humidity changed by %threshold (%RH)"
         //% weight=96
         //% threshold.min=0
         //% threshold.defl=1

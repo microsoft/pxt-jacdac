@@ -51,7 +51,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_illuminance_on_illuminance_change
-        //% block="on %illuminance illuminance changed by %threshold"
+        //% block="on %illuminance illuminance changed by %threshold (lux)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100000

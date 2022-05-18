@@ -78,7 +78,7 @@ namespace modules {
          */
         //% group="Compass"
         //% blockId=jacdac_compass_on_heading_change
-        //% block="on %compass heading changed by %threshold"
+        //% block="on %compass heading changed by %threshold (°)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=359

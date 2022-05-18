@@ -104,7 +104,7 @@ namespace modules {
          */
         //% group="Distance"
         //% blockId=jacdac_distance_on_distance_change
-        //% block="on %distance distance changed by %threshold"
+        //% block="on %distance distance changed by %threshold (m)"
         //% weight=95
         //% threshold.min=0
         //% threshold.max=4

@@ -106,7 +106,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_temperature_on_temperature_change
-        //% block="on %temperature temperature changed by %threshold"
+        //% block="on %temperature temperature changed by %threshold (°C)"
         //% weight=95
         //% threshold.min=0
         //% threshold.defl=1

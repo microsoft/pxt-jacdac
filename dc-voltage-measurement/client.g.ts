@@ -71,7 +71,7 @@ namespace modules {
          */
         //% group="DC Voltage Measurement"
         //% blockId=jacdac_dcvoltagemeasurement_on_measurement_change
-        //% block="on %dcvoltagemeasurement measurement changed by %threshold"
+        //% block="on %dcvoltagemeasurement measurement changed by %threshold (V)"
         //% weight=97
         //% threshold.min=0
         //% threshold.defl=1

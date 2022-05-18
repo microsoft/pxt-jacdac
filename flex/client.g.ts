@@ -46,7 +46,7 @@ namespace modules {
          */
         //% group="Sensor"
         //% blockId=jacdac_flex_on_bending_change
-        //% block="on %flex bending changed by %threshold"
+        //% block="on %flex bending changed by %threshold (\\%)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100

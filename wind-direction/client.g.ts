@@ -49,7 +49,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_winddirection_on_wind_direction_change
-        //% block="on %winddirection wind direction changed by %threshold"
+        //% block="on %winddirection wind direction changed by %threshold (°)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=359

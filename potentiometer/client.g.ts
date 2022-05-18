@@ -52,7 +52,7 @@ namespace modules {
          */
         //% group="Slider"
         //% blockId=jacdac_potentiometer_on_position_change
-        //% block="on %potentiometer position changed by %threshold"
+        //% block="on %potentiometer position changed by %threshold (\\%)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100

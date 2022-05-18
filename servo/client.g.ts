@@ -85,7 +85,7 @@ namespace modules {
          */
         //% group="Servo"
         //% blockId=jacdac_servo_angle___set
-        //% block="set %servo angle to %value"
+        //% block="set %servo angle to %value (°)"
         //% weight=99
         //% value.min=0
         //% value.max=180
@@ -268,7 +268,7 @@ namespace modules {
          */
         //% group="Servo"
         //% blockId=jacdac_servo_on_actual_angle_change
-        //% block="on %servo actual angle changed by %threshold"
+        //% block="on %servo actual angle changed by %threshold (°)"
         //% weight=85
         //% threshold.min=0
         //% threshold.defl=1

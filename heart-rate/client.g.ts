@@ -73,7 +73,7 @@ namespace modules {
          */
         //% group="Biometric"
         //% blockId=jacdac_heartrate_on_heart_rate_change
-        //% block="on %heartrate heart rate changed by %threshold"
+        //% block="on %heartrate heart rate changed by %threshold (bpm)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=200

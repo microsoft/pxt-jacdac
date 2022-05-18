@@ -189,7 +189,7 @@ namespace modules {
          */
         //% group="Weight Scale"
         //% blockId=jacdac_weightscale_on_weight_change
-        //% block="on %weightscale weight changed by %threshold"
+        //% block="on %weightscale weight changed by %threshold (kg)"
         //% weight=90
         //% threshold.min=0
         //% threshold.defl=1

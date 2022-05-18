@@ -70,7 +70,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_lightlevel_on_light_level_change
-        //% block="on %lightlevel light level changed by %threshold"
+        //% block="on %lightlevel light level changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100

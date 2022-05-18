@@ -66,7 +66,7 @@ namespace modules {
          */
         //% group="Water level"
         //% blockId=jacdac_waterlevel_on_level_change
-        //% block="on %waterlevel level changed by %threshold"
+        //% block="on %waterlevel level changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100

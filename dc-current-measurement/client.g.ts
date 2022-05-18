@@ -49,7 +49,7 @@ namespace modules {
          */
         //% group="DC Current Measurement"
         //% blockId=jacdac_dccurrentmeasurement_on_measurement_change
-        //% block="on %dccurrentmeasurement measurement changed by %threshold"
+        //% block="on %dccurrentmeasurement measurement changed by %threshold (A)"
         //% weight=98
         //% threshold.min=0
         //% threshold.defl=1

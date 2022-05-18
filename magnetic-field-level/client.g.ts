@@ -73,7 +73,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_magneticfieldlevel_on_strength_change
-        //% block="on %magneticfieldlevel strength changed by %threshold"
+        //% block="on %magneticfieldlevel strength changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100

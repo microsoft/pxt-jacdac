@@ -66,7 +66,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_uvindex_on_uv_index_change
-        //% block="on %uvindex uv index changed by %threshold"
+        //% block="on %uvindex uv index changed by %threshold (uv)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=11

@@ -70,7 +70,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_soilmoisture_on_moisture_change
-        //% block="on %soilmoisture moisture changed by %threshold"
+        //% block="on %soilmoisture moisture changed by %threshold (\\%)"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100

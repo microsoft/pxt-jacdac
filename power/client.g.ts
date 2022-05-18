@@ -250,7 +250,7 @@ namespace modules {
          */
         //% group="Power"
         //% blockId=jacdac_power_on_current_draw_change
-        //% block="on %power current draw changed by %threshold"
+        //% block="on %power current draw changed by %threshold (mA)"
         //% weight=87
         //% threshold.min=0
         //% threshold.max=65535

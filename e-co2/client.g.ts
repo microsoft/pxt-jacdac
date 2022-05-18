@@ -100,7 +100,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_eco2_on_e_CO2_change
-        //% block="on %eco2 e CO2 changed by %threshold"
+        //% block="on %eco2 e CO2 changed by %threshold (ppm)"
         //% weight=95
         //% threshold.min=0
         //% threshold.max=8192

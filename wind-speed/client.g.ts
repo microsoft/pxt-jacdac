@@ -68,7 +68,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_windspeed_on_wind_speed_change
-        //% block="on %windspeed wind speed changed by %threshold"
+        //% block="on %windspeed wind speed changed by %threshold (m/s)"
         //% weight=97
         //% threshold.min=0
         //% threshold.defl=1

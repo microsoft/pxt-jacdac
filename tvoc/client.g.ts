@@ -81,7 +81,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_tvoc_on_TVOC_change
-        //% block="on %tvoc TVOC changed by %threshold"
+        //% block="on %tvoc TVOC changed by %threshold (ppb)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=1187

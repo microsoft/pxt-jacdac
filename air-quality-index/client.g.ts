@@ -86,7 +86,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_airqualityindex_on_aqi_index_change
-        //% block="on %airqualityindex aqi index changed by %threshold"
+        //% block="on %airqualityindex aqi index changed by %threshold (AQI)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=500

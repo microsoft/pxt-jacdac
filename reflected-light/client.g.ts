@@ -52,7 +52,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_reflectedlight_on_brightness_change
-        //% block="on %reflectedlight brightness changed by %threshold"
+        //% block="on %reflectedlight brightness changed by %threshold (\\%)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100

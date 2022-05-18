@@ -53,7 +53,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_raingauge_on_precipitation_change
-        //% block="on %raingauge precipitation changed by %threshold"
+        //% block="on %raingauge precipitation changed by %threshold (mm)"
         //% weight=98
         //% threshold.min=0
         //% threshold.defl=1

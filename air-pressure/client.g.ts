@@ -49,7 +49,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_airpressure_on_pressure_change
-        //% block="on %airpressure pressure changed by %threshold"
+        //% block="on %airpressure pressure changed by %threshold (hPa)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=1040

@@ -83,7 +83,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_acidity_on_acidity_change
-        //% block="on %acidity acidity changed by %threshold"
+        //% block="on %acidity acidity changed by %threshold (pH)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=10.5
