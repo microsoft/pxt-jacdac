@@ -38,8 +38,6 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Button"
-        //% block="%button pressure"
-        //% blockId=jacdac_button_pressure___get
         //% weight=100
         pressure(): number {
             return this.reading() * 100
@@ -77,8 +75,6 @@ namespace modules {
          * Run code when the pressure changes by the given threshold value.
          */
         //% group="Button"
-        //% blockId=jacdac_button_on_pressure_change
-        //% block="on %button pressure changed by %threshold"
         //% weight=97
         //% threshold.min=0
         //% threshold.max=100
