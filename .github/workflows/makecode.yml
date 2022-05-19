@@ -53,6 +53,7 @@ jobs:
             - run: cd tools/microbit-oob && makecode
             - run: cd tools/microbit-machine && makecode
             - run: cd tools/farm-beats && makecode
+            - run: ./test-others.sh
             - run: ./copy-release-files.sh
             - name: Upload release files
               uses: actions/upload-artifact@v1
