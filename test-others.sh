@@ -8,7 +8,7 @@ cd others
 for LINE in $LINES
 do
     echo "cloning $LINE"
-    SLUG=${LINE/\/jacdac//}
+    SLUG=${LINE/\/jacdac/ /}
     PROJECT=${SLUG#*/}
     if [[ -d "$PROJECT" ]]
     then
