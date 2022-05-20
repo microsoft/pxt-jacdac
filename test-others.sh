@@ -1,9 +1,7 @@
 #!/bin/sh
 
-set -e
 FILENAME="others.txt"
 LINES=$(cat $FILENAME)
-echo "$LINES"
 mkdir "others"
 cd others
 for LINE in $LINES
