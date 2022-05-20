@@ -1,12 +1,13 @@
 #!/bin/sh
 
+echo "$BASH_VERSION"
 FILENAME="others.txt"
 LINES=$(cat $FILENAME)
 mkdir "others"
 cd others
 for LINE in $LINES
 do
-    echo "cloning ${LINE}"
+    echo "cloning $LINE"
     SLUG=${LINE/\/jacdac//}
     PROJECT=${SLUG#*/}
     if [[ -d "$PROJECT" ]]
@@ -15,7 +16,7 @@ do
         git pull
         cd ..
     else
-        git clone https://github.com/${SLUG}
+        git clone https://github.com/$SLUG
     fi
 done
 mkc build --mono-repo
