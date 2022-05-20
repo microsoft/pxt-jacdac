@@ -1,5 +1,5 @@
-#!/bin/bash
-  
+#!/bin/sh
+
 FILENAME="others.txt"
 LINES=$(cat $FILENAME)
 echo "$LINES"
