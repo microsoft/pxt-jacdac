@@ -389,7 +389,7 @@ namespace jacdac.twins {
                 if (this.services.find(s => s && s.id == newServ.id)) {
                     let i = 2
                     while (
-                        this.services.find(s => s.id == newServ.id + "_" + i)
+                        this.services.find(s => s && s.id == newServ.id + "_" + i)
                     )
                         i++
                     newServ.id += "_" + i
