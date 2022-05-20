@@ -38,6 +38,7 @@ jobs:
             - name: npm install
               run: |
                   npm install -g makecode
+            - run: sh --version
             - run: makecode -u -j --mono-repo -c mkc.json
             - run: makecode -u -j --mono-repo -c mkc-maker.json
             - run: makecode -u -j --mono-repo -c mkc-arcade.json
