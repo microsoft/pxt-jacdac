@@ -8,6 +8,7 @@
         "jacdac-button": "./button",
         "jacdac-buzzer": "./buzzer",
         "jacdac-character-screen": "./character-screen",
+        "jacdac-color": "./color",
         "jacdac-distance": "./distance",
         "jacdac-dual-motors": "./dual-motors",
         "jacdac-e-co2": "./e-co2",
@@ -48,8 +49,10 @@
         "jacdac-humidity": "./humidity",
         "jacdac-uv-index": "./uv-index",
         "jacdac-relay": "./relay",
+        "jacdac-seven-segment-display": "./seven-segment-display",
         "jacdac-soil-moisture": "./soil-moisture",
         "jacdac-switch": "./switch",
+        "jacdac-traffic-light": "./traffic-light",
         "jacdac-vibration-motor": "./vibration-motor",
         "jacdac-wind-speed": "./wind-speed",
 
