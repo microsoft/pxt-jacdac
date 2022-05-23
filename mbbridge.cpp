@@ -85,6 +85,8 @@ static void logq_poke() {
     target_enable_irq();
 }
 
+extern "C" uint32_t __StackTop;
+
 void mbbridge_init() {
     // microbit_panic_timeout(0);
 
@@ -98,6 +100,9 @@ void mbbridge_init() {
     NVIC_EnableIRQ((IRQn_Type)buff->irqn);
 
     pxt::logJDFrame = logFrame;
+
+    // store the address to the top of the exchange buffer at the very bottom of the stack (which is otherwise unused)
+    (&__StackTop)[-1] = (uint32_t)buff;
 }
 
 } // namespace jacdac
