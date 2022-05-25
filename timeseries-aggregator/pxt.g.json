@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-timeseries-aggregator",
+    "version": "0.0.0",
+    "description": "Supports aggregating timeseries data (especially sensor readings)\nand sending them to a cloud/storage service.\nUsed in Jacscript.\n\nNote that `f64` values following a label are not necessarily aligned.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
