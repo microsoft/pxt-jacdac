@@ -39,9 +39,9 @@ function parseMessage(str) {
         buf = fromHex(str);
     else if (str.startsWith("JDBR"))
         buf = str;
-    let off = 8 + 32;
+    let off = 12 + 28;
     const res = {
-        deviceTime: readU32(buf, 4),
+        deviceTime: readU32(buf, 4) + 0x100000000 * readU32(buf, 8),
         readings: {}
     };
     while (off < buf.length) {

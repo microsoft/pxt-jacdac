@@ -46,7 +46,7 @@ Offset | Length | Description
 -------|--------|------------------------
 0      | 4      | "JDBR" - magic
 4      | 8      | current device time in milliseconds
-8      | 32     | reserved, should be 0
+12     | 28     | reserved, should be 0
 40     | ...    | Data
 
 Data is encoded per-service. For every service with readings, we have
@@ -54,7 +54,7 @@ a header consisting of device ID (hex-encoded), followed by byte `':'`,
 followed by service name and byte `0`.
 For example: `"65394841326b6c71:thermometer2\x00"`
 
-Header is followed by `UINT32` that encode the size of the data for that service,
+Header is followed by `UINT32` that encode the size of the following data for that service in bytes,
 and 8 bytes for each data point.
 Each data point consists of `UINT32` and `FLOAT32`.
 The uint encodes time delta (in milliseconds) between
