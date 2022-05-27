@@ -1,6 +1,6 @@
 {
     "name": "jacdac-dc-voltage-measurement",
-    "version": "0.10.44",
+    "version": "0.10.52",
     "description": "A service that reports a voltage measurement.",
     "files": [
         "constants.ts",
