@@ -1,4 +1,6 @@
-pelikhan/pxt-makerbit-motor
+1010Technologies/pxt-makerbit-motor
+monkmakes/monkmakes-7-segment
+mworkfun/pxt-k-bit
 pelikhan/pxt-makerbit-touch
 pelikhan/pxt-makerbit-lcd1602
 pelikhan/pxt-kitronik-air-quality
@@ -13,11 +15,9 @@ pelikhan/pxt-kitronik-servo-lite
 pelikhan/pxt-kitronik-i2c-16-servo
 pelikhan/kitronik-zip-halo-jacdac
 pelikhan/pxt-gamer-bit
-pelikhan/monkmakes-7-segment
 pelikhan/pxt-envirobit
 pelikhan/pxt-weather-bit
 pelikhan/pxt-robotbit
 pelikhan/yahboom-microbit-led-jacdac
-pelikhan/pxt-k-bit
 pelikhan/keystudio-relay-breakout-jacdac
 pelikhan/pxt-dfrobot_maqueenplus_v20
