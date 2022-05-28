@@ -1,8 +1,8 @@
 1010Technologies/pxt-makerbit-motor
+1010Technologies/pxt-makerbit-touch
+1010Technologies/pxt-makerbit-lcd1602
 monkmakes/monkmakes-7-segment
 mworkfun/pxt-k-bit
-pelikhan/pxt-makerbit-touch
-pelikhan/pxt-makerbit-lcd1602
 pelikhan/pxt-kitronik-air-quality
 pelikhan/pxt-kitronik-stopbit
 pelikhan/pxt-kitronik-viewtext32
