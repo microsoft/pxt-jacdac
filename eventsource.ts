@@ -6,8 +6,7 @@ namespace jacdac {
         constructor(
             // use string for parity with JS
             public readonly key: string,
-            public readonly handler: EventHandler,
-            public readonly once: boolean
+            public readonly handler: EventHandler
         ) {}
     }
 
@@ -21,12 +20,8 @@ namespace jacdac {
         constructor() {}
 
         on(eventName: string, handler: EventHandler) {
-            this.addListenerInternal(eventName, handler, false)
+            this.addListenerInternal(eventName, handler)
             return this
-        }
-
-        once(eventName: string, handler: EventHandler) {
-            this.addListenerInternal(eventName, handler, true)
         }
 
         off(eventName: string, handler: EventHandler) {
@@ -34,11 +29,7 @@ namespace jacdac {
             return this
         }
 
-        private addListenerInternal(
-            eventName: string,
-            handler: EventHandler,
-            once: boolean
-        ) {
+        private addListenerInternal(eventName: string, handler: EventHandler) {
             if (!eventName || !handler) {
                 return
             }
@@ -52,7 +43,7 @@ namespace jacdac {
             }
 
             // append to list
-            const listener = new EventListener(eventName, handler, once)
+            const listener = new EventListener(eventName, handler)
             this.listeners.push(listener)
         }
 
@@ -86,7 +77,6 @@ namespace jacdac {
             if (!eventName) return false
 
             // run handlers
-            let someOnce = false
             let useTry = false
 
             for (const listener of this.listeners) {
@@ -95,7 +85,6 @@ namespace jacdac {
 
             for (const listener of this.listeners) {
                 if (listener.key === eventName) {
-                    if (listener.once) someOnce = true
                     const handler = listener.handler
                     if (useTry)
                         try {
@@ -104,21 +93,6 @@ namespace jacdac {
                             this.emit(ERROR, e)
                         }
                     else handler(arg)
-                }
-            }
-
-            // cleanup the "once"
-            // TODO this will not work if handler() above just added a new "once" listener
-            if (someOnce) {
-                let i = 0
-                while (i < this.listeners.length) {
-                    const listener = this.listeners[i]
-                    if (listener.once && listener.key === eventName) {
-                        this.listeners.splice(i, 1)
-                        // no need to increment i
-                    } else {
-                        i++
-                    }
                 }
             }
 
@@ -152,7 +126,7 @@ namespace jacdac {
          * @param next
          */
         subscribe<T>(eventName: string, next: (value: T) => void): () => void {
-            this.addListenerInternal(eventName, next, false)
+            this.addListenerInternal(eventName, next)
             const unsubscribe = () =>
                 this.removeListenerInternal(eventName, next)
             return unsubscribe
