@@ -1011,7 +1011,6 @@ namespace jacdac {
         protected supressLog: boolean
         started: boolean
         protected advertisementData: Buffer
-        private handlers: SMap<(idx?: number) => void>
         protected systemActive = false
 
         protected readonly config: ClientPacketQueue
@@ -1153,7 +1152,7 @@ namespace jacdac {
                     // refresh all non-const registers
                     this.registers.forEach(r => r.reset())
                 this.emit(EVENT, pkt)
-                this.raiseEvent(code, pkt.intData)
+                this.raiseEvent(code)
             } else
                 for (const register of this.registers)
                     register.handlePacket(pkt)
@@ -1229,26 +1228,13 @@ namespace jacdac {
             this.config.send(JDPacket.from(CMD_SET_REG | reg, value))
         }
 
-        protected raiseEvent(value: number, argument: number) {
+        protected raiseEvent(value: number) {
             control.raiseEvent(this.eventId, value)
-            if (this.handlers) {
-                const h = this.handlers[value + ""]
-                if (h) h(argument)
-            }
         }
 
         protected registerEvent(value: number, handler: () => void) {
             this.start()
             control.onEvent(this.eventId, value, handler)
-        }
-
-        protected registerHandler(
-            value: number,
-            handler: (idx: number) => void
-        ) {
-            this.start()
-            if (!this.handlers) this.handlers = {}
-            this.handlers[value + ""] = handler
         }
 
         protected log(text: string) {

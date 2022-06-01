@@ -21,20 +21,6 @@ namespace modules {
             const value = values[index >> 0]
             return value != null ? value : -1
         }
-
-        /**
-         * Runs code when an event happens on the sensor
-         * @param gesture
-         * @param handler
-         */
-        //% blockId=jdmulittouchevent block="on %multiTouch $event at"
-        //% group="Touch"
-        onEvent(
-            event: jacdac.MultitouchEvent,
-            handler: (index: number) => void
-        ) {
-            this.registerHandler(event, handler)
-        }
     }
 
     //% fixedInstance whenUsed
