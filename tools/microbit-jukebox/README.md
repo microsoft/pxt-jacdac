@@ -1,3 +1,2 @@
-# Jacdac Machine - universal experience built with MakeCode clients
+# Micro:bit Jukebox - universal experience built with MakeCode clients
 
-- relay on/off when pressing A+B
