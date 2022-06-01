@@ -1,14 +1,5 @@
 namespace servers {
     /**
-     * Start all or some micro: bit servers
-     */
-    //% blockId=jacdac_microbit_start_all
-    //% block="start all jacdac servers"
-    export function startAll() {
-        start()
-    }
-
-    /**
      * Start all or some micro:bit servers
      * @param options
      */
