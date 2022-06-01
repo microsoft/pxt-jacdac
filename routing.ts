@@ -1002,12 +1002,6 @@ namespace jacdac {
         Disconnected = 0x0102,
     }
 
-    // TODO: this is moving to micro:bit core
-    let _evSource = 0xf000
-    function allocateEventSource() {
-        return ++_evSource
-    }
-
     // All register event value in the clients
     // are shifted by this value
     const CLIENT_EVENT_VALUE_SHIFT = 0xf000
@@ -1033,7 +1027,7 @@ namespace jacdac {
             super()
             if (!role) panic("no role")
 
-            this.eventSource = allocateEventSource()
+            this.eventSource = control.allocateEventSource()
             this.config = new ClientPacketQueue(this)
             this._role = role
         }
