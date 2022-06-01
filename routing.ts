@@ -997,21 +997,27 @@ namespace jacdac {
 
     export enum ClientConnectionState {
         //% block="connected"
-        Connected = 0x1,
+        Connected = 0x0101,
         //% block="disconnected"
-        Disconnected = 0x2,
+        Disconnected = 0x0102,
     }
+
+    // All register event value in the clients
+    // are shifted by this value
+    const CLIENT_EVENT_VALUE_SHIFT = 0xf000
+    function unregisteredNoop() {}
 
     //% fixedInstances
     export class Client extends EventSource {
         _device: Device
-        protected readonly eventId: number
+        protected readonly eventSource: number
         broadcast: boolean // when true, this.device is never set
         serviceIndex: number
         protected supressLog: boolean
         started: boolean
         protected advertisementData: Buffer
         protected systemActive = false
+        private _registeredEvents: number[]
 
         protected readonly config: ClientPacketQueue
         private readonly registers: RegisterClient<PackDataType[]>[] = []
@@ -1021,7 +1027,7 @@ namespace jacdac {
             super()
             if (!role) panic("no role")
 
-            this.eventId = control.allocateNotifyEvent()
+            this.eventSource = control.allocateEventSource()
             this.config = new ClientPacketQueue(this)
             this._role = role
         }
@@ -1101,37 +1107,19 @@ namespace jacdac {
         //% group="Roles" weight=49 blockGap=8
         //% blockNamespace="modules"
         onConnectionChanged(state: ClientConnectionState, handler: () => void) {
-            switch (state) {
-                case ClientConnectionState.Connected:
-                    this.onConnected(handler)
-                    break
-                case ClientConnectionState.Disconnected:
-                    this.onDisconnected(handler)
-                    break
-            }
-        }
+            if (
+                state != ClientConnectionState.Connected &&
+                state != ClientConnectionState.Disconnected
+            )
+                return
 
-        /**
-         * Raised when a server is connected.
-         */
-        //% group="Roles" weight=49
-        //% blockNamespace="modules"
-        onConnected(handler: () => void) {
-            this.start()
-            if (!handler) return
-            this.on(CONNECT, () => control.runInBackground(() => handler()))
-            if (this.isConnected()) handler()
-        }
-
-        /**
-         * Raised when a server is connected.
-         */
-        //% group="Roles" weight=48
-        //% blockNamespace="modules"
-        onDisconnected(handler: () => void) {
-            this.start()
-            if (!handler) return
-            this.on(DISCONNECT, () => control.runInBackground(() => handler()))
+            this.registerEvent(state, handler)
+            const connected = this.isConnected()
+            if (
+                (state == ClientConnectionState.Connected) == connected ||
+                (state == ClientConnectionState.Disconnected) == !connected
+            )
+                this.raiseEvent(state)
         }
 
         requestAdvertisementData() {
@@ -1229,12 +1217,23 @@ namespace jacdac {
         }
 
         protected raiseEvent(value: number) {
-            control.raiseEvent(this.eventId, value)
+            control.raiseEvent(
+                this.eventSource,
+                CLIENT_EVENT_VALUE_SHIFT + value
+            )
         }
 
         protected registerEvent(value: number, handler: () => void) {
             this.start()
-            control.onEvent(this.eventId, value, handler)
+            // keep track of handlers to unregister handlers on destroy
+            if (!this._registeredEvents) this._registeredEvents = []
+            if (this._registeredEvents.indexOf(value) < 0)
+                this._registeredEvents.push(value)
+            control.onEvent(
+                this.eventSource,
+                CLIENT_EVENT_VALUE_SHIFT + value,
+                handler
+            )
         }
 
         protected log(text: string) {
@@ -1258,6 +1257,19 @@ namespace jacdac {
             if (this.device) this.device.clients.removeElement(this)
             this.serviceIndex = null
             this.device = null
+            // register noop in place of existing handlers
+            // to unpin handlers and allow GC; this is not perfect
+            // but full removal of handlers requires deeper changes in CODAL
+            if (this._registeredEvents) {
+                for (const value of this._registeredEvents) {
+                    control.onEvent(
+                        this.eventSource,
+                        CLIENT_EVENT_VALUE_SHIFT + value,
+                        unregisteredNoop
+                    )
+                }
+                this._registeredEvents = undefined
+            }
             jacdac.bus.destroyClient(this)
         }
 
