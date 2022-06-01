@@ -1,1 +1,1 @@
-servers.startAll()
+servers.start()
