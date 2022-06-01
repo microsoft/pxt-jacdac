@@ -1113,11 +1113,18 @@ namespace jacdac {
         //% group="Roles" weight=49 blockGap=8
         //% blockNamespace="modules"
         onConnectionChanged(state: ClientConnectionState, handler: () => void) {
-            if (state == ClientConnectionState.Connected || state == ClientConnectionState.Disconnected)
-                this.registerEvent(state, handler)
+            if (
+                state != ClientConnectionState.Connected &&
+                state != ClientConnectionState.Disconnected
+            )
+                return
+
+            this.registerEvent(state, handler)
             const connected = this.isConnected()
-            if (state == ClientConnectionState.Connected == connected 
-                || state == ClientConnectionState.Disconnected == !connected)
+            if (
+                (state == ClientConnectionState.Connected) == connected ||
+                (state == ClientConnectionState.Disconnected) == !connected
+            )
                 this.raiseEvent(state)
         }
 
@@ -1216,17 +1223,23 @@ namespace jacdac {
         }
 
         protected raiseEvent(value: number) {
-            control.raiseEvent(this.eventSource, CLIENT_EVENT_VALUE_SHIFT + value)
+            control.raiseEvent(
+                this.eventSource,
+                CLIENT_EVENT_VALUE_SHIFT + value
+            )
         }
 
         protected registerEvent(value: number, handler: () => void) {
             this.start()
             // keep track of handlers to unregister handlers on destroy
-            if (!this._registeredEvents)
-                this._registeredEvents = []
+            if (!this._registeredEvents) this._registeredEvents = []
             if (this._registeredEvents.indexOf(value) < 0)
                 this._registeredEvents.push(value)
-            control.onEvent(this.eventSource, CLIENT_EVENT_VALUE_SHIFT + value, handler)
+            control.onEvent(
+                this.eventSource,
+                CLIENT_EVENT_VALUE_SHIFT + value,
+                handler
+            )
         }
 
         protected log(text: string) {
@@ -1254,10 +1267,14 @@ namespace jacdac {
             // to unpin handlers and allow GC; this is not perfect
             // but full removal of handlers requires deeper changes in CODAL
             if (this._registeredEvents) {
-                for(const value of this._registeredEvents) {
-                    control.onEvent(this.eventSource, CLIENT_EVENT_VALUE_SHIFT + value, unregisteredNoop)
+                for (const value of this._registeredEvents) {
+                    control.onEvent(
+                        this.eventSource,
+                        CLIENT_EVENT_VALUE_SHIFT + value,
+                        unregisteredNoop
+                    )
                 }
-                this._registeredEvents = undefined    
+                this._registeredEvents = undefined
             }
             jacdac.bus.destroyClient(this)
         }
