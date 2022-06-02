@@ -29,16 +29,18 @@ namespace jacdac._rolemgr {
     class DeviceWrapper {
         bindings: RoleBinding[] = []
         score = -1
-        constructor(public device: Device) {}
+        constructor(public device: Device) { }
     }
 
     class RoleBinding {
         boundToDev: Device
         boundToServiceIdx: number
 
-        constructor(public readonly role: string, public readonly serviceClass: number) {}
+        constructor(public readonly role: string, public readonly serviceClass: number, public readonly roleQuery: ClientRoleQuery) { }
 
         host() {
+            if (this.roleQuery.device)
+                return this.roleQuery.device
             const slashIdx = this.role.indexOf("/")
             if (slashIdx < 0) return this.role
             else return this.role.slice(0, slashIdx - 1)
@@ -60,7 +62,7 @@ namespace jacdac._rolemgr {
 
     class ServerBindings {
         bindings: RoleBinding[] = []
-        constructor(public host: string) {}
+        constructor(public host: string) { }
 
         get fullyBound() {
             return this.bindings.every(b => b.boundToDev != null)
@@ -150,7 +152,7 @@ namespace jacdac._rolemgr {
                     this.sendReport(
                         JDPacket.jdpacked(
                             jacdac.RoleManagerReg.AllRolesAllocated |
-                                CMD_GET_REG,
+                            CMD_GET_REG,
                             jacdac.RoleManagerRegPack.AllRolesAllocated,
                             [
                                 jacdac.bus.allClients.every(
@@ -204,11 +206,10 @@ namespace jacdac._rolemgr {
             const n = jacdac.bus.allClients.length
             for (let i = 0; i < n; ++i) {
                 const client = jacdac.bus.allClients[i]
-                r += `${client.role || ""}:${
-                    client.broadcast ||
+                r += `${client.role || ""}:${client.broadcast ||
                     (client.device && client.device.deviceId) ||
                     ""
-                }:${client.serviceIndex}`
+                    }:${client.serviceIndex}`
             }
             const buf = Buffer.fromUTF8(r)
             return buf.hash(32)
@@ -216,7 +217,40 @@ namespace jacdac._rolemgr {
 
         bindRoles() {
             if (!this.running) return
+
+            //console.log("bind roles")
+            // sanity check and unbind any self roles if the self device is running
+            for (const cl of jacdac.bus.allClients) {
+                if (!cl.broadcast && cl.role && !!cl.device) {
+                    const query = cl.roleQuery
+                    if (query && query.device === "self") {
+                        // check if we have a server running on this device
+                        // that matches
+                        const serviceClass = cl.serviceClass
+                        const services = jacdac.bus.servers.filter(server => server.serviceClass == serviceClass)
+                        if (services.length) {
+                            if (cl.device != jacdac.bus.selfDevice) {
+                                // we have a server running on this device
+                                // so we can unbind it
+                                //console.log(`unbind role: reassign to self`)
+                                setRole(cl.device.deviceId, cl.serviceIndex, "")
+                            } else {
+                                const serviceOffset = query.serviceOffset
+                                if (!isNaN(serviceOffset) && (
+                                    !services[query.serviceOffset]
+                                    || services[query.serviceOffset].serviceIndex != cl.serviceIndex
+                                )) {
+                                    //console.log(`unbind role: reassign to service offset`)
+                                    setRole(cl.device.deviceId, cl.serviceIndex, "")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             if (jacdac.bus.unattachedClients.length == 0) {
+                //console.log(`all clients bound`)
                 this.checkChanges()
                 return
             }
@@ -229,7 +263,7 @@ namespace jacdac._rolemgr {
 
             for (const cl of jacdac.bus.allClients) {
                 if (!cl.broadcast && cl.role) {
-                    const b = new RoleBinding(cl.role, cl.serviceClass)
+                    const b = new RoleBinding(cl.role, cl.serviceClass, cl.roleQuery)
                     if (cl.device) {
                         b.boundToDev = cl.device
                         b.boundToServiceIdx = cl.serviceIndex
@@ -259,6 +293,8 @@ namespace jacdac._rolemgr {
             // exclude hosts that have already everything bound
             servers = servers.filter(h => !h.fullyBound)
 
+            console.log(`binding: ${servers.length} servers`)
+
             while (servers.length > 0) {
                 // Get host with maximum number of clients (resolve ties by name)
                 // This gives priority to assignment of "more complicated" hosts, which are generally more difficult to assign
@@ -267,28 +303,38 @@ namespace jacdac._rolemgr {
                     (a, b) => a.bindings.length - b.bindings.length,
                     (a, b) => b.host.compare(a.host)
                 )
+                //console.log(`bind server: ${h.host}, ${h.bindings.length} bindings`)
 
-                for (const d of wraps) d.score = h.scoreFor(d)
+                for (const d of wraps) {
+                    d.score = h.scoreFor(d)
+                    //console.log(`bind score: ${d.device.deviceId} ${d.score}`)
+                }
 
                 const dev = maxIn(
                     wraps,
                     (a, b) => a.score - b.score,
                     (a, b) => b.device.deviceId.compare(a.device.deviceId)
                 )
-
                 if (dev.score == 0) {
                     // nothing can be assigned, on any device
+                    //console.log(`bind server: ${h.host}, nothing can be assigned`)
                     servers.removeElement(h)
                     continue
                 }
 
                 // assign services in order of names - this way foo/servo1 will be assigned before foo/servo2
-                // in list of advertised services
-                h.bindings.sort((a, b) => a.role.compare(b.role))
+                // in list of advertised services and svro
+                h.bindings.sort((a, b) => {
+                    let c = a.serviceClass - b.serviceClass
+                    if (c) return c
+                    c = a.roleQuery.serviceOffset - b.roleQuery.serviceOffset
+                    if (c) return c
+                    return a.role.compare(b.role)
+                })
 
                 // "recompute" score, assigning names in process
                 const score = h.scoreFor(dev, true)
-                console.add(jacdac.logPriority, `bind score: ${score} (${h.fullyBound ? "bound" : "needs bindings"})`)
+                //console.log(`bind score: ${score} (${h.fullyBound ? "bound" : "needs bindings"})`)
 
                 // if everything bound on this host, remove it from further consideration
                 if (h.fullyBound) servers.removeElement(h)
