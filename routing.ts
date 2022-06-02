@@ -73,6 +73,9 @@ namespace jacdac {
         addServer(server: Server) {
             server.serviceIndex = this.servers.length
             this.servers.push(server)
+            // reset restart counter to simulate a reset
+            // and force client to update service list
+            this.restartCounter = 0
         }
 
         private gcDevices() {
