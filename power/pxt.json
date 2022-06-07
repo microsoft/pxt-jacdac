@@ -1,6 +1,6 @@
 {
     "name": "jacdac-power",
-    "version": "0.10.59",
+    "version": "0.10.60",
     "description": "A power-provider service.",
     "files": [
         "constants.ts",
