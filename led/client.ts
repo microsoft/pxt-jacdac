@@ -313,7 +313,7 @@ namespace modules {
          * You need to call ``show`` to make the changes visible.
          * @param rgb RGB color of the LED
          */
-        //% blockId="jacdac_leddisplay_set_pixel_color" block="set %display color at %index pixels to %rgb=colorNumberPicker"
+        //% blockId="jacdac_leddisplay_set_pixel_color" block="set %display color at pixel %index to %rgb=colorNumberPicker"
         //% weight=81 blockGap=8
         //% group="LED"
         setPixelColor(index: number, rgb: number) {
@@ -340,10 +340,9 @@ namespace modules {
 
         /**
          * Set all of the pixels on the strip to one RGB color.
-         * You need to call ``show`` to make the changes visible.
          * @param rgb RGB color of the LED
          */
-        //% blockId="jacdac_leddisplay_set_strip_color" block="set %display all pixels to %rgb=colorNumberPicker"
+        //% blockId="jacdac_leddisplay_set_strip_color" block="set %display all to %rgb=colorNumberPicker"
         //% weight=80 blockGap=8
         //% group="LED"
         setAll(rgb: number) {
@@ -364,6 +363,57 @@ namespace modules {
                 pixels[i + 2] = b
             }
             if (dirty) this.setDirty()
+        }
+
+        private _barGraphHigh = 0
+        private _barGraphHighLast = 0
+        /**
+         * Displays a vertical bar graph based on the `value` and `high` value.
+         * If `high` is 0, the chart gets adjusted automatically.
+         * @param value current value to plot
+         * @param high maximum value, eg: 255
+         */
+        //% weight=84
+        //% blockId=jacdac_led_show_bar_graph block="plot %strip bar graph of $value||up to $high"
+        plotBarGraph(value: number, high?: number): void {
+            if (isNaN(value)) {
+                this.clear()
+                this.setDirty()
+                return
+            }
+
+            const n = this.numPixels()
+            const pixels = this._localPixels
+            if (!pixels || n <= 0) return
+
+            value = Math.abs(value)
+            const now = control.millis()
+            // auto-scale "high" is not provided
+            if (high > 0) {
+                this._barGraphHigh = high
+            } else if (
+                value > this._barGraphHigh ||
+                now - this._barGraphHighLast > 10000
+            ) {
+                this._barGraphHigh = value
+                this._barGraphHighLast = now
+            }
+
+            // normalize lack of data to 0..1
+            if (this._barGraphHigh < 16 * Number.EPSILON) this._barGraphHigh = 1
+
+            // normalize value to 0..1
+            const v = value / this._barGraphHigh
+            const dv = 1 / n
+            const n1 = n - 1
+            this.clear()
+            for(let cv = 0, i = 0; cv < v && i < n; ++i) {
+                const b = Math.idiv(i * 0xff, n - 1);
+                pixels[i * 3] = b
+                pixels[i * 3 + 2] = 0xff - b
+                cv += dv
+            }
+            this.setDirty()
         }
 
         /**
@@ -399,6 +449,12 @@ namespace modules {
             if (!pixels) return
             pixels.rotate(-offset * stride)
             this.setDirty()
+        }
+
+        private clear() {
+            const pixels = this._localPixels
+            if (!pixels) return
+            pixels.fill(0, 0, pixels.length)
         }
     }
 
