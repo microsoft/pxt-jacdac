@@ -1,6 +1,6 @@
 {
     "name": "jacdac-controller",
-    "version": "0.10.58",
+    "version": "0.10.59",
     "description": "MakeCode support for Jacdac Controller service",
     "files": [
         "controllerclient.ts"
