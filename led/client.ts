@@ -407,8 +407,8 @@ namespace modules {
             const dv = 1 / n
             const n1 = n - 1
             this.clear()
-            for(let cv = 0, i = 0; cv < v && i < n; ++i) {
-                const b = Math.idiv(i * 0xff, n - 1);
+            for (let cv = 0, i = 0; cv < v && i < n; ++i) {
+                const b = Math.idiv(i * 0xff, n - 1)
                 pixels[i * 3] = b
                 pixels[i * 3 + 2] = 0xff - b
                 cv += dv
