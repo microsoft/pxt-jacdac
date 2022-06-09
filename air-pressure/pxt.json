@@ -1,6 +1,6 @@
 {
     "name": "jacdac-air-pressure",
-    "version": "0.10.60",
+    "version": "0.10.61",
     "description": "A sensor measuring air pressure of outside environment.",
     "files": [
         "constants.ts",
