@@ -26,6 +26,7 @@
         "jacdac-led-strip": "./led-strip",
         "jacdac-led-single": "./led-single",
         "jacdac-light-level": "./light-level",
+        "jacdac-magnetic-field-level": "./magnetic-field-level",
         "jacdac-light-bulb": "./light-bulb",
         "jacdac-microbit": "./devices/microbit",
         "jacdac-motor": "./motor",
