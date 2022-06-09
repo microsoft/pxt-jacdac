@@ -76,14 +76,35 @@ namespace machine {
 // tone player
 namespace machine {
     let nextTone: number
+    let nextWaveShape = WaveShape.Square
+    let nextToneEffect = SoundExpressionEffect.Tremolo
+    let nextToneInterpolation = InterpolationCurve.Linear
+
     function startTonePlayer() {
         music.stopAllSounds()
         control.runInBackground(() => {
             while (nextTone) {
                 const t = nextTone
                 nextTone = 0
-                machine.microbit.playTone(t)
-                music.playTone(t, music.beat(BeatFraction.Half))
+
+                machine.microbit.playTone(Math.abs(t))
+
+                // 2.0 sound effects
+                const duration = music.beat(BeatFraction.Half)
+                const startf = t >= 0 ? t : 0
+                const endf = t < 0 ? -t : 0
+                const effect = music.createSoundEffect(
+                    nextWaveShape,
+                    startf,
+                    endf,
+                    255,
+                    0,
+                    duration,
+                    nextToneEffect,
+                    nextToneInterpolation
+                )
+                music.playSoundEffect(effect, SoundExpressionPlayMode.UntilDone)
+
                 basic.pause(20)
             }
         })
@@ -97,7 +118,7 @@ namespace machine {
         const fmin = 200
         const fmax = 10000
         const f = Math.map(Math.abs(value), 0, max, fmin, fmax)
-        scheduleTone(f)
+        scheduleTone(Math.sign(value) * f)
     }
 
     export function plot(value: number, max: number) {
