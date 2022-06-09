@@ -38,6 +38,7 @@
         "led.ts",
         "potentiometer.ts",
         "magneticfieldlevel.ts",
+        "lightlevel.ts",
         "relay.ts",
         "rotaryencoder.ts",
         "servo.ts",
