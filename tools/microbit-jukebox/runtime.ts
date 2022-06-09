@@ -9,6 +9,7 @@ namespace machine {
     export const EVENT_B = "event_b"
     export const EVENT_AB = "event_ab"
     export const EVENT_TONE = "event_tone"
+    export const POT_CHANGE = "pot_change"
 
     class MicrobitMachine extends jacdac.EventSource {
         tone: number
@@ -38,7 +39,7 @@ namespace machine {
         onClient(
             client: jacdac.Client,
             eventName: string,
-            handler: () => void
+            handler: (arg?: any) => void
         ) {
             const unsub = this.subscribe(eventName, handler)
             client.on(jacdac.DISCONNECT, unsub)
