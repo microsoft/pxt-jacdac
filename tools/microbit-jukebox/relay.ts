@@ -10,4 +10,5 @@ machine.addClientFactory(jacdac.SRV_RELAY, devid => {
             else basic.showIcon(IconNames.No, 0)
         })
     })
+    return client
 })

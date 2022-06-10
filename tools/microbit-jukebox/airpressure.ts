@@ -4,4 +4,5 @@ machine.addClientFactory(jacdac.SRV_AIR_PRESSURE, devid => {
         const reading = client.pressure()
         machine.showNumber(IconNames.Chessboard, reading)
     })
+    return client
 })

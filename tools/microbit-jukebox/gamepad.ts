@@ -22,5 +22,6 @@ machine.addClientFactory(jacdac.SRV_GAMEPAD, devid => {
         // if (Math.abs(x) > 0.1 || Math.abs(y) > 0.1)
         //    mouseMove(x * maxSpeed, y * maxSpeed)
     })
+    return client
 })
 

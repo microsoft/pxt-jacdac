@@ -18,4 +18,5 @@ machine.addClientFactory(jacdac.SRV_SERVO, devid => {
             client.setAngle(angle)
         }
     )
+    return client
 })

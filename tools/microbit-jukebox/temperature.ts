@@ -4,4 +4,5 @@ machine.addClientFactory(jacdac.SRV_TEMPERATURE, devid => {
         const value = client.temperature()
         machine.showNumber(IconNames.House, value)
     })
+    return client
 })

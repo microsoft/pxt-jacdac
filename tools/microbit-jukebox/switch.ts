@@ -6,4 +6,5 @@ machine.addClientFactory(jacdac.SRV_SWITCH, devid => {
     client.onOff(() => {
         basic.showIcon(IconNames.Yes, 0)
     })
+    return client
 })
