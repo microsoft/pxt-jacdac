@@ -4,4 +4,5 @@ machine.addClientFactory(jacdac.SRV_HUMIDITY, devid => {
         const reading = client.humidity()
         machine.showNumber(IconNames.Umbrella, reading)
     })
+    return client
 })

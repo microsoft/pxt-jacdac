@@ -4,4 +4,5 @@ machine.addClientFactory(jacdac.SRV_BUZZER, devid => {
         const tone = machine.microbit.tone
         client.playTone(tone, 100)
     })
+    return client
 })

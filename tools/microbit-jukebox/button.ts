@@ -29,7 +29,7 @@ const buttonNotes = [
     Note.C5,
 ]
 let buttonIndex = 0
-machine.addClientFactory(jacdac.SRV_BUTTON, devid => {
+machine.addClientFactory(jacdac.SRV_BUTTON, (devid, srvid, options) => {
     const bi = buttonIndex++
     const down = buttonDownIcons[bi % buttonDownIcons.length]
     const hold = buttonHoldIcons[bi % buttonHoldIcons.length]
@@ -41,9 +41,10 @@ machine.addClientFactory(jacdac.SRV_BUTTON, devid => {
     })
     client.onDown(() => {
         basic.showIcon(down, 0)
-        machine.scheduleTone(tone)
+        machine.scheduleTone(tone, options)
     })
     client.onHold(() => {
         basic.showIcon(hold, 0)
     })
+    return client
 })

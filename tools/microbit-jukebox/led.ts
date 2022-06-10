@@ -25,4 +25,5 @@ machine.addClientFactory(jacdac.SRV_LED, devid => {
         }
     })
     client.setPixelColor(1, 0x00ff00)
+    return client
 })

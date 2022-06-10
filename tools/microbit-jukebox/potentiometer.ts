@@ -1,8 +1,9 @@
-machine.addClientFactory(jacdac.SRV_POTENTIOMETER, devid => {
+machine.addClientFactory(jacdac.SRV_POTENTIOMETER, (devid, srvid, options) => {
     const client = new modules.PotentiometerClient(devid)
     client.onPositionChangedBy(5, () => {
         const current = client.position()
-        machine.plot(current, 100)
+        machine.plot(current, 100, options)
         machine.microbit.emit(machine.POT_CHANGE, current)
     })
+    return client
 })

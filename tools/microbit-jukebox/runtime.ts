@@ -76,16 +76,17 @@ namespace machine {
 // tone player
 namespace machine {
     let nextTone: number
-    let nextWaveShape = WaveShape.Square
-    let nextToneEffect = SoundExpressionEffect.Tremolo
-    let nextToneInterpolation = InterpolationCurve.Linear
+    let nextToneOptions: SonifyOptions
 
     function startTonePlayer() {
         music.stopAllSounds()
         control.runInBackground(() => {
-            while (nextTone) {
+            while (nextToneOptions) {
                 const t = nextTone
+                const options = nextToneOptions
+
                 nextTone = 0
+                nextToneOptions = undefined
 
                 machine.microbit.playTone(Math.abs(t))
 
@@ -94,14 +95,14 @@ namespace machine {
                 const startf = t >= 0 ? t : 0
                 const endf = t < 0 ? -t : 0
                 const effect = music.createSoundEffect(
-                    nextWaveShape,
+                    options.waveShape,
                     startf,
                     endf,
                     255,
                     0,
                     duration,
-                    nextToneEffect,
-                    nextToneInterpolation
+                    options.effect,
+                    options.interpolation
                 )
                 music.playSoundEffect(effect, SoundExpressionPlayMode.UntilDone)
 
@@ -109,21 +110,30 @@ namespace machine {
             }
         })
     }
-    export function scheduleTone(f: number) {
+    export function scheduleTone(f: number, options: SonifyOptions) {
         nextTone = f
+        nextToneOptions = options
         startTonePlayer()
     }
 
-    export function sonify(value: number, max: number) {
+    export class SonifyOptions {
+        constructor(
+            public waveShape: WaveShape,
+            public effect: SoundExpressionEffect,
+            public interpolation: InterpolationCurve
+        ) {}
+    }
+
+    function sonify(value: number, max: number, options: SonifyOptions) {
         const fmin = 200
         const fmax = 10000
         const f = Math.map(Math.abs(value), 0, max, fmin, fmax)
-        scheduleTone(Math.sign(value) * f)
+        scheduleTone(Math.sign(value) * f, options)
     }
 
-    export function plot(value: number, max: number) {
+    export function plot(value: number, max: number, options: SonifyOptions) {
         led.plotBarGraph(value, max)
-        machine.sonify(value, max)
+        sonify(value, max, options)
     }
 }
 
@@ -207,14 +217,22 @@ namespace machine {
     class ClientFactory {
         constructor(
             public serviceClass: number,
-            public handler: (devid: string, serviceIndex: number) => void
+            public handler: (
+                devid: string,
+                serviceIndex: number,
+                sonifyOptions: SonifyOptions
+            ) => jacdac.Client
         ) {}
     }
     const factories: ClientFactory[] = []
 
     export function addClientFactory(
         serviceClass: number,
-        handler: (devid: string, serviceIndex: number) => void
+        handler: (
+            devid: string,
+            serviceIndex: number,
+            sonifyOptions: SonifyOptions
+        ) => jacdac.Client
     ) {
         console.log(`modules: register ${serviceClass}`)
         factories.push(new ClientFactory(serviceClass, handler))
@@ -224,10 +242,23 @@ namespace machine {
         if (devices) devices.forEach(startClients)
     }
 
-    function startClient(d: jacdac.Device, serviceIndex: number) {
+    function startClient(
+        d: jacdac.Device,
+        serviceIndex: number
+    ): jacdac.Client {
         const serviceClass = d.serviceClassAt(serviceIndex)
         const factory = factories.find(f => f.serviceClass === serviceClass)
-        if (factory) return factory.handler(d.deviceId, serviceIndex)
+        if (factory) {
+            // waveshape: 0..4
+            // effect: 0..3
+            // interpoliation: 0..2
+            const sonifyOptions = new SonifyOptions(
+                <WaveShape>Math.randomRange(0, 4),
+                <SoundExpressionEffect>Math.randomRange(0, 3),
+                <InterpolationCurve>Math.randomRange(0, 2),
+            )
+            return factory.handler(d.deviceId, serviceIndex, sonifyOptions)
+        }
         return null
     }
 

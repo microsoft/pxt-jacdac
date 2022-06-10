@@ -6,4 +6,5 @@ machine.addClientFactory(jacdac.SRV_ACCELEROMETER, devid => {
     client.onTiltRight(() => basic.showArrow(ArrowNames.East))
     client.onTiltUp(() => basic.showArrow(ArrowNames.North))
     client.onTiltDown(() => basic.showArrow(ArrowNames.South))
+    return client
 })
