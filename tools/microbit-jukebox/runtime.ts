@@ -81,7 +81,7 @@ namespace machine {
     function startTonePlayer() {
         music.stopAllSounds()
         control.runInBackground(() => {
-            while (nextToneOptions) {
+            while (nextTone && nextToneOptions) {
                 const t = nextTone
                 const options = nextToneOptions
 
@@ -98,8 +98,8 @@ namespace machine {
                     options.waveShape,
                     startf,
                     endf,
-                    255,
-                    0,
+                    options.startVolume,
+                    255 - options.startVolume,
                     duration,
                     options.effect,
                     options.interpolation
@@ -120,7 +120,8 @@ namespace machine {
         constructor(
             public waveShape: WaveShape,
             public effect: SoundExpressionEffect,
-            public interpolation: InterpolationCurve
+            public interpolation: InterpolationCurve,
+            public startVolume: number
         ) {}
     }
 
@@ -255,7 +256,8 @@ namespace machine {
             const sonifyOptions = new SonifyOptions(
                 <WaveShape>Math.randomRange(0, 4),
                 <SoundExpressionEffect>Math.randomRange(0, 3),
-                <InterpolationCurve>Math.randomRange(0, 2),
+                <InterpolationCurve>Math.randomRange(0, 1),
+                Math.randomRange(0, 255)
             )
             return factory.handler(d.deviceId, serviceIndex, sonifyOptions)
         }
