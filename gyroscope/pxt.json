@@ -1,6 +1,6 @@
 {
     "name": "jacdac-gyroscope",
-    "version": "0.10.67",
+    "version": "1.8.13",
     "description": "A 3-axis gyroscope.",
     "files": [
         "constants.ts",
