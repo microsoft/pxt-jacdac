@@ -75,6 +75,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="uv index1"
     export const uvIndex1 = new UvIndexClient("uv Index1")
 }

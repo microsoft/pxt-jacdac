@@ -92,6 +92,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="acidity1"
     export const acidity1 = new AcidityClient("acidity1")
 }

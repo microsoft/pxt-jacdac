@@ -145,4 +145,7 @@ namespace modules {
     }
     //% fixedInstance whenUsed weight=1 block="button1"
     export const button1 = new ButtonClient("button1")
+
+    //% fixedInstance whenUsed weight=2 block="button2"
+    export const button2 = new ButtonClient("button2")
 }

@@ -114,6 +114,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="temperature1"
     export const temperature1 = new TemperatureClient("temperature1")
 }

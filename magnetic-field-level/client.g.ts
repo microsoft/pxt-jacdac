@@ -110,8 +110,14 @@ namespace modules {
             this.registerEvent(jacdac.MagneticFieldLevelEvent.Inactive, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="magnetic field level1"
     export const magneticFieldLevel1 = new MagneticFieldLevelClient(
         "magnetic Field Level1"
+    )
+
+    //% fixedInstance whenUsed weight=2 block="magnetic field level2"
+    export const magneticFieldLevel2 = new MagneticFieldLevelClient(
+        "magnetic Field Level2"
     )
 }

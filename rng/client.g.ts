@@ -53,6 +53,7 @@ namespace modules {
             return values[0]
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="rng1"
     export const rng1 = new RngClient("rng1")
 }

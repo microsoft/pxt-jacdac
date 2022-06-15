@@ -233,6 +233,7 @@ namespace modules {
             this.registerEvent(jacdac.AccelerometerEvent.Force8g, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="accelerometer1"
     export const accelerometer1 = new AccelerometerClient("accelerometer1")
 }

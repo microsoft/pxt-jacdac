@@ -61,6 +61,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="rain gauge1"
     export const rainGauge1 = new RainGaugeClient("rain Gauge1")
 }

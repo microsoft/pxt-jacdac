@@ -57,6 +57,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="dc current measurement1"
     export const dcCurrentMeasurement1 = new DcCurrentMeasurementClient(
         "dc Current Measurement1"

@@ -276,6 +276,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="servo1"
     export const servo1 = new ServoClient("servo1")
 }

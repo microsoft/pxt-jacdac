@@ -82,6 +82,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="heart rate1"
     export const heartRate1 = new HeartRateClient("heart Rate1")
 }

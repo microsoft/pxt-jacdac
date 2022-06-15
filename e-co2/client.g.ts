@@ -109,6 +109,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="e co21"
     export const eCO21 = new ECO2Client("e CO21")
 }

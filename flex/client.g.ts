@@ -55,6 +55,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="flex1"
     export const flex1 = new FlexClient("flex1")
 }

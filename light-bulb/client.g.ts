@@ -67,6 +67,7 @@ namespace modules {
             return !!values[0]
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="light bulb1"
     export const lightBulb1 = new LightBulbClient("light Bulb1")
 }

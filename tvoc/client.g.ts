@@ -90,6 +90,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="tvoc1"
     export const tvoc1 = new TvocClient("tvoc1")
 }

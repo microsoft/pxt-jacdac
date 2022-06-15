@@ -60,6 +60,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="illuminance1"
     export const illuminance1 = new IlluminanceClient("illuminance1")
 }

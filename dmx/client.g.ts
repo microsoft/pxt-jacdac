@@ -61,6 +61,7 @@ namespace modules {
             )
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="dmx1"
     export const dmx1 = new DmxClient("dmx1")
 }

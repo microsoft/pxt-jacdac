@@ -75,6 +75,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="water level1"
     export const waterLevel1 = new WaterLevelClient("water Level1")
 }

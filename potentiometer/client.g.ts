@@ -61,6 +61,10 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="potentiometer1"
     export const potentiometer1 = new PotentiometerClient("potentiometer1")
+
+    //% fixedInstance whenUsed weight=2 block="potentiometer2"
+    export const potentiometer2 = new PotentiometerClient("potentiometer2")
 }

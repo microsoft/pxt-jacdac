@@ -79,6 +79,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="soil moisture1"
     export const soilMoisture1 = new SoilMoistureClient("soil Moisture1")
 }

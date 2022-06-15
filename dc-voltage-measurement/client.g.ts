@@ -79,6 +79,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="dc voltage measurement1"
     export const dcVoltageMeasurement1 = new DcVoltageMeasurementClient(
         "dc Voltage Measurement1"

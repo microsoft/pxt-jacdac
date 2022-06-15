@@ -58,6 +58,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="air pressure1"
     export const airPressure1 = new AirPressureClient("air Pressure1")
 }

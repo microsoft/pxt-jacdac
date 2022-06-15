@@ -64,6 +64,7 @@ namespace modules {
             return values[0]
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="solenoid1"
     export const solenoid1 = new SolenoidClient("solenoid1")
 }

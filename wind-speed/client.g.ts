@@ -76,6 +76,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="wind speed1"
     export const windSpeed1 = new WindSpeedClient("wind Speed1")
 }

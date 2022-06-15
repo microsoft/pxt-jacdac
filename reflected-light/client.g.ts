@@ -61,6 +61,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="reflected light1"
     export const reflectedLight1 = new ReflectedLightClient("reflected Light1")
 }

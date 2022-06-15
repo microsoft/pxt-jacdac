@@ -73,6 +73,7 @@ namespace modules {
             this.onReadingChangedBy(threshold / 100, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="sound level1"
     export const soundLevel1 = new SoundLevelClient("sound Level1")
 }

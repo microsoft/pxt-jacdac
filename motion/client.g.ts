@@ -101,6 +101,7 @@ namespace modules {
             this.registerEvent(jacdac.MotionEvent.Movement, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="motion1"
     export const motion1 = new MotionClient("motion1")
 }

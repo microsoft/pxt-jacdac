@@ -71,6 +71,10 @@ namespace modules {
             this.registerEvent(jacdac.SwitchEvent.Off, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="switch1"
     export const switch_1 = new SwitchClient("switch1")
+
+    //% fixedInstance whenUsed weight=2 block="switch2"
+    export const switch_2 = new SwitchClient("switch2")
 }

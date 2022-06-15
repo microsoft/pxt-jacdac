@@ -60,6 +60,7 @@ namespace modules {
             this.onReadingChangedBy(threshold, handler)
         }
     }
+
     //% fixedInstance whenUsed weight=1 block="pulse oximeter1"
     export const pulseOximeter1 = new PulseOximeterClient("pulse Oximeter1")
 }
