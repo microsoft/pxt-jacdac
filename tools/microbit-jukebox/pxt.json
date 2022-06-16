@@ -1,6 +1,6 @@
 {
     "name": "jacdac-microbit-jukebox",
-    "version": "1.8.13",
+    "version": "1.8.14",
     "description": "",
     "dependencies": {
         "core": "*",
