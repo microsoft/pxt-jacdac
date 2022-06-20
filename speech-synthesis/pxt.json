@@ -1,6 +1,6 @@
 {
     "name": "jacdac-speech-synthesis",
-    "version": "1.8.15",
+    "version": "1.8.16",
     "description": "A speech synthesizer",
     "files": [
         "constants.ts",
