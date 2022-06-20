@@ -1,6 +1,6 @@
 {
     "name": "jacdac-light-bulb",
-    "version": "1.8.14",
+    "version": "1.8.15",
     "description": "A light bulb controller.",
     "files": [
         "constants.ts",
