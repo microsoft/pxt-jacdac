@@ -75,5 +75,12 @@ function parseMessage(str) {
     return res;
 }
 
-const msg = parseMessage(require("fs").readFileSync(process.argv[2], "utf-8"))
+let arg = process.argv[2]
+if (!arg) {
+    console.log("usage: node bin-parser.js <file|message>")
+    process.exit(1)
+}
+if (arg.length < 80)
+    arg = require("fs").readFileSync(arg, "utf-8")
+const msg = parseMessage(arg)
 console.log(JSON.stringify(msg, null, 2))
