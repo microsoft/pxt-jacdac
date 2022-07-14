@@ -6,6 +6,7 @@ namespace jacdac {
     export const JD_SERVICE_INDEX_CRC_ACK = 0x3f
     export const JD_SERVICE_INDEX_PIPE = 0x3e
     export const JD_SERVICE_INDEX_CTRL = 0x00
+    export const JD_SERVICE_INDEX_BROADCAST = 0x3d
 
     // the COMMAND flag signifies that the device_identifier is the recipient
     // (i.e., it's a command for the peripheral); the bit clear means device_identifier is the source
@@ -15,6 +16,12 @@ namespace jacdac {
     export const JD_FRAME_FLAG_ACK_REQUESTED = 0x02
     // the device_identifier contains target service class number
     export const JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS = 0x04
+    // set on frames not received from the JD-wire
+    export const JD_FRAME_FLAG_LOOPBACK = 0x40
+    // when set, the packet may have different layout and should be dropped
+    export const JD_FRAME_FLAG_VNEXT = 0x80
+
+    export const JD_DEVICE_IDENTIFIER_BROADCAST_HIGH_MARK = 0xaaaaaaaa
 
     const ACK_RETRIES = 4
     const ACK_DELAY = 40
@@ -101,8 +108,7 @@ namespace jacdac {
         }
         set deviceIdentifier(id: string) {
             const idb = Buffer.fromHex(id)
-            if (idb.length == 8)
-                this._header.write(4, idb)
+            if (idb.length == 8) this._header.write(4, idb)
         }
 
         get packetFlags() {
@@ -164,7 +170,7 @@ namespace jacdac {
         get eventCounter() {
             return this.isEvent
                 ? (this.serviceCommand >> CMD_EVENT_COUNTER_POS) &
-                CMD_EVENT_COUNTER_MASK
+                      CMD_EVENT_COUNTER_MASK
                 : undefined
         }
 
@@ -186,7 +192,8 @@ namespace jacdac {
 
         set data(buf: Buffer) {
             if (!buf) buf = control.createBuffer(0)
-            if (buf.length > JD_SERIAL_MAX_PAYLOAD_SIZE) throw "packet data too big"
+            if (buf.length > JD_SERIAL_MAX_PAYLOAD_SIZE)
+                throw "packet data too big"
             this._header[12] = buf.length
             this._data = buf
         }
@@ -246,8 +253,14 @@ namespace jacdac {
         }
 
         toString(): string {
-            let msg = `${this._header ? this._header.toHex() : ""} ${jacdac.shortDeviceId(this.deviceIdentifier)}[${this.serviceIndex}]: ${hexNum(this.serviceCommand, 4)} crc=${hexNum(this.crc, 2)}, flags=${hexNum(this.packetFlags, 1)}, sz=${this.size
-                }`
+            let msg = `${
+                this._header ? this._header.toHex() : ""
+            } ${jacdac.shortDeviceId(this.deviceIdentifier)}[${
+                this.serviceIndex
+            }]: ${hexNum(this.serviceCommand, 4)} crc=${hexNum(
+                this.crc,
+                2
+            )}, flags=${hexNum(this.packetFlags, 1)}, sz=${this.size}`
             if (this.size < 20) msg += ": " + this.data.toHex()
             else msg += ": " + this.data.slice(0, 20).toHex() + "..."
             return msg
@@ -261,7 +274,8 @@ namespace jacdac {
         }
 
         _sendCore() {
-            if (this._data.length != this._header[12]) panic("packet size mismatch")
+            if (this._data.length != this._header[12])
+                panic("packet size mismatch")
             jacdac.__physSendPacket(this._header, this._data)
             bus.processPacket(this) // handle loop-back packet
         }
@@ -289,7 +303,12 @@ namespace jacdac {
                 JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS |
                 JD_FRAME_FLAG_COMMAND
             this._header.setNumber(NumberFormat.UInt32LE, 4, serviceClass)
-            this._header.setNumber(NumberFormat.UInt32LE, 8, 0)
+            this._header.setNumber(
+                NumberFormat.UInt32LE,
+                8,
+                JD_DEVICE_IDENTIFIER_BROADCAST_HIGH_MARK
+            )
+            this.serviceIndex = JD_SERVICE_INDEX_BROADCAST
             this._sendCore()
         }
 
