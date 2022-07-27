@@ -51,7 +51,6 @@ static void init_log_pins() {
     }
 }
 
-
 REAL_TIME_FUNC
 static inline void log_pin_set_core(unsigned line, int v) {
     if (line >= NUM_LOG_PINS)
@@ -258,14 +257,11 @@ int uart_start_tx(const void *data, uint32_t numbytes) {
     }
     sws->p.eventOn(DEVICE_PIN_EVENT_NONE);
     int val = sws->p.getDigitalValue();
-    target_enable_irq();
-
     // try to pull the line low, provided it currently reads as high
     if (val == 0 || sws->p.getAndSetDigitalValue(0)) {
         // we failed - the line was low - start reception
         // jd_line_falling() would normally execute from EXTI, which has high
         // priority - we simulate this by completely disabling IRQs
-        target_disable_irq();
         jd_line_falling();
         target_enable_irq();
         return -1;
@@ -281,6 +277,8 @@ int uart_start_tx(const void *data, uint32_t numbytes) {
     pin_pulse();
 
     sws->sendDMA((uint8_t *)data, numbytes);
+    target_enable_irq();
+
     return 0;
 }
 
