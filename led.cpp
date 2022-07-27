@@ -96,11 +96,12 @@ void _setLedChannel(int ch, uint16_t val) {
         led_init = INITED;
         int lr = getConfig(CFG_PIN_LED_R, -1);
         if (lr == -1) {
-            lr = getConfig(CFG_PIN_LED, 0);
+            lr = getConfig(CFG_PIN_LED, -1);
             // assume LED_G,B are also undefined
             leds[0].pinid = leds[1].pinid = leds[2].pinid = lr;
             led_init |= SINGLE_LED;
-            setup_pwm_pin(&leds[0]);
+            if (lr != -1)
+                setup_pwm_pin(&leds[0]);
         } else {
             leds[0].pinid = lr;
             leds[1].pinid = PIN(LED_G);
@@ -117,8 +118,9 @@ void _setLedChannel(int ch, uint16_t val) {
     leds[ch].value = val;
 
     if (led_init & SINGLE_LED) {
-        set_pwm_level(&leds[0],
-                      (leds[0].value + leds[1].value + leds[1].value + leds[2].value) >> 2);
+        if (leds[0].pinid != 0xff)
+            set_pwm_level(&leds[0],
+                          (leds[0].value + leds[1].value + leds[1].value + leds[2].value) >> 2);
     } else {
         set_pwm_level(&leds[ch], leds[ch].value);
     }
