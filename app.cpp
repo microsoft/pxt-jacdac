@@ -23,16 +23,15 @@ static inline void raiseEvent(int src, int val) {
 #endif
 }
 
-
 #define MAX_RX 10
 #define MAX_TX 10
 
 static LinkedFrame *volatile rxQ;
 static LinkedFrame *volatile txQ;
 static LinkedFrame *superFrameRX;
+static bool data_ready_rised;
 
-extern "C" REAL_TIME_FUNC
-jd_frame_t *app_pull_frame() {
+extern "C" REAL_TIME_FUNC jd_frame_t *app_pull_frame() {
     target_disable_irq();
     jd_frame_t *res = NULL;
     if (txQ) {
@@ -100,7 +99,10 @@ extern "C" int app_handle_frame(jd_frame_t *frame) {
     if (copyAndAppend(&rxQ, frame, MAX_RX) < 0) {
         return -1;
     } else {
-        raiseEvent(DEVICE_ID, EVT_DATA_READY);
+        if (!data_ready_rised) {
+            data_ready_rised = true;
+            raiseEvent(DEVICE_ID, EVT_DATA_READY);
+        }
         return 0;
     }
 }
@@ -161,18 +163,21 @@ Buffer __physGetPacket() {
         superFrameRX = NULL;
     }
 
-    if (!superFrameRX && rxQ) {
+    if (!superFrameRX) {
         target_disable_irq();
         if ((superFrameRX = rxQ) != NULL)
             rxQ = rxQ->next;
+        if (!superFrameRX)
+            data_ready_rised = false;
         target_enable_irq();
+
+        if (!superFrameRX)
+            return NULL;
+
         if (pxt::logJDFrame && !(superFrameRX->frame.flags & FRAME_EXT_FLAG) &&
             !isFloodPingReport((jd_packet_t *)&superFrameRX->frame))
             pxt::logJDFrame((uint8_t *)&superFrameRX->frame);
     }
-
-    if (!superFrameRX)
-        return NULL;
 
     auto pkt = (jd_packet_t *)&superFrameRX->frame;
     return mkBuffer(pkt, JD_SERIAL_FULL_HEADER_SIZE + pkt->service_size);
