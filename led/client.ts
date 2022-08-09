@@ -74,6 +74,9 @@ namespace modules {
                     jacdac.RegisterClientFlags.Const
             )
 
+            // render again when number of pixels known
+            this._numPixels.on(jacdac.REPORT_UPDATE, () => this.show())
+
             // maximum size (may be reduced on call to show)
             this._localPixels = Buffer.create(
                 jacdac.CONST_LED_MAX_PIXELS_LENGTH * 3
@@ -298,14 +301,14 @@ namespace modules {
         show() {
             this.start()
             const numPixels = this.numPixels()
-            if (numPixels > 0 && numPixels * 3 !== this._localPixels.length) {
+            if (!isNaN(numPixels) && numPixels > 0 && numPixels * 3 !== this._localPixels.length) {
                 // create a new buffer of the correct length and copy over
                 const newBuf = Buffer.create(numPixels * 3)
                 newBuf.write(0, this._localPixels)
                 this._localPixels = newBuf
             }
             this._pixels.values = [this._localPixels] as [Buffer]
-            this._dirty = false
+            this._dirty = isNaN(numPixels)
         }
 
         /**
