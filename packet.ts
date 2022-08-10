@@ -66,6 +66,14 @@ namespace jacdac {
             return JDPacket.from(serviceCommand, Buffer.create(0))
         }
 
+        static fromFrameless(frameless: Buffer) {
+            const p = new JDPacket()
+            p._header = Buffer.create(JD_SERIAL_HEADER_SIZE)
+            p._header.write(12, frameless)
+            p._data = frameless.slice(4)
+            return p
+        }
+
         static jdpacked(serviceCommand: number, fmt: string, nums: any[]) {
             return JDPacket.from(serviceCommand, jdpack(fmt, nums))
         }
@@ -215,21 +223,30 @@ namespace jacdac {
             return (p || []) as T
         }
 
-        compress(stripped: Buffer[]) {
+        // the algorithm is now correct but we hit "size mismatch" assert
+        // we really would need a frame type
+        _compress(stripped: Buffer[]) {
             if (stripped.length == 0) return
             let sz = -4
             for (let s of stripped) {
-                sz += s.length
+                // serial.writeLine(`${s.length} ${s[0]} cmd=${s.getNumber(NumberFormat.UInt16LE, 2)}`)
+                sz += align(s.length)
             }
+            if (sz > JD_SERIAL_MAX_PAYLOAD_SIZE) throw "too much queued"
+            // serial.writeLine(`comp: sz=${sz} ${stripped.length} parts`)
             const data = Buffer.create(sz)
             this._header.write(12, stripped[0])
             data.write(0, stripped[0].slice(4))
-            sz = stripped[0].length - 4
+            sz = align(stripped[0].length) - 4
             for (let s of stripped.slice(1)) {
                 data.write(sz, s)
-                sz += s.length
+                sz += align(s.length)
             }
-            this.data = data
+            this._data = data
+
+            function align(n: number) {
+                return (n + 3) & ~3
+            }
         }
 
         withFrameStripped() {
