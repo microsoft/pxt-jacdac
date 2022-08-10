@@ -1,6 +1,6 @@
 {
     "name": "jacdac-wifi",
-    "version": "1.8.19",
+    "version": "1.8.20",
     "description": "MakeCode support for Jacdac Wifi service",
     "files": [
         "constants.ts",
