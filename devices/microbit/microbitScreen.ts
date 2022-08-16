@@ -59,15 +59,25 @@ namespace servers {
                 this.handleRegValue(packet, regCode, "u16", 5)
             } else if (regCode == DotMatrixReg.Brightness) {
                 const b = this.handleRegValue(
-                        packet,
-                        regCode,
-                        "u0.8",
-                        led.brightness() / 255.0
-                    )
+                    packet,
+                    regCode,
+                    "u0.8",
+                    led.brightness() / 255.0
+                )
                 if (packet.isRegSet)
                     led.setBrightness(b * 0xff)
             } else if (regCode === DotMatrixReg.Variant) {
                 this.handleRegValue(packet, regCode, "u8", DotMatrixVariant.LED)
+            } else if (packet.regCode === DotMatrixReg.Brightness) {
+                const b = led.brightness() / 255.0
+                const nb = this.handleRegValue(
+                    packet,
+                    packet.regCode,
+                    "u0.8",
+                    b
+                )
+                if (b !== nb)
+                    led.setBrightness(nb << 8)
             } else {
                 packet.possiblyNotImplemented()
             }
