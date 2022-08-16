@@ -301,7 +301,11 @@ namespace modules {
         show() {
             this.start()
             const numPixels = this.numPixels()
-            if (!isNaN(numPixels) && numPixels > 0 && numPixels * 3 !== this._localPixels.length) {
+            if (
+                !isNaN(numPixels) &&
+                numPixels > 0 &&
+                numPixels * 3 !== this._localPixels.length
+            ) {
                 // create a new buffer of the correct length and copy over
                 const newBuf = Buffer.create(numPixels * 3)
                 newBuf.write(0, this._localPixels)

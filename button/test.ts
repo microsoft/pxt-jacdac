@@ -21,6 +21,6 @@ modules.button4.onDown(() => console.log("down4"))
 modules.button4.onHold(() => console.log("hold4"))
 
 //forever(() => {
- //   console.log(`${modules.button1.pressed()} ${modules.button2.pressed()} ${modules.button3.pressed()} ${modules.button4.pressed()}`)
- //   pause(500)
+//   console.log(`${modules.button1.pressed()} ${modules.button2.pressed()} ${modules.button3.pressed()} ${modules.button4.pressed()}`)
+//   pause(500)
 //})
