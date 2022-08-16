@@ -1,7 +1,26 @@
+namespace modules {
+    //% fixedInstance whenUsed weight=2 block="button3"
+    export const button3 = new ButtonClient("button3")
+    //% fixedInstance whenUsed weight=2 block="button4"
+    export const button4 = new ButtonClient("button4")
+}
 modules.button1.onUp(() => console.log("up"))
 modules.button1.onDown(() => console.log("down"))
 modules.button1.onHold(() => console.log("hold"))
-forever(() => {
-    console.log(modules.button1.pressed() ? "pressed" : "released")
-    pause(500)
-})
+
+modules.button2.onUp(() => console.log("up2"))
+modules.button2.onDown(() => console.log("down2"))
+modules.button2.onHold(() => console.log("hold2"))
+
+modules.button3.onUp(() => console.log("up3"))
+modules.button3.onDown(() => console.log("down3"))
+modules.button3.onHold(() => console.log("hold3"))
+
+modules.button4.onUp(() => console.log("up4"))
+modules.button4.onDown(() => console.log("down4"))
+modules.button4.onHold(() => console.log("hold4"))
+
+//forever(() => {
+ //   console.log(`${modules.button1.pressed()} ${modules.button2.pressed()} ${modules.button3.pressed()} ${modules.button4.pressed()}`)
+ //   pause(500)
+//})

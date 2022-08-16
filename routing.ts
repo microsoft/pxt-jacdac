@@ -236,6 +236,10 @@ namespace jacdac {
                 )
                 for (const cc of this.unattachedClients) {
                     if (cc.serviceClass == serviceClass) {
+                        console.add(
+                            jacdac.logPriority,
+                            `reattach: ${cc.role} -> ${dev.shortId}:${i >> 2}`
+                        )
                         if (cc._attach(dev, serviceClass, i >> 2)) break
                     }
                 }
