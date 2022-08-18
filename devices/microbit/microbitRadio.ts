@@ -105,7 +105,7 @@ namespace servers {
     }
 
     export class RadioServer extends jacdac.Server {
-        readonly enabled = true
+        enabled = true
         group = 1
         transmissionPower = 6
 
@@ -126,7 +126,17 @@ namespace servers {
 
         public handlePacket(pkt: jacdac.JDPacket) {
             // registers
-            this.handleRegBool(pkt, BitRadioReg.Enabled, this.enabled)
+            const oldEnabled = this.enabled
+            this.enabled = this.handleRegBool(
+                pkt,
+                BitRadioReg.Enabled,
+                this.enabled
+            )
+            if (oldEnabled != this.enabled) {
+                if (!this.enabled) radio.off()
+                else radio.on()
+            }
+
             const oldGroup = this.group
             this.group = this.handleRegValue(
                 pkt,
