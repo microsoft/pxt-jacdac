@@ -44,7 +44,8 @@ static void set_pwm_level(LedInfo *led, uint16_t level) {
     CHK(ledc_set_duty_with_hpoint(LEDC_LOW_SPEED_MODE, (ledc_channel_t)(led->ch), level >> 6, 0));
     CHK(ledc_update_duty(LEDC_LOW_SPEED_MODE, (ledc_channel_t)(led->ch)));
 #else
-    led->pinobj->setAnalogValue(level >> 6);
+    if (led->pinobj)
+        led->pinobj->setAnalogValue(level >> 6);
 #endif
 }
 
@@ -81,8 +82,10 @@ static void setup_pwm_pin(LedInfo *led) {
     set_pwm_level(led, 0);
 #else
     led->pinobj = pxt::lookupPin(pin);
-    led->pinobj->setAnalogPeriodUs(2000);
-    set_pwm_level(led, 0);
+    if (led->pinobj) {
+        led->pinobj->setAnalogPeriodUs(2000);
+        set_pwm_level(led, 0);
+    }
 #endif
 }
 #endif
