@@ -1,11 +1,11 @@
-machine.addClientFactory(jacdac.SRV_SERVO, devid => {
-    const client = new modules.ServoClient(devid)
+machine.addClientFactory(jacdac.SRV_SERVO, (devid, srvid) => {
+    const client = new modules.ServoClient(`${devid}:${srvid}`)
     machine.microbit.onControlEvent(
         client,
         EventBusSource.MICROBIT_ID_BUTTON_A,
         EventBusValue.MICROBIT_BUTTON_EVT_DOWN,
         () => {
-            const angle = client.minAngle() || 0
+            const angle = client.minAngle() || -90
             client.setAngle(angle)
         }
     )
@@ -14,7 +14,7 @@ machine.addClientFactory(jacdac.SRV_SERVO, devid => {
         EventBusSource.MICROBIT_ID_BUTTON_A,
         EventBusValue.MICROBIT_BUTTON_EVT_UP,
         () => {
-            const angle = client.maxAngle() || 180
+            const angle = client.maxAngle() || 90
             client.setAngle(angle)
         }
     )

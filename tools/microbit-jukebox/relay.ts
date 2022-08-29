@@ -1,5 +1,5 @@
-machine.addClientFactory(jacdac.SRV_RELAY, devid => {
-    const client = new modules.RelayClient(devid)
+machine.addClientFactory(jacdac.SRV_RELAY, (devid, srvid) => {
+    const client = new modules.RelayClient(`${devid}:${srvid}`)
     machine.microbit.onClient(client, machine.EVENT_AB, () => {
         const active = !client.active()
         client.setActive(active)
