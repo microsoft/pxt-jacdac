@@ -26,6 +26,7 @@
         "jacdac-relay": "github:microsoft/pxt-jacdac/relay",
         "jacdac-switch": "github:microsoft/pxt-jacdac/switch",
         "jacdac-distance": "github:microsoft/pxt-jacdac/distance",
+        "jacdac-vibration-motor": "github:microsoft/pxt-jacdac/vibration-motor",
         "whaleysans": "github:makecode-extensions/WhaleySansFont#v1.1.0"
     },
     "files": [
@@ -46,6 +47,7 @@
         "switch.ts",
         "temperature.ts",
         "distance.ts",
+        "vibrationmotor.ts",
         "README.md"
     ],
     "targetVersions": {
