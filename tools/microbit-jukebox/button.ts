@@ -34,7 +34,7 @@ machine.addClientFactory(jacdac.SRV_BUTTON, (devid, srvid, options) => {
     const down = buttonDownIcons[bi % buttonDownIcons.length]
     const hold = buttonHoldIcons[bi % buttonHoldIcons.length]
     const tone = buttonNotes[bi % buttonNotes.length]
-    const client = new modules.ButtonClient(devid)
+    const client = new modules.ButtonClient(`${devid}:${srvid}`)
     // todo mouse
     client.onUp(() => {
         basic.clearScreen()

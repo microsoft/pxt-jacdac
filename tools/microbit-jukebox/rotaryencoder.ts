@@ -1,5 +1,5 @@
 machine.addClientFactory(jacdac.SRV_ROTARY_ENCODER, (devid, srvid, options) => {
-    const client = new modules.RotaryEncoderClient(devid)
+    const client = new modules.RotaryEncoderClient(`${devid}:${srvid}`)
     let currentPosition = client.position()
     if (!currentPosition) currentPosition = 0
     client.onPositionChanged(() => {

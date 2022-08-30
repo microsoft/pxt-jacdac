@@ -1,5 +1,5 @@
-machine.addClientFactory(jacdac.SRV_SWITCH, devid => {
-    const client = new modules.SwitchClient(devid)
+machine.addClientFactory(jacdac.SRV_SWITCH, (devid, srvid) => {
+    const client = new modules.SwitchClient(`${devid}:${srvid}`)
     client.onOff(() => {
         basic.showIcon(IconNames.No, 0)
     })
