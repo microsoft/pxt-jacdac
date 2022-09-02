@@ -5,6 +5,9 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class DcCurrentMeasurementClient extends jacdac.SimpleSensorClient {
         private readonly _measurementName: jacdac.RegisterClient<[string]>
+        private readonly _measurementError: jacdac.RegisterClient<[number]>
+        private readonly _minMeasurement: jacdac.RegisterClient<[number]>
+        private readonly _maxMeasurement: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
             super(
@@ -17,6 +20,23 @@ namespace modules {
                 jacdac.DcCurrentMeasurementReg.MeasurementName,
                 jacdac.DcCurrentMeasurementRegPack.MeasurementName,
                 jacdac.RegisterClientFlags.Const
+            )
+            this._measurementError = this.addRegister<[number]>(
+                jacdac.DcCurrentMeasurementReg.MeasurementError,
+                jacdac.DcCurrentMeasurementRegPack.MeasurementError,
+                jacdac.RegisterClientFlags.Optional
+            )
+            this._minMeasurement = this.addRegister<[number]>(
+                jacdac.DcCurrentMeasurementReg.MinMeasurement,
+                jacdac.DcCurrentMeasurementRegPack.MinMeasurement,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
+            )
+            this._maxMeasurement = this.addRegister<[number]>(
+                jacdac.DcCurrentMeasurementReg.MaxMeasurement,
+                jacdac.DcCurrentMeasurementRegPack.MaxMeasurement,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 
@@ -45,12 +65,48 @@ namespace modules {
         }
 
         /**
+         * Absolute error on the reading value.
+         */
+        //% callInDebugger
+        //% group="DC Current Measurement"
+        //% weight=98
+        measurementError(): number {
+            this.start()
+            const values = this._measurementError.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
+         * Minimum measurable current
+         */
+        //% callInDebugger
+        //% group="DC Current Measurement"
+        //% weight=97
+        minMeasurement(): number {
+            this.start()
+            const values = this._minMeasurement.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
+         * Maximum measurable current
+         */
+        //% callInDebugger
+        //% group="DC Current Measurement"
+        //% weight=96
+        maxMeasurement(): number {
+            this.start()
+            const values = this._maxMeasurement.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
          * Run code when the measurement changes by the given threshold value.
          */
         //% group="DC Current Measurement"
         //% blockId=jacdac_dccurrentmeasurement_on_measurement_change
         //% block="on %dccurrentmeasurement measurement changed by %threshold (A)"
-        //% weight=98
+        //% weight=95
         //% threshold.min=0
         //% threshold.defl=1
         onMeasurementChangedBy(threshold: number, handler: () => void): void {

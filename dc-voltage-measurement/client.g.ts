@@ -8,6 +8,9 @@ namespace modules {
             [jacdac.DcVoltageMeasurementVoltageMeasurementType]
         >
         private readonly _measurementName: jacdac.RegisterClient<[string]>
+        private readonly _measurementError: jacdac.RegisterClient<[number]>
+        private readonly _minMeasurement: jacdac.RegisterClient<[number]>
+        private readonly _maxMeasurement: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
             super(
@@ -27,6 +30,23 @@ namespace modules {
                 jacdac.DcVoltageMeasurementReg.MeasurementName,
                 jacdac.DcVoltageMeasurementRegPack.MeasurementName,
                 jacdac.RegisterClientFlags.Const
+            )
+            this._measurementError = this.addRegister<[number]>(
+                jacdac.DcVoltageMeasurementReg.MeasurementError,
+                jacdac.DcVoltageMeasurementRegPack.MeasurementError,
+                jacdac.RegisterClientFlags.Optional
+            )
+            this._minMeasurement = this.addRegister<[number]>(
+                jacdac.DcVoltageMeasurementReg.MinMeasurement,
+                jacdac.DcVoltageMeasurementRegPack.MinMeasurement,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
+            )
+            this._maxMeasurement = this.addRegister<[number]>(
+                jacdac.DcVoltageMeasurementReg.MaxMeasurement,
+                jacdac.DcVoltageMeasurementRegPack.MaxMeasurement,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 
@@ -67,12 +87,48 @@ namespace modules {
         }
 
         /**
+         * Absolute error on the reading value.
+         */
+        //% callInDebugger
+        //% group="DC Voltage Measurement"
+        //% weight=97
+        measurementError(): number {
+            this.start()
+            const values = this._measurementError.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
+         * Minimum measurable current
+         */
+        //% callInDebugger
+        //% group="DC Voltage Measurement"
+        //% weight=96
+        minMeasurement(): number {
+            this.start()
+            const values = this._minMeasurement.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
+         * Maximum measurable current
+         */
+        //% callInDebugger
+        //% group="DC Voltage Measurement"
+        //% weight=95
+        maxMeasurement(): number {
+            this.start()
+            const values = this._maxMeasurement.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
          * Run code when the measurement changes by the given threshold value.
          */
         //% group="DC Voltage Measurement"
         //% blockId=jacdac_dcvoltagemeasurement_on_measurement_change
         //% block="on %dcvoltagemeasurement measurement changed by %threshold (V)"
-        //% weight=97
+        //% weight=94
         //% threshold.min=0
         //% threshold.defl=1
         onMeasurementChangedBy(threshold: number, handler: () => void): void {
