@@ -1,6 +1,6 @@
 {
     "name": "jacdac-acidity",
-    "version": "1.8.23",
+    "version": "1.8.24",
     "description": "A sensor measuring water acidity, commonly called pH.",
     "files": [
         "constants.ts",
