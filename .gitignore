@@ -9,7 +9,7 @@ _site
 *.tgz
 .header.json
 .simstate.json
-docs/assets/js/binary-local.js
+docs/assets/js/*-local.js
 dist
 others
 *.gts
