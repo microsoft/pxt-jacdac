@@ -5,6 +5,8 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class SoundLevelClient extends jacdac.SimpleSensorClient {
         private readonly _enabled: jacdac.RegisterClient<[boolean]>
+        private readonly _loudThreshold: jacdac.RegisterClient<[number]>
+        private readonly _quietThreshold: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
             super(
@@ -16,6 +18,14 @@ namespace modules {
             this._enabled = this.addRegister<[boolean]>(
                 jacdac.SoundLevelReg.Enabled,
                 jacdac.SoundLevelRegPack.Enabled
+            )
+            this._loudThreshold = this.addRegister<[number]>(
+                jacdac.SoundLevelReg.LoudThreshold,
+                jacdac.SoundLevelRegPack.LoudThreshold
+            )
+            this._quietThreshold = this.addRegister<[number]>(
+                jacdac.SoundLevelReg.QuietThreshold,
+                jacdac.SoundLevelRegPack.QuietThreshold
             )
         }
 
@@ -60,17 +70,99 @@ namespace modules {
         }
 
         /**
+         * Set level at which the `loud` event is generated.
+         */
+        //% callInDebugger
+        //% group="Sound"
+        //% weight=97
+        loudThreshold(): number {
+            this.start()
+            const values = this._loudThreshold.pauseUntilValues() as any[]
+            return values[0] * 100
+        }
+
+        /**
+         * Set level at which the `loud` event is generated.
+         */
+        //% group="Sound"
+        //% weight=96
+        //% value.min=0
+        //% value.max=100
+        //% value.defl=100
+        setLoudThreshold(value: number) {
+            this.start()
+            const values = this._loudThreshold.values as any[]
+            values[0] = value / 100
+            this._loudThreshold.values = values as [number]
+        }
+
+        /**
+         * Set level at which the `quiet` event is generated.
+         */
+        //% callInDebugger
+        //% group="Sound"
+        //% weight=95
+        quietThreshold(): number {
+            this.start()
+            const values = this._quietThreshold.pauseUntilValues() as any[]
+            return values[0] * 100
+        }
+
+        /**
+         * Set level at which the `quiet` event is generated.
+         */
+        //% group="Sound"
+        //% weight=94
+        //% value.min=0
+        //% value.max=100
+        //% value.defl=100
+        setQuietThreshold(value: number) {
+            this.start()
+            const values = this._quietThreshold.values as any[]
+            values[0] = value / 100
+            this._quietThreshold.values = values as [number]
+        }
+
+        /**
          * Run code when the sound level changes by the given threshold value.
          */
         //% group="Sound"
         //% blockId=jacdac_soundlevel_on_sound_level_change
         //% block="on %soundlevel sound level changed by %threshold (\\%)"
-        //% weight=97
+        //% weight=93
         //% threshold.min=0
         //% threshold.max=100
         //% threshold.defl=5
         onSoundLevelChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold / 100, handler)
+        }
+
+        /**
+         * Register code to run when an event is raised
+         */
+        //% group="Sound"
+        //% blockId=jacdac_on_soundlevel_event
+        //% block="on %soundlevel %event"
+        //% weight=92
+        onEvent(ev: jacdac.SoundLevelEvent, handler: () => void): void {
+            this.registerEvent(ev, handler)
+        }
+
+        /**
+         * Generated when a loud sound is detected.
+         */
+        //% group="Sound"
+        //% weight=91
+        onLoud(handler: () => void): void {
+            this.registerEvent(jacdac.SoundLevelEvent.Loud, handler)
+        }
+        /**
+         * Generated low level of sound is detected.
+         */
+        //% group="Sound"
+        //% weight=90
+        onQuiet(handler: () => void): void {
+            this.registerEvent(jacdac.SoundLevelEvent.Quiet, handler)
         }
     }
 
