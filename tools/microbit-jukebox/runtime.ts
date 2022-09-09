@@ -210,7 +210,7 @@ namespace machine {
             // this device was previously connected
             // and clients are already instantiated for it
             jacdac.bus.unattachedClients.some(
-                client => client.roleName === d.deviceId
+                client => client.roleName.indexOf(d.deviceId) === 0
             )
         )
     }
@@ -257,7 +257,7 @@ namespace machine {
                 <WaveShape>Math.randomRange(0, 4),
                 <SoundExpressionEffect>Math.randomRange(0, 3),
                 <InterpolationCurve>Math.randomRange(0, 1),
-                Math.randomRange(0, 255)
+                Math.randomRange(100, 255)
             )
             return factory.handler(d.deviceId, serviceIndex, sonifyOptions)
         }
