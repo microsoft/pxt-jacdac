@@ -54,10 +54,10 @@ namespace modules {
          * Enables the display if needed.
          * @param text Braille ASCII or Unicode Braille characters to display
          */
-        //% blockId=jacdac_brailledisplay_set_patterns_text block="set %brailledisplay text to %text"
+        //% blockId=jacdac_brailledisplay_set_patterns_text block="show %brailledisplay string %text"
         //% group="Display"
         //% weight=100
-        setText(text: string) {
+        showString(text: string) {
             const brailled = brailify(text)
             this.setPatterns(brailled)
             if (text) this.setEnabled(true)
@@ -67,11 +67,11 @@ namespace modules {
          * Displays the number.
          * Enables the display if needed.
          */
-        //% blockId=jacdac_brailledisplay_set_patterns_number block="set %brailledisplay number to %text"
+        //% blockId=jacdac_brailledisplay_set_patterns_number block="show %brailledisplay number %text"
         //% group="Display"
         //% weight=99
-        setNumber(value: number) {
-            this.setText(isNaN(value) ? "?" : value.toString())
+        showNumber(value: number) {
+            this.showString(isNaN(value) ? "?" : value.toString())
         }
 
         /**
