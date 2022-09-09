@@ -100,9 +100,11 @@
         >
         </iframe>
         <script type="text/javascript">
-            const tool = /tool=microbit-(oob|jukebox)/.test(window.location)
+            const tool = /tool=microbit-oob/i.test(window.location)
                 ? "microbit-oob"
-                : /tool=multitool/.test(window.location)
+                : /tool=microbit-jukebox/i.test(window.location)
+                ? "microbit-jukebox"
+                : /tool=multitool/i.test(window.location)
                 ? "multitool"
                 : "binary"
             const local = /^http:\/\/localhost:/.test(window.location.href)
