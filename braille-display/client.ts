@@ -50,7 +50,7 @@ namespace modules {
         }
 
         /**
-         * Sets the patterns displayed as Braille ASCII or Unicode Braille characters.
+         * Sets the text as Braille ASCII or Unicode Braille characters.
          * Enables the display if needed.
          * @param text Braille ASCII or Unicode Braille characters to display
          */
@@ -58,11 +58,20 @@ namespace modules {
         //% group="Display"
         //% weight=100
         setText(text: string) {
-            const length = this.length()
-            let brailled = brailify(text)
-            if (length > 0) brailled = brailled.slice(0, length)
+            const brailled = brailify(text)
             this.setPatterns(brailled)
             if (text) this.setEnabled(true)
+        }
+
+        /**
+         * Displays the number.
+         * Enables the display if needed.
+         */
+        //% blockId=jacdac_brailledisplay_set_patterns_number block="set %brailledisplay number to %text"
+        //% group="Display"
+        //% weight=99
+        setNumber(value: number) {
+            this.setText(isNaN(value) ? "?" : value.toString())
         }
 
         /**
@@ -72,7 +81,7 @@ namespace modules {
         //% group="Display"
         //% block="%brailledisplay enabled"
         //% blockId=jacdac_brailledisplay_enabled___get
-        //% weight=99
+        //% weight=90
         enabled(): boolean {
             this.start()
             const values = this._enabled.pauseUntilValues() as any[]
@@ -85,7 +94,7 @@ namespace modules {
         //% group="Display"
         //% blockId=jacdac_brailledisplay_enabled___set
         //% block="set %brailledisplay %value=toggleOnOff"
-        //% weight=98
+        //% weight=89
         setEnabled(value: boolean) {
             this.start()
             const values = this._enabled.values as any[]
