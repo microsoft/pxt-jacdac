@@ -9,7 +9,7 @@ namespace machine {
     export const EVENT_B = "event_b"
     export const EVENT_AB = "event_ab"
     export const EVENT_TONE = "event_tone"
-    export const POT_CHANGE = "pot_change"
+    export const VALUE_CHANGE = "value_change"
 
     class MicrobitMachine extends jacdac.EventSource {
         tone: number

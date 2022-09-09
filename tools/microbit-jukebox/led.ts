@@ -11,8 +11,8 @@ machine.addClientFactory(jacdac.SRV_LED, (devid, srvid) => {
         client.rotate(-1)
     })
 
-    machine.microbit.onClient(client, machine.POT_CHANGE, (pos: number) => {
-        client.setBrightness(pos)
+    machine.microbit.onClient(client, machine.VALUE_CHANGE, (value: number) => {
+        client.setBrightness(value)
     })
 
     machine.microbit.onClient(client, machine.EVENT_AB, () => {

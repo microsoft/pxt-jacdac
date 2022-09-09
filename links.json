@@ -5,6 +5,7 @@
         "jacdac-air-pressure": "./air-pressure",
         "jacdac-azure-iot-hub-health": "./azure-iot-hub-health",
         "jacdac-azure-iot-hub-health-server": "./azure-iot-hub-health-server",
+        "jacdac-braille-display": "./braille-display",
         "jacdac-button": "./button",
         "jacdac-buzzer": "./buzzer",
         "jacdac-character-screen": "./character-screen",
