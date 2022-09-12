@@ -13,4 +13,5 @@ servers.start({
     radio: true,
     soundPlayer: true,
     forceSimulators: true,
+    temperature: true,
 })
