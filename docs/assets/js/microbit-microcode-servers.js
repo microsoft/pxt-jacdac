@@ -1,6 +1,6 @@
 // meta={"simUrl":"https://trg-microbit.userpxt.io/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.31","target":"microbit","targetVersion":"5.0.12"}
 // boardDefinition={"visual":"microbit","gpioPinBlocks":[["P0"],["P1"],["P2"],["P3"],["P4","P5","P6","P7"],["P8","P9","P10","P11","P12"],["P16"]],"gpioPinMap":{"P0":"P0","P1":"P1","P2":"P2","P3":"P3","P4":"P4","P5":"P5","P6":"P6","P7":"P7","P8":"P8","P9":"P9","P10":"P10","P11":"P11","P12":"P12","P13":"P13","P14":"P14","P15":"P15","P16":"P16","P19":"P19","P20":"P20"},"spiPins":{"MOSI":"P15","MISO":"P14","SCK":"P13"},"i2cPins":{"SDA":"P20","SCL":"P19"},"analogInPins":["P0","P1","P2","P3","P10"],"groundPins":["GND"],"threeVoltPins":["+3v3"],"attachPowerOnRight":true,"onboardComponents":["accelerometer","buttonpair","ledmatrix","speaker","bluetooth","thermometer","compass","builtinspeaker","microphone","logotouch","flashlog","v2"],"pinStyles":{"P0":"croc","P1":"croc","P2":"croc","GND":"croc","+3v3":"croc"},"marginWhenBreadboarding":[0,0,80,0]}
-// total=1133133 new=90.75% cached=0.00% other=9.25%
+// total=1133201 new=90.75% cached=0.00% other=9.25%
 (function (ectx) {
 'use strict';
 const runtime = ectx.runtime;
@@ -563,11 +563,11 @@ switch (step) {
     r0 = pxsim_pxtrt.mkMap();
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "streamingInterval", 50);
-    r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "readingError", readingError_inline__P9491);
+    r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "readingError", readingError_inline__P5232);
     s.tmp_1 = jacdac_createSimpleSensorServer__P3252_mk(s);
     s.tmp_1.arg0 = 400333340;
     s.tmp_1.arg1 = globals.LightLevel___3793;
-    s.tmp_1.arg2 = lightLevelServer_inline__P9487;
+    s.tmp_1.arg2 = lightLevelServer_inline__P5228;
     s.tmp_1.arg3 = s.tmp_0;
     s.callLocIdx = 890; s.pc = 22; return s.tmp_1;
   case 22:
@@ -587,11 +587,11 @@ switch (step) {
     r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "maxReading", 50);
     r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "variant", 2);
     r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "streamingInterval", 1000);
-    r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "readingError", readingError_inline__P9437);
+    r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "readingError", readingError_inline__P9502);
     s.tmp_1 = jacdac_createSimpleSensorServer__P3252_mk(s);
     s.tmp_1.arg0 = 337754823;
     s.tmp_1.arg1 = globals.Temperature___3839;
-    s.tmp_1.arg2 = temperatureServer_inline__P9431;
+    s.tmp_1.arg2 = temperatureServer_inline__P9496;
     s.tmp_1.arg3 = s.tmp_0;
     s.callLocIdx = 904; s.pc = 24; return s.tmp_1;
   case 24:
@@ -633,6 +633,7 @@ switch (step) {
     r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "radio", true);
     r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "soundPlayer", true);
     r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "forceSimulators", true);
+    r0 = pxsim_pxtrt.mapSetByString(s.tmp_0, "temperature", true);
     s.tmp_1 = servers_start__P3907_mk(s);
     s.tmp_1.arg0 = s.tmp_0;
     s.callLocIdx = 983; s.pc = 28; return s.tmp_1;
@@ -897,13 +898,13 @@ switch (step) {
     r0 = s.retval;
   case 15:
   case 16:
-    s.tmp_1 = if_screen_1_mk(s);
+    s.tmp_1 = if_temperature_1_mk(s);
     s.tmp_1.arg0 = s.arg0;
     if (!s.tmp_1.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "screen");
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "temperature");
     } else {
-      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["screen"];
-      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["screen"]; }
+      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["temperature"];
+      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["temperature"]; }
       else if (!s.tmp_1.fn.isGetter) { s.retval = bind(s.tmp_1); }
      else { s.callLocIdx = 969; s.pc = 52; return s.tmp_1; }
     }
@@ -913,7 +914,7 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 17; continue; }
     s.tmp_2 = jacdac_Server__C3447_v3_1_mk(s);
-    s.tmp_2.arg0 = globals.screenServer___3875;
+    s.tmp_2.arg0 = globals.temperatureServer___3884;
     if (!checkSubtype(s.tmp_2.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_2.arg0);
     s.tmp_2.fn = s.tmp_2.arg0.vtable.methods.start;
     s.pc = 53; return s.tmp_2;
@@ -921,13 +922,13 @@ switch (step) {
     r0 = s.retval;
   case 17:
   case 18:
-    s.tmp_1 = if_soundLevel_1_mk(s);
+    s.tmp_1 = if_accelerometer_1_mk(s);
     s.tmp_1.arg0 = s.arg0;
     if (!s.tmp_1.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "soundLevel");
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "accelerometer");
     } else {
-      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["soundLevel"];
-      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["soundLevel"]; }
+      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["accelerometer"];
+      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["accelerometer"]; }
       else if (!s.tmp_1.fn.isGetter) { s.retval = bind(s.tmp_1); }
      else { s.callLocIdx = 970; s.pc = 54; return s.tmp_1; }
     }
@@ -936,22 +937,22 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 19; continue; }
-    s.tmp_2 = jacdac_Server__C3447_v3_1_mk(s);
-    s.tmp_2.arg0 = globals.soundLevelServer___3870;
-    if (!checkSubtype(s.tmp_2.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_2.arg0);
+    s.tmp_2 = servers_AccelerometerServer__C3845_v3_1_mk(s);
+    s.tmp_2.arg0 = globals.accelerometerServer___3849;
+    if (!checkSubtype(s.tmp_2.arg0, servers_AccelerometerServer__C3845_VT)) failedCast(s.tmp_2.arg0);
     s.tmp_2.fn = s.tmp_2.arg0.vtable.methods.start;
     s.pc = 55; return s.tmp_2;
   case 55:
     r0 = s.retval;
   case 19:
   case 20:
-    s.tmp_1 = if_lightLevel_1_mk(s);
+    s.tmp_1 = if_soundLevel_1_mk(s);
     s.tmp_1.arg0 = s.arg0;
     if (!s.tmp_1.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "lightLevel");
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "soundLevel");
     } else {
-      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["lightLevel"];
-      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["lightLevel"]; }
+      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["soundLevel"];
+      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["soundLevel"]; }
       else if (!s.tmp_1.fn.isGetter) { s.retval = bind(s.tmp_1); }
      else { s.callLocIdx = 971; s.pc = 56; return s.tmp_1; }
     }
@@ -961,7 +962,7 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 21; continue; }
     s.tmp_2 = jacdac_Server__C3447_v3_1_mk(s);
-    s.tmp_2.arg0 = globals.lightLevelServer___3877;
+    s.tmp_2.arg0 = globals.soundLevelServer___3870;
     if (!checkSubtype(s.tmp_2.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_2.arg0);
     s.tmp_2.fn = s.tmp_2.arg0.vtable.methods.start;
     s.pc = 57; return s.tmp_2;
@@ -969,13 +970,13 @@ switch (step) {
     r0 = s.retval;
   case 21:
   case 22:
-    s.tmp_1 = if_temperature_1_mk(s);
+    s.tmp_1 = if_radio_1_mk(s);
     s.tmp_1.arg0 = s.arg0;
     if (!s.tmp_1.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "temperature");
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "radio");
     } else {
-      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["temperature"];
-      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["temperature"]; }
+      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["radio"];
+      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["radio"]; }
       else if (!s.tmp_1.fn.isGetter) { s.retval = bind(s.tmp_1); }
      else { s.callLocIdx = 972; s.pc = 58; return s.tmp_1; }
     }
@@ -984,22 +985,22 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 23; continue; }
-    s.tmp_2 = jacdac_Server__C3447_v3_1_mk(s);
-    s.tmp_2.arg0 = globals.temperatureServer___3884;
-    if (!checkSubtype(s.tmp_2.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_2.arg0);
+    s.tmp_2 = servers_RadioServer__C3893_v3_1_mk(s);
+    s.tmp_2.arg0 = globals.radioServer___3900;
+    if (!checkSubtype(s.tmp_2.arg0, servers_RadioServer__C3893_VT)) failedCast(s.tmp_2.arg0);
     s.tmp_2.fn = s.tmp_2.arg0.vtable.methods.start;
     s.pc = 59; return s.tmp_2;
   case 59:
     r0 = s.retval;
   case 23:
   case 24:
-    s.tmp_1 = if_accelerometer_1_mk(s);
+    s.tmp_1 = if_screen_1_mk(s);
     s.tmp_1.arg0 = s.arg0;
     if (!s.tmp_1.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "accelerometer");
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "screen");
     } else {
-      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["accelerometer"];
-      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["accelerometer"]; }
+      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["screen"];
+      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["screen"]; }
       else if (!s.tmp_1.fn.isGetter) { s.retval = bind(s.tmp_1); }
      else { s.callLocIdx = 973; s.pc = 60; return s.tmp_1; }
     }
@@ -1008,22 +1009,22 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 25; continue; }
-    s.tmp_2 = servers_AccelerometerServer__C3845_v3_1_mk(s);
-    s.tmp_2.arg0 = globals.accelerometerServer___3849;
-    if (!checkSubtype(s.tmp_2.arg0, servers_AccelerometerServer__C3845_VT)) failedCast(s.tmp_2.arg0);
+    s.tmp_2 = jacdac_Server__C3447_v3_1_mk(s);
+    s.tmp_2.arg0 = globals.screenServer___3875;
+    if (!checkSubtype(s.tmp_2.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_2.arg0);
     s.tmp_2.fn = s.tmp_2.arg0.vtable.methods.start;
     s.pc = 61; return s.tmp_2;
   case 61:
     r0 = s.retval;
   case 25:
   case 26:
-    s.tmp_1 = if_buzzer_1_mk(s);
+    s.tmp_1 = if_lightLevel_1_mk(s);
     s.tmp_1.arg0 = s.arg0;
     if (!s.tmp_1.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "buzzer");
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "lightLevel");
     } else {
-      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["buzzer"];
-      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["buzzer"]; }
+      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["lightLevel"];
+      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["lightLevel"]; }
       else if (!s.tmp_1.fn.isGetter) { s.retval = bind(s.tmp_1); }
      else { s.callLocIdx = 974; s.pc = 62; return s.tmp_1; }
     }
@@ -1033,7 +1034,7 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 27; continue; }
     s.tmp_2 = jacdac_Server__C3447_v3_1_mk(s);
-    s.tmp_2.arg0 = globals.buzzerServer___3905;
+    s.tmp_2.arg0 = globals.lightLevelServer___3877;
     if (!checkSubtype(s.tmp_2.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_2.arg0);
     s.tmp_2.fn = s.tmp_2.arg0.vtable.methods.start;
     s.pc = 63; return s.tmp_2;
@@ -1065,13 +1066,13 @@ switch (step) {
     r0 = s.retval;
   case 29:
   case 30:
-    s.tmp_1 = if_radio_1_mk(s);
+    s.tmp_1 = if_buzzer_1_mk(s);
     s.tmp_1.arg0 = s.arg0;
     if (!s.tmp_1.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "radio");
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "buzzer");
     } else {
-      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["radio"];
-      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["radio"]; }
+      s.tmp_1.fn = s.tmp_1.arg0.vtable.iface["buzzer"];
+      if (s.tmp_1.fn == null) { s.retval = s.tmp_1.arg0.fields["buzzer"]; }
       else if (!s.tmp_1.fn.isGetter) { s.retval = bind(s.tmp_1); }
      else { s.callLocIdx = 976; s.pc = 66; return s.tmp_1; }
     }
@@ -1080,9 +1081,9 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 31; continue; }
-    s.tmp_2 = servers_RadioServer__C3893_v3_1_mk(s);
-    s.tmp_2.arg0 = globals.radioServer___3900;
-    if (!checkSubtype(s.tmp_2.arg0, servers_RadioServer__C3893_VT)) failedCast(s.tmp_2.arg0);
+    s.tmp_2 = jacdac_Server__C3447_v3_1_mk(s);
+    s.tmp_2.arg0 = globals.buzzerServer___3905;
+    if (!checkSubtype(s.tmp_2.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_2.arg0);
     s.tmp_2.fn = s.tmp_2.arg0.vtable.methods.start;
     s.pc = 67; return s.tmp_2;
   case 67:
@@ -3313,7 +3314,7 @@ function settings_writeBuffer__P2791_mk(s) {
 
 
 
-function servers_RadioServer_constructor__P3897(s) {
+function servers_BuzzerServer_constructor__P3903(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -3328,33 +3329,30 @@ switch (step) {
       s.lambdaArgs = null;
     }
     r0 = s.arg0;
-    if (!checkSubtype(r0, servers_RadioServer__C3893_VT)) failedCast(r0);
+    if (!checkSubtype(r0, servers_BuzzerServer__C3902_VT)) failedCast(r0);
     s.tmp_0 = r0 = s.arg0;
     r0 = pxsim_Array__mk();
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
     r0 = (s.arg0).fields["_statusCode"] = (0);
     r0 = (s.arg0).fields["_statusVendorCode"] = (0);
-    r0 = (s.arg0).fields["enabled"] = (true);
-    r0 = (s.arg0).fields["group"] = (1);
-    r0 = (s.arg0).fields["transmissionPower"] = (6);
     s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
     s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = 449414863;
+    s.tmp_2.arg1 = 458731991;
     s.tmp_2.arg2 = undefined;
-    s.callLocIdx = 905; s.pc = 1; return s.tmp_2;
+    s.callLocIdx = 951; s.pc = 1; return s.tmp_2;
   case 1:
     r0 = s.retval;
     r0 = undefined;
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_constructor__P3897.info = {"start":153,"length":65,"line":6,"column":8,"endLine":8,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["this"]}
+servers_BuzzerServer_constructor__P3903.info = {"start":82,"length":62,"line":2,"column":8,"endLine":4,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitBuzzer.ts","functionName":"inline","argumentNames":["this"]}
 
-function servers_RadioServer_constructor__P3897_mk(s) {
+function servers_BuzzerServer_constructor__P3903_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_RadioServer_constructor__P3897, depth: s.depth + 1,
+        parent: s, fn: servers_BuzzerServer_constructor__P3903, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
@@ -3658,6 +3656,475 @@ function jacdac_EventSource_constructor__P3575_mk(s) {
 
 
 
+function servers_SoundPlayerServer_constructor__P3880(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_SoundPlayerServer__C3879_VT)) failedCast(r0);
+    s.tmp_0 = r0 = s.arg0;
+    r0 = pxsim_Array__mk();
+    s.tmp_1 = r0;
+    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
+    r0 = (s.arg0).fields["_statusCode"] = (0);
+    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
+    s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = 335795000;
+    s.tmp_2.arg2 = undefined;
+    s.callLocIdx = 891; s.pc = 1; return s.tmp_2;
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_SoundPlayerServer_constructor__P3880.info = {"start":87,"length":68,"line":2,"column":8,"endLine":4,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"inline","argumentNames":["this"]}
+
+function servers_SoundPlayerServer_constructor__P3880_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_SoundPlayerServer_constructor__P3880, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function lightLevelServer_inline__P5228(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    r0 = pxsim.input.lightLevel();
+    s.tmp_0 = r0;
+    r0 = (s.tmp_0 / 255);
+    return leave(s, r0)
+  default: oops()
+} } }
+lightLevelServer_inline__P5228.info = {"start":225,"length":32,"line":5,"column":8,"endLine":5,"endColumn":40,"fileName":"pxt_modules/jacdac-microbit/microbitLightLevel.ts","functionName":"inline","argumentNames":[]}
+
+function lightLevelServer_inline__P5228_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: lightLevelServer_inline__P5228, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function readingError_inline__P5232(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    r0 = 0.05;
+    return leave(s, r0)
+  default: oops()
+} } }
+readingError_inline__P5232.info = {"start":330,"length":10,"line":8,"column":26,"endLine":8,"endColumn":36,"fileName":"pxt_modules/jacdac-microbit/microbitLightLevel.ts","functionName":"inline","argumentNames":[]}
+
+function readingError_inline__P5232_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: readingError_inline__P5232, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+} }
+
+
+
+
+
+function jacdac_createSimpleSensorServer__P3252(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.arg2 = (s.lambdaArgs[2]);
+      s.arg3 = (s.lambdaArgs[3]);
+      s.lambdaArgs = null;
+    }
+    r0 = pxsim_pxtcore_mkClassInstance(jacdac_SimpleSensorServer__C3246_VT);
+    s.tmp_0 = r0;
+    s.tmp_1 = jacdac_SimpleSensorServer_constructor__P3249_mk(s);
+    s.tmp_1.arg0 = s.tmp_0;
+    s.tmp_1.arg1 = s.arg0;
+    s.tmp_1.arg2 = s.arg1;
+    s.tmp_1.arg3 = s.arg2;
+    s.tmp_1.arg4 = s.arg3;
+    s.callLocIdx = 273; s.pc = 1; return s.tmp_1;
+  case 1:
+    r0 = s.retval;
+    r0 = s.tmp_0;
+    return leave(s, r0)
+  default: oops()
+} } }
+jacdac_createSimpleSensorServer__P3252.info = {"start":6173,"length":350,"line":183,"column":4,"endLine":195,"endColumn":5,"fileName":"pxt_modules/jacdac/sensor/server.ts","functionName":"createSimpleSensorServer","argumentNames":["serviceClass","packFormat","stateReader","options"]}
+
+function jacdac_createSimpleSensorServer__P3252_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: jacdac_createSimpleSensorServer__P3252, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  arg0: undefined,
+  arg1: undefined,
+  arg2: undefined,
+  arg3: undefined,
+} }
+
+
+
+
+
+function jacdac_SimpleSensorServer_constructor__P3249(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.arg2 = (s.lambdaArgs[2]);
+      s.arg3 = (s.lambdaArgs[3]);
+      s.arg4 = (s.lambdaArgs[4]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, jacdac_SimpleSensorServer__C3246_VT)) failedCast(r0);
+    s.tmp_0 = r0 = s.arg0;
+    r0 = pxsim_Array__mk();
+    s.tmp_1 = r0;
+    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
+    r0 = (s.arg0).fields["_statusCode"] = (0);
+    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
+    s.tmp_2 = jacdac_SensorServer_constructor__P3239_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.tmp_2.arg2 = s.arg4;
+    s.callLocIdx = 262; s.pc = 7; return s.tmp_2;
+  case 7:
+    r0 = s.retval;
+    r0 = (s.arg0).fields["packFormat"] = (s.arg2);
+    r0 = (s.arg0).fields["stateReader"] = (s.arg3);
+    r0 = pxsim_numops_toBoolDecr(s.arg4);
+    if (!r0) { step = 1; continue; }
+    s.tmp_0 = if_minReading_1_mk(s);
+    s.tmp_0.arg0 = s.arg4;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "minReading");
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["minReading"];
+      if (s.tmp_0.fn == null) { s.retval = s.tmp_0.arg0.fields["minReading"]; }
+      else if (!s.tmp_0.fn.isGetter) { s.retval = bind(s.tmp_0); }
+     else { s.callLocIdx = 263; s.pc = 8; return s.tmp_0; }
+    }
+  case 8:
+    r0 = s.retval;
+    { step = 2; continue; }
+  case 1:
+    r0 = undefined;
+  case 2:
+    // jmp value (already in r0)
+    s.tmp_1 = r0;
+    r0 = (s.arg0).fields["minReading"] = (s.tmp_1);
+    r0 = pxsim_numops_toBoolDecr(s.arg4);
+    if (!r0) { step = 3; continue; }
+    s.tmp_0 = if_maxReading_1_mk(s);
+    s.tmp_0.arg0 = s.arg4;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "maxReading");
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["maxReading"];
+      if (s.tmp_0.fn == null) { s.retval = s.tmp_0.arg0.fields["maxReading"]; }
+      else if (!s.tmp_0.fn.isGetter) { s.retval = bind(s.tmp_0); }
+     else { s.callLocIdx = 264; s.pc = 9; return s.tmp_0; }
+    }
+  case 9:
+    r0 = s.retval;
+    { step = 4; continue; }
+  case 3:
+    r0 = undefined;
+  case 4:
+    // jmp value (already in r0)
+    s.tmp_1 = r0;
+    r0 = (s.arg0).fields["maxReading"] = (s.tmp_1);
+    r0 = pxsim_numops_toBoolDecr(s.arg4);
+    if (!r0) { step = 5; continue; }
+    s.tmp_0 = if_readingError_1_mk(s);
+    s.tmp_0.arg0 = s.arg4;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "readingError");
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["readingError"];
+      if (s.tmp_0.fn == null) { s.retval = s.tmp_0.arg0.fields["readingError"]; }
+      else if (!s.tmp_0.fn.isGetter) { s.retval = bind(s.tmp_0); }
+     else { s.callLocIdx = 265; s.pc = 10; return s.tmp_0; }
+    }
+  case 10:
+    r0 = s.retval;
+    { step = 6; continue; }
+  case 5:
+    r0 = undefined;
+  case 6:
+    // jmp value (already in r0)
+    s.tmp_1 = r0;
+    r0 = (s.arg0).fields["readingError"] = (s.tmp_1);
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+jacdac_SimpleSensorServer_constructor__P3249.info = {"start":4593,"length":530,"line":136,"column":8,"endLine":149,"endColumn":9,"fileName":"pxt_modules/jacdac/sensor/server.ts","functionName":"inline","argumentNames":["this","serviceClass","packFormat","stateReader","options"]}
+
+function jacdac_SimpleSensorServer_constructor__P3249_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: jacdac_SimpleSensorServer_constructor__P3249, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  arg0: undefined,
+  arg1: undefined,
+  arg2: undefined,
+  arg3: undefined,
+  arg4: undefined,
+} }
+
+
+
+
+
+function jacdac_SensorServer_constructor__P3239(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.arg2 = (s.lambdaArgs[2]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, jacdac_SensorServer__C3236_VT)) failedCast(r0);
+    s.tmp_0 = r0 = s.arg0;
+    r0 = pxsim_Array__mk();
+    s.tmp_1 = r0;
+    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
+    r0 = (s.arg0).fields["_statusCode"] = (0);
+    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
+    s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.tmp_2.arg2 = s.arg2;
+    s.callLocIdx = 240; s.pc = 5; return s.tmp_2;
+  case 5:
+    r0 = s.retval;
+    r0 = (s.arg0).fields["streamingSamples"] = (0);
+    r0 = pxsim_numops_toBoolDecr(s.arg2);
+    if (!r0) { step = 1; continue; }
+    s.tmp_0 = if_streamingInterval_1_mk(s);
+    s.tmp_0.arg0 = s.arg2;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "streamingInterval");
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["streamingInterval"];
+      if (s.tmp_0.fn == null) { s.retval = s.tmp_0.arg0.fields["streamingInterval"]; }
+      else if (!s.tmp_0.fn.isGetter) { s.retval = bind(s.tmp_0); }
+     else { s.callLocIdx = 241; s.pc = 6; return s.tmp_0; }
+    }
+  case 6:
+    r0 = s.retval;
+    { step = 2; continue; }
+  case 1:
+    r0 = undefined;
+  case 2:
+    // jmp value (already in r0)
+    s.tmp_1 = r0;
+    r0 = pxsim_numops_toBool(s.tmp_1);
+    if (!r0) { step = 3; continue; }
+    r0 = s.tmp_1;
+    { step = 4; continue; }
+  case 3:
+    r0 = 100;
+  case 4:
+    // jmp value (already in r0)
+    s.tmp_2 = r0;
+    r0 = (s.arg0).fields["streamingInterval"] = (s.tmp_2);
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+jacdac_SensorServer_constructor__P3239.info = {"start":352,"length":266,"line":12,"column":8,"endLine":18,"endColumn":9,"fileName":"pxt_modules/jacdac/sensor/server.ts","functionName":"inline","argumentNames":["this","serviceClass","options"]}
+
+function jacdac_SensorServer_constructor__P3239_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: jacdac_SensorServer_constructor__P3239, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  arg0: undefined,
+  arg1: undefined,
+  arg2: undefined,
+} }
+
+
+
+
+
+function servers_ScreenServer_constructor__P3873(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_ScreenServer__C3872_VT)) failedCast(r0);
+    s.tmp_0 = r0 = s.arg0;
+    r0 = pxsim_Array__mk();
+    s.tmp_1 = r0;
+    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
+    r0 = (s.arg0).fields["_statusCode"] = (0);
+    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
+    s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = 286070091;
+    s.tmp_2.arg2 = undefined;
+    s.callLocIdx = 874; s.pc = 1; return s.tmp_2;
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_ScreenServer_constructor__P3873.info = {"start":82,"length":66,"line":2,"column":8,"endLine":4,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitScreen.ts","functionName":"inline","argumentNames":["this"]}
+
+function servers_ScreenServer_constructor__P3873_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_ScreenServer_constructor__P3873, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function servers_RadioServer_constructor__P3897(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_RadioServer__C3893_VT)) failedCast(r0);
+    s.tmp_0 = r0 = s.arg0;
+    r0 = pxsim_Array__mk();
+    s.tmp_1 = r0;
+    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
+    r0 = (s.arg0).fields["_statusCode"] = (0);
+    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
+    r0 = (s.arg0).fields["enabled"] = (false);
+    r0 = (s.arg0).fields["group"] = (1);
+    r0 = (s.arg0).fields["transmissionPower"] = (6);
+    s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = 449414863;
+    s.tmp_2.arg2 = undefined;
+    s.callLocIdx = 905; s.pc = 1; return s.tmp_2;
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_RadioServer_constructor__P3897.info = {"start":154,"length":65,"line":6,"column":8,"endLine":8,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["this"]}
+
+function servers_RadioServer_constructor__P3897_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_RadioServer_constructor__P3897, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
 function servers_RadioServer_start__P3898(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
@@ -3685,7 +4152,7 @@ switch (step) {
     r0 = s.arg0.fields["transmissionPower"];
     s.tmp_0 = r0;
     r0 = pxsim.radio.setTransmitPower(s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_RadioServer_start_inline__P5230);
+    r0 = pxsim_pxtcore_mkAction(1, servers_RadioServer_start_inline__P5315);
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
     s.tmp_1 = radio_onReceivedBuffer__P3624_mk(s);
@@ -3693,7 +4160,7 @@ switch (step) {
     s.callLocIdx = 908; s.pc = 2; return s.tmp_1;
   case 2:
     r0 = s.retval;
-    r0 = pxsim_pxtcore_mkAction(1, servers_RadioServer_start_inline__P5235);
+    r0 = pxsim_pxtcore_mkAction(1, servers_RadioServer_start_inline__P5320);
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
     s.tmp_1 = radio_onReceivedString__P3623_mk(s);
@@ -3701,7 +4168,7 @@ switch (step) {
     s.callLocIdx = 910; s.pc = 3; return s.tmp_1;
   case 3:
     r0 = s.retval;
-    r0 = pxsim_pxtcore_mkAction(1, servers_RadioServer_start_inline__P5240);
+    r0 = pxsim_pxtcore_mkAction(1, servers_RadioServer_start_inline__P5325);
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
     s.tmp_1 = radio_onReceivedNumber__P3621_mk(s);
@@ -3709,7 +4176,7 @@ switch (step) {
     s.callLocIdx = 912; s.pc = 4; return s.tmp_1;
   case 4:
     r0 = s.retval;
-    r0 = pxsim_pxtcore_mkAction(1, servers_RadioServer_start_inline__P5245);
+    r0 = pxsim_pxtcore_mkAction(1, servers_RadioServer_start_inline__P5330);
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
     s.tmp_1 = radio_onReceivedValue__P3622_mk(s);
@@ -3721,7 +4188,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_start__P3898.info = {"start":228,"length":522,"line":10,"column":8,"endLine":22,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"start","argumentNames":["this"]}
+servers_RadioServer_start__P3898.info = {"start":229,"length":522,"line":10,"column":8,"endLine":22,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"start","argumentNames":["this"]}
 
 function servers_RadioServer_start__P3898_mk(s) {
     checkStack(s.depth);
@@ -3737,7 +4204,7 @@ function servers_RadioServer_start__P3898_mk(s) {
 
 
 
-function servers_RadioServer_start_inline__P5230(s) {
+function servers_RadioServer_start_inline__P5315(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -3761,12 +4228,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_start_inline__P5230.info = {"start":397,"length":37,"line":14,"column":35,"endLine":14,"endColumn":72,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["buf"]}
+servers_RadioServer_start_inline__P5315.info = {"start":398,"length":37,"line":14,"column":35,"endLine":14,"endColumn":72,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["buf"]}
 
-function servers_RadioServer_start_inline__P5230_mk(s) {
+function servers_RadioServer_start_inline__P5315_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_RadioServer_start_inline__P5230, depth: s.depth + 1,
+        parent: s, fn: servers_RadioServer_start_inline__P5315, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -3776,7 +4243,7 @@ function servers_RadioServer_start_inline__P5230_mk(s) {
 
 
 
-function servers_RadioServer_start_inline__P5235(s) {
+function servers_RadioServer_start_inline__P5320(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -3800,12 +4267,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_start_inline__P5235.info = {"start":471,"length":37,"line":15,"column":35,"endLine":15,"endColumn":72,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["str"]}
+servers_RadioServer_start_inline__P5320.info = {"start":472,"length":37,"line":15,"column":35,"endLine":15,"endColumn":72,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["str"]}
 
-function servers_RadioServer_start_inline__P5235_mk(s) {
+function servers_RadioServer_start_inline__P5320_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_RadioServer_start_inline__P5235, depth: s.depth + 1,
+        parent: s, fn: servers_RadioServer_start_inline__P5320, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -3815,7 +4282,7 @@ function servers_RadioServer_start_inline__P5235_mk(s) {
 
 
 
-function servers_RadioServer_start_inline__P5240(s) {
+function servers_RadioServer_start_inline__P5325(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -3841,12 +4308,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_start_inline__P5240.info = {"start":545,"length":61,"line":16,"column":35,"endLine":17,"endColumn":52,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["value"]}
+servers_RadioServer_start_inline__P5325.info = {"start":546,"length":61,"line":16,"column":35,"endLine":17,"endColumn":52,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["value"]}
 
-function servers_RadioServer_start_inline__P5240_mk(s) {
+function servers_RadioServer_start_inline__P5325_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_RadioServer_start_inline__P5240, depth: s.depth + 1,
+        parent: s, fn: servers_RadioServer_start_inline__P5325, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -3856,7 +4323,7 @@ function servers_RadioServer_start_inline__P5240_mk(s) {
 
 
 
-function servers_RadioServer_start_inline__P5245(s) {
+function servers_RadioServer_start_inline__P5330(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -3882,12 +4349,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_start_inline__P5245.info = {"start":655,"length":71,"line":19,"column":34,"endLine":20,"endColumn":54,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["name","value"]}
+servers_RadioServer_start_inline__P5330.info = {"start":656,"length":71,"line":19,"column":34,"endLine":20,"endColumn":54,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"inline","argumentNames":["name","value"]}
 
-function servers_RadioServer_start_inline__P5245_mk(s) {
+function servers_RadioServer_start_inline__P5330_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_RadioServer_start_inline__P5245, depth: s.depth + 1,
+        parent: s, fn: servers_RadioServer_start_inline__P5330, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -3981,14 +4448,14 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.buffer___5260 = undefined;
+    s.buffer___5345 = undefined;
     r0 = pxsim.radio.readRawPacket();
-    s.buffer___5260 = (r0);
+    s.buffer___5345 = (r0);
   case 1:
-    r0 = pxsim_numops_toBoolDecr(s.buffer___5260);
+    r0 = pxsim_numops_toBoolDecr(s.buffer___5345);
     if (!r0) { step = 17; continue; }
     s.tmp_0 = radio_RadioPacket_getPacket__P3628_mk(s);
-    s.tmp_0.arg0 = s.buffer___5260;
+    s.tmp_0.arg0 = s.buffer___5345;
     s.callLocIdx = 780; s.pc = 18; return s.tmp_0;
   case 18:
     r0 = s.retval;
@@ -4092,7 +4559,7 @@ switch (step) {
   case 15:
   case 16:
     r0 = pxsim.radio.readRawPacket();
-    s.buffer___5260 = (r0);
+    s.buffer___5345 = (r0);
     { step = 1; continue; }
   case 17:
     r0 = undefined;
@@ -4110,7 +4577,7 @@ function radio_handleDataReceived__P4372_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  buffer___5260: undefined,
+  buffer___5345: undefined,
 } }
 
 
@@ -4127,7 +4594,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.len___5299 = undefined;
+    s.len___5384 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -4137,10 +4604,10 @@ switch (step) {
     r0 = s.arg0.fields["data"];
     s.tmp_0 = r0;
     r0 = pxsim.BufferMethods.getByte(s.tmp_0, 9);
-    s.len___5299 = (r0);
+    s.len___5384 = (r0);
     r0 = s.arg0.fields["data"];
     s.tmp_0 = r0;
-    r0 = pxsim.BufferMethods.slice(s.tmp_0, 10, s.len___5299);
+    r0 = pxsim.BufferMethods.slice(s.tmp_0, 10, s.len___5384);
     return leaveAccessor(s, r0)
   default: oops()
 } } }
@@ -4153,7 +4620,7 @@ function radio_RadioPacket_bufferPayload__P3640_mk(s) {
         parent: s, fn: radio_RadioPacket_bufferPayload__P3640, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
-  len___5299: undefined,
+  len___5384: undefined,
   arg0: undefined,
 } }
 
@@ -4171,7 +4638,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.offset___5314 = undefined;
+    s.offset___5399 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -4186,16 +4653,16 @@ switch (step) {
     s.callLocIdx = 798; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
-    s.offset___5314 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.offset___5314);
+    s.offset___5399 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.offset___5399);
     if (!r0) { step = 1; continue; }
     r0 = s.arg0.fields["data"];
     s.tmp_1 = r0;
-    r0 = (s.offset___5314 + 1);
+    r0 = (s.offset___5399 + 1);
     s.tmp_2 = r0;
     r0 = s.arg0.fields["data"];
     s.tmp_4 = r0;
-    r0 = pxsim.BufferMethods.getByte(s.tmp_4, s.offset___5314);
+    r0 = pxsim.BufferMethods.getByte(s.tmp_4, s.offset___5399);
     s.tmp_3 = r0;
     r0 = pxsim.BufferMethods.slice(s.tmp_1, s.tmp_2, s.tmp_3);
     s.tmp_0 = r0;
@@ -4224,7 +4691,7 @@ function radio_RadioPacket_stringPayload__P3636_mk(s) {
   tmp_3: undefined,
   tmp_4: undefined,
   tmp_5: undefined,
-  offset___5314: undefined,
+  offset___5399: undefined,
   arg0: undefined,
 } }
 
@@ -4510,10 +4977,10 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.deviceSerialNumber___5386 = undefined;
-    s.rssi___5389 = undefined;
-    s.time___5392 = undefined;
-    s.payload___5395 = undefined;
+    s.deviceSerialNumber___5471 = undefined;
+    s.rssi___5474 = undefined;
+    s.time___5477 = undefined;
+    s.payload___5480 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -4526,22 +4993,22 @@ switch (step) {
     s.callLocIdx = 936; s.pc = 1; return s.tmp_0;
   case 1:
     r0 = s.retval;
-    s.deviceSerialNumber___5386 = (r0);
+    s.deviceSerialNumber___5471 = (r0);
     s.tmp_0 = radio_receivedSignalStrength__P3669_mk(s);
     s.callLocIdx = 937; s.pc = 2; return s.tmp_0;
   case 2:
     r0 = s.retval;
-    s.rssi___5389 = (r0);
+    s.rssi___5474 = (r0);
     s.tmp_0 = radio_receivedTime__P3666_mk(s);
     s.callLocIdx = 938; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
-    s.time___5392 = (r0);
+    s.time___5477 = (r0);
     r0 = pxsim_Array__mk();
     s.tmp_0 = r0;
-    r0 = pxsim_Array__push(s.tmp_0, s.time___5392);
-    r0 = pxsim_Array__push(s.tmp_0, s.deviceSerialNumber___5386);
-    r0 = pxsim_Array__push(s.tmp_0, s.rssi___5389);
+    r0 = pxsim_Array__push(s.tmp_0, s.time___5477);
+    r0 = pxsim_Array__push(s.tmp_0, s.deviceSerialNumber___5471);
+    r0 = pxsim_Array__push(s.tmp_0, s.rssi___5474);
     r0 = pxsim_Array__push(s.tmp_0, s.arg2);
     r0 = pxsim_Array__push(s.tmp_0, s.arg1);
     s.tmp_1 = jacdac_jdpack__P2934_mk(s);
@@ -4550,12 +5017,12 @@ switch (step) {
     s.callLocIdx = 939; s.pc = 4; return s.tmp_1;
   case 4:
     r0 = s.retval;
-    s.payload___5395 = (r0);
+    s.payload___5480 = (r0);
     s.tmp_0 = jacdac_Server_sendReport__P4185_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_1 = jacdac_JDPacket_from__P2883_mk(s);
     s.tmp_1.arg0 = 145;
-    s.tmp_1.arg1 = s.payload___5395;
+    s.tmp_1.arg1 = s.payload___5480;
     s.callLocIdx = 940; s.pc = 6; return s.tmp_1;
   case 6:
     r0 = s.retval;
@@ -4567,7 +5034,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_handleReceivedNumber__P4429.info = {"start":3714,"length":637,"line":103,"column":8,"endLine":120,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleReceivedNumber","argumentNames":["this","name","data"]}
+servers_RadioServer_handleReceivedNumber__P4429.info = {"start":3715,"length":637,"line":103,"column":8,"endLine":120,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleReceivedNumber","argumentNames":["this","name","data"]}
 
 function servers_RadioServer_handleReceivedNumber__P4429_mk(s) {
     checkStack(s.depth);
@@ -4576,10 +5043,10 @@ function servers_RadioServer_handleReceivedNumber__P4429_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  deviceSerialNumber___5386: undefined,
-  rssi___5389: undefined,
-  time___5392: undefined,
-  payload___5395: undefined,
+  deviceSerialNumber___5471: undefined,
+  rssi___5474: undefined,
+  time___5477: undefined,
+  payload___5480: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -4599,7 +5066,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.p___5410 = undefined;
+    s.p___5495 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -4612,24 +5079,24 @@ switch (step) {
     s.callLocIdx = 101; s.pc = 1; return s.tmp_1;
   case 1:
     r0 = s.retval;
-    s.p___5410 = (s.tmp_0);
-    s.tmp_0 = r0 = s.p___5410;
+    s.p___5495 = (s.tmp_0);
+    s.tmp_0 = r0 = s.p___5495;
     r0 = pxsim.control.createBuffer(16);
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["_header"] = (s.tmp_1);
     s.tmp_0 = jacdac_JDPacket_data__P2910_mk(s);
-    s.tmp_0.arg0 = s.p___5410;
+    s.tmp_0.arg0 = s.p___5495;
     s.tmp_0.arg1 = s.arg1;
     s.callLocIdx = 102; s.pc = 2; return s.tmp_0;
   case 2:
     r0 = s.retval;
     s.tmp_0 = jacdac_JDPacket_serviceCommand__P2902_mk(s);
-    s.tmp_0.arg0 = s.p___5410;
+    s.tmp_0.arg0 = s.p___5495;
     s.tmp_0.arg1 = s.arg0;
     s.callLocIdx = 103; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
-    r0 = s.p___5410;
+    r0 = s.p___5495;
     return leave(s, r0)
   default: oops()
 } } }
@@ -4642,7 +5109,7 @@ function jacdac_JDPacket_from__P2883_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  p___5410: undefined,
+  p___5495: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -5206,17 +5673,17 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.devId___5531 = undefined;
-    s.multiCommandClass___5534 = undefined;
-    s.crc___5546 = undefined;
-    s.ack___5549 = undefined;
-    s.h___5569 = undefined;
+    s.devId___5616 = undefined;
+    s.multiCommandClass___5619 = undefined;
+    s.crc___5631 = undefined;
+    s.ack___5634 = undefined;
+    s.h___5654 = undefined;
     s.unnamed86___U5 = undefined;
     s.unnamed87___U6 = undefined;
-    s.h___5597 = undefined;
-    s.dev___5612 = undefined;
-    s.pktRestartCounter___5630 = undefined;
-    s.matches___5673 = undefined;
+    s.h___5682 = undefined;
+    s.dev___5697 = undefined;
+    s.pktRestartCounter___5715 = undefined;
+    s.matches___5758 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -5229,13 +5696,13 @@ switch (step) {
     r0 = pxsim.BufferMethods.slice(s.tmp_1, 4, 8);
     s.tmp_0 = r0;
     r0 = pxsim.BufferMethods.toHex(s.tmp_0);
-    s.devId___5531 = (r0);
+    s.devId___5616 = (r0);
     s.tmp_0 = jacdac_JDPacket_multicommandClass__P2894_mk(s);
     s.tmp_0.arg0 = s.arg1;
     s.callLocIdx = 394; s.pc = 50; return s.tmp_0;
   case 50:
     r0 = s.retval;
-    s.multiCommandClass___5534 = (r0);
+    s.multiCommandClass___5619 = (r0);
     s.tmp_1 = jacdac_JDPacket_requiresAck__P2896_mk(s);
     s.tmp_1.arg0 = s.arg1;
     s.callLocIdx = 395; s.pc = 51; return s.tmp_1;
@@ -5270,21 +5737,21 @@ switch (step) {
     r0 = s.arg1.fields["_header"];
     s.tmp_6 = r0;
     r0 = pxsim.BufferMethods.getNumber(s.tmp_6, 4, 0);
-    s.crc___5546 = (r0);
+    s.crc___5631 = (r0);
     s.tmp_0 = jacdac_JDPacket_onlyHeader__P2884_mk(s);
-    s.tmp_0.arg0 = s.crc___5546;
+    s.tmp_0.arg0 = s.crc___5631;
     s.callLocIdx = 400; s.pc = 54; return s.tmp_0;
   case 54:
     r0 = s.retval;
-    s.ack___5549 = (r0);
+    s.ack___5634 = (r0);
     s.tmp_0 = jacdac_JDPacket_serviceIndex__P2899_mk(s);
-    s.tmp_0.arg0 = s.ack___5549;
+    s.tmp_0.arg0 = s.ack___5634;
     s.tmp_0.arg1 = 63;
     s.callLocIdx = 401; s.pc = 55; return s.tmp_0;
   case 55:
     r0 = s.retval;
     s.tmp_0 = jacdac_JDPacket__sendReport__P2924_mk(s);
-    s.tmp_0.arg0 = s.ack___5549;
+    s.tmp_0.arg0 = s.ack___5634;
     s.tmp_1 = jacdac_Bus_selfDevice__P3418_mk(s);
     s.tmp_1.arg0 = s.arg0;
     s.callLocIdx = 402; s.pc = 57; return s.tmp_1;
@@ -5305,7 +5772,7 @@ switch (step) {
     s.callLocIdx = 404; s.pc = 58; return s.tmp_0;
   case 58:
     r0 = s.retval;
-    r0 = (s.multiCommandClass___5534 != null);
+    r0 = (s.multiCommandClass___5619 != null);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 13; continue; }
@@ -5324,7 +5791,7 @@ switch (step) {
     { step = 49; continue; }
   case 5:
   case 6:
-    s.h___5569 = (undefined);
+    s.h___5654 = (undefined);
     r0 = s.arg0.fields["servers"];
     s.unnamed86___U5 = (r0);
     s.unnamed87___U6 = (0);
@@ -5335,17 +5802,17 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 12; continue; }
     r0 = pxsim_Array__getAt(s.unnamed86___U5, s.unnamed87___U6);
-    s.h___5569 = (r0);
-    r0 = s.h___5569.fields["serviceClass"];
+    s.h___5654 = (r0);
+    r0 = s.h___5654.fields["serviceClass"];
     s.tmp_3 = r0;
-    r0 = (s.tmp_3 == s.multiCommandClass___5534);
+    r0 = (s.tmp_3 == s.multiCommandClass___5619);
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBool(s.tmp_2);
     if (r0) { step = 8; continue; }
     r0 = s.tmp_2;
     { step = 9; continue; }
   case 8:
-    r0 = s.h___5569.fields["running"];
+    r0 = s.h___5654.fields["running"];
   case 9:
     // jmp value (already in r0)
     s.tmp_4 = r0;
@@ -5365,13 +5832,13 @@ switch (step) {
     r0 = s.retval;
     s.tmp_0 = jacdac_JDPacket_serviceIndex__P2899_mk(s);
     s.tmp_0.arg0 = s.arg1;
-    r0 = s.h___5569.fields["serviceIndex"];
+    r0 = s.h___5654.fields["serviceIndex"];
     s.tmp_0.arg1 = r0;
     s.callLocIdx = 408; s.pc = 62; return s.tmp_0;
   case 62:
     r0 = s.retval;
     s.tmp_0 = jacdac_Server__C3447_v0_2_mk(s);
-    s.tmp_0.arg0 = s.h___5569;
+    s.tmp_0.arg0 = s.h___5654;
     s.tmp_0.arg1 = s.arg1;
     if (!checkSubtype(s.tmp_0.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_0.arg0);
     s.tmp_0.fn = s.tmp_0.arg0.vtable.methods.handlePacketOuter;
@@ -5387,7 +5854,7 @@ switch (step) {
     s.unnamed86___U5 = (undefined);
     { step = 48; continue; }
   case 13:
-    s.tmp_1 = r0 = s.devId___5531;
+    s.tmp_1 = r0 = s.devId___5616;
     s.tmp_3 = jacdac_Bus_selfDevice__P3418_mk(s);
     s.tmp_3.arg0 = s.arg0;
     s.callLocIdx = 409; s.pc = 64; return s.tmp_3;
@@ -5421,21 +5888,21 @@ switch (step) {
     r0 = (s.tmp_8 & 63);
     s.tmp_7 = r0;
     r0 = pxsim_Array__getAt(s.tmp_6, s.tmp_7);
-    s.h___5597 = (r0);
-    s.tmp_0 = r0 = s.h___5597;
+    s.h___5682 = (r0);
+    s.tmp_0 = r0 = s.h___5682;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 16; continue; }
     r0 = s.tmp_0;
     { step = 17; continue; }
   case 16:
-    r0 = s.h___5597.fields["running"];
+    r0 = s.h___5682.fields["running"];
   case 17:
     // jmp value (already in r0)
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 18; continue; }
     s.tmp_2 = jacdac_Server__C3447_v0_2_mk(s);
-    s.tmp_2.arg0 = s.h___5597;
+    s.tmp_2.arg0 = s.h___5682;
     s.tmp_2.arg1 = s.arg1;
     if (!checkSubtype(s.tmp_2.arg0, jacdac_Server__C3447_VT)) failedCast(s.tmp_2.arg0);
     s.tmp_2.fn = s.tmp_2.arg0.vtable.methods.handlePacketOuter;
@@ -5457,9 +5924,9 @@ switch (step) {
     { step = 49; continue; }
   case 21:
   case 22:
-    r0 = pxsim_pxtcore_mkAction(1, dev_inline__P5616);
+    r0 = pxsim_pxtcore_mkAction(1, dev_inline__P5701);
     s.tmp_2 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_2, 0, s.devId___5531);
+    r0 = pxsim_pxtrt_stclo(s.tmp_2, 0, s.devId___5616);
     s.tmp_3 = helpers_arrayFind__P2002_mk(s);
     r0 = s.arg0.fields["devices"];
     s.tmp_3.arg0 = r0;
@@ -5467,7 +5934,7 @@ switch (step) {
     s.callLocIdx = 413; s.pc = 68; return s.tmp_3;
   case 68:
     r0 = s.retval;
-    s.dev___5612 = (r0);
+    s.dev___5697 = (r0);
     r0 = s.arg1.fields["_header"];
     s.tmp_3 = r0;
     r0 = pxsim.BufferMethods.getByte(s.tmp_3, 13);
@@ -5491,20 +5958,20 @@ switch (step) {
     r0 = pxsim.BufferMethods.getByte(s.tmp_8, 0);
     s.tmp_7 = r0;
     r0 = (s.tmp_7 & 15);
-    s.pktRestartCounter___5630 = (r0);
-    s.tmp_0 = r0 = s.dev___5612;
+    s.pktRestartCounter___5715 = (r0);
+    s.tmp_0 = r0 = s.dev___5697;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 23; continue; }
     r0 = s.tmp_0;
     { step = 24; continue; }
   case 23:
     s.tmp_2 = jacdac_Device_restartCounter__P3532_mk(s);
-    s.tmp_2.arg0 = s.dev___5612;
+    s.tmp_2.arg0 = s.dev___5697;
     s.callLocIdx = 417; s.pc = 69; return s.tmp_2;
   case 69:
     r0 = s.retval;
     s.tmp_1 = r0;
-    r0 = (s.tmp_1 > s.pktRestartCounter___5630);
+    r0 = (s.tmp_1 > s.pktRestartCounter___5715);
   case 24:
     // jmp value (already in r0)
     s.tmp_3 = r0;
@@ -5512,7 +5979,7 @@ switch (step) {
     if (!r0) { step = 25; continue; }
     s.tmp_4 = jacdac_log__P4284_mk(s);
     s.tmp_12 = jacdac_Device_shortId__P3536_mk(s);
-    s.tmp_12.arg0 = s.dev___5612;
+    s.tmp_12.arg0 = s.dev___5697;
     s.callLocIdx = 418; s.pc = 71; return s.tmp_12;
   case 71:
     r0 = s.retval;
@@ -5531,7 +5998,7 @@ switch (step) {
     r0 = pxsim_String__concat(s.tmp_9, " resetted (");
     s.tmp_8 = r0;
     s.tmp_15 = jacdac_Device_restartCounter__P3532_mk(s);
-    s.tmp_15.arg0 = s.dev___5612;
+    s.tmp_15.arg0 = s.dev___5697;
     s.callLocIdx = 419; s.pc = 73; return s.tmp_15;
   case 73:
     r0 = s.retval;
@@ -5549,12 +6016,12 @@ switch (step) {
     s.tmp_7 = r0;
     r0 = pxsim_String__concat(s.tmp_7, " > ");
     s.tmp_6 = r0;
-    if ((s.pktRestartCounter___5630) && (s.pktRestartCounter___5630).vtable) {
+    if ((s.pktRestartCounter___5715) && (s.pktRestartCounter___5715).vtable) {
     setupResume(s, 75);
-    pxsim_String__stringConv(s.pktRestartCounter___5630);
+    pxsim_String__stringConv(s.pktRestartCounter___5715);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.pktRestartCounter___5630) + ""; }
+    } else { s.retval = (s.pktRestartCounter___5715) + ""; }
   case 75:
     r0 = s.retval;
     s.tmp_16 = r0;
@@ -5567,13 +6034,13 @@ switch (step) {
     r0 = s.retval;
     r0 = s.arg0.fields["devices"];
     s.tmp_0 = r0;
-    r0 = pxsim_Array_.removeElement(s.tmp_0, s.dev___5612);
+    r0 = pxsim_Array_.removeElement(s.tmp_0, s.dev___5697);
     s.tmp_0 = jacdac_Device__destroy__P3549_mk(s);
-    s.tmp_0.arg0 = s.dev___5612;
+    s.tmp_0.arg0 = s.dev___5697;
     s.callLocIdx = 421; s.pc = 76; return s.tmp_0;
   case 76:
     r0 = s.retval;
-    s.dev___5612 = (null);
+    s.dev___5697 = (null);
     s.tmp_0 = jacdac_EventSource_emit__P3578_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_0.arg1 = globals.RESTART___3401;
@@ -5583,8 +6050,8 @@ switch (step) {
     r0 = s.retval;
   case 25:
   case 26:
-    s.matches___5673 = (false);
-    r0 = pxsim_numops_toBoolDecr(s.dev___5612);
+    s.matches___5758 = (false);
+    r0 = pxsim_numops_toBoolDecr(s.dev___5697);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -5605,25 +6072,25 @@ switch (step) {
     s.callLocIdx = 425; s.pc = 78; return s.tmp_3;
   case 78:
     r0 = s.retval;
-    s.dev___5612 = (s.tmp_2);
+    s.dev___5697 = (s.tmp_2);
     s.tmp_0 = jacdac_EventSource_emit__P3578_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_0.arg1 = globals.DEVICE_CONNECT___3393;
-    s.tmp_0.arg2 = s.dev___5612;
+    s.tmp_0.arg2 = s.dev___5697;
     s.callLocIdx = 426; s.pc = 79; return s.tmp_0;
   case 79:
     r0 = s.retval;
     { step = 28; continue; }
   case 27:
     s.tmp_0 = jacdac_serviceMatches__P4310_mk(s);
-    s.tmp_0.arg0 = s.dev___5612;
+    s.tmp_0.arg0 = s.dev___5697;
     r0 = s.arg1.fields["_data"];
     s.tmp_0.arg1 = r0;
     s.callLocIdx = 428; s.pc = 80; return s.tmp_0;
   case 80:
     r0 = s.retval;
-    s.matches___5673 = (r0);
-    s.tmp_0 = r0 = s.dev___5612;
+    s.matches___5758 = (r0);
+    s.tmp_0 = r0 = s.dev___5697;
     r0 = s.arg1.fields["_data"];
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["services"] = (s.tmp_1);
@@ -5645,7 +6112,7 @@ switch (step) {
     { step = 30; continue; }
   case 29:
     s.tmp_3 = jacdac_Device_isBrain__P3530_mk(s);
-    s.tmp_3.arg0 = s.dev___5612;
+    s.tmp_3.arg0 = s.dev___5697;
     s.callLocIdx = 432; s.pc = 83; return s.tmp_3;
   case 83:
     r0 = s.retval;
@@ -5658,7 +6125,7 @@ switch (step) {
     { step = 32; continue; }
   case 31:
     s.tmp_6 = jacdac_Device_restartCounter__P3532_mk(s);
-    s.tmp_6.arg0 = s.dev___5612;
+    s.tmp_6.arg0 = s.dev___5697;
     s.callLocIdx = 433; s.pc = 84; return s.tmp_6;
   case 84:
     r0 = s.retval;
@@ -5673,7 +6140,7 @@ switch (step) {
     if (!r0) { step = 33; continue; }
     s.tmp_9 = jacdac_log__P4284_mk(s);
     s.tmp_13 = jacdac_Device_shortId__P3536_mk(s);
-    s.tmp_13.arg0 = s.dev___5612;
+    s.tmp_13.arg0 = s.dev___5697;
     s.callLocIdx = 434; s.pc = 86; return s.tmp_13;
   case 86:
     r0 = s.retval;
@@ -5700,7 +6167,7 @@ switch (step) {
     r0 = s.retval;
   case 33:
   case 34:
-    r0 = pxsim_numops_toBoolDecr(s.matches___5673);
+    r0 = pxsim_numops_toBoolDecr(s.matches___5758);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -5708,7 +6175,7 @@ switch (step) {
     if (!r0) { step = 35; continue; }
     s.tmp_2 = jacdac_Bus_reattach__P3427_mk(s);
     s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.dev___5612;
+    s.tmp_2.arg1 = s.dev___5697;
     s.callLocIdx = 437; s.pc = 89; return s.tmp_2;
   case 89:
     r0 = s.retval;
@@ -5716,10 +6183,10 @@ switch (step) {
   case 36:
   case 37:
   case 38:
-    r0 = pxsim_numops_toBoolDecr(s.dev___5612);
+    r0 = pxsim_numops_toBoolDecr(s.dev___5697);
     if (!r0) { step = 39; continue; }
     s.tmp_0 = jacdac_Device_processPacket__P3545_mk(s);
-    s.tmp_0.arg0 = s.dev___5612;
+    s.tmp_0.arg0 = s.dev___5697;
     s.tmp_0.arg1 = s.arg1;
     s.callLocIdx = 438; s.pc = 90; return s.tmp_0;
   case 90:
@@ -5747,7 +6214,7 @@ switch (step) {
   case 42:
   case 43:
   case 44:
-    r0 = pxsim_numops_toBoolDecr(s.dev___5612);
+    r0 = pxsim_numops_toBoolDecr(s.dev___5697);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -5757,7 +6224,7 @@ switch (step) {
   case 45:
   case 46:
     s.tmp_2 = jacdac_Device_processPacket__P3545_mk(s);
-    s.tmp_2.arg0 = s.dev___5612;
+    s.tmp_2.arg0 = s.dev___5697;
     s.tmp_2.arg1 = s.arg1;
     s.callLocIdx = 441; s.pc = 92; return s.tmp_2;
   case 92:
@@ -5793,17 +6260,17 @@ function jacdac_Bus_processPacket__P3428_mk(s) {
   tmp_14: undefined,
   tmp_15: undefined,
   tmp_16: undefined,
-  devId___5531: undefined,
-  multiCommandClass___5534: undefined,
-  crc___5546: undefined,
-  ack___5549: undefined,
-  h___5569: undefined,
+  devId___5616: undefined,
+  multiCommandClass___5619: undefined,
+  crc___5631: undefined,
+  ack___5634: undefined,
+  h___5654: undefined,
   unnamed86___U5: undefined,
   unnamed87___U6: undefined,
-  h___5597: undefined,
-  dev___5612: undefined,
-  pktRestartCounter___5630: undefined,
-  matches___5673: undefined,
+  h___5682: undefined,
+  dev___5697: undefined,
+  pktRestartCounter___5715: undefined,
+  matches___5758: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -5812,7 +6279,7 @@ function jacdac_Bus_processPacket__P3428_mk(s) {
 
 
 
-function dev_inline__P5616(s) {
+function dev_inline__P5701(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -5832,12 +6299,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-dev_inline__P5616.info = {"start":10078,"length":24,"line":286,"column":44,"endLine":286,"endColumn":68,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["d"]}
+dev_inline__P5701.info = {"start":10078,"length":24,"line":286,"column":44,"endLine":286,"endColumn":68,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["d"]}
 
-function dev_inline__P5616_mk(s) {
+function dev_inline__P5701_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: dev_inline__P5616, depth: s.depth + 1,
+        parent: s, fn: dev_inline__P5701, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -5857,10 +6324,10 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.numNotify___5739 = undefined;
-    s.srcId___5740 = undefined;
-    s.crc___5743 = undefined;
-    s.a___5747 = undefined;
+    s.numNotify___5824 = undefined;
+    s.srcId___5825 = undefined;
+    s.crc___5828 = undefined;
+    s.a___5832 = undefined;
     s.unnamed56___U4 = undefined;
     s.unnamed57___U5 = undefined;
     if (s.lambdaArgs) {
@@ -5876,18 +6343,18 @@ switch (step) {
     { step = 11; continue; }
   case 1:
   case 2:
-    s.numNotify___5739 = (0);
+    s.numNotify___5824 = (0);
     r0 = s.arg0.fields["_header"];
     s.tmp_1 = r0;
     r0 = pxsim.BufferMethods.slice(s.tmp_1, 4, 8);
     s.tmp_0 = r0;
     r0 = pxsim.BufferMethods.toHex(s.tmp_0);
-    s.srcId___5740 = (r0);
+    s.srcId___5825 = (r0);
     r0 = s.arg0.fields["_header"];
     s.tmp_0 = r0;
     r0 = pxsim.BufferMethods.getNumber(s.tmp_0, 4, 14);
-    s.crc___5743 = (r0);
-    s.a___5747 = (undefined);
+    s.crc___5828 = (r0);
+    s.a___5832 = (undefined);
     s.unnamed56___U4 = (globals.ackAwaiters___4135);
     s.unnamed57___U5 = (0);
   case 3:
@@ -5897,30 +6364,30 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 8; continue; }
     r0 = pxsim_Array__getAt(s.unnamed56___U4, s.unnamed57___U5);
-    s.a___5747 = (r0);
-    r0 = s.a___5747.fields["crc"];
+    s.a___5832 = (r0);
+    r0 = s.a___5832.fields["crc"];
     s.tmp_3 = r0;
-    r0 = (s.tmp_3 == s.crc___5743);
+    r0 = (s.tmp_3 == s.crc___5828);
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBool(s.tmp_2);
     if (r0) { step = 4; continue; }
     r0 = s.tmp_2;
     { step = 5; continue; }
   case 4:
-    r0 = s.a___5747.fields["srcId"];
+    r0 = s.a___5832.fields["srcId"];
     s.tmp_4 = r0;
-    r0 = (s.tmp_4 == s.srcId___5740);
+    r0 = (s.tmp_4 == s.srcId___5825);
   case 5:
     // jmp value (already in r0)
     s.tmp_5 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_5);
     if (!r0) { step = 6; continue; }
-    r0 = (s.a___5747).fields["nextRetry"] = (0);
-    r0 = s.a___5747.fields["eventId"];
+    r0 = (s.a___5832).fields["nextRetry"] = (0);
+    r0 = s.a___5832.fields["eventId"];
     s.tmp_0 = r0;
     r0 = pxsim.control.raiseEvent(1023, s.tmp_0, 1);
-    r0 = (s.numNotify___5739 + 1);
-    s.numNotify___5739 = (r0);
+    r0 = (s.numNotify___5824 + 1);
+    s.numNotify___5824 = (r0);
   case 6:
   case 7:
     r0 = (s.unnamed57___U5 + 1);
@@ -5928,11 +6395,11 @@ switch (step) {
     { step = 3; continue; }
   case 8:
     s.unnamed56___U4 = (undefined);
-    r0 = pxsim_numops_toBoolDecr(s.numNotify___5739);
+    r0 = pxsim_numops_toBoolDecr(s.numNotify___5824);
     if (!r0) { step = 9; continue; }
     s.tmp_0 = helpers_arrayFilter__P2001_mk(s);
     s.tmp_0.arg0 = globals.ackAwaiters___4135;
-    s.tmp_0.arg1 = jacdac__gotAck_inline__P5776;
+    s.tmp_0.arg1 = jacdac__gotAck_inline__P5861;
     s.callLocIdx = 171; s.pc = 12; return s.tmp_0;
   case 12:
     r0 = s.retval;
@@ -5957,10 +6424,10 @@ function jacdac__gotAck__P2929_mk(s) {
   tmp_3: undefined,
   tmp_4: undefined,
   tmp_5: undefined,
-  numNotify___5739: undefined,
-  srcId___5740: undefined,
-  crc___5743: undefined,
-  a___5747: undefined,
+  numNotify___5824: undefined,
+  srcId___5825: undefined,
+  crc___5828: undefined,
+  a___5832: undefined,
   unnamed56___U4: undefined,
   unnamed57___U5: undefined,
   arg0: undefined,
@@ -5970,7 +6437,7 @@ function jacdac__gotAck__P2929_mk(s) {
 
 
 
-function jacdac__gotAck_inline__P5776(s) {
+function jacdac__gotAck_inline__P5861(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -5990,12 +6457,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac__gotAck_inline__P5776.info = {"start":12960,"length":22,"line":400,"column":56,"endLine":400,"endColumn":78,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["a"]}
+jacdac__gotAck_inline__P5861.info = {"start":12960,"length":22,"line":400,"column":56,"endLine":400,"endColumn":78,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["a"]}
 
-function jacdac__gotAck_inline__P5776_mk(s) {
+function jacdac__gotAck_inline__P5861_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: jacdac__gotAck_inline__P5776, depth: s.depth + 1,
+        parent: s, fn: jacdac__gotAck_inline__P5861, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -6015,31 +6482,31 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.res___5783 = undefined;
-    s.len___5785 = undefined;
-    s.i___5788 = undefined;
-    s.v___5793 = undefined;
+    s.res___5868 = undefined;
+    s.len___5870 = undefined;
+    s.i___5873 = undefined;
+    s.v___5878 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
       s.lambdaArgs = null;
     }
     r0 = pxsim_Array__mk();
-    s.res___5783 = (r0);
+    s.res___5868 = (r0);
     r0 = pxsim_Array__length(s.arg0);
-    s.len___5785 = (r0);
-    s.i___5788 = (0);
+    s.len___5870 = (r0);
+    s.i___5873 = (0);
   case 1:
-    r0 = (s.i___5788 < s.len___5785);
+    r0 = (s.i___5873 < s.len___5870);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 4; continue; }
-    r0 = pxsim_Array__getAt(s.arg0, s.i___5788);
-    s.v___5793 = (r0);
+    r0 = pxsim_Array__getAt(s.arg0, s.i___5873);
+    s.v___5878 = (r0);
     s.tmp_1 = lambda_3_mk(s);
     s.tmp_1.argL = s.arg1;
-    s.tmp_1.arg0 = s.v___5793;
-    s.tmp_1.arg1 = s.i___5788;
+    s.tmp_1.arg0 = s.v___5878;
+    s.tmp_1.arg1 = s.i___5873;
     setupLambda(s.tmp_1, s.tmp_1.argL);
     s.callLocIdx = 7; s.pc = 5; return s.tmp_1;
   case 5:
@@ -6047,14 +6514,14 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
-    r0 = pxsim_Array__push(s.res___5783, s.v___5793);
+    r0 = pxsim_Array__push(s.res___5868, s.v___5878);
   case 2:
   case 3:
-    r0 = (s.i___5788 + 1);
-    s.i___5788 = (r0);
+    r0 = (s.i___5873 + 1);
+    s.i___5873 = (r0);
     { step = 1; continue; }
   case 4:
-    r0 = s.res___5783;
+    r0 = s.res___5868;
     return leave(s, r0)
   default: oops()
 } } }
@@ -6067,10 +6534,10 @@ function helpers_arrayFilter__P2001_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  res___5783: undefined,
-  len___5785: undefined,
-  i___5788: undefined,
-  v___5793: undefined,
+  res___5868: undefined,
+  len___5870: undefined,
+  i___5873: undefined,
+  v___5878: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -6089,15 +6556,15 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.cmd___5825 = undefined;
-    s.q___5836 = undefined;
-    s.serviceIndex___5848 = undefined;
-    s.q___5856 = undefined;
-    s.serviceClass___5873 = undefined;
-    s.ec___5884 = undefined;
-    s.ahead___5897 = undefined;
-    s.behind___5905 = undefined;
-    s.client___5936 = undefined;
+    s.cmd___5910 = undefined;
+    s.q___5921 = undefined;
+    s.serviceIndex___5933 = undefined;
+    s.q___5941 = undefined;
+    s.serviceClass___5958 = undefined;
+    s.ec___5969 = undefined;
+    s.ahead___5982 = undefined;
+    s.behind___5990 = undefined;
+    s.client___6021 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -6136,8 +6603,8 @@ switch (step) {
     r0 = s.arg1.fields["_data"];
     s.tmp_4 = r0;
     r0 = pxsim.BufferMethods.getNumber(s.tmp_4, 4, 0);
-    s.cmd___5825 = (r0);
-    r0 = (s.cmd___5825 >> 12);
+    s.cmd___5910 = (r0);
+    r0 = (s.cmd___5910 >> 12);
     s.tmp_1 = r0;
     r0 = (s.tmp_1 == 1);
     s.tmp_0 = r0;
@@ -6145,7 +6612,7 @@ switch (step) {
     if (!r0) { step = 5; continue; }
     s.tmp_2 = jacdac_Device_lookupQuery__P4299_mk(s);
     s.tmp_2.arg0 = s.arg0;
-    r0 = (s.cmd___5825 & 4095);
+    r0 = (s.cmd___5910 & 4095);
     s.tmp_2.arg1 = r0;
     r0 = s.arg1.fields["_header"];
     s.tmp_4 = r0;
@@ -6156,10 +6623,10 @@ switch (step) {
     s.callLocIdx = 616; s.pc = 35; return s.tmp_2;
   case 35:
     r0 = s.retval;
-    s.q___5836 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.q___5836);
+    s.q___5921 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.q___5921);
     if (!r0) { step = 3; continue; }
-    r0 = (s.q___5836).fields["notImplemented"] = (true);
+    r0 = (s.q___5921).fields["notImplemented"] = (true);
   case 3:
   case 4:
   case 5:
@@ -6171,7 +6638,7 @@ switch (step) {
     r0 = pxsim.BufferMethods.getByte(s.tmp_1, 13);
     s.tmp_0 = r0;
     r0 = (s.tmp_0 & 63);
-    s.serviceIndex___5848 = (r0);
+    s.serviceIndex___5933 = (r0);
     s.tmp_1 = jacdac_JDPacket_isRegGet__P2907_mk(s);
     s.tmp_1.arg0 = s.arg1;
     s.callLocIdx = 618; s.pc = 36; return s.tmp_1;
@@ -6197,18 +6664,18 @@ switch (step) {
   case 38:
     r0 = s.retval;
     s.tmp_3.arg1 = r0;
-    s.tmp_3.arg2 = s.serviceIndex___5848;
+    s.tmp_3.arg2 = s.serviceIndex___5933;
     s.callLocIdx = 620; s.pc = 37; return s.tmp_3;
   case 37:
     r0 = s.retval;
-    s.q___5856 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.q___5856);
+    s.q___5941 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.q___5941);
     if (!r0) { step = 11; continue; }
-    s.tmp_0 = r0 = s.q___5856;
+    s.tmp_0 = r0 = s.q___5941;
     r0 = s.arg1.fields["_data"];
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["value"] = (s.tmp_1);
-    s.tmp_0 = r0 = s.q___5856;
+    s.tmp_0 = r0 = s.q___5941;
     r0 = pxsim.control.millis();
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["lastReport"] = (s.tmp_1);
@@ -6218,12 +6685,12 @@ switch (step) {
   case 14:
     s.tmp_0 = jacdac_Device_serviceClassAt__P3540_mk(s);
     s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.serviceIndex___5848;
+    s.tmp_0.arg1 = s.serviceIndex___5933;
     s.callLocIdx = 622; s.pc = 39; return s.tmp_0;
   case 39:
     r0 = s.retval;
-    s.serviceClass___5873 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.serviceClass___5873);
+    s.serviceClass___5958 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.serviceClass___5958);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -6232,7 +6699,7 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 16; continue; }
   case 15:
-    r0 = (s.serviceClass___5873 == 4294967295);
+    r0 = (s.serviceClass___5958 == 4294967295);
   case 16:
     // jmp value (already in r0)
     s.tmp_2 = r0;
@@ -6250,8 +6717,8 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_3);
     if (!r0) { step = 27; continue; }
     r0 = s.arg0.fields["_eventCounter"];
-    s.ec___5884 = (r0);
-    r0 = (s.ec___5884 === undefined);
+    s.ec___5969 = (r0);
+    r0 = (s.ec___5969 === undefined);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 19; continue; }
@@ -6262,22 +6729,22 @@ switch (step) {
     r0 = s.retval;
     s.tmp_1 = r0;
     r0 = (s.tmp_1 - 1);
-    s.ec___5884 = (r0);
+    s.ec___5969 = (r0);
   case 19:
   case 20:
-    r0 = (s.ec___5884 + 1);
-    s.ec___5884 = (r0);
+    r0 = (s.ec___5969 + 1);
+    s.ec___5969 = (r0);
     s.tmp_2 = jacdac_JDPacket_eventCounter__P2905_mk(s);
     s.tmp_2.arg0 = s.arg1;
     s.callLocIdx = 625; s.pc = 42; return s.tmp_2;
   case 42:
     r0 = s.retval;
     s.tmp_1 = r0;
-    r0 = (s.tmp_1 - s.ec___5884);
+    r0 = (s.tmp_1 - s.ec___5969);
     s.tmp_0 = r0;
     r0 = (s.tmp_0 & 127);
-    s.ahead___5897 = (r0);
-    s.tmp_1 = r0 = s.ec___5884;
+    s.ahead___5982 = (r0);
+    s.tmp_1 = r0 = s.ec___5969;
     s.tmp_3 = jacdac_JDPacket_eventCounter__P2905_mk(s);
     s.tmp_3.arg0 = s.arg1;
     s.callLocIdx = 626; s.pc = 43; return s.tmp_3;
@@ -6287,22 +6754,22 @@ switch (step) {
     r0 = (s.tmp_1 - s.tmp_2);
     s.tmp_0 = r0;
     r0 = (s.tmp_0 & 127);
-    s.behind___5905 = (r0);
-    r0 = (s.ahead___5897 > 0);
+    s.behind___5990 = (r0);
+    r0 = (s.ahead___5982 > 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 21; continue; }
     r0 = s.tmp_0;
     { step = 24; continue; }
   case 21:
-    r0 = (s.behind___5905 < 60);
+    r0 = (s.behind___5990 < 60);
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBool(s.tmp_1);
     if (!r0) { step = 22; continue; }
     r0 = s.tmp_1;
     { step = 23; continue; }
   case 22:
-    r0 = (s.ahead___5897 < 5);
+    r0 = (s.ahead___5982 < 5);
   case 23:
     // jmp value (already in r0)
     s.tmp_2 = r0;
@@ -6350,10 +6817,10 @@ switch (step) {
     { step = 33; continue; }
   case 29:
   case 30:
-    r0 = pxsim_pxtcore_mkAction(2, client_inline__P5938);
+    r0 = pxsim_pxtcore_mkAction(2, client_inline__P6023);
     s.tmp_3 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_3, 0, s.serviceClass___5873);
-    r0 = pxsim_pxtrt_stclo(s.tmp_3, 1, s.serviceIndex___5848);
+    r0 = pxsim_pxtrt_stclo(s.tmp_3, 0, s.serviceClass___5958);
+    r0 = pxsim_pxtrt_stclo(s.tmp_3, 1, s.serviceIndex___5933);
     s.tmp_4 = helpers_arrayFind__P2002_mk(s);
     r0 = s.arg0.fields["clients"];
     s.tmp_4.arg0 = r0;
@@ -6361,11 +6828,11 @@ switch (step) {
     s.callLocIdx = 630; s.pc = 47; return s.tmp_4;
   case 47:
     r0 = s.retval;
-    s.client___5936 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.client___5936);
+    s.client___6021 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.client___6021);
     if (!r0) { step = 31; continue; }
     s.tmp_0 = jacdac_Client_handlePacketOuter__P3513_mk(s);
-    s.tmp_0.arg0 = s.client___5936;
+    s.tmp_0.arg0 = s.client___6021;
     s.tmp_0.arg1 = s.arg1;
     s.callLocIdx = 631; s.pc = 48; return s.tmp_0;
   case 48:
@@ -6389,15 +6856,15 @@ function jacdac_Device_processPacket__P3545_mk(s) {
   tmp_2: undefined,
   tmp_3: undefined,
   tmp_4: undefined,
-  cmd___5825: undefined,
-  q___5836: undefined,
-  serviceIndex___5848: undefined,
-  q___5856: undefined,
-  serviceClass___5873: undefined,
-  ec___5884: undefined,
-  ahead___5897: undefined,
-  behind___5905: undefined,
-  client___5936: undefined,
+  cmd___5910: undefined,
+  q___5921: undefined,
+  serviceIndex___5933: undefined,
+  q___5941: undefined,
+  serviceClass___5958: undefined,
+  ec___5969: undefined,
+  ahead___5982: undefined,
+  behind___5990: undefined,
+  client___6021: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -6406,7 +6873,7 @@ function jacdac_Device_processPacket__P3545_mk(s) {
 
 
 
-function client_inline__P5938(s) {
+function client_inline__P6023(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -6439,12 +6906,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-client_inline__P5938.info = {"start":51102,"length":138,"line":1533,"column":45,"endLine":1536,"endColumn":52,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["c"]}
+client_inline__P6023.info = {"start":51102,"length":138,"line":1533,"column":45,"endLine":1536,"endColumn":52,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["c"]}
 
-function client_inline__P5938_mk(s) {
+function client_inline__P6023_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: client_inline__P5938, depth: s.depth + 1,
+        parent: s, fn: client_inline__P6023, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
@@ -6467,8 +6934,8 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.code___5973 = undefined;
-    s.register___6004 = undefined;
+    s.code___6058 = undefined;
+    s.register___6089 = undefined;
     s.unnamed92___U2 = undefined;
     s.unnamed93___U3 = undefined;
     if (s.lambdaArgs) {
@@ -6512,29 +6979,29 @@ switch (step) {
     s.callLocIdx = 565; s.pc = 17; return s.tmp_2;
   case 17:
     r0 = s.retval;
-    s.code___5973 = (r0);
-    r0 = (s.code___5973 == 1);
+    s.code___6058 = (r0);
+    r0 = (s.code___6058 == 1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 5; continue; }
     r0 = (s.arg0).fields["systemActive"] = (true);
     { step = 10; continue; }
   case 5:
-    r0 = (s.code___5973 == 2);
+    r0 = (s.code___6058 == 2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 6; continue; }
     r0 = (s.arg0).fields["systemActive"] = (false);
     { step = 9; continue; }
   case 6:
-    r0 = (s.code___5973 == 3);
+    r0 = (s.code___6058 == 3);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 7; continue; }
     s.tmp_1 = helpers_arrayForEach__P2000_mk(s);
     r0 = s.arg0.fields["registers"];
     s.tmp_1.arg0 = r0;
-    s.tmp_1.arg1 = jacdac_Client_handlePacketOuter_inline__P5994;
+    s.tmp_1.arg1 = jacdac_Client_handlePacketOuter_inline__P6079;
     s.callLocIdx = 567; s.pc = 18; return s.tmp_1;
   case 18:
     r0 = s.retval;
@@ -6551,13 +7018,13 @@ switch (step) {
     r0 = s.retval;
     s.tmp_0 = jacdac_Client_raiseEvent__P4180_mk(s);
     s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.code___5973;
+    s.tmp_0.arg1 = s.code___6058;
     s.callLocIdx = 569; s.pc = 20; return s.tmp_0;
   case 20:
     r0 = s.retval;
     { step = 14; continue; }
   case 11:
-    s.register___6004 = (undefined);
+    s.register___6089 = (undefined);
     r0 = s.arg0.fields["registers"];
     s.unnamed92___U2 = (r0);
     s.unnamed93___U3 = (0);
@@ -6568,9 +7035,9 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 13; continue; }
     r0 = pxsim_Array__getAt(s.unnamed92___U2, s.unnamed93___U3);
-    s.register___6004 = (r0);
+    s.register___6089 = (r0);
     s.tmp_2 = jacdac_RegisterClient_handlePacket__P3487_mk(s);
-    s.tmp_2.arg0 = s.register___6004;
+    s.tmp_2.arg0 = s.register___6089;
     s.tmp_2.arg1 = s.arg1;
     s.callLocIdx = 570; s.pc = 21; return s.tmp_2;
   case 21:
@@ -6607,8 +7074,8 @@ function jacdac_Client_handlePacketOuter__P3513_mk(s) {
   tmp_3: undefined,
   tmp_4: undefined,
   tmp_5: undefined,
-  code___5973: undefined,
-  register___6004: undefined,
+  code___6058: undefined,
+  register___6089: undefined,
   unnamed92___U2: undefined,
   unnamed93___U3: undefined,
   arg0: undefined,
@@ -6619,7 +7086,7 @@ function jacdac_Client_handlePacketOuter__P3513_mk(s) {
 
 
 
-function jacdac_Client_handlePacketOuter_inline__P5994(s) {
+function jacdac_Client_handlePacketOuter_inline__P6079(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -6642,12 +7109,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_Client_handlePacketOuter_inline__P5994.info = {"start":37541,"length":14,"line":1141,"column":43,"endLine":1141,"endColumn":57,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["r"]}
+jacdac_Client_handlePacketOuter_inline__P6079.info = {"start":37541,"length":14,"line":1141,"column":43,"endLine":1141,"endColumn":57,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["r"]}
 
-function jacdac_Client_handlePacketOuter_inline__P5994_mk(s) {
+function jacdac_Client_handlePacketOuter_inline__P6079_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: jacdac_Client_handlePacketOuter_inline__P5994, depth: s.depth + 1,
+        parent: s, fn: jacdac_Client_handlePacketOuter_inline__P6079, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -6703,8 +7170,8 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.d___6025 = undefined;
-    s.changed___6028 = undefined;
+    s.d___6110 = undefined;
+    s.changed___6113 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -6738,8 +7205,8 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_5);
     if (!r0) { step = 9; continue; }
     r0 = s.arg1.fields["_data"];
-    s.d___6025 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.d___6025);
+    s.d___6110 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.d___6110);
     s.tmp_4 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_4);
     s.tmp_3 = r0;
@@ -6764,7 +7231,7 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 4; continue; }
   case 3:
-    r0 = pxsim_numops_toBoolDecr(s.d___6025);
+    r0 = pxsim_numops_toBoolDecr(s.d___6110);
     s.tmp_10 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_10);
   case 4:
@@ -6776,7 +7243,7 @@ switch (step) {
     { step = 6; continue; }
   case 5:
     s.tmp_14 = helpers_bufferEquals__P2619_mk(s);
-    s.tmp_14.arg0 = s.d___6025;
+    s.tmp_14.arg0 = s.d___6110;
     r0 = s.arg0.fields["_data"];
     s.tmp_14.arg1 = r0;
     s.callLocIdx = 542; s.pc = 13; return s.tmp_14;
@@ -6789,8 +7256,8 @@ switch (step) {
   case 6:
     // jmp value (already in r0)
     s.tmp_15 = r0;
-    s.changed___6028 = (s.tmp_15);
-    r0 = (s.arg0).fields["_data"] = (s.d___6025);
+    s.changed___6113 = (s.tmp_15);
+    r0 = (s.arg0).fields["_data"] = (s.d___6110);
     s.tmp_0 = r0 = s.arg0;
     r0 = pxsim.control.millis();
     s.tmp_1 = r0;
@@ -6802,7 +7269,7 @@ switch (step) {
     s.callLocIdx = 543; s.pc = 14; return s.tmp_0;
   case 14:
     r0 = s.retval;
-    r0 = pxsim_numops_toBoolDecr(s.changed___6028);
+    r0 = pxsim_numops_toBoolDecr(s.changed___6113);
     if (!r0) { step = 7; continue; }
     s.tmp_0 = jacdac_EventSource_emit__P3578_mk(s);
     s.tmp_0.arg0 = s.arg0;
@@ -6849,8 +7316,8 @@ function jacdac_RegisterClient_handlePacket__P3487_mk(s) {
   tmp_13: undefined,
   tmp_14: undefined,
   tmp_15: undefined,
-  d___6025: undefined,
-  changed___6028: undefined,
+  d___6110: undefined,
+  changed___6113: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -6869,7 +7336,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.i___6086 = undefined;
+    s.i___6171 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -6924,18 +7391,18 @@ switch (step) {
     { step = 11; continue; }
   case 5:
   case 6:
-    s.i___6086 = (0);
+    s.i___6171 = (0);
   case 7:
-    s.tmp_1 = r0 = s.i___6086;
+    s.tmp_1 = r0 = s.i___6171;
     r0 = pxsim.BufferMethods.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 10; continue; }
-    r0 = pxsim.BufferMethods.getByte(s.arg0, s.i___6086);
+    r0 = pxsim.BufferMethods.getByte(s.arg0, s.i___6171);
     s.tmp_4 = r0;
-    r0 = pxsim.BufferMethods.getByte(s.arg1, s.i___6086);
+    r0 = pxsim.BufferMethods.getByte(s.arg1, s.i___6171);
     s.tmp_5 = r0;
     r0 = (s.tmp_4 != s.tmp_5);
     s.tmp_3 = r0;
@@ -6945,8 +7412,8 @@ switch (step) {
     { step = 11; continue; }
   case 8:
   case 9:
-    r0 = (s.i___6086 + 1);
-    s.i___6086 = (r0);
+    r0 = (s.i___6171 + 1);
+    s.i___6171 = (r0);
     { step = 7; continue; }
   case 10:
     r0 = true;
@@ -6976,7 +7443,7 @@ function helpers_bufferEquals__P2619_mk(s) {
   tmp_12: undefined,
   tmp_13: undefined,
   tmp_14: undefined,
-  i___6086: undefined,
+  i___6171: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -7079,32 +7546,32 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.len___6122 = undefined;
-    s.i___6125 = undefined;
+    s.len___6207 = undefined;
+    s.i___6210 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
       s.lambdaArgs = null;
     }
     r0 = pxsim_Array__length(s.arg0);
-    s.len___6122 = (r0);
-    s.i___6125 = (0);
+    s.len___6207 = (r0);
+    s.i___6210 = (0);
   case 1:
-    r0 = (s.i___6125 < s.len___6122);
+    r0 = (s.i___6210 < s.len___6207);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
     s.tmp_1 = lambda_3_mk(s);
     s.tmp_1.argL = s.arg1;
-    r0 = pxsim_Array__getAt(s.arg0, s.i___6125);
+    r0 = pxsim_Array__getAt(s.arg0, s.i___6210);
     s.tmp_1.arg0 = r0;
-    s.tmp_1.arg1 = s.i___6125;
+    s.tmp_1.arg1 = s.i___6210;
     setupLambda(s.tmp_1, s.tmp_1.argL);
     s.callLocIdx = 6; s.pc = 3; return s.tmp_1;
   case 3:
     r0 = s.retval;
-    r0 = (s.i___6125 + 1);
-    s.i___6125 = (r0);
+    r0 = (s.i___6210 + 1);
+    s.i___6210 = (r0);
     { step = 1; continue; }
   case 2:
     r0 = undefined;
@@ -7120,8 +7587,8 @@ function helpers_arrayForEach__P2000_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  len___6122: undefined,
-  i___6125: undefined,
+  len___6207: undefined,
+  i___6210: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -7589,7 +8056,7 @@ switch (step) {
     r0 = (s.tmp_3).fields["queries"] = (s.tmp_4);
   case 1:
   case 2:
-    r0 = pxsim_pxtcore_mkAction(2, jacdac_Device_lookupQuery_inline__P6206);
+    r0 = pxsim_pxtcore_mkAction(2, jacdac_Device_lookupQuery_inline__P6291);
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg1);
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 1, s.arg2);
@@ -7624,7 +8091,7 @@ function jacdac_Device_lookupQuery__P4299_mk(s) {
 
 
 
-function jacdac_Device_lookupQuery_inline__P6206(s) {
+function jacdac_Device_lookupQuery_inline__P6291(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -7657,12 +8124,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_Device_lookupQuery_inline__P6206.info = {"start":46426,"length":41,"line":1405,"column":37,"endLine":1405,"endColumn":78,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["q"]}
+jacdac_Device_lookupQuery_inline__P6291.info = {"start":46426,"length":41,"line":1405,"column":37,"endLine":1405,"endColumn":78,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["q"]}
 
-function jacdac_Device_lookupQuery_inline__P6206_mk(s) {
+function jacdac_Device_lookupQuery_inline__P6291_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: jacdac_Device_lookupQuery_inline__P6206, depth: s.depth + 1,
+        parent: s, fn: jacdac_Device_lookupQuery_inline__P6291, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
@@ -7726,15 +8193,15 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.newClients___6254 = undefined;
-    s.occupied___6256 = undefined;
-    s.c___6264 = undefined;
+    s.newClients___6339 = undefined;
+    s.occupied___6341 = undefined;
+    s.c___6349 = undefined;
     s.unnamed82___U3 = undefined;
     s.unnamed83___U4 = undefined;
-    s.newClass___6271 = undefined;
-    s.i___6311 = undefined;
-    s.serviceClass___6321 = undefined;
-    s.cc___6329 = undefined;
+    s.newClass___6356 = undefined;
+    s.i___6396 = undefined;
+    s.serviceClass___6406 = undefined;
+    s.cc___6414 = undefined;
     s.unnamed84___U9 = undefined;
     s.unnamed85___U10 = undefined;
     if (s.lambdaArgs) {
@@ -7804,7 +8271,7 @@ switch (step) {
   case 24:
     r0 = s.retval;
     r0 = pxsim_Array__mk();
-    s.newClients___6254 = (r0);
+    s.newClients___6339 = (r0);
     r0 = s.arg1.fields["services"];
     s.tmp_2 = r0;
     r0 = pxsim.BufferMethods.length(s.tmp_2);
@@ -7812,8 +8279,8 @@ switch (step) {
     r0 = (s.tmp_1 >> 2);
     s.tmp_0 = r0;
     r0 = pxsim.control.createBuffer(s.tmp_0);
-    s.occupied___6256 = (r0);
-    s.c___6264 = (undefined);
+    s.occupied___6341 = (r0);
+    s.c___6349 = (undefined);
     r0 = s.arg1.fields["clients"];
     s.unnamed82___U3 = (r0);
     s.unnamed83___U4 = (0);
@@ -7824,13 +8291,13 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 9; continue; }
     r0 = pxsim_Array__getAt(s.unnamed82___U3, s.unnamed83___U4);
-    s.c___6264 = (r0);
-    r0 = s.c___6264.fields["broadcast"];
+    s.c___6349 = (r0);
+    r0 = s.c___6349.fields["broadcast"];
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 2; continue; }
     s.tmp_3 = jacdac_Client__detach__P3516_mk(s);
-    s.tmp_3.arg0 = s.c___6264;
+    s.tmp_3.arg0 = s.c___6349;
     s.callLocIdx = 383; s.pc = 29; return s.tmp_3;
   case 29:
     r0 = s.retval;
@@ -7839,15 +8306,15 @@ switch (step) {
   case 3:
     s.tmp_0 = jacdac_Device_serviceClassAt__P3540_mk(s);
     s.tmp_0.arg0 = s.arg1;
-    r0 = s.c___6264.fields["serviceIndex"];
+    r0 = s.c___6349.fields["serviceIndex"];
     s.tmp_0.arg1 = r0;
     s.callLocIdx = 384; s.pc = 30; return s.tmp_0;
   case 30:
     r0 = s.retval;
-    s.newClass___6271 = (r0);
-    r0 = s.c___6264.fields["serviceClass"];
+    s.newClass___6356 = (r0);
+    r0 = s.c___6349.fields["serviceClass"];
     s.tmp_1 = r0;
-    r0 = (s.newClass___6271 == s.tmp_1);
+    r0 = (s.newClass___6356 == s.tmp_1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 4; continue; }
@@ -7857,14 +8324,14 @@ switch (step) {
     s.tmp_2 = jacdac_Device_matchesRoleAt__P3538_mk(s);
     s.tmp_2.arg0 = s.arg1;
     s.tmp_3 = jacdac_Client_roleQuery__P3505_mk(s);
-    s.tmp_3.arg0 = s.c___6264;
+    s.tmp_3.arg0 = s.c___6349;
     s.callLocIdx = 385; s.pc = 32; return s.tmp_3;
   case 32:
     r0 = s.retval;
     s.tmp_2.arg1 = r0;
-    r0 = s.c___6264.fields["serviceClass"];
+    r0 = s.c___6349.fields["serviceClass"];
     s.tmp_2.arg2 = r0;
-    r0 = s.c___6264.fields["serviceIndex"];
+    r0 = s.c___6349.fields["serviceIndex"];
     s.tmp_2.arg3 = r0;
     s.callLocIdx = 386; s.pc = 31; return s.tmp_2;
   case 31:
@@ -7874,14 +8341,14 @@ switch (step) {
     s.tmp_4 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 6; continue; }
-    r0 = pxsim_Array__push(s.newClients___6254, s.c___6264);
-    r0 = s.c___6264.fields["serviceIndex"];
+    r0 = pxsim_Array__push(s.newClients___6339, s.c___6349);
+    r0 = s.c___6349.fields["serviceIndex"];
     s.tmp_0 = r0;
-    r0 = pxsim.BufferMethods.setByte(s.occupied___6256, s.tmp_0, 1);
+    r0 = pxsim.BufferMethods.setByte(s.occupied___6341, s.tmp_0, 1);
     { step = 7; continue; }
   case 6:
     s.tmp_0 = jacdac_Client__detach__P3516_mk(s);
-    s.tmp_0.arg0 = s.c___6264;
+    s.tmp_0.arg0 = s.c___6349;
     s.callLocIdx = 387; s.pc = 33; return s.tmp_0;
   case 33:
     r0 = s.retval;
@@ -7892,7 +8359,7 @@ switch (step) {
     { step = 1; continue; }
   case 9:
     s.unnamed82___U3 = (undefined);
-    r0 = (s.arg1).fields["clients"] = (s.newClients___6254);
+    r0 = (s.arg1).fields["clients"] = (s.newClients___6339);
     s.tmp_0 = jacdac_EventSource_emit__P3578_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_0.arg1 = globals.DEVICE_ANNOUNCE___3396;
@@ -7911,9 +8378,9 @@ switch (step) {
     { step = 23; continue; }
   case 10:
   case 11:
-    s.i___6311 = (4);
+    s.i___6396 = (4);
   case 12:
-    s.tmp_1 = r0 = s.i___6311;
+    s.tmp_1 = r0 = s.i___6396;
     r0 = s.arg1.fields["services"];
     s.tmp_3 = r0;
     r0 = pxsim.BufferMethods.length(s.tmp_3);
@@ -7922,8 +8389,8 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 22; continue; }
-    s.tmp_5 = r0 = s.occupied___6256;
-    r0 = (s.i___6311 >> 2);
+    s.tmp_5 = r0 = s.occupied___6341;
+    r0 = (s.i___6396 >> 2);
     s.tmp_6 = r0;
     r0 = pxsim.BufferMethods.getByte(s.tmp_5, s.tmp_6);
     s.tmp_4 = r0;
@@ -7934,9 +8401,9 @@ switch (step) {
   case 14:
     r0 = s.arg1.fields["services"];
     s.tmp_7 = r0;
-    r0 = pxsim.BufferMethods.getNumber(s.tmp_7, 11, s.i___6311);
-    s.serviceClass___6321 = (r0);
-    s.cc___6329 = (undefined);
+    r0 = pxsim.BufferMethods.getNumber(s.tmp_7, 11, s.i___6396);
+    s.serviceClass___6406 = (r0);
+    s.cc___6414 = (undefined);
     r0 = s.arg0.fields["unattachedClients"];
     s.unnamed84___U9 = (r0);
     s.unnamed85___U10 = (0);
@@ -7947,16 +8414,16 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 20; continue; }
     r0 = pxsim_Array__getAt(s.unnamed84___U9, s.unnamed85___U10);
-    s.cc___6329 = (r0);
-    r0 = s.cc___6329.fields["serviceClass"];
+    s.cc___6414 = (r0);
+    r0 = s.cc___6414.fields["serviceClass"];
     s.tmp_3 = r0;
-    r0 = (s.tmp_3 == s.serviceClass___6321);
+    r0 = (s.tmp_3 == s.serviceClass___6406);
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 18; continue; }
     s.tmp_4 = console_add__P2377_mk(s);
     s.tmp_4.arg0 = globals.logPriority___3431;
-    r0 = s.cc___6329.fields["_role"];
+    r0 = s.cc___6414.fields["_role"];
     s.tmp_10 = r0;
     if ((s.tmp_10) && (s.tmp_10).vtable) {
     setupResume(s, 36);
@@ -7990,7 +8457,7 @@ switch (step) {
     s.tmp_6 = r0;
     r0 = pxsim_String__concat(s.tmp_6, ":");
     s.tmp_5 = r0;
-    r0 = (s.i___6311 >> 2);
+    r0 = (s.i___6396 >> 2);
     s.tmp_15 = r0;
     if ((s.tmp_15) && (s.tmp_15).vtable) {
     setupResume(s, 39);
@@ -8007,10 +8474,10 @@ switch (step) {
   case 35:
     r0 = s.retval;
     s.tmp_1 = jacdac_Client__attach__P3515_mk(s);
-    s.tmp_1.arg0 = s.cc___6329;
+    s.tmp_1.arg0 = s.cc___6414;
     s.tmp_1.arg1 = s.arg1;
-    s.tmp_1.arg2 = s.serviceClass___6321;
-    r0 = (s.i___6311 >> 2);
+    s.tmp_1.arg2 = s.serviceClass___6406;
+    r0 = (s.i___6396 >> 2);
     s.tmp_1.arg3 = r0;
     s.callLocIdx = 392; s.pc = 40; return s.tmp_1;
   case 40:
@@ -8029,8 +8496,8 @@ switch (step) {
   case 20:
     s.unnamed84___U9 = (undefined);
   case 21:
-    r0 = (s.i___6311 + 4);
-    s.i___6311 = (r0);
+    r0 = (s.i___6396 + 4);
+    s.i___6396 = (r0);
     { step = 12; continue; }
   case 22:
   case 23:
@@ -8061,15 +8528,15 @@ function jacdac_Bus_reattach__P3427_mk(s) {
   tmp_13: undefined,
   tmp_14: undefined,
   tmp_15: undefined,
-  newClients___6254: undefined,
-  occupied___6256: undefined,
-  c___6264: undefined,
+  newClients___6339: undefined,
+  occupied___6341: undefined,
+  c___6349: undefined,
   unnamed82___U3: undefined,
   unnamed83___U4: undefined,
-  newClass___6271: undefined,
-  i___6311: undefined,
-  serviceClass___6321: undefined,
-  cc___6329: undefined,
+  newClass___6356: undefined,
+  i___6396: undefined,
+  serviceClass___6406: undefined,
+  cc___6414: undefined,
   unnamed84___U9: undefined,
   unnamed85___U10: undefined,
   arg0: undefined,
@@ -8305,9 +8772,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.sn___6419 = undefined;
-    s.hasNonSet___6433 = undefined;
-    s.p___6435 = undefined;
+    s.sn___6504 = undefined;
+    s.hasNonSet___6518 = undefined;
+    s.p___6520 = undefined;
     s.unnamed88___U3 = undefined;
     s.unnamed89___U4 = undefined;
     if (s.lambdaArgs) {
@@ -8318,8 +8785,8 @@ switch (step) {
     if (!checkSubtype(r0, jacdac_ClientPacketQueue__C4285_VT)) failedCast(r0);
     r0 = s.arg0.fields["parent"];
     r0 = r0.fields["serviceIndex"];
-    s.sn___6419 = (r0);
-    r0 = (s.sn___6419 == null);
+    s.sn___6504 = (r0);
+    r0 = (s.sn___6504 == null);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 1; continue; }
@@ -8339,8 +8806,8 @@ switch (step) {
     { step = 11; continue; }
   case 3:
   case 4:
-    s.hasNonSet___6433 = (false);
-    s.p___6435 = (undefined);
+    s.hasNonSet___6518 = (false);
+    s.p___6520 = (undefined);
     r0 = s.arg0.fields["pkts"];
     s.unnamed88___U3 = (r0);
     s.unnamed89___U4 = (0);
@@ -8351,8 +8818,8 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 8; continue; }
     r0 = pxsim_Array__getAt(s.unnamed88___U3, s.unnamed89___U4);
-    s.p___6435 = (r0);
-    r0 = pxsim.BufferMethods.getByte(s.p___6435, 3);
+    s.p___6520 = (r0);
+    r0 = pxsim.BufferMethods.getByte(s.p___6520, 3);
     s.tmp_4 = r0;
     r0 = (s.tmp_4 >> 4);
     s.tmp_3 = r0;
@@ -8360,14 +8827,14 @@ switch (step) {
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 6; continue; }
-    s.hasNonSet___6433 = (true);
+    s.hasNonSet___6518 = (true);
   case 6:
   case 7:
     s.tmp_0 = jacdac_Client_sendCommand__P3517_mk(s);
     r0 = s.arg0.fields["parent"];
     s.tmp_0.arg0 = r0;
     s.tmp_1 = jacdac_JDPacket_fromFrameless__P2885_mk(s);
-    s.tmp_1.arg0 = s.p___6435;
+    s.tmp_1.arg0 = s.p___6520;
     s.callLocIdx = 534; s.pc = 13; return s.tmp_1;
   case 13:
     r0 = s.retval;
@@ -8380,13 +8847,13 @@ switch (step) {
     { step = 5; continue; }
   case 8:
     s.unnamed88___U3 = (undefined);
-    r0 = pxsim_numops_toBoolDecr(s.hasNonSet___6433);
+    r0 = pxsim_numops_toBoolDecr(s.hasNonSet___6518);
     if (!r0) { step = 9; continue; }
     s.tmp_0 = r0 = s.arg0;
     s.tmp_2 = helpers_arrayFilter__P2001_mk(s);
     r0 = s.arg0.fields["pkts"];
     s.tmp_2.arg0 = r0;
-    s.tmp_2.arg1 = jacdac_ClientPacketQueue_resend_inline__P6457;
+    s.tmp_2.arg1 = jacdac_ClientPacketQueue_resend_inline__P6542;
     s.callLocIdx = 536; s.pc = 14; return s.tmp_2;
   case 14:
     r0 = s.retval;
@@ -8411,9 +8878,9 @@ function jacdac_ClientPacketQueue_resend__P4289_mk(s) {
   tmp_2: undefined,
   tmp_3: undefined,
   tmp_4: undefined,
-  sn___6419: undefined,
-  hasNonSet___6433: undefined,
-  p___6435: undefined,
+  sn___6504: undefined,
+  hasNonSet___6518: undefined,
+  p___6520: undefined,
   unnamed88___U3: undefined,
   unnamed89___U4: undefined,
   arg0: undefined,
@@ -8423,7 +8890,7 @@ function jacdac_ClientPacketQueue_resend__P4289_mk(s) {
 
 
 
-function jacdac_ClientPacketQueue_resend_inline__P6457(s) {
+function jacdac_ClientPacketQueue_resend_inline__P6542(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -8445,12 +8912,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_ClientPacketQueue_resend_inline__P6457.info = {"start":28320,"length":35,"line":852,"column":20,"endLine":852,"endColumn":55,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["p"]}
+jacdac_ClientPacketQueue_resend_inline__P6542.info = {"start":28320,"length":35,"line":852,"column":20,"endLine":852,"endColumn":55,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["p"]}
 
-function jacdac_ClientPacketQueue_resend_inline__P6457_mk(s) {
+function jacdac_ClientPacketQueue_resend_inline__P6542_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: jacdac_ClientPacketQueue_resend_inline__P6457, depth: s.depth + 1,
+        parent: s, fn: jacdac_ClientPacketQueue_resend_inline__P6542, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
@@ -8471,7 +8938,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.p___6467 = undefined;
+    s.p___6552 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -8483,19 +8950,19 @@ switch (step) {
     s.callLocIdx = 105; s.pc = 1; return s.tmp_1;
   case 1:
     r0 = s.retval;
-    s.p___6467 = (s.tmp_0);
-    s.tmp_0 = r0 = s.p___6467;
+    s.p___6552 = (s.tmp_0);
+    s.tmp_0 = r0 = s.p___6552;
     r0 = pxsim.control.createBuffer(16);
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["_header"] = (s.tmp_1);
-    r0 = s.p___6467.fields["_header"];
+    r0 = s.p___6552.fields["_header"];
     s.tmp_0 = r0;
     r0 = pxsim.BufferMethods.write(s.tmp_0, 12, s.arg0);
-    s.tmp_0 = r0 = s.p___6467;
+    s.tmp_0 = r0 = s.p___6552;
     r0 = pxsim.BufferMethods.slice(s.arg0, 4, -1);
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["_data"] = (s.tmp_1);
-    r0 = s.p___6467;
+    r0 = s.p___6552;
     return leave(s, r0)
   default: oops()
 } } }
@@ -8508,7 +8975,7 @@ function jacdac_JDPacket_fromFrameless__P2885_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  p___6467: undefined,
+  p___6552: undefined,
   arg0: undefined,
 } }
 
@@ -8820,7 +9287,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.d___6545 = undefined;
+    s.d___6630 = undefined;
     s.unnamed78___U1 = undefined;
     s.unnamed79___U2 = undefined;
     if (s.lambdaArgs) {
@@ -8829,7 +9296,7 @@ switch (step) {
     }
     r0 = s.arg0;
     if (!checkSubtype(r0, jacdac_Bus__C3408_VT)) failedCast(r0);
-    s.d___6545 = (undefined);
+    s.d___6630 = (undefined);
     r0 = s.arg0.fields["devices"];
     s.unnamed78___U1 = (r0);
     s.unnamed79___U2 = (0);
@@ -8840,8 +9307,8 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 4; continue; }
     r0 = pxsim_Array__getAt(s.unnamed78___U1, s.unnamed79___U2);
-    s.d___6545 = (r0);
-    r0 = s.d___6545.fields["services"];
+    s.d___6630 = (r0);
+    r0 = s.d___6630.fields["services"];
     s.tmp_5 = r0;
     r0 = pxsim.BufferMethods.length(s.tmp_5);
     s.tmp_4 = r0;
@@ -8851,9 +9318,9 @@ switch (step) {
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 2; continue; }
-    s.tmp_6 = r0 = s.d___6545;
+    s.tmp_6 = r0 = s.d___6630;
     s.tmp_8 = helpers_bufferConcat__P2618_mk(s);
-    r0 = s.d___6545.fields["services"];
+    r0 = s.d___6630.fields["services"];
     s.tmp_8.arg0 = r0;
     r0 = pxsim.control.createBuffer(1);
     s.tmp_8.arg1 = r0;
@@ -8889,7 +9356,7 @@ function jacdac_Bus_clearAttachCache__P3420_mk(s) {
   tmp_6: undefined,
   tmp_7: undefined,
   tmp_8: undefined,
-  d___6545: undefined,
+  d___6630: undefined,
   unnamed78___U1: undefined,
   unnamed79___U2: undefined,
   arg0: undefined,
@@ -8909,7 +9376,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.r___6563 = undefined;
+    s.r___6648 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -8922,13 +9389,13 @@ switch (step) {
     r0 = (s.tmp_1 + s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim.control.createBuffer(s.tmp_0);
-    s.r___6563 = (r0);
-    r0 = pxsim.BufferMethods.write(s.r___6563, 0, s.arg0);
-    s.tmp_0 = r0 = s.r___6563;
+    s.r___6648 = (r0);
+    r0 = pxsim.BufferMethods.write(s.r___6648, 0, s.arg0);
+    s.tmp_0 = r0 = s.r___6648;
     r0 = pxsim.BufferMethods.length(s.arg0);
     s.tmp_1 = r0;
     r0 = pxsim.BufferMethods.write(s.tmp_0, s.tmp_1, s.arg1);
-    r0 = s.r___6563;
+    r0 = s.r___6648;
     return leave(s, r0)
   default: oops()
 } } }
@@ -8942,7 +9409,7 @@ function helpers_bufferConcat__P2618_mk(s) {
   tmp_0: undefined,
   tmp_1: undefined,
   tmp_2: undefined,
-  r___6563: undefined,
+  r___6648: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -9018,7 +9485,7 @@ switch (step) {
     s.tmp_0 = helpers_arrayForEach__P2000_mk(s);
     r0 = s.arg0.fields["registers"];
     s.tmp_0.arg0 = r0;
-    s.tmp_0.arg1 = jacdac_Client_device_inline__P6601;
+    s.tmp_0.arg1 = jacdac_Client_device_inline__P6686;
     s.callLocIdx = 561; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
@@ -9045,7 +9512,7 @@ function jacdac_Client_device__P3507_mk(s) {
 
 
 
-function jacdac_Client_device_inline__P6601(s) {
+function jacdac_Client_device_inline__P6686(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -9068,12 +9535,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_Client_device_inline__P6601.info = {"start":34747,"length":18,"line":1060,"column":39,"endLine":1060,"endColumn":57,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["reg"]}
+jacdac_Client_device_inline__P6686.info = {"start":34747,"length":18,"line":1060,"column":39,"endLine":1060,"endColumn":57,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["reg"]}
 
-function jacdac_Client_device_inline__P6601_mk(s) {
+function jacdac_Client_device_inline__P6686_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: jacdac_Client_device_inline__P6601, depth: s.depth + 1,
+        parent: s, fn: jacdac_Client_device_inline__P6686, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
@@ -9163,9 +9630,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.i___6612 = undefined;
-    s.query___6626 = undefined;
-    s.r___6635 = undefined;
+    s.i___6697 = undefined;
+    s.query___6711 = undefined;
+    s.r___6720 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -9175,8 +9642,8 @@ switch (step) {
     r0 = s.arg0.fields["_role"];
     s.tmp_0 = r0;
     r0 = pxsim_String_.indexOf(s.tmp_0, "?", undefined);
-    s.i___6612 = (r0);
-    r0 = (s.i___6612 < 0);
+    s.i___6697 = (r0);
+    r0 = (s.i___6697 < 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 1; continue; }
@@ -9197,13 +9664,13 @@ switch (step) {
     s.tmp_3 = helpers_stringSubstr__P2009_mk(s);
     r0 = s.arg0.fields["_role"];
     s.tmp_3.arg0 = r0;
-    r0 = (s.i___6612 + 1);
+    r0 = (s.i___6697 + 1);
     s.tmp_3.arg1 = r0;
     s.tmp_3.arg2 = undefined;
     s.callLocIdx = 557; s.pc = 5; return s.tmp_3;
   case 5:
     r0 = s.retval;
-    s.query___6626 = (r0);
+    s.query___6711 = (r0);
     r0 = pxsim_pxtcore_mkClassInstance(jacdac_ClientRoleQuery__C3488_VT);
     s.tmp_0 = r0;
     s.tmp_1 = jacdac_ClientRoleQuery_constructor__P3489_mk(s);
@@ -9212,17 +9679,17 @@ switch (step) {
     r0 = s.arg0.fields["_role"];
     s.tmp_2.arg0 = r0;
     s.tmp_2.arg1 = 0;
-    s.tmp_2.arg2 = s.i___6612;
+    s.tmp_2.arg2 = s.i___6697;
     s.callLocIdx = 558; s.pc = 7; return s.tmp_2;
   case 7:
     r0 = s.retval;
     s.tmp_1.arg1 = r0;
-    s.tmp_1.arg2 = s.query___6626;
+    s.tmp_1.arg2 = s.query___6711;
     s.callLocIdx = 559; s.pc = 6; return s.tmp_1;
   case 6:
     r0 = s.retval;
-    s.r___6635 = (s.tmp_0);
-    r0 = s.r___6635;
+    s.r___6720 = (s.tmp_0);
+    r0 = s.r___6720;
   case 3:
     return leaveAccessor(s, r0)
   default: oops()
@@ -9239,9 +9706,9 @@ function jacdac_Client_roleQuery__P3505_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  i___6612: undefined,
-  query___6626: undefined,
-  r___6635: undefined,
+  i___6697: undefined,
+  query___6711: undefined,
+  r___6720: undefined,
   arg0: undefined,
 } }
 
@@ -9321,12 +9788,12 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.kv___6665 = undefined;
+    s.kv___6750 = undefined;
     s.unnamed90___U1 = undefined;
     s.unnamed91___U2 = undefined;
-    s.i___6670 = undefined;
-    s.key___6678 = undefined;
-    s.value___6683 = undefined;
+    s.i___6755 = undefined;
+    s.key___6763 = undefined;
+    s.value___6768 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -9338,7 +9805,7 @@ switch (step) {
     r0 = (s.arg0).fields["role"] = (s.arg1);
     r0 = pxsim_numops_toBoolDecr(s.arg2);
     if (!r0) { step = 10; continue; }
-    s.kv___6665 = (undefined);
+    s.kv___6750 = (undefined);
     s.tmp_0 = helpers_stringSplit__P2013_mk(s);
     s.tmp_0.arg0 = s.arg2;
     s.tmp_0.arg1 = "&";
@@ -9355,10 +9822,10 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 9; continue; }
     r0 = pxsim_Array__getAt(s.unnamed90___U1, s.unnamed91___U2);
-    s.kv___6665 = (r0);
-    r0 = pxsim_String_.indexOf(s.kv___6665, "=", undefined);
-    s.i___6670 = (r0);
-    r0 = (s.i___6670 < 0);
+    s.kv___6750 = (r0);
+    r0 = pxsim_String_.indexOf(s.kv___6750, "=", undefined);
+    s.i___6755 = (r0);
+    r0 = (s.i___6755 < 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
@@ -9366,23 +9833,23 @@ switch (step) {
   case 2:
   case 3:
     s.tmp_1 = helpers_stringSlice__P2010_mk(s);
-    s.tmp_1.arg0 = s.kv___6665;
+    s.tmp_1.arg0 = s.kv___6750;
     s.tmp_1.arg1 = 0;
-    s.tmp_1.arg2 = s.i___6670;
+    s.tmp_1.arg2 = s.i___6755;
     s.callLocIdx = 547; s.pc = 13; return s.tmp_1;
   case 13:
     r0 = s.retval;
-    s.key___6678 = (r0);
+    s.key___6763 = (r0);
     s.tmp_0 = helpers_stringSlice__P2010_mk(s);
-    s.tmp_0.arg0 = s.kv___6665;
-    r0 = (s.i___6670 + 1);
+    s.tmp_0.arg0 = s.kv___6750;
+    r0 = (s.i___6755 + 1);
     s.tmp_0.arg1 = r0;
     s.tmp_0.arg2 = undefined;
     s.callLocIdx = 548; s.pc = 14; return s.tmp_0;
   case 14:
     r0 = s.retval;
-    s.value___6683 = (r0);
-    s.tmp_0 = r0 = s.key___6678;
+    s.value___6768 = (r0);
+    s.tmp_0 = r0 = s.key___6763;
     r0 = pxsim_pxtcore.switch_eq("dev", s.tmp_0);
     if (r0) { step = 4; continue; }
     r0 = pxsim_pxtcore.switch_eq("srvi", s.tmp_0);
@@ -9392,12 +9859,12 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 7; continue; }
   case 4:
-    r0 = (s.arg0).fields["device"] = (s.value___6683);
+    r0 = (s.arg0).fields["device"] = (s.value___6768);
     { step = 7; continue; }
   case 5:
     s.tmp_0 = r0 = s.arg0;
     s.tmp_2 = parseInt__P1988_mk(s);
-    s.tmp_2.arg0 = s.value___6683;
+    s.tmp_2.arg0 = s.value___6768;
     s.tmp_2.arg1 = undefined;
     s.callLocIdx = 549; s.pc = 15; return s.tmp_2;
   case 15:
@@ -9408,7 +9875,7 @@ switch (step) {
   case 6:
     s.tmp_0 = r0 = s.arg0;
     s.tmp_2 = parseInt__P1988_mk(s);
-    s.tmp_2.arg0 = s.value___6683;
+    s.tmp_2.arg0 = s.value___6768;
     s.tmp_2.arg1 = undefined;
     s.callLocIdx = 550; s.pc = 16; return s.tmp_2;
   case 16:
@@ -9438,12 +9905,12 @@ function jacdac_ClientRoleQuery_constructor__P3489_mk(s) {
   tmp_0: undefined,
   tmp_1: undefined,
   tmp_2: undefined,
-  kv___6665: undefined,
+  kv___6750: undefined,
   unnamed90___U1: undefined,
   unnamed91___U2: undefined,
-  i___6670: undefined,
-  key___6678: undefined,
-  value___6683: undefined,
+  i___6755: undefined,
+  key___6763: undefined,
+  value___6768: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -9463,13 +9930,13 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.start___6721 = undefined;
-    s.sign___6751 = undefined;
-    s.output___6796 = undefined;
-    s.hasDigit___6797 = undefined;
-    s.i___6798 = undefined;
-    s.code___6805 = undefined;
-    s.val___6812 = undefined;
+    s.start___6806 = undefined;
+    s.sign___6836 = undefined;
+    s.output___6881 = undefined;
+    s.hasDigit___6882 = undefined;
+    s.i___6883 = undefined;
+    s.code___6890 = undefined;
+    s.val___6897 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -9516,9 +9983,9 @@ switch (step) {
     { step = 46; continue; }
   case 7:
   case 8:
-    s.start___6721 = (0);
+    s.start___6806 = (0);
   case 9:
-    s.tmp_1 = r0 = s.start___6721;
+    s.tmp_1 = r0 = s.start___6806;
     r0 = pxsim_String_.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
@@ -9529,7 +9996,7 @@ switch (step) {
     { step = 11; continue; }
   case 10:
     s.tmp_3 = helpers_isWhitespace__P2015_mk(s);
-    r0 = pxsim_String_.charCodeAt(s.arg0, s.start___6721);
+    r0 = pxsim_String_.charCodeAt(s.arg0, s.start___6806);
     s.tmp_3.arg0 = r0;
     s.callLocIdx = 0; s.pc = 47; return s.tmp_3;
   case 47:
@@ -9539,11 +10006,11 @@ switch (step) {
     s.tmp_4 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 12; continue; }
-    r0 = (s.start___6721 + 1);
-    s.start___6721 = (r0);
+    r0 = (s.start___6806 + 1);
+    s.start___6806 = (r0);
     { step = 9; continue; }
   case 12:
-    s.tmp_1 = r0 = s.start___6721;
+    s.tmp_1 = r0 = s.start___6806;
     r0 = pxsim_String_.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 === s.tmp_2);
@@ -9554,8 +10021,8 @@ switch (step) {
     { step = 46; continue; }
   case 13:
   case 14:
-    s.sign___6751 = (1);
-    r0 = pxsim_String_.charAt(s.arg0, s.start___6721);
+    s.sign___6836 = (1);
+    r0 = pxsim_String_.charAt(s.arg0, s.start___6806);
     s.tmp_0 = r0;
     r0 = pxsim_pxtcore.switch_eq("-", s.tmp_0);
     if (r0) { step = 15; continue; }
@@ -9564,10 +10031,10 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 17; continue; }
   case 15:
-    s.sign___6751 = (-1);
+    s.sign___6836 = (-1);
   case 16:
-    r0 = (s.start___6721 + 1);
-    s.start___6721 = (r0);
+    r0 = (s.start___6806 + 1);
+    s.start___6806 = (r0);
   case 17:
     r0 = pxsim_numops_toBoolDecr(s.arg1);
     s.tmp_1 = r0;
@@ -9587,7 +10054,7 @@ switch (step) {
     r0 = s.tmp_2;
     { step = 21; continue; }
   case 20:
-    r0 = pxsim_String_.charAt(s.arg0, s.start___6721);
+    r0 = pxsim_String_.charAt(s.arg0, s.start___6806);
     s.tmp_3 = r0;
     r0 = ("0" === s.tmp_3);
   case 21:
@@ -9599,7 +10066,7 @@ switch (step) {
     { step = 25; continue; }
   case 22:
     s.tmp_7 = r0 = s.arg0;
-    r0 = (s.start___6721 + 1);
+    r0 = (s.start___6806 + 1);
     s.tmp_8 = r0;
     r0 = pxsim_String_.charAt(s.tmp_7, s.tmp_8);
     s.tmp_6 = r0;
@@ -9611,7 +10078,7 @@ switch (step) {
     { step = 24; continue; }
   case 23:
     s.tmp_10 = r0 = s.arg0;
-    r0 = (s.start___6721 + 1);
+    r0 = (s.start___6806 + 1);
     s.tmp_11 = r0;
     r0 = pxsim_String_.charAt(s.tmp_10, s.tmp_11);
     s.tmp_9 = r0;
@@ -9626,8 +10093,8 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_13);
     if (!r0) { step = 26; continue; }
     s.arg1 = (16);
-    r0 = (s.start___6721 + 2);
-    s.start___6721 = (r0);
+    r0 = (s.start___6806 + 2);
+    s.start___6806 = (r0);
     { step = 29; continue; }
   case 26:
     r0 = pxsim_numops_toBoolDecr(s.arg1);
@@ -9640,73 +10107,73 @@ switch (step) {
   case 27:
   case 28:
   case 29:
-    s.output___6796 = (0);
-    s.hasDigit___6797 = (false);
-    s.i___6798 = (s.start___6721);
+    s.output___6881 = (0);
+    s.hasDigit___6882 = (false);
+    s.i___6883 = (s.start___6806);
   case 30:
-    s.tmp_1 = r0 = s.i___6798;
+    s.tmp_1 = r0 = s.i___6883;
     r0 = pxsim_String_.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 45; continue; }
-    r0 = pxsim_String_.charCodeAt(s.arg0, s.i___6798);
+    r0 = pxsim_String_.charCodeAt(s.arg0, s.i___6883);
     s.tmp_3 = r0;
     r0 = (s.tmp_3 | 32);
-    s.code___6805 = (r0);
-    s.val___6812 = (undefined);
-    r0 = (s.code___6805 >= 48);
+    s.code___6890 = (r0);
+    s.val___6897 = (undefined);
+    r0 = (s.code___6890 >= 48);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 31; continue; }
     r0 = s.tmp_0;
     { step = 32; continue; }
   case 31:
-    r0 = (s.code___6805 < 58);
+    r0 = (s.code___6890 < 58);
   case 32:
     // jmp value (already in r0)
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 33; continue; }
-    r0 = (s.code___6805 - 48);
-    s.val___6812 = (r0);
+    r0 = (s.code___6890 - 48);
+    s.val___6897 = (r0);
     { step = 38; continue; }
   case 33:
-    r0 = (s.code___6805 >= 97);
+    r0 = (s.code___6890 >= 97);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 34; continue; }
     r0 = s.tmp_0;
     { step = 35; continue; }
   case 34:
-    r0 = (s.code___6805 < 123);
+    r0 = (s.code___6890 < 123);
   case 35:
     // jmp value (already in r0)
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 36; continue; }
-    r0 = (10 + s.code___6805);
+    r0 = (10 + s.code___6890);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 - 97);
-    s.val___6812 = (r0);
+    s.val___6897 = (r0);
   case 36:
   case 37:
   case 38:
-    r0 = (s.val___6812 == undefined);
+    r0 = (s.val___6897 == undefined);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 39; continue; }
     r0 = s.tmp_0;
     { step = 40; continue; }
   case 39:
-    r0 = (s.val___6812 >= s.arg1);
+    r0 = (s.val___6897 >= s.arg1);
   case 40:
     // jmp value (already in r0)
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 43; continue; }
-    r0 = pxsim_numops_toBoolDecr(s.hasDigit___6797);
+    r0 = pxsim_numops_toBoolDecr(s.hasDigit___6882);
     s.tmp_3 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_3);
     s.tmp_2 = r0;
@@ -9719,16 +10186,16 @@ switch (step) {
     { step = 45; continue; }
   case 43:
   case 44:
-    s.hasDigit___6797 = (true);
-    r0 = (s.output___6796 * s.arg1);
+    s.hasDigit___6882 = (true);
+    r0 = (s.output___6881 * s.arg1);
     s.tmp_0 = r0;
-    r0 = (s.tmp_0 + s.val___6812);
-    s.output___6796 = (r0);
-    r0 = (s.i___6798 + 1);
-    s.i___6798 = (r0);
+    r0 = (s.tmp_0 + s.val___6897);
+    s.output___6881 = (r0);
+    r0 = (s.i___6883 + 1);
+    s.i___6883 = (r0);
     { step = 30; continue; }
   case 45:
-    r0 = (s.sign___6751 * s.output___6796);
+    r0 = (s.sign___6836 * s.output___6881);
   case 46:
     return leave(s, r0)
   default: oops()
@@ -9754,13 +10221,13 @@ function parseInt__P1988_mk(s) {
   tmp_11: undefined,
   tmp_12: undefined,
   tmp_13: undefined,
-  start___6721: undefined,
-  sign___6751: undefined,
-  output___6796: undefined,
-  hasDigit___6797: undefined,
-  i___6798: undefined,
-  code___6805: undefined,
-  val___6812: undefined,
+  start___6806: undefined,
+  sign___6836: undefined,
+  output___6881: undefined,
+  hasDigit___6882: undefined,
+  i___6883: undefined,
+  code___6890: undefined,
+  val___6897: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -9851,7 +10318,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.len___6871 = undefined;
+    s.len___6956 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -9859,13 +10326,13 @@ switch (step) {
       s.lambdaArgs = null;
     }
     r0 = pxsim_String_.length(s.arg0);
-    s.len___6871 = (r0);
+    s.len___6956 = (r0);
     r0 = (s.arg1 < 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 1; continue; }
     s.tmp_1 = Math_max__P2021_mk(s);
-    r0 = (s.len___6871 + s.arg1);
+    r0 = (s.len___6956 + s.arg1);
     s.tmp_1.arg0 = r0;
     s.tmp_1.arg1 = 0;
     s.callLocIdx = 11; s.pc = 9; return s.tmp_1;
@@ -9878,7 +10345,7 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 3; continue; }
-    s.arg2 = (s.len___6871);
+    s.arg2 = (s.len___6956);
     { step = 6; continue; }
   case 3:
     r0 = (s.arg2 === null);
@@ -9893,7 +10360,7 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 7; continue; }
-    r0 = (s.len___6871 + s.arg2);
+    r0 = (s.len___6956 + s.arg2);
     s.arg2 = (r0);
   case 7:
   case 8:
@@ -9915,7 +10382,7 @@ function helpers_stringSlice__P2010_mk(s) {
   tmp_0: undefined,
   tmp_1: undefined,
   tmp_2: undefined,
-  len___6871: undefined,
+  len___6956: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -9935,15 +10402,15 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.A___6906 = undefined;
-    s.lim___6908 = undefined;
-    s.s___6924 = undefined;
-    s.p___6927 = undefined;
-    s.R___6928 = undefined;
-    s.z___6942 = undefined;
-    s.T___6955 = undefined;
-    s.q___6956 = undefined;
-    s.e___6962 = undefined;
+    s.A___6991 = undefined;
+    s.lim___6993 = undefined;
+    s.s___7009 = undefined;
+    s.p___7012 = undefined;
+    s.R___7013 = undefined;
+    s.z___7027 = undefined;
+    s.T___7040 = undefined;
+    s.q___7041 = undefined;
+    s.e___7047 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -9951,36 +10418,36 @@ switch (step) {
       s.lambdaArgs = null;
     }
     r0 = pxsim_Array__mk();
-    s.A___6906 = (r0);
-    s.lim___6908 = (0);
+    s.A___6991 = (r0);
+    s.lim___6993 = (0);
     r0 = (s.arg2 === undefined);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 1; continue; }
     r0 = (536870912 - 1);
-    s.lim___6908 = (r0);
+    s.lim___6993 = (r0);
     { step = 4; continue; }
   case 1:
     r0 = (s.arg2 < 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
-    s.lim___6908 = (0);
+    s.lim___6993 = (0);
     { step = 3; continue; }
   case 2:
     r0 = (s.arg2 | 0);
-    s.lim___6908 = (r0);
+    s.lim___6993 = (r0);
   case 3:
   case 4:
     r0 = pxsim_String_.length(s.arg0);
-    s.s___6924 = (r0);
-    s.p___6927 = (0);
-    s.R___6928 = (s.arg1);
-    r0 = (s.lim___6908 == 0);
+    s.s___7009 = (r0);
+    s.p___7012 = (0);
+    s.R___7013 = (s.arg1);
+    r0 = (s.lim___6993 == 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 5; continue; }
-    r0 = s.A___6906;
+    r0 = s.A___6991;
     { step = 21; continue; }
   case 5:
   case 6:
@@ -9988,101 +10455,101 @@ switch (step) {
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 7; continue; }
-    r0 = pxsim_Array_.setAt(s.A___6906, 0, s.arg0);
-    r0 = s.A___6906;
+    r0 = pxsim_Array_.setAt(s.A___6991, 0, s.arg0);
+    r0 = s.A___6991;
     { step = 21; continue; }
   case 7:
   case 8:
-    r0 = (s.s___6924 == 0);
+    r0 = (s.s___7009 == 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 11; continue; }
     s.tmp_1 = helpers_splitMatch__P3936_mk(s);
     s.tmp_1.arg0 = s.arg0;
     s.tmp_1.arg1 = 0;
-    s.tmp_1.arg2 = s.R___6928;
+    s.tmp_1.arg2 = s.R___7013;
     s.callLocIdx = 14; s.pc = 22; return s.tmp_1;
   case 22:
     r0 = s.retval;
-    s.z___6942 = (r0);
-    r0 = (s.z___6942 > -1);
+    s.z___7027 = (r0);
+    r0 = (s.z___7027 > -1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 9; continue; }
-    r0 = s.A___6906;
+    r0 = s.A___6991;
     { step = 21; continue; }
   case 9:
   case 10:
-    r0 = pxsim_Array_.setAt(s.A___6906, 0, s.arg0);
-    r0 = s.A___6906;
+    r0 = pxsim_Array_.setAt(s.A___6991, 0, s.arg0);
+    r0 = s.A___6991;
     { step = 21; continue; }
   case 11:
   case 12:
-    s.q___6956 = (s.p___6927);
+    s.q___7041 = (s.p___7012);
   case 13:
-    r0 = (s.q___6956 != s.s___6924);
+    r0 = (s.q___7041 != s.s___7009);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 20; continue; }
     s.tmp_1 = helpers_splitMatch__P3936_mk(s);
     s.tmp_1.arg0 = s.arg0;
-    s.tmp_1.arg1 = s.q___6956;
-    s.tmp_1.arg2 = s.R___6928;
+    s.tmp_1.arg1 = s.q___7041;
+    s.tmp_1.arg2 = s.R___7013;
     s.callLocIdx = 15; s.pc = 23; return s.tmp_1;
   case 23:
     r0 = s.retval;
-    s.e___6962 = (r0);
-    r0 = (s.e___6962 < 0);
+    s.e___7047 = (r0);
+    r0 = (s.e___7047 < 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 14; continue; }
-    r0 = (s.q___6956 + 1);
-    s.q___6956 = (r0);
+    r0 = (s.q___7041 + 1);
+    s.q___7041 = (r0);
     { step = 19; continue; }
   case 14:
-    r0 = (s.e___6962 == s.p___6927);
+    r0 = (s.e___7047 == s.p___7012);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 15; continue; }
-    r0 = (s.q___6956 + 1);
-    s.q___6956 = (r0);
+    r0 = (s.q___7041 + 1);
+    s.q___7041 = (r0);
     { step = 18; continue; }
   case 15:
     s.tmp_0 = helpers_stringSlice__P2010_mk(s);
     s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.p___6927;
-    s.tmp_0.arg2 = s.q___6956;
+    s.tmp_0.arg1 = s.p___7012;
+    s.tmp_0.arg2 = s.q___7041;
     s.callLocIdx = 16; s.pc = 24; return s.tmp_0;
   case 24:
     r0 = s.retval;
-    s.T___6955 = (r0);
-    r0 = pxsim_Array__push(s.A___6906, s.T___6955);
-    r0 = pxsim_Array__length(s.A___6906);
+    s.T___7040 = (r0);
+    r0 = pxsim_Array__push(s.A___6991, s.T___7040);
+    r0 = pxsim_Array__length(s.A___6991);
     s.tmp_1 = r0;
-    r0 = (s.tmp_1 == s.lim___6908);
+    r0 = (s.tmp_1 == s.lim___6993);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 16; continue; }
-    r0 = s.A___6906;
+    r0 = s.A___6991;
     { step = 21; continue; }
   case 16:
   case 17:
-    s.p___6927 = (s.e___6962);
-    s.q___6956 = (s.p___6927);
+    s.p___7012 = (s.e___7047);
+    s.q___7041 = (s.p___7012);
   case 18:
   case 19:
     { step = 13; continue; }
   case 20:
     s.tmp_0 = helpers_stringSlice__P2010_mk(s);
     s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.p___6927;
-    s.tmp_0.arg2 = s.q___6956;
+    s.tmp_0.arg1 = s.p___7012;
+    s.tmp_0.arg2 = s.q___7041;
     s.callLocIdx = 17; s.pc = 25; return s.tmp_0;
   case 25:
     r0 = s.retval;
-    s.T___6955 = (r0);
-    r0 = pxsim_Array__push(s.A___6906, s.T___6955);
-    r0 = s.A___6906;
+    s.T___7040 = (r0);
+    r0 = pxsim_Array__push(s.A___6991, s.T___7040);
+    r0 = s.A___6991;
   case 21:
     return leave(s, r0)
   default: oops()
@@ -10096,15 +10563,15 @@ function helpers_stringSplit__P2013_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  A___6906: undefined,
-  lim___6908: undefined,
-  s___6924: undefined,
-  p___6927: undefined,
-  R___6928: undefined,
-  z___6942: undefined,
-  T___6955: undefined,
-  q___6956: undefined,
-  e___6962: undefined,
+  A___6991: undefined,
+  lim___6993: undefined,
+  s___7009: undefined,
+  p___7012: undefined,
+  R___7013: undefined,
+  z___7027: undefined,
+  T___7040: undefined,
+  q___7041: undefined,
+  e___7047: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -10124,9 +10591,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.r___7007 = undefined;
-    s.s___7010 = undefined;
-    s.i___7020 = undefined;
+    s.r___7092 = undefined;
+    s.s___7095 = undefined;
+    s.i___7105 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -10134,12 +10601,12 @@ switch (step) {
       s.lambdaArgs = null;
     }
     r0 = pxsim_String_.length(s.arg2);
-    s.r___7007 = (r0);
+    s.r___7092 = (r0);
     r0 = pxsim_String_.length(s.arg0);
-    s.s___7010 = (r0);
-    r0 = (s.arg1 + s.r___7007);
+    s.s___7095 = (r0);
+    r0 = (s.arg1 + s.r___7092);
     s.tmp_1 = r0;
-    r0 = (s.tmp_1 > s.s___7010);
+    r0 = (s.tmp_1 > s.s___7095);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 1; continue; }
@@ -10147,18 +10614,18 @@ switch (step) {
     { step = 7; continue; }
   case 1:
   case 2:
-    s.i___7020 = (0);
+    s.i___7105 = (0);
   case 3:
-    r0 = (s.i___7020 < s.r___7007);
+    r0 = (s.i___7105 < s.r___7092);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 6; continue; }
     s.tmp_3 = r0 = s.arg0;
-    r0 = (s.arg1 + s.i___7020);
+    r0 = (s.arg1 + s.i___7105);
     s.tmp_4 = r0;
     r0 = pxsim_String_.charAt(s.tmp_3, s.tmp_4);
     s.tmp_2 = r0;
-    r0 = pxsim_String_.charAt(s.arg2, s.i___7020);
+    r0 = pxsim_String_.charAt(s.arg2, s.i___7105);
     s.tmp_5 = r0;
     r0 = (s.tmp_2 != s.tmp_5);
     s.tmp_1 = r0;
@@ -10168,11 +10635,11 @@ switch (step) {
     { step = 7; continue; }
   case 4:
   case 5:
-    r0 = (s.i___7020 + 1);
-    s.i___7020 = (r0);
+    r0 = (s.i___7105 + 1);
+    s.i___7105 = (r0);
     { step = 3; continue; }
   case 6:
-    r0 = (s.arg1 + s.r___7007);
+    r0 = (s.arg1 + s.r___7092);
   case 7:
     return leave(s, r0)
   default: oops()
@@ -10190,9 +10657,9 @@ function helpers_splitMatch__P3936_mk(s) {
   tmp_3: undefined,
   tmp_4: undefined,
   tmp_5: undefined,
-  r___7007: undefined,
-  s___7010: undefined,
-  i___7020: undefined,
+  r___7092: undefined,
+  s___7095: undefined,
+  i___7105: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -10212,9 +10679,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.role___7045 = undefined;
-    s.d___7079 = undefined;
-    s.mrole___7143 = undefined;
+    s.role___7130 = undefined;
+    s.d___7164 = undefined;
+    s.mrole___7228 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -10225,8 +10692,8 @@ switch (step) {
     r0 = s.arg0;
     if (!checkSubtype(r0, jacdac_Device__C3525_VT)) failedCast(r0);
     r0 = s.arg1.fields["role"];
-    s.role___7045 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.role___7045);
+    s.role___7130 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.role___7130);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -10238,7 +10705,7 @@ switch (step) {
   case 2:
     r0 = s.arg0.fields["deviceId"];
     s.tmp_3 = r0;
-    r0 = (s.role___7045 == s.tmp_3);
+    r0 = (s.role___7130 == s.tmp_3);
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 3; continue; }
@@ -10246,7 +10713,7 @@ switch (step) {
     { step = 25; continue; }
   case 3:
   case 4:
-    s.tmp_5 = r0 = s.role___7045;
+    s.tmp_5 = r0 = s.role___7130;
     r0 = s.arg0.fields["deviceId"];
     s.tmp_10 = r0;
     if ((s.tmp_10) && (s.tmp_10).vtable) {
@@ -10285,12 +10752,12 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 5; continue; }
     s.tmp_12 = jacdac_log__P4284_mk(s);
-    if ((s.role___7045) && (s.role___7045).vtable) {
+    if ((s.role___7130) && (s.role___7130).vtable) {
     setupResume(s, 30);
-    pxsim_String__stringConv(s.role___7045);
+    pxsim_String__stringConv(s.role___7130);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.role___7045) + ""; }
+    } else { s.retval = (s.role___7130) + ""; }
   case 30:
     r0 = s.retval;
     s.tmp_14 = r0;
@@ -10305,7 +10772,7 @@ switch (step) {
     { step = 25; continue; }
   case 5:
   case 6:
-    r0 = pxsim_String_.indexOf(s.role___7045, ":", undefined);
+    r0 = pxsim_String_.indexOf(s.role___7130, ":", undefined);
     s.tmp_1 = r0;
     r0 = (s.tmp_1 >= 0);
     s.tmp_0 = r0;
@@ -10333,10 +10800,10 @@ switch (step) {
   case 10:
     // jmp value (already in r0)
     s.tmp_5 = r0;
-    s.d___7079 = (s.tmp_5);
+    s.d___7164 = (s.tmp_5);
     r0 = s.arg1.fields["device"];
     s.tmp_1 = r0;
-    r0 = (s.tmp_1 == s.d___7079);
+    r0 = (s.tmp_1 == s.d___7164);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 23; continue; }
@@ -10358,12 +10825,12 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_5);
     if (!r0) { step = 13; continue; }
     s.tmp_6 = jacdac_log__P4284_mk(s);
-    if ((s.role___7045) && (s.role___7045).vtable) {
+    if ((s.role___7130) && (s.role___7130).vtable) {
     setupResume(s, 33);
-    pxsim_String__stringConv(s.role___7045);
+    pxsim_String__stringConv(s.role___7130);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.role___7045) + ""; }
+    } else { s.retval = (s.role___7130) + ""; }
   case 33:
     r0 = s.retval;
     s.tmp_8 = r0;
@@ -10404,12 +10871,12 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_5);
     if (!r0) { step = 17; continue; }
     s.tmp_6 = jacdac_log__P4284_mk(s);
-    if ((s.role___7045) && (s.role___7045).vtable) {
+    if ((s.role___7130) && (s.role___7130).vtable) {
     setupResume(s, 36);
-    pxsim_String__stringConv(s.role___7045);
+    pxsim_String__stringConv(s.role___7130);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.role___7045) + ""; }
+    } else { s.retval = (s.role___7130) + ""; }
   case 36:
     r0 = s.retval;
     s.tmp_8 = r0;
@@ -10440,12 +10907,12 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_3);
     if (!r0) { step = 21; continue; }
     s.tmp_4 = jacdac_log__P4284_mk(s);
-    if ((s.role___7045) && (s.role___7045).vtable) {
+    if ((s.role___7130) && (s.role___7130).vtable) {
     setupResume(s, 38);
-    pxsim_String__stringConv(s.role___7045);
+    pxsim_String__stringConv(s.role___7130);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.role___7045) + ""; }
+    } else { s.retval = (s.role___7130) + ""; }
   case 38:
     r0 = s.retval;
     s.tmp_6 = r0;
@@ -10469,8 +10936,8 @@ switch (step) {
     s.callLocIdx = 608; s.pc = 39; return s.tmp_0;
   case 39:
     r0 = s.retval;
-    s.mrole___7143 = (r0);
-    r0 = (s.mrole___7143 == s.role___7045);
+    s.mrole___7228 = (r0);
+    r0 = (s.mrole___7228 == s.role___7130);
   case 25:
     return leave(s, r0)
   default: oops()
@@ -10497,9 +10964,9 @@ function jacdac_Device_matchesRoleAt__P3538_mk(s) {
   tmp_12: undefined,
   tmp_13: undefined,
   tmp_14: undefined,
-  role___7045: undefined,
-  d___7079: undefined,
-  mrole___7143: undefined,
+  role___7130: undefined,
+  d___7164: undefined,
+  mrole___7228: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -10616,14 +11083,14 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.buf___7170 = undefined;
+    s.buf___7255 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
     }
     r0 = pxsim.settings._get(s.arg0);
-    s.buf___7170 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.buf___7170);
+    s.buf___7255 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.buf___7255);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -10633,7 +11100,7 @@ switch (step) {
     { step = 3; continue; }
     { step = 2; continue; }
   case 1:
-    r0 = pxsim.BufferMethods.toString(s.buf___7170);
+    r0 = pxsim.BufferMethods.toString(s.buf___7255);
     { step = 3; continue; }
   case 2:
     r0 = undefined;
@@ -10650,7 +11117,7 @@ function settings_readString__P2797_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  buf___7170: undefined,
+  buf___7255: undefined,
   arg0: undefined,
 } }
 
@@ -10700,9 +11167,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.o___7187 = undefined;
-    s.n___7190 = undefined;
-    s.i___7192 = undefined;
+    s.o___7272 = undefined;
+    s.n___7275 = undefined;
+    s.i___7277 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -10711,22 +11178,22 @@ switch (step) {
     }
     r0 = s.arg0;
     if (!checkSubtype(r0, jacdac_Device__C3525_VT)) failedCast(r0);
-    s.o___7187 = (-1);
+    s.o___7272 = (-1);
     r0 = s.arg0.fields["services"];
     s.tmp_1 = r0;
     r0 = pxsim.BufferMethods.length(s.tmp_1);
     s.tmp_0 = r0;
     r0 = (s.tmp_0 >> 2);
-    s.n___7190 = (r0);
-    s.i___7192 = (0);
+    s.n___7275 = (r0);
+    s.i___7277 = (0);
   case 1:
-    r0 = (s.i___7192 < s.n___7190);
+    r0 = (s.i___7277 < s.n___7275);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 6; continue; }
     s.tmp_3 = jacdac_Device_serviceClassAt__P3540_mk(s);
     s.tmp_3.arg0 = s.arg0;
-    s.tmp_3.arg1 = s.i___7192;
+    s.tmp_3.arg1 = s.i___7277;
     s.callLocIdx = 611; s.pc = 8; return s.tmp_3;
   case 8:
     r0 = s.retval;
@@ -10735,20 +11202,20 @@ switch (step) {
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 4; continue; }
-    r0 = (s.o___7187 + 1);
-    s.o___7187 = (r0);
-    r0 = (s.arg2 == s.i___7192);
+    r0 = (s.o___7272 + 1);
+    s.o___7272 = (r0);
+    r0 = (s.arg2 == s.i___7277);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
-    r0 = s.o___7187;
+    r0 = s.o___7272;
     { step = 7; continue; }
   case 2:
   case 3:
   case 4:
   case 5:
-    r0 = (s.i___7192 + 1);
-    s.i___7192 = (r0);
+    r0 = (s.i___7277 + 1);
+    s.i___7277 = (r0);
     { step = 1; continue; }
   case 6:
     r0 = -1;
@@ -10767,9 +11234,9 @@ function jacdac_Device_serviceOffsetAt__P4300_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  o___7187: undefined,
-  n___7190: undefined,
-  i___7192: undefined,
+  o___7272: undefined,
+  n___7275: undefined,
+  i___7277: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -10995,7 +11462,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.i___7257 = undefined;
+    s.i___7342 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -11005,8 +11472,8 @@ switch (step) {
     r0 = s.arg0.fields["_role"];
     s.tmp_0 = r0;
     r0 = pxsim_String_.indexOf(s.tmp_0, "?", undefined);
-    s.i___7257 = (r0);
-    r0 = (s.i___7257 > -1);
+    s.i___7342 = (r0);
+    r0 = (s.i___7342 > -1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 1; continue; }
@@ -11014,7 +11481,7 @@ switch (step) {
     r0 = s.arg0.fields["_role"];
     s.tmp_1.arg0 = r0;
     s.tmp_1.arg1 = 0;
-    s.tmp_1.arg2 = s.i___7257;
+    s.tmp_1.arg2 = s.i___7342;
     s.callLocIdx = 555; s.pc = 4; return s.tmp_1;
   case 4:
     r0 = s.retval;
@@ -11039,7 +11506,7 @@ function jacdac_Client_roleName__P3504_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  i___7257: undefined,
+  i___7342: undefined,
   arg0: undefined,
 } }
 
@@ -11188,20 +11655,20 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.off___7291 = undefined;
-    s.n___7293 = undefined;
+    s.off___7376 = undefined;
+    s.n___7378 = undefined;
     s.unnamed50___U2 = undefined;
     s.unnamed51___U3 = undefined;
-    s.buf___7303 = undefined;
-    s.n___7309 = undefined;
+    s.buf___7388 = undefined;
+    s.n___7394 = undefined;
     s.unnamed52___U6 = undefined;
     s.unnamed53___U7 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
     }
-    s.off___7291 = (0);
-    s.n___7293 = (undefined);
+    s.off___7376 = (0);
+    s.n___7378 = (undefined);
     s.unnamed50___U2 = (s.arg0);
     s.unnamed51___U3 = (0);
   case 1:
@@ -11211,27 +11678,27 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 2; continue; }
     r0 = pxsim_Array__getAt(s.unnamed50___U2, s.unnamed51___U3);
-    s.n___7293 = (r0);
-    s.tmp_2 = r0 = s.off___7291;
+    s.n___7378 = (r0);
+    s.tmp_2 = r0 = s.off___7376;
     s.tmp_4 = msgpack_packNumberCore__P4030_mk(s);
     s.tmp_4.arg0 = null;
-    s.tmp_4.arg1 = s.off___7291;
-    s.tmp_4.arg2 = s.n___7293;
+    s.tmp_4.arg1 = s.off___7376;
+    s.tmp_4.arg2 = s.n___7378;
     s.callLocIdx = 53; s.pc = 5; return s.tmp_4;
   case 5:
     r0 = s.retval;
     s.tmp_3 = r0;
     r0 = (s.tmp_2 + s.tmp_3);
-    s.off___7291 = (r0);
+    s.off___7376 = (r0);
     r0 = (s.unnamed51___U3 + 1);
     s.unnamed51___U3 = (r0);
     { step = 1; continue; }
   case 2:
     s.unnamed50___U2 = (undefined);
-    r0 = pxsim.control.createBuffer(s.off___7291);
-    s.buf___7303 = (r0);
-    s.off___7291 = (0);
-    s.n___7309 = (undefined);
+    r0 = pxsim.control.createBuffer(s.off___7376);
+    s.buf___7388 = (r0);
+    s.off___7376 = (0);
+    s.n___7394 = (undefined);
     s.unnamed52___U6 = (s.arg0);
     s.unnamed53___U7 = (0);
   case 3:
@@ -11241,24 +11708,24 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 4; continue; }
     r0 = pxsim_Array__getAt(s.unnamed52___U6, s.unnamed53___U7);
-    s.n___7309 = (r0);
-    s.tmp_2 = r0 = s.off___7291;
+    s.n___7394 = (r0);
+    s.tmp_2 = r0 = s.off___7376;
     s.tmp_4 = msgpack_packNumberCore__P4030_mk(s);
-    s.tmp_4.arg0 = s.buf___7303;
-    s.tmp_4.arg1 = s.off___7291;
-    s.tmp_4.arg2 = s.n___7309;
+    s.tmp_4.arg0 = s.buf___7388;
+    s.tmp_4.arg1 = s.off___7376;
+    s.tmp_4.arg2 = s.n___7394;
     s.callLocIdx = 54; s.pc = 6; return s.tmp_4;
   case 6:
     r0 = s.retval;
     s.tmp_3 = r0;
     r0 = (s.tmp_2 + s.tmp_3);
-    s.off___7291 = (r0);
+    s.off___7376 = (r0);
     r0 = (s.unnamed53___U7 + 1);
     s.unnamed53___U7 = (r0);
     { step = 3; continue; }
   case 4:
     s.unnamed52___U6 = (undefined);
-    r0 = s.buf___7303;
+    r0 = s.buf___7388;
     return leave(s, r0)
   default: oops()
 } } }
@@ -11274,12 +11741,12 @@ function msgpack_packNumberArray__P2616_mk(s) {
   tmp_2: undefined,
   tmp_3: undefined,
   tmp_4: undefined,
-  off___7291: undefined,
-  n___7293: undefined,
+  off___7376: undefined,
+  n___7378: undefined,
   unnamed50___U2: undefined,
   unnamed51___U3: undefined,
-  buf___7303: undefined,
-  n___7309: undefined,
+  buf___7388: undefined,
+  n___7394: undefined,
   unnamed52___U6: undefined,
   unnamed53___U7: undefined,
   arg0: undefined,
@@ -11299,15 +11766,15 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.tag___7323 = undefined;
-    s.fmt___7366 = undefined;
+    s.tag___7408 = undefined;
+    s.fmt___7451 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
       s.arg2 = (s.lambdaArgs[2]);
       s.lambdaArgs = null;
     }
-    s.tag___7323 = (203);
+    s.tag___7408 = (203);
     s.tmp_1 = r0 = s.arg2;
     r0 = (s.arg2 << 0);
     s.tmp_2 = r0;
@@ -11357,17 +11824,17 @@ switch (step) {
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 8; continue; }
-    s.tag___7323 = (204);
+    s.tag___7408 = (204);
     { step = 11; continue; }
   case 8:
     r0 = (s.arg2 <= 65535);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 9; continue; }
-    s.tag___7323 = (205);
+    s.tag___7408 = (205);
     { step = 10; continue; }
   case 9:
-    s.tag___7323 = (206);
+    s.tag___7408 = (206);
   case 10:
   case 11:
     { step = 17; continue; }
@@ -11376,17 +11843,17 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 13; continue; }
-    s.tag___7323 = (208);
+    s.tag___7408 = (208);
     { step = 16; continue; }
   case 13:
     r0 = (-32767 <= s.arg2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 14; continue; }
-    s.tag___7323 = (209);
+    s.tag___7408 = (209);
     { step = 15; continue; }
   case 14:
-    s.tag___7323 = (210);
+    s.tag___7408 = (210);
   case 15:
   case 16:
   case 17:
@@ -11394,23 +11861,23 @@ switch (step) {
   case 19:
   case 20:
     s.tmp_0 = msgpack_tagFormat__P4029_mk(s);
-    s.tmp_0.arg0 = s.tag___7323;
+    s.tmp_0.arg0 = s.tag___7408;
     s.callLocIdx = 49; s.pc = 24; return s.tmp_0;
   case 24:
     r0 = s.retval;
-    s.fmt___7366 = (r0);
+    s.fmt___7451 = (r0);
     r0 = pxsim_numops_toBoolDecr(s.arg0);
     if (!r0) { step = 21; continue; }
-    r0 = pxsim.BufferMethods.setByte(s.arg0, s.arg1, s.tag___7323);
+    r0 = pxsim.BufferMethods.setByte(s.arg0, s.arg1, s.tag___7408);
     s.tmp_0 = r0 = s.arg0;
-    s.tmp_1 = r0 = s.fmt___7366;
+    s.tmp_1 = r0 = s.fmt___7451;
     r0 = (s.arg1 + 1);
     s.tmp_2 = r0;
     r0 = pxsim.BufferMethods.setNumber(s.tmp_0, s.tmp_1, s.tmp_2, s.arg2);
   case 21:
   case 22:
     s.tmp_1 = pins_sizeOf__P2607_mk(s);
-    s.tmp_1.arg0 = s.fmt___7366;
+    s.tmp_1.arg0 = s.fmt___7451;
     s.callLocIdx = 50; s.pc = 25; return s.tmp_1;
   case 25:
     r0 = s.retval;
@@ -11435,8 +11902,8 @@ function msgpack_packNumberCore__P4030_mk(s) {
   tmp_5: undefined,
   tmp_6: undefined,
   tmp_7: undefined,
-  tag___7323: undefined,
-  fmt___7366: undefined,
+  tag___7408: undefined,
+  fmt___7451: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -11703,8 +12170,8 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.n___7425 = undefined;
-    s.i___7427 = undefined;
+    s.n___7510 = undefined;
+    s.i___7512 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -11717,16 +12184,16 @@ switch (step) {
     r0 = pxsim.BufferMethods.length(s.tmp_1);
     s.tmp_0 = r0;
     r0 = (s.tmp_0 >> 2);
-    s.n___7425 = (r0);
-    s.i___7427 = (0);
+    s.n___7510 = (r0);
+    s.i___7512 = (0);
   case 1:
-    r0 = (s.i___7427 < s.n___7425);
+    r0 = (s.i___7512 < s.n___7510);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 4; continue; }
     s.tmp_3 = jacdac_Device_serviceClassAt__P3540_mk(s);
     s.tmp_3.arg0 = s.arg0;
-    s.tmp_3.arg1 = s.i___7427;
+    s.tmp_3.arg1 = s.i___7512;
     s.callLocIdx = 633; s.pc = 6; return s.tmp_3;
   case 6:
     r0 = s.retval;
@@ -11739,8 +12206,8 @@ switch (step) {
     { step = 5; continue; }
   case 2:
   case 3:
-    r0 = (s.i___7427 + 1);
-    s.i___7427 = (r0);
+    r0 = (s.i___7512 + 1);
+    s.i___7512 = (r0);
     { step = 1; continue; }
   case 4:
     r0 = false;
@@ -11759,8 +12226,8 @@ function jacdac_Device_hasService__P3546_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  n___7425: undefined,
-  i___7427: undefined,
+  n___7510: undefined,
+  i___7512: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -11779,16 +12246,16 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.ds___7442 = undefined;
-    s.i___7453 = undefined;
+    s.ds___7527 = undefined;
+    s.i___7538 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
       s.lambdaArgs = null;
     }
     r0 = s.arg0.fields["services"];
-    s.ds___7442 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.ds___7442);
+    s.ds___7527 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.ds___7527);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -11797,7 +12264,7 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 2; continue; }
   case 1:
-    r0 = pxsim.BufferMethods.length(s.ds___7442);
+    r0 = pxsim.BufferMethods.length(s.ds___7527);
     s.tmp_2 = r0;
     r0 = pxsim.BufferMethods.length(s.arg1);
     s.tmp_3 = r0;
@@ -11811,18 +12278,18 @@ switch (step) {
     { step = 9; continue; }
   case 3:
   case 4:
-    s.i___7453 = (4);
+    s.i___7538 = (4);
   case 5:
-    s.tmp_1 = r0 = s.i___7453;
+    s.tmp_1 = r0 = s.i___7538;
     r0 = pxsim.BufferMethods.length(s.arg1);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 8; continue; }
-    r0 = pxsim.BufferMethods.getByte(s.ds___7442, s.i___7453);
+    r0 = pxsim.BufferMethods.getByte(s.ds___7527, s.i___7538);
     s.tmp_4 = r0;
-    r0 = pxsim.BufferMethods.getByte(s.arg1, s.i___7453);
+    r0 = pxsim.BufferMethods.getByte(s.arg1, s.i___7538);
     s.tmp_5 = r0;
     r0 = (s.tmp_4 != s.tmp_5);
     s.tmp_3 = r0;
@@ -11832,8 +12299,8 @@ switch (step) {
     { step = 9; continue; }
   case 6:
   case 7:
-    r0 = (s.i___7453 + 1);
-    s.i___7453 = (r0);
+    r0 = (s.i___7538 + 1);
+    s.i___7538 = (r0);
     { step = 5; continue; }
   case 8:
     r0 = true;
@@ -11854,8 +12321,8 @@ function jacdac_serviceMatches__P4310_mk(s) {
   tmp_3: undefined,
   tmp_4: undefined,
   tmp_5: undefined,
-  ds___7442: undefined,
-  i___7453: undefined,
+  ds___7527: undefined,
+  i___7538: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -11874,7 +12341,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.c___7476 = undefined;
+    s.c___7561 = undefined;
     s.unnamed94___U1 = undefined;
     s.unnamed95___U2 = undefined;
     if (s.lambdaArgs) {
@@ -11904,7 +12371,7 @@ switch (step) {
     s.callLocIdx = 635; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
-    s.c___7476 = (undefined);
+    s.c___7561 = (undefined);
     r0 = s.arg0.fields["clients"];
     s.unnamed94___U1 = (r0);
     s.unnamed95___U2 = (0);
@@ -11915,9 +12382,9 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 2; continue; }
     r0 = pxsim_Array__getAt(s.unnamed94___U1, s.unnamed95___U2);
-    s.c___7476 = (r0);
+    s.c___7561 = (r0);
     s.tmp_2 = jacdac_Client__detach__P3516_mk(s);
-    s.tmp_2.arg0 = s.c___7476;
+    s.tmp_2.arg0 = s.c___7561;
     s.callLocIdx = 636; s.pc = 6; return s.tmp_2;
   case 6:
     r0 = s.retval;
@@ -11956,7 +12423,7 @@ function jacdac_Device__destroy__P3549_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  c___7476: undefined,
+  c___7561: undefined,
   unnamed94___U1: undefined,
   unnamed95___U2: undefined,
   arg0: undefined,
@@ -12036,7 +12503,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.h___7504 = undefined;
+    s.h___7589 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -12048,8 +12515,8 @@ switch (step) {
     r0 = s.retval;
     s.tmp_0 = r0;
     r0 = pxsim.BufferMethods.hash(s.tmp_0, 30);
-    s.h___7504 = (r0);
-    r0 = (s.h___7504 % 26);
+    s.h___7589 = (r0);
+    r0 = (s.h___7589 % 26);
     s.tmp_7 = r0;
     r0 = (65 + s.tmp_7);
     s.tmp_6 = r0;
@@ -12064,7 +12531,7 @@ switch (step) {
   case 2:
     r0 = s.retval;
     s.tmp_4 = r0;
-    r0 = pxsim.Math_.idiv(s.h___7504, 26);
+    r0 = pxsim.Math_.idiv(s.h___7589, 26);
     s.tmp_12 = r0;
     r0 = (s.tmp_12 % 26);
     s.tmp_11 = r0;
@@ -12092,7 +12559,7 @@ switch (step) {
   case 4:
     r0 = s.retval;
     s.tmp_2 = r0;
-    r0 = pxsim.Math_.idiv(s.h___7504, 676);
+    r0 = pxsim.Math_.idiv(s.h___7589, 676);
     s.tmp_17 = r0;
     r0 = (s.tmp_17 % 10);
     s.tmp_16 = r0;
@@ -12120,7 +12587,7 @@ switch (step) {
   case 6:
     r0 = s.retval;
     s.tmp_0 = r0;
-    r0 = pxsim.Math_.idiv(s.h___7504, 6760);
+    r0 = pxsim.Math_.idiv(s.h___7589, 6760);
     s.tmp_22 = r0;
     r0 = (s.tmp_22 % 10);
     s.tmp_21 = r0;
@@ -12171,7 +12638,7 @@ function jacdac_shortDeviceId__P3524_mk(s) {
   tmp_20: undefined,
   tmp_21: undefined,
   tmp_22: undefined,
-  h___7504: undefined,
+  h___7589: undefined,
   arg0: undefined,
 } }
 
@@ -12189,58 +12656,58 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.hexStr___7562 = undefined;
-    s.res___7564 = undefined;
-    s.i___7573 = undefined;
-    s.p0___7579 = undefined;
-    s.p1___7588 = undefined;
+    s.hexStr___7647 = undefined;
+    s.res___7649 = undefined;
+    s.i___7658 = undefined;
+    s.p0___7664 = undefined;
+    s.p1___7673 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
     }
-    s.hexStr___7562 = ("0123456789abcdef");
+    s.hexStr___7647 = ("0123456789abcdef");
     r0 = pxsim_String_.length(s.arg0);
     s.tmp_1 = r0;
     r0 = (s.tmp_1 >> 1);
     s.tmp_0 = r0;
     r0 = pxsim.control.createBuffer(s.tmp_0);
-    s.res___7564 = (r0);
+    s.res___7649 = (r0);
     s.tmp_0 = helpers_stringToLowerCase__P2012_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.callLocIdx = 55; s.pc = 7; return s.tmp_0;
   case 7:
     r0 = s.retval;
     s.arg0 = (r0);
-    s.i___7573 = (0);
+    s.i___7658 = (0);
   case 1:
-    s.tmp_1 = r0 = s.i___7573;
+    s.tmp_1 = r0 = s.i___7658;
     r0 = pxsim_String_.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 6; continue; }
-    s.tmp_3 = r0 = s.hexStr___7562;
-    r0 = pxsim_String_.charAt(s.arg0, s.i___7573);
+    s.tmp_3 = r0 = s.hexStr___7647;
+    r0 = pxsim_String_.charAt(s.arg0, s.i___7658);
     s.tmp_4 = r0;
     r0 = pxsim_String_.indexOf(s.tmp_3, s.tmp_4, undefined);
-    s.p0___7579 = (r0);
-    s.tmp_0 = r0 = s.hexStr___7562;
+    s.p0___7664 = (r0);
+    s.tmp_0 = r0 = s.hexStr___7647;
     s.tmp_2 = r0 = s.arg0;
-    r0 = (s.i___7573 + 1);
+    r0 = (s.i___7658 + 1);
     s.tmp_3 = r0;
     r0 = pxsim_String_.charAt(s.tmp_2, s.tmp_3);
     s.tmp_1 = r0;
     r0 = pxsim_String_.indexOf(s.tmp_0, s.tmp_1, undefined);
-    s.p1___7588 = (r0);
-    r0 = (s.p0___7579 < 0);
+    s.p1___7673 = (r0);
+    r0 = (s.p0___7664 < 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 2; continue; }
     r0 = s.tmp_0;
     { step = 3; continue; }
   case 2:
-    r0 = (s.p1___7588 < 0);
+    r0 = (s.p1___7673 < 0);
   case 3:
     // jmp value (already in r0)
     s.tmp_1 = r0;
@@ -12249,19 +12716,19 @@ switch (step) {
     r0 = pxsim_pxtcore.throwValue("Invalid hex");
   case 4:
   case 5:
-    s.tmp_2 = r0 = s.res___7564;
-    r0 = (s.i___7573 >> 1);
+    s.tmp_2 = r0 = s.res___7649;
+    r0 = (s.i___7658 >> 1);
     s.tmp_3 = r0;
-    r0 = (s.p0___7579 << 4);
+    r0 = (s.p0___7664 << 4);
     s.tmp_5 = r0;
-    r0 = (s.tmp_5 | s.p1___7588);
+    r0 = (s.tmp_5 | s.p1___7673);
     s.tmp_4 = r0;
     r0 = pxsim.BufferMethods.setByte(s.tmp_2, s.tmp_3, s.tmp_4);
-    r0 = (s.i___7573 + 2);
-    s.i___7573 = (r0);
+    r0 = (s.i___7658 + 2);
+    s.i___7658 = (r0);
     { step = 1; continue; }
   case 6:
-    r0 = s.res___7564;
+    r0 = s.res___7649;
     return leave(s, r0)
   default: oops()
 } } }
@@ -12278,11 +12745,11 @@ function Buffer_fromHex__P2638_mk(s) {
   tmp_3: undefined,
   tmp_4: undefined,
   tmp_5: undefined,
-  hexStr___7562: undefined,
-  res___7564: undefined,
-  i___7573: undefined,
-  p0___7579: undefined,
-  p1___7588: undefined,
+  hexStr___7647: undefined,
+  res___7649: undefined,
+  i___7658: undefined,
+  p0___7664: undefined,
+  p1___7673: undefined,
   arg0: undefined,
 } }
 
@@ -12300,54 +12767,54 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.r___7619 = undefined;
-    s.prev___7620 = undefined;
-    s.i___7621 = undefined;
-    s.c___7627 = undefined;
+    s.r___7704 = undefined;
+    s.prev___7705 = undefined;
+    s.i___7706 = undefined;
+    s.c___7712 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
     }
     r0 = pxsim_String_.mkEmpty();
-    s.r___7619 = (r0);
-    s.prev___7620 = (0);
-    s.i___7621 = (0);
+    s.r___7704 = (r0);
+    s.prev___7705 = (0);
+    s.i___7706 = (0);
   case 1:
-    s.tmp_1 = r0 = s.i___7621;
+    s.tmp_1 = r0 = s.i___7706;
     r0 = pxsim_String_.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 6; continue; }
-    r0 = pxsim_String_.charCodeAt(s.arg0, s.i___7621);
-    s.c___7627 = (r0);
-    r0 = (65 <= s.c___7627);
+    r0 = pxsim_String_.charCodeAt(s.arg0, s.i___7706);
+    s.c___7712 = (r0);
+    r0 = (65 <= s.c___7712);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 2; continue; }
     r0 = s.tmp_0;
     { step = 3; continue; }
   case 2:
-    r0 = (s.c___7627 <= 90);
+    r0 = (s.c___7712 <= 90);
   case 3:
     // jmp value (already in r0)
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 4; continue; }
-    if ((s.r___7619) && (s.r___7619).vtable) {
+    if ((s.r___7704) && (s.r___7704).vtable) {
     setupResume(s, 7);
-    pxsim_String__stringConv(s.r___7619);
+    pxsim_String__stringConv(s.r___7704);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.r___7619) + ""; }
+    } else { s.retval = (s.r___7704) + ""; }
   case 7:
     r0 = s.retval;
     s.tmp_2 = r0;
     s.tmp_7 = helpers_stringSlice__P2010_mk(s);
     s.tmp_7.arg0 = s.arg0;
-    s.tmp_7.arg1 = s.prev___7620;
-    s.tmp_7.arg2 = s.i___7621;
+    s.tmp_7.arg1 = s.prev___7705;
+    s.tmp_7.arg2 = s.i___7706;
     s.callLocIdx = 12; s.pc = 8; return s.tmp_7;
   case 8:
     r0 = s.retval;
@@ -12361,7 +12828,7 @@ switch (step) {
   case 9:
     r0 = s.retval;
     s.tmp_5 = r0;
-    r0 = (s.c___7627 + 32);
+    r0 = (s.c___7712 + 32);
     s.tmp_10 = r0;
     r0 = pxsim_String_.fromCharCode(s.tmp_10);
     s.tmp_9 = r0;
@@ -12386,27 +12853,27 @@ switch (step) {
     r0 = s.retval;
     s.tmp_3 = r0;
     r0 = pxsim_String__concat(s.tmp_2, s.tmp_3);
-    s.r___7619 = (r0);
-    r0 = (s.i___7621 + 1);
-    s.prev___7620 = (r0);
+    s.r___7704 = (r0);
+    r0 = (s.i___7706 + 1);
+    s.prev___7705 = (r0);
   case 4:
   case 5:
-    r0 = (s.i___7621 + 1);
-    s.i___7621 = (r0);
+    r0 = (s.i___7706 + 1);
+    s.i___7706 = (r0);
     { step = 1; continue; }
   case 6:
-    if ((s.r___7619) && (s.r___7619).vtable) {
+    if ((s.r___7704) && (s.r___7704).vtable) {
     setupResume(s, 12);
-    pxsim_String__stringConv(s.r___7619);
+    pxsim_String__stringConv(s.r___7704);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.r___7619) + ""; }
+    } else { s.retval = (s.r___7704) + ""; }
   case 12:
     r0 = s.retval;
     s.tmp_0 = r0;
     s.tmp_3 = helpers_stringSlice__P2010_mk(s);
     s.tmp_3.arg0 = s.arg0;
-    s.tmp_3.arg1 = s.prev___7620;
+    s.tmp_3.arg1 = s.prev___7705;
     s.tmp_3.arg2 = undefined;
     s.callLocIdx = 13; s.pc = 13; return s.tmp_3;
   case 13:
@@ -12422,8 +12889,8 @@ switch (step) {
     r0 = s.retval;
     s.tmp_1 = r0;
     r0 = pxsim_String__concat(s.tmp_0, s.tmp_1);
-    s.r___7619 = (r0);
-    r0 = s.r___7619;
+    s.r___7704 = (r0);
+    r0 = s.r___7704;
     return leave(s, r0)
   default: oops()
 } } }
@@ -12445,10 +12912,10 @@ function helpers_stringToLowerCase__P2012_mk(s) {
   tmp_8: undefined,
   tmp_9: undefined,
   tmp_10: undefined,
-  r___7619: undefined,
-  prev___7620: undefined,
-  i___7621: undefined,
-  c___7627: undefined,
+  r___7704: undefined,
+  prev___7705: undefined,
+  i___7706: undefined,
+  c___7712: undefined,
   arg0: undefined,
 } }
 
@@ -12595,10 +13062,10 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.cmd___7693 = undefined;
-    s.isGet___7740 = undefined;
-    s.regCode___7744 = undefined;
-    s.constant___7747 = undefined;
+    s.cmd___7778 = undefined;
+    s.isGet___7825 = undefined;
+    s.regCode___7829 = undefined;
+    s.constant___7832 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -12609,8 +13076,8 @@ switch (step) {
     r0 = s.arg1.fields["_header"];
     s.tmp_0 = r0;
     r0 = pxsim.BufferMethods.getNumber(s.tmp_0, 4, 14);
-    s.cmd___7693 = (r0);
-    s.tmp_0 = r0 = s.cmd___7693;
+    s.cmd___7778 = (r0);
+    s.tmp_0 = r0 = s.cmd___7778;
     r0 = pxsim_pxtcore.switch_eq(4355, s.tmp_0);
     if (r0) { step = 1; continue; }
     r0 = pxsim_pxtcore.switch_eq(4361, s.tmp_0);
@@ -12713,18 +13180,18 @@ switch (step) {
     s.callLocIdx = 469; s.pc = 27; return s.tmp_1;
   case 27:
     r0 = s.retval;
-    s.isGet___7740 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.isGet___7740);
+    s.isGet___7825 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.isGet___7825);
     if (!r0) { step = 16; continue; }
     s.tmp_0 = jacdac_JDPacket_regCode__P2908_mk(s);
     s.tmp_0.arg0 = s.arg1;
     s.callLocIdx = 470; s.pc = 28; return s.tmp_0;
   case 28:
     r0 = s.retval;
-    s.regCode___7744 = (r0);
-    r0 = pxsim_pxtcore_mkAction(1, constant_inline__P7753);
+    s.regCode___7829 = (r0);
+    r0 = pxsim_pxtcore_mkAction(1, constant_inline__P7838);
     s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.regCode___7744);
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.regCode___7829);
     s.tmp_2 = helpers_arrayFilter__P2001_mk(s);
     r0 = s.arg0.fields["constants"];
     s.tmp_2.arg0 = r0;
@@ -12734,15 +13201,15 @@ switch (step) {
     r0 = s.retval;
     s.tmp_1 = r0;
     r0 = pxsim_Array__getAt(s.tmp_1, 0);
-    s.constant___7747 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.constant___7747);
+    s.constant___7832 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.constant___7832);
     if (!r0) { step = 14; continue; }
     s.tmp_0 = jacdac_Server_handleRegValue__P4194_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_0.arg1 = s.arg1;
-    s.tmp_0.arg2 = s.regCode___7744;
+    s.tmp_0.arg2 = s.regCode___7829;
     s.tmp_1 = if_packFormat_1_mk(s);
-    s.tmp_1.arg0 = s.constant___7747;
+    s.tmp_1.arg0 = s.constant___7832;
     if (!s.tmp_1.arg0.vtable.iface) {
       s.retval = pxsim_pxtrt.mapGetByString(s.tmp_1.arg0, "packFormat");
     } else {
@@ -12755,7 +13222,7 @@ switch (step) {
     r0 = s.retval;
     s.tmp_0.arg3 = r0;
     s.tmp_2 = if_value_1_mk(s);
-    s.tmp_2.arg0 = s.constant___7747;
+    s.tmp_2.arg0 = s.constant___7832;
     if (!s.tmp_2.arg0.vtable.iface) {
       s.retval = pxsim_pxtrt.mapGetByString(s.tmp_2.arg0, "value");
     } else {
@@ -12802,10 +13269,10 @@ function jacdac_Server_handlePacketOuter__P3462_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  cmd___7693: undefined,
-  isGet___7740: undefined,
-  regCode___7744: undefined,
-  constant___7747: undefined,
+  cmd___7778: undefined,
+  isGet___7825: undefined,
+  regCode___7829: undefined,
+  constant___7832: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -12814,7 +13281,7 @@ function jacdac_Server_handlePacketOuter__P3462_mk(s) {
 
 
 
-function constant_inline__P7753(s) {
+function constant_inline__P7838(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -12845,12 +13312,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-constant_inline__P7753.info = {"start":18598,"length":27,"line":541,"column":24,"endLine":541,"endColumn":51,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["cst"]}
+constant_inline__P7838.info = {"start":18598,"length":27,"line":541,"column":24,"endLine":541,"endColumn":51,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":["cst"]}
 
-function constant_inline__P7753_mk(s) {
+function constant_inline__P7838_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: constant_inline__P7753, depth: s.depth + 1,
+        parent: s, fn: constant_inline__P7838, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
@@ -12907,9 +13374,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.getset___7779 = undefined;
-    s.reg___7789 = undefined;
-    s.v___7819 = undefined;
+    s.getset___7864 = undefined;
+    s.reg___7874 = undefined;
+    s.v___7904 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -12925,15 +13392,15 @@ switch (step) {
     r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, 14);
     s.tmp_0 = r0;
     r0 = (s.tmp_0 >> 12);
-    s.getset___7779 = (r0);
-    r0 = (s.getset___7779 == 0);
+    s.getset___7864 = (r0);
+    r0 = (s.getset___7864 == 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 1; continue; }
     r0 = s.tmp_0;
     { step = 2; continue; }
   case 1:
-    r0 = (s.getset___7779 > 2);
+    r0 = (s.getset___7864 > 2);
   case 2:
     // jmp value (already in r0)
     s.tmp_1 = r0;
@@ -12948,8 +13415,8 @@ switch (step) {
     r0 = pxsim.BufferMethods.getNumber(s.tmp_3, 4, 14);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 & 4095);
-    s.reg___7789 = (r0);
-    r0 = (s.reg___7789 != s.arg2);
+    s.reg___7874 = (r0);
+    r0 = (s.reg___7874 != s.arg2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 5; continue; }
@@ -12962,7 +13429,7 @@ switch (step) {
     s.callLocIdx = 513; s.pc = 18; return s.tmp_1;
   case 18:
     r0 = s.retval;
-    r0 = (s.getset___7779 == 1);
+    r0 = (s.getset___7864 == 1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 11; continue; }
@@ -13018,15 +13485,15 @@ switch (step) {
     s.callLocIdx = 517; s.pc = 21; return s.tmp_2;
   case 21:
     r0 = s.retval;
-    s.v___7819 = (r0);
-    r0 = pxsim_Array__getAt(s.v___7819, 0);
+    s.v___7904 = (r0);
+    r0 = pxsim_Array__getAt(s.v___7904, 0);
     s.tmp_1 = r0;
     r0 = (s.tmp_1 !== s.arg4);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 14; continue; }
     r0 = (s.arg0).fields["stateUpdated"] = (true);
-    r0 = pxsim_Array__getAt(s.v___7819, 0);
+    r0 = pxsim_Array__getAt(s.v___7904, 0);
     s.arg4 = (r0);
   case 14:
   case 15:
@@ -13050,9 +13517,9 @@ function jacdac_Server_handleRegValue__P4194_mk(s) {
   tmp_4: undefined,
   tmp_5: undefined,
   tmp_6: undefined,
-  getset___7779: undefined,
-  reg___7789: undefined,
-  v___7819: undefined,
+  getset___7864: undefined,
+  reg___7874: undefined,
+  v___7904: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -13074,7 +13541,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.p___7835 = undefined;
+    s.p___7920 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -13108,8 +13575,8 @@ switch (step) {
   case 4:
     // jmp value (already in r0)
     s.tmp_3 = r0;
-    s.p___7835 = (s.tmp_3);
-    s.tmp_0 = r0 = s.p___7835;
+    s.p___7920 = (s.tmp_3);
+    s.tmp_0 = r0 = s.p___7920;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 5; continue; }
     r0 = s.tmp_0;
@@ -13134,7 +13601,7 @@ function jacdac_JDPacket_jdunpack__P2914_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  p___7835: undefined,
+  p___7920: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -13153,7 +13620,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.e___7860 = undefined;
+    s.e___7945 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -13194,9 +13661,9 @@ switch (step) {
     { step = 6; continue; }
   case 5:
     r0 = pxsim_pxtcore.getThrownValue();
-    s.e___7860 = (r0);
+    s.e___7945 = (r0);
     s.tmp_0 = console_error__P2380_mk(s);
-    s.tmp_0.arg0 = s.e___7860;
+    s.tmp_0.arg0 = s.e___7945;
     s.callLocIdx = 193; s.pc = 9; return s.tmp_0;
   case 9:
     r0 = s.retval;
@@ -13219,7 +13686,7 @@ function jacdac_jdunpack__P2933_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  e___7860: undefined,
+  e___7945: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -13238,18 +13705,18 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.repeatRes___7867 = undefined;
-    s.res___7872 = undefined;
-    s.off___7874 = undefined;
-    s.fp0___7875 = undefined;
-    s.parser___7876 = undefined;
-    s.sz___7913 = undefined;
-    s.c0___7917 = undefined;
-    s.endoff___7924 = undefined;
-    s.fmt1___7954 = undefined;
-    s.v___7962 = undefined;
-    s.subbuf___8000 = undefined;
-    s.zerop___8015 = undefined;
+    s.repeatRes___7952 = undefined;
+    s.res___7957 = undefined;
+    s.off___7959 = undefined;
+    s.fp0___7960 = undefined;
+    s.parser___7961 = undefined;
+    s.sz___7998 = undefined;
+    s.c0___8002 = undefined;
+    s.endoff___8009 = undefined;
+    s.fmt1___8039 = undefined;
+    s.v___8047 = undefined;
+    s.subbuf___8085 = undefined;
+    s.zerop___8100 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -13265,11 +13732,11 @@ switch (step) {
   case 2:
     // jmp value (already in r0)
     s.tmp_0 = r0;
-    s.repeatRes___7867 = (s.tmp_0);
+    s.repeatRes___7952 = (s.tmp_0);
     r0 = pxsim_Array__mk();
-    s.res___7872 = (r0);
-    s.off___7874 = (0);
-    s.fp0___7875 = (0);
+    s.res___7957 = (r0);
+    s.off___7959 = (0);
+    s.fp0___7960 = (0);
     r0 = pxsim_pxtcore_mkClassInstance(jacdac_TokenParser__C4168_VT);
     s.tmp_0 = r0;
     s.tmp_1 = jacdac_TokenParser_constructor__P4170_mk(s);
@@ -13278,7 +13745,7 @@ switch (step) {
     s.callLocIdx = 182; s.pc = 58; return s.tmp_1;
   case 58:
     r0 = s.retval;
-    s.parser___7876 = (s.tmp_0);
+    s.parser___7961 = (s.tmp_0);
     s.tmp_0 = r0 = s.arg2;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 3; continue; }
@@ -13299,14 +13766,14 @@ switch (step) {
   case 6:
   case 7:
     s.tmp_4 = jacdac_TokenParser_parse__P4169_mk(s);
-    s.tmp_4.arg0 = s.parser___7876;
+    s.tmp_4.arg0 = s.parser___7961;
     s.callLocIdx = 183; s.pc = 59; return s.tmp_4;
   case 59:
     r0 = s.retval;
     s.tmp_3 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_3);
     if (!r0) { step = 52; continue; }
-    r0 = s.parser___7876.fields["isArray"];
+    r0 = s.parser___7961.fields["isArray"];
     s.tmp_5 = r0;
     r0 = pxsim_numops_toBool(s.tmp_5);
     if (r0) { step = 8; continue; }
@@ -13321,10 +13788,10 @@ switch (step) {
     s.tmp_7 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_7);
     if (!r0) { step = 10; continue; }
-    s.tmp_8 = r0 = s.res___7872;
+    s.tmp_8 = r0 = s.res___7957;
     s.tmp_10 = jacdac_jdunpackCore__P4171_mk(s);
     s.tmp_11 = r0 = s.arg0;
-    s.tmp_12 = r0 = s.off___7874;
+    s.tmp_12 = r0 = s.off___7959;
     r0 = pxsim.BufferMethods.length(s.arg0);
     s.tmp_13 = r0;
     r0 = (s.tmp_13 - s.tmp_12);
@@ -13333,7 +13800,7 @@ switch (step) {
     s.tmp_10.arg0 = r0;
     s.tmp_15 = helpers_stringSlice__P2010_mk(s);
     s.tmp_15.arg0 = s.arg1;
-    s.tmp_15.arg1 = s.fp0___7875;
+    s.tmp_15.arg1 = s.fp0___7960;
     s.tmp_15.arg2 = undefined;
     s.callLocIdx = 185; s.pc = 61; return s.tmp_15;
   case 61:
@@ -13345,23 +13812,23 @@ switch (step) {
     r0 = s.retval;
     s.tmp_9 = r0;
     r0 = pxsim_Array__push(s.tmp_8, s.tmp_9);
-    r0 = s.res___7872;
+    r0 = s.res___7957;
     { step = 57; continue; }
   case 10:
   case 11:
-    r0 = s.parser___7876.fields["fp"];
-    s.fp0___7875 = (r0);
-    r0 = s.parser___7876.fields["size"];
-    s.sz___7913 = (r0);
-    r0 = s.parser___7876.fields["c0"];
-    s.c0___7917 = (r0);
-    r0 = (s.c0___7917 == 122);
+    r0 = s.parser___7961.fields["fp"];
+    s.fp0___7960 = (r0);
+    r0 = s.parser___7961.fields["size"];
+    s.sz___7998 = (r0);
+    r0 = s.parser___7961.fields["c0"];
+    s.c0___8002 = (r0);
+    r0 = (s.c0___8002 == 122);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 16; continue; }
-    s.endoff___7924 = (s.off___7874);
+    s.endoff___8009 = (s.off___7959);
   case 12:
-    s.tmp_1 = r0 = s.endoff___7924;
+    s.tmp_1 = r0 = s.endoff___8009;
     r0 = pxsim.BufferMethods.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
@@ -13371,7 +13838,7 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 14; continue; }
   case 13:
-    r0 = pxsim.BufferMethods.getByte(s.arg0, s.endoff___7924);
+    r0 = pxsim.BufferMethods.getByte(s.arg0, s.endoff___8009);
     s.tmp_3 = r0;
     r0 = (s.tmp_3 != 0);
   case 14:
@@ -13379,107 +13846,107 @@ switch (step) {
     s.tmp_4 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 15; continue; }
-    r0 = (s.endoff___7924 + 1);
-    s.endoff___7924 = (r0);
+    r0 = (s.endoff___8009 + 1);
+    s.endoff___8009 = (r0);
     { step = 12; continue; }
   case 15:
-    r0 = (s.endoff___7924 - s.off___7874);
-    s.sz___7913 = (r0);
+    r0 = (s.endoff___8009 - s.off___7959);
+    s.sz___7998 = (r0);
     { step = 19; continue; }
   case 16:
-    r0 = (s.sz___7913 < 0);
+    r0 = (s.sz___7998 < 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 17; continue; }
     r0 = pxsim.BufferMethods.length(s.arg0);
     s.tmp_1 = r0;
-    r0 = (s.tmp_1 - s.off___7874);
-    s.sz___7913 = (r0);
+    r0 = (s.tmp_1 - s.off___7959);
+    s.sz___7998 = (r0);
   case 17:
   case 18:
   case 19:
-    r0 = s.parser___7876.fields["nfmt"];
+    r0 = s.parser___7961.fields["nfmt"];
     s.tmp_1 = r0;
     r0 = (s.tmp_1 !== null);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 26; continue; }
-    r0 = s.parser___7876.fields["nfmt2"];
+    r0 = s.parser___7961.fields["nfmt2"];
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 20; continue; }
     r0 = 11;
     { step = 21; continue; }
   case 20:
-    r0 = s.parser___7876.fields["nfmt"];
+    r0 = s.parser___7961.fields["nfmt"];
   case 21:
     // jmp value (already in r0)
     s.tmp_3 = r0;
-    s.fmt1___7954 = (s.tmp_3);
-    r0 = pxsim.BufferMethods.getNumber(s.arg0, s.fmt1___7954, s.off___7874);
-    s.v___7962 = (r0);
-    r0 = s.parser___7876.fields["nfmt2"];
+    s.fmt1___8039 = (s.tmp_3);
+    r0 = pxsim.BufferMethods.getNumber(s.arg0, s.fmt1___8039, s.off___7959);
+    s.v___8047 = (r0);
+    r0 = s.parser___7961.fields["nfmt2"];
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 22; continue; }
-    s.tmp_1 = r0 = s.v___7962;
+    s.tmp_1 = r0 = s.v___8047;
     s.tmp_4 = r0 = s.arg0;
-    r0 = s.parser___7876.fields["nfmt"];
+    r0 = s.parser___7961.fields["nfmt"];
     s.tmp_5 = r0;
-    r0 = (s.off___7874 + 4);
+    r0 = (s.off___7959 + 4);
     s.tmp_6 = r0;
     r0 = pxsim.BufferMethods.getNumber(s.tmp_4, s.tmp_5, s.tmp_6);
     s.tmp_3 = r0;
     r0 = (s.tmp_3 * 4294967296);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 + s.tmp_2);
-    s.v___7962 = (r0);
+    s.v___8047 = (r0);
   case 22:
   case 23:
-    r0 = s.parser___7876.fields["div"];
+    r0 = s.parser___7961.fields["div"];
     s.tmp_1 = r0;
     r0 = (s.tmp_1 != 1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 24; continue; }
-    r0 = s.parser___7876.fields["div"];
+    r0 = s.parser___7961.fields["div"];
     s.tmp_2 = r0;
-    r0 = (s.v___7962 / s.tmp_2);
-    s.v___7962 = (r0);
+    r0 = (s.v___8047 / s.tmp_2);
+    s.v___8047 = (r0);
   case 24:
   case 25:
-    r0 = pxsim_Array__push(s.res___7872, s.v___7962);
-    r0 = s.parser___7876.fields["size"];
+    r0 = pxsim_Array__push(s.res___7957, s.v___8047);
+    r0 = s.parser___7961.fields["size"];
     s.tmp_0 = r0;
-    r0 = (s.off___7874 + s.tmp_0);
-    s.off___7874 = (r0);
+    r0 = (s.off___7959 + s.tmp_0);
+    s.off___7959 = (r0);
     { step = 43; continue; }
   case 26:
     s.tmp_0 = r0 = s.arg0;
-    s.tmp_1 = r0 = s.off___7874;
-    r0 = (s.off___7874 + s.sz___7913);
+    s.tmp_1 = r0 = s.off___7959;
+    r0 = (s.off___7959 + s.sz___7998);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 - s.tmp_1);
     s.tmp_3 = r0;
     r0 = pxsim.BufferMethods.slice(s.tmp_0, s.tmp_1, s.tmp_3);
-    s.subbuf___8000 = (r0);
-    r0 = (s.c0___7917 == 122);
+    s.subbuf___8085 = (r0);
+    r0 = (s.c0___8002 == 122);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 27; continue; }
     r0 = s.tmp_0;
     { step = 28; continue; }
   case 27:
-    r0 = (s.c0___7917 == 115);
+    r0 = (s.c0___8002 == 115);
   case 28:
     // jmp value (already in r0)
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 33; continue; }
-    s.zerop___8015 = (0);
+    s.zerop___8100 = (0);
   case 29:
-    s.tmp_1 = r0 = s.zerop___8015;
-    r0 = pxsim.BufferMethods.length(s.subbuf___8000);
+    s.tmp_1 = r0 = s.zerop___8100;
+    r0 = pxsim.BufferMethods.length(s.subbuf___8085);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
@@ -13488,7 +13955,7 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 31; continue; }
   case 30:
-    r0 = pxsim.BufferMethods.getByte(s.subbuf___8000, s.zerop___8015);
+    r0 = pxsim.BufferMethods.getByte(s.subbuf___8085, s.zerop___8100);
     s.tmp_3 = r0;
     r0 = (s.tmp_3 != 0);
   case 31:
@@ -13496,13 +13963,13 @@ switch (step) {
     s.tmp_4 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 32; continue; }
-    r0 = (s.zerop___8015 + 1);
-    s.zerop___8015 = (r0);
+    r0 = (s.zerop___8100 + 1);
+    s.zerop___8100 = (r0);
     { step = 29; continue; }
   case 32:
-    s.tmp_0 = r0 = s.res___7872;
-    s.tmp_3 = r0 = s.subbuf___8000;
-    r0 = (s.zerop___8015 - 0);
+    s.tmp_0 = r0 = s.res___7957;
+    s.tmp_3 = r0 = s.subbuf___8085;
+    r0 = (s.zerop___8100 - 0);
     s.tmp_4 = r0;
     r0 = pxsim.BufferMethods.slice(s.tmp_3, 0, s.tmp_4);
     s.tmp_2 = r0;
@@ -13511,29 +13978,29 @@ switch (step) {
     r0 = pxsim_Array__push(s.tmp_0, s.tmp_1);
     { step = 40; continue; }
   case 33:
-    r0 = (s.c0___7917 == 98);
+    r0 = (s.c0___8002 == 98);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 34; continue; }
-    r0 = pxsim_Array__push(s.res___7872, s.subbuf___8000);
+    r0 = pxsim_Array__push(s.res___7957, s.subbuf___8085);
     { step = 39; continue; }
   case 34:
-    r0 = (s.c0___7917 == 120);
+    r0 = (s.c0___8002 == 120);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 35; continue; }
     { step = 38; continue; }
   case 35:
-    r0 = (s.c0___7917 == 114);
+    r0 = (s.c0___8002 == 114);
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 36; continue; }
-    s.tmp_2 = r0 = s.res___7872;
+    s.tmp_2 = r0 = s.res___7957;
     s.tmp_4 = jacdac_jdunpackCore__P4171_mk(s);
-    s.tmp_4.arg0 = s.subbuf___8000;
+    s.tmp_4.arg0 = s.subbuf___8085;
     s.tmp_5 = helpers_stringSlice__P2010_mk(s);
     s.tmp_5.arg0 = s.arg1;
-    s.tmp_5.arg1 = s.fp0___7875;
+    s.tmp_5.arg1 = s.fp0___7960;
     s.tmp_5.arg2 = undefined;
     s.callLocIdx = 190; s.pc = 63; return s.tmp_5;
   case 63:
@@ -13553,17 +14020,17 @@ switch (step) {
   case 38:
   case 39:
   case 40:
-    s.tmp_0 = r0 = s.off___7874;
-    r0 = pxsim.BufferMethods.length(s.subbuf___8000);
+    s.tmp_0 = r0 = s.off___7959;
+    r0 = pxsim.BufferMethods.length(s.subbuf___8085);
     s.tmp_1 = r0;
     r0 = (s.tmp_0 + s.tmp_1);
-    s.off___7874 = (r0);
-    r0 = (s.c0___7917 == 122);
+    s.off___7959 = (r0);
+    r0 = (s.c0___8002 == 122);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 41; continue; }
-    r0 = (s.off___7874 + 1);
-    s.off___7874 = (r0);
+    r0 = (s.off___7959 + 1);
+    s.off___7959 = (r0);
   case 41:
   case 42:
   case 43:
@@ -13573,7 +14040,7 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 45; continue; }
   case 44:
-    r0 = s.parser___7876.fields["fp"];
+    r0 = s.parser___7961.fields["fp"];
     s.tmp_1 = r0;
     r0 = pxsim_String_.length(s.arg1);
     s.tmp_2 = r0;
@@ -13583,17 +14050,17 @@ switch (step) {
     s.tmp_3 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_3);
     if (!r0) { step = 50; continue; }
-    r0 = (s.parser___7876).fields["fp"] = (0);
+    r0 = (s.parser___7961).fields["fp"] = (0);
     r0 = (s.arg2 == 2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 46; continue; }
-    r0 = pxsim_Array__push(s.repeatRes___7867, s.res___7872);
+    r0 = pxsim_Array__push(s.repeatRes___7952, s.res___7957);
     r0 = pxsim_Array__mk();
-    s.res___7872 = (r0);
+    s.res___7957 = (r0);
   case 46:
   case 47:
-    s.tmp_1 = r0 = s.off___7874;
+    s.tmp_1 = r0 = s.off___7959;
     r0 = pxsim.BufferMethods.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 >= s.tmp_2);
@@ -13611,18 +14078,18 @@ switch (step) {
     s.tmp_3 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_3);
     if (!r0) { step = 55; continue; }
-    r0 = pxsim_Array__length(s.res___7872);
+    r0 = pxsim_Array__length(s.res___7957);
     s.tmp_4 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 53; continue; }
-    r0 = pxsim_Array__push(s.repeatRes___7867, s.res___7872);
+    r0 = pxsim_Array__push(s.repeatRes___7952, s.res___7957);
   case 53:
   case 54:
-    r0 = s.repeatRes___7867;
+    r0 = s.repeatRes___7952;
     { step = 57; continue; }
     { step = 56; continue; }
   case 55:
-    r0 = s.res___7872;
+    r0 = s.res___7957;
     { step = 57; continue; }
   case 56:
     r0 = undefined;
@@ -13653,18 +14120,18 @@ function jacdac_jdunpackCore__P4171_mk(s) {
   tmp_13: undefined,
   tmp_14: undefined,
   tmp_15: undefined,
-  repeatRes___7867: undefined,
-  res___7872: undefined,
-  off___7874: undefined,
-  fp0___7875: undefined,
-  parser___7876: undefined,
-  sz___7913: undefined,
-  c0___7917: undefined,
-  endoff___7924: undefined,
-  fmt1___7954: undefined,
-  v___7962: undefined,
-  subbuf___8000: undefined,
-  zerop___8015: undefined,
+  repeatRes___7952: undefined,
+  res___7957: undefined,
+  off___7959: undefined,
+  fp0___7960: undefined,
+  parser___7961: undefined,
+  sz___7998: undefined,
+  c0___8002: undefined,
+  endoff___8009: undefined,
+  fmt1___8039: undefined,
+  v___8047: undefined,
+  subbuf___8085: undefined,
+  zerop___8100: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -13759,14 +14226,14 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.fmt___8117 = undefined;
-    s.endp___8127 = undefined;
-    s.word___8143 = undefined;
-    s.dotIdx___8156 = undefined;
-    s.c0___8162 = undefined;
-    s.sz0___8177 = undefined;
-    s.sz1___8185 = undefined;
-    s.c1___8211 = undefined;
+    s.fmt___8202 = undefined;
+    s.endp___8212 = undefined;
+    s.word___8228 = undefined;
+    s.dotIdx___8241 = undefined;
+    s.c0___8247 = undefined;
+    s.sz0___8262 = undefined;
+    s.sz1___8270 = undefined;
+    s.c1___8296 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -13776,21 +14243,21 @@ switch (step) {
     r0 = (s.arg0).fields["div"] = (1);
     r0 = (s.arg0).fields["isArray"] = (false);
     r0 = s.arg0.fields["fmt"];
-    s.fmt___8117 = (r0);
+    s.fmt___8202 = (r0);
   case 1:
     r0 = s.arg0.fields["fp"];
     s.tmp_1 = r0;
-    r0 = pxsim_String_.length(s.fmt___8117);
+    r0 = pxsim_String_.length(s.fmt___8202);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 50; continue; }
     r0 = s.arg0.fields["fp"];
-    s.endp___8127 = (r0);
+    s.endp___8212 = (r0);
   case 2:
-    s.tmp_1 = r0 = s.endp___8127;
-    r0 = pxsim_String_.length(s.fmt___8117);
+    s.tmp_1 = r0 = s.endp___8212;
+    r0 = pxsim_String_.length(s.fmt___8202);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
@@ -13799,7 +14266,7 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 4; continue; }
   case 3:
-    r0 = pxsim_String_.charCodeAt(s.fmt___8117, s.endp___8127);
+    r0 = pxsim_String_.charCodeAt(s.fmt___8202, s.endp___8212);
     s.tmp_3 = r0;
     r0 = (s.tmp_3 != 32);
   case 4:
@@ -13807,24 +14274,24 @@ switch (step) {
     s.tmp_4 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 5; continue; }
-    r0 = (s.endp___8127 + 1);
-    s.endp___8127 = (r0);
+    r0 = (s.endp___8212 + 1);
+    s.endp___8212 = (r0);
     { step = 2; continue; }
   case 5:
     s.tmp_0 = helpers_stringSlice__P2010_mk(s);
-    s.tmp_0.arg0 = s.fmt___8117;
+    s.tmp_0.arg0 = s.fmt___8202;
     r0 = s.arg0.fields["fp"];
     s.tmp_0.arg1 = r0;
-    s.tmp_0.arg2 = s.endp___8127;
+    s.tmp_0.arg2 = s.endp___8212;
     s.callLocIdx = 172; s.pc = 52; return s.tmp_0;
   case 52:
     r0 = s.retval;
-    s.word___8143 = (r0);
+    s.word___8228 = (r0);
     s.tmp_0 = r0 = s.arg0;
-    r0 = (s.endp___8127 + 1);
+    r0 = (s.endp___8212 + 1);
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["fp"] = (s.tmp_1);
-    r0 = pxsim_numops_toBoolDecr(s.word___8143);
+    r0 = pxsim_numops_toBoolDecr(s.word___8228);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -13833,18 +14300,18 @@ switch (step) {
     { step = 1; continue; }
   case 6:
   case 7:
-    r0 = pxsim_String_.indexOf(s.word___8143, ".", undefined);
-    s.dotIdx___8156 = (r0);
-    r0 = pxsim_String_.charCodeAt(s.word___8143, 0);
-    s.c0___8162 = (r0);
-    r0 = (s.c0___8162 == 105);
+    r0 = pxsim_String_.indexOf(s.word___8228, ".", undefined);
+    s.dotIdx___8241 = (r0);
+    r0 = pxsim_String_.charCodeAt(s.word___8228, 0);
+    s.c0___8247 = (r0);
+    r0 = (s.c0___8247 == 105);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 8; continue; }
     r0 = s.tmp_0;
     { step = 9; continue; }
   case 8:
-    r0 = (s.c0___8162 == 117);
+    r0 = (s.c0___8247 == 117);
   case 9:
     // jmp value (already in r0)
     s.tmp_1 = r0;
@@ -13853,7 +14320,7 @@ switch (step) {
     r0 = s.tmp_1;
     { step = 11; continue; }
   case 10:
-    r0 = (s.dotIdx___8156 >= 0);
+    r0 = (s.dotIdx___8241 >= 0);
   case 11:
     // jmp value (already in r0)
     s.tmp_2 = r0;
@@ -13861,9 +14328,9 @@ switch (step) {
     if (!r0) { step = 12; continue; }
     s.tmp_3 = parseInt__P1988_mk(s);
     s.tmp_4 = helpers_stringSlice__P2010_mk(s);
-    s.tmp_4.arg0 = s.word___8143;
+    s.tmp_4.arg0 = s.word___8228;
     s.tmp_4.arg1 = 1;
-    s.tmp_4.arg2 = s.dotIdx___8156;
+    s.tmp_4.arg2 = s.dotIdx___8241;
     s.callLocIdx = 173; s.pc = 54; return s.tmp_4;
   case 54:
     r0 = s.retval;
@@ -13872,11 +14339,11 @@ switch (step) {
     s.callLocIdx = 174; s.pc = 53; return s.tmp_3;
   case 53:
     r0 = s.retval;
-    s.sz0___8177 = (r0);
+    s.sz0___8262 = (r0);
     s.tmp_0 = parseInt__P1988_mk(s);
     s.tmp_1 = helpers_stringSlice__P2010_mk(s);
-    s.tmp_1.arg0 = s.word___8143;
-    r0 = (s.dotIdx___8156 + 1);
+    s.tmp_1.arg0 = s.word___8228;
+    r0 = (s.dotIdx___8241 + 1);
     s.tmp_1.arg1 = r0;
     s.tmp_1.arg2 = undefined;
     s.callLocIdx = 175; s.pc = 56; return s.tmp_1;
@@ -13887,8 +14354,8 @@ switch (step) {
     s.callLocIdx = 176; s.pc = 55; return s.tmp_0;
   case 55:
     r0 = s.retval;
-    s.sz1___8185 = (r0);
-    r0 = pxsim_String_.charAt(s.word___8143, 0);
+    s.sz1___8270 = (r0);
+    r0 = pxsim_String_.charAt(s.word___8228, 0);
     s.tmp_1 = r0;
     if ((s.tmp_1) && (s.tmp_1).vtable) {
     setupResume(s, 57);
@@ -13899,7 +14366,7 @@ switch (step) {
   case 57:
     r0 = s.retval;
     s.tmp_0 = r0;
-    r0 = (s.sz0___8177 + s.sz1___8185);
+    r0 = (s.sz0___8262 + s.sz1___8270);
     s.tmp_3 = r0;
     if ((s.tmp_3) && (s.tmp_3).vtable) {
     setupResume(s, 58);
@@ -13911,23 +14378,23 @@ switch (step) {
     r0 = s.retval;
     s.tmp_2 = r0;
     r0 = pxsim_String__concat(s.tmp_0, s.tmp_2);
-    s.word___8143 = (r0);
+    s.word___8228 = (r0);
     s.tmp_0 = r0 = s.arg0;
-    r0 = (1 << s.sz1___8185);
+    r0 = (1 << s.sz1___8270);
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["div"] = (s.tmp_1);
   case 12:
   case 13:
-    r0 = pxsim_String_.charCodeAt(s.word___8143, 1);
-    s.c1___8211 = (r0);
-    r0 = (s.c1___8211 == 91);
+    r0 = pxsim_String_.charCodeAt(s.word___8228, 1);
+    s.c1___8296 = (r0);
+    r0 = (s.c1___8296 == 91);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 14; continue; }
     s.tmp_1 = r0 = s.arg0;
     s.tmp_3 = parseInt__P1988_mk(s);
     s.tmp_4 = helpers_stringSlice__P2010_mk(s);
-    s.tmp_4.arg0 = s.word___8143;
+    s.tmp_4.arg0 = s.word___8228;
     s.tmp_4.arg1 = 2;
     s.tmp_4.arg2 = undefined;
     s.callLocIdx = 177; s.pc = 60; return s.tmp_4;
@@ -13944,8 +14411,8 @@ switch (step) {
   case 14:
     r0 = (s.arg0).fields["size"] = (-1);
   case 15:
-    s.tmp_2 = r0 = s.word___8143;
-    r0 = pxsim_String_.length(s.word___8143);
+    s.tmp_2 = r0 = s.word___8228;
+    r0 = pxsim_String_.length(s.word___8228);
     s.tmp_4 = r0;
     r0 = (s.tmp_4 - 1);
     s.tmp_3 = r0;
@@ -13958,8 +14425,8 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 17; continue; }
   case 16:
-    s.tmp_6 = r0 = s.word___8143;
-    r0 = pxsim_String_.length(s.word___8143);
+    s.tmp_6 = r0 = s.word___8228;
+    r0 = pxsim_String_.length(s.word___8228);
     s.tmp_8 = r0;
     r0 = (s.tmp_8 - 2);
     s.tmp_7 = r0;
@@ -13972,20 +14439,20 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_9);
     if (!r0) { step = 18; continue; }
     s.tmp_10 = helpers_stringSlice__P2010_mk(s);
-    s.tmp_10.arg0 = s.word___8143;
+    s.tmp_10.arg0 = s.word___8228;
     s.tmp_10.arg1 = 0;
     s.tmp_10.arg2 = -2;
     s.callLocIdx = 179; s.pc = 61; return s.tmp_10;
   case 61:
     r0 = s.retval;
-    s.word___8143 = (r0);
+    s.word___8228 = (r0);
     r0 = (s.arg0).fields["isArray"] = (true);
   case 18:
   case 19:
     r0 = (s.arg0).fields["nfmt2"] = (null);
     s.tmp_0 = r0 = s.arg0;
     s.tmp_2 = jacdac_numberFormatOfType__P4164_mk(s);
-    s.tmp_2.arg0 = s.word___8143;
+    s.tmp_2.arg0 = s.word___8228;
     s.callLocIdx = 180; s.pc = 62; return s.tmp_2;
   case 62:
     r0 = s.retval;
@@ -13997,7 +14464,7 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 24; continue; }
-    r0 = (s.word___8143 == "u64");
+    r0 = (s.word___8228 == "u64");
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 20; continue; }
@@ -14005,7 +14472,7 @@ switch (step) {
     r0 = (s.arg0).fields["nfmt2"] = (true);
     { step = 23; continue; }
   case 20:
-    r0 = (s.word___8143 == "i64");
+    r0 = (s.word___8228 == "i64");
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 21; continue; }
@@ -14016,34 +14483,34 @@ switch (step) {
   case 23:
   case 24:
   case 25:
-    r0 = (s.arg0).fields["word"] = (s.word___8143);
+    r0 = (s.arg0).fields["word"] = (s.word___8228);
     r0 = s.arg0.fields["nfmt"];
     s.tmp_1 = r0;
     r0 = (s.tmp_1 == null);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 46; continue; }
-    r0 = (s.c0___8162 == 114);
+    r0 = (s.c0___8247 == 114);
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 28; continue; }
-    r0 = (s.c1___8211 != 58);
+    r0 = (s.c1___8296 != 58);
     s.tmp_3 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_3);
     if (!r0) { step = 26; continue; }
-    s.c0___8162 = (0);
+    s.c0___8247 = (0);
   case 26:
   case 27:
     { step = 43; continue; }
   case 28:
-    r0 = (s.c0___8162 == 115);
+    r0 = (s.c0___8247 == 115);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 29; continue; }
     r0 = s.tmp_0;
     { step = 30; continue; }
   case 29:
-    r0 = (s.c0___8162 == 98);
+    r0 = (s.c0___8247 == 98);
   case 30:
     // jmp value (already in r0)
     s.tmp_1 = r0;
@@ -14052,13 +14519,13 @@ switch (step) {
     r0 = s.tmp_1;
     { step = 32; continue; }
   case 31:
-    r0 = (s.c0___8162 == 120);
+    r0 = (s.c0___8247 == 120);
   case 32:
     // jmp value (already in r0)
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 37; continue; }
-    r0 = pxsim_String_.length(s.word___8143);
+    r0 = pxsim_String_.length(s.word___8228);
     s.tmp_4 = r0;
     r0 = (s.tmp_4 != 1);
     s.tmp_3 = r0;
@@ -14075,40 +14542,40 @@ switch (step) {
     s.tmp_6 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_6);
     if (!r0) { step = 35; continue; }
-    s.c0___8162 = (0);
+    s.c0___8247 = (0);
   case 35:
   case 36:
     { step = 42; continue; }
   case 37:
-    r0 = (s.c0___8162 == 122);
+    r0 = (s.c0___8247 == 122);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 40; continue; }
-    r0 = pxsim_String_.length(s.word___8143);
+    r0 = pxsim_String_.length(s.word___8228);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 != 1);
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 38; continue; }
-    s.c0___8162 = (0);
+    s.c0___8247 = (0);
   case 38:
   case 39:
     { step = 41; continue; }
   case 40:
-    s.c0___8162 = (0);
+    s.c0___8247 = (0);
   case 41:
   case 42:
   case 43:
-    r0 = (s.c0___8162 == 0);
+    r0 = (s.c0___8247 == 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 44; continue; }
-    if ((s.word___8143) && (s.word___8143).vtable) {
+    if ((s.word___8228) && (s.word___8228).vtable) {
     setupResume(s, 63);
-    pxsim_String__stringConv(s.word___8143);
+    pxsim_String__stringConv(s.word___8228);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.word___8143) + ""; }
+    } else { s.retval = (s.word___8228) + ""; }
   case 63:
     r0 = s.retval;
     s.tmp_2 = r0;
@@ -14117,7 +14584,7 @@ switch (step) {
     r0 = pxsim_pxtcore.throwValue(s.tmp_1);
   case 44:
   case 45:
-    r0 = (s.arg0).fields["c0"] = (s.c0___8162);
+    r0 = (s.arg0).fields["c0"] = (s.c0___8247);
     { step = 49; continue; }
   case 46:
     s.tmp_0 = r0 = s.arg0;
@@ -14172,14 +14639,14 @@ function jacdac_TokenParser_parse__P4169_mk(s) {
   tmp_8: undefined,
   tmp_9: undefined,
   tmp_10: undefined,
-  fmt___8117: undefined,
-  endp___8127: undefined,
-  word___8143: undefined,
-  dotIdx___8156: undefined,
-  c0___8162: undefined,
-  sz0___8177: undefined,
-  sz1___8185: undefined,
-  c1___8211: undefined,
+  fmt___8202: undefined,
+  endp___8212: undefined,
+  word___8228: undefined,
+  dotIdx___8241: undefined,
+  c0___8247: undefined,
+  sz0___8262: undefined,
+  sz1___8270: undefined,
+  c1___8296: undefined,
   arg0: undefined,
 } }
 
@@ -14425,7 +14892,7 @@ switch (step) {
     s.callLocIdx = 496; s.pc = 6; return s.tmp_3;
   case 6:
     r0 = s.retval;
-    r0 = pxsim_pxtcore_mkAction(1, jacdac_Server_handleCalibrateCommand_inline__P8384);
+    r0 = pxsim_pxtcore_mkAction(1, jacdac_Server_handleCalibrateCommand_inline__P8469);
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
     s.tmp_1 = control_runInBackground__P2296_mk(s);
@@ -14465,7 +14932,7 @@ function jacdac_Server_handleCalibrateCommand__P4191_mk(s) {
 
 
 
-function jacdac_Server_handleCalibrateCommand_inline__P8384(s) {
+function jacdac_Server_handleCalibrateCommand_inline__P8469(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -14484,12 +14951,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_Server_handleCalibrateCommand_inline__P8384.info = {"start":21655,"length":24,"line":641,"column":40,"endLine":641,"endColumn":64,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":[]}
+jacdac_Server_handleCalibrateCommand_inline__P8469.info = {"start":21655,"length":24,"line":641,"column":40,"endLine":641,"endColumn":64,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":[]}
 
-function jacdac_Server_handleCalibrateCommand_inline__P8384_mk(s) {
+function jacdac_Server_handleCalibrateCommand_inline__P8469_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: jacdac_Server_handleCalibrateCommand_inline__P8384, depth: s.depth + 1,
+        parent: s, fn: jacdac_Server_handleCalibrateCommand_inline__P8469, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
 } }
@@ -14508,7 +14975,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.p___8395 = undefined;
+    s.p___8480 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -14567,9 +15034,9 @@ switch (step) {
     s.callLocIdx = 113; s.pc = 7; return s.tmp_5;
   case 7:
     r0 = s.retval;
-    s.p___8395 = (r0);
+    s.p___8480 = (r0);
     s.tmp_0 = jacdac_JDPacket_serviceIndex__P2899_mk(s);
-    s.tmp_0.arg0 = s.p___8395;
+    s.tmp_0.arg0 = s.p___8480;
     r0 = s.arg0.fields["_header"];
     s.tmp_2 = r0;
     r0 = pxsim.BufferMethods.getByte(s.tmp_2, 13);
@@ -14580,7 +15047,7 @@ switch (step) {
   case 8:
     r0 = s.retval;
     s.tmp_0 = jacdac_JDPacket__sendReport__P2924_mk(s);
-    s.tmp_0.arg0 = s.p___8395;
+    s.tmp_0.arg0 = s.p___8480;
     s.tmp_1 = jacdac_Bus_selfDevice__P3418_mk(s);
     s.tmp_1.arg0 = globals.bus___3430;
     s.callLocIdx = 116; s.pc = 10; return s.tmp_1;
@@ -14611,7 +15078,7 @@ function jacdac_JDPacket_possiblyNotImplemented__P2890_mk(s) {
   tmp_6: undefined,
   tmp_7: undefined,
   tmp_8: undefined,
-  p___8395: undefined,
+  p___8480: undefined,
   arg0: undefined,
 } }
 
@@ -14676,7 +15143,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.e___8421 = undefined;
+    s.e___8506 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -14707,7 +15174,7 @@ switch (step) {
     { step = 2; continue; }
   case 1:
     r0 = pxsim_pxtcore.getThrownValue();
-    s.e___8421 = (r0);
+    s.e___8506 = (r0);
     s.tmp_0 = jacdac_Server_setStatusCode__P3460_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_0.arg1 = 100;
@@ -14727,7 +15194,7 @@ function jacdac_Server_doCalibrate__P4192_mk(s) {
         parent: s, fn: jacdac_Server_doCalibrate__P4192, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
-  e___8421: undefined,
+  e___8506: undefined,
   arg0: undefined,
 } }
 
@@ -14745,7 +15212,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.cc___8426 = undefined;
+    s.cc___8511 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -14754,14 +15221,14 @@ switch (step) {
     r0 = s.arg0;
     if (!checkSubtype(r0, jacdac_Server__C3447_VT)) failedCast(r0);
     r0 = (s.arg1 & 65535);
-    s.cc___8426 = (r0);
+    s.cc___8511 = (r0);
     r0 = s.arg0.fields["_statusCode"];
     s.tmp_1 = r0;
-    r0 = (s.cc___8426 !== s.tmp_1);
+    r0 = (s.cc___8511 !== s.tmp_1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 1; continue; }
-    r0 = (s.arg0).fields["_statusCode"] = (s.cc___8426);
+    r0 = (s.arg0).fields["_statusCode"] = (s.cc___8511);
     s.tmp_0 = jacdac_Server_sendChangeEvent__P3466_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.callLocIdx = 462; s.pc = 3; return s.tmp_0;
@@ -14782,7 +15249,7 @@ function jacdac_Server_setStatusCode__P3460_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  cc___8426: undefined,
+  cc___8511: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -14850,8 +15317,8 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.pkt___8451 = undefined;
-    s.now___8463 = undefined;
+    s.pkt___8536 = undefined;
+    s.now___8548 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -14891,25 +15358,25 @@ switch (step) {
     s.callLocIdx = 480; s.pc = 6; return s.tmp_4;
   case 6:
     r0 = s.retval;
-    s.pkt___8451 = (r0);
+    s.pkt___8536 = (r0);
     s.tmp_0 = jacdac_Server_sendReport__P4185_mk(s);
     s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.pkt___8451;
+    s.tmp_0.arg1 = s.pkt___8536;
     s.callLocIdx = 481; s.pc = 8; return s.tmp_0;
   case 8:
     r0 = s.retval;
     r0 = pxsim.control.millis();
-    s.now___8463 = (r0);
+    s.now___8548 = (r0);
     s.tmp_0 = jacdac_delayedSend__P2975_mk(s);
-    s.tmp_0.arg0 = s.pkt___8451;
-    r0 = (s.now___8463 + 20);
+    s.tmp_0.arg0 = s.pkt___8536;
+    r0 = (s.now___8548 + 20);
     s.tmp_0.arg1 = r0;
     s.callLocIdx = 482; s.pc = 9; return s.tmp_0;
   case 9:
     r0 = s.retval;
     s.tmp_0 = jacdac_delayedSend__P2975_mk(s);
-    s.tmp_0.arg0 = s.pkt___8451;
-    r0 = (s.now___8463 + 100);
+    s.tmp_0.arg0 = s.pkt___8536;
+    r0 = (s.now___8548 + 100);
     s.tmp_0.arg1 = r0;
     s.callLocIdx = 483; s.pc = 10; return s.tmp_0;
   case 10:
@@ -14932,8 +15399,8 @@ function jacdac_Server_sendEvent__P3465_mk(s) {
   tmp_3: undefined,
   tmp_4: undefined,
   tmp_5: undefined,
-  pkt___8451: undefined,
-  now___8463: undefined,
+  pkt___8536: undefined,
+  now___8548: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -14953,8 +15420,8 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.dp___8484 = undefined;
-    s.i___8489 = undefined;
+    s.dp___8569 = undefined;
+    s.i___8574 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -14984,32 +15451,32 @@ switch (step) {
     s.callLocIdx = 225; s.pc = 9; return s.tmp_1;
   case 9:
     r0 = s.retval;
-    s.dp___8484 = (s.tmp_0);
-    s.i___8489 = (0);
+    s.dp___8569 = (s.tmp_0);
+    s.i___8574 = (0);
   case 3:
-    s.tmp_1 = r0 = s.i___8489;
+    s.tmp_1 = r0 = s.i___8574;
     r0 = pxsim_Array__length(globals.delayedPackets___4213);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 6; continue; }
-    r0 = pxsim_Array__getAt(globals.delayedPackets___4213, s.i___8489);
+    r0 = pxsim_Array__getAt(globals.delayedPackets___4213, s.i___8574);
     r0 = r0.fields["timestamp"];
     s.tmp_4 = r0;
     r0 = (s.tmp_4 > s.arg1);
     s.tmp_3 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_3);
     if (!r0) { step = 4; continue; }
-    r0 = pxsim_Array_.insertAt(globals.delayedPackets___4213, s.i___8489, s.dp___8484);
+    r0 = pxsim_Array_.insertAt(globals.delayedPackets___4213, s.i___8574, s.dp___8569);
     { step = 7; continue; }
   case 4:
   case 5:
-    r0 = (s.i___8489 + 1);
-    s.i___8489 = (r0);
+    r0 = (s.i___8574 + 1);
+    s.i___8574 = (r0);
     { step = 3; continue; }
   case 6:
-    r0 = pxsim_Array__push(globals.delayedPackets___4213, s.dp___8484);
+    r0 = pxsim_Array__push(globals.delayedPackets___4213, s.dp___8569);
   case 7:
     r0 = undefined;
     return leave(s, r0)
@@ -15027,8 +15494,8 @@ function jacdac_delayedSend__P2975_mk(s) {
   tmp_2: undefined,
   tmp_3: undefined,
   tmp_4: undefined,
-  dp___8484: undefined,
-  i___8489: undefined,
+  dp___8569: undefined,
+  i___8574: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -15087,8 +15554,8 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.now___8518 = undefined;
-    s.curr___8522 = undefined;
+    s.now___8603 = undefined;
+    s.curr___8607 = undefined;
   case 1:
     r0 = pxsim_numops_toBoolDecr(true);
     if (!r0) { step = 10; continue; }
@@ -15098,11 +15565,11 @@ switch (step) {
   case 12:
     r0 = s.retval;
     r0 = pxsim.control.millis();
-    s.now___8518 = (r0);
+    s.now___8603 = (r0);
   case 2:
     r0 = pxsim_Array__getAt(globals.delayedPackets___4213, 0);
-    s.curr___8522 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.curr___8522);
+    s.curr___8607 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.curr___8607);
     s.tmp_1 = r0;
     r0 = pxsim_Boolean__bang(s.tmp_1);
     s.tmp_0 = r0;
@@ -15111,9 +15578,9 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 4; continue; }
   case 3:
-    r0 = s.curr___8522.fields["timestamp"];
+    r0 = s.curr___8607.fields["timestamp"];
     s.tmp_2 = r0;
-    r0 = (s.tmp_2 > s.now___8518);
+    r0 = (s.tmp_2 > s.now___8603);
   case 4:
     // jmp value (already in r0)
     s.tmp_3 = r0;
@@ -15124,7 +15591,7 @@ switch (step) {
   case 6:
     r0 = pxsim_Array_.removeAt(globals.delayedPackets___4213, 0);
     s.tmp_0 = jacdac_JDPacket__sendCore__P2923_mk(s);
-    r0 = s.curr___8522.fields["pkt"];
+    r0 = s.curr___8607.fields["pkt"];
     s.tmp_0.arg0 = r0;
     s.callLocIdx = 228; s.pc = 13; return s.tmp_0;
   case 13:
@@ -15161,8 +15628,8 @@ function jacdac_processDelayedPackets__P4216_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  now___8518: undefined,
-  curr___8522: undefined,
+  now___8603: undefined,
+  curr___8607: undefined,
 } }
 
 
@@ -15322,7 +15789,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.v___8580 = undefined;
+    s.v___8665 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -15341,10 +15808,10 @@ switch (step) {
     s.callLocIdx = 493; s.pc = 1; return s.tmp_0;
   case 1:
     r0 = s.retval;
-    s.v___8580 = (r0);
+    s.v___8665 = (r0);
     s.tmp_0 = jacdac_Server_intensity__P3457_mk(s);
     s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.v___8580;
+    s.tmp_0.arg1 = s.v___8665;
     s.callLocIdx = 494; s.pc = 2; return s.tmp_0;
   case 2:
     r0 = s.retval;
@@ -15360,7 +15827,7 @@ function jacdac_Server_handleIntensity__P4190_mk(s) {
         parent: s, fn: jacdac_Server_handleIntensity__P4190, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
-  v___8580: undefined,
+  v___8665: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -15485,7 +15952,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.v___8612 = undefined;
+    s.v___8697 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -15504,10 +15971,10 @@ switch (step) {
     s.callLocIdx = 491; s.pc = 1; return s.tmp_0;
   case 1:
     r0 = s.retval;
-    s.v___8612 = (r0);
+    s.v___8697 = (r0);
     s.tmp_0 = jacdac_Server_value__P3459_mk(s);
     s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.v___8612;
+    s.tmp_0.arg1 = s.v___8697;
     s.callLocIdx = 492; s.pc = 2; return s.tmp_0;
   case 2:
     r0 = s.retval;
@@ -15523,7 +15990,7 @@ function jacdac_Server_handleValue__P4189_mk(s) {
         parent: s, fn: jacdac_Server_handleValue__P4189, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
-  v___8612: undefined,
+  v___8697: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -15828,9 +16295,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.getset___8685 = undefined;
-    s.reg___8695 = undefined;
-    s.v___8717 = undefined;
+    s.getset___8770 = undefined;
+    s.reg___8780 = undefined;
+    s.v___8802 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -15846,15 +16313,15 @@ switch (step) {
     r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, 14);
     s.tmp_0 = r0;
     r0 = (s.tmp_0 >> 12);
-    s.getset___8685 = (r0);
-    r0 = (s.getset___8685 == 0);
+    s.getset___8770 = (r0);
+    r0 = (s.getset___8770 == 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (!r0) { step = 1; continue; }
     r0 = s.tmp_0;
     { step = 2; continue; }
   case 1:
-    r0 = (s.getset___8685 > 2);
+    r0 = (s.getset___8770 > 2);
   case 2:
     // jmp value (already in r0)
     s.tmp_1 = r0;
@@ -15869,8 +16336,8 @@ switch (step) {
     r0 = pxsim.BufferMethods.getNumber(s.tmp_3, 4, 14);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 & 4095);
-    s.reg___8695 = (r0);
-    r0 = (s.reg___8695 != s.arg2);
+    s.reg___8780 = (r0);
+    r0 = (s.reg___8780 != s.arg2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 5; continue; }
@@ -15883,7 +16350,7 @@ switch (step) {
     s.callLocIdx = 505; s.pc = 14; return s.tmp_1;
   case 14:
     r0 = s.retval;
-    r0 = (s.getset___8685 == 1);
+    r0 = (s.getset___8770 == 1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 7; continue; }
@@ -15921,10 +16388,10 @@ switch (step) {
     s.callLocIdx = 509; s.pc = 17; return s.tmp_2;
   case 17:
     r0 = s.retval;
-    s.v___8717 = (r0);
+    s.v___8802 = (r0);
     s.tmp_3 = jacdac_jdpackEqual__P2935_mk(s);
     s.tmp_3.arg0 = s.arg3;
-    s.tmp_3.arg1 = s.v___8717;
+    s.tmp_3.arg1 = s.v___8802;
     s.tmp_3.arg2 = s.arg4;
     s.callLocIdx = 510; s.pc = 18; return s.tmp_3;
   case 18:
@@ -15937,7 +16404,7 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 10; continue; }
     r0 = (s.arg0).fields["stateUpdated"] = (true);
-    s.arg4 = (s.v___8717);
+    s.arg4 = (s.v___8802);
   case 10:
   case 11:
   case 12:
@@ -15957,9 +16424,9 @@ function jacdac_Server_handleRegFormat__P4193_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  getset___8685: undefined,
-  reg___8695: undefined,
-  v___8717: undefined,
+  getset___8770: undefined,
+  reg___8780: undefined,
+  v___8802: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -15981,8 +16448,8 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.leftBuffer___8743 = undefined;
-    s.rightBuffer___8748 = undefined;
+    s.leftBuffer___8828 = undefined;
+    s.rightBuffer___8833 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -16021,17 +16488,17 @@ switch (step) {
     s.callLocIdx = 206; s.pc = 6; return s.tmp_7;
   case 6:
     r0 = s.retval;
-    s.leftBuffer___8743 = (r0);
+    s.leftBuffer___8828 = (r0);
     s.tmp_0 = jacdac_jdpack__P2934_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_0.arg1 = s.arg2;
     s.callLocIdx = 207; s.pc = 7; return s.tmp_0;
   case 7:
     r0 = s.retval;
-    s.rightBuffer___8748 = (r0);
+    s.rightBuffer___8833 = (r0);
     s.tmp_0 = helpers_bufferEquals__P2619_mk(s);
-    s.tmp_0.arg0 = s.leftBuffer___8743;
-    s.tmp_0.arg1 = s.rightBuffer___8748;
+    s.tmp_0.arg0 = s.leftBuffer___8828;
+    s.tmp_0.arg1 = s.rightBuffer___8833;
     s.callLocIdx = 208; s.pc = 8; return s.tmp_0;
   case 8:
     r0 = s.retval;
@@ -16054,8 +16521,8 @@ function jacdac_jdpackEqual__P2935_mk(s) {
   tmp_5: undefined,
   tmp_6: undefined,
   tmp_7: undefined,
-  leftBuffer___8743: undefined,
-  rightBuffer___8748: undefined,
+  leftBuffer___8828: undefined,
+  rightBuffer___8833: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -16376,9 +16843,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.payload___8801 = undefined;
-    s.tailend___8805 = undefined;
-    s.crc___8825 = undefined;
+    s.payload___8886 = undefined;
+    s.tailend___8890 = undefined;
+    s.crc___8910 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -16390,54 +16857,54 @@ switch (step) {
     s.callLocIdx = 81; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
-    s.payload___8801 = (r0);
-    r0 = pxsim.BufferMethods.length(s.payload___8801);
+    s.payload___8886 = (r0);
+    r0 = pxsim.BufferMethods.length(s.payload___8886);
     s.tmp_0 = r0;
     r0 = (s.tmp_0 & 3);
-    s.tailend___8805 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.tailend___8805);
+    s.tailend___8890 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.tailend___8890);
     if (!r0) { step = 1; continue; }
     s.tmp_0 = helpers_bufferConcat__P2618_mk(s);
-    s.tmp_0.arg0 = s.payload___8801;
-    r0 = (4 - s.tailend___8805);
+    s.tmp_0.arg0 = s.payload___8886;
+    r0 = (4 - s.tailend___8890);
     s.tmp_1 = r0;
     r0 = pxsim.control.createBuffer(s.tmp_1);
     s.tmp_0.arg1 = r0;
     s.callLocIdx = 82; s.pc = 4; return s.tmp_0;
   case 4:
     r0 = s.retval;
-    s.payload___8801 = (r0);
+    s.payload___8886 = (r0);
   case 1:
   case 2:
-    s.tmp_0 = r0 = s.payload___8801;
-    r0 = pxsim.BufferMethods.length(s.payload___8801);
+    s.tmp_0 = r0 = s.payload___8886;
+    r0 = pxsim.BufferMethods.length(s.payload___8886);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 - 12);
     s.tmp_1 = r0;
     r0 = pxsim.BufferMethods.setByte(s.tmp_0, 2, s.tmp_1);
     r0 = pxsim.BufferMethods.setByte(s.arg0, 2, s.tmp_1);
     s.tmp_0 = jacdac_jdCrc16__P4105_mk(s);
-    r0 = pxsim.BufferMethods.slice(s.payload___8801, 2, -1);
+    r0 = pxsim.BufferMethods.slice(s.payload___8886, 2, -1);
     s.tmp_0.arg0 = r0;
     s.callLocIdx = 83; s.pc = 5; return s.tmp_0;
   case 5:
     r0 = s.retval;
-    s.crc___8825 = (r0);
-    s.tmp_0 = r0 = s.payload___8801;
-    r0 = (s.crc___8825 >> 0);
+    s.crc___8910 = (r0);
+    s.tmp_0 = r0 = s.payload___8886;
+    r0 = (s.crc___8910 >> 0);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 & 255);
     s.tmp_1 = r0;
     r0 = pxsim.BufferMethods.setByte(s.tmp_0, 0, s.tmp_1);
     r0 = pxsim.BufferMethods.setByte(s.arg0, 0, s.tmp_1);
-    s.tmp_0 = r0 = s.payload___8801;
-    r0 = (s.crc___8825 >> 8);
+    s.tmp_0 = r0 = s.payload___8886;
+    r0 = (s.crc___8910 >> 8);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 & 255);
     s.tmp_1 = r0;
     r0 = pxsim.BufferMethods.setByte(s.tmp_0, 1, s.tmp_1);
     r0 = pxsim.BufferMethods.setByte(s.arg0, 1, s.tmp_1);
-    r0 = pxsim_pxtcore.sendMessage("jacdac", s.payload___8801, undefined);
+    r0 = pxsim_pxtcore.sendMessage("jacdac", s.payload___8886, undefined);
     r0 = undefined;
     return leave(s, r0)
   default: oops()
@@ -16452,9 +16919,9 @@ function jacdac___physSendPacket__P2815_mk(s) {
   tmp_0: undefined,
   tmp_1: undefined,
   tmp_2: undefined,
-  payload___8801: undefined,
-  tailend___8805: undefined,
-  crc___8825: undefined,
+  payload___8886: undefined,
+  tailend___8890: undefined,
+  crc___8910: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -16473,54 +16940,54 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.crc___8854 = undefined;
-    s.i___8855 = undefined;
-    s.data___8861 = undefined;
-    s.x___8865 = undefined;
+    s.crc___8939 = undefined;
+    s.i___8940 = undefined;
+    s.data___8946 = undefined;
+    s.x___8950 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
     }
-    s.crc___8854 = (65535);
-    s.i___8855 = (0);
+    s.crc___8939 = (65535);
+    s.i___8940 = (0);
   case 1:
-    s.tmp_1 = r0 = s.i___8855;
+    s.tmp_1 = r0 = s.i___8940;
     r0 = pxsim.BufferMethods.length(s.arg0);
     s.tmp_2 = r0;
     r0 = (s.tmp_1 < s.tmp_2);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
-    r0 = pxsim.BufferMethods.getByte(s.arg0, s.i___8855);
-    s.data___8861 = (r0);
-    r0 = (s.crc___8854 >> 8);
+    r0 = pxsim.BufferMethods.getByte(s.arg0, s.i___8940);
+    s.data___8946 = (r0);
+    r0 = (s.crc___8939 >> 8);
     s.tmp_0 = r0;
-    r0 = (s.tmp_0 ^ s.data___8861);
-    s.x___8865 = (r0);
-    s.tmp_0 = r0 = s.x___8865;
-    r0 = (s.x___8865 >> 4);
+    r0 = (s.tmp_0 ^ s.data___8946);
+    s.x___8950 = (r0);
+    s.tmp_0 = r0 = s.x___8950;
+    r0 = (s.x___8950 >> 4);
     s.tmp_1 = r0;
     r0 = (s.tmp_0 ^ s.tmp_1);
-    s.x___8865 = (r0);
-    r0 = (s.crc___8854 << 8);
+    s.x___8950 = (r0);
+    r0 = (s.crc___8939 << 8);
     s.tmp_2 = r0;
-    r0 = (s.x___8865 << 12);
+    r0 = (s.x___8950 << 12);
     s.tmp_3 = r0;
     r0 = (s.tmp_2 ^ s.tmp_3);
     s.tmp_1 = r0;
-    r0 = (s.x___8865 << 5);
+    r0 = (s.x___8950 << 5);
     s.tmp_4 = r0;
     r0 = (s.tmp_1 ^ s.tmp_4);
     s.tmp_0 = r0;
-    r0 = (s.tmp_0 ^ s.x___8865);
-    s.crc___8854 = (r0);
-    r0 = (s.crc___8854 & 65535);
-    s.crc___8854 = (r0);
-    r0 = (s.i___8855 + 1);
-    s.i___8855 = (r0);
+    r0 = (s.tmp_0 ^ s.x___8950);
+    s.crc___8939 = (r0);
+    r0 = (s.crc___8939 & 65535);
+    s.crc___8939 = (r0);
+    r0 = (s.i___8940 + 1);
+    s.i___8940 = (r0);
     { step = 1; continue; }
   case 2:
-    r0 = s.crc___8854;
+    r0 = s.crc___8939;
     return leave(s, r0)
   default: oops()
 } } }
@@ -16536,10 +17003,10 @@ function jacdac_jdCrc16__P4105_mk(s) {
   tmp_2: undefined,
   tmp_3: undefined,
   tmp_4: undefined,
-  crc___8854: undefined,
-  i___8855: undefined,
-  data___8861: undefined,
-  x___8865: undefined,
+  crc___8939: undefined,
+  i___8940: undefined,
+  data___8946: undefined,
+  x___8950: undefined,
   arg0: undefined,
 } }
 
@@ -16557,7 +17024,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.idb___8897 = undefined;
+    s.idb___8982 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -16570,8 +17037,8 @@ switch (step) {
     s.callLocIdx = 118; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
-    s.idb___8897 = (r0);
-    r0 = pxsim.BufferMethods.length(s.idb___8897);
+    s.idb___8982 = (r0);
+    r0 = pxsim.BufferMethods.length(s.idb___8982);
     s.tmp_1 = r0;
     r0 = (s.tmp_1 == 8);
     s.tmp_0 = r0;
@@ -16579,7 +17046,7 @@ switch (step) {
     if (!r0) { step = 1; continue; }
     r0 = s.arg0.fields["_header"];
     s.tmp_2 = r0;
-    r0 = pxsim.BufferMethods.write(s.tmp_2, 4, s.idb___8897);
+    r0 = pxsim.BufferMethods.write(s.tmp_2, 4, s.idb___8982);
   case 1:
   case 2:
     r0 = undefined;
@@ -16596,7 +17063,7 @@ function jacdac_JDPacket_deviceIdentifier__P2892_mk(s) {
   tmp_0: undefined,
   tmp_1: undefined,
   tmp_2: undefined,
-  idb___8897: undefined,
+  idb___8982: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -16760,9 +17227,9 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.len___8948 = undefined;
-    s.res___8954 = undefined;
-    s.e___8963 = undefined;
+    s.len___9033 = undefined;
+    s.res___9039 = undefined;
+    s.e___9048 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -16798,11 +17265,11 @@ switch (step) {
     s.callLocIdx = 203; s.pc = 8; return s.tmp_0;
   case 8:
     r0 = s.retval;
-    s.len___8948 = (r0);
-    r0 = pxsim.control.createBuffer(s.len___8948);
-    s.res___8954 = (r0);
+    s.len___9033 = (r0);
+    r0 = pxsim.control.createBuffer(s.len___9033);
+    s.res___9039 = (r0);
     s.tmp_0 = jacdac_jdpackCore__P4172_mk(s);
-    s.tmp_0.arg0 = s.res___8954;
+    s.tmp_0.arg0 = s.res___9039;
     s.tmp_0.arg1 = s.arg0;
     s.tmp_0.arg2 = s.arg1;
     s.tmp_0.arg3 = 0;
@@ -16810,15 +17277,15 @@ switch (step) {
   case 9:
     r0 = s.retval;
     r0 = pxsim_pxtcore.endTry();
-    r0 = s.res___8954;
+    r0 = s.res___9039;
     { step = 7; continue; }
     r0 = pxsim_pxtcore.endTry();
     { step = 6; continue; }
   case 5:
     r0 = pxsim_pxtcore.getThrownValue();
-    s.e___8963 = (r0);
+    s.e___9048 = (r0);
     s.tmp_0 = console_error__P2380_mk(s);
-    s.tmp_0.arg0 = s.e___8963;
+    s.tmp_0.arg0 = s.e___9048;
     s.callLocIdx = 205; s.pc = 10; return s.tmp_0;
   case 10:
     r0 = s.retval;
@@ -16841,9 +17308,9 @@ function jacdac_jdpack__P2934_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  len___8948: undefined,
-  res___8954: undefined,
-  e___8963: undefined,
+  len___9033: undefined,
+  res___9039: undefined,
+  e___9048: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -16862,22 +17329,22 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.idx___8971 = undefined;
-    s.parser___8972 = undefined;
-    s.c0___8979 = undefined;
-    s.dataItem___8990 = undefined;
-    s.fmt0___8998 = undefined;
-    s.velt___9006 = undefined;
+    s.idx___9056 = undefined;
+    s.parser___9057 = undefined;
+    s.c0___9064 = undefined;
+    s.dataItem___9075 = undefined;
+    s.fmt0___9083 = undefined;
+    s.velt___9091 = undefined;
     s.unnamed58___U6 = undefined;
     s.unnamed59___U7 = undefined;
-    s.arr___9015 = undefined;
-    s.v___9024 = undefined;
+    s.arr___9100 = undefined;
+    s.v___9109 = undefined;
     s.unnamed60___U10 = undefined;
     s.unnamed61___U11 = undefined;
-    s.vp___9040 = undefined;
-    s.vp32___9047 = undefined;
-    s.buf___9105 = undefined;
-    s.sz___9140 = undefined;
+    s.vp___9125 = undefined;
+    s.vp32___9132 = undefined;
+    s.buf___9190 = undefined;
+    s.sz___9225 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -16885,7 +17352,7 @@ switch (step) {
       s.arg3 = (s.lambdaArgs[3]);
       s.lambdaArgs = null;
     }
-    s.idx___8971 = (0);
+    s.idx___9056 = (0);
     r0 = pxsim_pxtcore_mkClassInstance(jacdac_TokenParser__C4168_VT);
     s.tmp_0 = r0;
     s.tmp_1 = jacdac_TokenParser_constructor__P4170_mk(s);
@@ -16894,49 +17361,49 @@ switch (step) {
     s.callLocIdx = 194; s.pc = 49; return s.tmp_1;
   case 49:
     r0 = s.retval;
-    s.parser___8972 = (s.tmp_0);
+    s.parser___9057 = (s.tmp_0);
   case 1:
     s.tmp_1 = jacdac_TokenParser_parse__P4169_mk(s);
-    s.tmp_1.arg0 = s.parser___8972;
+    s.tmp_1.arg0 = s.parser___9057;
     s.callLocIdx = 195; s.pc = 50; return s.tmp_1;
   case 50:
     r0 = s.retval;
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 46; continue; }
-    r0 = s.parser___8972.fields["c0"];
-    s.c0___8979 = (r0);
-    r0 = (s.c0___8979 == 120);
+    r0 = s.parser___9057.fields["c0"];
+    s.c0___9064 = (r0);
+    r0 = (s.c0___9064 == 120);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
-    r0 = s.parser___8972.fields["size"];
+    r0 = s.parser___9057.fields["size"];
     s.tmp_1 = r0;
     r0 = (s.arg3 + s.tmp_1);
     s.arg3 = (r0);
     { step = 1; continue; }
   case 2:
   case 3:
-    s.tmp_0 = r0 = s.idx___8971;
+    s.tmp_0 = r0 = s.idx___9056;
     r0 = (s.tmp_0 + 1);
-    s.idx___8971 = (r0);
+    s.idx___9056 = (r0);
     r0 = pxsim_Array__getAt(s.arg2, s.tmp_0);
-    s.dataItem___8990 = (r0);
-    r0 = (s.c0___8979 == 114);
+    s.dataItem___9075 = (r0);
+    r0 = (s.c0___9064 == 114);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 6; continue; }
     s.tmp_1 = helpers_stringSlice__P2010_mk(s);
     s.tmp_1.arg0 = s.arg1;
-    r0 = s.parser___8972.fields["fp"];
+    r0 = s.parser___9057.fields["fp"];
     s.tmp_1.arg1 = r0;
     s.tmp_1.arg2 = undefined;
     s.callLocIdx = 196; s.pc = 51; return s.tmp_1;
   case 51:
     r0 = s.retval;
-    s.fmt0___8998 = (r0);
-    s.velt___9006 = (undefined);
-    s.unnamed58___U6 = (s.dataItem___8990);
+    s.fmt0___9083 = (r0);
+    s.velt___9091 = (undefined);
+    s.unnamed58___U6 = (s.dataItem___9075);
     s.unnamed59___U7 = (0);
   case 4:
     s.tmp_0 = r0 = s.unnamed59___U7;
@@ -16945,11 +17412,11 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 5; continue; }
     r0 = pxsim_Array__getAt(s.unnamed58___U6, s.unnamed59___U7);
-    s.velt___9006 = (r0);
+    s.velt___9091 = (r0);
     s.tmp_2 = jacdac_jdpackCore__P4172_mk(s);
     s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.fmt0___8998;
-    s.tmp_2.arg2 = s.velt___9006;
+    s.tmp_2.arg1 = s.fmt0___9083;
+    s.tmp_2.arg2 = s.velt___9091;
     s.tmp_2.arg3 = s.arg3;
     s.callLocIdx = 197; s.pc = 52; return s.tmp_2;
   case 52:
@@ -16963,21 +17430,21 @@ switch (step) {
     { step = 46; continue; }
   case 6:
   case 7:
-    s.arr___9015 = (undefined);
-    r0 = s.parser___8972.fields["isArray"];
+    s.arr___9100 = (undefined);
+    r0 = s.parser___9057.fields["isArray"];
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 8; continue; }
-    s.arr___9015 = (s.dataItem___8990);
+    s.arr___9100 = (s.dataItem___9075);
     { step = 9; continue; }
   case 8:
     r0 = pxsim_Array__mk();
     s.tmp_0 = r0;
-    r0 = pxsim_Array__push(s.tmp_0, s.dataItem___8990);
-    s.arr___9015 = (s.tmp_0);
+    r0 = pxsim_Array__push(s.tmp_0, s.dataItem___9075);
+    s.arr___9100 = (s.tmp_0);
   case 9:
-    s.v___9024 = (undefined);
-    s.unnamed60___U10 = (s.arr___9015);
+    s.v___9109 = (undefined);
+    s.unnamed60___U10 = (s.arr___9100);
     s.unnamed61___U11 = (0);
   case 10:
     s.tmp_0 = r0 = s.unnamed61___U11;
@@ -16986,20 +17453,20 @@ switch (step) {
     r0 = (s.tmp_0 < s.tmp_1);
     if (!r0) { step = 45; continue; }
     r0 = pxsim_Array__getAt(s.unnamed60___U10, s.unnamed61___U11);
-    s.v___9024 = (r0);
-    r0 = s.parser___8972.fields["nfmt"];
+    s.v___9109 = (r0);
+    r0 = s.parser___9057.fields["nfmt"];
     s.tmp_3 = r0;
     r0 = (s.tmp_3 !== null);
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 23; continue; }
-    r0 = pxsim_pxtcore.typeOf(s.v___9024);
+    r0 = pxsim_pxtcore.typeOf(s.v___9109);
     s.tmp_5 = r0;
     r0 = (s.tmp_5 != "number");
     s.tmp_4 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 11; continue; }
-    r0 = pxsim_pxtcore.typeOf(s.v___9024);
+    r0 = pxsim_pxtcore.typeOf(s.v___9109);
     s.tmp_8 = r0;
     if ((s.tmp_8) && (s.tmp_8).vtable) {
     setupResume(s, 53);
@@ -17017,34 +17484,34 @@ switch (step) {
   case 12:
     r0 = pxsim_numops_toBoolDecr(s.arg0);
     if (!r0) { step = 21; continue; }
-    r0 = s.parser___8972.fields["div"];
+    r0 = s.parser___9057.fields["div"];
     s.tmp_9 = r0;
-    r0 = (s.v___9024 * s.tmp_9);
-    s.vp___9040 = (r0);
-    r0 = s.parser___8972.fields["nfmt2"];
+    r0 = (s.v___9109 * s.tmp_9);
+    s.vp___9125 = (r0);
+    r0 = s.parser___9057.fields["nfmt2"];
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 13; continue; }
-    r0 = (s.vp___9040 / 4294967296);
+    r0 = (s.vp___9125 / 4294967296);
     s.tmp_1 = r0;
     r0 = pxsim.Math_.floor(s.tmp_1);
-    s.vp32___9047 = (r0);
+    s.vp32___9132 = (r0);
     s.tmp_0 = r0 = s.arg0;
-    r0 = s.parser___8972.fields["nfmt"];
+    r0 = s.parser___9057.fields["nfmt"];
     s.tmp_1 = r0;
     s.tmp_2 = r0 = s.arg3;
-    r0 = (s.vp___9040 | 0);
+    r0 = (s.vp___9125 | 0);
     s.tmp_3 = r0;
     r0 = pxsim.BufferMethods.setNumber(s.tmp_0, s.tmp_1, s.tmp_2, s.tmp_3);
     s.tmp_0 = r0 = s.arg0;
-    r0 = s.parser___8972.fields["nfmt"];
+    r0 = s.parser___9057.fields["nfmt"];
     s.tmp_1 = r0;
     r0 = (s.arg3 + 4);
     s.tmp_2 = r0;
-    r0 = pxsim.BufferMethods.setNumber(s.tmp_0, s.tmp_1, s.tmp_2, s.vp32___9047);
+    r0 = pxsim.BufferMethods.setNumber(s.tmp_0, s.tmp_1, s.tmp_2, s.vp32___9132);
     { step = 20; continue; }
   case 13:
-    r0 = s.parser___8972.fields["div"];
+    r0 = s.parser___9057.fields["div"];
     s.tmp_1 = r0;
     r0 = (s.tmp_1 == 1);
     s.tmp_0 = r0;
@@ -17053,7 +17520,7 @@ switch (step) {
     r0 = s.tmp_0;
     { step = 17; continue; }
   case 14:
-    r0 = s.parser___8972.fields["nfmt"];
+    r0 = s.parser___9057.fields["nfmt"];
     s.tmp_3 = r0;
     r0 = (s.tmp_3 == 11);
     s.tmp_2 = r0;
@@ -17062,7 +17529,7 @@ switch (step) {
     r0 = s.tmp_2;
     { step = 16; continue; }
   case 15:
-    r0 = s.parser___8972.fields["nfmt"];
+    r0 = s.parser___9057.fields["nfmt"];
     s.tmp_4 = r0;
     r0 = (s.tmp_4 == 5);
   case 16:
@@ -17075,21 +17542,21 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_6);
     if (!r0) { step = 18; continue; }
     s.tmp_7 = r0 = s.arg0;
-    r0 = s.parser___8972.fields["nfmt"];
+    r0 = s.parser___9057.fields["nfmt"];
     s.tmp_8 = r0;
     s.tmp_9 = r0 = s.arg3;
-    r0 = (s.vp___9040 | 0);
+    r0 = (s.vp___9125 | 0);
     s.tmp_10 = r0;
     r0 = pxsim.BufferMethods.setNumber(s.tmp_7, s.tmp_8, s.tmp_9, s.tmp_10);
     { step = 19; continue; }
   case 18:
     s.tmp_0 = r0 = s.arg0;
-    r0 = s.parser___8972.fields["nfmt"];
+    r0 = s.parser___9057.fields["nfmt"];
     s.tmp_1 = r0;
     s.tmp_2 = r0 = s.arg3;
     s.tmp_4 = jacdac_clampWithNumberFormat__P4173_mk(s);
-    s.tmp_4.arg0 = s.vp___9040;
-    r0 = s.parser___8972.fields["nfmt"];
+    s.tmp_4.arg0 = s.vp___9125;
+    r0 = s.parser___9057.fields["nfmt"];
     s.tmp_4.arg1 = r0;
     s.callLocIdx = 198; s.pc = 54; return s.tmp_4;
   case 54:
@@ -17100,44 +17567,44 @@ switch (step) {
   case 20:
   case 21:
   case 22:
-    r0 = s.parser___8972.fields["size"];
+    r0 = s.parser___9057.fields["size"];
     s.tmp_0 = r0;
     r0 = (s.arg3 + s.tmp_0);
     s.arg3 = (r0);
     { step = 44; continue; }
   case 23:
-    s.buf___9105 = (undefined);
-    r0 = pxsim_pxtcore.typeOf(s.v___9024);
+    s.buf___9190 = (undefined);
+    r0 = pxsim_pxtcore.typeOf(s.v___9109);
     s.tmp_1 = r0;
     r0 = (s.tmp_1 == "string");
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 28; continue; }
-    r0 = (s.c0___8979 == 122);
+    r0 = (s.c0___9064 == 122);
     s.tmp_2 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_2);
     if (!r0) { step = 24; continue; }
-    if ((s.v___9024) && (s.v___9024).vtable) {
+    if ((s.v___9109) && (s.v___9109).vtable) {
     setupResume(s, 55);
-    pxsim_String__stringConv(s.v___9024);
+    pxsim_String__stringConv(s.v___9109);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.v___9024) + ""; }
+    } else { s.retval = (s.v___9109) + ""; }
   case 55:
     r0 = s.retval;
     s.tmp_4 = r0;
     r0 = pxsim_String__concat(s.tmp_4, "\u0000");
     s.tmp_3 = r0;
     r0 = pxsim.control.createBufferFromUTF8(s.tmp_3);
-    s.buf___9105 = (r0);
+    s.buf___9190 = (r0);
     { step = 27; continue; }
   case 24:
-    r0 = (s.c0___8979 == 115);
+    r0 = (s.c0___9064 == 115);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 25; continue; }
-    r0 = pxsim.control.createBufferFromUTF8(s.v___9024);
-    s.buf___9105 = (r0);
+    r0 = pxsim.control.createBufferFromUTF8(s.v___9109);
+    s.buf___9190 = (r0);
     { step = 26; continue; }
   case 25:
     r0 = pxsim_pxtcore.throwValue("unexpected string");
@@ -17145,13 +17612,13 @@ switch (step) {
   case 27:
     { step = 37; continue; }
   case 28:
-    s.tmp_0 = r0 = s.v___9024;
+    s.tmp_0 = r0 = s.v___9109;
     r0 = pxsim_numops_toBool(s.tmp_0);
     if (r0) { step = 29; continue; }
     r0 = s.tmp_0;
     { step = 30; continue; }
   case 29:
-    r0 = pxsim_pxtcore.typeOf(s.v___9024);
+    r0 = pxsim_pxtcore.typeOf(s.v___9109);
     s.tmp_1 = r0;
     r0 = (s.tmp_1 == "object");
   case 30:
@@ -17162,7 +17629,7 @@ switch (step) {
     r0 = s.tmp_2;
     { step = 32; continue; }
   case 31:
-    r0 = pxsim.BufferMethods.length(s.v___9024);
+    r0 = pxsim.BufferMethods.length(s.v___9109);
     s.tmp_3 = r0;
     r0 = (s.tmp_3 != null);
   case 32:
@@ -17170,11 +17637,11 @@ switch (step) {
     s.tmp_4 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_4);
     if (!r0) { step = 35; continue; }
-    r0 = (s.c0___8979 == 98);
+    r0 = (s.c0___9064 == 98);
     s.tmp_5 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_5);
     if (!r0) { step = 33; continue; }
-    s.buf___9105 = (s.v___9024);
+    s.buf___9190 = (s.v___9109);
     { step = 34; continue; }
   case 33:
     r0 = pxsim_pxtcore.throwValue("unexpected buffer");
@@ -17184,36 +17651,36 @@ switch (step) {
     r0 = pxsim_pxtcore.throwValue("expecting string or buffer");
   case 36:
   case 37:
-    r0 = s.parser___8972.fields["size"];
-    s.sz___9140 = (r0);
-    r0 = (s.sz___9140 >= 0);
+    r0 = s.parser___9057.fields["size"];
+    s.sz___9225 = (r0);
+    r0 = (s.sz___9225 >= 0);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 40; continue; }
-    r0 = pxsim.BufferMethods.length(s.buf___9105);
+    r0 = pxsim.BufferMethods.length(s.buf___9190);
     s.tmp_2 = r0;
-    r0 = (s.tmp_2 > s.sz___9140);
+    r0 = (s.tmp_2 > s.sz___9225);
     s.tmp_1 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_1);
     if (!r0) { step = 38; continue; }
-    s.tmp_3 = r0 = s.buf___9105;
-    r0 = (s.sz___9140 - 0);
+    s.tmp_3 = r0 = s.buf___9190;
+    r0 = (s.sz___9225 - 0);
     s.tmp_4 = r0;
     r0 = pxsim.BufferMethods.slice(s.tmp_3, 0, s.tmp_4);
-    s.buf___9105 = (r0);
+    s.buf___9190 = (r0);
   case 38:
   case 39:
     { step = 41; continue; }
   case 40:
-    r0 = pxsim.BufferMethods.length(s.buf___9105);
-    s.sz___9140 = (r0);
+    r0 = pxsim.BufferMethods.length(s.buf___9190);
+    s.sz___9225 = (r0);
   case 41:
     r0 = pxsim_numops_toBoolDecr(s.arg0);
     if (!r0) { step = 42; continue; }
-    r0 = pxsim.BufferMethods.write(s.arg0, s.arg3, s.buf___9105);
+    r0 = pxsim.BufferMethods.write(s.arg0, s.arg3, s.buf___9190);
   case 42:
   case 43:
-    r0 = (s.arg3 + s.sz___9140);
+    r0 = (s.arg3 + s.sz___9225);
     s.arg3 = (r0);
   case 44:
     r0 = (s.unnamed61___U11 + 1);
@@ -17225,7 +17692,7 @@ switch (step) {
   case 46:
     r0 = pxsim_Array__length(s.arg2);
     s.tmp_1 = r0;
-    r0 = (s.tmp_1 > s.idx___8971);
+    r0 = (s.tmp_1 > s.idx___9056);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 47; continue; }
@@ -17254,22 +17721,22 @@ function jacdac_jdpackCore__P4172_mk(s) {
   tmp_8: undefined,
   tmp_9: undefined,
   tmp_10: undefined,
-  idx___8971: undefined,
-  parser___8972: undefined,
-  c0___8979: undefined,
-  dataItem___8990: undefined,
-  fmt0___8998: undefined,
-  velt___9006: undefined,
+  idx___9056: undefined,
+  parser___9057: undefined,
+  c0___9064: undefined,
+  dataItem___9075: undefined,
+  fmt0___9083: undefined,
+  velt___9091: undefined,
   unnamed58___U6: undefined,
   unnamed59___U7: undefined,
-  arr___9015: undefined,
-  v___9024: undefined,
+  arr___9100: undefined,
+  v___9109: undefined,
   unnamed60___U10: undefined,
   unnamed61___U11: undefined,
-  vp___9040: undefined,
-  vp32___9047: undefined,
-  buf___9105: undefined,
-  sz___9140: undefined,
+  vp___9125: undefined,
+  vp32___9132: undefined,
+  buf___9190: undefined,
+  sz___9225: undefined,
   arg0: undefined,
   arg1: undefined,
   arg2: undefined,
@@ -17835,10 +18302,10 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.deviceSerialNumber___9279 = undefined;
-    s.rssi___9282 = undefined;
-    s.time___9285 = undefined;
-    s.payload___9288 = undefined;
+    s.deviceSerialNumber___9364 = undefined;
+    s.rssi___9367 = undefined;
+    s.time___9370 = undefined;
+    s.payload___9373 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -17850,22 +18317,22 @@ switch (step) {
     s.callLocIdx = 930; s.pc = 1; return s.tmp_0;
   case 1:
     r0 = s.retval;
-    s.deviceSerialNumber___9279 = (r0);
+    s.deviceSerialNumber___9364 = (r0);
     s.tmp_0 = radio_receivedSignalStrength__P3669_mk(s);
     s.callLocIdx = 931; s.pc = 2; return s.tmp_0;
   case 2:
     r0 = s.retval;
-    s.rssi___9282 = (r0);
+    s.rssi___9367 = (r0);
     s.tmp_0 = radio_receivedTime__P3666_mk(s);
     s.callLocIdx = 932; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
-    s.time___9285 = (r0);
+    s.time___9370 = (r0);
     r0 = pxsim_Array__mk();
     s.tmp_0 = r0;
-    r0 = pxsim_Array__push(s.tmp_0, s.time___9285);
-    r0 = pxsim_Array__push(s.tmp_0, s.deviceSerialNumber___9279);
-    r0 = pxsim_Array__push(s.tmp_0, s.rssi___9282);
+    r0 = pxsim_Array__push(s.tmp_0, s.time___9370);
+    r0 = pxsim_Array__push(s.tmp_0, s.deviceSerialNumber___9364);
+    r0 = pxsim_Array__push(s.tmp_0, s.rssi___9367);
     r0 = pxsim_Array__push(s.tmp_0, s.arg1);
     s.tmp_1 = jacdac_jdpack__P2934_mk(s);
     s.tmp_1.arg0 = globals.StringReceived___3722;
@@ -17873,12 +18340,12 @@ switch (step) {
     s.callLocIdx = 933; s.pc = 4; return s.tmp_1;
   case 4:
     r0 = s.retval;
-    s.payload___9288 = (r0);
+    s.payload___9373 = (r0);
     s.tmp_0 = jacdac_Server_sendReport__P4185_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_1 = jacdac_JDPacket_from__P2883_mk(s);
     s.tmp_1.arg0 = 144;
-    s.tmp_1.arg1 = s.payload___9288;
+    s.tmp_1.arg1 = s.payload___9373;
     s.callLocIdx = 934; s.pc = 6; return s.tmp_1;
   case 6:
     r0 = s.retval;
@@ -17890,7 +18357,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_handleReceivedString__P4428.info = {"start":3160,"length":544,"line":89,"column":8,"endLine":101,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleReceivedString","argumentNames":["this","data"]}
+servers_RadioServer_handleReceivedString__P4428.info = {"start":3161,"length":544,"line":89,"column":8,"endLine":101,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleReceivedString","argumentNames":["this","data"]}
 
 function servers_RadioServer_handleReceivedString__P4428_mk(s) {
     checkStack(s.depth);
@@ -17899,10 +18366,10 @@ function servers_RadioServer_handleReceivedString__P4428_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  deviceSerialNumber___9279: undefined,
-  rssi___9282: undefined,
-  time___9285: undefined,
-  payload___9288: undefined,
+  deviceSerialNumber___9364: undefined,
+  rssi___9367: undefined,
+  time___9370: undefined,
+  payload___9373: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -17959,10 +18426,10 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.deviceSerialNumber___9308 = undefined;
-    s.rssi___9311 = undefined;
-    s.time___9314 = undefined;
-    s.payload___9317 = undefined;
+    s.deviceSerialNumber___9393 = undefined;
+    s.rssi___9396 = undefined;
+    s.time___9399 = undefined;
+    s.payload___9402 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -17974,22 +18441,22 @@ switch (step) {
     s.callLocIdx = 924; s.pc = 1; return s.tmp_0;
   case 1:
     r0 = s.retval;
-    s.deviceSerialNumber___9308 = (r0);
+    s.deviceSerialNumber___9393 = (r0);
     s.tmp_0 = radio_receivedSignalStrength__P3669_mk(s);
     s.callLocIdx = 925; s.pc = 2; return s.tmp_0;
   case 2:
     r0 = s.retval;
-    s.rssi___9311 = (r0);
+    s.rssi___9396 = (r0);
     s.tmp_0 = radio_receivedTime__P3666_mk(s);
     s.callLocIdx = 926; s.pc = 3; return s.tmp_0;
   case 3:
     r0 = s.retval;
-    s.time___9314 = (r0);
+    s.time___9399 = (r0);
     r0 = pxsim_Array__mk();
     s.tmp_0 = r0;
-    r0 = pxsim_Array__push(s.tmp_0, s.time___9314);
-    r0 = pxsim_Array__push(s.tmp_0, s.deviceSerialNumber___9308);
-    r0 = pxsim_Array__push(s.tmp_0, s.rssi___9311);
+    r0 = pxsim_Array__push(s.tmp_0, s.time___9399);
+    r0 = pxsim_Array__push(s.tmp_0, s.deviceSerialNumber___9393);
+    r0 = pxsim_Array__push(s.tmp_0, s.rssi___9396);
     r0 = pxsim_Array__push(s.tmp_0, s.arg1);
     s.tmp_1 = jacdac_jdpack__P2934_mk(s);
     s.tmp_1.arg0 = globals.BufferReceived___3724;
@@ -17997,12 +18464,12 @@ switch (step) {
     s.callLocIdx = 927; s.pc = 4; return s.tmp_1;
   case 4:
     r0 = s.retval;
-    s.payload___9317 = (r0);
+    s.payload___9402 = (r0);
     s.tmp_0 = jacdac_Server_sendReport__P4185_mk(s);
     s.tmp_0.arg0 = s.arg0;
     s.tmp_1 = jacdac_JDPacket_from__P2883_mk(s);
     s.tmp_1.arg0 = 146;
-    s.tmp_1.arg1 = s.payload___9317;
+    s.tmp_1.arg1 = s.payload___9402;
     s.callLocIdx = 928; s.pc = 6; return s.tmp_1;
   case 6:
     r0 = s.retval;
@@ -18014,7 +18481,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_handleReceivedBuffer__P4427.info = {"start":2606,"length":544,"line":75,"column":8,"endLine":87,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleReceivedBuffer","argumentNames":["this","data"]}
+servers_RadioServer_handleReceivedBuffer__P4427.info = {"start":2607,"length":544,"line":75,"column":8,"endLine":87,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleReceivedBuffer","argumentNames":["this","data"]}
 
 function servers_RadioServer_handleReceivedBuffer__P4427_mk(s) {
     checkStack(s.depth);
@@ -18023,10 +18490,10 @@ function servers_RadioServer_handleReceivedBuffer__P4427_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
-  deviceSerialNumber___9308: undefined,
-  rssi___9311: undefined,
-  time___9314: undefined,
-  payload___9317: undefined,
+  deviceSerialNumber___9393: undefined,
+  rssi___9396: undefined,
+  time___9399: undefined,
+  payload___9402: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -18067,935 +18534,6 @@ function radio_onReceivedBuffer__P3624_mk(s) {
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   arg0: undefined,
-} }
-
-
-
-
-
-function servers_SoundPlayerServer_constructor__P3880(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_SoundPlayerServer__C3879_VT)) failedCast(r0);
-    s.tmp_0 = r0 = s.arg0;
-    r0 = pxsim_Array__mk();
-    s.tmp_1 = r0;
-    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
-    r0 = (s.arg0).fields["_statusCode"] = (0);
-    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
-    s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = 335795000;
-    s.tmp_2.arg2 = undefined;
-    s.callLocIdx = 891; s.pc = 1; return s.tmp_2;
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_SoundPlayerServer_constructor__P3880.info = {"start":87,"length":68,"line":2,"column":8,"endLine":4,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"inline","argumentNames":["this"]}
-
-function servers_SoundPlayerServer_constructor__P3880_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_SoundPlayerServer_constructor__P3880, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function servers_BuzzerServer_constructor__P3903(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_BuzzerServer__C3902_VT)) failedCast(r0);
-    s.tmp_0 = r0 = s.arg0;
-    r0 = pxsim_Array__mk();
-    s.tmp_1 = r0;
-    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
-    r0 = (s.arg0).fields["_statusCode"] = (0);
-    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
-    s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = 458731991;
-    s.tmp_2.arg2 = undefined;
-    s.callLocIdx = 951; s.pc = 1; return s.tmp_2;
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_BuzzerServer_constructor__P3903.info = {"start":82,"length":62,"line":2,"column":8,"endLine":4,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitBuzzer.ts","functionName":"inline","argumentNames":["this"]}
-
-function servers_BuzzerServer_constructor__P3903_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_BuzzerServer_constructor__P3903, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_constructor__P3846(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_AccelerometerServer__C3845_VT)) failedCast(r0);
-    s.tmp_0 = r0 = s.arg0;
-    r0 = pxsim_Array__mk();
-    s.tmp_1 = r0;
-    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
-    r0 = (s.arg0).fields["_statusCode"] = (0);
-    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
-    r0 = (s.arg0).fields["lastEvent"] = (-1);
-    s.tmp_2 = jacdac_SensorServer_constructor__P3239_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = 521405449;
-    s.tmp_2.arg2 = undefined;
-    s.callLocIdx = 829; s.pc = 1; return s.tmp_2;
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_constructor__P3846.info = {"start":134,"length":69,"line":3,"column":8,"endLine":5,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":["this"]}
-
-function servers_AccelerometerServer_constructor__P3846_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_constructor__P3846, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function jacdac_SensorServer_constructor__P3239(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.arg2 = (s.lambdaArgs[2]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, jacdac_SensorServer__C3236_VT)) failedCast(r0);
-    s.tmp_0 = r0 = s.arg0;
-    r0 = pxsim_Array__mk();
-    s.tmp_1 = r0;
-    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
-    r0 = (s.arg0).fields["_statusCode"] = (0);
-    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
-    s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.tmp_2.arg2 = s.arg2;
-    s.callLocIdx = 240; s.pc = 5; return s.tmp_2;
-  case 5:
-    r0 = s.retval;
-    r0 = (s.arg0).fields["streamingSamples"] = (0);
-    r0 = pxsim_numops_toBoolDecr(s.arg2);
-    if (!r0) { step = 1; continue; }
-    s.tmp_0 = if_streamingInterval_1_mk(s);
-    s.tmp_0.arg0 = s.arg2;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "streamingInterval");
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["streamingInterval"];
-      if (s.tmp_0.fn == null) { s.retval = s.tmp_0.arg0.fields["streamingInterval"]; }
-      else if (!s.tmp_0.fn.isGetter) { s.retval = bind(s.tmp_0); }
-     else { s.callLocIdx = 241; s.pc = 6; return s.tmp_0; }
-    }
-  case 6:
-    r0 = s.retval;
-    { step = 2; continue; }
-  case 1:
-    r0 = undefined;
-  case 2:
-    // jmp value (already in r0)
-    s.tmp_1 = r0;
-    r0 = pxsim_numops_toBool(s.tmp_1);
-    if (!r0) { step = 3; continue; }
-    r0 = s.tmp_1;
-    { step = 4; continue; }
-  case 3:
-    r0 = 100;
-  case 4:
-    // jmp value (already in r0)
-    s.tmp_2 = r0;
-    r0 = (s.arg0).fields["streamingInterval"] = (s.tmp_2);
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-jacdac_SensorServer_constructor__P3239.info = {"start":352,"length":266,"line":12,"column":8,"endLine":18,"endColumn":9,"fileName":"pxt_modules/jacdac/sensor/server.ts","functionName":"inline","argumentNames":["this","serviceClass","options"]}
-
-function jacdac_SensorServer_constructor__P3239_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: jacdac_SensorServer_constructor__P3239, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  arg0: undefined,
-  arg1: undefined,
-  arg2: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start__P3847(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_AccelerometerServer__C3845_VT)) failedCast(r0);
-    s.tmp_0 = jacdac_Server_start__P3468_mk(s);
-    s.tmp_0.arg0 = s.arg0;
-    s.callLocIdx = 830; s.pc = 1; return s.tmp_0;
-  case 1:
-    r0 = s.retval;
-    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9374);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
-    r0 = pxsim.input.onGesture(11, s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9381);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
-    r0 = pxsim.input.onGesture(5, s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9388);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
-    r0 = pxsim.input.onGesture(6, s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9395);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
-    r0 = pxsim.input.onGesture(1, s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9402);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
-    r0 = pxsim.input.onGesture(2, s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9409);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
-    r0 = pxsim.input.onGesture(3, s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9416);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
-    r0 = pxsim.input.onGesture(4, s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9423);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
-    r0 = pxsim.input.onGesture(7, s.tmp_0);
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start__P3847.info = {"start":213,"length":1173,"line":7,"column":8,"endLine":33,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"start","argumentNames":["this"]}
-
-function servers_AccelerometerServer_start__P3847_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start__P3847, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start_inline__P9374(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = if_sendEvent_2_mk(s);
-    s.tmp_0.arg0 = s.caps[0];
-    s.tmp_0.arg1 = 139;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
-      s.callLocIdx = 831; s.pc = 1; return s.tmp_0;
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
-      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 831; s.pc = 1; return s.tmp_0; }
-      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 831; s.pc = 1; return s.tmp_0;; }
-     else { s.callLocIdx = 831; s.pc = 1; return s.tmp_0; }
-    }
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start_inline__P9374.info = {"start":292,"length":91,"line":9,"column":43,"endLine":11,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
-
-function servers_AccelerometerServer_start_inline__P9374_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start_inline__P9374, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start_inline__P9381(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = if_sendEvent_2_mk(s);
-    s.tmp_0.arg0 = s.caps[0];
-    s.tmp_0.arg1 = 133;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
-      s.callLocIdx = 832; s.pc = 1; return s.tmp_0;
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
-      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 832; s.pc = 1; return s.tmp_0; }
-      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 832; s.pc = 1; return s.tmp_0;; }
-     else { s.callLocIdx = 832; s.pc = 1; return s.tmp_0; }
-    }
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start_inline__P9381.info = {"start":431,"length":92,"line":12,"column":46,"endLine":14,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
-
-function servers_AccelerometerServer_start_inline__P9381_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start_inline__P9381, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start_inline__P9388(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = if_sendEvent_2_mk(s);
-    s.tmp_0.arg0 = s.caps[0];
-    s.tmp_0.arg1 = 134;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
-      s.callLocIdx = 833; s.pc = 1; return s.tmp_0;
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
-      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 833; s.pc = 1; return s.tmp_0; }
-      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 833; s.pc = 1; return s.tmp_0;; }
-     else { s.callLocIdx = 833; s.pc = 1; return s.tmp_0; }
-    }
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start_inline__P9388.info = {"start":573,"length":94,"line":15,"column":48,"endLine":17,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
-
-function servers_AccelerometerServer_start_inline__P9388_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start_inline__P9388, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start_inline__P9395(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = if_sendEvent_2_mk(s);
-    s.tmp_0.arg0 = s.caps[0];
-    s.tmp_0.arg1 = 129;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
-      s.callLocIdx = 834; s.pc = 1; return s.tmp_0;
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
-      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 834; s.pc = 1; return s.tmp_0; }
-      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 834; s.pc = 1; return s.tmp_0;; }
-     else { s.callLocIdx = 834; s.pc = 1; return s.tmp_0; }
-    }
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start_inline__P9395.info = {"start":713,"length":92,"line":18,"column":44,"endLine":20,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
-
-function servers_AccelerometerServer_start_inline__P9395_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start_inline__P9395, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start_inline__P9402(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = if_sendEvent_2_mk(s);
-    s.tmp_0.arg0 = s.caps[0];
-    s.tmp_0.arg1 = 130;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
-      s.callLocIdx = 835; s.pc = 1; return s.tmp_0;
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
-      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 835; s.pc = 1; return s.tmp_0; }
-      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 835; s.pc = 1; return s.tmp_0;; }
-     else { s.callLocIdx = 835; s.pc = 1; return s.tmp_0; }
-    }
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start_inline__P9402.info = {"start":853,"length":94,"line":21,"column":46,"endLine":23,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
-
-function servers_AccelerometerServer_start_inline__P9402_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start_inline__P9402, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start_inline__P9409(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = if_sendEvent_2_mk(s);
-    s.tmp_0.arg0 = s.caps[0];
-    s.tmp_0.arg1 = 131;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
-      s.callLocIdx = 836; s.pc = 1; return s.tmp_0;
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
-      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 836; s.pc = 1; return s.tmp_0; }
-      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 836; s.pc = 1; return s.tmp_0;; }
-     else { s.callLocIdx = 836; s.pc = 1; return s.tmp_0; }
-    }
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start_inline__P9409.info = {"start":995,"length":94,"line":24,"column":46,"endLine":26,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
-
-function servers_AccelerometerServer_start_inline__P9409_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start_inline__P9409, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start_inline__P9416(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = if_sendEvent_2_mk(s);
-    s.tmp_0.arg0 = s.caps[0];
-    s.tmp_0.arg1 = 132;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
-      s.callLocIdx = 837; s.pc = 1; return s.tmp_0;
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
-      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 837; s.pc = 1; return s.tmp_0; }
-      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 837; s.pc = 1; return s.tmp_0;; }
-     else { s.callLocIdx = 837; s.pc = 1; return s.tmp_0; }
-    }
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start_inline__P9416.info = {"start":1138,"length":95,"line":27,"column":47,"endLine":29,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
-
-function servers_AccelerometerServer_start_inline__P9416_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start_inline__P9416, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function servers_AccelerometerServer_start_inline__P9423(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = if_sendEvent_2_mk(s);
-    s.tmp_0.arg0 = s.caps[0];
-    s.tmp_0.arg1 = 135;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
-      s.callLocIdx = 838; s.pc = 1; return s.tmp_0;
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
-      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 838; s.pc = 1; return s.tmp_0; }
-      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 838; s.pc = 1; return s.tmp_0;; }
-     else { s.callLocIdx = 838; s.pc = 1; return s.tmp_0; }
-    }
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_AccelerometerServer_start_inline__P9423.info = {"start":1281,"length":94,"line":30,"column":46,"endLine":32,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
-
-function servers_AccelerometerServer_start_inline__P9423_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_AccelerometerServer_start_inline__P9423, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function temperatureServer_inline__P9431(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    r0 = pxsim.input.temperature();
-    return leave(s, r0)
-  default: oops()
-} } }
-temperatureServer_inline__P9431.info = {"start":228,"length":25,"line":5,"column":8,"endLine":5,"endColumn":33,"fileName":"pxt_modules/jacdac-microbit/microbitTemperature.ts","functionName":"inline","argumentNames":[]}
-
-function temperatureServer_inline__P9431_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: temperatureServer_inline__P9431, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-} }
-
-
-
-
-
-function readingError_inline__P9437(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    r0 = 3;
-    return leave(s, r0)
-  default: oops()
-} } }
-readingError_inline__P9437.info = {"start":440,"length":7,"line":11,"column":26,"endLine":11,"endColumn":33,"fileName":"pxt_modules/jacdac-microbit/microbitTemperature.ts","functionName":"inline","argumentNames":[]}
-
-function readingError_inline__P9437_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: readingError_inline__P9437, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-} }
-
-
-
-
-
-function jacdac_createSimpleSensorServer__P3252(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.arg2 = (s.lambdaArgs[2]);
-      s.arg3 = (s.lambdaArgs[3]);
-      s.lambdaArgs = null;
-    }
-    r0 = pxsim_pxtcore_mkClassInstance(jacdac_SimpleSensorServer__C3246_VT);
-    s.tmp_0 = r0;
-    s.tmp_1 = jacdac_SimpleSensorServer_constructor__P3249_mk(s);
-    s.tmp_1.arg0 = s.tmp_0;
-    s.tmp_1.arg1 = s.arg0;
-    s.tmp_1.arg2 = s.arg1;
-    s.tmp_1.arg3 = s.arg2;
-    s.tmp_1.arg4 = s.arg3;
-    s.callLocIdx = 273; s.pc = 1; return s.tmp_1;
-  case 1:
-    r0 = s.retval;
-    r0 = s.tmp_0;
-    return leave(s, r0)
-  default: oops()
-} } }
-jacdac_createSimpleSensorServer__P3252.info = {"start":6173,"length":350,"line":183,"column":4,"endLine":195,"endColumn":5,"fileName":"pxt_modules/jacdac/sensor/server.ts","functionName":"createSimpleSensorServer","argumentNames":["serviceClass","packFormat","stateReader","options"]}
-
-function jacdac_createSimpleSensorServer__P3252_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: jacdac_createSimpleSensorServer__P3252, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  arg0: undefined,
-  arg1: undefined,
-  arg2: undefined,
-  arg3: undefined,
-} }
-
-
-
-
-
-function jacdac_SimpleSensorServer_constructor__P3249(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.arg2 = (s.lambdaArgs[2]);
-      s.arg3 = (s.lambdaArgs[3]);
-      s.arg4 = (s.lambdaArgs[4]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, jacdac_SimpleSensorServer__C3246_VT)) failedCast(r0);
-    s.tmp_0 = r0 = s.arg0;
-    r0 = pxsim_Array__mk();
-    s.tmp_1 = r0;
-    r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
-    r0 = (s.arg0).fields["_statusCode"] = (0);
-    r0 = (s.arg0).fields["_statusVendorCode"] = (0);
-    s.tmp_2 = jacdac_SensorServer_constructor__P3239_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.tmp_2.arg2 = s.arg4;
-    s.callLocIdx = 262; s.pc = 7; return s.tmp_2;
-  case 7:
-    r0 = s.retval;
-    r0 = (s.arg0).fields["packFormat"] = (s.arg2);
-    r0 = (s.arg0).fields["stateReader"] = (s.arg3);
-    r0 = pxsim_numops_toBoolDecr(s.arg4);
-    if (!r0) { step = 1; continue; }
-    s.tmp_0 = if_minReading_1_mk(s);
-    s.tmp_0.arg0 = s.arg4;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "minReading");
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["minReading"];
-      if (s.tmp_0.fn == null) { s.retval = s.tmp_0.arg0.fields["minReading"]; }
-      else if (!s.tmp_0.fn.isGetter) { s.retval = bind(s.tmp_0); }
-     else { s.callLocIdx = 263; s.pc = 8; return s.tmp_0; }
-    }
-  case 8:
-    r0 = s.retval;
-    { step = 2; continue; }
-  case 1:
-    r0 = undefined;
-  case 2:
-    // jmp value (already in r0)
-    s.tmp_1 = r0;
-    r0 = (s.arg0).fields["minReading"] = (s.tmp_1);
-    r0 = pxsim_numops_toBoolDecr(s.arg4);
-    if (!r0) { step = 3; continue; }
-    s.tmp_0 = if_maxReading_1_mk(s);
-    s.tmp_0.arg0 = s.arg4;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "maxReading");
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["maxReading"];
-      if (s.tmp_0.fn == null) { s.retval = s.tmp_0.arg0.fields["maxReading"]; }
-      else if (!s.tmp_0.fn.isGetter) { s.retval = bind(s.tmp_0); }
-     else { s.callLocIdx = 264; s.pc = 9; return s.tmp_0; }
-    }
-  case 9:
-    r0 = s.retval;
-    { step = 4; continue; }
-  case 3:
-    r0 = undefined;
-  case 4:
-    // jmp value (already in r0)
-    s.tmp_1 = r0;
-    r0 = (s.arg0).fields["maxReading"] = (s.tmp_1);
-    r0 = pxsim_numops_toBoolDecr(s.arg4);
-    if (!r0) { step = 5; continue; }
-    s.tmp_0 = if_readingError_1_mk(s);
-    s.tmp_0.arg0 = s.arg4;
-    if (!s.tmp_0.arg0.vtable.iface) {
-      s.retval = pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "readingError");
-    } else {
-      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["readingError"];
-      if (s.tmp_0.fn == null) { s.retval = s.tmp_0.arg0.fields["readingError"]; }
-      else if (!s.tmp_0.fn.isGetter) { s.retval = bind(s.tmp_0); }
-     else { s.callLocIdx = 265; s.pc = 10; return s.tmp_0; }
-    }
-  case 10:
-    r0 = s.retval;
-    { step = 6; continue; }
-  case 5:
-    r0 = undefined;
-  case 6:
-    // jmp value (already in r0)
-    s.tmp_1 = r0;
-    r0 = (s.arg0).fields["readingError"] = (s.tmp_1);
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-jacdac_SimpleSensorServer_constructor__P3249.info = {"start":4593,"length":530,"line":136,"column":8,"endLine":149,"endColumn":9,"fileName":"pxt_modules/jacdac/sensor/server.ts","functionName":"inline","argumentNames":["this","serviceClass","packFormat","stateReader","options"]}
-
-function jacdac_SimpleSensorServer_constructor__P3249_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: jacdac_SimpleSensorServer_constructor__P3249, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  arg0: undefined,
-  arg1: undefined,
-  arg2: undefined,
-  arg3: undefined,
-  arg4: undefined,
-} }
-
-
-
-
-
-function lightLevelServer_inline__P9487(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    r0 = pxsim.input.lightLevel();
-    s.tmp_0 = r0;
-    r0 = (s.tmp_0 / 255);
-    return leave(s, r0)
-  default: oops()
-} } }
-lightLevelServer_inline__P9487.info = {"start":225,"length":32,"line":5,"column":8,"endLine":5,"endColumn":40,"fileName":"pxt_modules/jacdac-microbit/microbitLightLevel.ts","functionName":"inline","argumentNames":[]}
-
-function lightLevelServer_inline__P9487_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: lightLevelServer_inline__P9487, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function readingError_inline__P9491(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    r0 = 0.05;
-    return leave(s, r0)
-  default: oops()
-} } }
-readingError_inline__P9491.info = {"start":330,"length":10,"line":8,"column":26,"endLine":8,"endColumn":36,"fileName":"pxt_modules/jacdac-microbit/microbitLightLevel.ts","functionName":"inline","argumentNames":[]}
-
-function readingError_inline__P9491_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: readingError_inline__P9491, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
 } }
 
 
@@ -19058,7 +18596,7 @@ function servers_SoundLevelServer_constructor__P3867_mk(s) {
 
 
 
-function servers_ScreenServer_constructor__P3873(s) {
+function servers_AccelerometerServer_constructor__P3846(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -19073,35 +18611,498 @@ switch (step) {
       s.lambdaArgs = null;
     }
     r0 = s.arg0;
-    if (!checkSubtype(r0, servers_ScreenServer__C3872_VT)) failedCast(r0);
+    if (!checkSubtype(r0, servers_AccelerometerServer__C3845_VT)) failedCast(r0);
     s.tmp_0 = r0 = s.arg0;
     r0 = pxsim_Array__mk();
     s.tmp_1 = r0;
     r0 = (s.tmp_0).fields["listeners"] = (s.tmp_1);
     r0 = (s.arg0).fields["_statusCode"] = (0);
     r0 = (s.arg0).fields["_statusVendorCode"] = (0);
-    s.tmp_2 = jacdac_Server_constructor__P3451_mk(s);
+    r0 = (s.arg0).fields["lastEvent"] = (-1);
+    s.tmp_2 = jacdac_SensorServer_constructor__P3239_mk(s);
     s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = 286070091;
+    s.tmp_2.arg1 = 521405449;
     s.tmp_2.arg2 = undefined;
-    s.callLocIdx = 874; s.pc = 1; return s.tmp_2;
+    s.callLocIdx = 829; s.pc = 1; return s.tmp_2;
   case 1:
     r0 = s.retval;
     r0 = undefined;
     return leave(s, r0)
   default: oops()
 } } }
-servers_ScreenServer_constructor__P3873.info = {"start":82,"length":66,"line":2,"column":8,"endLine":4,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitScreen.ts","functionName":"inline","argumentNames":["this"]}
+servers_AccelerometerServer_constructor__P3846.info = {"start":134,"length":69,"line":3,"column":8,"endLine":5,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":["this"]}
 
-function servers_ScreenServer_constructor__P3873_mk(s) {
+function servers_AccelerometerServer_constructor__P3846_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_ScreenServer_constructor__P3873, depth: s.depth + 1,
+        parent: s, fn: servers_AccelerometerServer_constructor__P3846, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
   tmp_2: undefined,
   arg0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start__P3847(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_AccelerometerServer__C3845_VT)) failedCast(r0);
+    s.tmp_0 = jacdac_Server_start__P3468_mk(s);
+    s.tmp_0.arg0 = s.arg0;
+    s.callLocIdx = 830; s.pc = 1; return s.tmp_0;
+  case 1:
+    r0 = s.retval;
+    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9439);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
+    r0 = pxsim.input.onGesture(11, s.tmp_0);
+    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9446);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
+    r0 = pxsim.input.onGesture(5, s.tmp_0);
+    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9453);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
+    r0 = pxsim.input.onGesture(6, s.tmp_0);
+    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9460);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
+    r0 = pxsim.input.onGesture(1, s.tmp_0);
+    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9467);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
+    r0 = pxsim.input.onGesture(2, s.tmp_0);
+    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9474);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
+    r0 = pxsim.input.onGesture(3, s.tmp_0);
+    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9481);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
+    r0 = pxsim.input.onGesture(4, s.tmp_0);
+    r0 = pxsim_pxtcore_mkAction(1, servers_AccelerometerServer_start_inline__P9488);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
+    r0 = pxsim.input.onGesture(7, s.tmp_0);
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start__P3847.info = {"start":213,"length":1173,"line":7,"column":8,"endLine":33,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"start","argumentNames":["this"]}
+
+function servers_AccelerometerServer_start__P3847_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start__P3847, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start_inline__P9439(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = if_sendEvent_2_mk(s);
+    s.tmp_0.arg0 = s.caps[0];
+    s.tmp_0.arg1 = 139;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
+      s.callLocIdx = 831; s.pc = 1; return s.tmp_0;
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
+      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 831; s.pc = 1; return s.tmp_0; }
+      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 831; s.pc = 1; return s.tmp_0;; }
+     else { s.callLocIdx = 831; s.pc = 1; return s.tmp_0; }
+    }
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start_inline__P9439.info = {"start":292,"length":91,"line":9,"column":43,"endLine":11,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
+
+function servers_AccelerometerServer_start_inline__P9439_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start_inline__P9439, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start_inline__P9446(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = if_sendEvent_2_mk(s);
+    s.tmp_0.arg0 = s.caps[0];
+    s.tmp_0.arg1 = 133;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
+      s.callLocIdx = 832; s.pc = 1; return s.tmp_0;
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
+      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 832; s.pc = 1; return s.tmp_0; }
+      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 832; s.pc = 1; return s.tmp_0;; }
+     else { s.callLocIdx = 832; s.pc = 1; return s.tmp_0; }
+    }
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start_inline__P9446.info = {"start":431,"length":92,"line":12,"column":46,"endLine":14,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
+
+function servers_AccelerometerServer_start_inline__P9446_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start_inline__P9446, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start_inline__P9453(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = if_sendEvent_2_mk(s);
+    s.tmp_0.arg0 = s.caps[0];
+    s.tmp_0.arg1 = 134;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
+      s.callLocIdx = 833; s.pc = 1; return s.tmp_0;
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
+      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 833; s.pc = 1; return s.tmp_0; }
+      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 833; s.pc = 1; return s.tmp_0;; }
+     else { s.callLocIdx = 833; s.pc = 1; return s.tmp_0; }
+    }
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start_inline__P9453.info = {"start":573,"length":94,"line":15,"column":48,"endLine":17,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
+
+function servers_AccelerometerServer_start_inline__P9453_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start_inline__P9453, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start_inline__P9460(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = if_sendEvent_2_mk(s);
+    s.tmp_0.arg0 = s.caps[0];
+    s.tmp_0.arg1 = 129;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
+      s.callLocIdx = 834; s.pc = 1; return s.tmp_0;
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
+      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 834; s.pc = 1; return s.tmp_0; }
+      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 834; s.pc = 1; return s.tmp_0;; }
+     else { s.callLocIdx = 834; s.pc = 1; return s.tmp_0; }
+    }
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start_inline__P9460.info = {"start":713,"length":92,"line":18,"column":44,"endLine":20,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
+
+function servers_AccelerometerServer_start_inline__P9460_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start_inline__P9460, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start_inline__P9467(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = if_sendEvent_2_mk(s);
+    s.tmp_0.arg0 = s.caps[0];
+    s.tmp_0.arg1 = 130;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
+      s.callLocIdx = 835; s.pc = 1; return s.tmp_0;
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
+      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 835; s.pc = 1; return s.tmp_0; }
+      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 835; s.pc = 1; return s.tmp_0;; }
+     else { s.callLocIdx = 835; s.pc = 1; return s.tmp_0; }
+    }
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start_inline__P9467.info = {"start":853,"length":94,"line":21,"column":46,"endLine":23,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
+
+function servers_AccelerometerServer_start_inline__P9467_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start_inline__P9467, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start_inline__P9474(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = if_sendEvent_2_mk(s);
+    s.tmp_0.arg0 = s.caps[0];
+    s.tmp_0.arg1 = 131;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
+      s.callLocIdx = 836; s.pc = 1; return s.tmp_0;
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
+      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 836; s.pc = 1; return s.tmp_0; }
+      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 836; s.pc = 1; return s.tmp_0;; }
+     else { s.callLocIdx = 836; s.pc = 1; return s.tmp_0; }
+    }
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start_inline__P9474.info = {"start":995,"length":94,"line":24,"column":46,"endLine":26,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
+
+function servers_AccelerometerServer_start_inline__P9474_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start_inline__P9474, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start_inline__P9481(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = if_sendEvent_2_mk(s);
+    s.tmp_0.arg0 = s.caps[0];
+    s.tmp_0.arg1 = 132;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
+      s.callLocIdx = 837; s.pc = 1; return s.tmp_0;
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
+      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 837; s.pc = 1; return s.tmp_0; }
+      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 837; s.pc = 1; return s.tmp_0;; }
+     else { s.callLocIdx = 837; s.pc = 1; return s.tmp_0; }
+    }
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start_inline__P9481.info = {"start":1138,"length":95,"line":27,"column":47,"endLine":29,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
+
+function servers_AccelerometerServer_start_inline__P9481_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start_inline__P9481, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function servers_AccelerometerServer_start_inline__P9488(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = if_sendEvent_2_mk(s);
+    s.tmp_0.arg0 = s.caps[0];
+    s.tmp_0.arg1 = 135;
+    if (!s.tmp_0.arg0.vtable.iface) {
+      setupLambda(s.tmp_0, pxsim_pxtrt.mapGetByString(s.tmp_0.arg0, "sendEvent"), 2);
+      s.callLocIdx = 838; s.pc = 1; return s.tmp_0;
+    } else {
+      s.tmp_0.fn = s.tmp_0.arg0.vtable.iface["sendEvent"];
+      if (s.tmp_0.fn == null) { setupLambda(s.tmp_0, s.tmp_0.arg0.fields["sendEvent"], 2); s.callLocIdx = 838; s.pc = 1; return s.tmp_0; }
+      else if (s.tmp_0.fn.isGetter) { s.tmp_0.stage2Call = true; s.callLocIdx = 838; s.pc = 1; return s.tmp_0;; }
+     else { s.callLocIdx = 838; s.pc = 1; return s.tmp_0; }
+    }
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_AccelerometerServer_start_inline__P9488.info = {"start":1281,"length":94,"line":30,"column":46,"endLine":32,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitAccel.ts","functionName":"inline","argumentNames":[]}
+
+function servers_AccelerometerServer_start_inline__P9488_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_AccelerometerServer_start_inline__P9488, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function temperatureServer_inline__P9496(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    r0 = pxsim.input.temperature();
+    return leave(s, r0)
+  default: oops()
+} } }
+temperatureServer_inline__P9496.info = {"start":228,"length":25,"line":5,"column":8,"endLine":5,"endColumn":33,"fileName":"pxt_modules/jacdac-microbit/microbitTemperature.ts","functionName":"inline","argumentNames":[]}
+
+function temperatureServer_inline__P9496_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: temperatureServer_inline__P9496, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+} }
+
+
+
+
+
+function readingError_inline__P9502(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    r0 = 3;
+    return leave(s, r0)
+  default: oops()
+} } }
+readingError_inline__P9502.info = {"start":440,"length":7,"line":11,"column":26,"endLine":11,"endColumn":33,"fileName":"pxt_modules/jacdac-microbit/microbitTemperature.ts","functionName":"inline","argumentNames":[]}
+
+function readingError_inline__P9502_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: readingError_inline__P9502, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
 } }
 
 
@@ -29518,591 +29519,6 @@ function servers_TouchButton_isPressed__P4401_mk(s) {
 
 
 
-function servers_ScreenServer_handlePacket__P3874(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.regCode___12221 = undefined;
-    s.x___12229 = undefined;
-    s.y___12230 = undefined;
-    s.i___12231 = undefined;
-    s.byte___12235 = undefined;
-    s.bit___12240 = undefined;
-    s.x___12271 = undefined;
-    s.y___12272 = undefined;
-    s.buf___12273 = undefined;
-    s.i___12277 = undefined;
-    s.byte___12284 = undefined;
-    s.bit___12289 = undefined;
-    s.b___12332 = undefined;
-    s.b___12361 = undefined;
-    s.nb___12365 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_ScreenServer__C3872_VT)) failedCast(r0);
-    s.tmp_0 = jacdac_JDPacket_regCode__P2908_mk(s);
-    s.tmp_0.arg0 = s.arg1;
-    s.callLocIdx = 875; s.pc = 31; return s.tmp_0;
-  case 31:
-    r0 = s.retval;
-    s.regCode___12221 = (r0);
-    r0 = (s.regCode___12221 == 2);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 15; continue; }
-    s.tmp_2 = jacdac_JDPacket_isRegSet__P2906_mk(s);
-    s.tmp_2.arg0 = s.arg1;
-    s.callLocIdx = 876; s.pc = 32; return s.tmp_2;
-  case 32:
-    r0 = s.retval;
-    s.tmp_1 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
-    if (!r0) { step = 7; continue; }
-    s.x___12229 = (0);
-    s.y___12230 = (0);
-    s.i___12231 = (0);
-  case 1:
-    r0 = (s.i___12231 < 25);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 6; continue; }
-    r0 = (s.i___12231 / 5);
-    s.tmp_1 = r0;
-    r0 = pxsim.Math_.floor(s.tmp_1);
-    s.byte___12235 = (r0);
-    s.tmp_1 = r0 = s.i___12231;
-    r0 = (s.byte___12235 * 5);
-    s.tmp_2 = r0;
-    r0 = (s.tmp_1 - s.tmp_2);
-    s.tmp_0 = r0;
-    r0 = (1 << s.tmp_0);
-    s.bit___12240 = (r0);
-    r0 = s.arg1.fields["_data"];
-    s.tmp_2 = r0;
-    r0 = pxsim.BufferMethods.getByte(s.tmp_2, s.byte___12235);
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 & s.bit___12240);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 2; continue; }
-    r0 = pxsim.led.plot(s.y___12230, s.x___12229);
-    { step = 3; continue; }
-  case 2:
-    r0 = pxsim.led.unplot(s.y___12230, s.x___12229);
-  case 3:
-    r0 = (s.x___12229 + 1);
-    s.x___12229 = (r0);
-    r0 = (s.x___12229 == 5);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 4; continue; }
-    s.x___12229 = (0);
-    r0 = (s.y___12230 + 1);
-    s.y___12230 = (r0);
-  case 4:
-  case 5:
-    r0 = (s.i___12231 + 1);
-    s.i___12231 = (r0);
-    { step = 1; continue; }
-  case 6:
-    { step = 14; continue; }
-  case 7:
-    s.x___12271 = (0);
-    s.y___12272 = (0);
-    r0 = pxsim.control.createBuffer(5);
-    s.buf___12273 = (r0);
-    s.i___12277 = (0);
-  case 8:
-    r0 = (s.i___12277 < 25);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 13; continue; }
-    r0 = pxsim.led.pointBrightness(s.y___12272, s.x___12271);
-    s.tmp_2 = r0;
-    r0 = (s.tmp_2 > 0);
-    s.tmp_1 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
-    if (!r0) { step = 9; continue; }
-    r0 = (s.i___12277 / 5);
-    s.tmp_3 = r0;
-    r0 = pxsim.Math_.floor(s.tmp_3);
-    s.byte___12284 = (r0);
-    s.tmp_1 = r0 = s.i___12277;
-    r0 = (s.byte___12284 * 5);
-    s.tmp_2 = r0;
-    r0 = (s.tmp_1 - s.tmp_2);
-    s.tmp_0 = r0;
-    r0 = (1 << s.tmp_0);
-    s.bit___12289 = (r0);
-    s.tmp_0 = r0 = s.buf___12273;
-    s.tmp_1 = r0 = s.byte___12284;
-    r0 = pxsim.BufferMethods.getByte(s.tmp_0, s.byte___12284);
-    s.tmp_3 = r0;
-    r0 = (s.tmp_3 | s.bit___12289);
-    s.tmp_2 = r0;
-    r0 = pxsim.BufferMethods.setByte(s.tmp_0, s.tmp_1, s.tmp_2);
-  case 9:
-  case 10:
-    r0 = (s.x___12271 + 1);
-    s.x___12271 = (r0);
-    r0 = (s.x___12271 == 5);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 11; continue; }
-    s.x___12271 = (0);
-    r0 = (s.y___12272 + 1);
-    s.y___12272 = (r0);
-  case 11:
-  case 12:
-    r0 = (s.i___12277 + 1);
-    s.i___12277 = (r0);
-    { step = 8; continue; }
-  case 13:
-    s.tmp_0 = jacdac_Server_handleRegBuffer__P4198_mk(s);
-    s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.arg1;
-    s.tmp_1 = jacdac_JDPacket_regCode__P2908_mk(s);
-    s.tmp_1.arg0 = s.arg1;
-    s.callLocIdx = 879; s.pc = 34; return s.tmp_1;
-  case 34:
-    r0 = s.retval;
-    s.tmp_0.arg2 = r0;
-    s.tmp_0.arg3 = s.buf___12273;
-    s.callLocIdx = 880; s.pc = 33; return s.tmp_0;
-  case 33:
-    r0 = s.retval;
-  case 14:
-    { step = 30; continue; }
-  case 15:
-    r0 = (s.regCode___12221 == 386);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBool(s.tmp_0);
-    if (!r0) { step = 16; continue; }
-    r0 = s.tmp_0;
-    { step = 17; continue; }
-  case 16:
-    r0 = (s.regCode___12221 == 385);
-  case 17:
-    // jmp value (already in r0)
-    s.tmp_1 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
-    if (!r0) { step = 18; continue; }
-    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.tmp_2.arg2 = s.regCode___12221;
-    s.tmp_2.arg3 = globals.Columns___3781;
-    s.tmp_2.arg4 = 5;
-    s.callLocIdx = 881; s.pc = 35; return s.tmp_2;
-  case 35:
-    r0 = s.retval;
-    { step = 29; continue; }
-  case 18:
-    r0 = (s.regCode___12221 == 1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 21; continue; }
-    s.tmp_1 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_1.arg0 = s.arg0;
-    s.tmp_1.arg1 = s.arg1;
-    s.tmp_1.arg2 = s.regCode___12221;
-    s.tmp_1.arg3 = globals.Brightness___3779;
-    r0 = pxsim.led.brightness();
-    s.tmp_2 = r0;
-    r0 = (s.tmp_2 / 255);
-    s.tmp_1.arg4 = r0;
-    s.callLocIdx = 882; s.pc = 36; return s.tmp_1;
-  case 36:
-    r0 = s.retval;
-    s.b___12332 = (r0);
-    s.tmp_1 = jacdac_JDPacket_isRegSet__P2906_mk(s);
-    s.tmp_1.arg0 = s.arg1;
-    s.callLocIdx = 883; s.pc = 37; return s.tmp_1;
-  case 37:
-    r0 = s.retval;
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 19; continue; }
-    r0 = (s.b___12332 * 255);
-    s.tmp_2 = r0;
-    r0 = pxsim.led.setBrightness(s.tmp_2);
-  case 19:
-  case 20:
-    { step = 28; continue; }
-  case 21:
-    r0 = (s.regCode___12221 === 263);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 22; continue; }
-    s.tmp_1 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_1.arg0 = s.arg0;
-    s.tmp_1.arg1 = s.arg1;
-    s.tmp_1.arg2 = s.regCode___12221;
-    s.tmp_1.arg3 = globals.Variant___3782;
-    s.tmp_1.arg4 = 1;
-    s.callLocIdx = 884; s.pc = 38; return s.tmp_1;
-  case 38:
-    r0 = s.retval;
-    { step = 27; continue; }
-  case 22:
-    s.tmp_2 = jacdac_JDPacket_regCode__P2908_mk(s);
-    s.tmp_2.arg0 = s.arg1;
-    s.callLocIdx = 885; s.pc = 39; return s.tmp_2;
-  case 39:
-    r0 = s.retval;
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 === 1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 25; continue; }
-    r0 = pxsim.led.brightness();
-    s.tmp_3 = r0;
-    r0 = (s.tmp_3 / 255);
-    s.b___12361 = (r0);
-    s.tmp_0 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.arg1;
-    s.tmp_1 = jacdac_JDPacket_regCode__P2908_mk(s);
-    s.tmp_1.arg0 = s.arg1;
-    s.callLocIdx = 886; s.pc = 41; return s.tmp_1;
-  case 41:
-    r0 = s.retval;
-    s.tmp_0.arg2 = r0;
-    s.tmp_0.arg3 = globals.Brightness___3779;
-    s.tmp_0.arg4 = s.b___12361;
-    s.callLocIdx = 887; s.pc = 40; return s.tmp_0;
-  case 40:
-    r0 = s.retval;
-    s.nb___12365 = (r0);
-    r0 = (s.b___12361 !== s.nb___12365);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 23; continue; }
-    r0 = (s.nb___12365 << 8);
-    s.tmp_1 = r0;
-    r0 = pxsim.led.setBrightness(s.tmp_1);
-  case 23:
-  case 24:
-    { step = 26; continue; }
-  case 25:
-    s.tmp_0 = jacdac_JDPacket_possiblyNotImplemented__P2890_mk(s);
-    s.tmp_0.arg0 = s.arg1;
-    s.callLocIdx = 888; s.pc = 42; return s.tmp_0;
-  case 42:
-    r0 = s.retval;
-  case 26:
-  case 27:
-  case 28:
-  case 29:
-  case 30:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_ScreenServer_handlePacket__P3874.info = {"start":158,"length":2744,"line":6,"column":8,"endLine":74,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitScreen.ts","functionName":"handlePacket","argumentNames":["this","packet"]}
-
-function servers_ScreenServer_handlePacket__P3874_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_ScreenServer_handlePacket__P3874, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  regCode___12221: undefined,
-  x___12229: undefined,
-  y___12230: undefined,
-  i___12231: undefined,
-  byte___12235: undefined,
-  bit___12240: undefined,
-  x___12271: undefined,
-  y___12272: undefined,
-  buf___12273: undefined,
-  i___12277: undefined,
-  byte___12284: undefined,
-  bit___12289: undefined,
-  b___12332: undefined,
-  b___12361: undefined,
-  nb___12365: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function jacdac_Server_handleRegBuffer__P4198(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.getset___12386 = undefined;
-    s.reg___12396 = undefined;
-    s.data___12417 = undefined;
-    s.diff___12420 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.arg2 = (s.lambdaArgs[2]);
-      s.arg3 = (s.lambdaArgs[3]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, jacdac_Server__C3447_VT)) failedCast(r0);
-    r0 = s.arg1.fields["_header"];
-    s.tmp_1 = r0;
-    r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, 14);
-    s.tmp_0 = r0;
-    r0 = (s.tmp_0 >> 12);
-    s.getset___12386 = (r0);
-    r0 = (s.getset___12386 == 0);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBool(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    r0 = s.tmp_0;
-    { step = 2; continue; }
-  case 1:
-    r0 = (s.getset___12386 > 2);
-  case 2:
-    // jmp value (already in r0)
-    s.tmp_1 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
-    if (!r0) { step = 3; continue; }
-    r0 = s.arg3;
-    { step = 17; continue; }
-  case 3:
-  case 4:
-    r0 = s.arg1.fields["_header"];
-    s.tmp_3 = r0;
-    r0 = pxsim.BufferMethods.getNumber(s.tmp_3, 4, 14);
-    s.tmp_2 = r0;
-    r0 = (s.tmp_2 & 4095);
-    s.reg___12396 = (r0);
-    r0 = (s.reg___12396 != s.arg2);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 5; continue; }
-    r0 = s.arg3;
-    { step = 17; continue; }
-  case 5:
-  case 6:
-    s.tmp_1 = jacdac_JDPacket_markHandled__P2889_mk(s);
-    s.tmp_1.arg0 = s.arg1;
-    s.callLocIdx = 522; s.pc = 18; return s.tmp_1;
-  case 18:
-    r0 = s.retval;
-    r0 = (s.getset___12386 == 1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 7; continue; }
-    s.tmp_1 = jacdac_Server_sendReport__P4185_mk(s);
-    s.tmp_1.arg0 = s.arg0;
-    s.tmp_2 = jacdac_JDPacket_from__P2883_mk(s);
-    r0 = s.arg1.fields["_header"];
-    s.tmp_3 = r0;
-    r0 = pxsim.BufferMethods.getNumber(s.tmp_3, 4, 14);
-    s.tmp_2.arg0 = r0;
-    s.tmp_2.arg1 = s.arg3;
-    s.callLocIdx = 524; s.pc = 20; return s.tmp_2;
-  case 20:
-    r0 = s.retval;
-    s.tmp_1.arg1 = r0;
-    s.callLocIdx = 525; s.pc = 19; return s.tmp_1;
-  case 19:
-    r0 = s.retval;
-    { step = 16; continue; }
-  case 7:
-    r0 = (s.arg2 >> 8);
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 == 1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 8; continue; }
-    r0 = s.arg3;
-    { step = 17; continue; }
-  case 8:
-  case 9:
-    r0 = s.arg1.fields["_data"];
-    s.data___12417 = (r0);
-    r0 = pxsim.BufferMethods.length(s.arg3);
-    s.tmp_0 = r0;
-    r0 = pxsim.BufferMethods.length(s.data___12417);
-    s.tmp_1 = r0;
-    r0 = (s.tmp_0 - s.tmp_1);
-    s.diff___12420 = (r0);
-    r0 = (s.diff___12420 == 0);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 10; continue; }
-    { step = 13; continue; }
-  case 10:
-    r0 = (s.diff___12420 < 0);
-    s.tmp_1 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
-    if (!r0) { step = 11; continue; }
-    s.tmp_2 = r0 = s.data___12417;
-    r0 = pxsim.BufferMethods.length(s.arg3);
-    s.tmp_3 = r0;
-    r0 = pxsim.BufferMethods.slice(s.tmp_2, 0, s.tmp_3);
-    s.data___12417 = (r0);
-    { step = 12; continue; }
-  case 11:
-    s.tmp_0 = helpers_bufferConcat__P2618_mk(s);
-    s.tmp_0.arg0 = s.data___12417;
-    r0 = pxsim.control.createBuffer(s.diff___12420);
-    s.tmp_0.arg1 = r0;
-    s.callLocIdx = 527; s.pc = 21; return s.tmp_0;
-  case 21:
-    r0 = s.retval;
-    s.data___12417 = (r0);
-  case 12:
-  case 13:
-    s.tmp_3 = helpers_bufferEquals__P2619_mk(s);
-    s.tmp_3.arg0 = s.data___12417;
-    s.tmp_3.arg1 = s.arg3;
-    s.callLocIdx = 528; s.pc = 22; return s.tmp_3;
-  case 22:
-    r0 = s.retval;
-    s.tmp_2 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_2);
-    s.tmp_1 = r0;
-    r0 = pxsim_Boolean__bang(s.tmp_1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 14; continue; }
-    r0 = pxsim.BufferMethods.write(s.arg3, 0, s.data___12417);
-    r0 = (s.arg0).fields["stateUpdated"] = (true);
-  case 14:
-  case 15:
-  case 16:
-    r0 = s.arg3;
-  case 17:
-    return leave(s, r0)
-  default: oops()
-} } }
-jacdac_Server_handleRegBuffer__P4198.info = {"start":24987,"length":1057,"line":747,"column":8,"endLine":775,"endColumn":9,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"handleRegBuffer","argumentNames":["this","pkt","register","current"]}
-
-function jacdac_Server_handleRegBuffer__P4198_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: jacdac_Server_handleRegBuffer__P4198, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  getset___12386: undefined,
-  reg___12396: undefined,
-  data___12417: undefined,
-  diff___12420: undefined,
-  arg0: undefined,
-  arg1: undefined,
-  arg2: undefined,
-  arg3: undefined,
-} }
-
-
-
-
-
-function led_point__P2451(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = pxsim.led.pointBrightness(s.arg0, s.arg1);
-    s.tmp_0 = r0;
-    r0 = (s.tmp_0 > 0);
-    return leave(s, r0)
-  default: oops()
-} } }
-led_point__P2451.info = {"start":529,"length":106,"line":15,"column":4,"endLine":17,"endColumn":5,"fileName":"pxt_modules/core/led.ts","functionName":"point","argumentNames":["x","y"]}
-
-function led_point__P2451_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: led_point__P2451, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function jacdac_JDPacket_isRegSet__P2906(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, jacdac_JDPacket__C2877_VT)) failedCast(r0);
-    r0 = s.arg0.fields["_header"];
-    s.tmp_2 = r0;
-    r0 = pxsim.BufferMethods.getNumber(s.tmp_2, 4, 14);
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 >> 12);
-    s.tmp_0 = r0;
-    r0 = (s.tmp_0 == 2);
-    return leaveAccessor(s, r0)
-  default: oops()
-} } }
-jacdac_JDPacket_isRegSet__P2906.info = {"start":6061,"length":92,"line":184,"column":8,"endLine":186,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"isRegSet","argumentNames":["this"]}
-jacdac_JDPacket_isRegSet__P2906.isGetter = true;
-
-function jacdac_JDPacket_isRegSet__P2906_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: jacdac_JDPacket_isRegSet__P2906, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
 function servers_SoundLevelServer_handlePacket__P3868(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
@@ -30113,7 +29529,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.oldEnabled___12470 = undefined;
+    s.oldEnabled___12221 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
@@ -30122,7 +29538,7 @@ switch (step) {
     r0 = s.arg0;
     if (!checkSubtype(r0, servers_SoundLevelServer__C3861_VT)) failedCast(r0);
     r0 = s.arg0.fields["enabled"];
-    s.oldEnabled___12470 = (r0);
+    s.oldEnabled___12221 = (r0);
     s.tmp_0 = r0 = s.arg0;
     s.tmp_2 = jacdac_Server_handleRegBool__P4195_mk(s);
     s.tmp_2.arg0 = s.arg0;
@@ -30176,7 +29592,7 @@ switch (step) {
   case 1:
     r0 = s.arg0.fields["enabled"];
     s.tmp_1 = r0;
-    r0 = (s.oldEnabled___12470 !== s.tmp_1);
+    r0 = (s.oldEnabled___12221 !== s.tmp_1);
   case 2:
     // jmp value (already in r0)
     s.tmp_2 = r0;
@@ -30220,7 +29636,7 @@ function servers_SoundLevelServer_handlePacket__P3868_mk(s) {
   tmp_1: undefined,
   tmp_2: undefined,
   tmp_3: undefined,
-  oldEnabled___12470: undefined,
+  oldEnabled___12221: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -30296,11 +29712,11 @@ switch (step) {
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 1; continue; }
     r0 = (s.arg0).fields["registered"] = (true);
-    r0 = pxsim_pxtcore_mkAction(1, servers_SoundLevelServer_registerEvents_inline__P12536);
+    r0 = pxsim_pxtcore_mkAction(1, servers_SoundLevelServer_registerEvents_inline__P12287);
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
     r0 = pxsim.input.onSound(2, s.tmp_0);
-    r0 = pxsim_pxtcore_mkAction(1, servers_SoundLevelServer_registerEvents_inline__P12543);
+    r0 = pxsim_pxtcore_mkAction(1, servers_SoundLevelServer_registerEvents_inline__P12294);
     s.tmp_0 = r0;
     r0 = pxsim_pxtrt_stclo(s.tmp_0, 0, s.arg0);
     r0 = pxsim.input.onSound(1, s.tmp_0);
@@ -30310,8 +29726,8 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
-    r0 = pxsim.input.onSound(2, servers_SoundLevelServer_registerEvents_inline__P12552);
-    r0 = pxsim.input.onSound(1, servers_SoundLevelServer_registerEvents_inline__P12556);
+    r0 = pxsim.input.onSound(2, servers_SoundLevelServer_registerEvents_inline__P12303);
+    r0 = pxsim.input.onSound(1, servers_SoundLevelServer_registerEvents_inline__P12307);
     r0 = (s.arg0).fields["registered"] = (false);
   case 2:
   case 3:
@@ -30335,7 +29751,7 @@ function servers_SoundLevelServer_registerEvents__P4412_mk(s) {
 
 
 
-function servers_SoundLevelServer_registerEvents_inline__P12536(s) {
+function servers_SoundLevelServer_registerEvents_inline__P12287(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -30363,12 +29779,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_SoundLevelServer_registerEvents_inline__P12536.info = {"start":1836,"length":95,"line":55,"column":50,"endLine":57,"endColumn":17,"fileName":"pxt_modules/jacdac-microbit/microbitSound.ts","functionName":"inline","argumentNames":[]}
+servers_SoundLevelServer_registerEvents_inline__P12287.info = {"start":1836,"length":95,"line":55,"column":50,"endLine":57,"endColumn":17,"fileName":"pxt_modules/jacdac-microbit/microbitSound.ts","functionName":"inline","argumentNames":[]}
 
-function servers_SoundLevelServer_registerEvents_inline__P12536_mk(s) {
+function servers_SoundLevelServer_registerEvents_inline__P12287_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_SoundLevelServer_registerEvents_inline__P12536, depth: s.depth + 1,
+        parent: s, fn: servers_SoundLevelServer_registerEvents_inline__P12287, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
 } }
@@ -30377,7 +29793,7 @@ function servers_SoundLevelServer_registerEvents_inline__P12536_mk(s) {
 
 
 
-function servers_SoundLevelServer_registerEvents_inline__P12543(s) {
+function servers_SoundLevelServer_registerEvents_inline__P12294(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -30405,12 +29821,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_SoundLevelServer_registerEvents_inline__P12543.info = {"start":1984,"length":96,"line":58,"column":51,"endLine":60,"endColumn":17,"fileName":"pxt_modules/jacdac-microbit/microbitSound.ts","functionName":"inline","argumentNames":[]}
+servers_SoundLevelServer_registerEvents_inline__P12294.info = {"start":1984,"length":96,"line":58,"column":51,"endLine":60,"endColumn":17,"fileName":"pxt_modules/jacdac-microbit/microbitSound.ts","functionName":"inline","argumentNames":[]}
 
-function servers_SoundLevelServer_registerEvents_inline__P12543_mk(s) {
+function servers_SoundLevelServer_registerEvents_inline__P12294_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_SoundLevelServer_registerEvents_inline__P12543, depth: s.depth + 1,
+        parent: s, fn: servers_SoundLevelServer_registerEvents_inline__P12294, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
 } }
@@ -30419,7 +29835,7 @@ function servers_SoundLevelServer_registerEvents_inline__P12543_mk(s) {
 
 
 
-function servers_SoundLevelServer_registerEvents_inline__P12552(s) {
+function servers_SoundLevelServer_registerEvents_inline__P12303(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -30433,12 +29849,12 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_SoundLevelServer_registerEvents_inline__P12552.info = {"start":2174,"length":14,"line":62,"column":50,"endLine":62,"endColumn":64,"fileName":"pxt_modules/jacdac-microbit/microbitSound.ts","functionName":"inline","argumentNames":[]}
+servers_SoundLevelServer_registerEvents_inline__P12303.info = {"start":2174,"length":14,"line":62,"column":50,"endLine":62,"endColumn":64,"fileName":"pxt_modules/jacdac-microbit/microbitSound.ts","functionName":"inline","argumentNames":[]}
 
-function servers_SoundLevelServer_registerEvents_inline__P12552_mk(s) {
+function servers_SoundLevelServer_registerEvents_inline__P12303_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_SoundLevelServer_registerEvents_inline__P12552, depth: s.depth + 1,
+        parent: s, fn: servers_SoundLevelServer_registerEvents_inline__P12303, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
 } }
 
@@ -30446,7 +29862,7 @@ function servers_SoundLevelServer_registerEvents_inline__P12552_mk(s) {
 
 
 
-function servers_SoundLevelServer_registerEvents_inline__P12556(s) {
+function servers_SoundLevelServer_registerEvents_inline__P12307(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -30460,1663 +29876,13 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_SoundLevelServer_registerEvents_inline__P12556.info = {"start":2241,"length":14,"line":63,"column":51,"endLine":63,"endColumn":65,"fileName":"pxt_modules/jacdac-microbit/microbitSound.ts","functionName":"inline","argumentNames":[]}
+servers_SoundLevelServer_registerEvents_inline__P12307.info = {"start":2241,"length":14,"line":63,"column":51,"endLine":63,"endColumn":65,"fileName":"pxt_modules/jacdac-microbit/microbitSound.ts","functionName":"inline","argumentNames":[]}
 
-function servers_SoundLevelServer_registerEvents_inline__P12556_mk(s) {
+function servers_SoundLevelServer_registerEvents_inline__P12307_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: servers_SoundLevelServer_registerEvents_inline__P12556, depth: s.depth + 1,
+        parent: s, fn: servers_SoundLevelServer_registerEvents_inline__P12307, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-} }
-
-
-
-
-
-function jacdac_SimpleSensorServer_handlePacket__P3250(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, jacdac_SimpleSensorServer__C3246_VT)) failedCast(r0);
-    r0 = s.arg0.fields["minReading"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 !== undefined);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.tmp_2.arg2 = 260;
-    r0 = s.arg0.fields["packFormat"];
-    s.tmp_2.arg3 = r0;
-    r0 = s.arg0.fields["minReading"];
-    s.tmp_2.arg4 = r0;
-    s.callLocIdx = 266; s.pc = 7; return s.tmp_2;
-  case 7:
-    r0 = s.retval;
-  case 1:
-  case 2:
-    r0 = s.arg0.fields["maxReading"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 !== undefined);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 3; continue; }
-    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.tmp_2.arg2 = 261;
-    r0 = s.arg0.fields["packFormat"];
-    s.tmp_2.arg3 = r0;
-    r0 = s.arg0.fields["maxReading"];
-    s.tmp_2.arg4 = r0;
-    s.callLocIdx = 267; s.pc = 8; return s.tmp_2;
-  case 8:
-    r0 = s.retval;
-  case 3:
-  case 4:
-    r0 = s.arg0.fields["readingError"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 !== undefined);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 5; continue; }
-    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.tmp_2.arg2 = 262;
-    r0 = s.arg0.fields["packFormat"];
-    s.tmp_2.arg3 = r0;
-    s.tmp_3 = if_readingError_1_mk(s);
-    s.tmp_3.arg0 = s.arg0;
-    if (!s.tmp_3.arg0.vtable.iface) {
-      setupLambda(s.tmp_3, pxsim_pxtrt.mapGetByString(s.tmp_3.arg0, "readingError"), 1);
-      s.callLocIdx = 268; s.pc = 10; return s.tmp_3;
-    } else {
-      s.tmp_3.fn = s.tmp_3.arg0.vtable.iface["readingError"];
-      if (s.tmp_3.fn == null) { setupLambda(s.tmp_3, s.tmp_3.arg0.fields["readingError"], 1); s.callLocIdx = 268; s.pc = 10; return s.tmp_3; }
-      else if (s.tmp_3.fn.isGetter) { s.tmp_3.stage2Call = true; s.callLocIdx = 268; s.pc = 10; return s.tmp_3;; }
-     else { s.callLocIdx = 268; s.pc = 10; return s.tmp_3; }
-    }
-  case 10:
-    r0 = s.retval;
-    s.tmp_2.arg4 = r0;
-    s.callLocIdx = 269; s.pc = 9; return s.tmp_2;
-  case 9:
-    r0 = s.retval;
-  case 5:
-  case 6:
-    s.tmp_0 = jacdac_SensorServer_handlePacket__P3240_mk(s);
-    s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.arg1;
-    s.callLocIdx = 270; s.pc = 11; return s.tmp_0;
-  case 11:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-jacdac_SimpleSensorServer_handlePacket__P3250.info = {"start":5133,"length":844,"line":151,"column":8,"endLine":174,"endColumn":9,"fileName":"pxt_modules/jacdac/sensor/server.ts","functionName":"handlePacket","argumentNames":["this","pkt"]}
-
-function jacdac_SimpleSensorServer_handlePacket__P3250_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: jacdac_SimpleSensorServer_handlePacket__P3250, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function servers_BuzzerServer_handlePacket__P3904(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.oldVol___12597 = undefined;
-    s.vol___12600 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_BuzzerServer__C3902_VT)) failedCast(r0);
-    r0 = pxsim.music.volume();
-    s.oldVol___12597 = (r0);
-    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.tmp_2.arg2 = 1;
-    s.tmp_2.arg3 = globals.Volume___3747;
-    r0 = (s.oldVol___12597 / 255);
-    s.tmp_2.arg4 = r0;
-    s.callLocIdx = 952; s.pc = 6; return s.tmp_2;
-  case 6:
-    r0 = s.retval;
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 * 255);
-    s.tmp_0 = r0;
-    r0 = (s.tmp_0 | 0);
-    s.vol___12600 = (r0);
-    r0 = (s.vol___12600 !== s.oldVol___12597);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    r0 = pxsim.music.setVolume(s.vol___12600);
-  case 1:
-  case 2:
-    r0 = s.arg1.fields["_header"];
-    s.tmp_1 = r0;
-    r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, 14);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtcore.switch_eq(128, s.tmp_0);
-    if (r0) { step = 3; continue; }
-    r0 = s.tmp_0;
-    { step = 4; continue; }
-  case 3:
-    s.tmp_2 = servers_BuzzerServer_handlePlayToneCommand__P4436_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.callLocIdx = 954; s.pc = 7; return s.tmp_2;
-  case 7:
-    r0 = s.retval;
-    { step = 5; continue; }
-  case 4:
-    s.tmp_0 = jacdac_JDPacket_possiblyNotImplemented__P2890_mk(s);
-    s.tmp_0.arg0 = s.arg1;
-    s.callLocIdx = 955; s.pc = 8; return s.tmp_0;
-  case 8:
-    r0 = s.retval;
-  case 5:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_BuzzerServer_handlePacket__P3904.info = {"start":154,"length":761,"line":6,"column":8,"endLine":29,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitBuzzer.ts","functionName":"handlePacket","argumentNames":["this","pkt"]}
-
-function servers_BuzzerServer_handlePacket__P3904_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_BuzzerServer_handlePacket__P3904, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  oldVol___12597: undefined,
-  vol___12600: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function servers_BuzzerServer_handlePlayToneCommand__P4436(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.period___12633 = undefined;
-    s.duty___12634 = undefined;
-    s.duration___12635 = undefined;
-    s.frequency___12636 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_BuzzerServer__C3902_VT)) failedCast(r0);
-    s.tmp_1 = jacdac_JDPacket_jdunpack__P2914_mk(s);
-    s.tmp_1.arg0 = s.arg1;
-    s.tmp_1.arg1 = globals.PlayTone___3752;
-    s.callLocIdx = 956; s.pc = 1; return s.tmp_1;
-  case 1:
-    r0 = s.retval;
-    s.tmp_0 = r0;
-    r0 = pxsim_Array__getAt(s.tmp_0, 0);
-    s.period___12633 = (r0);
-    r0 = pxsim_Array__getAt(s.tmp_0, 1);
-    s.duty___12634 = (r0);
-    r0 = pxsim_Array__getAt(s.tmp_0, 2);
-    s.duration___12635 = (r0);
-    r0 = (1000000 / s.period___12633);
-    s.frequency___12636 = (r0);
-    s.tmp_0 = music_stopAllSounds__P2552_mk(s);
-    s.callLocIdx = 957; s.pc = 2; return s.tmp_0;
-  case 2:
-    r0 = s.retval;
-    s.tmp_0 = music_playTone__P2537_mk(s);
-    s.tmp_0.arg0 = s.frequency___12636;
-    s.tmp_0.arg1 = s.duration___12635;
-    s.callLocIdx = 958; s.pc = 3; return s.tmp_0;
-  case 3:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_BuzzerServer_handlePlayToneCommand__P4436.info = {"start":925,"length":323,"line":31,"column":8,"endLine":37,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitBuzzer.ts","functionName":"handlePlayToneCommand","argumentNames":["this","pkt"]}
-
-function servers_BuzzerServer_handlePlayToneCommand__P4436_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_BuzzerServer_handlePlayToneCommand__P4436, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  period___12633: undefined,
-  duty___12634: undefined,
-  duration___12635: undefined,
-  frequency___12636: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function music_playTone__P2537(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = pxsim_numops_toBoolDecr(globals._playTone___4015);
-    if (!r0) { step = 1; continue; }
-    s.tmp_0 = lambda_3_mk(s);
-    s.tmp_0.argL = globals._playTone___4015;
-    s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.arg1;
-    setupLambda(s.tmp_0, s.tmp_0.argL);
-    s.callLocIdx = 29; s.pc = 3; return s.tmp_0;
-  case 3:
-    r0 = s.retval;
-    { step = 2; continue; }
-  case 1:
-    setupResume(s, 4);
-    pxsim.pins.analogPitch(s.arg0, s.arg1);
-    checkResumeConsumed();
-    return;
-  case 4:
-    r0 = s.retval;
-  case 2:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_playTone__P2537.info = {"start":6330,"length":164,"line":200,"column":4,"endLine":203,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"playTone","argumentNames":["frequency","ms"]}
-
-function music_playTone__P2537_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_playTone__P2537, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function music_stopAllSounds__P2552(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.tmp_0 = music_rest__P2539_mk(s);
-    s.tmp_0.arg0 = 0;
-    s.callLocIdx = 39; s.pc = 1; return s.tmp_0;
-  case 1:
-    r0 = s.retval;
-    s.tmp_0 = music_stopMelody__P2551_mk(s);
-    s.tmp_0.arg0 = 5;
-    s.callLocIdx = 40; s.pc = 2; return s.tmp_0;
-  case 2:
-    r0 = s.retval;
-    r0 = pxsim.music.__stopSoundExpressions();
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_stopAllSounds__P2552.info = {"start":16272,"length":139,"line":471,"column":4,"endLine":475,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"stopAllSounds","argumentNames":[]}
-
-function music_stopAllSounds__P2552_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_stopAllSounds__P2552, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function music_stopMelody__P2551(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = (s.arg0 & 4);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    s.tmp_1 = music_startMelody__P2548_mk(s);
-    r0 = pxsim_Array__mk();
-    s.tmp_1.arg0 = r0;
-    s.tmp_1.arg1 = 4;
-    s.callLocIdx = 37; s.pc = 5; return s.tmp_1;
-  case 5:
-    r0 = s.retval;
-  case 1:
-  case 2:
-    r0 = (s.arg0 & 1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 3; continue; }
-    s.tmp_1 = music_startMelody__P2548_mk(s);
-    r0 = pxsim_Array__mk();
-    s.tmp_1.arg0 = r0;
-    s.tmp_1.arg1 = 1;
-    s.callLocIdx = 38; s.pc = 6; return s.tmp_1;
-  case 6:
-    r0 = s.retval;
-  case 3:
-  case 4:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_stopMelody__P2551.info = {"start":15781,"length":276,"line":457,"column":4,"endLine":462,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"stopMelody","argumentNames":["options"]}
-
-function music_stopMelody__P2551_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_stopMelody__P2551, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function music_startMelody__P2548(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.isBackground___12675 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    s.tmp_0 = music_init__P4018_mk(s);
-    s.callLocIdx = 31; s.pc = 9; return s.tmp_0;
-  case 9:
-    r0 = s.retval;
-    r0 = (s.arg1 & 12);
-    s.isBackground___12675 = (r0);
-    r0 = (globals.currentMelody___4019 != undefined);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 7; continue; }
-    r0 = pxsim_numops_toBoolDecr(s.isBackground___12675);
-    s.tmp_2 = r0;
-    r0 = pxsim_Boolean__bang(s.tmp_2);
-    s.tmp_1 = r0;
-    r0 = pxsim_numops_toBool(s.tmp_1);
-    if (r0) { step = 1; continue; }
-    r0 = s.tmp_1;
-    { step = 2; continue; }
-  case 1:
-    r0 = globals.currentMelody___4019.fields["background"];
-  case 2:
-    // jmp value (already in r0)
-    s.tmp_3 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_3);
-    if (!r0) { step = 3; continue; }
-    globals.currentBackgroundMelody___4020 = (globals.currentMelody___4019);
-    globals.currentMelody___4019 = (null);
-    r0 = pxsim.control.raiseEvent(2000, 245, 1);
-  case 3:
-  case 4:
-    r0 = pxsim_numops_toBoolDecr(globals.currentMelody___4019);
-    if (!r0) { step = 5; continue; }
-    r0 = globals.currentMelody___4019.fields["background"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 | 3);
-    s.tmp_0 = r0;
-    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
-  case 5:
-  case 6:
-    r0 = pxsim_pxtcore_mkClassInstance(music_Melody__C4022_VT);
-    s.tmp_0 = r0;
-    s.tmp_1 = music_Melody_constructor__P4025_mk(s);
-    s.tmp_1.arg0 = s.tmp_0;
-    s.tmp_1.arg1 = s.arg0;
-    s.tmp_1.arg2 = s.arg1;
-    s.callLocIdx = 32; s.pc = 10; return s.tmp_1;
-  case 10:
-    r0 = s.retval;
-    globals.currentMelody___4019 = (s.tmp_0);
-    r0 = globals.currentMelody___4019.fields["background"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 | 2);
-    s.tmp_0 = r0;
-    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
-    { step = 8; continue; }
-  case 7:
-    r0 = pxsim_pxtcore_mkClassInstance(music_Melody__C4022_VT);
-    s.tmp_0 = r0;
-    s.tmp_1 = music_Melody_constructor__P4025_mk(s);
-    s.tmp_1.arg0 = s.tmp_0;
-    s.tmp_1.arg1 = s.arg0;
-    s.tmp_1.arg2 = s.arg1;
-    s.callLocIdx = 33; s.pc = 11; return s.tmp_1;
-  case 11:
-    r0 = s.retval;
-    globals.currentMelody___4019 = (s.tmp_0);
-    r0 = globals.currentMelody___4019.fields["background"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 | 2);
-    s.tmp_0 = r0;
-    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
-    r0 = pxsim.control.inBackground(music_startMelody_inline__P12736);
-  case 8:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_startMelody__P2548.info = {"start":11475,"length":2066,"line":358,"column":4,"endLine":393,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"startMelody","argumentNames":["melodyArray","options"]}
-
-function music_startMelody__P2548_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_startMelody__P2548, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  isBackground___12675: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function music_startMelody_inline__P12736(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-  case 1:
-    s.tmp_1 = music_Melody_hasNextNote__P4023_mk(s);
-    s.tmp_1.arg0 = globals.currentMelody___4019;
-    s.callLocIdx = 34; s.pc = 9; return s.tmp_1;
-  case 9:
-    r0 = s.retval;
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 6; continue; }
-    s.tmp_2 = music_playNextNote__P4021_mk(s);
-    s.tmp_2.arg0 = globals.currentMelody___4019;
-    s.callLocIdx = 35; s.pc = 10; return s.tmp_2;
-  case 10:
-    r0 = s.retval;
-    s.tmp_3 = music_Melody_hasNextNote__P4023_mk(s);
-    s.tmp_3.arg0 = globals.currentMelody___4019;
-    s.callLocIdx = 36; s.pc = 11; return s.tmp_3;
-  case 11:
-    r0 = s.retval;
-    s.tmp_2 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_2);
-    s.tmp_1 = r0;
-    r0 = pxsim_Boolean__bang(s.tmp_1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBool(s.tmp_0);
-    if (r0) { step = 2; continue; }
-    r0 = s.tmp_0;
-    { step = 3; continue; }
-  case 2:
-    r0 = globals.currentBackgroundMelody___4020;
-  case 3:
-    // jmp value (already in r0)
-    s.tmp_4 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_4);
-    if (!r0) { step = 4; continue; }
-    globals.currentMelody___4019 = (globals.currentBackgroundMelody___4020);
-    globals.currentBackgroundMelody___4020 = (null);
-    r0 = pxsim.control.raiseEvent(2000, 3, 1);
-    r0 = pxsim.control.raiseEvent(2000, 246, 1);
-    r0 = pxsim.control.raiseEvent(2000, 5, 1);
-  case 4:
-  case 5:
-    { step = 1; continue; }
-  case 6:
-    r0 = globals.currentMelody___4019.fields["background"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 | 3);
-    s.tmp_0 = r0;
-    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
-    r0 = globals.currentMelody___4019.fields["background"];
-    s.tmp_2 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_2);
-    s.tmp_1 = r0;
-    r0 = pxsim_Boolean__bang(s.tmp_1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 7; continue; }
-    r0 = pxsim.control.raiseEvent(2000, 5, 1);
-  case 7:
-  case 8:
-    globals.currentMelody___4019 = (null);
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_startMelody_inline__P12736.info = {"start":12547,"length":977,"line":375,"column":33,"endLine":391,"endColumn":13,"fileName":"pxt_modules/core/music.ts","functionName":"inline","argumentNames":[]}
-
-function music_startMelody_inline__P12736_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_startMelody_inline__P12736, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-} }
-
-
-
-
-
-function music_playNextNote__P4021(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.currNote___12786 = undefined;
-    s.currentPos___12789 = undefined;
-    s.currentDuration___12793 = undefined;
-    s.currentOctave___12797 = undefined;
-    s.note___12801 = undefined;
-    s.isrest___12802 = undefined;
-    s.beatPos___12803 = undefined;
-    s.parsingOctave___12804 = undefined;
-    s.prevNote___12805 = undefined;
-    s.pos___12806 = undefined;
-    s.noteChar___12812 = undefined;
-    s.beat___12869 = undefined;
-    s.repeating___12892 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    s.tmp_0 = music_Melody_nextNote__P4024_mk(s);
-    s.tmp_0.arg0 = s.arg0;
-    s.callLocIdx = 41; s.pc = 37; return s.tmp_0;
-  case 37:
-    r0 = s.retval;
-    s.currNote___12786 = (r0);
-    r0 = s.arg0.fields["currentPos"];
-    s.currentPos___12789 = (r0);
-    r0 = s.arg0.fields["currentDuration"];
-    s.currentDuration___12793 = (r0);
-    r0 = s.arg0.fields["currentOctave"];
-    s.currentOctave___12797 = (r0);
-    s.isrest___12802 = (false);
-    s.parsingOctave___12804 = (true);
-    s.prevNote___12805 = (false);
-    s.pos___12806 = (0);
-  case 1:
-    s.tmp_1 = r0 = s.pos___12806;
-    r0 = pxsim_String_.length(s.currNote___12786);
-    s.tmp_2 = r0;
-    r0 = (s.tmp_1 < s.tmp_2);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 26; continue; }
-    r0 = pxsim_String_.charAt(s.currNote___12786, s.pos___12806);
-    s.noteChar___12812 = (r0);
-    s.tmp_0 = r0 = s.noteChar___12812;
-    r0 = pxsim_pxtcore.switch_eq("c", s.tmp_0);
-    if (r0) { step = 2; continue; }
-    r0 = pxsim_pxtcore.switch_eq("C", s.tmp_0);
-    if (r0) { step = 3; continue; }
-    r0 = pxsim_pxtcore.switch_eq("d", s.tmp_0);
-    if (r0) { step = 4; continue; }
-    r0 = pxsim_pxtcore.switch_eq("D", s.tmp_0);
-    if (r0) { step = 5; continue; }
-    r0 = pxsim_pxtcore.switch_eq("e", s.tmp_0);
-    if (r0) { step = 6; continue; }
-    r0 = pxsim_pxtcore.switch_eq("E", s.tmp_0);
-    if (r0) { step = 7; continue; }
-    r0 = pxsim_pxtcore.switch_eq("f", s.tmp_0);
-    if (r0) { step = 8; continue; }
-    r0 = pxsim_pxtcore.switch_eq("F", s.tmp_0);
-    if (r0) { step = 9; continue; }
-    r0 = pxsim_pxtcore.switch_eq("g", s.tmp_0);
-    if (r0) { step = 10; continue; }
-    r0 = pxsim_pxtcore.switch_eq("G", s.tmp_0);
-    if (r0) { step = 11; continue; }
-    r0 = pxsim_pxtcore.switch_eq("a", s.tmp_0);
-    if (r0) { step = 12; continue; }
-    r0 = pxsim_pxtcore.switch_eq("A", s.tmp_0);
-    if (r0) { step = 13; continue; }
-    r0 = pxsim_pxtcore.switch_eq("B", s.tmp_0);
-    if (r0) { step = 14; continue; }
-    r0 = pxsim_pxtcore.switch_eq("r", s.tmp_0);
-    if (r0) { step = 15; continue; }
-    r0 = pxsim_pxtcore.switch_eq("R", s.tmp_0);
-    if (r0) { step = 16; continue; }
-    r0 = pxsim_pxtcore.switch_eq("#", s.tmp_0);
-    if (r0) { step = 17; continue; }
-    r0 = pxsim_pxtcore.switch_eq("b", s.tmp_0);
-    if (r0) { step = 18; continue; }
-    r0 = pxsim_pxtcore.switch_eq(":", s.tmp_0);
-    if (r0) { step = 21; continue; }
-    r0 = s.tmp_0;
-    { step = 22; continue; }
-  case 2:
-  case 3:
-    s.note___12801 = (1);
-    s.prevNote___12805 = (true);
-    { step = 25; continue; }
-  case 4:
-  case 5:
-    s.note___12801 = (3);
-    s.prevNote___12805 = (true);
-    { step = 25; continue; }
-  case 6:
-  case 7:
-    s.note___12801 = (5);
-    s.prevNote___12805 = (true);
-    { step = 25; continue; }
-  case 8:
-  case 9:
-    s.note___12801 = (6);
-    s.prevNote___12805 = (true);
-    { step = 25; continue; }
-  case 10:
-  case 11:
-    s.note___12801 = (8);
-    s.prevNote___12805 = (true);
-    { step = 25; continue; }
-  case 12:
-  case 13:
-    s.note___12801 = (10);
-    s.prevNote___12805 = (true);
-    { step = 25; continue; }
-  case 14:
-    s.note___12801 = (12);
-    s.prevNote___12805 = (true);
-    { step = 25; continue; }
-  case 15:
-  case 16:
-    s.isrest___12802 = (true);
-    s.prevNote___12805 = (false);
-    { step = 25; continue; }
-  case 17:
-    r0 = (s.note___12801 + 1);
-    s.note___12801 = (r0);
-    s.prevNote___12805 = (false);
-    { step = 25; continue; }
-  case 18:
-    r0 = pxsim_numops_toBoolDecr(s.prevNote___12805);
-    if (!r0) { step = 19; continue; }
-    r0 = (s.note___12801 - 1);
-    s.note___12801 = (r0);
-    { step = 20; continue; }
-  case 19:
-    s.note___12801 = (12);
-    s.prevNote___12805 = (true);
-  case 20:
-    { step = 25; continue; }
-  case 21:
-    s.parsingOctave___12804 = (false);
-    s.beatPos___12803 = (s.pos___12806);
-    s.prevNote___12805 = (false);
-    { step = 25; continue; }
-  case 22:
-    s.prevNote___12805 = (false);
-    r0 = pxsim_numops_toBoolDecr(s.parsingOctave___12804);
-    if (!r0) { step = 23; continue; }
-    s.tmp_0 = parseInt__P1988_mk(s);
-    s.tmp_0.arg0 = s.noteChar___12812;
-    s.tmp_0.arg1 = undefined;
-    s.callLocIdx = 42; s.pc = 38; return s.tmp_0;
-  case 38:
-    r0 = s.retval;
-    s.currentOctave___12797 = (r0);
-  case 23:
-  case 24:
-  case 25:
-    r0 = (s.pos___12806 + 1);
-    s.pos___12806 = (r0);
-    { step = 1; continue; }
-  case 26:
-    r0 = pxsim_numops_toBoolDecr(s.parsingOctave___12804);
-    s.tmp_1 = r0;
-    r0 = pxsim_Boolean__bang(s.tmp_1);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 27; continue; }
-    s.tmp_2 = parseInt__P1988_mk(s);
-    s.tmp_3 = helpers_stringSubstr__P2009_mk(s);
-    s.tmp_3.arg0 = s.currNote___12786;
-    r0 = (s.beatPos___12803 + 1);
-    s.tmp_3.arg1 = r0;
-    r0 = pxsim_String_.length(s.currNote___12786);
-    s.tmp_4 = r0;
-    r0 = (s.tmp_4 - s.beatPos___12803);
-    s.tmp_3.arg2 = r0;
-    s.callLocIdx = 43; s.pc = 40; return s.tmp_3;
-  case 40:
-    r0 = s.retval;
-    s.tmp_2.arg0 = r0;
-    s.tmp_2.arg1 = undefined;
-    s.callLocIdx = 44; s.pc = 39; return s.tmp_2;
-  case 39:
-    r0 = s.retval;
-    s.currentDuration___12793 = (r0);
-  case 27:
-  case 28:
-    r0 = pxsim.Math_.idiv(60000, globals.beatsPerMinute___4012);
-    s.tmp_0 = r0;
-    r0 = (s.tmp_0 >> 2);
-    s.beat___12869 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.isrest___12802);
-    if (!r0) { step = 29; continue; }
-    s.tmp_0 = music_rest__P2539_mk(s);
-    r0 = (s.currentDuration___12793 * s.beat___12869);
-    s.tmp_0.arg0 = r0;
-    s.callLocIdx = 45; s.pc = 41; return s.tmp_0;
-  case 41:
-    r0 = s.retval;
-    { step = 30; continue; }
-  case 29:
-    s.tmp_0 = music_playTone__P2537_mk(s);
-    s.tmp_1 = music_getFrequencyForNote__P2554_mk(s);
-    s.tmp_1.arg0 = s.currentOctave___12797;
-    s.tmp_1.arg1 = s.note___12801;
-    s.callLocIdx = 46; s.pc = 43; return s.tmp_1;
-  case 43:
-    r0 = s.retval;
-    s.tmp_0.arg0 = r0;
-    r0 = (s.currentDuration___12793 * s.beat___12869);
-    s.tmp_0.arg1 = r0;
-    s.callLocIdx = 47; s.pc = 42; return s.tmp_0;
-  case 42:
-    r0 = s.retval;
-  case 30:
-    r0 = (s.arg0).fields["currentDuration"] = (s.currentDuration___12793);
-    r0 = (s.arg0).fields["currentOctave"] = (s.currentOctave___12797);
-    r0 = s.arg0.fields["repeating"];
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBool(s.tmp_0);
-    if (r0) { step = 31; continue; }
-    r0 = s.tmp_0;
-    { step = 32; continue; }
-  case 31:
-    s.tmp_1 = r0 = s.currentPos___12789;
-    r0 = s.arg0.fields["melodyArray"];
-    s.tmp_4 = r0;
-    r0 = pxsim_Array__length(s.tmp_4);
-    s.tmp_3 = r0;
-    r0 = (s.tmp_3 - 1);
-    s.tmp_2 = r0;
-    r0 = (s.tmp_1 == s.tmp_2);
-  case 32:
-    // jmp value (already in r0)
-    s.tmp_5 = r0;
-    s.repeating___12892 = (s.tmp_5);
-    r0 = pxsim_numops_toBoolDecr(s.repeating___12892);
-    if (!r0) { step = 33; continue; }
-    r0 = 0;
-    { step = 34; continue; }
-  case 33:
-    r0 = (s.currentPos___12789 + 1);
-  case 34:
-    // jmp value (already in r0)
-    s.tmp_0 = r0;
-    r0 = (s.arg0).fields["currentPos"] = (s.tmp_0);
-    r0 = s.arg0.fields["background"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 | 1);
-    s.tmp_0 = r0;
-    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
-    r0 = pxsim_numops_toBoolDecr(s.repeating___12892);
-    if (!r0) { step = 35; continue; }
-    r0 = s.arg0.fields["background"];
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 | 4);
-    s.tmp_0 = r0;
-    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
-  case 35:
-  case 36:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_playNextNote__P4021.info = {"start":17178,"length":2354,"line":500,"column":4,"endLine":547,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"playNextNote","argumentNames":["melody"]}
-
-function music_playNextNote__P4021_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_playNextNote__P4021, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  tmp_5: undefined,
-  currNote___12786: undefined,
-  currentPos___12789: undefined,
-  currentDuration___12793: undefined,
-  currentOctave___12797: undefined,
-  note___12801: undefined,
-  isrest___12802: undefined,
-  beatPos___12803: undefined,
-  parsingOctave___12804: undefined,
-  prevNote___12805: undefined,
-  pos___12806: undefined,
-  noteChar___12812: undefined,
-  beat___12869: undefined,
-  repeating___12892: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function music_getFrequencyForNote__P2554(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    s.tmp_1 = r0 = globals.freqs___4014;
-    s.tmp_4 = r0 = s.arg1;
-    r0 = (s.arg0 - 1);
-    s.tmp_6 = r0;
-    r0 = (12 * s.tmp_6);
-    s.tmp_5 = r0;
-    r0 = (s.tmp_4 + s.tmp_5);
-    s.tmp_3 = r0;
-    r0 = (s.tmp_3 * 2);
-    s.tmp_2 = r0;
-    r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, s.tmp_2);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBool(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    r0 = s.tmp_0;
-    { step = 2; continue; }
-  case 1:
-    r0 = 0;
-  case 2:
-    // jmp value (already in r0)
-    s.tmp_7 = r0;
-    r0 = s.tmp_7;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_getFrequencyForNote__P2554.info = {"start":17005,"length":167,"line":496,"column":4,"endLine":498,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"getFrequencyForNote","argumentNames":["octave","note"]}
-
-function music_getFrequencyForNote__P2554_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_getFrequencyForNote__P2554, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  tmp_5: undefined,
-  tmp_6: undefined,
-  tmp_7: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function music_Melody_nextNote__P4024(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.currentNote___12946 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, music_Melody__C4022_VT)) failedCast(r0);
-    r0 = s.arg0.fields["melodyArray"];
-    s.tmp_0 = r0;
-    r0 = s.arg0.fields["currentPos"];
-    s.tmp_1 = r0;
-    r0 = pxsim_Array__getAt(s.tmp_0, s.tmp_1);
-    s.currentNote___12946 = (r0);
-    r0 = s.currentNote___12946;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_Melody_nextNote__P4024.info = {"start":20498,"length":129,"line":572,"column":8,"endLine":575,"endColumn":9,"fileName":"pxt_modules/core/music.ts","functionName":"nextNote","argumentNames":["this"]}
-
-function music_Melody_nextNote__P4024_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_Melody_nextNote__P4024, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  currentNote___12946: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function music_Melody_hasNextNote__P4023(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, music_Melody__C4022_VT)) failedCast(r0);
-    r0 = s.arg0.fields["repeating"];
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBool(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    r0 = s.tmp_0;
-    { step = 2; continue; }
-  case 1:
-    r0 = s.arg0.fields["currentPos"];
-    s.tmp_1 = r0;
-    r0 = s.arg0.fields["melodyArray"];
-    s.tmp_3 = r0;
-    r0 = pxsim_Array__length(s.tmp_3);
-    s.tmp_2 = r0;
-    r0 = (s.tmp_1 < s.tmp_2);
-  case 2:
-    // jmp value (already in r0)
-    s.tmp_4 = r0;
-    r0 = s.tmp_4;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_Melody_hasNextNote__P4023.info = {"start":20383,"length":105,"line":568,"column":8,"endLine":570,"endColumn":9,"fileName":"pxt_modules/core/music.ts","functionName":"hasNextNote","argumentNames":["this"]}
-
-function music_Melody_hasNextNote__P4023_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_Melody_hasNextNote__P4023, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function music_Melody_constructor__P4025(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.arg2 = (s.lambdaArgs[2]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, music_Melody__C4022_VT)) failedCast(r0);
-    r0 = (s.arg0).fields["melodyArray"] = (s.arg1);
-    s.tmp_0 = r0 = s.arg0;
-    r0 = (s.arg2 & 10);
-    s.tmp_5 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_5);
-    s.tmp_4 = r0;
-    r0 = pxsim_Boolean__bang(s.tmp_4);
-    s.tmp_3 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_3);
-    s.tmp_2 = r0;
-    r0 = pxsim_Boolean__bang(s.tmp_2);
-    s.tmp_1 = r0;
-    r0 = (s.tmp_0).fields["repeating"] = (s.tmp_1);
-    r0 = (s.arg2 & 12);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    r0 = 240;
-    { step = 2; continue; }
-  case 1:
-    r0 = 0;
-  case 2:
-    // jmp value (already in r0)
-    s.tmp_1 = r0;
-    r0 = (s.arg0).fields["background"] = (s.tmp_1);
-    r0 = (s.arg0).fields["currentDuration"] = (4);
-    r0 = (s.arg0).fields["currentOctave"] = (4);
-    r0 = (s.arg0).fields["currentPos"] = (0);
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_Melody_constructor__P4025.info = {"start":19879,"length":494,"line":559,"column":8,"endLine":566,"endColumn":9,"fileName":"pxt_modules/core/music.ts","functionName":"inline","argumentNames":["this","melodyArray","options"]}
-
-function music_Melody_constructor__P4025_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_Melody_constructor__P4025, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  tmp_5: undefined,
-  arg0: undefined,
-  arg1: undefined,
-  arg2: undefined,
-} }
-
-
-
-
-
-function music_init__P4018(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    r0 = (globals.beatsPerMinute___4012 <= 0);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    globals.beatsPerMinute___4012 = (120);
-  case 1:
-  case 2:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_init__P4018.info = {"start":7752,"length":78,"line":247,"column":4,"endLine":249,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"init","argumentNames":[]}
-
-function music_init__P4018_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_init__P4018, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-} }
-
-
-
-
-
-function music_rest__P2539(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    s.tmp_0 = music_playTone__P2537_mk(s);
-    s.tmp_0.arg0 = 0;
-    s.tmp_0.arg1 = s.arg0;
-    s.callLocIdx = 30; s.pc = 1; return s.tmp_0;
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-music_rest__P2539.info = {"start":7200,"length":71,"line":226,"column":4,"endLine":228,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"rest","argumentNames":["ms"]}
-
-function music_rest__P2539_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: music_rest__P2539, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function servers_SoundPlayerServer_handlePacket__P3881(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.oldVol___13000 = undefined;
-    s.vol___13003 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_SoundPlayerServer__C3879_VT)) failedCast(r0);
-    r0 = pxsim.music.volume();
-    s.oldVol___13000 = (r0);
-    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.tmp_2.arg2 = 1;
-    s.tmp_2.arg3 = globals.Volume___3816;
-    r0 = (s.oldVol___13000 / 255);
-    s.tmp_2.arg4 = r0;
-    s.callLocIdx = 892; s.pc = 7; return s.tmp_2;
-  case 7:
-    r0 = s.retval;
-    s.tmp_1 = r0;
-    r0 = (s.tmp_1 * 255);
-    s.tmp_0 = r0;
-    r0 = (s.tmp_0 | 0);
-    s.vol___13003 = (r0);
-    r0 = (s.vol___13003 !== s.oldVol___13000);
-    s.tmp_0 = r0;
-    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
-    if (!r0) { step = 1; continue; }
-    r0 = pxsim.music.setVolume(s.vol___13003);
-  case 1:
-  case 2:
-    r0 = s.arg1.fields["_header"];
-    s.tmp_1 = r0;
-    r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, 14);
-    s.tmp_0 = r0;
-    r0 = pxsim_pxtcore.switch_eq(128, s.tmp_0);
-    if (r0) { step = 3; continue; }
-    r0 = pxsim_pxtcore.switch_eq(130, s.tmp_0);
-    if (r0) { step = 4; continue; }
-    r0 = s.tmp_0;
-    { step = 5; continue; }
-  case 3:
-    s.tmp_2 = servers_SoundPlayerServer_handlePlayCommand__P4418_mk(s);
-    s.tmp_2.arg0 = s.arg0;
-    s.tmp_2.arg1 = s.arg1;
-    s.callLocIdx = 894; s.pc = 8; return s.tmp_2;
-  case 8:
-    r0 = s.retval;
-    { step = 6; continue; }
-  case 4:
-    s.tmp_0 = servers_SoundPlayerServer_handleListSoundsCommand__P4419_mk(s);
-    s.tmp_0.arg0 = s.arg0;
-    s.tmp_0.arg1 = s.arg1;
-    s.callLocIdx = 895; s.pc = 9; return s.tmp_0;
-  case 9:
-    r0 = s.retval;
-    { step = 6; continue; }
-  case 5:
-    s.tmp_0 = jacdac_JDPacket_possiblyNotImplemented__P2890_mk(s);
-    s.tmp_0.arg0 = s.arg1;
-    s.callLocIdx = 896; s.pc = 10; return s.tmp_0;
-  case 10:
-    r0 = s.retval;
-  case 6:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_SoundPlayerServer_handlePacket__P3881.info = {"start":165,"length":901,"line":6,"column":8,"endLine":32,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"handlePacket","argumentNames":["this","pkt"]}
-
-function servers_SoundPlayerServer_handlePacket__P3881_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_SoundPlayerServer_handlePacket__P3881, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  oldVol___13000: undefined,
-  vol___13003: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function servers_SoundPlayerServer_handleListSoundsCommand__P4419(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.sounds___13034 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_SoundPlayerServer__C3879_VT)) failedCast(r0);
-    r0 = pxsim_Array__mk();
-    s.tmp_0 = r0;
-    r0 = pxsim_Array__push(s.tmp_0, 0);
-    r0 = pxsim_Array__push(s.tmp_0, "giggle");
-    r0 = pxsim_Array__mk();
-    s.tmp_1 = r0;
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_0);
-    r0 = pxsim_Array__mk();
-    s.tmp_2 = r0;
-    r0 = pxsim_Array__push(s.tmp_2, 0);
-    r0 = pxsim_Array__push(s.tmp_2, "happy");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_2);
-    r0 = pxsim_Array__mk();
-    s.tmp_3 = r0;
-    r0 = pxsim_Array__push(s.tmp_3, 0);
-    r0 = pxsim_Array__push(s.tmp_3, "hello");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_3);
-    r0 = pxsim_Array__mk();
-    s.tmp_4 = r0;
-    r0 = pxsim_Array__push(s.tmp_4, 0);
-    r0 = pxsim_Array__push(s.tmp_4, "mysterious");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_4);
-    r0 = pxsim_Array__mk();
-    s.tmp_5 = r0;
-    r0 = pxsim_Array__push(s.tmp_5, 0);
-    r0 = pxsim_Array__push(s.tmp_5, "sad");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_5);
-    r0 = pxsim_Array__mk();
-    s.tmp_6 = r0;
-    r0 = pxsim_Array__push(s.tmp_6, 0);
-    r0 = pxsim_Array__push(s.tmp_6, "slide");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_6);
-    r0 = pxsim_Array__mk();
-    s.tmp_7 = r0;
-    r0 = pxsim_Array__push(s.tmp_7, 0);
-    r0 = pxsim_Array__push(s.tmp_7, "soaring");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_7);
-    r0 = pxsim_Array__mk();
-    s.tmp_8 = r0;
-    r0 = pxsim_Array__push(s.tmp_8, 0);
-    r0 = pxsim_Array__push(s.tmp_8, "spring");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_8);
-    r0 = pxsim_Array__mk();
-    s.tmp_9 = r0;
-    r0 = pxsim_Array__push(s.tmp_9, 0);
-    r0 = pxsim_Array__push(s.tmp_9, "twinkle");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_9);
-    r0 = pxsim_Array__mk();
-    s.tmp_10 = r0;
-    r0 = pxsim_Array__push(s.tmp_10, 0);
-    r0 = pxsim_Array__push(s.tmp_10, "yawn");
-    r0 = pxsim_Array__push(s.tmp_1, s.tmp_10);
-    s.sounds___13034 = (s.tmp_1);
-    s.tmp_0 = jacdac_OutPipe_respondForEach__P2957_mk(s);
-    s.tmp_0.arg0 = s.arg1;
-    s.tmp_0.arg1 = s.sounds___13034;
-    s.tmp_0.arg2 = servers_SoundPlayerServer_handleListSoundsCommand_inline__P13049;
-    s.callLocIdx = 902; s.pc = 1; return s.tmp_0;
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_SoundPlayerServer_handleListSoundsCommand__P4419.info = {"start":1384,"length":580,"line":43,"column":8,"endLine":59,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"handleListSoundsCommand","argumentNames":["this","pkt"]}
-
-function servers_SoundPlayerServer_handleListSoundsCommand__P4419_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_SoundPlayerServer_handleListSoundsCommand__P4419, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  tmp_5: undefined,
-  tmp_6: undefined,
-  tmp_7: undefined,
-  tmp_8: undefined,
-  tmp_9: undefined,
-  tmp_10: undefined,
-  sounds___13034: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function servers_SoundPlayerServer_handleListSoundsCommand_inline__P13049(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    s.tmp_0 = jacdac_jdpack__P2934_mk(s);
-    s.tmp_0.arg0 = "u32 s";
-    s.tmp_0.arg1 = s.arg0;
-    s.callLocIdx = 901; s.pc = 1; return s.tmp_0;
-  case 1:
-    r0 = s.retval;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_SoundPlayerServer_handleListSoundsCommand_inline__P13049.info = {"start":1866,"length":87,"line":56,"column":55,"endLine":58,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"inline","argumentNames":["k"]}
-
-function servers_SoundPlayerServer_handleListSoundsCommand_inline__P13049_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_SoundPlayerServer_handleListSoundsCommand_inline__P13049, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function servers_SoundPlayerServer_handlePlayCommand__P4418(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    s.name___13060 = undefined;
-    s.exp___13063 = undefined;
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, servers_SoundPlayerServer__C3879_VT)) failedCast(r0);
-    s.tmp_1 = jacdac_JDPacket_jdunpack__P2914_mk(s);
-    s.tmp_1.arg0 = s.arg1;
-    s.tmp_1.arg1 = globals.Play___3822;
-    s.callLocIdx = 897; s.pc = 3; return s.tmp_1;
-  case 3:
-    r0 = s.retval;
-    s.tmp_0 = r0;
-    r0 = pxsim_Array__getAt(s.tmp_0, 0);
-    s.name___13060 = (r0);
-    r0 = pxsim_numops_toBoolDecr(s.name___13060);
-    if (!r0) { step = 1; continue; }
-    s.tmp_0 = music_stopAllSounds__P2552_mk(s);
-    s.callLocIdx = 898; s.pc = 4; return s.tmp_0;
-  case 4:
-    r0 = s.retval;
-    r0 = pxsim_pxtcore_mkClassInstance(SoundExpression__C2692_VT);
-    s.tmp_0 = r0;
-    s.tmp_1 = SoundExpression_constructor__P2693_mk(s);
-    s.tmp_1.arg0 = s.tmp_0;
-    s.tmp_1.arg1 = s.name___13060;
-    s.callLocIdx = 899; s.pc = 5; return s.tmp_1;
-  case 5:
-    r0 = s.retval;
-    s.exp___13063 = (s.tmp_0);
-    s.tmp_0 = SoundExpression_play__P2694_mk(s);
-    s.tmp_0.arg0 = s.exp___13063;
-    s.callLocIdx = 900; s.pc = 6; return s.tmp_0;
-  case 6:
-    r0 = s.retval;
-  case 1:
-  case 2:
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-servers_SoundPlayerServer_handlePlayCommand__P4418.info = {"start":1076,"length":298,"line":34,"column":8,"endLine":41,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"handlePlayCommand","argumentNames":["this","pkt"]}
-
-function servers_SoundPlayerServer_handlePlayCommand__P4418_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: servers_SoundPlayerServer_handlePlayCommand__P4418, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  name___13060: undefined,
-  exp___13063: undefined,
-  arg0: undefined,
-  arg1: undefined,
-} }
-
-
-
-
-
-function SoundExpression_play__P2694(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, SoundExpression__C2692_VT)) failedCast(r0);
-    r0 = s.arg0.fields["notes"];
-    s.tmp_0 = r0;
-    setupResume(s, 1);
-    pxsim.music.__playSoundExpression(s.tmp_0, false);
-    checkResumeConsumed();
-    return;
-  case 1:
-    r0 = s.retval;
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-SoundExpression_play__P2694.info = {"start":411,"length":69,"line":20,"column":4,"endLine":22,"endColumn":5,"fileName":"pxt_modules/core/soundexpressions.ts","functionName":"play","argumentNames":["this"]}
-
-function SoundExpression_play__P2694_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: SoundExpression_play__P2694, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  arg0: undefined,
-} }
-
-
-
-
-
-function SoundExpression_constructor__P2693(s) {
-let r0 = s.r0, step = s.pc;
-s.pc = -1;
-
-
-while (true) {
-if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
-switch (step) {
-  case 0:
-
-    if (s.lambdaArgs) {
-      s.arg0 = (s.lambdaArgs[0]);
-      s.arg1 = (s.lambdaArgs[1]);
-      s.lambdaArgs = null;
-    }
-    r0 = s.arg0;
-    if (!checkSubtype(r0, SoundExpression__C2692_VT)) failedCast(r0);
-    r0 = (s.arg0).fields["notes"] = (s.arg1);
-    r0 = undefined;
-    return leave(s, r0)
-  default: oops()
-} } }
-SoundExpression_constructor__P2693.info = {"start":130,"length":42,"line":7,"column":4,"endLine":8,"endColumn":5,"fileName":"pxt_modules/core/soundexpressions.ts","functionName":"inline","argumentNames":["this","notes"]}
-
-function SoundExpression_constructor__P2693_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: SoundExpression_constructor__P2693, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  arg0: undefined,
-  arg1: undefined,
 } }
 
 
@@ -32385,7 +30151,7 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.msg___13122 = undefined;
+    s.msg___12356 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.lambdaArgs = null;
@@ -32546,7 +30312,7 @@ switch (step) {
     r0 = s.retval;
     s.tmp_38 = r0;
     r0 = pxsim_String__concat(s.tmp_3, s.tmp_38);
-    s.msg___13122 = (r0);
+    s.msg___12356 = (r0);
     r0 = s.arg0.fields["_header"];
     s.tmp_2 = r0;
     r0 = pxsim.BufferMethods.getByte(s.tmp_2, 12);
@@ -32555,12 +30321,12 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 3; continue; }
-    if ((s.msg___13122) && (s.msg___13122).vtable) {
+    if ((s.msg___12356) && (s.msg___12356).vtable) {
     setupResume(s, 16);
-    pxsim_String__stringConv(s.msg___13122);
+    pxsim_String__stringConv(s.msg___12356);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.msg___13122) + ""; }
+    } else { s.retval = (s.msg___12356) + ""; }
   case 16:
     r0 = s.retval;
     s.tmp_3 = r0;
@@ -32589,15 +30355,15 @@ switch (step) {
     r0 = s.retval;
     s.tmp_4 = r0;
     r0 = pxsim_String__concat(s.tmp_3, s.tmp_4);
-    s.msg___13122 = (r0);
+    s.msg___12356 = (r0);
     { step = 4; continue; }
   case 3:
-    if ((s.msg___13122) && (s.msg___13122).vtable) {
+    if ((s.msg___12356) && (s.msg___12356).vtable) {
     setupResume(s, 19);
-    pxsim_String__stringConv(s.msg___13122);
+    pxsim_String__stringConv(s.msg___12356);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.msg___13122) + ""; }
+    } else { s.retval = (s.msg___12356) + ""; }
   case 19:
     r0 = s.retval;
     s.tmp_0 = r0;
@@ -32639,9 +30405,9 @@ switch (step) {
     r0 = s.retval;
     s.tmp_1 = r0;
     r0 = pxsim_String__concat(s.tmp_0, s.tmp_1);
-    s.msg___13122 = (r0);
+    s.msg___12356 = (r0);
   case 4:
-    r0 = s.msg___13122;
+    r0 = s.msg___12356;
     return leave(s, r0)
   default: oops()
 } } }
@@ -32693,7 +30459,7 @@ function jacdac_JDPacket_toString__P2921_mk(s) {
   tmp_38: undefined,
   tmp_39: undefined,
   tmp_40: undefined,
-  msg___13122: undefined,
+  msg___12356: undefined,
   arg0: undefined,
 } }
 
@@ -32749,36 +30515,36 @@ if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) re
 switch (step) {
   case 0:
 
-    s.hex___13204 = undefined;
-    s.r___13206 = undefined;
-    s.i___13207 = undefined;
+    s.hex___12438 = undefined;
+    s.r___12440 = undefined;
+    s.i___12441 = undefined;
     if (s.lambdaArgs) {
       s.arg0 = (s.lambdaArgs[0]);
       s.arg1 = (s.lambdaArgs[1]);
       s.lambdaArgs = null;
     }
-    s.hex___13204 = ("0123456789abcdef");
-    s.r___13206 = ("0x");
-    s.i___13207 = (0);
+    s.hex___12438 = ("0123456789abcdef");
+    s.r___12440 = ("0x");
+    s.i___12441 = (0);
   case 1:
-    r0 = (s.i___13207 < s.arg1);
+    r0 = (s.i___12441 < s.arg1);
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
-    if ((s.r___13206) && (s.r___13206).vtable) {
+    if ((s.r___12440) && (s.r___12440).vtable) {
     setupResume(s, 3);
-    pxsim_String__stringConv(s.r___13206);
+    pxsim_String__stringConv(s.r___12440);
     checkResumeConsumed();
     return;
-    } else { s.retval = (s.r___13206) + ""; }
+    } else { s.retval = (s.r___12440) + ""; }
   case 3:
     r0 = s.retval;
     s.tmp_1 = r0;
-    s.tmp_4 = r0 = s.hex___13204;
+    s.tmp_4 = r0 = s.hex___12438;
     s.tmp_7 = r0 = s.arg0;
     r0 = (s.arg1 - 1);
     s.tmp_10 = r0;
-    r0 = (s.tmp_10 - s.i___13207);
+    r0 = (s.tmp_10 - s.i___12441);
     s.tmp_9 = r0;
     r0 = (s.tmp_9 * 4);
     s.tmp_8 = r0;
@@ -32798,12 +30564,12 @@ switch (step) {
     r0 = s.retval;
     s.tmp_2 = r0;
     r0 = pxsim_String__concat(s.tmp_1, s.tmp_2);
-    s.r___13206 = (r0);
-    r0 = (s.i___13207 + 1);
-    s.i___13207 = (r0);
+    s.r___12440 = (r0);
+    r0 = (s.i___12441 + 1);
+    s.i___12441 = (r0);
     { step = 1; continue; }
   case 2:
-    r0 = s.r___13206;
+    r0 = s.r___12440;
     return leave(s, r0)
   default: oops()
 } } }
@@ -32825,9 +30591,2244 @@ function jacdac_hexNum__P2876_mk(s) {
   tmp_8: undefined,
   tmp_9: undefined,
   tmp_10: undefined,
-  hex___13204: undefined,
-  r___13206: undefined,
-  i___13207: undefined,
+  hex___12438: undefined,
+  r___12440: undefined,
+  i___12441: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function servers_ScreenServer_handlePacket__P3874(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.regCode___12469 = undefined;
+    s.x___12477 = undefined;
+    s.y___12478 = undefined;
+    s.i___12479 = undefined;
+    s.byte___12483 = undefined;
+    s.bit___12488 = undefined;
+    s.x___12519 = undefined;
+    s.y___12520 = undefined;
+    s.buf___12521 = undefined;
+    s.i___12525 = undefined;
+    s.byte___12532 = undefined;
+    s.bit___12537 = undefined;
+    s.b___12580 = undefined;
+    s.b___12609 = undefined;
+    s.nb___12613 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_ScreenServer__C3872_VT)) failedCast(r0);
+    s.tmp_0 = jacdac_JDPacket_regCode__P2908_mk(s);
+    s.tmp_0.arg0 = s.arg1;
+    s.callLocIdx = 875; s.pc = 31; return s.tmp_0;
+  case 31:
+    r0 = s.retval;
+    s.regCode___12469 = (r0);
+    r0 = (s.regCode___12469 == 2);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 15; continue; }
+    s.tmp_2 = jacdac_JDPacket_isRegSet__P2906_mk(s);
+    s.tmp_2.arg0 = s.arg1;
+    s.callLocIdx = 876; s.pc = 32; return s.tmp_2;
+  case 32:
+    r0 = s.retval;
+    s.tmp_1 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
+    if (!r0) { step = 7; continue; }
+    s.x___12477 = (0);
+    s.y___12478 = (0);
+    s.i___12479 = (0);
+  case 1:
+    r0 = (s.i___12479 < 25);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 6; continue; }
+    r0 = (s.i___12479 / 5);
+    s.tmp_1 = r0;
+    r0 = pxsim.Math_.floor(s.tmp_1);
+    s.byte___12483 = (r0);
+    s.tmp_1 = r0 = s.i___12479;
+    r0 = (s.byte___12483 * 5);
+    s.tmp_2 = r0;
+    r0 = (s.tmp_1 - s.tmp_2);
+    s.tmp_0 = r0;
+    r0 = (1 << s.tmp_0);
+    s.bit___12488 = (r0);
+    r0 = s.arg1.fields["_data"];
+    s.tmp_2 = r0;
+    r0 = pxsim.BufferMethods.getByte(s.tmp_2, s.byte___12483);
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 & s.bit___12488);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 2; continue; }
+    r0 = pxsim.led.plot(s.y___12478, s.x___12477);
+    { step = 3; continue; }
+  case 2:
+    r0 = pxsim.led.unplot(s.y___12478, s.x___12477);
+  case 3:
+    r0 = (s.x___12477 + 1);
+    s.x___12477 = (r0);
+    r0 = (s.x___12477 == 5);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 4; continue; }
+    s.x___12477 = (0);
+    r0 = (s.y___12478 + 1);
+    s.y___12478 = (r0);
+  case 4:
+  case 5:
+    r0 = (s.i___12479 + 1);
+    s.i___12479 = (r0);
+    { step = 1; continue; }
+  case 6:
+    { step = 14; continue; }
+  case 7:
+    s.x___12519 = (0);
+    s.y___12520 = (0);
+    r0 = pxsim.control.createBuffer(5);
+    s.buf___12521 = (r0);
+    s.i___12525 = (0);
+  case 8:
+    r0 = (s.i___12525 < 25);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 13; continue; }
+    r0 = pxsim.led.pointBrightness(s.y___12520, s.x___12519);
+    s.tmp_2 = r0;
+    r0 = (s.tmp_2 > 0);
+    s.tmp_1 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
+    if (!r0) { step = 9; continue; }
+    r0 = (s.i___12525 / 5);
+    s.tmp_3 = r0;
+    r0 = pxsim.Math_.floor(s.tmp_3);
+    s.byte___12532 = (r0);
+    s.tmp_1 = r0 = s.i___12525;
+    r0 = (s.byte___12532 * 5);
+    s.tmp_2 = r0;
+    r0 = (s.tmp_1 - s.tmp_2);
+    s.tmp_0 = r0;
+    r0 = (1 << s.tmp_0);
+    s.bit___12537 = (r0);
+    s.tmp_0 = r0 = s.buf___12521;
+    s.tmp_1 = r0 = s.byte___12532;
+    r0 = pxsim.BufferMethods.getByte(s.tmp_0, s.byte___12532);
+    s.tmp_3 = r0;
+    r0 = (s.tmp_3 | s.bit___12537);
+    s.tmp_2 = r0;
+    r0 = pxsim.BufferMethods.setByte(s.tmp_0, s.tmp_1, s.tmp_2);
+  case 9:
+  case 10:
+    r0 = (s.x___12519 + 1);
+    s.x___12519 = (r0);
+    r0 = (s.x___12519 == 5);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 11; continue; }
+    s.x___12519 = (0);
+    r0 = (s.y___12520 + 1);
+    s.y___12520 = (r0);
+  case 11:
+  case 12:
+    r0 = (s.i___12525 + 1);
+    s.i___12525 = (r0);
+    { step = 8; continue; }
+  case 13:
+    s.tmp_0 = jacdac_Server_handleRegBuffer__P4198_mk(s);
+    s.tmp_0.arg0 = s.arg0;
+    s.tmp_0.arg1 = s.arg1;
+    s.tmp_1 = jacdac_JDPacket_regCode__P2908_mk(s);
+    s.tmp_1.arg0 = s.arg1;
+    s.callLocIdx = 879; s.pc = 34; return s.tmp_1;
+  case 34:
+    r0 = s.retval;
+    s.tmp_0.arg2 = r0;
+    s.tmp_0.arg3 = s.buf___12521;
+    s.callLocIdx = 880; s.pc = 33; return s.tmp_0;
+  case 33:
+    r0 = s.retval;
+  case 14:
+    { step = 30; continue; }
+  case 15:
+    r0 = (s.regCode___12469 == 386);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBool(s.tmp_0);
+    if (!r0) { step = 16; continue; }
+    r0 = s.tmp_0;
+    { step = 17; continue; }
+  case 16:
+    r0 = (s.regCode___12469 == 385);
+  case 17:
+    // jmp value (already in r0)
+    s.tmp_1 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
+    if (!r0) { step = 18; continue; }
+    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.tmp_2.arg2 = s.regCode___12469;
+    s.tmp_2.arg3 = globals.Columns___3781;
+    s.tmp_2.arg4 = 5;
+    s.callLocIdx = 881; s.pc = 35; return s.tmp_2;
+  case 35:
+    r0 = s.retval;
+    { step = 29; continue; }
+  case 18:
+    r0 = (s.regCode___12469 == 1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 21; continue; }
+    s.tmp_1 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_1.arg0 = s.arg0;
+    s.tmp_1.arg1 = s.arg1;
+    s.tmp_1.arg2 = s.regCode___12469;
+    s.tmp_1.arg3 = globals.Brightness___3779;
+    r0 = pxsim.led.brightness();
+    s.tmp_2 = r0;
+    r0 = (s.tmp_2 / 255);
+    s.tmp_1.arg4 = r0;
+    s.callLocIdx = 882; s.pc = 36; return s.tmp_1;
+  case 36:
+    r0 = s.retval;
+    s.b___12580 = (r0);
+    s.tmp_1 = jacdac_JDPacket_isRegSet__P2906_mk(s);
+    s.tmp_1.arg0 = s.arg1;
+    s.callLocIdx = 883; s.pc = 37; return s.tmp_1;
+  case 37:
+    r0 = s.retval;
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 19; continue; }
+    r0 = (s.b___12580 * 255);
+    s.tmp_2 = r0;
+    r0 = pxsim.led.setBrightness(s.tmp_2);
+  case 19:
+  case 20:
+    { step = 28; continue; }
+  case 21:
+    r0 = (s.regCode___12469 === 263);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 22; continue; }
+    s.tmp_1 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_1.arg0 = s.arg0;
+    s.tmp_1.arg1 = s.arg1;
+    s.tmp_1.arg2 = s.regCode___12469;
+    s.tmp_1.arg3 = globals.Variant___3782;
+    s.tmp_1.arg4 = 1;
+    s.callLocIdx = 884; s.pc = 38; return s.tmp_1;
+  case 38:
+    r0 = s.retval;
+    { step = 27; continue; }
+  case 22:
+    s.tmp_2 = jacdac_JDPacket_regCode__P2908_mk(s);
+    s.tmp_2.arg0 = s.arg1;
+    s.callLocIdx = 885; s.pc = 39; return s.tmp_2;
+  case 39:
+    r0 = s.retval;
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 === 1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 25; continue; }
+    r0 = pxsim.led.brightness();
+    s.tmp_3 = r0;
+    r0 = (s.tmp_3 / 255);
+    s.b___12609 = (r0);
+    s.tmp_0 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_0.arg0 = s.arg0;
+    s.tmp_0.arg1 = s.arg1;
+    s.tmp_1 = jacdac_JDPacket_regCode__P2908_mk(s);
+    s.tmp_1.arg0 = s.arg1;
+    s.callLocIdx = 886; s.pc = 41; return s.tmp_1;
+  case 41:
+    r0 = s.retval;
+    s.tmp_0.arg2 = r0;
+    s.tmp_0.arg3 = globals.Brightness___3779;
+    s.tmp_0.arg4 = s.b___12609;
+    s.callLocIdx = 887; s.pc = 40; return s.tmp_0;
+  case 40:
+    r0 = s.retval;
+    s.nb___12613 = (r0);
+    r0 = (s.b___12609 !== s.nb___12613);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 23; continue; }
+    r0 = (s.nb___12613 << 8);
+    s.tmp_1 = r0;
+    r0 = pxsim.led.setBrightness(s.tmp_1);
+  case 23:
+  case 24:
+    { step = 26; continue; }
+  case 25:
+    s.tmp_0 = jacdac_JDPacket_possiblyNotImplemented__P2890_mk(s);
+    s.tmp_0.arg0 = s.arg1;
+    s.callLocIdx = 888; s.pc = 42; return s.tmp_0;
+  case 42:
+    r0 = s.retval;
+  case 26:
+  case 27:
+  case 28:
+  case 29:
+  case 30:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_ScreenServer_handlePacket__P3874.info = {"start":158,"length":2744,"line":6,"column":8,"endLine":74,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitScreen.ts","functionName":"handlePacket","argumentNames":["this","packet"]}
+
+function servers_ScreenServer_handlePacket__P3874_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_ScreenServer_handlePacket__P3874, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  regCode___12469: undefined,
+  x___12477: undefined,
+  y___12478: undefined,
+  i___12479: undefined,
+  byte___12483: undefined,
+  bit___12488: undefined,
+  x___12519: undefined,
+  y___12520: undefined,
+  buf___12521: undefined,
+  i___12525: undefined,
+  byte___12532: undefined,
+  bit___12537: undefined,
+  b___12580: undefined,
+  b___12609: undefined,
+  nb___12613: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function jacdac_Server_handleRegBuffer__P4198(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.getset___12634 = undefined;
+    s.reg___12644 = undefined;
+    s.data___12665 = undefined;
+    s.diff___12668 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.arg2 = (s.lambdaArgs[2]);
+      s.arg3 = (s.lambdaArgs[3]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, jacdac_Server__C3447_VT)) failedCast(r0);
+    r0 = s.arg1.fields["_header"];
+    s.tmp_1 = r0;
+    r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, 14);
+    s.tmp_0 = r0;
+    r0 = (s.tmp_0 >> 12);
+    s.getset___12634 = (r0);
+    r0 = (s.getset___12634 == 0);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBool(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    r0 = s.tmp_0;
+    { step = 2; continue; }
+  case 1:
+    r0 = (s.getset___12634 > 2);
+  case 2:
+    // jmp value (already in r0)
+    s.tmp_1 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
+    if (!r0) { step = 3; continue; }
+    r0 = s.arg3;
+    { step = 17; continue; }
+  case 3:
+  case 4:
+    r0 = s.arg1.fields["_header"];
+    s.tmp_3 = r0;
+    r0 = pxsim.BufferMethods.getNumber(s.tmp_3, 4, 14);
+    s.tmp_2 = r0;
+    r0 = (s.tmp_2 & 4095);
+    s.reg___12644 = (r0);
+    r0 = (s.reg___12644 != s.arg2);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 5; continue; }
+    r0 = s.arg3;
+    { step = 17; continue; }
+  case 5:
+  case 6:
+    s.tmp_1 = jacdac_JDPacket_markHandled__P2889_mk(s);
+    s.tmp_1.arg0 = s.arg1;
+    s.callLocIdx = 522; s.pc = 18; return s.tmp_1;
+  case 18:
+    r0 = s.retval;
+    r0 = (s.getset___12634 == 1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 7; continue; }
+    s.tmp_1 = jacdac_Server_sendReport__P4185_mk(s);
+    s.tmp_1.arg0 = s.arg0;
+    s.tmp_2 = jacdac_JDPacket_from__P2883_mk(s);
+    r0 = s.arg1.fields["_header"];
+    s.tmp_3 = r0;
+    r0 = pxsim.BufferMethods.getNumber(s.tmp_3, 4, 14);
+    s.tmp_2.arg0 = r0;
+    s.tmp_2.arg1 = s.arg3;
+    s.callLocIdx = 524; s.pc = 20; return s.tmp_2;
+  case 20:
+    r0 = s.retval;
+    s.tmp_1.arg1 = r0;
+    s.callLocIdx = 525; s.pc = 19; return s.tmp_1;
+  case 19:
+    r0 = s.retval;
+    { step = 16; continue; }
+  case 7:
+    r0 = (s.arg2 >> 8);
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 == 1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 8; continue; }
+    r0 = s.arg3;
+    { step = 17; continue; }
+  case 8:
+  case 9:
+    r0 = s.arg1.fields["_data"];
+    s.data___12665 = (r0);
+    r0 = pxsim.BufferMethods.length(s.arg3);
+    s.tmp_0 = r0;
+    r0 = pxsim.BufferMethods.length(s.data___12665);
+    s.tmp_1 = r0;
+    r0 = (s.tmp_0 - s.tmp_1);
+    s.diff___12668 = (r0);
+    r0 = (s.diff___12668 == 0);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 10; continue; }
+    { step = 13; continue; }
+  case 10:
+    r0 = (s.diff___12668 < 0);
+    s.tmp_1 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_1);
+    if (!r0) { step = 11; continue; }
+    s.tmp_2 = r0 = s.data___12665;
+    r0 = pxsim.BufferMethods.length(s.arg3);
+    s.tmp_3 = r0;
+    r0 = pxsim.BufferMethods.slice(s.tmp_2, 0, s.tmp_3);
+    s.data___12665 = (r0);
+    { step = 12; continue; }
+  case 11:
+    s.tmp_0 = helpers_bufferConcat__P2618_mk(s);
+    s.tmp_0.arg0 = s.data___12665;
+    r0 = pxsim.control.createBuffer(s.diff___12668);
+    s.tmp_0.arg1 = r0;
+    s.callLocIdx = 527; s.pc = 21; return s.tmp_0;
+  case 21:
+    r0 = s.retval;
+    s.data___12665 = (r0);
+  case 12:
+  case 13:
+    s.tmp_3 = helpers_bufferEquals__P2619_mk(s);
+    s.tmp_3.arg0 = s.data___12665;
+    s.tmp_3.arg1 = s.arg3;
+    s.callLocIdx = 528; s.pc = 22; return s.tmp_3;
+  case 22:
+    r0 = s.retval;
+    s.tmp_2 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_2);
+    s.tmp_1 = r0;
+    r0 = pxsim_Boolean__bang(s.tmp_1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 14; continue; }
+    r0 = pxsim.BufferMethods.write(s.arg3, 0, s.data___12665);
+    r0 = (s.arg0).fields["stateUpdated"] = (true);
+  case 14:
+  case 15:
+  case 16:
+    r0 = s.arg3;
+  case 17:
+    return leave(s, r0)
+  default: oops()
+} } }
+jacdac_Server_handleRegBuffer__P4198.info = {"start":24987,"length":1057,"line":747,"column":8,"endLine":775,"endColumn":9,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"handleRegBuffer","argumentNames":["this","pkt","register","current"]}
+
+function jacdac_Server_handleRegBuffer__P4198_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: jacdac_Server_handleRegBuffer__P4198, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  getset___12634: undefined,
+  reg___12644: undefined,
+  data___12665: undefined,
+  diff___12668: undefined,
+  arg0: undefined,
+  arg1: undefined,
+  arg2: undefined,
+  arg3: undefined,
+} }
+
+
+
+
+
+function led_point__P2451(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = pxsim.led.pointBrightness(s.arg0, s.arg1);
+    s.tmp_0 = r0;
+    r0 = (s.tmp_0 > 0);
+    return leave(s, r0)
+  default: oops()
+} } }
+led_point__P2451.info = {"start":529,"length":106,"line":15,"column":4,"endLine":17,"endColumn":5,"fileName":"pxt_modules/core/led.ts","functionName":"point","argumentNames":["x","y"]}
+
+function led_point__P2451_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: led_point__P2451, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function jacdac_JDPacket_isRegSet__P2906(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, jacdac_JDPacket__C2877_VT)) failedCast(r0);
+    r0 = s.arg0.fields["_header"];
+    s.tmp_2 = r0;
+    r0 = pxsim.BufferMethods.getNumber(s.tmp_2, 4, 14);
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 >> 12);
+    s.tmp_0 = r0;
+    r0 = (s.tmp_0 == 2);
+    return leaveAccessor(s, r0)
+  default: oops()
+} } }
+jacdac_JDPacket_isRegSet__P2906.info = {"start":6061,"length":92,"line":184,"column":8,"endLine":186,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"isRegSet","argumentNames":["this"]}
+jacdac_JDPacket_isRegSet__P2906.isGetter = true;
+
+function jacdac_JDPacket_isRegSet__P2906_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: jacdac_JDPacket_isRegSet__P2906, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function jacdac_SimpleSensorServer_handlePacket__P3250(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, jacdac_SimpleSensorServer__C3246_VT)) failedCast(r0);
+    r0 = s.arg0.fields["minReading"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 !== undefined);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.tmp_2.arg2 = 260;
+    r0 = s.arg0.fields["packFormat"];
+    s.tmp_2.arg3 = r0;
+    r0 = s.arg0.fields["minReading"];
+    s.tmp_2.arg4 = r0;
+    s.callLocIdx = 266; s.pc = 7; return s.tmp_2;
+  case 7:
+    r0 = s.retval;
+  case 1:
+  case 2:
+    r0 = s.arg0.fields["maxReading"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 !== undefined);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 3; continue; }
+    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.tmp_2.arg2 = 261;
+    r0 = s.arg0.fields["packFormat"];
+    s.tmp_2.arg3 = r0;
+    r0 = s.arg0.fields["maxReading"];
+    s.tmp_2.arg4 = r0;
+    s.callLocIdx = 267; s.pc = 8; return s.tmp_2;
+  case 8:
+    r0 = s.retval;
+  case 3:
+  case 4:
+    r0 = s.arg0.fields["readingError"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 !== undefined);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 5; continue; }
+    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.tmp_2.arg2 = 262;
+    r0 = s.arg0.fields["packFormat"];
+    s.tmp_2.arg3 = r0;
+    s.tmp_3 = if_readingError_1_mk(s);
+    s.tmp_3.arg0 = s.arg0;
+    if (!s.tmp_3.arg0.vtable.iface) {
+      setupLambda(s.tmp_3, pxsim_pxtrt.mapGetByString(s.tmp_3.arg0, "readingError"), 1);
+      s.callLocIdx = 268; s.pc = 10; return s.tmp_3;
+    } else {
+      s.tmp_3.fn = s.tmp_3.arg0.vtable.iface["readingError"];
+      if (s.tmp_3.fn == null) { setupLambda(s.tmp_3, s.tmp_3.arg0.fields["readingError"], 1); s.callLocIdx = 268; s.pc = 10; return s.tmp_3; }
+      else if (s.tmp_3.fn.isGetter) { s.tmp_3.stage2Call = true; s.callLocIdx = 268; s.pc = 10; return s.tmp_3;; }
+     else { s.callLocIdx = 268; s.pc = 10; return s.tmp_3; }
+    }
+  case 10:
+    r0 = s.retval;
+    s.tmp_2.arg4 = r0;
+    s.callLocIdx = 269; s.pc = 9; return s.tmp_2;
+  case 9:
+    r0 = s.retval;
+  case 5:
+  case 6:
+    s.tmp_0 = jacdac_SensorServer_handlePacket__P3240_mk(s);
+    s.tmp_0.arg0 = s.arg0;
+    s.tmp_0.arg1 = s.arg1;
+    s.callLocIdx = 270; s.pc = 11; return s.tmp_0;
+  case 11:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+jacdac_SimpleSensorServer_handlePacket__P3250.info = {"start":5133,"length":844,"line":151,"column":8,"endLine":174,"endColumn":9,"fileName":"pxt_modules/jacdac/sensor/server.ts","functionName":"handlePacket","argumentNames":["this","pkt"]}
+
+function jacdac_SimpleSensorServer_handlePacket__P3250_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: jacdac_SimpleSensorServer_handlePacket__P3250, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function servers_SoundPlayerServer_handlePacket__P3881(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.oldVol___12754 = undefined;
+    s.vol___12757 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_SoundPlayerServer__C3879_VT)) failedCast(r0);
+    r0 = pxsim.music.volume();
+    s.oldVol___12754 = (r0);
+    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.tmp_2.arg2 = 1;
+    s.tmp_2.arg3 = globals.Volume___3816;
+    r0 = (s.oldVol___12754 / 255);
+    s.tmp_2.arg4 = r0;
+    s.callLocIdx = 892; s.pc = 7; return s.tmp_2;
+  case 7:
+    r0 = s.retval;
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 * 255);
+    s.tmp_0 = r0;
+    r0 = (s.tmp_0 | 0);
+    s.vol___12757 = (r0);
+    r0 = (s.vol___12757 !== s.oldVol___12754);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    r0 = pxsim.music.setVolume(s.vol___12757);
+  case 1:
+  case 2:
+    r0 = s.arg1.fields["_header"];
+    s.tmp_1 = r0;
+    r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, 14);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtcore.switch_eq(128, s.tmp_0);
+    if (r0) { step = 3; continue; }
+    r0 = pxsim_pxtcore.switch_eq(130, s.tmp_0);
+    if (r0) { step = 4; continue; }
+    r0 = s.tmp_0;
+    { step = 5; continue; }
+  case 3:
+    s.tmp_2 = servers_SoundPlayerServer_handlePlayCommand__P4418_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.callLocIdx = 894; s.pc = 8; return s.tmp_2;
+  case 8:
+    r0 = s.retval;
+    { step = 6; continue; }
+  case 4:
+    s.tmp_0 = servers_SoundPlayerServer_handleListSoundsCommand__P4419_mk(s);
+    s.tmp_0.arg0 = s.arg0;
+    s.tmp_0.arg1 = s.arg1;
+    s.callLocIdx = 895; s.pc = 9; return s.tmp_0;
+  case 9:
+    r0 = s.retval;
+    { step = 6; continue; }
+  case 5:
+    s.tmp_0 = jacdac_JDPacket_possiblyNotImplemented__P2890_mk(s);
+    s.tmp_0.arg0 = s.arg1;
+    s.callLocIdx = 896; s.pc = 10; return s.tmp_0;
+  case 10:
+    r0 = s.retval;
+  case 6:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_SoundPlayerServer_handlePacket__P3881.info = {"start":165,"length":901,"line":6,"column":8,"endLine":32,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"handlePacket","argumentNames":["this","pkt"]}
+
+function servers_SoundPlayerServer_handlePacket__P3881_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_SoundPlayerServer_handlePacket__P3881, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  oldVol___12754: undefined,
+  vol___12757: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function servers_SoundPlayerServer_handleListSoundsCommand__P4419(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.sounds___12788 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_SoundPlayerServer__C3879_VT)) failedCast(r0);
+    r0 = pxsim_Array__mk();
+    s.tmp_0 = r0;
+    r0 = pxsim_Array__push(s.tmp_0, 0);
+    r0 = pxsim_Array__push(s.tmp_0, "giggle");
+    r0 = pxsim_Array__mk();
+    s.tmp_1 = r0;
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_0);
+    r0 = pxsim_Array__mk();
+    s.tmp_2 = r0;
+    r0 = pxsim_Array__push(s.tmp_2, 0);
+    r0 = pxsim_Array__push(s.tmp_2, "happy");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_2);
+    r0 = pxsim_Array__mk();
+    s.tmp_3 = r0;
+    r0 = pxsim_Array__push(s.tmp_3, 0);
+    r0 = pxsim_Array__push(s.tmp_3, "hello");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_3);
+    r0 = pxsim_Array__mk();
+    s.tmp_4 = r0;
+    r0 = pxsim_Array__push(s.tmp_4, 0);
+    r0 = pxsim_Array__push(s.tmp_4, "mysterious");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_4);
+    r0 = pxsim_Array__mk();
+    s.tmp_5 = r0;
+    r0 = pxsim_Array__push(s.tmp_5, 0);
+    r0 = pxsim_Array__push(s.tmp_5, "sad");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_5);
+    r0 = pxsim_Array__mk();
+    s.tmp_6 = r0;
+    r0 = pxsim_Array__push(s.tmp_6, 0);
+    r0 = pxsim_Array__push(s.tmp_6, "slide");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_6);
+    r0 = pxsim_Array__mk();
+    s.tmp_7 = r0;
+    r0 = pxsim_Array__push(s.tmp_7, 0);
+    r0 = pxsim_Array__push(s.tmp_7, "soaring");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_7);
+    r0 = pxsim_Array__mk();
+    s.tmp_8 = r0;
+    r0 = pxsim_Array__push(s.tmp_8, 0);
+    r0 = pxsim_Array__push(s.tmp_8, "spring");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_8);
+    r0 = pxsim_Array__mk();
+    s.tmp_9 = r0;
+    r0 = pxsim_Array__push(s.tmp_9, 0);
+    r0 = pxsim_Array__push(s.tmp_9, "twinkle");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_9);
+    r0 = pxsim_Array__mk();
+    s.tmp_10 = r0;
+    r0 = pxsim_Array__push(s.tmp_10, 0);
+    r0 = pxsim_Array__push(s.tmp_10, "yawn");
+    r0 = pxsim_Array__push(s.tmp_1, s.tmp_10);
+    s.sounds___12788 = (s.tmp_1);
+    s.tmp_0 = jacdac_OutPipe_respondForEach__P2957_mk(s);
+    s.tmp_0.arg0 = s.arg1;
+    s.tmp_0.arg1 = s.sounds___12788;
+    s.tmp_0.arg2 = servers_SoundPlayerServer_handleListSoundsCommand_inline__P12803;
+    s.callLocIdx = 902; s.pc = 1; return s.tmp_0;
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_SoundPlayerServer_handleListSoundsCommand__P4419.info = {"start":1384,"length":580,"line":43,"column":8,"endLine":59,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"handleListSoundsCommand","argumentNames":["this","pkt"]}
+
+function servers_SoundPlayerServer_handleListSoundsCommand__P4419_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_SoundPlayerServer_handleListSoundsCommand__P4419, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  tmp_5: undefined,
+  tmp_6: undefined,
+  tmp_7: undefined,
+  tmp_8: undefined,
+  tmp_9: undefined,
+  tmp_10: undefined,
+  sounds___12788: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function servers_SoundPlayerServer_handleListSoundsCommand_inline__P12803(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    s.tmp_0 = jacdac_jdpack__P2934_mk(s);
+    s.tmp_0.arg0 = "u32 s";
+    s.tmp_0.arg1 = s.arg0;
+    s.callLocIdx = 901; s.pc = 1; return s.tmp_0;
+  case 1:
+    r0 = s.retval;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_SoundPlayerServer_handleListSoundsCommand_inline__P12803.info = {"start":1866,"length":87,"line":56,"column":55,"endLine":58,"endColumn":13,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"inline","argumentNames":["k"]}
+
+function servers_SoundPlayerServer_handleListSoundsCommand_inline__P12803_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_SoundPlayerServer_handleListSoundsCommand_inline__P12803, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function servers_SoundPlayerServer_handlePlayCommand__P4418(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.name___12814 = undefined;
+    s.exp___12817 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_SoundPlayerServer__C3879_VT)) failedCast(r0);
+    s.tmp_1 = jacdac_JDPacket_jdunpack__P2914_mk(s);
+    s.tmp_1.arg0 = s.arg1;
+    s.tmp_1.arg1 = globals.Play___3822;
+    s.callLocIdx = 897; s.pc = 3; return s.tmp_1;
+  case 3:
+    r0 = s.retval;
+    s.tmp_0 = r0;
+    r0 = pxsim_Array__getAt(s.tmp_0, 0);
+    s.name___12814 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.name___12814);
+    if (!r0) { step = 1; continue; }
+    s.tmp_0 = music_stopAllSounds__P2552_mk(s);
+    s.callLocIdx = 898; s.pc = 4; return s.tmp_0;
+  case 4:
+    r0 = s.retval;
+    r0 = pxsim_pxtcore_mkClassInstance(SoundExpression__C2692_VT);
+    s.tmp_0 = r0;
+    s.tmp_1 = SoundExpression_constructor__P2693_mk(s);
+    s.tmp_1.arg0 = s.tmp_0;
+    s.tmp_1.arg1 = s.name___12814;
+    s.callLocIdx = 899; s.pc = 5; return s.tmp_1;
+  case 5:
+    r0 = s.retval;
+    s.exp___12817 = (s.tmp_0);
+    s.tmp_0 = SoundExpression_play__P2694_mk(s);
+    s.tmp_0.arg0 = s.exp___12817;
+    s.callLocIdx = 900; s.pc = 6; return s.tmp_0;
+  case 6:
+    r0 = s.retval;
+  case 1:
+  case 2:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_SoundPlayerServer_handlePlayCommand__P4418.info = {"start":1076,"length":298,"line":34,"column":8,"endLine":41,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitPlay.ts","functionName":"handlePlayCommand","argumentNames":["this","pkt"]}
+
+function servers_SoundPlayerServer_handlePlayCommand__P4418_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_SoundPlayerServer_handlePlayCommand__P4418, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  name___12814: undefined,
+  exp___12817: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function SoundExpression_play__P2694(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, SoundExpression__C2692_VT)) failedCast(r0);
+    r0 = s.arg0.fields["notes"];
+    s.tmp_0 = r0;
+    setupResume(s, 1);
+    pxsim.music.__playSoundExpression(s.tmp_0, false);
+    checkResumeConsumed();
+    return;
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+SoundExpression_play__P2694.info = {"start":411,"length":69,"line":20,"column":4,"endLine":22,"endColumn":5,"fileName":"pxt_modules/core/soundexpressions.ts","functionName":"play","argumentNames":["this"]}
+
+function SoundExpression_play__P2694_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: SoundExpression_play__P2694, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function SoundExpression_constructor__P2693(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, SoundExpression__C2692_VT)) failedCast(r0);
+    r0 = (s.arg0).fields["notes"] = (s.arg1);
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+SoundExpression_constructor__P2693.info = {"start":130,"length":42,"line":7,"column":4,"endLine":8,"endColumn":5,"fileName":"pxt_modules/core/soundexpressions.ts","functionName":"inline","argumentNames":["this","notes"]}
+
+function SoundExpression_constructor__P2693_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: SoundExpression_constructor__P2693, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function music_stopAllSounds__P2552(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.tmp_0 = music_rest__P2539_mk(s);
+    s.tmp_0.arg0 = 0;
+    s.callLocIdx = 39; s.pc = 1; return s.tmp_0;
+  case 1:
+    r0 = s.retval;
+    s.tmp_0 = music_stopMelody__P2551_mk(s);
+    s.tmp_0.arg0 = 5;
+    s.callLocIdx = 40; s.pc = 2; return s.tmp_0;
+  case 2:
+    r0 = s.retval;
+    r0 = pxsim.music.__stopSoundExpressions();
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_stopAllSounds__P2552.info = {"start":16272,"length":139,"line":471,"column":4,"endLine":475,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"stopAllSounds","argumentNames":[]}
+
+function music_stopAllSounds__P2552_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_stopAllSounds__P2552, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function music_stopMelody__P2551(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = (s.arg0 & 4);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    s.tmp_1 = music_startMelody__P2548_mk(s);
+    r0 = pxsim_Array__mk();
+    s.tmp_1.arg0 = r0;
+    s.tmp_1.arg1 = 4;
+    s.callLocIdx = 37; s.pc = 5; return s.tmp_1;
+  case 5:
+    r0 = s.retval;
+  case 1:
+  case 2:
+    r0 = (s.arg0 & 1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 3; continue; }
+    s.tmp_1 = music_startMelody__P2548_mk(s);
+    r0 = pxsim_Array__mk();
+    s.tmp_1.arg0 = r0;
+    s.tmp_1.arg1 = 1;
+    s.callLocIdx = 38; s.pc = 6; return s.tmp_1;
+  case 6:
+    r0 = s.retval;
+  case 3:
+  case 4:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_stopMelody__P2551.info = {"start":15781,"length":276,"line":457,"column":4,"endLine":462,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"stopMelody","argumentNames":["options"]}
+
+function music_stopMelody__P2551_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_stopMelody__P2551, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function music_startMelody__P2548(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.isBackground___12851 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    s.tmp_0 = music_init__P4018_mk(s);
+    s.callLocIdx = 31; s.pc = 9; return s.tmp_0;
+  case 9:
+    r0 = s.retval;
+    r0 = (s.arg1 & 12);
+    s.isBackground___12851 = (r0);
+    r0 = (globals.currentMelody___4019 != undefined);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 7; continue; }
+    r0 = pxsim_numops_toBoolDecr(s.isBackground___12851);
+    s.tmp_2 = r0;
+    r0 = pxsim_Boolean__bang(s.tmp_2);
+    s.tmp_1 = r0;
+    r0 = pxsim_numops_toBool(s.tmp_1);
+    if (r0) { step = 1; continue; }
+    r0 = s.tmp_1;
+    { step = 2; continue; }
+  case 1:
+    r0 = globals.currentMelody___4019.fields["background"];
+  case 2:
+    // jmp value (already in r0)
+    s.tmp_3 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_3);
+    if (!r0) { step = 3; continue; }
+    globals.currentBackgroundMelody___4020 = (globals.currentMelody___4019);
+    globals.currentMelody___4019 = (null);
+    r0 = pxsim.control.raiseEvent(2000, 245, 1);
+  case 3:
+  case 4:
+    r0 = pxsim_numops_toBoolDecr(globals.currentMelody___4019);
+    if (!r0) { step = 5; continue; }
+    r0 = globals.currentMelody___4019.fields["background"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 | 3);
+    s.tmp_0 = r0;
+    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
+  case 5:
+  case 6:
+    r0 = pxsim_pxtcore_mkClassInstance(music_Melody__C4022_VT);
+    s.tmp_0 = r0;
+    s.tmp_1 = music_Melody_constructor__P4025_mk(s);
+    s.tmp_1.arg0 = s.tmp_0;
+    s.tmp_1.arg1 = s.arg0;
+    s.tmp_1.arg2 = s.arg1;
+    s.callLocIdx = 32; s.pc = 10; return s.tmp_1;
+  case 10:
+    r0 = s.retval;
+    globals.currentMelody___4019 = (s.tmp_0);
+    r0 = globals.currentMelody___4019.fields["background"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 | 2);
+    s.tmp_0 = r0;
+    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
+    { step = 8; continue; }
+  case 7:
+    r0 = pxsim_pxtcore_mkClassInstance(music_Melody__C4022_VT);
+    s.tmp_0 = r0;
+    s.tmp_1 = music_Melody_constructor__P4025_mk(s);
+    s.tmp_1.arg0 = s.tmp_0;
+    s.tmp_1.arg1 = s.arg0;
+    s.tmp_1.arg2 = s.arg1;
+    s.callLocIdx = 33; s.pc = 11; return s.tmp_1;
+  case 11:
+    r0 = s.retval;
+    globals.currentMelody___4019 = (s.tmp_0);
+    r0 = globals.currentMelody___4019.fields["background"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 | 2);
+    s.tmp_0 = r0;
+    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
+    r0 = pxsim.control.inBackground(music_startMelody_inline__P12912);
+  case 8:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_startMelody__P2548.info = {"start":11475,"length":2066,"line":358,"column":4,"endLine":393,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"startMelody","argumentNames":["melodyArray","options"]}
+
+function music_startMelody__P2548_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_startMelody__P2548, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  isBackground___12851: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function music_startMelody_inline__P12912(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+  case 1:
+    s.tmp_1 = music_Melody_hasNextNote__P4023_mk(s);
+    s.tmp_1.arg0 = globals.currentMelody___4019;
+    s.callLocIdx = 34; s.pc = 9; return s.tmp_1;
+  case 9:
+    r0 = s.retval;
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 6; continue; }
+    s.tmp_2 = music_playNextNote__P4021_mk(s);
+    s.tmp_2.arg0 = globals.currentMelody___4019;
+    s.callLocIdx = 35; s.pc = 10; return s.tmp_2;
+  case 10:
+    r0 = s.retval;
+    s.tmp_3 = music_Melody_hasNextNote__P4023_mk(s);
+    s.tmp_3.arg0 = globals.currentMelody___4019;
+    s.callLocIdx = 36; s.pc = 11; return s.tmp_3;
+  case 11:
+    r0 = s.retval;
+    s.tmp_2 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_2);
+    s.tmp_1 = r0;
+    r0 = pxsim_Boolean__bang(s.tmp_1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBool(s.tmp_0);
+    if (r0) { step = 2; continue; }
+    r0 = s.tmp_0;
+    { step = 3; continue; }
+  case 2:
+    r0 = globals.currentBackgroundMelody___4020;
+  case 3:
+    // jmp value (already in r0)
+    s.tmp_4 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_4);
+    if (!r0) { step = 4; continue; }
+    globals.currentMelody___4019 = (globals.currentBackgroundMelody___4020);
+    globals.currentBackgroundMelody___4020 = (null);
+    r0 = pxsim.control.raiseEvent(2000, 3, 1);
+    r0 = pxsim.control.raiseEvent(2000, 246, 1);
+    r0 = pxsim.control.raiseEvent(2000, 5, 1);
+  case 4:
+  case 5:
+    { step = 1; continue; }
+  case 6:
+    r0 = globals.currentMelody___4019.fields["background"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 | 3);
+    s.tmp_0 = r0;
+    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
+    r0 = globals.currentMelody___4019.fields["background"];
+    s.tmp_2 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_2);
+    s.tmp_1 = r0;
+    r0 = pxsim_Boolean__bang(s.tmp_1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 7; continue; }
+    r0 = pxsim.control.raiseEvent(2000, 5, 1);
+  case 7:
+  case 8:
+    globals.currentMelody___4019 = (null);
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_startMelody_inline__P12912.info = {"start":12547,"length":977,"line":375,"column":33,"endLine":391,"endColumn":13,"fileName":"pxt_modules/core/music.ts","functionName":"inline","argumentNames":[]}
+
+function music_startMelody_inline__P12912_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_startMelody_inline__P12912, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+} }
+
+
+
+
+
+function music_playNextNote__P4021(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.currNote___12962 = undefined;
+    s.currentPos___12965 = undefined;
+    s.currentDuration___12969 = undefined;
+    s.currentOctave___12973 = undefined;
+    s.note___12977 = undefined;
+    s.isrest___12978 = undefined;
+    s.beatPos___12979 = undefined;
+    s.parsingOctave___12980 = undefined;
+    s.prevNote___12981 = undefined;
+    s.pos___12982 = undefined;
+    s.noteChar___12988 = undefined;
+    s.beat___13045 = undefined;
+    s.repeating___13068 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    s.tmp_0 = music_Melody_nextNote__P4024_mk(s);
+    s.tmp_0.arg0 = s.arg0;
+    s.callLocIdx = 41; s.pc = 37; return s.tmp_0;
+  case 37:
+    r0 = s.retval;
+    s.currNote___12962 = (r0);
+    r0 = s.arg0.fields["currentPos"];
+    s.currentPos___12965 = (r0);
+    r0 = s.arg0.fields["currentDuration"];
+    s.currentDuration___12969 = (r0);
+    r0 = s.arg0.fields["currentOctave"];
+    s.currentOctave___12973 = (r0);
+    s.isrest___12978 = (false);
+    s.parsingOctave___12980 = (true);
+    s.prevNote___12981 = (false);
+    s.pos___12982 = (0);
+  case 1:
+    s.tmp_1 = r0 = s.pos___12982;
+    r0 = pxsim_String_.length(s.currNote___12962);
+    s.tmp_2 = r0;
+    r0 = (s.tmp_1 < s.tmp_2);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 26; continue; }
+    r0 = pxsim_String_.charAt(s.currNote___12962, s.pos___12982);
+    s.noteChar___12988 = (r0);
+    s.tmp_0 = r0 = s.noteChar___12988;
+    r0 = pxsim_pxtcore.switch_eq("c", s.tmp_0);
+    if (r0) { step = 2; continue; }
+    r0 = pxsim_pxtcore.switch_eq("C", s.tmp_0);
+    if (r0) { step = 3; continue; }
+    r0 = pxsim_pxtcore.switch_eq("d", s.tmp_0);
+    if (r0) { step = 4; continue; }
+    r0 = pxsim_pxtcore.switch_eq("D", s.tmp_0);
+    if (r0) { step = 5; continue; }
+    r0 = pxsim_pxtcore.switch_eq("e", s.tmp_0);
+    if (r0) { step = 6; continue; }
+    r0 = pxsim_pxtcore.switch_eq("E", s.tmp_0);
+    if (r0) { step = 7; continue; }
+    r0 = pxsim_pxtcore.switch_eq("f", s.tmp_0);
+    if (r0) { step = 8; continue; }
+    r0 = pxsim_pxtcore.switch_eq("F", s.tmp_0);
+    if (r0) { step = 9; continue; }
+    r0 = pxsim_pxtcore.switch_eq("g", s.tmp_0);
+    if (r0) { step = 10; continue; }
+    r0 = pxsim_pxtcore.switch_eq("G", s.tmp_0);
+    if (r0) { step = 11; continue; }
+    r0 = pxsim_pxtcore.switch_eq("a", s.tmp_0);
+    if (r0) { step = 12; continue; }
+    r0 = pxsim_pxtcore.switch_eq("A", s.tmp_0);
+    if (r0) { step = 13; continue; }
+    r0 = pxsim_pxtcore.switch_eq("B", s.tmp_0);
+    if (r0) { step = 14; continue; }
+    r0 = pxsim_pxtcore.switch_eq("r", s.tmp_0);
+    if (r0) { step = 15; continue; }
+    r0 = pxsim_pxtcore.switch_eq("R", s.tmp_0);
+    if (r0) { step = 16; continue; }
+    r0 = pxsim_pxtcore.switch_eq("#", s.tmp_0);
+    if (r0) { step = 17; continue; }
+    r0 = pxsim_pxtcore.switch_eq("b", s.tmp_0);
+    if (r0) { step = 18; continue; }
+    r0 = pxsim_pxtcore.switch_eq(":", s.tmp_0);
+    if (r0) { step = 21; continue; }
+    r0 = s.tmp_0;
+    { step = 22; continue; }
+  case 2:
+  case 3:
+    s.note___12977 = (1);
+    s.prevNote___12981 = (true);
+    { step = 25; continue; }
+  case 4:
+  case 5:
+    s.note___12977 = (3);
+    s.prevNote___12981 = (true);
+    { step = 25; continue; }
+  case 6:
+  case 7:
+    s.note___12977 = (5);
+    s.prevNote___12981 = (true);
+    { step = 25; continue; }
+  case 8:
+  case 9:
+    s.note___12977 = (6);
+    s.prevNote___12981 = (true);
+    { step = 25; continue; }
+  case 10:
+  case 11:
+    s.note___12977 = (8);
+    s.prevNote___12981 = (true);
+    { step = 25; continue; }
+  case 12:
+  case 13:
+    s.note___12977 = (10);
+    s.prevNote___12981 = (true);
+    { step = 25; continue; }
+  case 14:
+    s.note___12977 = (12);
+    s.prevNote___12981 = (true);
+    { step = 25; continue; }
+  case 15:
+  case 16:
+    s.isrest___12978 = (true);
+    s.prevNote___12981 = (false);
+    { step = 25; continue; }
+  case 17:
+    r0 = (s.note___12977 + 1);
+    s.note___12977 = (r0);
+    s.prevNote___12981 = (false);
+    { step = 25; continue; }
+  case 18:
+    r0 = pxsim_numops_toBoolDecr(s.prevNote___12981);
+    if (!r0) { step = 19; continue; }
+    r0 = (s.note___12977 - 1);
+    s.note___12977 = (r0);
+    { step = 20; continue; }
+  case 19:
+    s.note___12977 = (12);
+    s.prevNote___12981 = (true);
+  case 20:
+    { step = 25; continue; }
+  case 21:
+    s.parsingOctave___12980 = (false);
+    s.beatPos___12979 = (s.pos___12982);
+    s.prevNote___12981 = (false);
+    { step = 25; continue; }
+  case 22:
+    s.prevNote___12981 = (false);
+    r0 = pxsim_numops_toBoolDecr(s.parsingOctave___12980);
+    if (!r0) { step = 23; continue; }
+    s.tmp_0 = parseInt__P1988_mk(s);
+    s.tmp_0.arg0 = s.noteChar___12988;
+    s.tmp_0.arg1 = undefined;
+    s.callLocIdx = 42; s.pc = 38; return s.tmp_0;
+  case 38:
+    r0 = s.retval;
+    s.currentOctave___12973 = (r0);
+  case 23:
+  case 24:
+  case 25:
+    r0 = (s.pos___12982 + 1);
+    s.pos___12982 = (r0);
+    { step = 1; continue; }
+  case 26:
+    r0 = pxsim_numops_toBoolDecr(s.parsingOctave___12980);
+    s.tmp_1 = r0;
+    r0 = pxsim_Boolean__bang(s.tmp_1);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 27; continue; }
+    s.tmp_2 = parseInt__P1988_mk(s);
+    s.tmp_3 = helpers_stringSubstr__P2009_mk(s);
+    s.tmp_3.arg0 = s.currNote___12962;
+    r0 = (s.beatPos___12979 + 1);
+    s.tmp_3.arg1 = r0;
+    r0 = pxsim_String_.length(s.currNote___12962);
+    s.tmp_4 = r0;
+    r0 = (s.tmp_4 - s.beatPos___12979);
+    s.tmp_3.arg2 = r0;
+    s.callLocIdx = 43; s.pc = 40; return s.tmp_3;
+  case 40:
+    r0 = s.retval;
+    s.tmp_2.arg0 = r0;
+    s.tmp_2.arg1 = undefined;
+    s.callLocIdx = 44; s.pc = 39; return s.tmp_2;
+  case 39:
+    r0 = s.retval;
+    s.currentDuration___12969 = (r0);
+  case 27:
+  case 28:
+    r0 = pxsim.Math_.idiv(60000, globals.beatsPerMinute___4012);
+    s.tmp_0 = r0;
+    r0 = (s.tmp_0 >> 2);
+    s.beat___13045 = (r0);
+    r0 = pxsim_numops_toBoolDecr(s.isrest___12978);
+    if (!r0) { step = 29; continue; }
+    s.tmp_0 = music_rest__P2539_mk(s);
+    r0 = (s.currentDuration___12969 * s.beat___13045);
+    s.tmp_0.arg0 = r0;
+    s.callLocIdx = 45; s.pc = 41; return s.tmp_0;
+  case 41:
+    r0 = s.retval;
+    { step = 30; continue; }
+  case 29:
+    s.tmp_0 = music_playTone__P2537_mk(s);
+    s.tmp_1 = music_getFrequencyForNote__P2554_mk(s);
+    s.tmp_1.arg0 = s.currentOctave___12973;
+    s.tmp_1.arg1 = s.note___12977;
+    s.callLocIdx = 46; s.pc = 43; return s.tmp_1;
+  case 43:
+    r0 = s.retval;
+    s.tmp_0.arg0 = r0;
+    r0 = (s.currentDuration___12969 * s.beat___13045);
+    s.tmp_0.arg1 = r0;
+    s.callLocIdx = 47; s.pc = 42; return s.tmp_0;
+  case 42:
+    r0 = s.retval;
+  case 30:
+    r0 = (s.arg0).fields["currentDuration"] = (s.currentDuration___12969);
+    r0 = (s.arg0).fields["currentOctave"] = (s.currentOctave___12973);
+    r0 = s.arg0.fields["repeating"];
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBool(s.tmp_0);
+    if (r0) { step = 31; continue; }
+    r0 = s.tmp_0;
+    { step = 32; continue; }
+  case 31:
+    s.tmp_1 = r0 = s.currentPos___12965;
+    r0 = s.arg0.fields["melodyArray"];
+    s.tmp_4 = r0;
+    r0 = pxsim_Array__length(s.tmp_4);
+    s.tmp_3 = r0;
+    r0 = (s.tmp_3 - 1);
+    s.tmp_2 = r0;
+    r0 = (s.tmp_1 == s.tmp_2);
+  case 32:
+    // jmp value (already in r0)
+    s.tmp_5 = r0;
+    s.repeating___13068 = (s.tmp_5);
+    r0 = pxsim_numops_toBoolDecr(s.repeating___13068);
+    if (!r0) { step = 33; continue; }
+    r0 = 0;
+    { step = 34; continue; }
+  case 33:
+    r0 = (s.currentPos___12965 + 1);
+  case 34:
+    // jmp value (already in r0)
+    s.tmp_0 = r0;
+    r0 = (s.arg0).fields["currentPos"] = (s.tmp_0);
+    r0 = s.arg0.fields["background"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 | 1);
+    s.tmp_0 = r0;
+    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
+    r0 = pxsim_numops_toBoolDecr(s.repeating___13068);
+    if (!r0) { step = 35; continue; }
+    r0 = s.arg0.fields["background"];
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 | 4);
+    s.tmp_0 = r0;
+    r0 = pxsim.control.raiseEvent(2000, s.tmp_0, 1);
+  case 35:
+  case 36:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_playNextNote__P4021.info = {"start":17178,"length":2354,"line":500,"column":4,"endLine":547,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"playNextNote","argumentNames":["melody"]}
+
+function music_playNextNote__P4021_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_playNextNote__P4021, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  tmp_5: undefined,
+  currNote___12962: undefined,
+  currentPos___12965: undefined,
+  currentDuration___12969: undefined,
+  currentOctave___12973: undefined,
+  note___12977: undefined,
+  isrest___12978: undefined,
+  beatPos___12979: undefined,
+  parsingOctave___12980: undefined,
+  prevNote___12981: undefined,
+  pos___12982: undefined,
+  noteChar___12988: undefined,
+  beat___13045: undefined,
+  repeating___13068: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function music_getFrequencyForNote__P2554(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    s.tmp_1 = r0 = globals.freqs___4014;
+    s.tmp_4 = r0 = s.arg1;
+    r0 = (s.arg0 - 1);
+    s.tmp_6 = r0;
+    r0 = (12 * s.tmp_6);
+    s.tmp_5 = r0;
+    r0 = (s.tmp_4 + s.tmp_5);
+    s.tmp_3 = r0;
+    r0 = (s.tmp_3 * 2);
+    s.tmp_2 = r0;
+    r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, s.tmp_2);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBool(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    r0 = s.tmp_0;
+    { step = 2; continue; }
+  case 1:
+    r0 = 0;
+  case 2:
+    // jmp value (already in r0)
+    s.tmp_7 = r0;
+    r0 = s.tmp_7;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_getFrequencyForNote__P2554.info = {"start":17005,"length":167,"line":496,"column":4,"endLine":498,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"getFrequencyForNote","argumentNames":["octave","note"]}
+
+function music_getFrequencyForNote__P2554_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_getFrequencyForNote__P2554, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  tmp_5: undefined,
+  tmp_6: undefined,
+  tmp_7: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function music_playTone__P2537(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = pxsim_numops_toBoolDecr(globals._playTone___4015);
+    if (!r0) { step = 1; continue; }
+    s.tmp_0 = lambda_3_mk(s);
+    s.tmp_0.argL = globals._playTone___4015;
+    s.tmp_0.arg0 = s.arg0;
+    s.tmp_0.arg1 = s.arg1;
+    setupLambda(s.tmp_0, s.tmp_0.argL);
+    s.callLocIdx = 29; s.pc = 3; return s.tmp_0;
+  case 3:
+    r0 = s.retval;
+    { step = 2; continue; }
+  case 1:
+    setupResume(s, 4);
+    pxsim.pins.analogPitch(s.arg0, s.arg1);
+    checkResumeConsumed();
+    return;
+  case 4:
+    r0 = s.retval;
+  case 2:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_playTone__P2537.info = {"start":6330,"length":164,"line":200,"column":4,"endLine":203,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"playTone","argumentNames":["frequency","ms"]}
+
+function music_playTone__P2537_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_playTone__P2537, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function music_Melody_nextNote__P4024(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.currentNote___13132 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, music_Melody__C4022_VT)) failedCast(r0);
+    r0 = s.arg0.fields["melodyArray"];
+    s.tmp_0 = r0;
+    r0 = s.arg0.fields["currentPos"];
+    s.tmp_1 = r0;
+    r0 = pxsim_Array__getAt(s.tmp_0, s.tmp_1);
+    s.currentNote___13132 = (r0);
+    r0 = s.currentNote___13132;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_Melody_nextNote__P4024.info = {"start":20498,"length":129,"line":572,"column":8,"endLine":575,"endColumn":9,"fileName":"pxt_modules/core/music.ts","functionName":"nextNote","argumentNames":["this"]}
+
+function music_Melody_nextNote__P4024_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_Melody_nextNote__P4024, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  currentNote___13132: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function music_Melody_hasNextNote__P4023(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, music_Melody__C4022_VT)) failedCast(r0);
+    r0 = s.arg0.fields["repeating"];
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBool(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    r0 = s.tmp_0;
+    { step = 2; continue; }
+  case 1:
+    r0 = s.arg0.fields["currentPos"];
+    s.tmp_1 = r0;
+    r0 = s.arg0.fields["melodyArray"];
+    s.tmp_3 = r0;
+    r0 = pxsim_Array__length(s.tmp_3);
+    s.tmp_2 = r0;
+    r0 = (s.tmp_1 < s.tmp_2);
+  case 2:
+    // jmp value (already in r0)
+    s.tmp_4 = r0;
+    r0 = s.tmp_4;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_Melody_hasNextNote__P4023.info = {"start":20383,"length":105,"line":568,"column":8,"endLine":570,"endColumn":9,"fileName":"pxt_modules/core/music.ts","functionName":"hasNextNote","argumentNames":["this"]}
+
+function music_Melody_hasNextNote__P4023_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_Melody_hasNextNote__P4023, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function music_Melody_constructor__P4025(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.arg2 = (s.lambdaArgs[2]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, music_Melody__C4022_VT)) failedCast(r0);
+    r0 = (s.arg0).fields["melodyArray"] = (s.arg1);
+    s.tmp_0 = r0 = s.arg0;
+    r0 = (s.arg2 & 10);
+    s.tmp_5 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_5);
+    s.tmp_4 = r0;
+    r0 = pxsim_Boolean__bang(s.tmp_4);
+    s.tmp_3 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_3);
+    s.tmp_2 = r0;
+    r0 = pxsim_Boolean__bang(s.tmp_2);
+    s.tmp_1 = r0;
+    r0 = (s.tmp_0).fields["repeating"] = (s.tmp_1);
+    r0 = (s.arg2 & 12);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    r0 = 240;
+    { step = 2; continue; }
+  case 1:
+    r0 = 0;
+  case 2:
+    // jmp value (already in r0)
+    s.tmp_1 = r0;
+    r0 = (s.arg0).fields["background"] = (s.tmp_1);
+    r0 = (s.arg0).fields["currentDuration"] = (4);
+    r0 = (s.arg0).fields["currentOctave"] = (4);
+    r0 = (s.arg0).fields["currentPos"] = (0);
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_Melody_constructor__P4025.info = {"start":19879,"length":494,"line":559,"column":8,"endLine":566,"endColumn":9,"fileName":"pxt_modules/core/music.ts","functionName":"inline","argumentNames":["this","melodyArray","options"]}
+
+function music_Melody_constructor__P4025_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_Melody_constructor__P4025, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  tmp_5: undefined,
+  arg0: undefined,
+  arg1: undefined,
+  arg2: undefined,
+} }
+
+
+
+
+
+function music_init__P4018(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    r0 = (globals.beatsPerMinute___4012 <= 0);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    globals.beatsPerMinute___4012 = (120);
+  case 1:
+  case 2:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_init__P4018.info = {"start":7752,"length":78,"line":247,"column":4,"endLine":249,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"init","argumentNames":[]}
+
+function music_init__P4018_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_init__P4018, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+} }
+
+
+
+
+
+function music_rest__P2539(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.lambdaArgs = null;
+    }
+    s.tmp_0 = music_playTone__P2537_mk(s);
+    s.tmp_0.arg0 = 0;
+    s.tmp_0.arg1 = s.arg0;
+    s.callLocIdx = 30; s.pc = 1; return s.tmp_0;
+  case 1:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+music_rest__P2539.info = {"start":7200,"length":71,"line":226,"column":4,"endLine":228,"endColumn":5,"fileName":"pxt_modules/core/music.ts","functionName":"rest","argumentNames":["ms"]}
+
+function music_rest__P2539_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: music_rest__P2539, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  arg0: undefined,
+} }
+
+
+
+
+
+function servers_BuzzerServer_handlePacket__P3904(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.oldVol___13186 = undefined;
+    s.vol___13189 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_BuzzerServer__C3902_VT)) failedCast(r0);
+    r0 = pxsim.music.volume();
+    s.oldVol___13186 = (r0);
+    s.tmp_2 = jacdac_Server_handleRegValue__P4194_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.tmp_2.arg2 = 1;
+    s.tmp_2.arg3 = globals.Volume___3747;
+    r0 = (s.oldVol___13186 / 255);
+    s.tmp_2.arg4 = r0;
+    s.callLocIdx = 952; s.pc = 6; return s.tmp_2;
+  case 6:
+    r0 = s.retval;
+    s.tmp_1 = r0;
+    r0 = (s.tmp_1 * 255);
+    s.tmp_0 = r0;
+    r0 = (s.tmp_0 | 0);
+    s.vol___13189 = (r0);
+    r0 = (s.vol___13189 !== s.oldVol___13186);
+    s.tmp_0 = r0;
+    r0 = pxsim_numops_toBoolDecr(s.tmp_0);
+    if (!r0) { step = 1; continue; }
+    r0 = pxsim.music.setVolume(s.vol___13189);
+  case 1:
+  case 2:
+    r0 = s.arg1.fields["_header"];
+    s.tmp_1 = r0;
+    r0 = pxsim.BufferMethods.getNumber(s.tmp_1, 4, 14);
+    s.tmp_0 = r0;
+    r0 = pxsim_pxtcore.switch_eq(128, s.tmp_0);
+    if (r0) { step = 3; continue; }
+    r0 = s.tmp_0;
+    { step = 4; continue; }
+  case 3:
+    s.tmp_2 = servers_BuzzerServer_handlePlayToneCommand__P4436_mk(s);
+    s.tmp_2.arg0 = s.arg0;
+    s.tmp_2.arg1 = s.arg1;
+    s.callLocIdx = 954; s.pc = 7; return s.tmp_2;
+  case 7:
+    r0 = s.retval;
+    { step = 5; continue; }
+  case 4:
+    s.tmp_0 = jacdac_JDPacket_possiblyNotImplemented__P2890_mk(s);
+    s.tmp_0.arg0 = s.arg1;
+    s.callLocIdx = 955; s.pc = 8; return s.tmp_0;
+  case 8:
+    r0 = s.retval;
+  case 5:
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_BuzzerServer_handlePacket__P3904.info = {"start":154,"length":761,"line":6,"column":8,"endLine":29,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitBuzzer.ts","functionName":"handlePacket","argumentNames":["this","pkt"]}
+
+function servers_BuzzerServer_handlePacket__P3904_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_BuzzerServer_handlePacket__P3904, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  oldVol___13186: undefined,
+  vol___13189: undefined,
+  arg0: undefined,
+  arg1: undefined,
+} }
+
+
+
+
+
+function servers_BuzzerServer_handlePlayToneCommand__P4436(s) {
+let r0 = s.r0, step = s.pc;
+s.pc = -1;
+
+
+while (true) {
+if (yieldSteps-- < 0 && maybeYield(s, step, r0) || runtime !== pxsim.runtime) return null;
+switch (step) {
+  case 0:
+
+    s.period___13222 = undefined;
+    s.duty___13223 = undefined;
+    s.duration___13224 = undefined;
+    s.frequency___13225 = undefined;
+    if (s.lambdaArgs) {
+      s.arg0 = (s.lambdaArgs[0]);
+      s.arg1 = (s.lambdaArgs[1]);
+      s.lambdaArgs = null;
+    }
+    r0 = s.arg0;
+    if (!checkSubtype(r0, servers_BuzzerServer__C3902_VT)) failedCast(r0);
+    s.tmp_1 = jacdac_JDPacket_jdunpack__P2914_mk(s);
+    s.tmp_1.arg0 = s.arg1;
+    s.tmp_1.arg1 = globals.PlayTone___3752;
+    s.callLocIdx = 956; s.pc = 1; return s.tmp_1;
+  case 1:
+    r0 = s.retval;
+    s.tmp_0 = r0;
+    r0 = pxsim_Array__getAt(s.tmp_0, 0);
+    s.period___13222 = (r0);
+    r0 = pxsim_Array__getAt(s.tmp_0, 1);
+    s.duty___13223 = (r0);
+    r0 = pxsim_Array__getAt(s.tmp_0, 2);
+    s.duration___13224 = (r0);
+    r0 = (1000000 / s.period___13222);
+    s.frequency___13225 = (r0);
+    s.tmp_0 = music_stopAllSounds__P2552_mk(s);
+    s.callLocIdx = 957; s.pc = 2; return s.tmp_0;
+  case 2:
+    r0 = s.retval;
+    s.tmp_0 = music_playTone__P2537_mk(s);
+    s.tmp_0.arg0 = s.frequency___13225;
+    s.tmp_0.arg1 = s.duration___13224;
+    s.callLocIdx = 958; s.pc = 3; return s.tmp_0;
+  case 3:
+    r0 = s.retval;
+    r0 = undefined;
+    return leave(s, r0)
+  default: oops()
+} } }
+servers_BuzzerServer_handlePlayToneCommand__P4436.info = {"start":925,"length":323,"line":31,"column":8,"endLine":37,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitBuzzer.ts","functionName":"handlePlayToneCommand","argumentNames":["this","pkt"]}
+
+function servers_BuzzerServer_handlePlayToneCommand__P4436_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: servers_BuzzerServer_handlePlayToneCommand__P4436, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  period___13222: undefined,
+  duty___13223: undefined,
+  duration___13224: undefined,
+  frequency___13225: undefined,
   arg0: undefined,
   arg1: undefined,
 } }
@@ -33000,7 +33001,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_handlePacket__P3899.info = {"start":760,"length":1836,"line":24,"column":8,"endLine":73,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handlePacket","argumentNames":["this","pkt"]}
+servers_RadioServer_handlePacket__P3899.info = {"start":761,"length":1836,"line":24,"column":8,"endLine":73,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handlePacket","argumentNames":["this","pkt"]}
 
 function servers_RadioServer_handlePacket__P3899_mk(s) {
     checkStack(s.depth);
@@ -33063,7 +33064,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_handleSendValue__P4433.info = {"start":4910,"length":197,"line":134,"column":8,"endLine":137,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleSendValue","argumentNames":["this","pkt"]}
+servers_RadioServer_handleSendValue__P4433.info = {"start":4911,"length":197,"line":134,"column":8,"endLine":137,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleSendValue","argumentNames":["this","pkt"]}
 
 function servers_RadioServer_handleSendValue__P4433_mk(s) {
     checkStack(s.depth);
@@ -33664,7 +33665,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_handleSendString__P4432.info = {"start":4729,"length":172,"line":130,"column":8,"endLine":133,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleSendString","argumentNames":["this","pkt"]}
+servers_RadioServer_handleSendString__P4432.info = {"start":4730,"length":172,"line":130,"column":8,"endLine":133,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleSendString","argumentNames":["this","pkt"]}
 
 function servers_RadioServer_handleSendString__P4432_mk(s) {
     checkStack(s.depth);
@@ -33770,7 +33771,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_handleSendNumber__P4431.info = {"start":4548,"length":172,"line":126,"column":8,"endLine":129,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleSendNumber","argumentNames":["this","pkt"]}
+servers_RadioServer_handleSendNumber__P4431.info = {"start":4549,"length":172,"line":126,"column":8,"endLine":129,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleSendNumber","argumentNames":["this","pkt"]}
 
 function servers_RadioServer_handleSendNumber__P4431_mk(s) {
     checkStack(s.depth);
@@ -33895,7 +33896,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-servers_RadioServer_handleSendBuffer__P4430.info = {"start":4361,"length":178,"line":122,"column":8,"endLine":125,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleSendBuffer","argumentNames":["this","pkt"]}
+servers_RadioServer_handleSendBuffer__P4430.info = {"start":4362,"length":178,"line":122,"column":8,"endLine":125,"endColumn":9,"fileName":"pxt_modules/jacdac-microbit/microbitRadio.ts","functionName":"handleSendBuffer","argumentNames":["this","pkt"]}
 
 function servers_RadioServer_handleSendBuffer__P4430_mk(s) {
     checkStack(s.depth);
@@ -35648,7 +35649,7 @@ function if_touchP2_1_mk(s) {
 } }
 
 
-function if_screen_1_mk(s) {
+function if_temperature_1_mk(s) {
     checkStack(s.depth);
     return {
         parent: s, fn: null, depth: s.depth + 1,
@@ -35663,48 +35664,6 @@ function if_screen_1_mk(s) {
 
 
 function jacdac_Server__C3447_v3_1_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: null, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
-} }
-
-
-function if_soundLevel_1_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: null, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
-} }
-
-
-function if_lightLevel_1_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: null, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
-} }
-
-
-function if_temperature_1_mk(s) {
     checkStack(s.depth);
     return {
         parent: s, fn: null, depth: s.depth + 1,
@@ -35746,21 +35705,7 @@ function servers_AccelerometerServer__C3845_v3_1_mk(s) {
 } }
 
 
-function if_buzzer_1_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: null, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
-} }
-
-
-function if_soundPlayer_1_mk(s) {
+function if_soundLevel_1_mk(s) {
     checkStack(s.depth);
     return {
         parent: s, fn: null, depth: s.depth + 1,
@@ -35789,6 +35734,62 @@ function if_radio_1_mk(s) {
 
 
 function servers_RadioServer__C3893_v3_1_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: null, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
+function if_screen_1_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: null, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
+function if_lightLevel_1_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: null, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
+function if_soundPlayer_1_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: null, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
+function if_buzzer_1_mk(s) {
     checkStack(s.depth);
     return {
         parent: s, fn: null, depth: s.depth + 1,
@@ -35976,6 +35977,62 @@ function if_constants_1_mk(s) {
 } }
 
 
+function if_minReading_1_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: null, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
+function if_maxReading_1_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: null, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
+function if_readingError_1_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: null, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
+function if_streamingInterval_1_mk(s) {
+    checkStack(s.depth);
+    return {
+        parent: s, fn: null, depth: s.depth + 1,
+        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
+  tmp_0: undefined,
+  tmp_1: undefined,
+  tmp_2: undefined,
+  tmp_3: undefined,
+  tmp_4: undefined,
+  arg0: undefined,
+} }
+
+
 function jacdac_Server__C3447_v0_2_mk(s) {
     checkStack(s.depth);
     return {
@@ -36064,20 +36121,6 @@ function if_code_1_mk(s) {
 } }
 
 
-function if_streamingInterval_1_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: null, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
-} }
-
-
 function if_sendEvent_2_mk(s) {
     checkStack(s.depth);
     return {
@@ -36090,48 +36133,6 @@ function if_sendEvent_2_mk(s) {
   tmp_4: undefined,
   arg0: undefined,
   arg1: undefined,
-} }
-
-
-function if_minReading_1_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: null, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
-} }
-
-
-function if_maxReading_1_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: null, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
-} }
-
-
-function if_readingError_1_mk(s) {
-    checkStack(s.depth);
-    return {
-        parent: s, fn: null, depth: s.depth + 1,
-        pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
-  tmp_0: undefined,
-  tmp_1: undefined,
-  tmp_2: undefined,
-  tmp_3: undefined,
-  tmp_4: undefined,
-  arg0: undefined,
 } }
 
 
@@ -36901,6 +36902,342 @@ const jacdac_EventListener__C3571_VT = mkVTable({
     "set/handler": null,
   },
 });
+const servers_BuzzerServer__C3902_VT = mkVTable({
+  name: "BuzzerServer",
+  numFields: 16,
+  classNo: 28,
+  lastSubtypeNo: 28,
+  maxBgInstances: null,
+  methods: {
+    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
+    "handlePacket": servers_BuzzerServer_handlePacket__P3904,
+    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
+    "start": jacdac_Server_start__P3468,
+    "log": jacdac_Server_log__P4199,
+  },
+  iface: {
+    "listeners": null,
+    "set/listeners": null,
+    "instanceName": null,
+    "set/instanceName": null,
+    "calibrate": null,
+    "set/calibrate": null,
+    "valuePackFormat": null,
+    "set/valuePackFormat": null,
+    "intensityPackFormat": null,
+    "set/intensityPackFormat": null,
+    "constants": null,
+    "set/constants": null,
+    "supressLog": null,
+    "set/supressLog": null,
+    "running": null,
+    "set/running": null,
+    "serviceIndex": null,
+    "set/serviceIndex": null,
+    "stateUpdated": null,
+    "set/stateUpdated": null,
+    "_statusCode": null,
+    "set/_statusCode": null,
+    "_statusVendorCode": null,
+    "set/_statusVendorCode": null,
+    "_value": null,
+    "set/_value": null,
+    "_intensity": null,
+    "set/_intensity": null,
+    "variant": null,
+    "set/variant": null,
+    "serviceClass": null,
+    "set/serviceClass": null,
+    "handlePacket": servers_BuzzerServer_handlePacket__P3904,
+    "handlePlayToneCommand": servers_BuzzerServer_handlePlayToneCommand__P4436,
+    "statusCode": jacdac_Server_statusCode__P3452,
+    "disabled": jacdac_Server_disabled__P3454,
+    "ready": jacdac_Server_ready__P3455,
+    "intensity": jacdac_Server_intensity__P3456,
+    "set/intensity": jacdac_Server_intensity__P3457,
+    "value": jacdac_Server_value__P3458,
+    "set/value": jacdac_Server_value__P3459,
+    "setStatusCode": jacdac_Server_setStatusCode__P3460,
+    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
+    "sendReport": jacdac_Server_sendReport__P4185,
+    "sendEvent": jacdac_Server_sendEvent__P3465,
+    "sendChangeEvent": jacdac_Server_sendChangeEvent__P3466,
+    "handleStatusCode": jacdac_Server_handleStatusCode__P4186,
+    "handleInstanceName": jacdac_Server_handleInstanceName__P4187,
+    "handleVariant": jacdac_Server_handleVariant__P4188,
+    "handleValue": jacdac_Server_handleValue__P4189,
+    "handleIntensity": jacdac_Server_handleIntensity__P4190,
+    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
+    "doCalibrate": jacdac_Server_doCalibrate__P4192,
+    "handleRegFormat": jacdac_Server_handleRegFormat__P4193,
+    "handleRegValue": jacdac_Server_handleRegValue__P4194,
+    "toString": jacdac_Server_toString__P3467,
+    "handleRegBool": jacdac_Server_handleRegBool__P4195,
+    "handleRegBuffer": jacdac_Server_handleRegBuffer__P4198,
+    "start": jacdac_Server_start__P3468,
+    "log": jacdac_Server_log__P4199,
+    "on": jacdac_EventSource_on__P3576,
+    "addListenerInternal": jacdac_EventSource_addListenerInternal__P4176,
+    "emit": jacdac_EventSource_emit__P3578,
+  },
+});
+const servers_SoundPlayerServer__C3879_VT = mkVTable({
+  name: "SoundPlayerServer",
+  numFields: 16,
+  classNo: 29,
+  lastSubtypeNo: 29,
+  maxBgInstances: null,
+  methods: {
+    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
+    "handlePacket": servers_SoundPlayerServer_handlePacket__P3881,
+    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
+    "start": jacdac_Server_start__P3468,
+    "log": jacdac_Server_log__P4199,
+  },
+  iface: {
+    "listeners": null,
+    "set/listeners": null,
+    "instanceName": null,
+    "set/instanceName": null,
+    "calibrate": null,
+    "set/calibrate": null,
+    "valuePackFormat": null,
+    "set/valuePackFormat": null,
+    "intensityPackFormat": null,
+    "set/intensityPackFormat": null,
+    "constants": null,
+    "set/constants": null,
+    "supressLog": null,
+    "set/supressLog": null,
+    "running": null,
+    "set/running": null,
+    "serviceIndex": null,
+    "set/serviceIndex": null,
+    "stateUpdated": null,
+    "set/stateUpdated": null,
+    "_statusCode": null,
+    "set/_statusCode": null,
+    "_statusVendorCode": null,
+    "set/_statusVendorCode": null,
+    "_value": null,
+    "set/_value": null,
+    "_intensity": null,
+    "set/_intensity": null,
+    "variant": null,
+    "set/variant": null,
+    "serviceClass": null,
+    "set/serviceClass": null,
+    "handlePacket": servers_SoundPlayerServer_handlePacket__P3881,
+    "handlePlayCommand": servers_SoundPlayerServer_handlePlayCommand__P4418,
+    "handleListSoundsCommand": servers_SoundPlayerServer_handleListSoundsCommand__P4419,
+    "statusCode": jacdac_Server_statusCode__P3452,
+    "disabled": jacdac_Server_disabled__P3454,
+    "ready": jacdac_Server_ready__P3455,
+    "intensity": jacdac_Server_intensity__P3456,
+    "set/intensity": jacdac_Server_intensity__P3457,
+    "value": jacdac_Server_value__P3458,
+    "set/value": jacdac_Server_value__P3459,
+    "setStatusCode": jacdac_Server_setStatusCode__P3460,
+    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
+    "sendReport": jacdac_Server_sendReport__P4185,
+    "sendEvent": jacdac_Server_sendEvent__P3465,
+    "sendChangeEvent": jacdac_Server_sendChangeEvent__P3466,
+    "handleStatusCode": jacdac_Server_handleStatusCode__P4186,
+    "handleInstanceName": jacdac_Server_handleInstanceName__P4187,
+    "handleVariant": jacdac_Server_handleVariant__P4188,
+    "handleValue": jacdac_Server_handleValue__P4189,
+    "handleIntensity": jacdac_Server_handleIntensity__P4190,
+    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
+    "doCalibrate": jacdac_Server_doCalibrate__P4192,
+    "handleRegFormat": jacdac_Server_handleRegFormat__P4193,
+    "handleRegValue": jacdac_Server_handleRegValue__P4194,
+    "toString": jacdac_Server_toString__P3467,
+    "handleRegBool": jacdac_Server_handleRegBool__P4195,
+    "handleRegBuffer": jacdac_Server_handleRegBuffer__P4198,
+    "start": jacdac_Server_start__P3468,
+    "log": jacdac_Server_log__P4199,
+    "on": jacdac_EventSource_on__P3576,
+    "addListenerInternal": jacdac_EventSource_addListenerInternal__P4176,
+    "emit": jacdac_EventSource_emit__P3578,
+  },
+});
+const jacdac_SimpleSensorServer__C3246_VT = mkVTable({
+  name: "SimpleSensorServer",
+  numFields: 23,
+  classNo: 25,
+  lastSubtypeNo: 25,
+  maxBgInstances: null,
+  methods: {
+    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
+    "handlePacket": jacdac_SimpleSensorServer_handlePacket__P3250,
+    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
+    "start": jacdac_Server_start__P3468,
+    "log": jacdac_Server_log__P4199,
+    "serializeState": jacdac_SimpleSensorServer_serializeState__P3251,
+  },
+  iface: {
+    "listeners": null,
+    "set/listeners": null,
+    "instanceName": null,
+    "set/instanceName": null,
+    "calibrate": null,
+    "set/calibrate": null,
+    "valuePackFormat": null,
+    "set/valuePackFormat": null,
+    "intensityPackFormat": null,
+    "set/intensityPackFormat": null,
+    "constants": null,
+    "set/constants": null,
+    "supressLog": null,
+    "set/supressLog": null,
+    "running": null,
+    "set/running": null,
+    "serviceIndex": null,
+    "set/serviceIndex": null,
+    "stateUpdated": null,
+    "set/stateUpdated": null,
+    "_statusCode": null,
+    "set/_statusCode": null,
+    "_statusVendorCode": null,
+    "set/_statusVendorCode": null,
+    "_value": null,
+    "set/_value": null,
+    "_intensity": null,
+    "set/_intensity": null,
+    "variant": null,
+    "set/variant": null,
+    "serviceClass": null,
+    "set/serviceClass": null,
+    "streamingInterval": null,
+    "set/streamingInterval": null,
+    "streamingSamples": null,
+    "set/streamingSamples": null,
+    "packFormat": null,
+    "set/packFormat": null,
+    "stateReader": null,
+    "set/stateReader": null,
+    "minReading": null,
+    "set/minReading": null,
+    "maxReading": null,
+    "set/maxReading": null,
+    "readingError": null,
+    "set/readingError": null,
+    "handlePacket": jacdac_SimpleSensorServer_handlePacket__P3250,
+    "serializeState": jacdac_SimpleSensorServer_serializeState__P3251,
+    "readState": jacdac_SensorServer_readState__P4244,
+    "handleCustomCommand": jacdac_SensorServer_handleCustomCommand__P4246,
+    "setStreaming": jacdac_SensorServer_setStreaming__P3241,
+    "startStreaming": jacdac_SensorServer_startStreaming__P4248,
+    "stopStreaming": jacdac_SensorServer_stopStreaming__P4249,
+    "statusCode": jacdac_Server_statusCode__P3452,
+    "disabled": jacdac_Server_disabled__P3454,
+    "ready": jacdac_Server_ready__P3455,
+    "intensity": jacdac_Server_intensity__P3456,
+    "set/intensity": jacdac_Server_intensity__P3457,
+    "value": jacdac_Server_value__P3458,
+    "set/value": jacdac_Server_value__P3459,
+    "setStatusCode": jacdac_Server_setStatusCode__P3460,
+    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
+    "sendReport": jacdac_Server_sendReport__P4185,
+    "sendEvent": jacdac_Server_sendEvent__P3465,
+    "sendChangeEvent": jacdac_Server_sendChangeEvent__P3466,
+    "handleStatusCode": jacdac_Server_handleStatusCode__P4186,
+    "handleInstanceName": jacdac_Server_handleInstanceName__P4187,
+    "handleVariant": jacdac_Server_handleVariant__P4188,
+    "handleValue": jacdac_Server_handleValue__P4189,
+    "handleIntensity": jacdac_Server_handleIntensity__P4190,
+    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
+    "doCalibrate": jacdac_Server_doCalibrate__P4192,
+    "handleRegFormat": jacdac_Server_handleRegFormat__P4193,
+    "handleRegValue": jacdac_Server_handleRegValue__P4194,
+    "toString": jacdac_Server_toString__P3467,
+    "handleRegBool": jacdac_Server_handleRegBool__P4195,
+    "handleRegBuffer": jacdac_Server_handleRegBuffer__P4198,
+    "start": jacdac_Server_start__P3468,
+    "log": jacdac_Server_log__P4199,
+    "on": jacdac_EventSource_on__P3576,
+    "addListenerInternal": jacdac_EventSource_addListenerInternal__P4176,
+    "emit": jacdac_EventSource_emit__P3578,
+  },
+});
+const servers_ScreenServer__C3872_VT = mkVTable({
+  name: "ScreenServer",
+  numFields: 16,
+  classNo: 30,
+  lastSubtypeNo: 30,
+  maxBgInstances: null,
+  methods: {
+    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
+    "handlePacket": servers_ScreenServer_handlePacket__P3874,
+    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
+    "start": jacdac_Server_start__P3468,
+    "log": jacdac_Server_log__P4199,
+  },
+  iface: {
+    "listeners": null,
+    "set/listeners": null,
+    "instanceName": null,
+    "set/instanceName": null,
+    "calibrate": null,
+    "set/calibrate": null,
+    "valuePackFormat": null,
+    "set/valuePackFormat": null,
+    "intensityPackFormat": null,
+    "set/intensityPackFormat": null,
+    "constants": null,
+    "set/constants": null,
+    "supressLog": null,
+    "set/supressLog": null,
+    "running": null,
+    "set/running": null,
+    "serviceIndex": null,
+    "set/serviceIndex": null,
+    "stateUpdated": null,
+    "set/stateUpdated": null,
+    "_statusCode": null,
+    "set/_statusCode": null,
+    "_statusVendorCode": null,
+    "set/_statusVendorCode": null,
+    "_value": null,
+    "set/_value": null,
+    "_intensity": null,
+    "set/_intensity": null,
+    "variant": null,
+    "set/variant": null,
+    "serviceClass": null,
+    "set/serviceClass": null,
+    "handlePacket": servers_ScreenServer_handlePacket__P3874,
+    "statusCode": jacdac_Server_statusCode__P3452,
+    "disabled": jacdac_Server_disabled__P3454,
+    "ready": jacdac_Server_ready__P3455,
+    "intensity": jacdac_Server_intensity__P3456,
+    "set/intensity": jacdac_Server_intensity__P3457,
+    "value": jacdac_Server_value__P3458,
+    "set/value": jacdac_Server_value__P3459,
+    "setStatusCode": jacdac_Server_setStatusCode__P3460,
+    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
+    "sendReport": jacdac_Server_sendReport__P4185,
+    "sendEvent": jacdac_Server_sendEvent__P3465,
+    "sendChangeEvent": jacdac_Server_sendChangeEvent__P3466,
+    "handleStatusCode": jacdac_Server_handleStatusCode__P4186,
+    "handleInstanceName": jacdac_Server_handleInstanceName__P4187,
+    "handleVariant": jacdac_Server_handleVariant__P4188,
+    "handleValue": jacdac_Server_handleValue__P4189,
+    "handleIntensity": jacdac_Server_handleIntensity__P4190,
+    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
+    "doCalibrate": jacdac_Server_doCalibrate__P4192,
+    "handleRegFormat": jacdac_Server_handleRegFormat__P4193,
+    "handleRegValue": jacdac_Server_handleRegValue__P4194,
+    "toString": jacdac_Server_toString__P3467,
+    "handleRegBool": jacdac_Server_handleRegBool__P4195,
+    "handleRegBuffer": jacdac_Server_handleRegBuffer__P4198,
+    "start": jacdac_Server_start__P3468,
+    "log": jacdac_Server_log__P4199,
+    "on": jacdac_EventSource_on__P3576,
+    "addListenerInternal": jacdac_EventSource_addListenerInternal__P4176,
+    "emit": jacdac_EventSource_emit__P3578,
+  },
+});
 const radio_RadioPacket__C3627_VT = mkVTable({
   name: "RadioPacket",
   numFields: 1,
@@ -37201,264 +37538,6 @@ const jacdac_DelayedPacket__C4214_VT = mkVTable({
     "set/pkt": null,
   },
 });
-const servers_SoundPlayerServer__C3879_VT = mkVTable({
-  name: "SoundPlayerServer",
-  numFields: 16,
-  classNo: 28,
-  lastSubtypeNo: 28,
-  maxBgInstances: null,
-  methods: {
-    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
-    "handlePacket": servers_SoundPlayerServer_handlePacket__P3881,
-    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
-    "start": jacdac_Server_start__P3468,
-    "log": jacdac_Server_log__P4199,
-  },
-  iface: {
-    "listeners": null,
-    "set/listeners": null,
-    "instanceName": null,
-    "set/instanceName": null,
-    "calibrate": null,
-    "set/calibrate": null,
-    "valuePackFormat": null,
-    "set/valuePackFormat": null,
-    "intensityPackFormat": null,
-    "set/intensityPackFormat": null,
-    "constants": null,
-    "set/constants": null,
-    "supressLog": null,
-    "set/supressLog": null,
-    "running": null,
-    "set/running": null,
-    "serviceIndex": null,
-    "set/serviceIndex": null,
-    "stateUpdated": null,
-    "set/stateUpdated": null,
-    "_statusCode": null,
-    "set/_statusCode": null,
-    "_statusVendorCode": null,
-    "set/_statusVendorCode": null,
-    "_value": null,
-    "set/_value": null,
-    "_intensity": null,
-    "set/_intensity": null,
-    "variant": null,
-    "set/variant": null,
-    "serviceClass": null,
-    "set/serviceClass": null,
-    "handlePacket": servers_SoundPlayerServer_handlePacket__P3881,
-    "handlePlayCommand": servers_SoundPlayerServer_handlePlayCommand__P4418,
-    "handleListSoundsCommand": servers_SoundPlayerServer_handleListSoundsCommand__P4419,
-    "statusCode": jacdac_Server_statusCode__P3452,
-    "disabled": jacdac_Server_disabled__P3454,
-    "ready": jacdac_Server_ready__P3455,
-    "intensity": jacdac_Server_intensity__P3456,
-    "set/intensity": jacdac_Server_intensity__P3457,
-    "value": jacdac_Server_value__P3458,
-    "set/value": jacdac_Server_value__P3459,
-    "setStatusCode": jacdac_Server_setStatusCode__P3460,
-    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
-    "sendReport": jacdac_Server_sendReport__P4185,
-    "sendEvent": jacdac_Server_sendEvent__P3465,
-    "sendChangeEvent": jacdac_Server_sendChangeEvent__P3466,
-    "handleStatusCode": jacdac_Server_handleStatusCode__P4186,
-    "handleInstanceName": jacdac_Server_handleInstanceName__P4187,
-    "handleVariant": jacdac_Server_handleVariant__P4188,
-    "handleValue": jacdac_Server_handleValue__P4189,
-    "handleIntensity": jacdac_Server_handleIntensity__P4190,
-    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
-    "doCalibrate": jacdac_Server_doCalibrate__P4192,
-    "handleRegFormat": jacdac_Server_handleRegFormat__P4193,
-    "handleRegValue": jacdac_Server_handleRegValue__P4194,
-    "toString": jacdac_Server_toString__P3467,
-    "handleRegBool": jacdac_Server_handleRegBool__P4195,
-    "handleRegBuffer": jacdac_Server_handleRegBuffer__P4198,
-    "start": jacdac_Server_start__P3468,
-    "log": jacdac_Server_log__P4199,
-    "on": jacdac_EventSource_on__P3576,
-    "addListenerInternal": jacdac_EventSource_addListenerInternal__P4176,
-    "emit": jacdac_EventSource_emit__P3578,
-  },
-});
-const servers_BuzzerServer__C3902_VT = mkVTable({
-  name: "BuzzerServer",
-  numFields: 16,
-  classNo: 29,
-  lastSubtypeNo: 29,
-  maxBgInstances: null,
-  methods: {
-    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
-    "handlePacket": servers_BuzzerServer_handlePacket__P3904,
-    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
-    "start": jacdac_Server_start__P3468,
-    "log": jacdac_Server_log__P4199,
-  },
-  iface: {
-    "listeners": null,
-    "set/listeners": null,
-    "instanceName": null,
-    "set/instanceName": null,
-    "calibrate": null,
-    "set/calibrate": null,
-    "valuePackFormat": null,
-    "set/valuePackFormat": null,
-    "intensityPackFormat": null,
-    "set/intensityPackFormat": null,
-    "constants": null,
-    "set/constants": null,
-    "supressLog": null,
-    "set/supressLog": null,
-    "running": null,
-    "set/running": null,
-    "serviceIndex": null,
-    "set/serviceIndex": null,
-    "stateUpdated": null,
-    "set/stateUpdated": null,
-    "_statusCode": null,
-    "set/_statusCode": null,
-    "_statusVendorCode": null,
-    "set/_statusVendorCode": null,
-    "_value": null,
-    "set/_value": null,
-    "_intensity": null,
-    "set/_intensity": null,
-    "variant": null,
-    "set/variant": null,
-    "serviceClass": null,
-    "set/serviceClass": null,
-    "handlePacket": servers_BuzzerServer_handlePacket__P3904,
-    "handlePlayToneCommand": servers_BuzzerServer_handlePlayToneCommand__P4436,
-    "statusCode": jacdac_Server_statusCode__P3452,
-    "disabled": jacdac_Server_disabled__P3454,
-    "ready": jacdac_Server_ready__P3455,
-    "intensity": jacdac_Server_intensity__P3456,
-    "set/intensity": jacdac_Server_intensity__P3457,
-    "value": jacdac_Server_value__P3458,
-    "set/value": jacdac_Server_value__P3459,
-    "setStatusCode": jacdac_Server_setStatusCode__P3460,
-    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
-    "sendReport": jacdac_Server_sendReport__P4185,
-    "sendEvent": jacdac_Server_sendEvent__P3465,
-    "sendChangeEvent": jacdac_Server_sendChangeEvent__P3466,
-    "handleStatusCode": jacdac_Server_handleStatusCode__P4186,
-    "handleInstanceName": jacdac_Server_handleInstanceName__P4187,
-    "handleVariant": jacdac_Server_handleVariant__P4188,
-    "handleValue": jacdac_Server_handleValue__P4189,
-    "handleIntensity": jacdac_Server_handleIntensity__P4190,
-    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
-    "doCalibrate": jacdac_Server_doCalibrate__P4192,
-    "handleRegFormat": jacdac_Server_handleRegFormat__P4193,
-    "handleRegValue": jacdac_Server_handleRegValue__P4194,
-    "toString": jacdac_Server_toString__P3467,
-    "handleRegBool": jacdac_Server_handleRegBool__P4195,
-    "handleRegBuffer": jacdac_Server_handleRegBuffer__P4198,
-    "start": jacdac_Server_start__P3468,
-    "log": jacdac_Server_log__P4199,
-    "on": jacdac_EventSource_on__P3576,
-    "addListenerInternal": jacdac_EventSource_addListenerInternal__P4176,
-    "emit": jacdac_EventSource_emit__P3578,
-  },
-});
-const jacdac_SimpleSensorServer__C3246_VT = mkVTable({
-  name: "SimpleSensorServer",
-  numFields: 23,
-  classNo: 25,
-  lastSubtypeNo: 25,
-  maxBgInstances: null,
-  methods: {
-    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
-    "handlePacket": jacdac_SimpleSensorServer_handlePacket__P3250,
-    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
-    "start": jacdac_Server_start__P3468,
-    "log": jacdac_Server_log__P4199,
-    "serializeState": jacdac_SimpleSensorServer_serializeState__P3251,
-  },
-  iface: {
-    "listeners": null,
-    "set/listeners": null,
-    "instanceName": null,
-    "set/instanceName": null,
-    "calibrate": null,
-    "set/calibrate": null,
-    "valuePackFormat": null,
-    "set/valuePackFormat": null,
-    "intensityPackFormat": null,
-    "set/intensityPackFormat": null,
-    "constants": null,
-    "set/constants": null,
-    "supressLog": null,
-    "set/supressLog": null,
-    "running": null,
-    "set/running": null,
-    "serviceIndex": null,
-    "set/serviceIndex": null,
-    "stateUpdated": null,
-    "set/stateUpdated": null,
-    "_statusCode": null,
-    "set/_statusCode": null,
-    "_statusVendorCode": null,
-    "set/_statusVendorCode": null,
-    "_value": null,
-    "set/_value": null,
-    "_intensity": null,
-    "set/_intensity": null,
-    "variant": null,
-    "set/variant": null,
-    "serviceClass": null,
-    "set/serviceClass": null,
-    "streamingInterval": null,
-    "set/streamingInterval": null,
-    "streamingSamples": null,
-    "set/streamingSamples": null,
-    "packFormat": null,
-    "set/packFormat": null,
-    "stateReader": null,
-    "set/stateReader": null,
-    "minReading": null,
-    "set/minReading": null,
-    "maxReading": null,
-    "set/maxReading": null,
-    "readingError": null,
-    "set/readingError": null,
-    "handlePacket": jacdac_SimpleSensorServer_handlePacket__P3250,
-    "serializeState": jacdac_SimpleSensorServer_serializeState__P3251,
-    "readState": jacdac_SensorServer_readState__P4244,
-    "handleCustomCommand": jacdac_SensorServer_handleCustomCommand__P4246,
-    "setStreaming": jacdac_SensorServer_setStreaming__P3241,
-    "startStreaming": jacdac_SensorServer_startStreaming__P4248,
-    "stopStreaming": jacdac_SensorServer_stopStreaming__P4249,
-    "statusCode": jacdac_Server_statusCode__P3452,
-    "disabled": jacdac_Server_disabled__P3454,
-    "ready": jacdac_Server_ready__P3455,
-    "intensity": jacdac_Server_intensity__P3456,
-    "set/intensity": jacdac_Server_intensity__P3457,
-    "value": jacdac_Server_value__P3458,
-    "set/value": jacdac_Server_value__P3459,
-    "setStatusCode": jacdac_Server_setStatusCode__P3460,
-    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
-    "sendReport": jacdac_Server_sendReport__P4185,
-    "sendEvent": jacdac_Server_sendEvent__P3465,
-    "sendChangeEvent": jacdac_Server_sendChangeEvent__P3466,
-    "handleStatusCode": jacdac_Server_handleStatusCode__P4186,
-    "handleInstanceName": jacdac_Server_handleInstanceName__P4187,
-    "handleVariant": jacdac_Server_handleVariant__P4188,
-    "handleValue": jacdac_Server_handleValue__P4189,
-    "handleIntensity": jacdac_Server_handleIntensity__P4190,
-    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
-    "doCalibrate": jacdac_Server_doCalibrate__P4192,
-    "handleRegFormat": jacdac_Server_handleRegFormat__P4193,
-    "handleRegValue": jacdac_Server_handleRegValue__P4194,
-    "toString": jacdac_Server_toString__P3467,
-    "handleRegBool": jacdac_Server_handleRegBool__P4195,
-    "handleRegBuffer": jacdac_Server_handleRegBuffer__P4198,
-    "start": jacdac_Server_start__P3468,
-    "log": jacdac_Server_log__P4199,
-    "on": jacdac_EventSource_on__P3576,
-    "addListenerInternal": jacdac_EventSource_addListenerInternal__P4176,
-    "emit": jacdac_EventSource_emit__P3578,
-  },
-});
 const servers_SoundLevelServer__C3861_VT = mkVTable({
   name: "SoundLevelServer",
   numFields: 24,
@@ -37531,84 +37610,6 @@ const servers_SoundLevelServer__C3861_VT = mkVTable({
     "setStreaming": jacdac_SensorServer_setStreaming__P3241,
     "startStreaming": jacdac_SensorServer_startStreaming__P4248,
     "stopStreaming": jacdac_SensorServer_stopStreaming__P4249,
-    "statusCode": jacdac_Server_statusCode__P3452,
-    "disabled": jacdac_Server_disabled__P3454,
-    "ready": jacdac_Server_ready__P3455,
-    "intensity": jacdac_Server_intensity__P3456,
-    "set/intensity": jacdac_Server_intensity__P3457,
-    "value": jacdac_Server_value__P3458,
-    "set/value": jacdac_Server_value__P3459,
-    "setStatusCode": jacdac_Server_setStatusCode__P3460,
-    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
-    "sendReport": jacdac_Server_sendReport__P4185,
-    "sendEvent": jacdac_Server_sendEvent__P3465,
-    "sendChangeEvent": jacdac_Server_sendChangeEvent__P3466,
-    "handleStatusCode": jacdac_Server_handleStatusCode__P4186,
-    "handleInstanceName": jacdac_Server_handleInstanceName__P4187,
-    "handleVariant": jacdac_Server_handleVariant__P4188,
-    "handleValue": jacdac_Server_handleValue__P4189,
-    "handleIntensity": jacdac_Server_handleIntensity__P4190,
-    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
-    "doCalibrate": jacdac_Server_doCalibrate__P4192,
-    "handleRegFormat": jacdac_Server_handleRegFormat__P4193,
-    "handleRegValue": jacdac_Server_handleRegValue__P4194,
-    "toString": jacdac_Server_toString__P3467,
-    "handleRegBool": jacdac_Server_handleRegBool__P4195,
-    "handleRegBuffer": jacdac_Server_handleRegBuffer__P4198,
-    "start": jacdac_Server_start__P3468,
-    "log": jacdac_Server_log__P4199,
-    "on": jacdac_EventSource_on__P3576,
-    "addListenerInternal": jacdac_EventSource_addListenerInternal__P4176,
-    "emit": jacdac_EventSource_emit__P3578,
-  },
-});
-const servers_ScreenServer__C3872_VT = mkVTable({
-  name: "ScreenServer",
-  numFields: 16,
-  classNo: 30,
-  lastSubtypeNo: 30,
-  maxBgInstances: null,
-  methods: {
-    "handlePacketOuter": jacdac_Server_handlePacketOuter__P3462,
-    "handlePacket": servers_ScreenServer_handlePacket__P3874,
-    "handleCalibrateCommand": jacdac_Server_handleCalibrateCommand__P4191,
-    "start": jacdac_Server_start__P3468,
-    "log": jacdac_Server_log__P4199,
-  },
-  iface: {
-    "listeners": null,
-    "set/listeners": null,
-    "instanceName": null,
-    "set/instanceName": null,
-    "calibrate": null,
-    "set/calibrate": null,
-    "valuePackFormat": null,
-    "set/valuePackFormat": null,
-    "intensityPackFormat": null,
-    "set/intensityPackFormat": null,
-    "constants": null,
-    "set/constants": null,
-    "supressLog": null,
-    "set/supressLog": null,
-    "running": null,
-    "set/running": null,
-    "serviceIndex": null,
-    "set/serviceIndex": null,
-    "stateUpdated": null,
-    "set/stateUpdated": null,
-    "_statusCode": null,
-    "set/_statusCode": null,
-    "_statusVendorCode": null,
-    "set/_statusVendorCode": null,
-    "_value": null,
-    "set/_value": null,
-    "_intensity": null,
-    "set/_intensity": null,
-    "variant": null,
-    "set/variant": null,
-    "serviceClass": null,
-    "set/serviceClass": null,
-    "handlePacket": servers_ScreenServer_handlePacket__P3874,
     "statusCode": jacdac_Server_statusCode__P3452,
     "disabled": jacdac_Server_disabled__P3454,
     "ready": jacdac_Server_ready__P3455,
@@ -38459,11 +38460,25 @@ const jacdac_AckAwaiter__C4137_VT = mkVTable({
     "set/srcId": null,
   },
 });
+const SoundExpression__C2692_VT = mkVTable({
+  name: "SoundExpression",
+  numFields: 1,
+  classNo: 51,
+  lastSubtypeNo: 51,
+  maxBgInstances: null,
+  methods: {
+  },
+  iface: {
+    "notes": null,
+    "set/notes": null,
+    "play": SoundExpression_play__P2694,
+  },
+});
 const music_Melody__C4022_VT = mkVTable({
   name: "Melody",
   numFields: 6,
-  classNo: 51,
-  lastSubtypeNo: 51,
+  classNo: 52,
+  lastSubtypeNo: 52,
   maxBgInstances: null,
   methods: {
   },
@@ -38482,20 +38497,6 @@ const music_Melody__C4022_VT = mkVTable({
     "set/background": null,
     "hasNextNote": music_Melody_hasNextNote__P4023,
     "nextNote": music_Melody_nextNote__P4024,
-  },
-});
-const SoundExpression__C2692_VT = mkVTable({
-  name: "SoundExpression",
-  numFields: 1,
-  classNo: 52,
-  lastSubtypeNo: 52,
-  maxBgInstances: null,
-  methods: {
-  },
-  iface: {
-    "notes": null,
-    "set/notes": null,
-    "play": SoundExpression_play__P2694,
   },
 });
 const control_PollEvent__C4049_VT = mkVTable({
