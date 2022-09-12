@@ -1,4 +1,4 @@
-// meta={"simUrl":"https://trg-microbit.userpxt.io/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.30","target":"microbit","targetVersion":"5.0.12"}
+// meta={"simUrl":"https://trg-microbit.userpxt.io/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.31","target":"microbit","targetVersion":"5.0.12"}
 // boardDefinition={"visual":"microbit","gpioPinBlocks":[["P0"],["P1"],["P2"],["P3"],["P4","P5","P6","P7"],["P8","P9","P10","P11","P12"],["P16"]],"gpioPinMap":{"P0":"P0","P1":"P1","P2":"P2","P3":"P3","P4":"P4","P5":"P5","P6":"P6","P7":"P7","P8":"P8","P9":"P9","P10":"P10","P11":"P11","P12":"P12","P13":"P13","P14":"P14","P15":"P15","P16":"P16","P19":"P19","P20":"P20"},"spiPins":{"MOSI":"P15","MISO":"P14","SCK":"P13"},"i2cPins":{"SDA":"P20","SCL":"P19"},"analogInPins":["P0","P1","P2","P3","P10"],"groundPins":["GND"],"threeVoltPins":["+3v3"],"attachPowerOnRight":true,"onboardComponents":["accelerometer","buttonpair","ledmatrix","speaker","bluetooth","thermometer","compass","builtinspeaker","microphone","logotouch","flashlog","v2"],"pinStyles":{"P0":"croc","P1":"croc","P2":"croc","GND":"croc","+3v3":"croc"},"marginWhenBreadboarding":[0,0,80,0]}
 // total=1423968 new=91.01% cached=0.00% other=8.99%
 (function (ectx) {
@@ -566,7 +566,7 @@ switch (step) {
   case 14:
     r0 = s.retval;
     globals.ERROR___3573 = ("error");
-    globals.VERSION___3585 = ("v1.8.30");
+    globals.VERSION___3585 = ("v1.8.31");
     globals.Forces___3594 = ("i12.20 i12.20 i12.20");
     globals.ForcesError___3595 = ("u12.20");
     globals.MaxForce___3596 = ("u12.20");

@@ -14,8 +14,8 @@ namespace servers {
                     for (let i = 0; i < 25; i++) {
                         const byte = Math.floor(i / 5)
                         const bit = 1 << (i - byte * 5)
-                        if (packet.data[byte] & bit) led.plot(x, y)
-                        else led.unplot(x, y)
+                        if (packet.data[byte] & bit) led.plot(y, x)
+                        else led.unplot(y, x)
                         x++
                         if (x == 5) {
                             x = 0
@@ -27,7 +27,7 @@ namespace servers {
                         y = 0
                     const buf = Buffer.create(5)
                     for (let i = 0; i < 25; i++) {
-                        if (led.point(x, y)) {
+                        if (led.point(y, x)) {
                             const byte = Math.floor(i / 5)
                             const bit = 1 << (i - byte * 5)
                             buf[byte] |= bit

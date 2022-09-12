@@ -1,4 +1,4 @@
-// meta={"simUrl":"https://trg-arcade.userpxt.io/beta---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.30","target":"arcade","targetVersion":"1.10.14"}
+// meta={"simUrl":"https://trg-arcade.userpxt.io/beta---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.31","target":"arcade","targetVersion":"1.10.14"}
 // total=2317976 new=93.35% cached=0.00% other=6.65%
 (function (ectx) {
 'use strict';
@@ -1125,7 +1125,7 @@ switch (step) {
     r0 = s.retval;
     r0 = pxsim.control.runInParallel(jacdac_inline__P8109);
     globals.ERROR___4825 = ("error");
-    globals.VERSION___4837 = ("v1.8.30");
+    globals.VERSION___4837 = ("v1.8.31");
     globals.Forces___4846 = ("i12.20 i12.20 i12.20");
     globals.ForcesError___4847 = ("u12.20");
     globals.MaxForce___4848 = ("u12.20");

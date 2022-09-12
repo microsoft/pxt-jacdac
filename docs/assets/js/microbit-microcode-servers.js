@@ -1,4 +1,4 @@
-// meta={"simUrl":"https://trg-microbit.userpxt.io/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.30","target":"microbit","targetVersion":"5.0.12"}
+// meta={"simUrl":"https://trg-microbit.userpxt.io/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.31","target":"microbit","targetVersion":"5.0.12"}
 // boardDefinition={"visual":"microbit","gpioPinBlocks":[["P0"],["P1"],["P2"],["P3"],["P4","P5","P6","P7"],["P8","P9","P10","P11","P12"],["P16"]],"gpioPinMap":{"P0":"P0","P1":"P1","P2":"P2","P3":"P3","P4":"P4","P5":"P5","P6":"P6","P7":"P7","P8":"P8","P9":"P9","P10":"P10","P11":"P11","P12":"P12","P13":"P13","P14":"P14","P15":"P15","P16":"P16","P19":"P19","P20":"P20"},"spiPins":{"MOSI":"P15","MISO":"P14","SCK":"P13"},"i2cPins":{"SDA":"P20","SCL":"P19"},"analogInPins":["P0","P1","P2","P3","P10"],"groundPins":["GND"],"threeVoltPins":["+3v3"],"attachPowerOnRight":true,"onboardComponents":["accelerometer","buttonpair","ledmatrix","speaker","bluetooth","thermometer","compass","builtinspeaker","microphone","logotouch","flashlog","v2"],"pinStyles":{"P0":"croc","P1":"croc","P2":"croc","GND":"croc","+3v3":"croc"},"marginWhenBreadboarding":[0,0,80,0]}
 // total=1126120 new=90.86% cached=0.00% other=9.14%
 (function (ectx) {
@@ -451,7 +451,7 @@ switch (step) {
   case 12:
     r0 = s.retval;
     globals.ERROR___3573 = ("error");
-    globals.VERSION___3585 = ("v1.8.30");
+    globals.VERSION___3585 = ("v1.8.31");
     globals.initialized___4365 = (false);
     globals.Forces___3680 = ("i12.20 i12.20 i12.20");
     globals.Group___3706 = ("u8");
@@ -29467,10 +29467,10 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 2; continue; }
-    r0 = pxsim.led.plot(s.x___12228, s.y___12229);
+    r0 = pxsim.led.plot(s.y___12229, s.x___12228);
     { step = 3; continue; }
   case 2:
-    r0 = pxsim.led.unplot(s.x___12228, s.y___12229);
+    r0 = pxsim.led.unplot(s.y___12229, s.x___12228);
   case 3:
     r0 = (s.x___12228 + 1);
     s.x___12228 = (r0);
@@ -29499,7 +29499,7 @@ switch (step) {
     s.tmp_0 = r0;
     r0 = pxsim_numops_toBoolDecr(s.tmp_0);
     if (!r0) { step = 13; continue; }
-    r0 = pxsim.led.pointBrightness(s.x___12270, s.y___12271);
+    r0 = pxsim.led.pointBrightness(s.y___12271, s.x___12270);
     s.tmp_2 = r0;
     r0 = (s.tmp_2 > 0);
     s.tmp_1 = r0;
