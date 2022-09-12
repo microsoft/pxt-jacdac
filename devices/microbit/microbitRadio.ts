@@ -6,7 +6,10 @@ namespace servers {
 
         constructor() {
             super(jacdac.SRV_BIT_RADIO)
+        }
 
+        start() {
+            super.start()
             radio.setGroup(this.group)
             radio.setTransmitPower(this.transmissionPower)
             radio.onReceivedBuffer(buf => this.handleReceivedBuffer(buf))

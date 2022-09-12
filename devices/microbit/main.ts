@@ -6,7 +6,6 @@ namespace servers {
     export function start(options?: {
         buttonA?: boolean
         buttonB?: boolean
-        buttonAB?: boolean
         buttonLogo?: boolean
         touchP0?: boolean
         touchP1?: boolean
@@ -30,7 +29,6 @@ namespace servers {
         if (options.forceSimulators || !jacdac.isSimulator()) {
             if (options.buttonA) servers.buttonA.start()
             if (options.buttonB) servers.buttonB.start()
-            if (options.buttonAB) servers.buttonAB.start()
             if (options.buttonLogo) servers.buttonLogo.start()
             if (options.touchP0) servers.touchP0.start()
             if (options.touchP1) servers.touchP1.start()

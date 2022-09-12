@@ -4,7 +4,6 @@ servers.start({
     logger: true,
     buttonA: true,
     buttonB: true,
-    buttonAB: false,
     buttonLogo: true,
     touchP0: true,
     touchP1: true,
@@ -14,4 +13,4 @@ servers.start({
     radio: true,
     soundPlayer: true,
     forceSimulators: true,
-});
+})

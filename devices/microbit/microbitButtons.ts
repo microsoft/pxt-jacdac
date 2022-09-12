@@ -10,12 +10,17 @@ namespace servers {
             super(jacdac.SRV_BUTTON, { instanceName: dev })
             this.pressed = this.isPressed()
             this.prevPressed = this.pressed
-            control.onEvent(button, EventBusValue.MICROBIT_EVT_ANY, () => {
+        }
+
+        start() {
+            super.start()
+            control.onEvent(this.button, EventBusValue.MICROBIT_EVT_ANY, () => {
                 const v = control.eventValue()
                 this.update(
                     v === EventBusValue.MICROBIT_BUTTON_EVT_DOWN
                         ? true
-                        : (v === EventBusValue.MICROBIT_BUTTON_EVT_UP || v === EventBusValue.MICROBIT_BUTTON_EVT_CLICK)
+                        : v === EventBusValue.MICROBIT_BUTTON_EVT_UP ||
+                          v === EventBusValue.MICROBIT_BUTTON_EVT_CLICK
                         ? false
                         : undefined
                 )
@@ -66,7 +71,9 @@ namespace servers {
 
         public serializeState(): Buffer {
             const pressed = this.isPressed()
-            return jacdac.jdpack(jacdac.ButtonRegPack.Pressure, [pressed ? 0xffff : 0])
+            return jacdac.jdpack(jacdac.ButtonRegPack.Pressure, [
+                pressed ? 0xffff : 0,
+            ])
         }
     }
 
@@ -96,8 +103,6 @@ namespace servers {
     export const buttonA = new servers.MButton("A", Button.A)
     //% fixedInstance whenUsed block="button B"
     export const buttonB = new servers.MButton("B", Button.B)
-    //% fixedInstance whenUsed block="button AB"
-    export const buttonAB = new servers.MButton("A+B", Button.AB)
     //% fixedInstance whenUsed block="button logo"
     export const buttonLogo = new servers.LogoButton(
         "Logo",

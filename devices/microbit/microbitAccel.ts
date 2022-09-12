@@ -3,6 +3,10 @@ namespace servers {
         private lastEvent: number = -1
         constructor() {
             super(jacdac.SRV_ACCELEROMETER)
+        }
+
+        start() {
+            super.start()
             input.onGesture(Gesture.Shake, function () {
                 this.sendEvent(jacdac.AccelerometerEvent.Shake)
             })
