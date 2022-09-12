@@ -1,6 +1,6 @@
 namespace servers {
     export class RadioServer extends jacdac.Server {
-        enabled = true
+        enabled = false
         group = 1
         transmissionPower = 6
 

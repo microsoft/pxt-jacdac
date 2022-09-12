@@ -33,16 +33,16 @@ namespace servers {
             if (options.touchP0) servers.touchP0.start()
             if (options.touchP1) servers.touchP1.start()
             if (options.touchP2) servers.touchP2.start()
-            if (options.screen) servers.screenServer.start()
-            if (options.soundLevel) servers.soundLevelServer.start()
-            if (options.lightLevel) servers.lightLevelServer.start()
             if (options.temperature) servers.temperatureServer.start()
             if (options.accelerometer) servers.accelerometerServer.start()
-            if (options.buzzer) servers.buzzerServer.start()
+            if (options.soundLevel) servers.soundLevelServer.start()
+            if (options.radio) servers.radioServer.start()
+            if (options.screen) servers.screenServer.start()
+            if (options.lightLevel) servers.lightLevelServer.start()
             if (options.soundPlayer) servers.soundPlayerServer.start()
+            if (options.buzzer) servers.buzzerServer.start()
             // calibration "kills" jacdac
             // microbit.compassServer.start()
-            if (options.radio) servers.radioServer.start()
         }
 
         if (jacdac.checkProxy()) jacdac.proxyFinalize()
