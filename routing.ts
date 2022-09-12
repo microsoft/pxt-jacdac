@@ -1960,8 +1960,9 @@ namespace jacdac {
     /**
      * Starts device as a server
      */
-    export function startServer() {
-        start({ disableLogger: true, disableRoleManager: true, noWait: true })
+    export function startServer(options?: { logger?: boolean }) {
+        options = options || {}
+        start({ disableLogger: !options.logger, disableRoleManager: true, noWait: true })
 
         let lastClient = control.millis()
         bus.on(PACKET_PROCESS, (pkt: JDPacket) => {

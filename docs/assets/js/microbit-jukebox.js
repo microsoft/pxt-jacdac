@@ -1015,7 +1015,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_inline__P5095.info = {"start":67567,"length":13,"line":2037,"column":26,"endLine":2037,"endColumn":39,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":[]}
+jacdac_inline__P5095.info = {"start":67640,"length":13,"line":2038,"column":26,"endLine":2038,"endColumn":39,"fileName":"pxt_modules/jacdac/routing.ts","functionName":"inline","argumentNames":[]}
 
 function jacdac_inline__P5095_mk(s) {
     checkStack(s.depth);

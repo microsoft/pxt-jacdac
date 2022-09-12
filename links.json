@@ -29,7 +29,6 @@
         "jacdac-light-level": "./light-level",
         "jacdac-magnetic-field-level": "./magnetic-field-level",
         "jacdac-light-bulb": "./light-bulb",
-        "jacdac-microbit": "./devices/microbit",
         "jacdac-motor": "./motor",
         "jacdac-motor-server": "./motor-server",
         "jacdac-potentiometer": "./potentiometer",
@@ -57,6 +56,8 @@
         "jacdac-traffic-light": "./traffic-light",
         "jacdac-vibration-motor": "./vibration-motor",
         "jacdac-wind-speed": "./wind-speed",
+
+        "jacdac-microbit": "./devices/microbit",
 
         "pxt-makerbit-motor": "./others/pxt-makerbit-motor",
         "pxt-makerbit-touch": "./others/pxt-makerbit-touch",

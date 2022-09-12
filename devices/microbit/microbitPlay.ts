@@ -1,40 +1,7 @@
 namespace servers {
-    // Service: Sound player
-    const SRV_SOUND_PLAYER = 0x1403d338
-    const enum SoundPlayerReg {
-        /**
-         * Read-write ratio u0.16 (uint16_t). Global volume of the output. ``0`` means completely off. This volume is mixed with each play volumes.
-         *
-         * ```
-         * const [volume] = jdunpack<[number]>(buf, "u0.16")
-         * ```
-         */
-        Volume = 0x1,
-    }
-
-    const enum SoundPlayerCmd {
-        /**
-         * Argument: string (bytes). Starts playing a sound.
-         *
-         * ```
-         * const [play] = jdunpack<[string]>(buf, "s")
-         * ```
-         */
-        Play = 0x80,
-
-        /**
-         * Argument: sounds_port pipe (bytes). Returns the list of sounds available to play.
-         *
-         * ```
-         * const [soundsPort] = jdunpack<[Buffer]>(buf, "b[12]")
-         * ```
-         */
-        ListSounds = 0x81,
-    }
-
     export class SoundPlayerServer extends jacdac.Server {
         constructor() {
-            super(SRV_SOUND_PLAYER)
+            super(jacdac.SRV_SOUND_PLAYER)
         }
 
         public handlePacket(pkt: jacdac.JDPacket) {
@@ -43,8 +10,8 @@ namespace servers {
             const vol =
                 (this.handleRegValue(
                     pkt,
-                    SoundPlayerReg.Volume,
-                    "u0.16",
+                    jacdac.SoundPlayerReg.Volume,
+                    jacdac.SoundPlayerRegPack.Volume,
                     oldVol / 255
                 ) *
                     255) |
@@ -53,10 +20,10 @@ namespace servers {
 
             // commands
             switch (pkt.serviceCommand) {
-                case SoundPlayerCmd.Play:
+                case jacdac.SoundPlayerCmd.Play:
                     this.handlePlayCommand(pkt)
                     break
-                case SoundPlayerCmd.ListSounds:
+                case jacdac.SoundPlayerCmd.ListSounds:
                     this.handleListSoundsCommand(pkt)
                     break
                 default:
@@ -66,7 +33,7 @@ namespace servers {
         }
 
         private handlePlayCommand(pkt: jacdac.JDPacket) {
-            const [name] = pkt.jdunpack<[string]>("s")
+            const [name] = pkt.jdunpack<[string]>(jacdac.SoundPlayerCmdPack.Play)
             if (name) {
                 music.stopAllSounds()
                 const exp = new SoundExpression(name)

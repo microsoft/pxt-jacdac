@@ -1,21 +1,13 @@
 namespace servers {
-    const SRV_BUTTON = 0x1473a263
-
-    const enum ButtonEvent {
-        Down = 0x1,
-        Up = 0x2,
-        Hold = 0x81,
-    }
-
     class BaseButton extends jacdac.SensorServer {
         pressed: boolean
         prevPressed: boolean
-        nextHold: number = 500000
+        nextHold = 500000
         pressTime: number
         nextSample: number
 
         constructor(dev: string, protected button: number) {
-            super(SRV_BUTTON, { instanceName: dev })
+            super(jacdac.SRV_BUTTON, { instanceName: dev })
             this.pressed = this.isPressed()
             this.prevPressed = this.pressed
             control.onEvent(button, EventBusValue.MICROBIT_EVT_ANY, () => {
@@ -23,7 +15,7 @@ namespace servers {
                 this.update(
                     v === EventBusValue.MICROBIT_BUTTON_EVT_DOWN
                         ? true
-                        : v === EventBusValue.MICROBIT_BUTTON_EVT_UP
+                        : (v === EventBusValue.MICROBIT_BUTTON_EVT_UP || v === EventBusValue.MICROBIT_BUTTON_EVT_CLICK)
                         ? false
                         : undefined
                 )
@@ -41,7 +33,7 @@ namespace servers {
             if (this.pressed !== this.prevPressed) {
                 this.prevPressed = this.pressed
                 if (this.pressed) {
-                    this.sendEvent(ButtonEvent.Down)
+                    this.sendEvent(jacdac.ButtonEvent.Down)
                     this.pressTime = control.millis()
                     this.nextHold = 500
                     control.runInBackground(() => {
@@ -52,8 +44,8 @@ namespace servers {
                     const pressLen = control.millis() - this.pressTime
                     this.nextHold = 0
                     this.sendEvent(
-                        ButtonEvent.Up,
-                        jacdac.jdpack("u32", [pressLen])
+                        jacdac.ButtonEvent.Up,
+                        jacdac.jdpack(jacdac.ButtonEventPack.Up, [pressLen])
                     )
                 }
             } else if (this.pressed) {
@@ -61,8 +53,8 @@ namespace servers {
                 if (pressLen >= this.nextHold) {
                     this.nextHold += 500
                     this.sendEvent(
-                        ButtonEvent.Hold,
-                        jacdac.jdpack("u32", [pressLen])
+                        jacdac.ButtonEvent.Hold,
+                        jacdac.jdpack(jacdac.ButtonEventPack.Hold, [pressLen])
                     )
                     control.runInBackground(() => {
                         pause(500)
@@ -74,7 +66,7 @@ namespace servers {
 
         public serializeState(): Buffer {
             const pressed = this.isPressed()
-            return jacdac.jdpack("u16", [pressed ? 0xffff : 0])
+            return jacdac.jdpack(jacdac.ButtonRegPack.Pressure, [pressed ? 0xffff : 0])
         }
     }
 

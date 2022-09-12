@@ -1,3 +1,4 @@
+jacdac.firmwareVersion = jacdac.VERSION
 function identify(d: jacdac.Device) {
     if (!d) return
     if (d == jacdac.bus.selfDevice) {

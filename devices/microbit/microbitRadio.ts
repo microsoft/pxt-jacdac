@@ -1,116 +1,11 @@
 namespace servers {
-    // Service: bit:radio
-    const SRV_BIT_RADIO = 0x1ac986cf
-    const enum BitRadioReg {
-        /**
-         * Read-write bool (uint8_t). Turns on/off the radio antenna.
-         *
-         * ```
-         * const [enabled] = jdunpack<[number]>(buf, "u8")
-         * ```
-         */
-        Enabled = 0x1,
-
-        /**
-         * Read-write uint8_t. Group used to filter packets
-         *
-         * ```
-         * const [group] = jdunpack<[number]>(buf, "u8")
-         * ```
-         */
-        Group = 0x80,
-
-        /**
-         * Read-write uint8_t. Antenna power to increase or decrease range.
-         *
-         * ```
-         * const [transmissionPower] = jdunpack<[number]>(buf, "u8")
-         * ```
-         */
-        TransmissionPower = 0x81,
-
-        /**
-         * Read-write uint8_t. Change the transmission and reception band of the radio to the given channel.
-         *
-         * ```
-         * const [frequencyBand] = jdunpack<[number]>(buf, "u8")
-         * ```
-         */
-        FrequencyBand = 0x82,
-    }
-
-    const enum BitRadioCmd {
-        /**
-         * Argument: message string (bytes). Sends a string payload as a radio message, maximum 18 characters.
-         *
-         * ```
-         * const [message] = jdunpack<[string]>(buf, "s")
-         * ```
-         */
-        SendString = 0x80,
-
-        /**
-         * Argument: value f64 (uint64_t). Sends a double precision number payload as a radio message
-         *
-         * ```
-         * const [value] = jdunpack<[number]>(buf, "f64")
-         * ```
-         */
-        SendNumber = 0x81,
-
-        /**
-         * Sends a double precision number and a name payload as a radio message
-         *
-         * ```
-         * const [value, name] = jdunpack<[number, string]>(buf, "f64 s")
-         * ```
-         */
-        SendValue = 0x82,
-
-        /**
-         * Argument: data bytes. Sends a payload of bytes as a radio message
-         *
-         * ```
-         * const [data] = jdunpack<[Buffer]>(buf, "b")
-         * ```
-         */
-        SendBuffer = 0x83,
-
-        /**
-         * Raised when a string packet is received
-         *
-         * ```
-         * const [time, deviceSerialNumber, rssi, message] = jdunpack<[number, number, number, string]>(buf, "u32 u32 i8 x[1] s")
-         * ```
-         */
-        StringReceived = 0x90,
-
-        /**
-         * Raised when a number packet is received
-         *
-         * ```
-         * const [time, deviceSerialNumber, rssi, value, name] = jdunpack<[number, number, number, number, string]>(buf, "u32 u32 i8 x[3] f64 s")
-         * ```
-         */
-        NumberReceived = 0x91,
-
-        /**
-         * Raised when a buffer packet is received
-         *
-         * ```
-         * const [time, deviceSerialNumber, rssi, data] = jdunpack<[number, number, number, Buffer]>(buf, "u32 u32 i8 x[1] b")
-         * ```
-         */
-        BufferReceived = 0x92,
-    }
-
     export class RadioServer extends jacdac.Server {
         enabled = true
         group = 1
         transmissionPower = 6
 
         constructor() {
-            super(SRV_BIT_RADIO)
+            super(jacdac.SRV_BIT_RADIO)
 
             radio.setGroup(this.group)
             radio.setTransmitPower(this.transmissionPower)
@@ -129,7 +24,7 @@ namespace servers {
             const oldEnabled = this.enabled
             this.enabled = this.handleRegBool(
                 pkt,
-                BitRadioReg.Enabled,
+                jacdac.BitRadioReg.Enabled,
                 this.enabled
             )
             if (oldEnabled != this.enabled) {
@@ -140,16 +35,16 @@ namespace servers {
             const oldGroup = this.group
             this.group = this.handleRegValue(
                 pkt,
-                BitRadioReg.Group,
-                "u8",
+                jacdac.BitRadioReg.Group,
+                jacdac.BitRadioRegPack.Group,
                 this.group
             )
             if (oldGroup !== this.group) radio.setGroup(this.group)
             const oldTransmissionPower = this.transmissionPower
             this.transmissionPower = this.handleRegValue(
                 pkt,
-                BitRadioReg.TransmissionPower,
-                "u8",
+                jacdac.BitRadioReg.TransmissionPower,
+                jacdac.BitRadioRegPack.TransmissionPower,
                 this.transmissionPower
             )
             if (oldTransmissionPower !== this.transmissionPower)
@@ -157,16 +52,16 @@ namespace servers {
 
             // commands
             switch (pkt.serviceCommand) {
-                case BitRadioCmd.SendBuffer:
+                case jacdac.BitRadioCmd.SendBuffer:
                     this.handleSendBuffer(pkt)
                     break
-                case BitRadioCmd.SendNumber:
+                case jacdac.BitRadioCmd.SendNumber:
                     this.handleSendNumber(pkt)
                     break
-                case BitRadioCmd.SendString:
+                case jacdac.BitRadioCmd.SendString:
                     this.handleSendString(pkt)
                     break
-                case BitRadioCmd.SendValue:
+                case jacdac.BitRadioCmd.SendValue:
                     this.handleSendValue(pkt)
                     break
                 default:
@@ -181,11 +76,11 @@ namespace servers {
             const time = radio.receivedTime()
 
             const payload = jacdac.jdpack<[number, number, number, Buffer]>(
-                "u32 u32 i8 x[1] b",
+                jacdac.BitRadioCmdPack.BufferReceived,
                 [time, deviceSerialNumber, rssi, data]
             )
             this.sendReport(
-                jacdac.JDPacket.from(BitRadioCmd.BufferReceived, payload)
+                jacdac.JDPacket.from(jacdac.BitRadioCmd.BufferReceived, payload)
             )
         }
 
@@ -195,11 +90,11 @@ namespace servers {
             const time = radio.receivedTime()
 
             const payload = jacdac.jdpack<[number, number, number, string]>(
-                "u32 u32 i8 x[1] s",
+                jacdac.BitRadioCmdPack.StringReceived,
                 [time, deviceSerialNumber, rssi, data]
             )
             this.sendReport(
-                jacdac.JDPacket.from(BitRadioCmd.StringReceived, payload)
+                jacdac.JDPacket.from(jacdac.BitRadioCmd.StringReceived, payload)
             )
         }
 
@@ -218,24 +113,24 @@ namespace servers {
                 name,
             ])
             this.sendReport(
-                jacdac.JDPacket.from(BitRadioCmd.NumberReceived, payload)
+                jacdac.JDPacket.from(jacdac.BitRadioCmd.NumberReceived, payload)
             )
         }
 
         private handleSendBuffer(pkt: jacdac.JDPacket) {
-            const [data] = pkt.jdunpack<[Buffer]>("b")
+            const [data] = pkt.jdunpack<[Buffer]>(jacdac.BitRadioCmdPack.SendBuffer)
             radio.sendBuffer(data)
         }
         private handleSendNumber(pkt: jacdac.JDPacket) {
-            const [n] = pkt.jdunpack<[number]>("f64")
+            const [n] = pkt.jdunpack<[number]>(jacdac.BitRadioCmdPack.SendNumber)
             radio.sendNumber(n)
         }
         private handleSendString(pkt: jacdac.JDPacket) {
-            const [s] = pkt.jdunpack<[string]>("s")
+            const [s] = pkt.jdunpack<[string]>(jacdac.BitRadioCmdPack.SendString)
             radio.sendString(s)
         }
         private handleSendValue(pkt: jacdac.JDPacket) {
-            const [value, name] = pkt.jdunpack<[number, string]>("f64 s")
+            const [value, name] = pkt.jdunpack<[number, string]>(jacdac.BitRadioCmdPack.SendValue)
             radio.sendValue(name, value)
         }
     }

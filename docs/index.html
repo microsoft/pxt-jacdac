@@ -100,9 +100,7 @@
         >
         </iframe>
         <script type="text/javascript">
-            const tool = /tool=microbit-oob/i.test(window.location)
-                ? "microbit-oob"
-                : /tool=microbit-jukebox/i.test(window.location)
+            const tool = /tool=microbit-(oob|jukebox)/i.test(window.location)
                 ? "microbit-jukebox"
                 : /tool=multitool/i.test(window.location)
                 ? "multitool"

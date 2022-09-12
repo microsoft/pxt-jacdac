@@ -1,25 +1,13 @@
 namespace servers {
-    const SRV_DOT_MATRIX = 0x110d154b
-    enum DotMatrixReg {
-        Dots = 0x2,
-        Brightness = 0x1,
-        Rows = 0x181,
-        Columns = 0x182,
-        Variant = 0x107,
-    }
-    enum DotMatrixVariant { // uint8_t
-        LED = 0x1,
-        Braille = 0x2,
-    }
     export class ScreenServer extends jacdac.Server {
         constructor() {
-            super(SRV_DOT_MATRIX)
+            super(jacdac.SRV_DOT_MATRIX)
         }
 
         handlePacket(packet: jacdac.JDPacket) {
             const regCode = packet.regCode
 
-            if (regCode == DotMatrixReg.Dots) {
+            if (regCode == jacdac.DotMatrixReg.Dots) {
                 if (packet.isRegSet) {
                     let x = 0,
                         y = 0
@@ -53,31 +41,34 @@ namespace servers {
                     this.handleRegBuffer(packet, packet.regCode, buf)
                 }
             } else if (
-                regCode == DotMatrixReg.Columns ||
-                regCode == DotMatrixReg.Rows
+                regCode == jacdac.DotMatrixReg.Columns ||
+                regCode == jacdac.DotMatrixReg.Rows
             ) {
-                this.handleRegValue(packet, regCode, "u16", 5)
-            } else if (regCode == DotMatrixReg.Brightness) {
+                this.handleRegValue(packet, regCode, jacdac.DotMatrixRegPack.Columns, 5)
+            } else if (regCode == jacdac.DotMatrixReg.Brightness) {
                 const b = this.handleRegValue(
                     packet,
                     regCode,
-                    "u0.8",
+                    jacdac.DotMatrixRegPack.Brightness,
                     led.brightness() / 255.0
                 )
-                if (packet.isRegSet)
-                    led.setBrightness(b * 0xff)
-            } else if (regCode === DotMatrixReg.Variant) {
-                this.handleRegValue(packet, regCode, "u8", DotMatrixVariant.LED)
-            } else if (packet.regCode === DotMatrixReg.Brightness) {
+                if (packet.isRegSet) led.setBrightness(b * 0xff)
+            } else if (regCode === jacdac.DotMatrixReg.Variant) {
+                this.handleRegValue(
+                    packet,
+                    regCode,
+                    jacdac.DotMatrixRegPack.Variant,
+                    jacdac.DotMatrixVariant.LED
+                )
+            } else if (packet.regCode === jacdac.DotMatrixReg.Brightness) {
                 const b = led.brightness() / 255.0
                 const nb = this.handleRegValue(
                     packet,
                     packet.regCode,
-                    "u0.8",
+                    jacdac.DotMatrixRegPack.Brightness,
                     b
                 )
-                if (b !== nb)
-                    led.setBrightness(nb << 8)
+                if (b !== nb) led.setBrightness(nb << 8)
             } else {
                 packet.possiblyNotImplemented()
             }

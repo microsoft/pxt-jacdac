@@ -19,29 +19,32 @@ namespace servers {
         buzzer?: boolean
         soundPlayer?: boolean
         radio?: boolean
+        /**
+         * Starts servers even in simulation mode
+         */
+        forceSimulators?: boolean
+        logger?: boolean
     }) {
-        jacdac.startServer()
-        if (!jacdac.isSimulator()) {
-            if (!options || options.buttonA) servers.buttonA.start()
-            if (!options || options.buttonB) servers.buttonB.start()
-            if (!options || options.buttonAB) servers.buttonAB.start()
-            if (!options || options.buttonLogo) servers.buttonLogo.start()
-            if (!options || options.touchP0) servers.touchP0.start()
-            if (!options || options.touchP1) servers.touchP1.start()
-            if (!options || options.touchP2) servers.touchP2.start()
-            if (!options || options.screen) servers.screenServer.start()
-            if (!options || options.soundLevel) servers.soundLevelServer.start()
-            if (!options || options.lightLevel) servers.lightLevelServer.start()
-            if (!options || options.temperature)
-                servers.temperatureServer.start()
-            if (!options || options.accelerometer)
-                servers.accelerometerServer.start()
-            if (!options || options.buzzer) servers.buzzerServer.start()
-            if (!options || options.soundPlayer)
-                servers.soundPlayerServer.start()
+        jacdac.startServer(options)
+        options = options || {}
+        if (options.forceSimulators || !jacdac.isSimulator()) {
+            if (options.buttonA) servers.buttonA.start()
+            if (options.buttonB) servers.buttonB.start()
+            if (options.buttonAB) servers.buttonAB.start()
+            if (options.buttonLogo) servers.buttonLogo.start()
+            if (options.touchP0) servers.touchP0.start()
+            if (options.touchP1) servers.touchP1.start()
+            if (options.touchP2) servers.touchP2.start()
+            if (options.screen) servers.screenServer.start()
+            if (options.soundLevel) servers.soundLevelServer.start()
+            if (options.lightLevel) servers.lightLevelServer.start()
+            if (options.temperature) servers.temperatureServer.start()
+            if (options.accelerometer) servers.accelerometerServer.start()
+            if (options.buzzer) servers.buzzerServer.start()
+            if (options.soundPlayer) servers.soundPlayerServer.start()
             // calibration "kills" jacdac
             // microbit.compassServer.start()
-            if (!options || options.radio) servers.radioServer.start()
+            if (options.radio) servers.radioServer.start()
         }
 
         if (jacdac.checkProxy()) jacdac.proxyFinalize()

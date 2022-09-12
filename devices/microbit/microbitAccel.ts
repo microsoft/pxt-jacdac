@@ -1,32 +1,31 @@
 namespace servers {
-    const SRV_ACCELEROMETER = 0x1f140409
     export class AccelerometerServer extends jacdac.SensorServer {
         private lastEvent: number = -1
         constructor() {
-            super(SRV_ACCELEROMETER)
+            super(jacdac.SRV_ACCELEROMETER)
             input.onGesture(Gesture.Shake, function () {
-                this.sendEvent(0x8b)
+                this.sendEvent(jacdac.AccelerometerEvent.Shake)
             })
             input.onGesture(Gesture.ScreenUp, function () {
-                this.sendEvent(0x85)
+                this.sendEvent(jacdac.AccelerometerEvent.FaceUp)
             })
             input.onGesture(Gesture.ScreenDown, function () {
-                this.sendEvent(0x86)
+                this.sendEvent(jacdac.AccelerometerEvent.FaceDown)
             })
             input.onGesture(Gesture.LogoUp, function () {
-                this.sendEvent(0x81)
+                this.sendEvent(jacdac.AccelerometerEvent.TiltUp)
             })
             input.onGesture(Gesture.LogoDown, function () {
-                this.sendEvent(0x82)
+                this.sendEvent(jacdac.AccelerometerEvent.TiltDown)
             })
             input.onGesture(Gesture.TiltLeft, function () {
-                this.sendEvent(0x83)
+                this.sendEvent(jacdac.AccelerometerEvent.TiltLeft)
             })
             input.onGesture(Gesture.TiltRight, function () {
-                this.sendEvent(0x84)
+                this.sendEvent(jacdac.AccelerometerEvent.TiltRight)
             })
             input.onGesture(Gesture.FreeFall, function () {
-                this.sendEvent(0x87)
+                this.sendEvent(jacdac.AccelerometerEvent.Freefall)
             })
         }
 
@@ -34,7 +33,7 @@ namespace servers {
             let ax = input.acceleration(Dimension.X) / 1000
             let ay = input.acceleration(Dimension.Y) / 1000
             let az = input.acceleration(Dimension.Z) / 1000
-            return jacdac.jdpack("i12.20 i12.20 i12.20", [ax, ay, az])
+            return jacdac.jdpack(jacdac.AccelerometerRegPack.Forces, [ax, ay, az])
         }
     }
 
