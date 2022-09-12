@@ -102,6 +102,8 @@
         <script type="text/javascript">
             const tool = /tool=microbit-(oob|jukebox)/i.test(window.location)
                 ? "microbit-jukebox"
+                : /tool=microbit-microcode-servers/i.test(window.location)
+                ? "microbit-microcode-servers"
                 : /tool=multitool/i.test(window.location)
                 ? "multitool"
                 : "binary"
