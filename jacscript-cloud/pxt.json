@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-jacscript-cloud",
+    "version": "0.0.0",
+    "description": "Allows upload and downloading data to a cloud provider",
+    "files": [
+        "constants.ts",
+        "client.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}

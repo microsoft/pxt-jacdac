@@ -14,6 +14,7 @@
         "jacdac-dual-motors": "./dual-motors",
         "jacdac-e-co2": "./e-co2",
         "jacdac-flex": "./flex",
+        "jacdac-jacscript-cloud": "./jacscript-cloud",
         "jacdac-pressure": "./pressure",
         "jacdac-hid-keyboard": "./hid-keyboard",
         "jacdac-hid-keyboard-server": "./hid-keyboard-server",
