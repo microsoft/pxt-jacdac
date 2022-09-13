@@ -84,8 +84,8 @@ namespace modules {
             this.start()
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
-                    jacdac.JacscriptCloudCmd.Upload,
-                    jacdac.JacscriptCloudCmdPack.Upload,
+                    jacdac.CloudAdapterCmd.Upload,
+                    jacdac.CloudAdapterCmdPack.Upload,
                     [label, values.map(v => [v])]
                 )
             )
