@@ -58,7 +58,7 @@ namespace modules {
             value3?: number,
             value4?: number
         ): void {
-            if (!label) return
+            if (!label || isNaN(value)) return
             const values: number[] = [value]
             if (!isNaN(value2)) {
                 values.push(value2)
