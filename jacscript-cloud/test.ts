@@ -1,7 +1,7 @@
 forever(() => {
     modules.jacscriptCloud.uploadNumber(
         "time",
-        input.runningTime(),
+        Math.random(),
         Math.random()
     )
     pause(1000)
