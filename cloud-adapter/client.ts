@@ -1,27 +1,29 @@
 namespace modules {
     /**
-     * Upload and download data to a cloud provider
+     * Supports cloud connections to upload and download data.
+     * Note that `f64` values following a label are not necessarily aligned.
      **/
     //% fixedInstances blockGap=8
-    export class JacscriptCloudClient extends jacdac.Client {
+    export class CloudAdapterClient extends jacdac.Client {
         private readonly _connected: jacdac.RegisterClient<[boolean]>
         private readonly _connectionName: jacdac.RegisterClient<[string]>
 
         constructor(role: string) {
-            super(jacdac.SRV_JACSCRIPT_CLOUD, role)
+            super(jacdac.SRV_CLOUD_ADAPTER, role)
 
             this._connected = this.addRegister<[boolean]>(
-                jacdac.JacscriptCloudReg.Connected,
-                jacdac.JacscriptCloudRegPack.Connected
+                jacdac.CloudAdapterReg.Connected,
+                jacdac.CloudAdapterRegPack.Connected
             )
             this._connectionName = this.addRegister<[string]>(
-                jacdac.JacscriptCloudReg.ConnectionName,
-                jacdac.JacscriptCloudRegPack.ConnectionName
+                jacdac.CloudAdapterReg.ConnectionName,
+                jacdac.CloudAdapterRegPack.ConnectionName
             )
         }
 
         /**
-         * Indicate whether we're currently connected to the cloud server. When offline, uploadcommands are queued.
+         * Indicate whether we're currently connected to the cloud server.
+         * When offline, `upload` commands are queued, and `get_twin` respond with cached values.
          */
         //% callInDebugger
         //% group="IoT"
@@ -29,15 +31,16 @@ namespace modules {
         connected(): boolean {
             this.start()
             const values = this._connected.pauseUntilValues() as any[]
-            return values[0]
+            return !!values[0]
         }
 
         /**
-         * User-friendly name of the connection, typically includes name of the server and/or type of cloud service ("something.cloud.net (Provider IoT)").
+         * User-friendly name of the connection, typically includes name of the server
+         * and/or type of cloud service (`"something.cloud.net (Provider IoT)"`).
          */
         //% callInDebugger
         //% group="IoT"
-        //% weight=100
+        //% weight=99
         connectionName(): string {
             this.start()
             const values = this._connectionName.pauseUntilValues() as any[]
@@ -92,23 +95,23 @@ namespace modules {
          * Register code to run when an event is raised
          */
         //% group="IoT"
-        //% blockId=jacdac_on_jacscriptcloud_event
-        //% block="on %jacscriptcloud %event"
-        //% weight=93
-        onEvent(ev: jacdac.JacscriptCloudEvent, handler: () => void): void {
+        //% blockId=jacdac_on_cloudadapter_event
+        //% block="on %cloudadapter %event"
+        //% weight=98
+        onEvent(ev: jacdac.CloudAdapterEvent, handler: () => void): void {
             this.registerEvent(ev, handler)
         }
 
         /**
-         * Raised when the connection status changes
+         * Emitted when we connect or disconnect from the cloud.
          */
         //% group="IoT"
-        //% weight=92
+        //% weight=96
         onChange(handler: () => void): void {
-            this.registerEvent(jacdac.JacscriptCloudEvent.Change, handler)
+            this.registerEvent(jacdac.CloudAdapterEvent.Change, handler)
         }
     }
 
-    //% fixedInstance whenUsed weight=1 block="jacscript cloud"
-    export const jacscriptCloud = new JacscriptCloudClient("jacscript cloud")
+    //% fixedInstance whenUsed weight=1 block="cloud adapter1"
+    export const cloudAdapter1 = new CloudAdapterClient("cloud Adapter1")
 }

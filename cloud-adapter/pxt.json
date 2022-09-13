@@ -1,7 +1,7 @@
 {
-    "name": "jacdac-jacscript-cloud",
-    "version": "1.8.32",
-    "description": "Allows upload and downloading data to a cloud provider",
+    "name": "jacdac-cloud-adapter",
+    "version": "0.0.0",
+    "description": "Supports cloud connections to upload and download data.\nNote that `f64` values following a label are not necessarily aligned.",
     "files": [
         "constants.ts",
         "client.ts"

@@ -1,8 +1,8 @@
 namespace jacdac {
-    // Service Jacscript Cloud constants
-    export const SRV_JACSCRIPT_CLOUD = 0x14606e9c
+    // Service Cloud Adapter constants
+    export const SRV_CLOUD_ADAPTER = 0x14606e9c
 
-    export const enum JacscriptCloudCommandStatus { // uint32_t
+    export const enum CloudAdapterCommandStatus { // uint32_t
         //% block="ok"
         OK = 0xc8,
         //% block="not found"
@@ -11,7 +11,7 @@ namespace jacdac {
         Busy = 0x1ad,
     }
 
-    export const enum JacscriptCloudCmd {
+    export const enum CloudAdapterCmd {
         /**
          * Upload a labelled tuple of values to the cloud.
          * The tuple will be automatically tagged with timestamp and originating device.
@@ -32,16 +32,16 @@ namespace jacdac {
         UploadBin = 0x81,
 
         /**
-         * Should be called by jacscript when it finishes handling a `cloud_command`.
+         * Should be called when it finishes handling a `cloud_command`.
          *
          * ```
-         * const [seqNo, status, result] = jdunpack<[number, jacdac.JacscriptCloudCommandStatus, number[]]>(buf, "u32 u32 f64[]")
+         * const [seqNo, status, result] = jdunpack<[number, jacdac.CloudAdapterCommandStatus, number[]]>(buf, "u32 u32 f64[]")
          * ```
          */
         AckCloudCommand = 0x83,
     }
 
-    export namespace JacscriptCloudCmdPack {
+    export namespace CloudAdapterCmdPack {
         /**
          * Pack format for 'upload' register data.
          */
@@ -58,7 +58,7 @@ namespace jacdac {
         export const AckCloudCommand = "u32 u32 r: f64"
     }
 
-    export const enum JacscriptCloudReg {
+    export const enum CloudAdapterReg {
         /**
          * Read-only bool (uint8_t). Indicate whether we're currently connected to the cloud server.
          * When offline, `upload` commands are queued, and `get_twin` respond with cached values.
@@ -80,7 +80,7 @@ namespace jacdac {
         ConnectionName = 0x181,
     }
 
-    export namespace JacscriptCloudRegPack {
+    export namespace CloudAdapterRegPack {
         /**
          * Pack format for 'connected' register data.
          */
@@ -92,9 +92,9 @@ namespace jacdac {
         export const ConnectionName = "s"
     }
 
-    export const enum JacscriptCloudEvent {
+    export const enum CloudAdapterEvent {
         /**
-         * Emitted when cloud requests jacscript to run some action.
+         * Emitted when cloud requests to run some action.
          *
          * ```
          * const [seqNo, command, argument] = jdunpack<[number, string, number[]]>(buf, "u32 z f64[]")
@@ -110,7 +110,7 @@ namespace jacdac {
         Change = 0x3,
     }
 
-    export namespace JacscriptCloudEventPack {
+    export namespace CloudAdapterEventPack {
         /**
          * Pack format for 'cloud_command' register data.
          */
