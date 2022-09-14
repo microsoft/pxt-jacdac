@@ -41,7 +41,7 @@ namespace modules {
             try {
                 // decode message
                 const [seqno, label, values] = pkt.jdunpack<
-                    [number, string, [number[]]]
+                    [number, string, number[][]]
                 >(jacdac.CloudAdapterEventPack.CloudCommand)
 
                 // find handler
@@ -61,7 +61,6 @@ namespace modules {
                     jacdac.CloudAdapterCmdPack.AckCloudCommand,
                     [seqno, status, resValues]
                 )
-                console.log(`respond ${busy} ${status}`)
                 this.sendCommand(
                     jacdac.JDPacket.from(
                         jacdac.CloudAdapterCmd.AckCloudCommand,
@@ -74,7 +73,6 @@ namespace modules {
                     const msg = new CloudMessage()
                     msg.label = label
                     msg.values = values.shift()
-                    control.dmesgPtr("values", msg.values)
                     this._messages.push(msg)
                 }
             } catch (e) {
