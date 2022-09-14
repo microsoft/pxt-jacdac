@@ -1,4 +1,14 @@
 namespace modules {
+    export class CloudMessage {
+        label: string
+        values: number[]
+    }
+    const MAX_QUEUE = 5
+    class CloudMessageHandler {
+        label: string
+        handler: (a: CloudMessage) => void
+    }
+
     /**
      * Supports cloud connections to upload and download data.
      * Note that `f64` values following a label are not necessarily aligned.
@@ -7,6 +17,8 @@ namespace modules {
     export class CloudAdapterClient extends jacdac.Client {
         private readonly _connected: jacdac.RegisterClient<[boolean]>
         private readonly _connectionName: jacdac.RegisterClient<[string]>
+        private readonly _messageHandlers: CloudMessageHandler[] = []
+        private readonly _messages: CloudMessage[] = []
 
         constructor(role: string) {
             super(jacdac.SRV_CLOUD_ADAPTER, role)
@@ -19,6 +31,66 @@ namespace modules {
                 jacdac.CloudAdapterReg.ConnectionName,
                 jacdac.CloudAdapterRegPack.ConnectionName
             )
+
+            this.on(jacdac.EVENT, pkt => this.handleCloudCommandEvent(pkt))
+        }
+
+        private handleCloudCommandEvent(pkt: jacdac.JDPacket) {
+            if (pkt.eventCode != jacdac.CloudAdapterEvent.CloudCommand) return
+
+            try {
+                // decode message
+                const [seqno, label, values] = pkt.jdunpack<
+                    [number, string, [number[]]]
+                >(jacdac.CloudAdapterEventPack.CloudCommand)
+
+                // find handler
+                const handler = this._messageHandlers.find(
+                    h => h.label == label
+                )
+
+                // send ack
+                const busy = this._messages.length > MAX_QUEUE
+                const status = busy
+                    ? jacdac.CloudAdapterCommandStatus.Busy
+                    : !handler
+                    ? jacdac.CloudAdapterCommandStatus.NotFound
+                    : jacdac.CloudAdapterCommandStatus.OK
+                const resValues: number[][] = []
+                const data = jacdac.jdpack(
+                    jacdac.CloudAdapterCmdPack.AckCloudCommand,
+                    [seqno, status, resValues]
+                )
+                console.log(`respond ${busy} ${status}`)
+                this.sendCommand(
+                    jacdac.JDPacket.from(
+                        jacdac.CloudAdapterCmd.AckCloudCommand,
+                        data
+                    )
+                )
+
+                // queue message
+                if (!busy) {
+                    const msg = new CloudMessage()
+                    msg.label = label
+                    msg.values = values.shift()
+                    control.dmesgPtr("values", msg.values)
+                    this._messages.push(msg)
+                }
+            } catch (e) {
+                console.log(`invalid cloud command ${e}`)
+            }
+        }
+
+        private handleConsumeCloudMessages() {
+            // eat up queue
+            let msg: CloudMessage
+            while ((msg = this._messages.shift())) {
+                const handler = this._messageHandlers.find(
+                    h => h.label == msg.label
+                )
+                if (handler) handler.handler(msg)
+            }
         }
 
         /**
@@ -54,6 +126,7 @@ namespace modules {
         //% blockId=jacdac_jacscriptcloud_upload_number_cmd
         //% block="%jacscriptcloud upload number $label $value||$value2 $value3 $value4"
         //% weight=92
+        //% inlineInputMode=inline
         uploadNumber(
             label: string,
             value: number,
@@ -92,23 +165,40 @@ namespace modules {
         }
 
         /**
-         * Register code to run when an event is raised
-         */
-        //% group="IoT"
-        //% blockId=jacdac_on_cloudadapter_event
-        //% block="on %cloudadapter %event"
-        //% weight=98
-        onEvent(ev: jacdac.CloudAdapterEvent, handler: () => void): void {
-            this.registerEvent(ev, handler)
-        }
-
-        /**
          * Emitted when we connect or disconnect from the cloud.
          */
         //% group="IoT"
         //% weight=96
         onChange(handler: () => void): void {
             this.registerEvent(jacdac.CloudAdapterEvent.Change, handler)
+        }
+
+        /**
+         * Registers a handler for a given cloud command
+         * @param label command name
+         * @param handler
+         * @returns
+         */
+        //% draggableParameters=reporter
+        //% blockId=jacdac_cloudadapter_on_cloud_command block="on %cloudadapter command $label"
+        //% group="IoT"
+        //% weight=96
+        onCloudCommand(
+            label: string,
+            handler: (value: number, values: number[]) => void
+        ) {
+            if (!label) return
+            let h = this._messageHandlers.find(h => h.label == label)
+            if (!h) {
+                h = new CloudMessageHandler()
+                h.label = label
+                h.handler = (msg: CloudMessage) =>
+                    handler(msg.values[0], msg.values)
+                this._messageHandlers.push(h)
+            }
+            this.registerEvent(jacdac.CloudAdapterEvent.CloudCommand, () =>
+                this.handleConsumeCloudMessages()
+            )
         }
     }
 

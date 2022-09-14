@@ -76,6 +76,7 @@ function jdpackTest() {
     ])
     //testOne("z b", ["foo12", jacdac.stringToBuffer("bar")])
     testOne("u16 r: u16", [42, [[17], [18]]])
+    testOne("u32 z r: f64", [42, "test", [[17.1], [18.2]]])
     testOne("i8 s[9] u16 s[10] u8", [-100, "foo", 1000, "barbaz", 250])
     testOne("i8 x[4] s[9] u16 x[2] s[10] x[3] u8", [
         -100,

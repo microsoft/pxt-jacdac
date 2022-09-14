@@ -228,7 +228,7 @@ namespace jacdac {
         _compress(stripped: Buffer[]) {
             if (stripped.length == 0) return
             let sz = -4
-            for (let s of stripped) {
+            for (const s of stripped) {
                 // serial.writeLine(`${s.length} ${s[0]} cmd=${s.getNumber(NumberFormat.UInt16LE, 2)}`)
                 sz += align(s.length)
             }
