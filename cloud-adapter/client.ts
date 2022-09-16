@@ -72,7 +72,11 @@ namespace modules {
                 if (!busy) {
                     const msg = new CloudMessage()
                     msg.label = label
-                    msg.values = values.shift()
+                    const res = []
+                    for (const v of (values || [])) {
+                        res.push(v.shift())
+                    }
+                    msg.values = res
                     this._messages.push(msg)
                 }
             } catch (e) {
@@ -190,8 +194,10 @@ namespace modules {
             if (!h) {
                 h = new CloudMessageHandler()
                 h.label = label
-                h.handler = (msg: CloudMessage) =>
-                    handler(msg.values[0], msg.values)
+                h.handler = (msg: CloudMessage) => {
+                    const values = msg.values || []
+                    handler(values[0], values)
+                }
                 this._messageHandlers.push(h)
             }
             this.registerEvent(jacdac.CloudAdapterEvent.CloudCommand, () =>
