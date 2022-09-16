@@ -1,4 +1,4 @@
-modules.cloudAdapter1.onCloudCommand("test", (value) => {
+modules.cloudAdapter1.onCloudCommand("test", value => {
     console.log("cloud command received: test " + value)
 })
 forever(() => {
