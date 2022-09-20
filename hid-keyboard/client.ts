@@ -116,7 +116,7 @@ namespace jacdac {
         F8Key = DAL.KEY_F8,
         //% block="F9"
         F9Key = DAL.KEY_F9,
-        //% block="F0"
+        //% block="F10"
         F10Key = DAL.KEY_F10,
         //% block="F11"
         F11Key = DAL.KEY_F11,
