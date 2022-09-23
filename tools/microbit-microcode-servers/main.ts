@@ -11,6 +11,7 @@ servers.start({
     screen: true,
     buzzer: true,
     radio: true,
+    accelerometer: true,
     soundPlayer: true,
     forceSimulators: true,
     temperature: true,

@@ -1,4 +1,4 @@
-// meta={"simUrl":"https://trg-microbit.userpxt.io/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.31","target":"microbit","targetVersion":"5.0.12"}
+// meta={"simUrl":"https://trg-microbit.userpxt.io/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"v1.8.34","target":"microbit","targetVersion":"5.0.12"}
 // boardDefinition={"visual":"microbit","gpioPinBlocks":[["P0"],["P1"],["P2"],["P3"],["P4","P5","P6","P7"],["P8","P9","P10","P11","P12"],["P16"]],"gpioPinMap":{"P0":"P0","P1":"P1","P2":"P2","P3":"P3","P4":"P4","P5":"P5","P6":"P6","P7":"P7","P8":"P8","P9":"P9","P10":"P10","P11":"P11","P12":"P12","P13":"P13","P14":"P14","P15":"P15","P16":"P16","P19":"P19","P20":"P20"},"spiPins":{"MOSI":"P15","MISO":"P14","SCK":"P13"},"i2cPins":{"SDA":"P20","SCL":"P19"},"analogInPins":["P0","P1","P2","P3","P10"],"groundPins":["GND"],"threeVoltPins":["+3v3"],"attachPowerOnRight":true,"onboardComponents":["accelerometer","buttonpair","ledmatrix","speaker","bluetooth","thermometer","compass","builtinspeaker","microphone","logotouch","flashlog","v2"],"pinStyles":{"P0":"croc","P1":"croc","P2":"croc","GND":"croc","+3v3":"croc"},"marginWhenBreadboarding":[0,0,80,0]}
 // total=1423968 new=91.01% cached=0.00% other=8.99%
 (function (ectx) {
@@ -566,7 +566,7 @@ switch (step) {
   case 14:
     r0 = s.retval;
     globals.ERROR___3573 = ("error");
-    globals.VERSION___3585 = ("v1.8.31");
+    globals.VERSION___3585 = ("v1.8.34");
     globals.Forces___3594 = ("i12.20 i12.20 i12.20");
     globals.ForcesError___3595 = ("u12.20");
     globals.MaxForce___3596 = ("u12.20");
@@ -4420,7 +4420,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-modules_HidKeyboardClient_key__P4095.info = {"start":7773,"length":869,"line":292,"column":8,"endLine":314,"endColumn":9,"fileName":"pxt_modules/jacdac-hid-keyboard/client.ts","functionName":"key","argumentNames":["this","action","modifiers","selector","selector2","selector3"]}
+modules_HidKeyboardClient_key__P4095.info = {"start":7774,"length":869,"line":292,"column":8,"endLine":314,"endColumn":9,"fileName":"pxt_modules/jacdac-hid-keyboard/client.ts","functionName":"key","argumentNames":["this","action","modifiers","selector","selector2","selector3"]}
 
 function modules_HidKeyboardClient_key__P4095_mk(s) {
     checkStack(s.depth);
@@ -7743,7 +7743,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket__sendCmd__P2925.info = {"start":9847,"length":104,"line":305,"column":8,"endLine":308,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendCmd","argumentNames":["this","dev"]}
+jacdac_JDPacket__sendCmd__P2925.info = {"start":9849,"length":104,"line":305,"column":8,"endLine":308,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendCmd","argumentNames":["this","dev"]}
 
 function jacdac_JDPacket__sendCmd__P2925_mk(s) {
     checkStack(s.depth);
@@ -7810,7 +7810,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket__sendCmdId__P2926.info = {"start":9961,"length":192,"line":310,"column":8,"endLine":315,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendCmdId","argumentNames":["this","devId"]}
+jacdac_JDPacket__sendCmdId__P2926.info = {"start":9963,"length":192,"line":310,"column":8,"endLine":315,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendCmdId","argumentNames":["this","devId"]}
 
 function jacdac_JDPacket__sendCmdId__P2926_mk(s) {
     checkStack(s.depth);
@@ -7881,7 +7881,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket__sendCore__P2923.info = {"start":9435,"length":249,"line":292,"column":8,"endLine":297,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendCore","argumentNames":["this"]}
+jacdac_JDPacket__sendCore__P2923.info = {"start":9437,"length":249,"line":292,"column":8,"endLine":297,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendCore","argumentNames":["this"]}
 
 function jacdac_JDPacket__sendCore__P2923_mk(s) {
     checkStack(s.depth);
@@ -8649,7 +8649,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac__gotAck__P2929.info = {"start":12481,"length":508,"line":388,"column":4,"endLine":401,"endColumn":5,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_gotAck","argumentNames":["pkt"]}
+jacdac__gotAck__P2929.info = {"start":12483,"length":508,"line":388,"column":4,"endLine":401,"endColumn":5,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_gotAck","argumentNames":["pkt"]}
 
 function jacdac__gotAck__P2929_mk(s) {
     checkStack(s.depth);
@@ -8695,7 +8695,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac__gotAck_inline__P7651.info = {"start":12960,"length":22,"line":400,"column":56,"endLine":400,"endColumn":78,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["a"]}
+jacdac__gotAck_inline__P7651.info = {"start":12962,"length":22,"line":400,"column":56,"endLine":400,"endColumn":78,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["a"]}
 
 function jacdac__gotAck_inline__P7651_mk(s) {
     checkStack(s.depth);
@@ -10065,7 +10065,7 @@ switch (step) {
     return leaveAccessor(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_isReport__P2920.info = {"start":8553,"length":89,"line":267,"column":8,"endLine":269,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"isReport","argumentNames":["this"]}
+jacdac_JDPacket_isReport__P2920.info = {"start":8555,"length":89,"line":267,"column":8,"endLine":269,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"isReport","argumentNames":["this"]}
 jacdac_JDPacket_isReport__P2920.isGetter = true;
 
 function jacdac_JDPacket_isReport__P2920_mk(s) {
@@ -10404,7 +10404,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_getNumber__P2917.info = {"start":8237,"length":109,"line":255,"column":8,"endLine":257,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"getNumber","argumentNames":["this","fmt","offset"]}
+jacdac_JDPacket_getNumber__P2917.info = {"start":8239,"length":109,"line":255,"column":8,"endLine":257,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"getNumber","argumentNames":["this","fmt","offset"]}
 
 function jacdac_JDPacket_getNumber__P2917_mk(s) {
     checkStack(s.depth);
@@ -17591,7 +17591,7 @@ switch (step) {
     return leaveAccessor(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_isCommand__P2919.info = {"start":8452,"length":91,"line":263,"column":8,"endLine":265,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"isCommand","argumentNames":["this"]}
+jacdac_JDPacket_isCommand__P2919.info = {"start":8454,"length":91,"line":263,"column":8,"endLine":265,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"isCommand","argumentNames":["this"]}
 jacdac_JDPacket_isCommand__P2919.isGetter = true;
 
 function jacdac_JDPacket_isCommand__P2919_mk(s) {
@@ -17655,7 +17655,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket__sendReport__P2924.info = {"start":9694,"length":143,"line":299,"column":8,"endLine":303,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendReport","argumentNames":["this","dev"]}
+jacdac_JDPacket__sendReport__P2924.info = {"start":9696,"length":143,"line":299,"column":8,"endLine":303,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendReport","argumentNames":["this","dev"]}
 
 function jacdac_JDPacket__sendReport__P2924_mk(s) {
     checkStack(s.depth);
@@ -18549,7 +18549,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-modules_HidKeyboardClient_constructor__P4094.info = {"start":7288,"length":86,"line":278,"column":8,"endLine":280,"endColumn":9,"fileName":"pxt_modules/jacdac-hid-keyboard/client.ts","functionName":"inline","argumentNames":["this","role"]}
+modules_HidKeyboardClient_constructor__P4094.info = {"start":7289,"length":86,"line":278,"column":8,"endLine":280,"endColumn":9,"fileName":"pxt_modules/jacdac-hid-keyboard/client.ts","functionName":"inline","argumentNames":["this","role"]}
 
 function modules_HidKeyboardClient_constructor__P4094_mk(s) {
     checkStack(s.depth);
@@ -20585,7 +20585,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_withFrameStripped__P2916.info = {"start":8132,"length":95,"line":251,"column":8,"endLine":253,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"withFrameStripped","argumentNames":["this"]}
+jacdac_JDPacket_withFrameStripped__P2916.info = {"start":8134,"length":95,"line":251,"column":8,"endLine":253,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"withFrameStripped","argumentNames":["this"]}
 
 function jacdac_JDPacket_withFrameStripped__P2916_mk(s) {
     checkStack(s.depth);
@@ -30507,7 +30507,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_intOfBuffer__P2930.info = {"start":12995,"length":497,"line":403,"column":4,"endLine":420,"endColumn":5,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"intOfBuffer","argumentNames":["data"]}
+jacdac_intOfBuffer__P2930.info = {"start":12997,"length":497,"line":403,"column":4,"endLine":420,"endColumn":5,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"intOfBuffer","argumentNames":["data"]}
 
 function jacdac_intOfBuffer__P2930_mk(s) {
     checkStack(s.depth);
@@ -38135,7 +38135,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_sendAsMultiCommand__P2927.info = {"start":10163,"length":509,"line":317,"column":8,"endLine":329,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"sendAsMultiCommand","argumentNames":["this","serviceClass"]}
+jacdac_JDPacket_sendAsMultiCommand__P2927.info = {"start":10165,"length":509,"line":317,"column":8,"endLine":329,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"sendAsMultiCommand","argumentNames":["this","serviceClass"]}
 
 function jacdac_JDPacket_sendAsMultiCommand__P2927_mk(s) {
     checkStack(s.depth);
@@ -43426,7 +43426,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket__sendWithAck__P2928.info = {"start":10729,"length":675,"line":332,"column":8,"endLine":352,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendWithAck","argumentNames":["this","devId"]}
+jacdac_JDPacket__sendWithAck__P2928.info = {"start":10731,"length":675,"line":332,"column":8,"endLine":352,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"_sendWithAck","argumentNames":["this","devId"]}
 
 function jacdac_JDPacket__sendWithAck__P2928_mk(s) {
     checkStack(s.depth);
@@ -43474,7 +43474,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket__sendWithAck_inline__P16798.info = {"start":10971,"length":178,"line":339,"column":38,"endLine":344,"endColumn":17,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":[]}
+jacdac_JDPacket__sendWithAck_inline__P16798.info = {"start":10973,"length":178,"line":339,"column":38,"endLine":344,"endColumn":17,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":[]}
 
 function jacdac_JDPacket__sendWithAck_inline__P16798_mk(s) {
     checkStack(s.depth);
@@ -43529,7 +43529,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_AckAwaiter_constructor__P4894.info = {"start":11552,"length":265,"line":360,"column":8,"endLine":367,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["this","pkt","srcId"]}
+jacdac_AckAwaiter_constructor__P4894.info = {"start":11554,"length":265,"line":360,"column":8,"endLine":367,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["this","pkt","srcId"]}
 
 function jacdac_AckAwaiter_constructor__P4894_mk(s) {
     checkStack(s.depth);
@@ -43658,7 +43658,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_checkAckAwaiters__P4895.info = {"start":11829,"length":646,"line":370,"column":4,"endLine":386,"endColumn":5,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"checkAckAwaiters","argumentNames":[]}
+jacdac_checkAckAwaiters__P4895.info = {"start":11831,"length":646,"line":370,"column":4,"endLine":386,"endColumn":5,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"checkAckAwaiters","argumentNames":[]}
 
 function jacdac_checkAckAwaiters__P4895_mk(s) {
     checkStack(s.depth);
@@ -43702,7 +43702,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-toRetry_inline__P16846.info = {"start":11939,"length":22,"line":372,"column":43,"endLine":372,"endColumn":65,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["a"]}
+toRetry_inline__P16846.info = {"start":11941,"length":22,"line":372,"column":43,"endLine":372,"endColumn":65,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["a"]}
 
 function toRetry_inline__P16846_mk(s) {
     checkStack(s.depth);
@@ -43737,7 +43737,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_checkAckAwaiters_inline__P16894.info = {"start":12448,"length":20,"line":385,"column":41,"endLine":385,"endColumn":61,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["a"]}
+jacdac_checkAckAwaiters_inline__P16894.info = {"start":12450,"length":20,"line":385,"column":41,"endLine":385,"endColumn":61,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"inline","argumentNames":["a"]}
 
 function jacdac_checkAckAwaiters_inline__P16894_mk(s) {
     checkStack(s.depth);
@@ -44583,7 +44583,7 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-jacdac_JDPacket_toString__P2921.info = {"start":8652,"length":547,"line":271,"column":8,"endLine":283,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"toString","argumentNames":["this"]}
+jacdac_JDPacket_toString__P2921.info = {"start":8654,"length":547,"line":271,"column":8,"endLine":283,"endColumn":9,"fileName":"pxt_modules/jacdac/packet.ts","functionName":"toString","argumentNames":["this"]}
 
 function jacdac_JDPacket_toString__P2921_mk(s) {
     checkStack(s.depth);
