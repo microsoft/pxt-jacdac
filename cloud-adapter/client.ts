@@ -73,7 +73,7 @@ namespace modules {
                     const msg = new CloudMessage()
                     msg.label = label
                     const res = []
-                    for (const v of values || []) {
+                    for (const v of (values || [])) {
                         res.push(v.shift())
                     }
                     msg.values = res
