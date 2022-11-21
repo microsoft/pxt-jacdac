@@ -58,10 +58,11 @@ namespace modules {
          */
         //% group="HID Mouse"
         //% blockId=jacdac_hidmouse_wheel_cmd
-        //% block="%hidmouse wheel |dy $dy |time $time"
+        //% block="%hidmouse wheel |dy $dy ||time $time"
         //% weight=98
-        wheel(dy: number, time: number): void {
+        wheel(dy: number, time?: number): void {
             this.start()
+            time = isNaN(time) ? 0 : time
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
                     jacdac.HidMouseCmd.Wheel,
