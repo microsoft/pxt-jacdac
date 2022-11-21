@@ -1,6 +1,6 @@
 {
     "name": "jacdac-dc-current-measurement",
-    "version": "1.8.36",
+    "version": "1.8.37",
     "description": "A service that reports a current measurement.",
     "files": [
         "constants.ts",
