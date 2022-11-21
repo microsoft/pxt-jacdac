@@ -300,9 +300,9 @@ namespace modules {
             this.start()
             const entries: number[][] = []
             modifiers = modifiers | 0
-            if (selector) entries.push([selector, modifiers, action])
-            if (selector2) entries.push([selector2, modifiers, action])
-            if (selector3) entries.push([selector3, modifiers, action])
+            if (!isNaN(selector)) entries.push([selector, modifiers, action])
+            if (!isNaN(selector2)) entries.push([selector2, modifiers, action])
+            if (!isNaN(selector3)) entries.push([selector3, modifiers, action])
             if (!entries.length) return
             const data = [entries]
             this.sendCommand(
