@@ -1,6 +1,6 @@
 {
     "name": "jacdac-multitool",
-    "version": "1.8.34",
+    "version": "1.8.36",
     "description": "",
     "dependencies": {
         "hw": "*",

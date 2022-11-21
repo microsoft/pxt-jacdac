@@ -2,7 +2,7 @@
 // Auto-generated file: do not edit.
 namespace jacdac {
     /**
-     * Version of the library
+     * Version of the package
      */
-    export const VERSION = "v1.8.34"
+    export const VERSION = "v1.8.36"
 }

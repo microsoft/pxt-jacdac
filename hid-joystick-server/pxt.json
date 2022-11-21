@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-joystick-server",
-    "version": "1.8.34",
+    "version": "1.8.36",
     "description": "MakeCode support for Jacdac HID joystick server",
     "dependencies": {
         "core": "*",
