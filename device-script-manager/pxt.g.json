@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-device-script-manager",
+    "version": "0.0.0",
+    "description": "Allows for deployment and control over DeviceScript virtual machine.\n\nPrograms start automatically after device restart or uploading of new program.\nYou can stop programs until next reset by setting the `running` register to `0`.\n\nTODO - debug interface:\n* read-globals command/register\n* globals-changed pipe\n* breakpoint command\n* some performance monitoring?",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}

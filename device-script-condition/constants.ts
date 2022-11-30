@@ -1,14 +1,14 @@
 namespace jacdac {
-    // Service Jacscript Condition constants
-    export const SRV_JACSCRIPT_CONDITION = 0x1196796d
-    export const enum JacscriptConditionCmd {
+    // Service DeviceScript Condition constants
+    export const SRV_DEVICE_SCRIPT_CONDITION = 0x1196796d
+    export const enum DeviceScriptConditionCmd {
         /**
          * No args. Triggers a `signalled` event.
          */
         Signal = 0x80,
     }
 
-    export const enum JacscriptConditionEvent {
+    export const enum DeviceScriptConditionEvent {
         /**
          * Triggered by `signal` command.
          */

@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-device-script-condition",
+    "version": "0.0.0",
+    "description": "Conditions are synthetic services used to synchronize threads of executions of a DeviceScript VM.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
