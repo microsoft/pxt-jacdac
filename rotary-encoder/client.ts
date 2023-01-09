@@ -66,14 +66,15 @@ namespace modules {
         }
 
         /**
-         * Run code when the position changes
+         * Run code when the position changes.
+         * @param handler handler that runs when position changed, receives the value difference
          */
         //% group="Rotary Encoder"
         //% blockId=jacdac_rotaryencoder_on_position_change
         //% block="on %rotaryencoder position changed"
         //% draggableParameters=reporter
         //% weight=98
-        onPositionChanged(handler: (diff: number) => void): void {
+        onPositionChanged(handler: (delta: number) => void): void {
             this.onReadingChangedBy(1, handler)
         }
     }
