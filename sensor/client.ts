@@ -99,13 +99,27 @@ namespace jacdac {
             super(deviceClass, role, stateFormat)
         }
 
+        /**
+         * Gets the current value of the reading register
+         * @returns reading register value; undefined if client is not bound to a service
+         */
         reading(): number {
             this.setStreaming(true)
             const values = this._reading.pauseUntilValues() as any[]
             return values[0]
         }
 
-        onReadingChangedBy(threshold: number, handler: () => void) {
+        /**
+         * Calls a handler when the reading register changes by a given thresold.
+         * The handler receives the reading difference (delta)
+         * @param threshold minimum change to trigger change
+         * @param handler callback to run
+         * @returns
+         */
+        onReadingChangedBy(
+            threshold: number,
+            handler: (delta: number) => void
+        ) {
             if (!handler || threshold < 0) return
 
             let last: number = this.reading()
@@ -120,11 +134,12 @@ namespace jacdac {
                 if (current == null) return // ignore missing data
 
                 if (last == null || Math.abs(last - current) >= threshold) {
+                    const delta = (last == null ? current : last) - current
                     last = current
                     running = true
                     control.runInBackground(() => {
                         try {
-                            handler()
+                            handler(delta)
                         } finally {
                             running = false
                         }
