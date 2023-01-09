@@ -71,8 +71,9 @@ namespace modules {
         //% group="Rotary Encoder"
         //% blockId=jacdac_rotaryencoder_on_position_change
         //% block="on %rotaryencoder position changed"
+        //% draggableParameters=reporter
         //% weight=98
-        onPositionChanged(handler: () => void): void {
+        onPositionChanged(handler: (diff: number) => void): void {
             this.onReadingChangedBy(1, handler)
         }
     }
