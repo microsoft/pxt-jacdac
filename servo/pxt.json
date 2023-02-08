@@ -8,7 +8,8 @@
     },
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.g.ts",
+        "clients.ts"
     ],
     "testFiles": [
         "test.microbit.ts"
