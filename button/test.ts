@@ -1,9 +1,3 @@
-namespace modules {
-    //% fixedInstance whenUsed weight=2 block="button3"
-    export const button3 = new ButtonClient("button3")
-    //% fixedInstance whenUsed weight=2 block="button4"
-    export const button4 = new ButtonClient("button4")
-}
 modules.button1.onUp(() => console.log("up"))
 modules.button1.onDown(() => console.log("down"))
 modules.button1.onHold(() => console.log("hold"))
