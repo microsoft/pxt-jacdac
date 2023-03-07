@@ -1,6 +1,6 @@
 {
     "name": "jacdac-solenoid",
-    "version": "1.8.40",
+    "version": "1.8.41",
     "description": "A push-pull solenoid is a type of relay that pulls a coil when activated.",
     "files": [
         "constants.ts",

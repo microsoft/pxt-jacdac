@@ -1,6 +1,6 @@
 {
     "name": "jacdac-cloud-adapter",
-    "version": "1.8.40",
+    "version": "1.8.41",
     "description": "Supports cloud connections to upload and download data.\nNote that `f64` values following a label are not necessarily aligned.",
     "files": [
         "constants.ts",
