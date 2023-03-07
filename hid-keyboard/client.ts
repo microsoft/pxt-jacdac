@@ -303,7 +303,8 @@ namespace modules {
             if (!isNaN(selector)) entries.push([selector, modifiers, action])
             if (!isNaN(selector2)) entries.push([selector2, modifiers, action])
             if (!isNaN(selector3)) entries.push([selector3, modifiers, action])
-            if (!entries.length) return
+            // allow for sticky keys
+            // if (!entries.length) return
             const data = [entries]
             this.sendCommand(
                 jacdac.JDPacket.jdpacked(
