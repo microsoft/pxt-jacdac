@@ -21,23 +21,13 @@ jobs:
                 node-version: [16.x]
 
         steps:
-            - uses: actions/checkout@v1
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
               with:
-                  node-version: ${{ matrix.node-version }}
-            - name: Cache npm and makecode
-              uses: actions/cache@v2
-              with:
-                  path: |
-                      ~/.npm
-                      ~/.pxt/mkc-cache
-                  key: ${{ runner.os }}-${{ hashFiles('pxt.json') }}-${{ hashFiles('mkc*json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-
+                node-version: 16
             - name: npm install
               run: |
-                  npm install -g makecode
+                  npm install -g makecode@v0.34.6
             - run: makecode -u -j --mono-repo -c mkc.json
             - run: makecode -u -j --mono-repo -c mkc-maker.json
             - run: makecode -u -j --mono-repo -c mkc-arcade.json
