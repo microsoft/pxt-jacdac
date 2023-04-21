@@ -23,12 +23,12 @@ namespace jacdac {
 
     export namespace SatNavRegPack {
         /**
-         * Pack format for 'position' register data.
+         * Pack format for 'position' data.
          */
         export const Position = "u64 i9.23 i9.23 u16.16 i26.6 u16.16"
 
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
     }

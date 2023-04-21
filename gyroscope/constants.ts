@@ -42,22 +42,22 @@ namespace jacdac {
 
     export namespace GyroscopeRegPack {
         /**
-         * Pack format for 'rotation_rates' register data.
+         * Pack format for 'rotation_rates' data.
          */
         export const RotationRates = "i12.20 i12.20 i12.20"
 
         /**
-         * Pack format for 'rotation_rates_error' register data.
+         * Pack format for 'rotation_rates_error' data.
          */
         export const RotationRatesError = "u12.20"
 
         /**
-         * Pack format for 'max_rate' register data.
+         * Pack format for 'max_rate' data.
          */
         export const MaxRate = "u12.20"
 
         /**
-         * Pack format for 'max_rates_supported' register data.
+         * Pack format for 'max_rates_supported' data.
          */
         export const MaxRatesSupported = "r: u12.20"
     }

@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace BuzzerRegPack {
         /**
-         * Pack format for 'volume' register data.
+         * Pack format for 'volume' data.
          */
         export const Volume = "u0.8"
     }
@@ -40,12 +40,12 @@ namespace jacdac {
 
     export namespace BuzzerCmdPack {
         /**
-         * Pack format for 'play_tone' register data.
+         * Pack format for 'play_tone' data.
          */
         export const PlayTone = "u16 u16 u16"
 
         /**
-         * Pack format for 'play_note' register data.
+         * Pack format for 'play_note' data.
          */
         export const PlayNote = "u16 u0.16 u16"
     }

@@ -42,17 +42,17 @@ namespace jacdac {
 
     export namespace WaterLevelRegPack {
         /**
-         * Pack format for 'level' register data.
+         * Pack format for 'level' data.
          */
         export const Level = "u0.16"
 
         /**
-         * Pack format for 'level_error' register data.
+         * Pack format for 'level_error' data.
          */
         export const LevelError = "u0.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

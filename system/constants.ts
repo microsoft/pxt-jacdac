@@ -65,7 +65,7 @@ namespace jacdac {
 
     export namespace SystemCmdPack {
         /**
-         * Pack format for 'command_not_implemented' register data.
+         * Pack format for 'command_not_implemented' data.
          */
         export const CommandNotImplemented = "u16 u16"
     }
@@ -263,102 +263,102 @@ namespace jacdac {
 
     export namespace SystemRegPack {
         /**
-         * Pack format for 'intensity' register data.
+         * Pack format for 'intensity' data.
          */
         export const Intensity = "u32"
 
         /**
-         * Pack format for 'value' register data.
+         * Pack format for 'value' data.
          */
         export const Value = "i32"
 
         /**
-         * Pack format for 'min_value' register data.
+         * Pack format for 'min_value' data.
          */
         export const MinValue = "i32"
 
         /**
-         * Pack format for 'max_value' register data.
+         * Pack format for 'max_value' data.
          */
         export const MaxValue = "i32"
 
         /**
-         * Pack format for 'max_power' register data.
+         * Pack format for 'max_power' data.
          */
         export const MaxPower = "u16"
 
         /**
-         * Pack format for 'streaming_samples' register data.
+         * Pack format for 'streaming_samples' data.
          */
         export const StreamingSamples = "u8"
 
         /**
-         * Pack format for 'streaming_interval' register data.
+         * Pack format for 'streaming_interval' data.
          */
         export const StreamingInterval = "u32"
 
         /**
-         * Pack format for 'reading' register data.
+         * Pack format for 'reading' data.
          */
         export const Reading = "i32"
 
         /**
-         * Pack format for 'reading_range' register data.
+         * Pack format for 'reading_range' data.
          */
         export const ReadingRange = "u32"
 
         /**
-         * Pack format for 'supported_ranges' register data.
+         * Pack format for 'supported_ranges' data.
          */
         export const SupportedRanges = "r: u32"
 
         /**
-         * Pack format for 'min_reading' register data.
+         * Pack format for 'min_reading' data.
          */
         export const MinReading = "i32"
 
         /**
-         * Pack format for 'max_reading' register data.
+         * Pack format for 'max_reading' data.
          */
         export const MaxReading = "i32"
 
         /**
-         * Pack format for 'reading_error' register data.
+         * Pack format for 'reading_error' data.
          */
         export const ReadingError = "u32"
 
         /**
-         * Pack format for 'reading_resolution' register data.
+         * Pack format for 'reading_resolution' data.
          */
         export const ReadingResolution = "u32"
 
         /**
-         * Pack format for 'inactive_threshold' register data.
+         * Pack format for 'inactive_threshold' data.
          */
         export const InactiveThreshold = "i32"
 
         /**
-         * Pack format for 'active_threshold' register data.
+         * Pack format for 'active_threshold' data.
          */
         export const ActiveThreshold = "i32"
 
         /**
-         * Pack format for 'streaming_preferred_interval' register data.
+         * Pack format for 'streaming_preferred_interval' data.
          */
         export const StreamingPreferredInterval = "u32"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u32"
 
         /**
-         * Pack format for 'status_code' register data.
+         * Pack format for 'status_code' data.
          */
         export const StatusCode = "u16 u16"
 
         /**
-         * Pack format for 'instance_name' register data.
+         * Pack format for 'instance_name' data.
          */
         export const InstanceName = "s"
     }
@@ -401,7 +401,7 @@ namespace jacdac {
 
     export namespace SystemEventPack {
         /**
-         * Pack format for 'status_code_changed' register data.
+         * Pack format for 'status_code_changed' data.
          */
         export const StatusCodeChanged = "u16 u16"
     }

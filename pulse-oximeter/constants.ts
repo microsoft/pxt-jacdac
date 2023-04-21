@@ -23,12 +23,12 @@ namespace jacdac {
 
     export namespace PulseOximeterRegPack {
         /**
-         * Pack format for 'oxygen' register data.
+         * Pack format for 'oxygen' data.
          */
         export const Oxygen = "u8.8"
 
         /**
-         * Pack format for 'oxygen_error' register data.
+         * Pack format for 'oxygen_error' data.
          */
         export const OxygenError = "u8.8"
     }

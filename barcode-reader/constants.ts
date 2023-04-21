@@ -53,12 +53,12 @@ namespace jacdac {
 
     export namespace BarcodeReaderRegPack {
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'formats' register data.
+         * Pack format for 'formats' data.
          */
         export const Formats = "r: u8"
     }
@@ -78,7 +78,7 @@ namespace jacdac {
 
     export namespace BarcodeReaderEventPack {
         /**
-         * Pack format for 'detect' register data.
+         * Pack format for 'detect' data.
          */
         export const Detect = "u8 s"
     }

@@ -88,42 +88,42 @@ namespace jacdac {
 
     export namespace WeightScaleRegPack {
         /**
-         * Pack format for 'weight' register data.
+         * Pack format for 'weight' data.
          */
         export const Weight = "u16.16"
 
         /**
-         * Pack format for 'weight_error' register data.
+         * Pack format for 'weight_error' data.
          */
         export const WeightError = "u16.16"
 
         /**
-         * Pack format for 'zero_offset' register data.
+         * Pack format for 'zero_offset' data.
          */
         export const ZeroOffset = "u16.16"
 
         /**
-         * Pack format for 'gain' register data.
+         * Pack format for 'gain' data.
          */
         export const Gain = "u16.16"
 
         /**
-         * Pack format for 'max_weight' register data.
+         * Pack format for 'max_weight' data.
          */
         export const MaxWeight = "u16.16"
 
         /**
-         * Pack format for 'min_weight' register data.
+         * Pack format for 'min_weight' data.
          */
         export const MinWeight = "u16.16"
 
         /**
-         * Pack format for 'weight_resolution' register data.
+         * Pack format for 'weight_resolution' data.
          */
         export const WeightResolution = "u16.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }
@@ -146,7 +146,7 @@ namespace jacdac {
 
     export namespace WeightScaleCmdPack {
         /**
-         * Pack format for 'calibrate_gain' register data.
+         * Pack format for 'calibrate_gain' data.
          */
         export const CalibrateGain = "u22.10"
     }

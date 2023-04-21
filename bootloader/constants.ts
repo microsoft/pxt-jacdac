@@ -67,27 +67,27 @@ namespace jacdac {
 
     export namespace BootloaderCmdPack {
         /**
-         * Pack format for 'info' register data.
+         * Pack format for 'info' data.
          */
         export const InfoReport = "u32 u32 u32 u32"
 
         /**
-         * Pack format for 'set_session' register data.
+         * Pack format for 'set_session' data.
          */
         export const SetSession = "u32"
 
         /**
-         * Pack format for 'set_session' register data.
+         * Pack format for 'set_session' data.
          */
         export const SetSessionReport = "u32"
 
         /**
-         * Pack format for 'page_data' register data.
+         * Pack format for 'page_data' data.
          */
         export const PageData = "u32 u16 u8 u8 u32 u32 u32 u32 u32 b[208]"
 
         /**
-         * Pack format for 'page_data' register data.
+         * Pack format for 'page_data' data.
          */
         export const PageDataReport = "u32 u32 u32"
     }

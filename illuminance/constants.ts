@@ -23,12 +23,12 @@ namespace jacdac {
 
     export namespace IlluminanceRegPack {
         /**
-         * Pack format for 'illuminance' register data.
+         * Pack format for 'illuminance' data.
          */
         export const Illuminance = "u22.10"
 
         /**
-         * Pack format for 'illuminance_error' register data.
+         * Pack format for 'illuminance_error' data.
          */
         export const IlluminanceError = "u22.10"
     }

@@ -76,32 +76,32 @@ namespace jacdac {
 
     export namespace CharacterScreenRegPack {
         /**
-         * Pack format for 'message' register data.
+         * Pack format for 'message' data.
          */
         export const Message = "s"
 
         /**
-         * Pack format for 'brightness' register data.
+         * Pack format for 'brightness' data.
          */
         export const Brightness = "u0.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
 
         /**
-         * Pack format for 'text_direction' register data.
+         * Pack format for 'text_direction' data.
          */
         export const TextDirection = "u8"
 
         /**
-         * Pack format for 'rows' register data.
+         * Pack format for 'rows' data.
          */
         export const Rows = "u8"
 
         /**
-         * Pack format for 'columns' register data.
+         * Pack format for 'columns' data.
          */
         export const Columns = "u8"
     }

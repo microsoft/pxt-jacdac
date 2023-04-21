@@ -19,17 +19,45 @@ namespace jacdac {
          * ```
          */
         PressureError = 0x106,
+
+        /**
+         * Constant hPa u22.10 (uint32_t). Lowest air pressure that can be reported.
+         *
+         * ```
+         * const [minPressure] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        MinPressure = 0x104,
+
+        /**
+         * Constant hPa u22.10 (uint32_t). Highest air pressure that can be reported.
+         *
+         * ```
+         * const [maxPressure] = jdunpack<[number]>(buf, "u22.10")
+         * ```
+         */
+        MaxPressure = 0x105,
     }
 
     export namespace AirPressureRegPack {
         /**
-         * Pack format for 'pressure' register data.
+         * Pack format for 'pressure' data.
          */
         export const Pressure = "u22.10"
 
         /**
-         * Pack format for 'pressure_error' register data.
+         * Pack format for 'pressure_error' data.
          */
         export const PressureError = "u22.10"
+
+        /**
+         * Pack format for 'min_pressure' data.
+         */
+        export const MinPressure = "u22.10"
+
+        /**
+         * Pack format for 'max_pressure' data.
+         */
+        export const MaxPressure = "u22.10"
     }
 }

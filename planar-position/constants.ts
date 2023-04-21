@@ -29,12 +29,12 @@ namespace jacdac {
 
     export namespace PlanarPositionRegPack {
         /**
-         * Pack format for 'position' register data.
+         * Pack format for 'position' data.
          */
         export const Position = "i22.10 i22.10"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

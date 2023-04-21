@@ -62,36 +62,37 @@ namespace jacdac {
 
     export namespace SettingsCmdPack {
         /**
-         * Pack format for 'get' register data.
+         * Pack format for 'get' data.
          */
         export const Get = "s"
 
         /**
-         * Pack format for 'get' register data.
+         * Pack format for 'get' data.
          */
         export const GetReport = "z b"
 
         /**
-         * Pack format for 'set' register data.
+         * Pack format for 'set' data.
          */
         export const Set = "z b"
 
         /**
-         * Pack format for 'delete' register data.
+         * Pack format for 'delete' data.
          */
         export const Delete = "s"
 
         /**
-         * Pack format for 'list_keys' register data.
+         * Pack format for 'list_keys' data.
          */
         export const ListKeys = "b[12]"
 
         /**
-         * Pack format for 'list' register data.
+         * Pack format for 'list' data.
          */
         export const List = "b[12]"
     }
 
+    export const enum SettingsPipe {}
     /**
      * pipe_report ListedKey
      * ```
@@ -106,14 +107,14 @@ namespace jacdac {
      * ```
      */
 
-    export namespace SettingsinfoPack {
+    export namespace SettingsPipePack {
         /**
-         * Pack format for 'listed_key' register data.
+         * Pack format for 'listed_key' data.
          */
         export const ListedKey = "s"
 
         /**
-         * Pack format for 'listed_entry' register data.
+         * Pack format for 'listed_entry' data.
          */
         export const ListedEntry = "z b"
     }

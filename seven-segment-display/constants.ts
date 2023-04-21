@@ -54,27 +54,27 @@ namespace jacdac {
 
     export namespace SevenSegmentDisplayRegPack {
         /**
-         * Pack format for 'digits' register data.
+         * Pack format for 'digits' data.
          */
         export const Digits = "b"
 
         /**
-         * Pack format for 'brightness' register data.
+         * Pack format for 'brightness' data.
          */
         export const Brightness = "u0.16"
 
         /**
-         * Pack format for 'double_dots' register data.
+         * Pack format for 'double_dots' data.
          */
         export const DoubleDots = "u8"
 
         /**
-         * Pack format for 'digit_count' register data.
+         * Pack format for 'digit_count' data.
          */
         export const DigitCount = "u8"
 
         /**
-         * Pack format for 'decimal_point' register data.
+         * Pack format for 'decimal_point' data.
          */
         export const DecimalPoint = "u8"
     }
@@ -88,7 +88,7 @@ namespace jacdac {
 
     export namespace SevenSegmentDisplayCmdPack {
         /**
-         * Pack format for 'set_number' register data.
+         * Pack format for 'set_number' data.
          */
         export const SetNumber = "f64"
     }

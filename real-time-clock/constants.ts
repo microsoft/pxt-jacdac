@@ -51,22 +51,22 @@ namespace jacdac {
 
     export namespace RealTimeClockRegPack {
         /**
-         * Pack format for 'local_time' register data.
+         * Pack format for 'local_time' data.
          */
         export const LocalTime = "u16 u8 u8 u8 u8 u8 u8"
 
         /**
-         * Pack format for 'drift' register data.
+         * Pack format for 'drift' data.
          */
         export const Drift = "u16.16"
 
         /**
-         * Pack format for 'precision' register data.
+         * Pack format for 'precision' data.
          */
         export const Precision = "u16.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }
@@ -84,7 +84,7 @@ namespace jacdac {
 
     export namespace RealTimeClockCmdPack {
         /**
-         * Pack format for 'set_time' register data.
+         * Pack format for 'set_time' data.
          */
         export const SetTime = "u16 u8 u8 u8 u8 u8 u8"
     }

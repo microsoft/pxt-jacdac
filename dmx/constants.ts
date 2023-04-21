@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace DmxRegPack {
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
     }
@@ -32,7 +32,7 @@ namespace jacdac {
 
     export namespace DmxCmdPack {
         /**
-         * Pack format for 'send' register data.
+         * Pack format for 'send' data.
          */
         export const Send = "b"
     }

@@ -29,12 +29,12 @@ namespace jacdac {
 
     export namespace TcpCmdPack {
         /**
-         * Pack format for 'open' register data.
+         * Pack format for 'open' data.
          */
         export const Open = "b[12]"
 
         /**
-         * Pack format for 'open' register data.
+         * Pack format for 'open' data.
          */
         export const OpenReport = "u16"
     }
@@ -63,16 +63,17 @@ namespace jacdac {
 
     export namespace TcpPipeCmdPack {
         /**
-         * Pack format for 'open_ssl' register data.
+         * Pack format for 'open_ssl' data.
          */
         export const OpenSsl = "u16 s"
 
         /**
-         * Pack format for 'error' register data.
+         * Pack format for 'error' data.
          */
         export const Error = "i32"
     }
 
+    export const enum TcpPipe {}
     /**
      * pipe_command Outdata
      * ```
@@ -87,14 +88,14 @@ namespace jacdac {
      * ```
      */
 
-    export namespace TcpinfoPack {
+    export namespace TcpPipePack {
         /**
-         * Pack format for 'outdata' register data.
+         * Pack format for 'outdata' data.
          */
         export const Outdata = "b"
 
         /**
-         * Pack format for 'indata' register data.
+         * Pack format for 'indata' data.
          */
         export const Indata = "b"
     }

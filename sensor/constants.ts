@@ -32,17 +32,17 @@ namespace jacdac {
 
     export namespace SensorRegPack {
         /**
-         * Pack format for 'streaming_samples' register data.
+         * Pack format for 'streaming_samples' data.
          */
         export const StreamingSamples = "u8"
 
         /**
-         * Pack format for 'streaming_interval' register data.
+         * Pack format for 'streaming_interval' data.
          */
         export const StreamingInterval = "u32"
 
         /**
-         * Pack format for 'streaming_preferred_interval' register data.
+         * Pack format for 'streaming_preferred_interval' data.
          */
         export const StreamingPreferredInterval = "u32"
     }

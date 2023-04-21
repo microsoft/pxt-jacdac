@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-i2c",
+    "version": "0.0.0",
+    "description": "Inter-Integrated Circuit (I2C, I²C, IIC) serial communication bus lets you communicate with\nmany sensors and actuators.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}

@@ -40,17 +40,17 @@ namespace jacdac {
 
     export namespace UvIndexRegPack {
         /**
-         * Pack format for 'uv_index' register data.
+         * Pack format for 'uv_index' data.
          */
         export const UvIndex = "u16.16"
 
         /**
-         * Pack format for 'uv_index_error' register data.
+         * Pack format for 'uv_index_error' data.
          */
         export const UvIndexError = "u16.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

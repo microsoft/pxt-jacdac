@@ -24,12 +24,12 @@ namespace jacdac {
 
     export namespace LightBulbRegPack {
         /**
-         * Pack format for 'brightness' register data.
+         * Pack format for 'brightness' data.
          */
         export const Brightness = "u0.16"
 
         /**
-         * Pack format for 'dimmable' register data.
+         * Pack format for 'dimmable' data.
          */
         export const Dimmable = "u8"
     }

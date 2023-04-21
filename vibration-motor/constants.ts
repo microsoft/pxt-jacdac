@@ -15,7 +15,7 @@ namespace jacdac {
 
     export namespace VibrationMotorCmdPack {
         /**
-         * Pack format for 'vibrate' register data.
+         * Pack format for 'vibrate' data.
          */
         export const Vibrate = "r: u8 u0.8"
     }
@@ -33,7 +33,7 @@ namespace jacdac {
 
     export namespace VibrationMotorRegPack {
         /**
-         * Pack format for 'max_vibrations' register data.
+         * Pack format for 'max_vibrations' data.
          */
         export const MaxVibrations = "u8"
     }

@@ -34,17 +34,17 @@ namespace jacdac {
 
     export namespace RotaryEncoderRegPack {
         /**
-         * Pack format for 'position' register data.
+         * Pack format for 'position' data.
          */
         export const Position = "i32"
 
         /**
-         * Pack format for 'clicks_per_turn' register data.
+         * Pack format for 'clicks_per_turn' data.
          */
         export const ClicksPerTurn = "u16"
 
         /**
-         * Pack format for 'clicker' register data.
+         * Pack format for 'clicker' data.
          */
         export const Clicker = "u8"
     }

@@ -52,17 +52,17 @@ namespace jacdac {
 
     export namespace MagneticFieldLevelRegPack {
         /**
-         * Pack format for 'strength' register data.
+         * Pack format for 'strength' data.
          */
         export const Strength = "i1.15"
 
         /**
-         * Pack format for 'detected' register data.
+         * Pack format for 'detected' data.
          */
         export const Detected = "u8"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

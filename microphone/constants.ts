@@ -17,7 +17,7 @@ namespace jacdac {
 
     export namespace MicrophoneCmdPack {
         /**
-         * Pack format for 'sample' register data.
+         * Pack format for 'sample' data.
          */
         export const Sample = "b[12] u32"
     }
@@ -36,7 +36,7 @@ namespace jacdac {
 
     export namespace MicrophoneRegPack {
         /**
-         * Pack format for 'sampling_period' register data.
+         * Pack format for 'sampling_period' data.
          */
         export const SamplingPeriod = "u32"
     }

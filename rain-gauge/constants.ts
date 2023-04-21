@@ -23,12 +23,12 @@ namespace jacdac {
 
     export namespace RainGaugeRegPack {
         /**
-         * Pack format for 'precipitation' register data.
+         * Pack format for 'precipitation' data.
          */
         export const Precipitation = "u16.16"
 
         /**
-         * Pack format for 'precipitation_precision' register data.
+         * Pack format for 'precipitation_precision' data.
          */
         export const PrecipitationPrecision = "u16.16"
     }

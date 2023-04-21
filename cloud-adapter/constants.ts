@@ -1,67 +1,42 @@
 namespace jacdac {
     // Service Cloud Adapter constants
     export const SRV_CLOUD_ADAPTER = 0x14606e9c
-
-    export const enum CloudAdapterCommandStatus { // uint32_t
-        //% block="ok"
-        OK = 0xc8,
-        //% block="not found"
-        NotFound = 0x194,
-        //% block="busy"
-        Busy = 0x1ad,
-    }
-
     export const enum CloudAdapterCmd {
         /**
-         * Upload a labelled tuple of values to the cloud.
-         * The tuple will be automatically tagged with timestamp and originating device.
+         * Upload a JSON-encoded message to the cloud.
          *
          * ```
-         * const [label, value] = jdunpack<[string, number[]]>(buf, "z f64[]")
+         * const [topic, json] = jdunpack<[string, string]>(buf, "z s")
          * ```
          */
-        Upload = 0x80,
+        UploadJson = 0x80,
 
         /**
-         * Argument: payload bytes. Upload a binary message to the cloud.
+         * Upload a binary message to the cloud.
          *
          * ```
-         * const [payload] = jdunpack<[Buffer]>(buf, "b")
+         * const [topic, payload] = jdunpack<[string, Buffer]>(buf, "z b")
          * ```
          */
-        UploadBin = 0x81,
-
-        /**
-         * Should be called when it finishes handling a `cloud_command`.
-         *
-         * ```
-         * const [seqNo, status, result] = jdunpack<[number, jacdac.CloudAdapterCommandStatus, number[]]>(buf, "u32 u32 f64[]")
-         * ```
-         */
-        AckCloudCommand = 0x83,
+        UploadBinary = 0x81,
     }
 
     export namespace CloudAdapterCmdPack {
         /**
-         * Pack format for 'upload' register data.
+         * Pack format for 'upload_json' data.
          */
-        export const Upload = "z r: f64"
+        export const UploadJson = "z s"
 
         /**
-         * Pack format for 'upload_bin' register data.
+         * Pack format for 'upload_binary' data.
          */
-        export const UploadBin = "b"
-
-        /**
-         * Pack format for 'ack_cloud_command' register data.
-         */
-        export const AckCloudCommand = "u32 u32 r: f64"
+        export const UploadBinary = "z b"
     }
 
     export const enum CloudAdapterReg {
         /**
          * Read-only bool (uint8_t). Indicate whether we're currently connected to the cloud server.
-         * When offline, `upload` commands are queued, and `get_twin` respond with cached values.
+         * When offline, `upload` commands are queued.
          *
          * ```
          * const [connected] = jdunpack<[number]>(buf, "u8")
@@ -82,26 +57,36 @@ namespace jacdac {
 
     export namespace CloudAdapterRegPack {
         /**
-         * Pack format for 'connected' register data.
+         * Pack format for 'connected' data.
          */
         export const Connected = "u8"
 
         /**
-         * Pack format for 'connection_name' register data.
+         * Pack format for 'connection_name' data.
          */
         export const ConnectionName = "s"
     }
 
     export const enum CloudAdapterEvent {
         /**
-         * Emitted when cloud requests to run some action.
+         * Emitted when cloud send us a JSON message.
          *
          * ```
-         * const [seqNo, command, argument] = jdunpack<[number, string, number[]]>(buf, "u32 z f64[]")
+         * const [topic, json] = jdunpack<[string, string]>(buf, "z s")
          * ```
          */
-        //% block="cloud command"
-        CloudCommand = 0x81,
+        //% block="on json"
+        OnJson = 0x80,
+
+        /**
+         * Emitted when cloud send us a binary message.
+         *
+         * ```
+         * const [topic, payload] = jdunpack<[string, Buffer]>(buf, "z b")
+         * ```
+         */
+        //% block="on binary"
+        OnBinary = 0x81,
 
         /**
          * Emitted when we connect or disconnect from the cloud.
@@ -112,8 +97,13 @@ namespace jacdac {
 
     export namespace CloudAdapterEventPack {
         /**
-         * Pack format for 'cloud_command' register data.
+         * Pack format for 'on_json' data.
          */
-        export const CloudCommand = "u32 z r: f64"
+        export const OnJson = "z s"
+
+        /**
+         * Pack format for 'on_binary' data.
+         */
+        export const OnBinary = "z b"
     }
 }

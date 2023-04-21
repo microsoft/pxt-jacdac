@@ -76,17 +76,17 @@ namespace jacdac {
 
     export namespace GamepadRegPack {
         /**
-         * Pack format for 'direction' register data.
+         * Pack format for 'direction' data.
          */
         export const Direction = "u32 i1.15 i1.15"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
 
         /**
-         * Pack format for 'buttons_available' register data.
+         * Pack format for 'buttons_available' data.
          */
         export const ButtonsAvailable = "u32"
     }
@@ -105,7 +105,7 @@ namespace jacdac {
 
     export namespace GamepadEventPack {
         /**
-         * Pack format for 'buttons_changed' register data.
+         * Pack format for 'buttons_changed' data.
          */
         export const ButtonsChanged = "u32"
     }

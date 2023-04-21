@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-serial",
+    "version": "0.0.0",
+    "description": "An asynchronous serial communication service capable of sending and receiving buffers of data.\nSettings default to 115200 baud 8N1.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}

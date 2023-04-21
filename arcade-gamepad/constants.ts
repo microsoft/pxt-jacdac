@@ -49,12 +49,12 @@ namespace jacdac {
 
     export namespace ArcadeGamepadRegPack {
         /**
-         * Pack format for 'buttons' register data.
+         * Pack format for 'buttons' data.
          */
         export const Buttons = "r: u8 u0.8"
 
         /**
-         * Pack format for 'available_buttons' register data.
+         * Pack format for 'available_buttons' data.
          */
         export const AvailableButtons = "r: u8"
     }
@@ -83,12 +83,12 @@ namespace jacdac {
 
     export namespace ArcadeGamepadEventPack {
         /**
-         * Pack format for 'down' register data.
+         * Pack format for 'down' data.
          */
         export const Down = "u8"
 
         /**
-         * Pack format for 'up' register data.
+         * Pack format for 'up' data.
          */
         export const Up = "u8"
     }

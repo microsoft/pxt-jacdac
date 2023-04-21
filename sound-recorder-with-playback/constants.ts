@@ -34,7 +34,7 @@ namespace jacdac {
 
     export namespace SoundRecorderWithPlaybackCmdPack {
         /**
-         * Pack format for 'record' register data.
+         * Pack format for 'record' data.
          */
         export const Record = "u16"
     }
@@ -70,17 +70,17 @@ namespace jacdac {
 
     export namespace SoundRecorderWithPlaybackRegPack {
         /**
-         * Pack format for 'status' register data.
+         * Pack format for 'status' data.
          */
         export const Status = "u8"
 
         /**
-         * Pack format for 'time' register data.
+         * Pack format for 'time' data.
          */
         export const Time = "u16"
 
         /**
-         * Pack format for 'volume' register data.
+         * Pack format for 'volume' data.
          */
         export const Volume = "u0.8"
     }
