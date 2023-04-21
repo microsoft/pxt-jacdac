@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace SoundPlayerRegPack {
         /**
-         * Pack format for 'volume' register data.
+         * Pack format for 'volume' data.
          */
         export const Volume = "u0.16"
     }
@@ -46,16 +46,17 @@ namespace jacdac {
 
     export namespace SoundPlayerCmdPack {
         /**
-         * Pack format for 'play' register data.
+         * Pack format for 'play' data.
          */
         export const Play = "s"
 
         /**
-         * Pack format for 'list_sounds' register data.
+         * Pack format for 'list_sounds' data.
          */
         export const ListSounds = "b[12]"
     }
 
+    export const enum SoundPlayerPipe {}
     /**
      * pipe_report ListSoundsPipe
      * ```
@@ -63,9 +64,9 @@ namespace jacdac {
      * ```
      */
 
-    export namespace SoundPlayerinfoPack {
+    export namespace SoundPlayerPipePack {
         /**
-         * Pack format for 'list_sounds_pipe' register data.
+         * Pack format for 'list_sounds_pipe' data.
          */
         export const ListSoundsPipe = "u32 s"
     }

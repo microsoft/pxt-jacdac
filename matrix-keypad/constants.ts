@@ -65,27 +65,27 @@ namespace jacdac {
 
     export namespace MatrixKeypadRegPack {
         /**
-         * Pack format for 'pressed' register data.
+         * Pack format for 'pressed' data.
          */
         export const Pressed = "r: u8"
 
         /**
-         * Pack format for 'rows' register data.
+         * Pack format for 'rows' data.
          */
         export const Rows = "u8"
 
         /**
-         * Pack format for 'columns' register data.
+         * Pack format for 'columns' data.
          */
         export const Columns = "u8"
 
         /**
-         * Pack format for 'labels' register data.
+         * Pack format for 'labels' data.
          */
         export const Labels = "r: z"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }
@@ -134,22 +134,22 @@ namespace jacdac {
 
     export namespace MatrixKeypadEventPack {
         /**
-         * Pack format for 'down' register data.
+         * Pack format for 'down' data.
          */
         export const Down = "u8"
 
         /**
-         * Pack format for 'up' register data.
+         * Pack format for 'up' data.
          */
         export const Up = "u8"
 
         /**
-         * Pack format for 'click' register data.
+         * Pack format for 'click' data.
          */
         export const Click = "u8"
 
         /**
-         * Pack format for 'long_click' register data.
+         * Pack format for 'long_click' data.
          */
         export const LongClick = "u8"
     }

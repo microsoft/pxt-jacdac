@@ -42,17 +42,17 @@ namespace jacdac {
 
     export namespace RelayRegPack {
         /**
-         * Pack format for 'active' register data.
+         * Pack format for 'active' data.
          */
         export const Active = "u8"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
 
         /**
-         * Pack format for 'max_switching_current' register data.
+         * Pack format for 'max_switching_current' data.
          */
         export const MaxSwitchingCurrent = "u32"
     }

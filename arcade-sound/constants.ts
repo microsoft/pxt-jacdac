@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace ArcadeSoundCmdPack {
         /**
-         * Pack format for 'play' register data.
+         * Pack format for 'play' data.
          */
         export const Play = "b"
     }
@@ -54,17 +54,17 @@ namespace jacdac {
 
     export namespace ArcadeSoundRegPack {
         /**
-         * Pack format for 'sample_rate' register data.
+         * Pack format for 'sample_rate' data.
          */
         export const SampleRate = "u22.10"
 
         /**
-         * Pack format for 'buffer_size' register data.
+         * Pack format for 'buffer_size' data.
          */
         export const BufferSize = "u32"
 
         /**
-         * Pack format for 'buffer_pending' register data.
+         * Pack format for 'buffer_pending' data.
          */
         export const BufferPending = "u32"
     }

@@ -46,17 +46,17 @@ namespace jacdac {
 
     export namespace HeartRateRegPack {
         /**
-         * Pack format for 'heart_rate' register data.
+         * Pack format for 'heart_rate' data.
          */
         export const HeartRate = "u16.16"
 
         /**
-         * Pack format for 'heart_rate_error' register data.
+         * Pack format for 'heart_rate_error' data.
          */
         export const HeartRateError = "u16.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

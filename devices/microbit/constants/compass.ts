@@ -32,17 +32,17 @@ namespace jacdac {
 
     export namespace CompassRegPack {
         /**
-         * Pack format for 'heading' register data.
+         * Pack format for 'heading' data.
          */
         export const Heading = "u16.16"
 
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'heading_error' register data.
+         * Pack format for 'heading_error' data.
          */
         export const HeadingError = "u16.16"
     }

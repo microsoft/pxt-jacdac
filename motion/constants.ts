@@ -47,22 +47,22 @@ namespace jacdac {
 
     export namespace MotionRegPack {
         /**
-         * Pack format for 'moving' register data.
+         * Pack format for 'moving' data.
          */
         export const Moving = "u8"
 
         /**
-         * Pack format for 'max_distance' register data.
+         * Pack format for 'max_distance' data.
          */
         export const MaxDistance = "u16.16"
 
         /**
-         * Pack format for 'angle' register data.
+         * Pack format for 'angle' data.
          */
         export const Angle = "u16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

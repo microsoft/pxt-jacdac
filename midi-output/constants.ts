@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace MidiOutputRegPack {
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
     }
@@ -37,7 +37,7 @@ namespace jacdac {
 
     export namespace MidiOutputCmdPack {
         /**
-         * Pack format for 'send' register data.
+         * Pack format for 'send' data.
          */
         export const Send = "b"
     }

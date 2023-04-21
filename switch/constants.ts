@@ -43,12 +43,12 @@ namespace jacdac {
 
     export namespace SwitchRegPack {
         /**
-         * Pack format for 'active' register data.
+         * Pack format for 'active' data.
          */
         export const Active = "u8"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

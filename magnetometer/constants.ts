@@ -24,12 +24,12 @@ namespace jacdac {
 
     export namespace MagnetometerRegPack {
         /**
-         * Pack format for 'forces' register data.
+         * Pack format for 'forces' data.
          */
         export const Forces = "i32 i32 i32"
 
         /**
-         * Pack format for 'forces_error' register data.
+         * Pack format for 'forces_error' data.
          */
         export const ForcesError = "i32"
     }

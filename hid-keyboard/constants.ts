@@ -314,7 +314,7 @@ namespace jacdac {
 
     export namespace HidKeyboardCmdPack {
         /**
-         * Pack format for 'key' register data.
+         * Pack format for 'key' data.
          */
         export const Key = "r: u16 u8 u8"
     }

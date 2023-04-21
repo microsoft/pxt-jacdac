@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace BridgeRegPack {
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
     }

@@ -97,31 +97,32 @@ namespace jacdac {
 
     export namespace WifiCmdPack {
         /**
-         * Pack format for 'last_scan_results' register data.
+         * Pack format for 'last_scan_results' data.
          */
         export const LastScanResults = "b[12]"
 
         /**
-         * Pack format for 'add_network' register data.
+         * Pack format for 'add_network' data.
          */
         export const AddNetwork = "z z"
 
         /**
-         * Pack format for 'forget_network' register data.
+         * Pack format for 'forget_network' data.
          */
         export const ForgetNetwork = "s"
 
         /**
-         * Pack format for 'set_network_priority' register data.
+         * Pack format for 'set_network_priority' data.
          */
         export const SetNetworkPriority = "i16 s"
 
         /**
-         * Pack format for 'list_known_networks' register data.
+         * Pack format for 'list_known_networks' data.
          */
         export const ListKnownNetworks = "b[12]"
     }
 
+    export const enum WifiPipe {}
     /**
      * pipe_report Results
      * ```
@@ -136,14 +137,14 @@ namespace jacdac {
      * ```
      */
 
-    export namespace WifiinfoPack {
+    export namespace WifiPipePack {
         /**
-         * Pack format for 'results' register data.
+         * Pack format for 'results' data.
          */
         export const Results = "u32 u32 i8 u8 b[6] s[33]"
 
         /**
-         * Pack format for 'network_results' register data.
+         * Pack format for 'network_results' data.
          */
         export const NetworkResults = "i16 i16 s"
     }
@@ -198,27 +199,27 @@ namespace jacdac {
 
     export namespace WifiRegPack {
         /**
-         * Pack format for 'rssi' register data.
+         * Pack format for 'rssi' data.
          */
         export const Rssi = "i8"
 
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'ip_address' register data.
+         * Pack format for 'ip_address' data.
          */
         export const IpAddress = "b[16]"
 
         /**
-         * Pack format for 'eui_48' register data.
+         * Pack format for 'eui_48' data.
          */
         export const Eui48 = "b[6]"
 
         /**
-         * Pack format for 'ssid' register data.
+         * Pack format for 'ssid' data.
          */
         export const Ssid = "s[32]"
     }
@@ -269,12 +270,12 @@ namespace jacdac {
 
     export namespace WifiEventPack {
         /**
-         * Pack format for 'scan_complete' register data.
+         * Pack format for 'scan_complete' data.
          */
         export const ScanComplete = "u16 u16"
 
         /**
-         * Pack format for 'connection_failed' register data.
+         * Pack format for 'connection_failed' data.
          */
         export const ConnectionFailed = "s"
     }

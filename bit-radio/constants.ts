@@ -41,22 +41,22 @@ namespace jacdac {
 
     export namespace BitRadioRegPack {
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'group' register data.
+         * Pack format for 'group' data.
          */
         export const Group = "u8"
 
         /**
-         * Pack format for 'transmission_power' register data.
+         * Pack format for 'transmission_power' data.
          */
         export const TransmissionPower = "u8"
 
         /**
-         * Pack format for 'frequency_band' register data.
+         * Pack format for 'frequency_band' data.
          */
         export const FrequencyBand = "u8"
     }
@@ -128,37 +128,37 @@ namespace jacdac {
 
     export namespace BitRadioCmdPack {
         /**
-         * Pack format for 'send_string' register data.
+         * Pack format for 'send_string' data.
          */
         export const SendString = "s"
 
         /**
-         * Pack format for 'send_number' register data.
+         * Pack format for 'send_number' data.
          */
         export const SendNumber = "f64"
 
         /**
-         * Pack format for 'send_value' register data.
+         * Pack format for 'send_value' data.
          */
         export const SendValue = "f64 s"
 
         /**
-         * Pack format for 'send_buffer' register data.
+         * Pack format for 'send_buffer' data.
          */
         export const SendBuffer = "b"
 
         /**
-         * Pack format for 'string_received' register data.
+         * Pack format for 'string_received' data.
          */
         export const StringReceived = "u32 u32 i8 b[1] s"
 
         /**
-         * Pack format for 'number_received' register data.
+         * Pack format for 'number_received' data.
          */
         export const NumberReceived = "u32 u32 i8 b[3] f64 s"
 
         /**
-         * Pack format for 'buffer_received' register data.
+         * Pack format for 'buffer_received' data.
          */
         export const BufferReceived = "u32 u32 i8 b[1] b"
     }

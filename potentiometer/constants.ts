@@ -31,12 +31,12 @@ namespace jacdac {
 
     export namespace PotentiometerRegPack {
         /**
-         * Pack format for 'position' register data.
+         * Pack format for 'position' data.
          */
         export const Position = "u0.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

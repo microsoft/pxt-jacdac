@@ -16,7 +16,7 @@ namespace jacdac {
 
     export namespace BaseCmdPack {
         /**
-         * Pack format for 'command_not_implemented' register data.
+         * Pack format for 'command_not_implemented' data.
          */
         export const CommandNotImplemented = "u16 u16"
     }
@@ -50,12 +50,12 @@ namespace jacdac {
 
     export namespace BaseRegPack {
         /**
-         * Pack format for 'instance_name' register data.
+         * Pack format for 'instance_name' data.
          */
         export const InstanceName = "s"
 
         /**
-         * Pack format for 'status_code' register data.
+         * Pack format for 'status_code' data.
          */
         export const StatusCode = "u16 u16"
     }
@@ -74,7 +74,7 @@ namespace jacdac {
 
     export namespace BaseEventPack {
         /**
-         * Pack format for 'status_code_changed' register data.
+         * Pack format for 'status_code_changed' data.
          */
         export const StatusCodeChanged = "u16 u16"
     }

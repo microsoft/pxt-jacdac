@@ -41,22 +41,22 @@ namespace jacdac {
 
     export namespace SoundLevelRegPack {
         /**
-         * Pack format for 'sound_level' register data.
+         * Pack format for 'sound_level' data.
          */
         export const SoundLevel = "u0.16"
 
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'loud_threshold' register data.
+         * Pack format for 'loud_threshold' data.
          */
         export const LoudThreshold = "u0.16"
 
         /**
-         * Pack format for 'quiet_threshold' register data.
+         * Pack format for 'quiet_threshold' data.
          */
         export const QuietThreshold = "u0.16"
     }

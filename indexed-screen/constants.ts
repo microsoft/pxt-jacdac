@@ -24,12 +24,12 @@ namespace jacdac {
 
     export namespace IndexedScreenCmdPack {
         /**
-         * Pack format for 'start_update' register data.
+         * Pack format for 'start_update' data.
          */
         export const StartUpdate = "u16 u16 u16 u16"
 
         /**
-         * Pack format for 'set_pixels' register data.
+         * Pack format for 'set_pixels' data.
          */
         export const SetPixels = "b"
     }
@@ -124,42 +124,42 @@ namespace jacdac {
 
     export namespace IndexedScreenRegPack {
         /**
-         * Pack format for 'brightness' register data.
+         * Pack format for 'brightness' data.
          */
         export const Brightness = "u0.8"
 
         /**
-         * Pack format for 'palette' register data.
+         * Pack format for 'palette' data.
          */
         export const Palette = "r: u8 u8 u8 u8"
 
         /**
-         * Pack format for 'bits_per_pixel' register data.
+         * Pack format for 'bits_per_pixel' data.
          */
         export const BitsPerPixel = "u8"
 
         /**
-         * Pack format for 'width' register data.
+         * Pack format for 'width' data.
          */
         export const Width = "u16"
 
         /**
-         * Pack format for 'height' register data.
+         * Pack format for 'height' data.
          */
         export const Height = "u16"
 
         /**
-         * Pack format for 'width_major' register data.
+         * Pack format for 'width_major' data.
          */
         export const WidthMajor = "u8"
 
         /**
-         * Pack format for 'up_sampling' register data.
+         * Pack format for 'up_sampling' data.
          */
         export const UpSampling = "u8"
 
         /**
-         * Pack format for 'rotation' register data.
+         * Pack format for 'rotation' data.
          */
         export const Rotation = "u16"
     }

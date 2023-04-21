@@ -60,22 +60,22 @@ namespace jacdac {
 
     export namespace VerifiedTelemetryRegPack {
         /**
-         * Pack format for 'telemetry_status' register data.
+         * Pack format for 'telemetry_status' data.
          */
         export const TelemetryStatus = "u8"
 
         /**
-         * Pack format for 'telemetry_status_interval' register data.
+         * Pack format for 'telemetry_status_interval' data.
          */
         export const TelemetryStatusInterval = "u32"
 
         /**
-         * Pack format for 'fingerprint_type' register data.
+         * Pack format for 'fingerprint_type' data.
          */
         export const FingerprintType = "u8"
 
         /**
-         * Pack format for 'fingerprint_template' register data.
+         * Pack format for 'fingerprint_template' data.
          */
         export const FingerprintTemplate = "u16 b"
     }
@@ -112,7 +112,7 @@ namespace jacdac {
 
     export namespace VerifiedTelemetryEventPack {
         /**
-         * Pack format for 'telemetry_status_change' register data.
+         * Pack format for 'telemetry_status_change' data.
          */
         export const TelemetryStatusChange = "u8"
     }
