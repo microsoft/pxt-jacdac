@@ -1,12 +1,10 @@
 {
-    "targetWebsite": "https://arcade.makecode.com/beta",
+    "targetWebsite": "https://arcade.makecode.com/",
     "overrides": {
         "testDependencies": {
             "net": "*",
             "device": "*"
         }
     },
-    "include": [
-        "links.json"
-    ]
+    "include": ["links.json"]
 }
