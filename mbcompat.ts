@@ -48,8 +48,22 @@ function identifyAnimation() {
 function proxyAnimation() {
     control.runInParallel(() => {
         led.stopAnimation()
+        // random matrix like animation
+        led.setDisplayMode(DisplayMode.Greyscale)
         while (true) {
-            basic.showString("JACDAC DONGLE PRESS A TO RESET", 120)
+            const x = Math.randomRange(0, 4)
+            const y = Math.randomRange(0, 4)
+            for (let i = 0; i < 5; ++i)
+                for (let j = 0; j < 5; ++j) {
+                    if (i == x && j == y) led.plotBrightness(i, j, 255)
+                    else
+                        led.plotBrightness(
+                            i,
+                            j,
+                            Math.max(0, led.pointBrightness(i, j) - 16)
+                        )
+                }
+            pause(64)
         }
     })
 }
@@ -66,8 +80,7 @@ function handleStatusEvent(event: jacdac.StatusEvent) {
             //led.toggle(4, 4)
             break
         case jacdac.StatusEvent.Identify:
-            if (!proxyMode)
-                identifyAnimation()
+            if (!proxyMode) identifyAnimation()
             break
     }
 }
