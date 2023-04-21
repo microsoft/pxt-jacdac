@@ -5,6 +5,8 @@ namespace modules {
     //% fixedInstances blockGap=8
     export class AirPressureClient extends jacdac.SimpleSensorClient {
         private readonly _pressureError: jacdac.RegisterClient<[number]>
+        private readonly _minPressure: jacdac.RegisterClient<[number]>
+        private readonly _maxPressure: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
             super(
@@ -17,6 +19,18 @@ namespace modules {
                 jacdac.AirPressureReg.PressureError,
                 jacdac.AirPressureRegPack.PressureError,
                 jacdac.RegisterClientFlags.Optional
+            )
+            this._minPressure = this.addRegister<[number]>(
+                jacdac.AirPressureReg.MinPressure,
+                jacdac.AirPressureRegPack.MinPressure,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
+            )
+            this._maxPressure = this.addRegister<[number]>(
+                jacdac.AirPressureReg.MaxPressure,
+                jacdac.AirPressureRegPack.MaxPressure,
+                jacdac.RegisterClientFlags.Optional |
+                    jacdac.RegisterClientFlags.Const
             )
         }
 
@@ -45,14 +59,38 @@ namespace modules {
         }
 
         /**
+         * Lowest air pressure that can be reported.
+         */
+        //% callInDebugger
+        //% group="Environment"
+        //% weight=98
+        minPressure(): number {
+            this.start()
+            const values = this._minPressure.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
+         * Highest air pressure that can be reported.
+         */
+        //% callInDebugger
+        //% group="Environment"
+        //% weight=97
+        maxPressure(): number {
+            this.start()
+            const values = this._maxPressure.pauseUntilValues() as any[]
+            return values[0]
+        }
+
+        /**
          * Run code when the pressure changes by the given threshold value.
          */
         //% group="Environment"
         //% blockId=jacdac_airpressure_on_pressure_change
         //% block="on %airpressure pressure changed by %threshold (hPa)"
-        //% weight=98
+        //% weight=96
         //% threshold.min=0
-        //% threshold.max=1040
+        //% threshold.max=1150
         //% threshold.defl=1
         onPressureChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler)

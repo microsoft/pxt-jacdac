@@ -117,52 +117,52 @@ namespace jacdac {
 
     export namespace LedRegPack {
         /**
-         * Pack format for 'pixels' register data.
+         * Pack format for 'pixels' data.
          */
         export const Pixels = "b"
 
         /**
-         * Pack format for 'brightness' register data.
+         * Pack format for 'brightness' data.
          */
         export const Brightness = "u0.8"
 
         /**
-         * Pack format for 'actual_brightness' register data.
+         * Pack format for 'actual_brightness' data.
          */
         export const ActualBrightness = "u0.8"
 
         /**
-         * Pack format for 'num_pixels' register data.
+         * Pack format for 'num_pixels' data.
          */
         export const NumPixels = "u16"
 
         /**
-         * Pack format for 'num_columns' register data.
+         * Pack format for 'num_columns' data.
          */
         export const NumColumns = "u16"
 
         /**
-         * Pack format for 'max_power' register data.
+         * Pack format for 'max_power' data.
          */
         export const MaxPower = "u16"
 
         /**
-         * Pack format for 'leds_per_pixel' register data.
+         * Pack format for 'leds_per_pixel' data.
          */
         export const LedsPerPixel = "u16"
 
         /**
-         * Pack format for 'wave_length' register data.
+         * Pack format for 'wave_length' data.
          */
         export const WaveLength = "u16"
 
         /**
-         * Pack format for 'luminous_intensity' register data.
+         * Pack format for 'luminous_intensity' data.
          */
         export const LuminousIntensity = "u16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

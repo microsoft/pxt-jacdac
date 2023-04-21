@@ -32,17 +32,17 @@ namespace jacdac {
 
     export namespace BrailleDisplayRegPack {
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'patterns' register data.
+         * Pack format for 'patterns' data.
          */
         export const Patterns = "s"
 
         /**
-         * Pack format for 'length' register data.
+         * Pack format for 'length' data.
          */
         export const Length = "u8"
     }

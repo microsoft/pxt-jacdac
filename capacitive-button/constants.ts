@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace CapacitiveButtonRegPack {
         /**
-         * Pack format for 'threshold' register data.
+         * Pack format for 'threshold' data.
          */
         export const Threshold = "u0.16"
     }

@@ -23,12 +23,12 @@ namespace jacdac {
 
     export namespace WindDirectionRegPack {
         /**
-         * Pack format for 'wind_direction' register data.
+         * Pack format for 'wind_direction' data.
          */
         export const WindDirection = "u16"
 
         /**
-         * Pack format for 'wind_direction_error' register data.
+         * Pack format for 'wind_direction_error' data.
          */
         export const WindDirectionError = "u16"
     }

@@ -31,12 +31,12 @@ namespace jacdac {
 
     export namespace ReflectedLightRegPack {
         /**
-         * Pack format for 'brightness' register data.
+         * Pack format for 'brightness' data.
          */
         export const Brightness = "u0.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

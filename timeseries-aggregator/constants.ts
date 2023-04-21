@@ -53,22 +53,22 @@ namespace jacdac {
 
     export namespace TimeseriesAggregatorCmdPack {
         /**
-         * Pack format for 'update' register data.
+         * Pack format for 'update' data.
          */
         export const Update = "f64 s"
 
         /**
-         * Pack format for 'set_window' register data.
+         * Pack format for 'set_window' data.
          */
         export const SetWindow = "u32 s"
 
         /**
-         * Pack format for 'set_upload' register data.
+         * Pack format for 'set_upload' data.
          */
         export const SetUpload = "u8 s"
 
         /**
-         * Pack format for 'stored' register data.
+         * Pack format for 'stored' data.
          */
         export const Stored = "u32 b[4] f64 f64 f64 u32 u32 s"
     }
@@ -135,32 +135,32 @@ namespace jacdac {
 
     export namespace TimeseriesAggregatorRegPack {
         /**
-         * Pack format for 'now' register data.
+         * Pack format for 'now' data.
          */
         export const Now = "u32"
 
         /**
-         * Pack format for 'fast_start' register data.
+         * Pack format for 'fast_start' data.
          */
         export const FastStart = "u8"
 
         /**
-         * Pack format for 'default_window' register data.
+         * Pack format for 'default_window' data.
          */
         export const DefaultWindow = "u32"
 
         /**
-         * Pack format for 'default_upload' register data.
+         * Pack format for 'default_upload' data.
          */
         export const DefaultUpload = "u8"
 
         /**
-         * Pack format for 'upload_unlabelled' register data.
+         * Pack format for 'upload_unlabelled' data.
          */
         export const UploadUnlabelled = "u8"
 
         /**
-         * Pack format for 'sensor_watchdog_period' register data.
+         * Pack format for 'sensor_watchdog_period' data.
          */
         export const SensorWatchdogPeriod = "u32"
     }

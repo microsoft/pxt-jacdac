@@ -62,27 +62,27 @@ namespace jacdac {
 
     export namespace DistanceRegPack {
         /**
-         * Pack format for 'distance' register data.
+         * Pack format for 'distance' data.
          */
         export const Distance = "u16.16"
 
         /**
-         * Pack format for 'distance_error' register data.
+         * Pack format for 'distance_error' data.
          */
         export const DistanceError = "u16.16"
 
         /**
-         * Pack format for 'min_range' register data.
+         * Pack format for 'min_range' data.
          */
         export const MinRange = "u16.16"
 
         /**
-         * Pack format for 'max_range' register data.
+         * Pack format for 'max_range' data.
          */
         export const MaxRange = "u16.16"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

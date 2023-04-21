@@ -95,52 +95,52 @@ namespace jacdac {
 
     export namespace ServoRegPack {
         /**
-         * Pack format for 'angle' register data.
+         * Pack format for 'angle' data.
          */
         export const Angle = "i16.16"
 
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'offset' register data.
+         * Pack format for 'offset' data.
          */
         export const Offset = "i16.16"
 
         /**
-         * Pack format for 'min_angle' register data.
+         * Pack format for 'min_angle' data.
          */
         export const MinAngle = "i16.16"
 
         /**
-         * Pack format for 'min_pulse' register data.
+         * Pack format for 'min_pulse' data.
          */
         export const MinPulse = "u16"
 
         /**
-         * Pack format for 'max_angle' register data.
+         * Pack format for 'max_angle' data.
          */
         export const MaxAngle = "i16.16"
 
         /**
-         * Pack format for 'max_pulse' register data.
+         * Pack format for 'max_pulse' data.
          */
         export const MaxPulse = "u16"
 
         /**
-         * Pack format for 'stall_torque' register data.
+         * Pack format for 'stall_torque' data.
          */
         export const StallTorque = "u16.16"
 
         /**
-         * Pack format for 'response_speed' register data.
+         * Pack format for 'response_speed' data.
          */
         export const ResponseSpeed = "u16.16"
 
         /**
-         * Pack format for 'actual_angle' register data.
+         * Pack format for 'actual_angle' data.
          */
         export const ActualAngle = "i16.16"
     }

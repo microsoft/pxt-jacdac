@@ -67,32 +67,32 @@ namespace jacdac {
 
     export namespace DcVoltageMeasurementRegPack {
         /**
-         * Pack format for 'measurement_type' register data.
+         * Pack format for 'measurement_type' data.
          */
         export const MeasurementType = "u8"
 
         /**
-         * Pack format for 'measurement_name' register data.
+         * Pack format for 'measurement_name' data.
          */
         export const MeasurementName = "s"
 
         /**
-         * Pack format for 'measurement' register data.
+         * Pack format for 'measurement' data.
          */
         export const Measurement = "f64"
 
         /**
-         * Pack format for 'measurement_error' register data.
+         * Pack format for 'measurement_error' data.
          */
         export const MeasurementError = "f64"
 
         /**
-         * Pack format for 'min_measurement' register data.
+         * Pack format for 'min_measurement' data.
          */
         export const MinMeasurement = "f64"
 
         /**
-         * Pack format for 'max_measurement' register data.
+         * Pack format for 'max_measurement' data.
          */
         export const MaxMeasurement = "f64"
     }

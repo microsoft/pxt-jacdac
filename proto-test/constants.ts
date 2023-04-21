@@ -131,72 +131,72 @@ namespace jacdac {
 
     export namespace ProtoTestRegPack {
         /**
-         * Pack format for 'rw_bool' register data.
+         * Pack format for 'rw_bool' data.
          */
         export const RwBool = "u8"
 
         /**
-         * Pack format for 'ro_bool' register data.
+         * Pack format for 'ro_bool' data.
          */
         export const RoBool = "u8"
 
         /**
-         * Pack format for 'rw_u32' register data.
+         * Pack format for 'rw_u32' data.
          */
         export const RwU32 = "u32"
 
         /**
-         * Pack format for 'ro_u32' register data.
+         * Pack format for 'ro_u32' data.
          */
         export const RoU32 = "u32"
 
         /**
-         * Pack format for 'rw_i32' register data.
+         * Pack format for 'rw_i32' data.
          */
         export const RwI32 = "i32"
 
         /**
-         * Pack format for 'ro_i32' register data.
+         * Pack format for 'ro_i32' data.
          */
         export const RoI32 = "i32"
 
         /**
-         * Pack format for 'rw_string' register data.
+         * Pack format for 'rw_string' data.
          */
         export const RwString = "s"
 
         /**
-         * Pack format for 'ro_string' register data.
+         * Pack format for 'ro_string' data.
          */
         export const RoString = "s"
 
         /**
-         * Pack format for 'rw_bytes' register data.
+         * Pack format for 'rw_bytes' data.
          */
         export const RwBytes = "b"
 
         /**
-         * Pack format for 'ro_bytes' register data.
+         * Pack format for 'ro_bytes' data.
          */
         export const RoBytes = "b"
 
         /**
-         * Pack format for 'rw_i8_u8_u16_i32' register data.
+         * Pack format for 'rw_i8_u8_u16_i32' data.
          */
         export const RwI8U8U16I32 = "i8 u8 u16 i32"
 
         /**
-         * Pack format for 'ro_i8_u8_u16_i32' register data.
+         * Pack format for 'ro_i8_u8_u16_i32' data.
          */
         export const RoI8U8U16I32 = "i8 u8 u16 i32"
 
         /**
-         * Pack format for 'rw_u8_string' register data.
+         * Pack format for 'rw_u8_string' data.
          */
         export const RwU8String = "u8 s"
 
         /**
-         * Pack format for 'ro_u8_string' register data.
+         * Pack format for 'ro_u8_string' data.
          */
         export const RoU8String = "u8 s"
     }
@@ -275,37 +275,37 @@ namespace jacdac {
 
     export namespace ProtoTestEventPack {
         /**
-         * Pack format for 'e_bool' register data.
+         * Pack format for 'e_bool' data.
          */
         export const EBool = "u8"
 
         /**
-         * Pack format for 'e_u32' register data.
+         * Pack format for 'e_u32' data.
          */
         export const EU32 = "u32"
 
         /**
-         * Pack format for 'e_i32' register data.
+         * Pack format for 'e_i32' data.
          */
         export const EI32 = "i32"
 
         /**
-         * Pack format for 'e_string' register data.
+         * Pack format for 'e_string' data.
          */
         export const EString = "s"
 
         /**
-         * Pack format for 'e_bytes' register data.
+         * Pack format for 'e_bytes' data.
          */
         export const EBytes = "b"
 
         /**
-         * Pack format for 'e_i8_u8_u16_i32' register data.
+         * Pack format for 'e_i8_u8_u16_i32' data.
          */
         export const EI8U8U16I32 = "i8 u8 u16 i32"
 
         /**
-         * Pack format for 'e_u8_string' register data.
+         * Pack format for 'e_u8_string' data.
          */
         export const EU8String = "u8 s"
     }
@@ -386,46 +386,47 @@ namespace jacdac {
 
     export namespace ProtoTestCmdPack {
         /**
-         * Pack format for 'c_bool' register data.
+         * Pack format for 'c_bool' data.
          */
         export const CBool = "u8"
 
         /**
-         * Pack format for 'c_u32' register data.
+         * Pack format for 'c_u32' data.
          */
         export const CU32 = "u32"
 
         /**
-         * Pack format for 'c_i32' register data.
+         * Pack format for 'c_i32' data.
          */
         export const CI32 = "i32"
 
         /**
-         * Pack format for 'c_string' register data.
+         * Pack format for 'c_string' data.
          */
         export const CString = "s"
 
         /**
-         * Pack format for 'c_bytes' register data.
+         * Pack format for 'c_bytes' data.
          */
         export const CBytes = "b"
 
         /**
-         * Pack format for 'c_i8_u8_u16_i32' register data.
+         * Pack format for 'c_i8_u8_u16_i32' data.
          */
         export const CI8U8U16I32 = "i8 u8 u16 i32"
 
         /**
-         * Pack format for 'c_u8_string' register data.
+         * Pack format for 'c_u8_string' data.
          */
         export const CU8String = "u8 s"
 
         /**
-         * Pack format for 'c_report_pipe' register data.
+         * Pack format for 'c_report_pipe' data.
          */
         export const CReportPipe = "b[12]"
     }
 
+    export const enum ProtoTestPipe {}
     /**
      * pipe_report PBytes
      * ```
@@ -433,9 +434,9 @@ namespace jacdac {
      * ```
      */
 
-    export namespace ProtoTestinfoPack {
+    export namespace ProtoTestPipePack {
         /**
-         * Pack format for 'p_bytes' register data.
+         * Pack format for 'p_bytes' data.
          */
         export const PBytes = "u8"
     }

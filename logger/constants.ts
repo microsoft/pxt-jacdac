@@ -32,7 +32,7 @@ namespace jacdac {
 
     export namespace LoggerRegPack {
         /**
-         * Pack format for 'min_priority' register data.
+         * Pack format for 'min_priority' data.
          */
         export const MinPriority = "u8"
     }
@@ -77,22 +77,22 @@ namespace jacdac {
 
     export namespace LoggerCmdPack {
         /**
-         * Pack format for 'debug' register data.
+         * Pack format for 'debug' data.
          */
         export const Debug = "s"
 
         /**
-         * Pack format for 'log' register data.
+         * Pack format for 'log' data.
          */
         export const Log = "s"
 
         /**
-         * Pack format for 'warn' register data.
+         * Pack format for 'warn' data.
          */
         export const Warn = "s"
 
         /**
-         * Pack format for 'error' register data.
+         * Pack format for 'error' data.
          */
         export const Error = "s"
     }

@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-cloud-configuration",
+    "version": "0.0.0",
+    "description": "Connection and diagnostics information about the cloud connection.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}

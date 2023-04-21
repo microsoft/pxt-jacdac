@@ -32,17 +32,17 @@ namespace jacdac {
 
     export namespace HidJoystickRegPack {
         /**
-         * Pack format for 'button_count' register data.
+         * Pack format for 'button_count' data.
          */
         export const ButtonCount = "u8"
 
         /**
-         * Pack format for 'buttons_analog' register data.
+         * Pack format for 'buttons_analog' data.
          */
         export const ButtonsAnalog = "u32"
 
         /**
-         * Pack format for 'axis_count' register data.
+         * Pack format for 'axis_count' data.
          */
         export const AxisCount = "u8"
     }
@@ -69,12 +69,12 @@ namespace jacdac {
 
     export namespace HidJoystickCmdPack {
         /**
-         * Pack format for 'set_buttons' register data.
+         * Pack format for 'set_buttons' data.
          */
         export const SetButtons = "r: u0.8"
 
         /**
-         * Pack format for 'set_axis' register data.
+         * Pack format for 'set_axis' data.
          */
         export const SetAxis = "r: i1.15"
     }

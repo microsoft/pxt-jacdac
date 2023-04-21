@@ -37,12 +37,12 @@ namespace jacdac {
 
     export namespace RngRegPack {
         /**
-         * Pack format for 'random' register data.
+         * Pack format for 'random' data.
          */
         export const Random = "b"
 
         /**
-         * Pack format for 'variant' register data.
+         * Pack format for 'variant' data.
          */
         export const Variant = "u8"
     }

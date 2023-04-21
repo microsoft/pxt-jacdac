@@ -51,27 +51,27 @@ namespace jacdac {
 
     export namespace DualMotorsRegPack {
         /**
-         * Pack format for 'speed' register data.
+         * Pack format for 'speed' data.
          */
         export const Speed = "i1.15 i1.15"
 
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'load_torque' register data.
+         * Pack format for 'load_torque' data.
          */
         export const LoadTorque = "u16.16"
 
         /**
-         * Pack format for 'load_rotation_speed' register data.
+         * Pack format for 'load_rotation_speed' data.
          */
         export const LoadRotationSpeed = "u16.16"
 
         /**
-         * Pack format for 'reversible' register data.
+         * Pack format for 'reversible' data.
          */
         export const Reversible = "u8"
     }

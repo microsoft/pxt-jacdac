@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace CodalMessageBusCmdPack {
         /**
-         * Pack format for 'send' register data.
+         * Pack format for 'send' data.
          */
         export const Send = "u16 u16"
     }
@@ -33,7 +33,7 @@ namespace jacdac {
 
     export namespace CodalMessageBusEventPack {
         /**
-         * Pack format for 'message' register data.
+         * Pack format for 'message' data.
          */
         export const Message = "u16 u16"
     }

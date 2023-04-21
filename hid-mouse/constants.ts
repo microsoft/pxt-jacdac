@@ -57,17 +57,17 @@ namespace jacdac {
 
     export namespace HidMouseCmdPack {
         /**
-         * Pack format for 'set_button' register data.
+         * Pack format for 'set_button' data.
          */
         export const SetButton = "u16 u8"
 
         /**
-         * Pack format for 'move' register data.
+         * Pack format for 'move' data.
          */
         export const Move = "i16 i16 u16"
 
         /**
-         * Pack format for 'wheel' register data.
+         * Pack format for 'wheel' data.
          */
         export const Wheel = "i16 u16"
     }

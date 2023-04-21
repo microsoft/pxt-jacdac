@@ -42,22 +42,22 @@ namespace jacdac {
 
     export namespace AccelerometerRegPack {
         /**
-         * Pack format for 'forces' register data.
+         * Pack format for 'forces' data.
          */
         export const Forces = "i12.20 i12.20 i12.20"
 
         /**
-         * Pack format for 'forces_error' register data.
+         * Pack format for 'forces_error' data.
          */
         export const ForcesError = "u12.20"
 
         /**
-         * Pack format for 'max_force' register data.
+         * Pack format for 'max_force' data.
          */
         export const MaxForce = "u12.20"
 
         /**
-         * Pack format for 'max_forces_supported' register data.
+         * Pack format for 'max_forces_supported' data.
          */
         export const MaxForcesSupported = "r: u12.20"
     }

@@ -50,27 +50,27 @@ namespace jacdac {
 
     export namespace SpeechSynthesisRegPack {
         /**
-         * Pack format for 'enabled' register data.
+         * Pack format for 'enabled' data.
          */
         export const Enabled = "u8"
 
         /**
-         * Pack format for 'lang' register data.
+         * Pack format for 'lang' data.
          */
         export const Lang = "s"
 
         /**
-         * Pack format for 'volume' register data.
+         * Pack format for 'volume' data.
          */
         export const Volume = "u0.8"
 
         /**
-         * Pack format for 'pitch' register data.
+         * Pack format for 'pitch' data.
          */
         export const Pitch = "u16.16"
 
         /**
-         * Pack format for 'rate' register data.
+         * Pack format for 'rate' data.
          */
         export const Rate = "u16.16"
     }
@@ -93,7 +93,7 @@ namespace jacdac {
 
     export namespace SpeechSynthesisCmdPack {
         /**
-         * Pack format for 'speak' register data.
+         * Pack format for 'speak' data.
          */
         export const Speak = "s"
     }

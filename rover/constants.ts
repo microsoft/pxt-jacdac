@@ -14,7 +14,7 @@ namespace jacdac {
 
     export namespace RoverRegPack {
         /**
-         * Pack format for 'kinematics' register data.
+         * Pack format for 'kinematics' data.
          */
         export const Kinematics = "i16.16 i16.16 i16.16 i16.16 i16.16"
     }

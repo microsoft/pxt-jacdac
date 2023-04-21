@@ -84,6 +84,7 @@ namespace modules {
         //% block="on %humidity humidity changed by %threshold (%RH)"
         //% weight=96
         //% threshold.min=0
+        //% threshold.max=100
         //% threshold.defl=1
         onHumidityChangedBy(threshold: number, handler: () => void): void {
             this.onReadingChangedBy(threshold, handler)

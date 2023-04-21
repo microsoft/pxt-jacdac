@@ -107,47 +107,47 @@ namespace jacdac {
 
     export namespace PowerRegPack {
         /**
-         * Pack format for 'allowed' register data.
+         * Pack format for 'allowed' data.
          */
         export const Allowed = "u8"
 
         /**
-         * Pack format for 'max_power' register data.
+         * Pack format for 'max_power' data.
          */
         export const MaxPower = "u16"
 
         /**
-         * Pack format for 'power_status' register data.
+         * Pack format for 'power_status' data.
          */
         export const PowerStatus = "u8"
 
         /**
-         * Pack format for 'current_draw' register data.
+         * Pack format for 'current_draw' data.
          */
         export const CurrentDraw = "u16"
 
         /**
-         * Pack format for 'battery_voltage' register data.
+         * Pack format for 'battery_voltage' data.
          */
         export const BatteryVoltage = "u16"
 
         /**
-         * Pack format for 'battery_charge' register data.
+         * Pack format for 'battery_charge' data.
          */
         export const BatteryCharge = "u0.16"
 
         /**
-         * Pack format for 'battery_capacity' register data.
+         * Pack format for 'battery_capacity' data.
          */
         export const BatteryCapacity = "u32"
 
         /**
-         * Pack format for 'keep_on_pulse_duration' register data.
+         * Pack format for 'keep_on_pulse_duration' data.
          */
         export const KeepOnPulseDuration = "u16"
 
         /**
-         * Pack format for 'keep_on_pulse_period' register data.
+         * Pack format for 'keep_on_pulse_period' data.
          */
         export const KeepOnPulsePeriod = "u16"
     }
@@ -173,7 +173,7 @@ namespace jacdac {
 
     export namespace PowerEventPack {
         /**
-         * Pack format for 'power_status_changed' register data.
+         * Pack format for 'power_status_changed' data.
          */
         export const PowerStatusChanged = "u8"
     }

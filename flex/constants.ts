@@ -23,12 +23,12 @@ namespace jacdac {
 
     export namespace FlexRegPack {
         /**
-         * Pack format for 'bending' register data.
+         * Pack format for 'bending' data.
          */
         export const Bending = "i1.15"
 
         /**
-         * Pack format for 'length' register data.
+         * Pack format for 'length' data.
          */
         export const Length = "u16"
     }

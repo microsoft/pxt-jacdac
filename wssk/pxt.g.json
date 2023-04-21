@@ -1,0 +1,21 @@
+{
+    "name": "jacdac-wssk",
+    "version": "0.0.0",
+    "description": "Defines a binary protocol for IoT devices to talk to DeviceScript gateway over encrypted websockets.\nThis is not used as a regular Jacdac service.",
+    "files": [
+        "constants.ts",
+        "client.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
+}
