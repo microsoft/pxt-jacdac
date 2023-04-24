@@ -311,9 +311,13 @@ namespace jacdac {
                         }
 
                         if (
+                            dev !== this.selfDevice &&
                             this.selfDevice.isBrain &&
                             dev.isBrain &&
-                            dev.restartCounter < this.restartCounter
+                            // old behavior, last one wins
+                            // dev.restartCounter < this.restartCounter
+                            // new behavior: simulator always goes to proxy mode
+                            isSimulator()
                         ) {
                             // the device restarted earlier than us
                             log(`device ${dev.shortId} new proxy`)
@@ -1962,7 +1966,11 @@ namespace jacdac {
      */
     export function startServer(options?: { logger?: boolean }) {
         options = options || {}
-        start({ disableLogger: !options.logger, disableRoleManager: true, noWait: true })
+        start({
+            disableLogger: !options.logger,
+            disableRoleManager: true,
+            noWait: true,
+        })
 
         let lastClient = control.millis()
         bus.on(PACKET_PROCESS, (pkt: JDPacket) => {
