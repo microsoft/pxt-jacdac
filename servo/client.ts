@@ -97,6 +97,59 @@ namespace modules {
             this._angle.values = values as [number]
         }
 
+        private internalSetContinuous(enabled: boolean) {
+            this.start()
+            this.setReg(jacdac.SystemReg.ClientVariant, "s", [
+                enabled ? `cont=1` : ``,
+            ])
+        }
+
+        /**
+         * Set the throttle on a continuous servo
+         * @param speed the throttle of the motor from -100% to 100%
+         */
+        //% weight=99
+        //% blockId=jacdac_servo_run block="servo continuous %servo run at %speed=speedPicker \\%"
+        //% servo.fieldEditor="gridpicker"
+        //% servo.fieldOptions.width=220
+        //% servo.fieldOptions.columns=2
+        //% group="Continuous"
+        //% blockGap=8
+        run(speed: number): void {
+            const minAngle = this.minAngle() || -90
+            const maxAngle = this.maxAngle() || 90
+            const degrees = Math.map(
+                Math.clamp(-100, 100, speed || 0),
+                -100,
+                100,
+                minAngle,
+                maxAngle
+            )
+            this.setAngle(degrees)
+            this.internalSetContinuous(true)
+        }
+
+        /**
+         * Stop sending commands to the servo so that its rotation will stop at the current position.
+         */
+        // On a normal servo this will stop the servo where it is, rather than return it to neutral position.
+        // It will also not provide any holding force.
+        //% weight=10
+        //% blockId=jacdac_servo_stop block="servo continuous %servo stop"
+        //% servo.fieldEditor="gridpicker"
+        //% servo.fieldOptions.width=220
+        //% servo.fieldOptions.columns=2
+        //% group="Servo"
+        //% blockGap=8
+        stop() {
+            const minAngle = this.minAngle() || -90
+            const maxAngle = this.maxAngle() || 90
+            const neutral = (maxAngle - minAngle) >> 1
+            this.setAngle(neutral)
+            this.setEnabled(false)
+            this.internalSetContinuous(true)
+        }
+
         /**
          * Turn the power to the servo on/off.
          */
