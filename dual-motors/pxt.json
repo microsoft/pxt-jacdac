@@ -1,6 +1,6 @@
 {
     "name": "jacdac-dual-motors",
-    "version": "1.9.1",
+    "version": "1.9.2",
     "description": "A synchronized pair of motors.",
     "files": [
         "constants.ts",
