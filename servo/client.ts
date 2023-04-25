@@ -113,7 +113,7 @@ namespace modules {
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
-        //% group="Servo"
+        //% group="Servo (Continuous)"
         //% blockGap=8
         run(speed: number): void {
             const minAngle = this.minAngle() || -90
@@ -139,7 +139,7 @@ namespace modules {
         //% servo.fieldEditor="gridpicker"
         //% servo.fieldOptions.width=220
         //% servo.fieldOptions.columns=2
-        //% group="Servo"
+        //% group="Servo (Continuous)"
         //% blockGap=8
         stop() {
             const minAngle = this.minAngle() || -90
