@@ -1,6 +1,6 @@
 {
     "name": "jacdac-button-server",
-    "version": "1.9.3",
+    "version": "1.9.4",
     "description": "MakeCode support for Jacdac Button server",
     "dependencies": {
         "core": "*",
