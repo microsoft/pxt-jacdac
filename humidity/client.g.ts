@@ -10,7 +10,7 @@ namespace modules {
 
         constructor(role: string) {
             super(jacdac.SRV_HUMIDITY, role, jacdac.HumidityRegPack.Humidity)
-
+            this.readingDigitsPrecision = 1
             this._humidityError = this.addRegister<[number]>(
                 jacdac.HumidityReg.HumidityError,
                 jacdac.HumidityRegPack.HumidityError,

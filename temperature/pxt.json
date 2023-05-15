@@ -14,5 +14,12 @@
     "dependencies": {
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testFiles": [
+        "test.microbit.ts"
+    ],
+    "testDependencies": {},
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit"
     }
 }

@@ -17,7 +17,7 @@ namespace modules {
                 role,
                 jacdac.TemperatureRegPack.Temperature
             )
-
+            this.readingDigitsPrecision = 1
             this._minTemperature = this.addRegister<[number]>(
                 jacdac.TemperatureReg.MinTemperature,
                 jacdac.TemperatureRegPack.MinTemperature,

@@ -100,17 +100,27 @@ namespace jacdac {
         }
 
         /**
+         * If positive, number of digits in the reading value
+         */
+        readingDigitsPrecision = -1
+
+        /**
          * Gets the current value of the reading register
          * @returns reading register value; undefined if client is not bound to a service
          */
         reading(): number {
             this.setStreaming(true)
             const values = this._reading.pauseUntilValues() as any[]
-            return values[0]
+            let value = values[0] as number
+
+            if (this.readingDigitsPrecision > 0 && !isNaN(value)) {
+                value = Math.roundWithPrecision(value, this.readingDigitsPrecision)
+            }
+            return value
         }
 
         /**
-         * Calls a handler when the reading register changes by a given thresold.
+         * Calls a handler when the reading register changes by a given threshold.
          * The handler receives the reading difference (delta)
          * @param threshold minimum change to trigger change
          * @param handler callback to run
