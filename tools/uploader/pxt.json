@@ -1,6 +1,6 @@
 {
     "name": "jacdac-uploader",
-    "version": "1.9.4",
+    "version": "1.9.5",
     "description": "",
     "dependencies": {
         "jacdac-iot-s2": "*",

@@ -1,6 +1,6 @@
 {
     "name": "jacdac-cloud-adapter",
-    "version": "1.9.4",
+    "version": "1.9.5",
     "description": "Supports cloud connections.",
     "files": [
         "constants.ts",
