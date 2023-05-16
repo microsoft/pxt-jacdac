@@ -33,7 +33,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Environment"
-        //% block="%humidity humidity (%RH)"
+        //% block="%humidity humidity (\\%RH)"
         //% blockId=jacdac_humidity_humidity___get
         //% weight=100
         humidity(): number {
@@ -81,7 +81,7 @@ namespace modules {
          */
         //% group="Environment"
         //% blockId=jacdac_humidity_on_humidity_change
-        //% block="on %humidity humidity changed by %threshold (%RH)"
+        //% block="on %humidity humidity changed by %threshold (\\%RH)"
         //% weight=96
         //% threshold.min=0
         //% threshold.max=100

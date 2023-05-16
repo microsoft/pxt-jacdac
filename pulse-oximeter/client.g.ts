@@ -27,7 +27,7 @@ namespace modules {
          */
         //% callInDebugger
         //% group="Biometric"
-        //% block="%pulseoximeter oxygen (%)"
+        //% block="%pulseoximeter oxygen (\\%)"
         //% blockId=jacdac_pulseoximeter_oxygen___get
         //% weight=100
         oxygen(): number {
@@ -51,7 +51,7 @@ namespace modules {
          */
         //% group="Biometric"
         //% blockId=jacdac_pulseoximeter_on_oxygen_change
-        //% block="on %pulseoximeter oxygen changed by %threshold (%)"
+        //% block="on %pulseoximeter oxygen changed by %threshold (\\%)"
         //% weight=98
         //% threshold.min=0
         //% threshold.max=100
