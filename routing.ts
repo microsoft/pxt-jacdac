@@ -41,6 +41,7 @@ namespace jacdac {
     export const IDENTIFY = "identify"
     export const REFRESH = "refresh"
     export const REFRESH_REGISTER_POLL = 50
+    export const REGISTER_READ_TIMEOUT = 500
 
     export class Bus extends jacdac.EventSource {
         readonly servers: Server[] = []
@@ -926,7 +927,7 @@ namespace jacdac {
                 }
             }
             if (!this.hasValues())
-                pauseUntil(() => this.hasValues(), timeOut || 100)
+                pauseUntil(() => this.hasValues(), timeOut || REGISTER_READ_TIMEOUT)
             return this.values
         }
 
