@@ -1,6 +1,6 @@
 {
     "name": "jacdac-sat-nav",
-    "version": "1.9.10",
+    "version": "1.9.11",
     "description": "A satellite-based navigation system like GPS, Gallileo, ...",
     "files": [
         "constants.ts",
