@@ -280,18 +280,18 @@ namespace modules {
          * Configure the light strip
          */
         //% blockId=jacdaclightsetstrip
-        //% block="configure %light with $numpixels LEDs $type||$maxpower"
+        //% block="configure %light with %numpixels LEDs %lightType"
         //% group="LED Strip"
         //% weight=0
         //% numpixels.min=0
         //% numpixels.defl=30
         configure(
             numpixels: number,
-            type?: jacdac.LedStripLightType.WS2812B_GRB,
+            lightType?: jacdac.LedStripLightType,
             maxpower?: number
         ): void {
             this.setNumPixels(numpixels)
-            if (type !== undefined) this.setLightType(type)
+            if (lightType !== undefined) this.setLightType(lightType)
             if (maxpower !== undefined) this.setMaxPower(maxpower)
         }
 
