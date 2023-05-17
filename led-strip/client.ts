@@ -653,6 +653,6 @@ namespace modules {
         export const firefly: Animation = new Fireflys()
     }
 
-    //% fixedInstance whenUsed
-    export const ledStrip1 = new LedStripClient("ledStrip 1")
+    //% fixedInstance whenUsed weight=1 block="led strip1"
+    export const ledStrip1 = new LedStripClient("led Strip1");
 }
