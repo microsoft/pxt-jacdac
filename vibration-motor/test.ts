@@ -5,4 +5,11 @@ forever(() => {
     pause(1000)
     modules.vibrationMotor1.vibrate(200, 50, 200, 30, 3)
     pause(500)
+
+    modules.vibrationMotor1.vibratePattern(".")
+    pause(500)
+    modules.vibrationMotor1.vibratePattern("._")
+    pause(1000)
+    modules.vibrationMotor1.vibratePattern(".-_'=")
+    pause(20000)
 })

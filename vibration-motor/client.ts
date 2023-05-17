@@ -1,4 +1,8 @@
 namespace modules {
+
+    const T_DIT = 50
+    const T_REST = 120
+
     /**
      * A vibration motor.
      **/
@@ -15,7 +19,8 @@ namespace modules {
          */
         //% group="Vibration motor"
         //% blockId=jacdac_vibration_vibrate_multi_cmd
-        //% block="%vibration vibrate $millis ms at $intensity %"
+        //% block="%vibration vibrate %millis ms at %intensity \\%"
+        //% inlineInputMode=inline
         //% weight=98
         //% millis.min=0
         //% millis.defl=500
@@ -52,6 +57,75 @@ namespace modules {
                 }
             }
             this.vibrateMulti(pattern)
+        }        
+
+        /**
+         * Starts a vibration pattern. Pattern of vibrations: "." dit, "-" dat, " " space, "_" low dat, "=" hight dat, "'" high dit, "," low dit.
+         */
+        //% group="Vibration motor"
+        //% blockId=jacdac_vibration_vibrate_pattern
+        //% block="%vibration vibrate pattern %pattern"
+        //% pattern.defl=".-"
+        vibratePattern(pattern: string): void {
+            if (!pattern) {
+                this.stop()
+                return
+            }
+            const patterns: {
+                [index: string]:
+                {
+                    name: string
+                    duration: number
+                    volume: number
+                }
+            } = {
+                ".": {
+                    name: "dit",
+                    duration: 1,
+                    volume: 0.6,
+                },
+                "-": {
+                    name: "dat",
+                    duration: 3,
+                    volume: 0.6,
+                },
+                " ": {
+                    name: "space",
+                    duration: 1,
+                    volume: 0,
+                },
+                _: {
+                    name: "low dat",
+                    duration: 3,
+                    volume: 0.2,
+                },
+                "=": {
+                    name: "hight dat",
+                    duration: 3,
+                    volume: 1,
+                },
+                "'": {
+                    name: "high dit",
+                    duration: 1,
+                    volume: 1,
+                },
+                ",": {
+                    name: "low dit",
+                    duration: 1,
+                    volume: 0.2,
+                },
+            }    
+            const multi: number[] = []
+            for(const c of pattern) {
+                const p = patterns[c]
+                if (!p) continue
+                multi.push(p.duration * T_DIT)
+                multi.push(p.volume * 100)
+
+                multi.push(T_REST)
+                multi.push(0)
+            }
+            this.vibrateMulti(multi)
         }
 
         /**
@@ -60,8 +134,8 @@ namespace modules {
         //% group="Vibration motor"
         //% weight=95
         vibrateMulti(pattern: number[]) {
-            if (!pattern) return
-
+            pattern = pattern || []
+            
             const payload: number[][] = []
             for (let i = 0; i < pattern.length; i += 2) {
                 payload.push([pattern[i] >> 3, pattern[i + 1] / 100])
@@ -76,7 +150,19 @@ namespace modules {
                 )
             )
         }
+
+        /**
+         * Stops any vibration currently running.
+         */
+        //% group="Vibration motor"
+        //% weight=95
+        stop() {
+            this.vibrateMulti([])
+        }
     }
-    //% fixedInstance whenUsed weight=1 block="vibration motor 1"
-    export const vibrationMotor1 = new VibrationMotorClient("vibration Motor1")
+
+    //% fixedInstance whenUsed weight=1 block="vibration motor1"
+    export const vibrationMotor1 = new VibrationMotorClient("vibration Motor1");
+    //% fixedInstance whenUsed weight=1 block="vibration motor2"
+    export const vibrationMotor2 = new VibrationMotorClient("vibration Motor2");
 }
