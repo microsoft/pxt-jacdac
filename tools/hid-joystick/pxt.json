@@ -1,6 +1,6 @@
 {
     "name": "jacdac-hid-joystick",
-    "version": "1.9.8",
+    "version": "1.9.9",
     "description": "HID joystick server",
     "files": [
         "config.f4.ts",
