@@ -1,5 +1,4 @@
 namespace modules {
-
     const T_DIT = 50
     const T_REST = 120
 
@@ -57,7 +56,7 @@ namespace modules {
                 }
             }
             this.vibrateMulti(pattern)
-        }        
+        }
 
         /**
          * Starts a vibration pattern. Pattern of vibrations: "." dit, "-" dat, " " space, "_" low dat, "=" hight dat, "'" high dit, "," low dit.
@@ -72,8 +71,7 @@ namespace modules {
                 return
             }
             const patterns: {
-                [index: string]:
-                {
+                [index: string]: {
                     name: string
                     duration: number
                     volume: number
@@ -114,9 +112,9 @@ namespace modules {
                     duration: 1,
                     volume: 0.2,
                 },
-            }    
+            }
             const multi: number[] = []
-            for(const c of pattern) {
+            for (const c of pattern) {
                 const p = patterns[c]
                 if (!p) continue
                 multi.push(p.duration * T_DIT)
@@ -135,7 +133,7 @@ namespace modules {
         //% weight=95
         vibrateMulti(pattern: number[]) {
             pattern = pattern || []
-            
+
             const payload: number[][] = []
             for (let i = 0; i < pattern.length; i += 2) {
                 payload.push([pattern[i] >> 3, pattern[i + 1] / 100])
@@ -162,7 +160,7 @@ namespace modules {
     }
 
     //% fixedInstance whenUsed weight=1 block="vibration motor1"
-    export const vibrationMotor1 = new VibrationMotorClient("vibration Motor1");
+    export const vibrationMotor1 = new VibrationMotorClient("vibration Motor1")
     //% fixedInstance whenUsed weight=1 block="vibration motor2"
-    export const vibrationMotor2 = new VibrationMotorClient("vibration Motor2");
+    export const vibrationMotor2 = new VibrationMotorClient("vibration Motor2")
 }

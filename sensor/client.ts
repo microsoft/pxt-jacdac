@@ -114,7 +114,10 @@ namespace jacdac {
             let value = values[0] as number
 
             if (this.readingDigitsPrecision > 0 && !isNaN(value)) {
-                value = Math.roundWithPrecision(value, this.readingDigitsPrecision)
+                value = Math.roundWithPrecision(
+                    value,
+                    this.readingDigitsPrecision
+                )
             }
             return value
         }
