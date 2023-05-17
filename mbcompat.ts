@@ -56,7 +56,7 @@ function proxyAnimation() {
             x = (x + 1) % 4
             let y: number = Math.randomRange(1, 3)
             while (x === 3 && y === 3) {
-                y = Math.randomRange(1, 3)
+                y = Math.randomRange(1, 2)
             }
             for (let i = 0; i < 4; ++i)
                 for (let j = 0; j < 5; ++j) {
