@@ -1,3 +1,6 @@
+basic.showNumber(modules.ledStrip1.numPixels())
+basic.showNumber(modules.ledStrip1.brightness())
+
 modules.ledStrip1.setBrightness(85)
 modules.ledStrip1.setAll(0x00ff00)
 modules.ledStrip1.setPixel(2, 0xff0000)

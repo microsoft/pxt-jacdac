@@ -111,7 +111,9 @@ namespace jacdac {
          */
         reading(): number {
             this.setStreaming(true)
-            const values = this._reading.pauseUntilValues(this.readingTimeout) as any[]
+            const values = this._reading.pauseUntilValues(
+                this.readingTimeout
+            ) as any[]
             let value = values[0] as number
 
             if (this.readingDigitsPrecision > 0 && !isNaN(value)) {

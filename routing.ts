@@ -41,6 +41,7 @@ namespace jacdac {
     export const IDENTIFY = "identify"
     export const REFRESH = "refresh"
     export const REFRESH_REGISTER_POLL = 50
+    export const REGISTER_REFRESH_RATE = 250
     export const REGISTER_READ_TIMEOUT = 750
 
     export class Bus extends jacdac.EventSource {
@@ -914,20 +915,26 @@ namespace jacdac {
         }
 
         pauseUntilValues(timeOut?: number) {
-            if (
-                // streaming handled elsewhere
-                this.code !== SystemReg.Reading &&
-                // don't double query consts
-                (!this.isConst || !this.hasValues())
-            ) {
+            const manualQuery = this.code !== SystemReg.Reading &&
+                // don't double query optional registers
+                (!this.isOptional || !this.hasValues())
+            if (manualQuery) {
                 const device = this.service.device
-                if (device) {
-                    // tell device to refresh register
-                    device.query(this.code, 250, this.service.serviceIndex)
-                }
+                if (device)
+                    device.query(this.code, REGISTER_REFRESH_RATE, this.service.serviceIndex)
             }
-            if (!this.hasValues())
-                pauseUntil(() => this.hasValues(), timeOut || REGISTER_READ_TIMEOUT)
+            if (!this.hasValues()) {
+                pauseUntil(() => {
+                    const values = this.hasValues()
+                    if (values) return true
+                    if (manualQuery) {
+                        const device = this.service.device
+                        if (device)
+                            device.query(this.code, REGISTER_REFRESH_RATE, this.service.serviceIndex)
+                    }
+                    return false
+                }, timeOut || REGISTER_READ_TIMEOUT)
+            }
             return this.values
         }
 
