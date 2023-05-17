@@ -13,7 +13,7 @@ namespace modules {
 
         constructor(role: string) {
             super(jacdac.SRV_DISTANCE, role, jacdac.DistanceRegPack.Distance)
-
+            this.readingDigitsPrecision = 2
             this._distanceError = this.addRegister<[number]>(
                 jacdac.DistanceReg.DistanceError,
                 jacdac.DistanceRegPack.DistanceError,

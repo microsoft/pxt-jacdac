@@ -4,7 +4,7 @@
     "description": "A sensor measuring humidity of outside environment.",
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.ts"
     ],
     "supportedTargets": [
         "arcade",

@@ -4,7 +4,7 @@
     "description": "A thermometer measuring outside or inside environment.",
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.ts"
     ],
     "supportedTargets": [
         "microbit",

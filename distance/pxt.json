@@ -4,9 +4,9 @@
     "description": "A sensor that determines the distance of an object without any physical contact involved.",
     "files": [
         "constants.ts",
-        "client.g.ts"
+        "client.ts",
+        "clients.ts"
     ],
-    "testFiles": [],
     "supportedTargets": [
         "arcade",
         "microbit",
@@ -16,7 +16,11 @@
         "core": "*",
         "jacdac": "github:microsoft/pxt-jacdac"
     },
-    "testDependencies": {
-        "nucleo-f411re": "*"
+    "testFiles": [
+        "test.microbit.ts"
+    ],
+    "testDependencies": {},
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit"
     }
 }
