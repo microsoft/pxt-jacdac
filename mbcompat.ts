@@ -50,20 +50,25 @@ function proxyAnimation() {
         led.stopAnimation()
         // random matrix like animation
         led.setDisplayMode(DisplayMode.Greyscale)
+        basic.clearScreen()
+        let x: number = 0
         while (true) {
-            const x = Math.randomRange(0, 4)
-            const y = Math.randomRange(0, 4)
-            for (let i = 0; i < 5; ++i)
+            x = (x + 1) % 4
+            let y: number = Math.randomRange(1, 3)
+            while (x === 3 && y === 3) {
+                y = Math.randomRange(1, 3)
+            }
+            for (let i = 0; i < 4; ++i)
                 for (let j = 0; j < 5; ++j) {
                     if (i == x && j == y) led.plotBrightness(i, j, 255)
                     else
                         led.plotBrightness(
                             i,
                             j,
-                            Math.max(0, led.pointBrightness(i, j) - 16)
+                            Math.max(0, led.pointBrightness(i, j) - 8)
                         )
                 }
-            pause(64)
+            pause(128)
         }
     })
 }
