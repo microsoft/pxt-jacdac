@@ -1,7 +1,7 @@
 {
     "name": "jacdac-device-script-manager",
     "version": "0.0.0",
-    "description": "Allows for deployment and control over DeviceScript virtual machine.\n\nPrograms start automatically after device restart or uploading of new program.\nYou can stop programs until next reset by setting the `running` register to `0`.",
+    "description": "Allows for deployment and control over DeviceScript virtual machine.\n\nPrograms start automatically after device restart or uploading of new program.\nYou can stop programs until next reset by setting the `running` and `autostart` registers to `false`.",
     "files": [
         "constants.ts",
         "client.g.ts"
