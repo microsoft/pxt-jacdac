@@ -6,4 +6,6 @@ forever(() => {
         jacdac.HidKeyboardKey.Tab
     )
     pause(5000)
+    type("hello world")
+    pause(2000)
 })

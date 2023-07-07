@@ -316,6 +316,48 @@ namespace modules {
         }
 
         /**
+         * Types a sequence of characters.
+         */
+        //% group="HID Keyboard"
+        //% blockId=jacdac_hidkeyboard_type_cmd
+        //% block="%hidkeyboard type $text ||$modifiers"
+        //% inlineInputMode=inline
+        //% weight=99
+        //% modifiers.shadow=jacdac_hidkeyboard_modifiers
+        type(text: string, modifiers?: number) {
+            this.start()
+            if (!text.length) return
+
+            const action = jacdac.HidKeyboardAction.Press
+            modifiers = modifiers | 0
+            const MAX_ENTRIES = 18 // estimate
+            let entries: number[][] = []
+            for (let i = 0; i < text.length; ++i) {
+                const c = text.charCodeAt(i)
+                const selector = c
+                entries.push([selector, modifiers, action])
+                if (entries.length > MAX_ENTRIES) {
+                    this.sendCommand(
+                        jacdac.JDPacket.jdpacked(
+                            jacdac.HidKeyboardCmd.Key,
+                            jacdac.HidKeyboardCmdPack.Key,
+                            [entries]
+                        )
+                    )
+                    entries = []
+                }
+            }
+            if (entries.length) // final packet
+                this.sendCommand(
+                    jacdac.JDPacket.jdpacked(
+                        jacdac.HidKeyboardCmd.Key,
+                        jacdac.HidKeyboardCmdPack.Key,
+                        [entries]
+                    )
+                )
+        }
+
+        /**
          * Clears all pressed keys.
          */
         //% group="HID Keyboard"
