@@ -327,7 +327,7 @@ namespace modules {
         type(text: string, modifiers?: number) {
             this.start()
             if (!text.length) return
-
+            text = text.toUpperCase()
             const action = jacdac.HidKeyboardAction.Press
             modifiers = modifiers | 0
             const MAX_ENTRIES = 18 // estimate
@@ -395,7 +395,7 @@ namespace modules {
 
     function findSelector(code: number) {
         // node type.mks to regen
-        const letters = hex`0000000002b00000000000000000000002c034000000000362d3738271e1f2021222324252603302e000456789abcdef101112131415161718191a1b1c1d2f3130`        
+        const letters = hex`0000000000000000002b000000000000000000000000000000000000000000002c0034000000000000000000362d3738271e1f202122232425260033002e0000000405060708090a0b0c0d0e0f101112131415161718191a1b1c1d2f31`        
         const l = letters[code] || 0
         return l
     }

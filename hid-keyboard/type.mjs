@@ -8,7 +8,10 @@ const keys = []
 src.replace(
     /^\s+_?(?<name>[a-z0-9])\s+=\s+(?<value>0x[a-f0-9]+)/gim,
     (m, name, value) => {
-        keys[name.charCodeAt(0)] = parseInt(value, 16)
+        const k = name.charCodeAt(0)
+        const v = parseInt(value, 16)
+        keys[k] = v
+        console.log(`${k} (${name.charAt(0)}) = ${v}`)
     }
 )
 
@@ -27,13 +30,16 @@ const others = {
     "/": 0x38,
 }
 Object.keys(others).forEach(k => (keys[k.charCodeAt(0)] = others[k]))
+console.log(keys)
 
+
+const n = Math.max(...Object.keys(keys))
+console.log(n)
 let hex = "const letters = hex`"
-for (let i = 0; i < keys.length; ++i) {
+for (let i = 0; i < n; ++i) {
     const c = keys[i] || 0
-    hex += c.toString(16)
+    hex += ("00" + c.toString(16)).slice(-2)
 }
 hex += "`"
 
-console.log(keys)
 console.log(hex)
