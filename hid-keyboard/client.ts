@@ -314,7 +314,7 @@ namespace modules {
                 )
             )
         }
-        
+
         /**
          * Types a sequence of characters.
          */
@@ -335,7 +335,7 @@ namespace modules {
             for (let i = 0; i < text.length; ++i) {
                 const c = text.charCodeAt(i)
                 const selector = findSelector(c)
-                if (selector <= 0) break; // unknown letter stop
+                if (selector <= 0) break // unknown letter stop
 
                 entries.push([selector, modifiers, action])
                 if (entries.length > MAX_ENTRIES) {
@@ -349,7 +349,8 @@ namespace modules {
                     entries = []
                 }
             }
-            if (entries.length) // final packet
+            if (entries.length)
+                // final packet
                 this.sendCommand(
                     jacdac.JDPacket.jdpacked(
                         jacdac.HidKeyboardCmd.Key,
@@ -395,7 +396,7 @@ namespace modules {
 
     function findSelector(code: number) {
         // node type.mks to regen
-        const letters = hex`0000000000000000002b000000000000000000000000000000000000000000002c0034000000000000000000362d3738271e1f202122232425260033002e0000000405060708090a0b0c0d0e0f101112131415161718191a1b1c1d2f31`        
+        const letters = hex`0000000000000000002b000000000000000000000000000000000000000000002c0034000000000000000000362d3738271e1f202122232425260033002e0000000405060708090a0b0c0d0e0f101112131415161718191a1b1c1d2f31`
         const l = letters[code] || 0
         return l
     }

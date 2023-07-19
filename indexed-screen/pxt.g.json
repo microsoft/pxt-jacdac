@@ -1,7 +1,7 @@
 {
     "name": "jacdac-indexed-screen",
     "version": "0.0.0",
-    "description": "A screen with indexed colors.\n\nThis is often run over an SPI connection, not regular single-wire Jacdac.",
+    "description": "A screen with indexed colors from a palette.\n\nThis is often run over an SPI connection or directly on the MCU, not regular single-wire Jacdac.",
     "files": [
         "constants.ts",
         "client.g.ts"
