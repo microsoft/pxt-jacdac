@@ -69,10 +69,12 @@
     ],
     "testDependencies": {},
     "fileDependencies": {
-        "mbcompat.ts": "target:microbit || target:calliopemini",
+        "mbcompat.ts": "target:microbit",
+        "mbcompat.ts": "target:calliopemini",
         "nonmaker.ts": "!target:maker",
         "maker.ts": "target:maker",
-        "test.microbit.ts": "target:microbit || target:calliopemini",
+        "test.microbit.ts": "target:microbit",
+        "test.microbit.ts": "target:calliopemini",
         "hw.cpp": "!core---esp32 && !core---esp32s2",
         "hw-esp32.c": "core---esp32 || core---esp32s2"
     },
