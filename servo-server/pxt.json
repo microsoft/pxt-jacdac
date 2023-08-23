@@ -14,11 +14,12 @@
         "test.microbit.ts"
     ],
     "fileDependencies": {
-        "server.microbit.ts": "target:microbit",
-        "test.microbit.ts": "target:microbit"
+        "server.microbit.ts": "target:microbit || target:calliopemini",
+        "test.microbit.ts": "target:microbit || target:calliopemini"
     },
     "supportedTargets": [
-        "microbit"
+        "microbit",
+        "calliopemini"
     ],
     "preferredEditor": "tsprj"
 }
