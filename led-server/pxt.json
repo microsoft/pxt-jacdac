@@ -14,12 +14,14 @@
         "test.microbit.ts"
     ],
     "fileDependencies": {
-        "test.microbit.ts": "target:microbit"
+        "test.microbit.ts": "target:microbit || target:calliopemini"
     },
     "supportedTargets": [
         "maker",
         "microbit",
-        "arcade"
+        "arcade",
+        "calliopemini"
+
     ],
     "preferredEditor": "tsprj"
 }
