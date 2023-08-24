@@ -12,7 +12,8 @@
     "supportedTargets": [
         "arcade",
         "maker",
-        "microbit"
+        "microbit",
+        "calliopemini"
     ],
     "preferredEditor": "tsprj"
 }

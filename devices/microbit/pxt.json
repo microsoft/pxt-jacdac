@@ -41,7 +41,8 @@
         "targetId": "microbit"
     },
     "supportedTargets": [
-        "microbit"
+        "microbit",
+        "calliopemini"
     ],
     "preferredEditor": "tsprj"
 }

@@ -22,7 +22,8 @@
         "targetId": "microbit"
     },
     "supportedTargets": [
-        "microbit"
+        "microbit",
+        "calliopemini"
     ],
     "preferredEditor": "tsprj",
     "version": "1.9.14"

@@ -8,7 +8,8 @@
     ],
     "supportedTargets": [
         "arcade",
-        "maker"
+        "maker",
+        "calliopemini"
     ],
     "dependencies": {
         "core": "*",
