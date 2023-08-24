@@ -1,0 +1,9 @@
+{
+    "targetWebsite": "https://makecode.calliope.cc/",
+    "overrides": {
+        "testDependencies": {}
+    },
+    "include": [
+        "links.json"
+    ]
+}
