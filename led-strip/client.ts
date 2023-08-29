@@ -325,10 +325,8 @@ namespace modules {
         //% weight=80 blockGap=8
         //% group="LED Strip"
         setAll(rgb: number) {
-            if (!rgb)
-                this.runEncoded("setall #000000")
-            else
-                this.runEncoded("fade # wait 1", [rgb])
+            if (!rgb) this.runEncoded("setall #000000")
+            else this.runEncoded("fade # wait 1", [rgb])
         }
 
         private currAnimation = 0
