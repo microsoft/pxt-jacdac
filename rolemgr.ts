@@ -293,7 +293,7 @@ namespace jacdac._rolemgr {
             // exclude hosts that have already everything bound
             servers = servers.filter(h => !h.fullyBound)
 
-            console.log(`binding: ${servers.length} servers`)
+            //console.log(`binding: ${servers.length} servers`)
 
             while (servers.length > 0) {
                 // Get host with maximum number of clients (resolve ties by name)
