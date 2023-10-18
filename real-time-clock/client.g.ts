@@ -37,10 +37,10 @@ namespace modules {
         }
 
         /**
-         * Current time in 24h representation.
+         * Current time in 24h representation. Default streaming period is 1 second.
          *
          * -   `day_of_month` is day of the month, starting at `1`
-         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Leave at 0 if unsupported.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -54,10 +54,10 @@ namespace modules {
         }
 
         /**
-         * Current time in 24h representation.
+         * Current time in 24h representation. Default streaming period is 1 second.
          *
          * -   `day_of_month` is day of the month, starting at `1`
-         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Leave at 0 if unsupported.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -71,10 +71,10 @@ namespace modules {
         }
 
         /**
-         * Current time in 24h representation.
+         * Current time in 24h representation. Default streaming period is 1 second.
          *
          * -   `day_of_month` is day of the month, starting at `1`
-         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Leave at 0 if unsupported.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -88,10 +88,10 @@ namespace modules {
         }
 
         /**
-         * Current time in 24h representation.
+         * Current time in 24h representation. Default streaming period is 1 second.
          *
          * -   `day_of_month` is day of the month, starting at `1`
-         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Leave at 0 if unsupported.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -105,10 +105,10 @@ namespace modules {
         }
 
         /**
-         * Current time in 24h representation.
+         * Current time in 24h representation. Default streaming period is 1 second.
          *
          * -   `day_of_month` is day of the month, starting at `1`
-         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Leave at 0 if unsupported.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -122,10 +122,10 @@ namespace modules {
         }
 
         /**
-         * Current time in 24h representation.
+         * Current time in 24h representation. Default streaming period is 1 second.
          *
          * -   `day_of_month` is day of the month, starting at `1`
-         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Leave at 0 if unsupported.
          */
         //% callInDebugger
         //% group="Real time clock"
@@ -139,10 +139,10 @@ namespace modules {
         }
 
         /**
-         * Current time in 24h representation.
+         * Current time in 24h representation. Default streaming period is 1 second.
          *
          * -   `day_of_month` is day of the month, starting at `1`
-         * -   `day_of_week` is day of the week, starting at `1` as monday. Default streaming period is 1 second.
+         * -   `day_of_week` is day of the week, starting at `1` as monday. Leave at 0 if unsupported.
          */
         //% callInDebugger
         //% group="Real time clock"
