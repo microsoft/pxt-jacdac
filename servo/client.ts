@@ -65,7 +65,7 @@ namespace modules {
                     jacdac.RegisterClientFlags.Const
             )
 
-            this.emit(jacdac.CONNECT, () => {
+            this.on(jacdac.CONNECT, () => {
                 this._minAngle.query()
                 this._maxAngle.query()
             })
