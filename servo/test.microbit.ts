@@ -1,8 +1,7 @@
 basic.showIcon(IconNames.Happy)
-modules.servo1.setEnabled(true)
-forever(() => {
-    modules.servo1.setAngle(-45)
-    basic.showIcon(IconNames.LeftTriangle)
-    modules.servo1.setAngle(45)
-    basic.showIcon(IconNames.Triangle)
+input.onButtonPressed(Button.A, () => {
+    modules.servo1.run(100)
+})
+input.onButtonPressed(Button.B, () => {
+    modules.servo2.run(50)
 })

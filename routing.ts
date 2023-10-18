@@ -914,24 +914,30 @@ namespace jacdac {
             return !!(this.flags & RegisterClientFlags.Optional)
         }
 
+        /**
+         * Queues a query to refresh the register
+         */
+        query() {
+            const device = this.service.device
+            if (device)
+                device.query(
+                    this.code,
+                    REGISTER_REFRESH_RATE,
+                    this.service.serviceIndex
+                )
+        }
+
         pauseUntilValues(timeOut?: number) {
-            const manualQuery = this.code !== SystemReg.Reading &&
+            const manualQuery =
+                this.code !== SystemReg.Reading &&
                 // don't double query optional registers
                 (!this.isOptional || !this.hasValues())
-            if (manualQuery) {
-                const device = this.service.device
-                if (device)
-                    device.query(this.code, REGISTER_REFRESH_RATE, this.service.serviceIndex)
-            }
+            if (manualQuery) this.query()
             if (!this.hasValues()) {
                 pauseUntil(() => {
                     const values = this.hasValues()
                     if (values) return true
-                    if (manualQuery) {
-                        const device = this.service.device
-                        if (device)
-                            device.query(this.code, REGISTER_REFRESH_RATE, this.service.serviceIndex)
-                    }
+                    if (manualQuery) this.query()
                     return false
                 }, timeOut || REGISTER_READ_TIMEOUT)
             }
@@ -1135,10 +1141,6 @@ namespace jacdac {
                 this.raiseEvent(state)
         }
 
-        requestAdvertisementData() {
-            this.sendCommand(JDPacket.onlyHeader(SystemCmd.Announce))
-        }
-
         handlePacketOuter(pkt: JDPacket) {
             if (jacdac.bus.proxyMode) return
 
@@ -1173,27 +1175,19 @@ namespace jacdac {
                 this.serviceIndex = serviceNum
                 bus.attachClient(this)
             }
-            log(`role: attach ${this.role} -> ${dev.toString()}:${serviceNum}`)
+            log(`role: + ${this.role} -> ${dev.toString()}:${serviceNum}`)
             dev.clients.push(this)
             this.handleConnected()
             return true
         }
 
         private handleConnected() {
-            // refresh registers
             this.config.resend()
-            // if the device has any status light (StatusLightRgbFade is 0b..11.. mask)
-            // TODO: reenable this
-            //if (this.device) {
-            //    const flags = this.device.announceflags
-            //    if (flags & ControlAnnounceFlags.StatusLightRgbFade)
-            //        control.runInParallel(() => this.connectedBlink())
-            //}
             this.emit(CONNECT)
         }
 
         _detach() {
-            log(`roles: dettached ${this.roleName}`)
+            log(`roles: - ${this.roleName}`)
             this.serviceIndex = null
             if (!this.broadcast) {
                 if (!this.device) panic("invalid detach")

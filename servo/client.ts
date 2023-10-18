@@ -64,6 +64,11 @@ namespace modules {
                 jacdac.RegisterClientFlags.Optional |
                     jacdac.RegisterClientFlags.Const
             )
+
+            this.on(jacdac.CONNECT, () => {
+                this._minAngle.query()
+                this._maxAngle.query()
+            })
         }
 
         /**
@@ -116,10 +121,10 @@ namespace modules {
         //% group="Servo (Continuous)"
         //% blockGap=8
         run(speed: number): void {
-            const minAngle = this.minAngle() || -90
-            const maxAngle = this.maxAngle() || 90
+            const minAngle = this.minAngle()
+            const maxAngle = this.maxAngle()
             const degrees = Math.map(
-                Math.clamp(-100, 100, speed || 0),
+                Math.clamp(-100, 100, Math.round(speed)),
                 -100,
                 100,
                 minAngle,
@@ -142,12 +147,8 @@ namespace modules {
         //% group="Servo (Continuous)"
         //% blockGap=8
         stop() {
-            const minAngle = this.minAngle() || -90
-            const maxAngle = this.maxAngle() || 90
-            const neutral = (maxAngle - minAngle) >> 1
-            this.setAngle(neutral)
+            this.run(0)
             this.setEnabled(false)
-            this.internalSetContinuous(true)
         }
 
         /**
