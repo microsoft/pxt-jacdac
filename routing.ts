@@ -42,6 +42,7 @@ namespace jacdac {
     export const REFRESH = "refresh"
     export const REFRESH_REGISTER_POLL = 50
     export const REGISTER_REFRESH_RATE = 250
+    export const REGISTER_OPTIONAL_REFRESH_RATE = 1000
     export const REGISTER_READ_TIMEOUT = 750
 
     export class Bus extends jacdac.EventSource {
@@ -924,17 +925,18 @@ namespace jacdac {
             if (device && !constHasValues) {
                 device.query(
                     this.code,
-                    this.isConst ? null : REGISTER_REFRESH_RATE,
+                    this.isConst
+                        ? null
+                        : this.isOptional
+                        ? REGISTER_OPTIONAL_REFRESH_RATE
+                        : REGISTER_REFRESH_RATE,
                     this.service.serviceIndex
                 )
             }
         }
 
         pauseUntilValues(timeOut?: number) {
-            const constMissingValue = this.isConst && !this.hasValues()
-            const manualQuery =
-                this.code !== SystemReg.Reading &&
-                (constMissingValue || (!this.isConst && !this.isOptional))
+            const manualQuery = this.code !== SystemReg.Reading
             if (manualQuery) this.query()
             if (!this.hasValues()) {
                 pauseUntil(() => {
