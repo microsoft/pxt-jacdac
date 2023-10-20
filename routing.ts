@@ -919,12 +919,15 @@ namespace jacdac {
          */
         query() {
             const device = this.service.device
-            if (device)
+            // need to be connected
+            // don't requery consts
+            if (device && (!this.isConst || !this.hasValues())) {
                 device.query(
                     this.code,
                     REGISTER_REFRESH_RATE,
                     this.service.serviceIndex
                 )
+            }
         }
 
         pauseUntilValues(timeOut?: number) {

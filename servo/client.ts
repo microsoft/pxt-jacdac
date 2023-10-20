@@ -16,6 +16,7 @@ namespace modules {
         private readonly _maxPulse: jacdac.RegisterClient<[number]>
         private readonly _stallTorque: jacdac.RegisterClient<[number]>
         private readonly _responseSpeed: jacdac.RegisterClient<[number]>
+        private _continuousMode: boolean = undefined
 
         constructor(role: string) {
             super(jacdac.SRV_SERVO, role, jacdac.ServoRegPack.ActualAngle)
@@ -103,10 +104,13 @@ namespace modules {
         }
 
         private internalSetContinuous(enabled: boolean) {
-            this.start()
-            this.setReg(jacdac.SystemReg.ClientVariant, "s", [
-                enabled ? `cont=1` : ``,
-            ])
+            if (this._continuousMode !== enabled) {
+                this.start()
+                this._continuousMode = enabled
+                this.setReg(jacdac.SystemReg.ClientVariant, "s", [
+                    enabled ? `cont=1` : ``,
+                ])
+            }
         }
 
         /**
