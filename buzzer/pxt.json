@@ -9,7 +9,8 @@
     "supportedTargets": [
         "arcade",
         "maker",
-        "microbit"
+        "microbit",
+        "calliopemini"
     ],
     "dependencies": {
         "core": "*",

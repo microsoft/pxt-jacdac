@@ -12,10 +12,11 @@
     "supportedTargets": [
         "arcade",
         "microbit",
-        "maker"
+        "maker",
+        "calliopemini"
     ],
     "fileDependencies": {
-        "test.microbit.ts": "target:microbit"
+        "test.microbit.ts": "target:microbit || target:calliopemini"
     },
     "dependencies": {
         "core": "*",

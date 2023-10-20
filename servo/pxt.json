@@ -17,10 +17,11 @@
     "supportedTargets": [
         "arcade",
         "maker",
-        "microbit"
+        "microbit",
+        "calliopemini"
     ],
     "preferredEditor": "tsprj",
     "fileDependencies": {
-        "test.microbit.ts": "target:microbit"
+        "test.microbit.ts": "target:microbit || target:calliopemini"
     }
 }
