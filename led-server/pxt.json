@@ -1,6 +1,6 @@
 {
     "name": "jacdac-led-server",
-    "version": "1.9.19",
+    "version": "1.9.20",
     "description": "MakeCode support for Jacdac LED server",
     "dependencies": {
         "core": "*",
@@ -21,7 +21,6 @@
         "microbit",
         "arcade",
         "calliopemini"
-
     ],
     "preferredEditor": "tsprj"
 }
