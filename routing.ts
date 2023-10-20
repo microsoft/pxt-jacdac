@@ -918,10 +918,10 @@ namespace jacdac {
          * Queues a query to refresh the register
          */
         query() {
+            const constHasValues = this.isConst && this.hasValues()
             const device = this.service.device
-            // need to be connected
-            // don't requery consts
-            if (device && (!this.isConst || !this.hasValues())) {
+            // need to be connected, don't re-request consts
+            if (device && !constHasValues) {
                 device.query(
                     this.code,
                     REGISTER_REFRESH_RATE,
