@@ -13,8 +13,7 @@
     ],
     "supportedTargets": [
         "arcade",
-        "maker",
-        "calliopemini"
+        "maker"
     ],
     "preferredEditor": "tsprj"
 }
