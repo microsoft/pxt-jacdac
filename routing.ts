@@ -924,7 +924,7 @@ namespace jacdac {
             if (device && !constHasValues) {
                 device.query(
                     this.code,
-                    REGISTER_REFRESH_RATE,
+                    this.isConst ? null : REGISTER_REFRESH_RATE,
                     this.service.serviceIndex
                 )
             }
@@ -1443,7 +1443,10 @@ namespace jacdac {
                   )
         }
 
-        query(reg: number, refreshRate = 1000, servIdx = 0) {
+        /**
+         * @param refreshRate null for const, otherwise ms
+         */
+        query(reg: number, refreshRate: number, servIdx = 0) {
             let q = this.lookupQuery(reg, servIdx)
             if (!q) this.queries.push((q = new RegQuery(reg, servIdx)))
 
