@@ -42,6 +42,7 @@ namespace jacdac {
     export const REFRESH = "refresh"
     export const REFRESH_REGISTER_POLL = 50
     export const REGISTER_REFRESH_RATE = 250
+    export const REGISTER_OPTIONAL_REFRESH_RATE = 1000
     export const REGISTER_READ_TIMEOUT = 750
 
     export class Bus extends jacdac.EventSource {
@@ -918,20 +919,24 @@ namespace jacdac {
          * Queues a query to refresh the register
          */
         query() {
+            const constHasValues = this.isConst && this.hasValues()
             const device = this.service.device
-            if (device)
+            // need to be connected, don't re-request consts
+            if (device && !constHasValues) {
                 device.query(
                     this.code,
-                    REGISTER_REFRESH_RATE,
+                    this.isConst
+                        ? null
+                        : this.isOptional
+                        ? REGISTER_OPTIONAL_REFRESH_RATE
+                        : REGISTER_REFRESH_RATE,
                     this.service.serviceIndex
                 )
+            }
         }
 
         pauseUntilValues(timeOut?: number) {
-            const manualQuery =
-                this.code !== SystemReg.Reading &&
-                // don't double query optional registers
-                (!this.isOptional || !this.hasValues())
+            const manualQuery = this.code !== SystemReg.Reading
             if (manualQuery) this.query()
             if (!this.hasValues()) {
                 pauseUntil(() => {
@@ -1440,7 +1445,10 @@ namespace jacdac {
                   )
         }
 
-        query(reg: number, refreshRate = 1000, servIdx = 0) {
+        /**
+         * @param refreshRate null for const, otherwise ms
+         */
+        query(reg: number, refreshRate: number, servIdx = 0) {
             let q = this.lookupQuery(reg, servIdx)
             if (!q) this.queries.push((q = new RegQuery(reg, servIdx)))
 

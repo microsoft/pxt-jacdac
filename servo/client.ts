@@ -16,6 +16,7 @@ namespace modules {
         private readonly _maxPulse: jacdac.RegisterClient<[number]>
         private readonly _stallTorque: jacdac.RegisterClient<[number]>
         private readonly _responseSpeed: jacdac.RegisterClient<[number]>
+        private _continuousMode: boolean = undefined
 
         constructor(role: string) {
             super(jacdac.SRV_SERVO, role, jacdac.ServoRegPack.ActualAngle)
@@ -95,18 +96,27 @@ namespace modules {
         //% value.min=0
         //% value.max=180
         setAngle(value: number) {
+            this.internalSetAngle(value)
+            this.internalSetContinuous(false)
+        }
+
+        private internalSetAngle(value: number) {
             this.start()
             this.setEnabled(true)
             const values = this._angle.values as any[]
-            values[0] = value
-            this._angle.values = values as [number]
+            if (value !== values[0]) {
+                values[0] = value
+                this._angle.values = values as [number]
+            }
         }
 
         private internalSetContinuous(enabled: boolean) {
-            this.start()
-            this.setReg(jacdac.SystemReg.ClientVariant, "s", [
-                enabled ? `cont=1` : ``,
-            ])
+            if (this._continuousMode !== enabled) {
+                this._continuousMode = enabled
+                this.setReg(jacdac.SystemReg.ClientVariant, "s", [
+                    enabled ? `cont=1` : ``,
+                ])
+            }
         }
 
         /**
@@ -130,7 +140,7 @@ namespace modules {
                 minAngle,
                 maxAngle
             )
-            this.setAngle(degrees)
+            this.internalSetAngle(degrees)
             this.internalSetContinuous(true)
         }
 
@@ -175,8 +185,10 @@ namespace modules {
         setEnabled(value: boolean) {
             this.start()
             const values = this._enabled.values as any[]
-            values[0] = value ? 1 : 0
-            this._enabled.values = values as [boolean]
+            if (!!value !== !!values[0]) {
+                values[0] = value ? 1 : 0
+                this._enabled.values = values as [boolean]
+            }
         }
 
         /**
@@ -199,8 +211,10 @@ namespace modules {
         setOffset(value: number) {
             this.start()
             const values = this._offset.values as any[]
-            values[0] = value
-            this._offset.values = values as [number]
+            if (value !== values[0]) {
+                values[0] = value
+                this._offset.values = values as [number]
+            }
         }
 
         /**
@@ -238,8 +252,10 @@ namespace modules {
         setMinPulse(value: number) {
             this.start()
             const values = this._minPulse.values as any[]
-            values[0] = value
-            this._minPulse.values = values as [number]
+            if (value !== values[0]) {
+                values[0] = value
+                this._minPulse.values = values as [number]
+            }
         }
 
         /**
@@ -277,8 +293,10 @@ namespace modules {
         setMaxPulse(value: number) {
             this.start()
             const values = this._maxPulse.values as any[]
-            values[0] = value
-            this._maxPulse.values = values as [number]
+            if (value !== values[0]) {
+                values[0] = value
+                this._maxPulse.values = values as [number]
+            }
         }
 
         /**
