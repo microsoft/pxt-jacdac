@@ -931,10 +931,10 @@ namespace jacdac {
         }
 
         pauseUntilValues(timeOut?: number) {
+            const constMissingValue = this.isConst && !this.hasValues()
             const manualQuery =
                 this.code !== SystemReg.Reading &&
-                // don't double query optional registers
-                (!this.isOptional || !this.hasValues())
+                (constMissingValue || (!this.isConst && !this.isOptional))
             if (manualQuery) this.query()
             if (!this.hasValues()) {
                 pauseUntil(() => {
