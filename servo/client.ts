@@ -96,6 +96,11 @@ namespace modules {
         //% value.min=0
         //% value.max=180
         setAngle(value: number) {
+            this.internalSetAngle(value)
+            this.internalSetContinuous(false)
+        }
+
+        private internalSetAngle(value: number) {
             this.start()
             this.setEnabled(true)
             const values = this._angle.values as any[]
@@ -107,7 +112,6 @@ namespace modules {
 
         private internalSetContinuous(enabled: boolean) {
             if (this._continuousMode !== enabled) {
-                this.start()
                 this._continuousMode = enabled
                 this.setReg(jacdac.SystemReg.ClientVariant, "s", [
                     enabled ? `cont=1` : ``,
@@ -136,7 +140,7 @@ namespace modules {
                 minAngle,
                 maxAngle
             )
-            this.setAngle(degrees)
+            this.internalSetAngle(degrees)
             this.internalSetContinuous(true)
         }
 
