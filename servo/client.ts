@@ -99,8 +99,10 @@ namespace modules {
             this.start()
             this.setEnabled(true)
             const values = this._angle.values as any[]
-            values[0] = value
-            this._angle.values = values as [number]
+            if (value !== values[0]) {
+                values[0] = value
+                this._angle.values = values as [number]
+            }
         }
 
         private internalSetContinuous(enabled: boolean) {
@@ -179,8 +181,10 @@ namespace modules {
         setEnabled(value: boolean) {
             this.start()
             const values = this._enabled.values as any[]
-            values[0] = value ? 1 : 0
-            this._enabled.values = values as [boolean]
+            if (!!value !== !!values[0]) {
+                values[0] = value ? 1 : 0
+                this._enabled.values = values as [boolean]
+            }
         }
 
         /**
@@ -203,8 +207,10 @@ namespace modules {
         setOffset(value: number) {
             this.start()
             const values = this._offset.values as any[]
-            values[0] = value
-            this._offset.values = values as [number]
+            if (value !== values[0]) {
+                values[0] = value
+                this._offset.values = values as [number]
+            }
         }
 
         /**
@@ -242,8 +248,10 @@ namespace modules {
         setMinPulse(value: number) {
             this.start()
             const values = this._minPulse.values as any[]
-            values[0] = value
-            this._minPulse.values = values as [number]
+            if (value !== values[0]) {
+                values[0] = value
+                this._minPulse.values = values as [number]
+            }
         }
 
         /**
@@ -281,8 +289,10 @@ namespace modules {
         setMaxPulse(value: number) {
             this.start()
             const values = this._maxPulse.values as any[]
-            values[0] = value
-            this._maxPulse.values = values as [number]
+            if (value !== values[0]) {
+                values[0] = value
+                this._maxPulse.values = values as [number]
+            }
         }
 
         /**
