@@ -1,6 +1,6 @@
 {
     "name": "jacdac-wind-direction",
-    "version": "1.9.20",
+    "version": "1.9.21",
     "description": "A sensor that measures wind direction.",
     "files": [
         "constants.ts",

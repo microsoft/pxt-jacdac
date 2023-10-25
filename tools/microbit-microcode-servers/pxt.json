@@ -1,6 +1,6 @@
 {
     "name": "jacdac-microbit-microcode-servers",
-    "version": "1.9.20",
+    "version": "1.9.21",
     "description": "",
     "dependencies": {
         "core": "*",
