@@ -25,6 +25,8 @@
         "JacdacBLE.h",
         "JacdacBLE.cpp",
         "jdble.cpp",
+        "microbit.ts",
+        "calliopemini.ts",
         "mbcompat.ts",
         "commands.ts",
         "config.ts",
@@ -70,6 +72,8 @@
     "testDependencies": {},
     "fileDependencies": {
         "mbcompat.ts": "target:microbit || target:calliopemini",
+        "microbit.ts": "target:microbit",
+        "calliopemini.ts": "target:calliopemini",
         "nonmaker.ts": "!target:maker",
         "maker.ts": "target:maker",
         "test.microbit.ts": "target:microbit || target:calliopemini",

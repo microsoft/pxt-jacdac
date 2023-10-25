@@ -97,7 +97,7 @@ function handleStatusEvent(event: jacdac.StatusEvent) {
 function initPlatform() {
     // don't use any jacdac static - it isn't initialized here yet in sim (pxt bug)
     jacdac.onPlatformStart = function () {
-        jacdac.productIdentifier = 0x32f6253d
+        jacdac.productIdentifier = jacdac.TARGET_PRODUCT_ID
         jacdac.bus.on(jacdac.STATUS_EVENT, handleStatusEvent)
         if (settings.exists(jacdac.JACDAC_PROXY_SETTING)) {
             const reset = () => control.reset()
