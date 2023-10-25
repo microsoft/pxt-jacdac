@@ -1,5 +1,5 @@
 {
-    "targetWebsite": "https://makecode.calliope.cc/",
+    "targetWebsite": "https://makecode.calliope.cc/v6",
     "overrides": {
         "testDependencies": {}
     },
