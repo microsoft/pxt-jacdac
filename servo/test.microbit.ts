@@ -1,14 +1,35 @@
-forever(() => {
-    modules.servo1.run(50)
-    //    modules.servo2.run(50)
-    //   modules.servo3.run(50)
-    basic.pause(1000)
-    modules.servo1.run(0)
-    //  modules.servo2.run(0)
-    //  modules.servo3.run(0)
-    //  basic.pause(1000)
-})
+//jacdac.logPriority = ConsolePriority.Log
+namespace test {
+    //% fixedInstance whenUsed
+    export const leftServo = new modules.ServoClient("leftServo?srvo=0")
+    //% fixedInstance whenUsed
+    export const middleServo = new modules.ServoClient("middleServo?srvo=1")
+    //% fixedInstance whenUsed
+    export const rightServo = new modules.ServoClient("rightServo?srvo=2")
+}
 
-modules.servo1.start()
-//modules.servo2.start()
-//modules.servo3.start()
+forever(() => {
+    console.log("middle")
+    basic.clearScreen()
+    led.plot(2, 0)
+    test.middleServo.setAngle(90)
+    test.rightServo.setAngle(0)
+    test.leftServo.setAngle(0)
+    pause(2000)
+
+    console.log("right")
+    basic.clearScreen()
+    led.plot(4, 0)
+    test.leftServo.setAngle(0)
+    test.middleServo.setAngle(0)
+    test.rightServo.setAngle(90)
+    pause(2000)
+
+    console.log("left")
+    basic.clearScreen()
+    led.plot(0, 0)
+    test.leftServo.setAngle(90)
+    test.middleServo.setAngle(0)
+    test.rightServo.setAngle(0)
+    pause(2000)
+})

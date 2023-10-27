@@ -219,6 +219,7 @@ namespace jacdac {
                         c.serviceIndex
                     )
                 ) {
+                    log(`rebound ${c.roleName}`)
                     newClients.push(c)
                     occupied[c.serviceIndex] = 1
                 } else {
@@ -229,7 +230,10 @@ namespace jacdac {
 
             this.emit(DEVICE_ANNOUNCE, dev)
 
-            if (this.unattachedClients.length == 0) return
+            if (this.unattachedClients.length == 0) {
+                log(`all clients attached`)
+                return
+            }
 
             for (let i = 4; i < dev.services.length; i += 4) {
                 if (occupied[i >> 2]) continue
@@ -239,11 +243,11 @@ namespace jacdac {
                 )
                 for (const cc of this.unattachedClients) {
                     if (cc.serviceClass == serviceClass) {
-                        console.add(
-                            jacdac.logPriority,
-                            `reattach: ${cc.role} -> ${dev.shortId}:${i >> 2}`
-                        )
-                        if (cc._attach(dev, serviceClass, i >> 2)) break
+                        log(`reattach: ${cc.role} -> ${dev.shortId}:${i >> 2}`)
+                        if (cc._attach(dev, serviceClass, i >> 2)) {
+                            log(`success`)
+                            break
+                        }
                     }
                 }
             }
@@ -1387,7 +1391,7 @@ namespace jacdac {
                     query.serviceIndex != undefined &&
                     query.serviceIndex == serviceIdx
                 ) {
-                    log(`role: match ${role} (dev:srvi)`)
+                    log(`role: match ${role} (dev+srvi)`)
                     return true
                 }
                 // precise service offset match
@@ -1396,14 +1400,15 @@ namespace jacdac {
                     query.serviceOffset ==
                         this.serviceOffsetAt(serviceClass, serviceIdx)
                 ) {
-                    log(`role: match ${role} (dev:srvo)`)
+                    log(`role: match ${role} (dev+srvo)`)
+                    return true
                 }
                 // pick first match
                 if (
                     query.serviceIndex != undefined &&
                     query.serviceOffset != undefined
                 ) {
-                    log(`role: match ${role} (dev:!srv)`)
+                    log(`role: match ${role} (dev+!srv)`)
                     return true
                 }
             }
@@ -1419,6 +1424,21 @@ namespace jacdac {
 
         get serviceClassLength() {
             return this.services.length >> 2
+        }
+
+        public serviceIndexAtOffset(
+            serviceClass: number,
+            serviceOffset: number
+        ) {
+            let offset = 0
+            const n = this.serviceClassLength
+            for (let i = 0; i < n; ++i) {
+                if (this.serviceClassAt(i) === serviceClass) {
+                    if (offset === serviceOffset) return i
+                    offset++
+                }
+            }
+            return -1
         }
 
         private serviceOffsetAt(

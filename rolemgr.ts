@@ -17,11 +17,16 @@ namespace jacdac._rolemgr {
             const i = role.indexOf("?")
             const name = i < 0 ? role : role.substr(0, i)
             settings.writeString(key, name)
-            console.add(jacdac.logPriority, `role: set ${name} -> ${devid}:${servIdx}`)
-        }
-        else {
+            console.add(
+                jacdac.logPriority,
+                `role: set ${name} -> ${devid}:${servIdx}`
+            )
+        } else {
             settings.remove(key)
-            console.add(jacdac.logPriority, `role: clear binding ${devid}:${servIdx}`)
+            console.add(
+                jacdac.logPriority,
+                `role: clear binding ${devid}:${servIdx}`
+            )
         }
         jacdac.bus.clearAttachCache()
     }
@@ -29,18 +34,21 @@ namespace jacdac._rolemgr {
     class DeviceWrapper {
         bindings: RoleBinding[] = []
         score = -1
-        constructor(public device: Device) { }
+        constructor(public device: Device) {}
     }
 
     class RoleBinding {
         boundToDev: Device
         boundToServiceIdx: number
 
-        constructor(public readonly role: string, public readonly serviceClass: number, public readonly roleQuery: ClientRoleQuery) { }
+        constructor(
+            public readonly role: string,
+            public readonly serviceClass: number,
+            public readonly roleQuery: ClientRoleQuery
+        ) {}
 
         host() {
-            if (this.roleQuery.device)
-                return this.roleQuery.device
+            if (this.roleQuery.device) return this.roleQuery.device
             const slashIdx = this.role.indexOf("/")
             if (slashIdx < 0) return this.role
             else return this.role.slice(0, slashIdx - 1)
@@ -48,7 +56,10 @@ namespace jacdac._rolemgr {
 
         select(devwrap: DeviceWrapper, serviceIdx: number) {
             const dev = devwrap.device
-            if (dev == this.boundToDev && serviceIdx == this.boundToServiceIdx) {
+            if (
+                dev == this.boundToDev &&
+                serviceIdx == this.boundToServiceIdx
+            ) {
                 return
             }
             if (this.boundToDev)
@@ -62,7 +73,7 @@ namespace jacdac._rolemgr {
 
     class ServerBindings {
         bindings: RoleBinding[] = []
-        constructor(public host: string) { }
+        constructor(public host: string) {}
 
         get fullyBound() {
             return this.bindings.every(b => b.boundToDev != null)
@@ -75,7 +86,7 @@ namespace jacdac._rolemgr {
             let numBound = 0
             let numPossible = 0
             const dev = devwrap.device
-            const missing: RoleBinding[] = []
+            let missing: RoleBinding[] = []
             for (const b of this.bindings) {
                 if (b.boundToDev) {
                     if (b.boundToDev == dev) numBound++
@@ -84,26 +95,54 @@ namespace jacdac._rolemgr {
                 }
             }
 
-            const sbuf = dev.services
-            for (let idx = 4; idx < sbuf.length; idx += 4) {
-                const serviceIndex = idx >> 2
+            const nsrv = dev.serviceClassLength
+
+            // find next one in order of serviceOffset
+            for (let mi = 0; mi < missing.length; ++mi) {
+                const mis = missing[mi]
+                if (mis.roleQuery.serviceOffset >= 0) {
+                    // lookup the serviceIndex
+                    const serviceIndex = dev.serviceIndexAtOffset(
+                        mis.serviceClass,
+                        mis.roleQuery.serviceOffset
+                    )
+                    if (serviceIndex < 0 || devwrap.bindings[serviceIndex])
+                        continue
+                    // we've got a match!
+                    numPossible++ // this can be assigned
+                    // in fact, assign if requested
+                    if (select) {
+                        mis.select(devwrap, serviceIndex)
+                        console.add(
+                            jacdac.logPriority,
+                            `bind srvo: ${missing[mi].role} -> ${dev.shortId}:${serviceIndex} -> ${missing[mi].boundToDev}:${missing[mi].boundToServiceIdx}`
+                        )
+                    }
+                }
+            }
+
+            missing = missing.filter(m => !m.boundToDev)
+
+            // find next one in order
+            for (let serviceIndex = 1; serviceIndex < nsrv; serviceIndex++) {
                 // if service is already bound to some client, move on
                 if (devwrap.bindings[serviceIndex]) continue
 
-                const serviceClass = sbuf.getNumber(NumberFormat.UInt32LE, idx)
-                for (let i = 0; i < missing.length; ++i) {
-                    if (missing[i].serviceClass == serviceClass) {
+                const serviceClass = dev.serviceClassAt(serviceIndex)
+                for (let mi = 0; mi < missing.length; ++mi) {
+                    if (missing[mi].serviceClass == serviceClass) {
                         // we've got a match!
                         numPossible++ // this can be assigned
                         // in fact, assign if requested
                         if (select) {
-                            missing[i].select(devwrap, serviceIndex)
+                            missing[mi].select(devwrap, serviceIndex)
                             console.add(
                                 jacdac.logPriority,
-                                `bind: ${missing[i].role} -> ${dev.shortId}:${serviceIndex} -> ${missing[i].boundToDev}:${missing[i].boundToServiceIdx}`)
+                                `bind order: ${missing[mi].role} -> ${dev.shortId}:${serviceIndex} -> ${missing[mi].boundToDev}:${missing[mi].boundToServiceIdx}`
+                            )
                         }
                         // this one is no longer missing
-                        missing.splice(i, 1)
+                        missing.splice(mi, 1)
                         // move on to the next service in announce
                         break
                     }
@@ -152,7 +191,7 @@ namespace jacdac._rolemgr {
                     this.sendReport(
                         JDPacket.jdpacked(
                             jacdac.RoleManagerReg.AllRolesAllocated |
-                            CMD_GET_REG,
+                                CMD_GET_REG,
                             jacdac.RoleManagerRegPack.AllRolesAllocated,
                             [
                                 jacdac.bus.allClients.every(
@@ -206,10 +245,11 @@ namespace jacdac._rolemgr {
             const n = jacdac.bus.allClients.length
             for (let i = 0; i < n; ++i) {
                 const client = jacdac.bus.allClients[i]
-                r += `${client.role || ""}:${client.broadcast ||
+                r += `${client.role || ""}:${
+                    client.broadcast ||
                     (client.device && client.device.deviceId) ||
                     ""
-                    }:${client.serviceIndex}`
+                }:${client.serviceIndex}`
             }
             const buf = Buffer.fromUTF8(r)
             return buf.hash(32)
@@ -218,7 +258,6 @@ namespace jacdac._rolemgr {
         bindRoles() {
             if (!this.running) return
 
-            //console.log("bind roles")
             // sanity check and unbind any self roles if the self device is running
             for (const cl of jacdac.bus.allClients) {
                 if (!cl.broadcast && cl.role && !!cl.device) {
@@ -227,7 +266,9 @@ namespace jacdac._rolemgr {
                         // check if we have a server running on this device
                         // that matches
                         const serviceClass = cl.serviceClass
-                        const services = jacdac.bus.servers.filter(server => server.serviceClass == serviceClass)
+                        const services = jacdac.bus.servers.filter(
+                            server => server.serviceClass == serviceClass
+                        )
                         if (services.length) {
                             if (cl.device != jacdac.bus.selfDevice) {
                                 // we have a server running on this device
@@ -236,12 +277,18 @@ namespace jacdac._rolemgr {
                                 setRole(cl.device.deviceId, cl.serviceIndex, "")
                             } else {
                                 const serviceOffset = query.serviceOffset
-                                if (!isNaN(serviceOffset) && (
-                                    !services[query.serviceOffset]
-                                    || services[query.serviceOffset].serviceIndex != cl.serviceIndex
-                                )) {
+                                if (
+                                    !isNaN(serviceOffset) &&
+                                    (!services[query.serviceOffset] ||
+                                        services[query.serviceOffset]
+                                            .serviceIndex != cl.serviceIndex)
+                                ) {
                                     //console.log(`unbind role: reassign to service offset`)
-                                    setRole(cl.device.deviceId, cl.serviceIndex, "")
+                                    setRole(
+                                        cl.device.deviceId,
+                                        cl.serviceIndex,
+                                        ""
+                                    )
                                 }
                             }
                         }
@@ -254,16 +301,20 @@ namespace jacdac._rolemgr {
                 this.checkChanges()
                 return
             }
-            //this.log(
-            //    `autobind: devs:${jacdac.bus.devices.length}, clients:${jacdac.bus.allClients.length}, unbound:${jacdac.bus.unattachedClients.length}`
-            //)
+            this.log(
+                `autobind: devs:${jacdac.bus.devices.length}, clients:${jacdac.bus.allClients.length}, unbound:${jacdac.bus.unattachedClients.length}`
+            )
 
             const bindings: RoleBinding[] = []
             const wraps = bus.devices.map(d => new DeviceWrapper(d))
 
             for (const cl of jacdac.bus.allClients) {
                 if (!cl.broadcast && cl.role) {
-                    const b = new RoleBinding(cl.role, cl.serviceClass, cl.roleQuery)
+                    const b = new RoleBinding(
+                        cl.role,
+                        cl.serviceClass,
+                        cl.roleQuery
+                    )
                     if (cl.device) {
                         b.boundToDev = cl.device
                         b.boundToServiceIdx = cl.serviceIndex
@@ -290,10 +341,11 @@ namespace jacdac._rolemgr {
                 h.bindings.push(b)
             }
 
+            this.log(`found ${servers.length} servers`)
             // exclude hosts that have already everything bound
             servers = servers.filter(h => !h.fullyBound)
 
-            //console.log(`binding: ${servers.length} servers`)
+            this.log(`binding ${servers.length} servers`)
 
             while (servers.length > 0) {
                 // Get host with maximum number of clients (resolve ties by name)
