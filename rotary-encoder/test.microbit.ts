@@ -1,4 +1,3 @@
-
 forever(() => {
     led.toggle(0, 0)
     console.log(`clicks per turn1: ${modules.rotaryEncoder1.clicksPerTurn()}`)
