@@ -1379,12 +1379,16 @@ namespace jacdac {
 
             // query based binding
             // match device id query, dev=self query + device/service query
-            const d =
-                query.device == "self"
-                    ? jacdac.bus.selfDevice.deviceId
-                    : this.deviceId
             // precise device id match
-            if (query.device == d) {
+            if (
+                // precise device id match
+                query.device == this.deviceId ||
+                // short id match
+                query.device == this.shortId ||
+                // self device match
+                (query.device == "self" &&
+                    this.deviceId == jacdac.bus.selfDevice.deviceId)
+            ) {
                 if (
                     // precise service index match
                     // precise service index
