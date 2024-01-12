@@ -65,10 +65,7 @@
         "version.ts",
         "button/button-smasher.md"
     ],
-    "testFiles": [
-        "test.microbit.ts",
-        "test.ts"
-    ],
+    "testFiles": ["test.microbit.ts", "test.ts"],
     "testDependencies": {},
     "fileDependencies": {
         "mbcompat.ts": "target:microbit || target:calliopemini",
@@ -85,16 +82,9 @@
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": [
-        "arcade",
-        "maker",
-        "microbit",
-        "calliopemini"
-    ],
+    "supportedTargets": ["arcade", "maker", "microbit", "calliopemini"],
     "preferredEditor": "tsprj",
-    "disablesVariants": [
-        "mbdal"
-    ],
+    "disablesVariants": ["mbdal"],
     "binaryonly": true,
     "extension": {
         "namespace": "modules",
@@ -106,7 +96,19 @@
     "yotta": {
         "config": {
             "JACDAC_WEBUSB": 1,
-            "JACDAC_SWS_TRANSPORT": 1
+            "JACDAC_SWS_TRANSPORT": 1,
+            "microbit-dal": {
+                "bluetooth": {
+                    "enabled": 0
+                }
+            },
+            "optionalConfig": {
+                "microbit-dal": {
+                    "bluetooth": {
+                        "enabled": 0
+                    }
+                }
+            }
         }
     }
 }
