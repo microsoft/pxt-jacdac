@@ -21,6 +21,6 @@
         "test.microbit.ts"
     ],
     "fileDependencies": {
-        "test.microbit.ts": "target:microbit || target:calliopemini"
+        "test.microbit.ts": "target:microbit"
     }
 }
