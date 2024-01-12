@@ -1,6 +1,6 @@
 {
     "name": "jacdac",
-    "version": "1.9.24",
+    "version": "1.9.25",
     "description": "Jacdac for MakeCode",
     "dependencies": {
         "core": "*",
@@ -65,7 +65,10 @@
         "version.ts",
         "button/button-smasher.md"
     ],
-    "testFiles": ["test.microbit.ts", "test.ts"],
+    "testFiles": [
+        "test.microbit.ts",
+        "test.ts"
+    ],
     "testDependencies": {},
     "fileDependencies": {
         "mbcompat.ts": "target:microbit || target:calliopemini",
@@ -82,9 +85,16 @@
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": ["arcade", "maker", "microbit", "calliopemini"],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit",
+        "calliopemini"
+    ],
     "preferredEditor": "tsprj",
-    "disablesVariants": ["mbdal"],
+    "disablesVariants": [
+        "mbdal"
+    ],
     "binaryonly": true,
     "extension": {
         "namespace": "modules",

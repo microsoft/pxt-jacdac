@@ -1,13 +1,12 @@
 {
     "name": "jacdac-pcmonitor",
-    "version": "0.0.0",
+    "version": "1.9.25",
     "description": "Measures PC monitor.",
     "files": [
         "constants.ts",
         "client.g.ts"
     ],
-    "testFiles": [
-    ],
+    "testFiles": [],
     "supportedTargets": [
         "microbit",
         "arcade",
