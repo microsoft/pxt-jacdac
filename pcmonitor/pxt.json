@@ -7,7 +7,6 @@
         "client.g.ts"
     ],
     "testFiles": [
-        "test.ts"
     ],
     "supportedTargets": [
         "microbit",
