@@ -52,15 +52,20 @@
         "distance.ts",
         "vibrationmotor.ts",
         "hidkeyboard.ts",
+        "microbit.ts",
+        "calliopemini.ts",
+        "sonify.ts",
         "README.md"
     ],
     "targetVersions": {
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": [
-        "microbit"
-    ],
+    "supportedTargets": ["microbit", "calliopemini"],
+    "fileDependencies": {
+        "microbit.ts": "target:microbit",
+        "calliopemini.ts": "target:calliopemini"
+    },
     "preferredEditor": "tsprj",
     "disableTargetTemplateFiles": true,
     "binaryonly": true

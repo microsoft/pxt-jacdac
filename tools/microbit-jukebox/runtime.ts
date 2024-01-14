@@ -1,6 +1,4 @@
 jacdac.productIdentifier = 0x3dbc99b9
-music.setVolume(100)
-music.setTempo(180)
 jacdac.firmwareVersion = jacdac.VERSION
 
 // microbit wrapper
@@ -73,71 +71,6 @@ namespace machine {
     export const microbit = new MicrobitMachine()
 }
 
-// tone player
-namespace machine {
-    let nextTone: number
-    let nextToneOptions: SonifyOptions
-
-    function startTonePlayer() {
-        music.stopAllSounds()
-        control.runInBackground(() => {
-            while (nextTone && nextToneOptions) {
-                const t = nextTone
-                const options = nextToneOptions
-
-                nextTone = 0
-                nextToneOptions = undefined
-
-                machine.microbit.playTone(Math.abs(t))
-
-                // 2.0 sound effects
-                const duration = music.beat(BeatFraction.Half)
-                const startf = t >= 0 ? t : 0
-                const endf = t < 0 ? -t : 0
-                const effect = music.createSoundEffect(
-                    options.waveShape,
-                    startf,
-                    endf,
-                    options.startVolume,
-                    255 - options.startVolume,
-                    duration,
-                    options.effect,
-                    options.interpolation
-                )
-                music.playSoundEffect(effect, SoundExpressionPlayMode.UntilDone)
-
-                basic.pause(20)
-            }
-        })
-    }
-    export function scheduleTone(f: number, options: SonifyOptions) {
-        nextTone = f
-        nextToneOptions = options
-        startTonePlayer()
-    }
-
-    export class SonifyOptions {
-        constructor(
-            public waveShape: WaveShape,
-            public effect: SoundExpressionEffect,
-            public interpolation: InterpolationCurve,
-            public startVolume: number
-        ) {}
-    }
-
-    function sonify(value: number, max: number, options: SonifyOptions) {
-        const fmin = 200
-        const fmax = 10000
-        const f = Math.map(Math.abs(value), 0, max, fmin, fmax)
-        scheduleTone(Math.sign(value) * f, options)
-    }
-
-    export function plot(value: number, max: number, options: SonifyOptions) {
-        led.plotBarGraph(value, max)
-        sonify(value, max, options)
-    }
-}
-
 // number display
 namespace machine {
     class NumberToShow {
@@ -190,8 +123,7 @@ namespace machine {
                 lastDeviceCount = devCount
                 music.stopAllSounds()
                 led.stopAnimation()
-                if (change > 0) soundExpression.happy.play()
-                else soundExpression.sad.play()
+                playSoundExpression(change > 0 ? SoundExpression.Happy : SoundExpression.Sad)
                 basic.showNumber(devCount)
             }
         })
@@ -253,12 +185,7 @@ namespace machine {
             // waveshape: 0..4
             // effect: 0..3
             // interpoliation: 0..2
-            const sonifyOptions = new SonifyOptions(
-                <WaveShape>Math.randomRange(0, 4),
-                <SoundExpressionEffect>Math.randomRange(0, 3),
-                <InterpolationCurve>Math.randomRange(0, 1),
-                Math.randomRange(100, 255)
-            )
+            const sonifyOptions = new SonifyOptions()
             return factory.handler(d.deviceId, serviceIndex, sonifyOptions)
         }
         return null
