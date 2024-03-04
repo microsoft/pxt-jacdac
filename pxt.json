@@ -106,19 +106,7 @@
     "yotta": {
         "config": {
             "JACDAC_WEBUSB": 1,
-            "JACDAC_SWS_TRANSPORT": 1,
-            "microbit-dal": {
-                "bluetooth": {
-                    "enabled": 0
-                }
-            },
-            "optionalConfig": {
-                "microbit-dal": {
-                    "bluetooth": {
-                        "enabled": 0
-                    }
-                }
-            }
+            "JACDAC_SWS_TRANSPORT": 1
         }
     }
 }
