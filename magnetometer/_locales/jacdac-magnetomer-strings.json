@@ -1,0 +1,14 @@
+{
+  "jacdac.MagnetometerCmd.Calibrate": "No args. Forces a calibration sequence where the user/device\nmight have to rotate to be calibrated.",
+  "jacdac.MagnetometerReg.Forces": "Indicates the current magnetic field on magnetometer.\nFor reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).\n* ```\nconst [x, y, z] = jdunpack<[number, number, number]>(buf, \"i32 i32 i32\")\n```",
+  "jacdac.MagnetometerReg.ForcesError": "Read-only nT int32_t. Absolute estimated error on the readings.\n* ```\nconst [forcesError] = jdunpack<[number]>(buf, \"i32\")\n```",
+  "modules.MagnetometerClient.calibrate|block": "%magnetomer calibrate",
+  "modules.MagnetometerClient.x|block": "%magnetomer x (nT)",
+  "modules.MagnetometerClient.y|block": "%magnetomer y (nT)",
+  "modules.MagnetometerClient.z|block": "%magnetomer z (nT)",
+  "modules.magnetometer1|block": "magnetometer1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Magnetometer": "Magnetometer"
+}

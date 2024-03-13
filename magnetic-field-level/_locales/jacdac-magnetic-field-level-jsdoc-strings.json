@@ -1,0 +1,19 @@
+{
+  "jacdac.MagneticFieldLevelEvent.Active": "Emitted when strong-enough magnetic field is detected.",
+  "jacdac.MagneticFieldLevelEvent.Inactive": "Emitted when strong-enough magnetic field is no longer detected.",
+  "jacdac.MagneticFieldLevelReg.Detected": "Read-only bool (uint8_t). Determines if the magnetic field is present.\nIf the event `active` is observed, `detected` is true; if `inactive` is observed, `detected` is false.",
+  "jacdac.MagneticFieldLevelReg.Strength": "Read-only ratio i1.15 (int16_t). Indicates the strength of magnetic field between -1 and 1.\nWhen no magnet is present the value should be around 0.\nFor analog sensors,\nwhen the north pole of the magnet is on top of the module\nand closer than south pole, then the value should be positive.\nFor digital sensors,\nthe value should either `0` or `1`, regardless of polarity.\n* ```\nconst [strength] = jdunpack<[number]>(buf, \"i1.15\")\n```",
+  "jacdac.MagneticFieldLevelReg.Variant": "Constant Variant (uint8_t). Determines which magnetic poles the sensor can detected,\nand whether or not it can measure their strength or just presence.\n* ```\nconst [variant] = jdunpack<[jacdac.MagneticFieldLevelVariant]>(buf, \"u8\")\n```",
+  "jacdac.MagneticFieldLevelRegPack.Detected": "Pack format for 'detected' data.",
+  "jacdac.MagneticFieldLevelRegPack.Strength": "Pack format for 'strength' data.",
+  "jacdac.MagneticFieldLevelRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.MagneticFieldLevelClient": "A sensor that measures strength and polarity of magnetic field.",
+  "modules.MagneticFieldLevelClient.detected": "Determines if the magnetic field is present.\nIf the event `active` is observed, `detected` is true; if `inactive` is observed, `detected` is false.",
+  "modules.MagneticFieldLevelClient.onActive": "Emitted when strong-enough magnetic field is detected.",
+  "modules.MagneticFieldLevelClient.onEvent": "Register code to run when an event is raised",
+  "modules.MagneticFieldLevelClient.onInactive": "Emitted when strong-enough magnetic field is no longer detected.",
+  "modules.MagneticFieldLevelClient.onStrengthChangedBy": "Run code when the strength changes by the given threshold value.",
+  "modules.MagneticFieldLevelClient.strength": "Indicates the strength of magnetic field between -1 and 1.\nWhen no magnet is present the value should be around 0.\nFor analog sensors,\nwhen the north pole of the magnet is on top of the module\nand closer than south pole, then the value should be positive.\nFor digital sensors,\nthe value should either `0` or `1`, regardless of polarity.",
+  "modules.MagneticFieldLevelClient.variant": "Determines which magnetic poles the sensor can detected,\nand whether or not it can measure their strength or just presence."
+}

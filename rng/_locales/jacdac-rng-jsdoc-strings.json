@@ -1,0 +1,10 @@
+{
+  "jacdac.RngReg.Random": "Read-only bytes. A register that returns a 64 bytes random buffer on every request.\nThis never blocks for a long time. If you need additional random bytes, keep querying the register.\n* ```\nconst [random] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.RngReg.Variant": "Constant Variant (uint8_t). The type of algorithm/technique used to generate the number.\n`Quantum` refers to dedicated hardware device generating random noise due to quantum effects.\n`ADCNoise` is the noise from quick readings of analog-digital converter, which reads temperature of the MCU or some floating pin.\n`WebCrypto` refers is used in simulators, where the source of randomness comes from an advanced operating system.\n* ```\nconst [variant] = jdunpack<[jacdac.RngVariant]>(buf, \"u8\")\n```",
+  "jacdac.RngRegPack.Random": "Pack format for 'random' data.",
+  "jacdac.RngRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.RngClient": "Generates random numbers using entropy sourced from physical processes.\n* This typically uses a cryptographical pseudo-random number generator (for example [Fortuna](<https://en.wikipedia.org/wiki/Fortuna_(PRNG)>)),\nwhich is periodically re-seeded with entropy coming from some hardware source.",
+  "modules.RngClient.random": "A register that returns a 64 bytes random buffer on every request.\nThis never blocks for a long time. If you need additional random bytes, keep querying the register.",
+  "modules.RngClient.variant": "The type of algorithm/technique used to generate the number.\n`Quantum` refers to dedicated hardware device generating random noise due to quantum effects.\n`ADCNoise` is the noise from quick readings of analog-digital converter, which reads temperature of the MCU or some floating pin.\n`WebCrypto` refers is used in simulators, where the source of randomness comes from an advanced operating system."
+}

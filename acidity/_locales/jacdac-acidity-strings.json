@@ -1,0 +1,13 @@
+{
+  "jacdac.AcidityReg.Acidity": "Read-only pH u4.12 (uint16_t). The acidity, pH, of water.\n* ```\nconst [acidity] = jdunpack<[number]>(buf, \"u4.12\")\n```",
+  "jacdac.AcidityReg.AcidityError": "Read-only pH u4.12 (uint16_t). Error on the acidity reading.\n* ```\nconst [acidityError] = jdunpack<[number]>(buf, \"u4.12\")\n```",
+  "jacdac.AcidityReg.MaxHumidity": "Constant pH u4.12 (uint16_t). Highest acidity that can be reported.\n* ```\nconst [maxHumidity] = jdunpack<[number]>(buf, \"u4.12\")\n```",
+  "jacdac.AcidityReg.MinAcidity": "Constant pH u4.12 (uint16_t). Lowest acidity that can be reported.\n* ```\nconst [minAcidity] = jdunpack<[number]>(buf, \"u4.12\")\n```",
+  "modules.AcidityClient.acidity|block": "%acidity acidity (pH)",
+  "modules.AcidityClient.onAcidityChangedBy|block": "on %acidity acidity changed by %threshold (pH)",
+  "modules.acidity1|block": "acidity1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

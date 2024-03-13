@@ -1,0 +1,4 @@
+{
+  "jacdac.LedServerOptions.maxPower": "Initial maximum available power",
+  "jacdac.LedServerOptions.numColumns": "For matrix variant, number of columns"
+}

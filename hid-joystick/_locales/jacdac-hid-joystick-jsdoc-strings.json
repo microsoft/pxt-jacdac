@@ -1,0 +1,22 @@
+{
+  "jacdac.HidJoystickCmd.SetAxis": "Sets the state of analog inputs.\n* ```\nconst [position] = jdunpack<[number[]]>(buf, \"i1.15[]\")\n```",
+  "jacdac.HidJoystickCmd.SetButtons": "Sets the up/down button state, one byte per button, supports analog buttons. For digital buttons, use `0` for released, `1` for pressed.\n* ```\nconst [pressure] = jdunpack<[number[]]>(buf, \"u0.8[]\")\n```",
+  "jacdac.HidJoystickCmdPack.SetAxis": "Pack format for 'set_axis' data.",
+  "jacdac.HidJoystickCmdPack.SetButtons": "Pack format for 'set_buttons' data.",
+  "jacdac.HidJoystickReg.AxisCount": "Constant uint8_t. Number of analog input supported\n* ```\nconst [axisCount] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.HidJoystickReg.ButtonCount": "Constant uint8_t. Number of button report supported\n* ```\nconst [buttonCount] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.HidJoystickReg.ButtonsAnalog": "Constant uint32_t. A bitset that indicates which button is analog.\n* ```\nconst [buttonsAnalog] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "jacdac.HidJoystickRegPack.AxisCount": "Pack format for 'axis_count' data.",
+  "jacdac.HidJoystickRegPack.ButtonCount": "Pack format for 'button_count' data.",
+  "jacdac.HidJoystickRegPack.ButtonsAnalog": "Pack format for 'buttons_analog' data.",
+  "modules": "Jacdac modules",
+  "modules.HidJoystickClient": "Controls a HID joystick.",
+  "modules.HidJoystickClient.axisCount": "Number of analog input supported",
+  "modules.HidJoystickClient.buttonCount": "Number of button report supported",
+  "modules.HidJoystickClient.buttonsAnalog": "A bitset that indicates which button is analog.",
+  "modules.HidJoystickClient.clear": "Clears the joystick state",
+  "modules.HidJoystickClient.setAllAxis": "Sets the state of analog inputs in -100%,100%.",
+  "modules.HidJoystickClient.setAllButtons": "Sets the pressure of all buttons in %",
+  "modules.HidJoystickClient.setAxis": "Sets the state of an axis in -100%,100%",
+  "modules.HidJoystickClient.setButton": "Sets the state of a buttons"
+}

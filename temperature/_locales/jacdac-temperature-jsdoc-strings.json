@@ -1,0 +1,20 @@
+{
+  "jacdac.TemperatureReg.MaxTemperature": "Constant °C i22.10 (int32_t). Highest temperature that can be reported.\n* ```\nconst [maxTemperature] = jdunpack<[number]>(buf, \"i22.10\")\n```",
+  "jacdac.TemperatureReg.MinTemperature": "Constant °C i22.10 (int32_t). Lowest temperature that can be reported.\n* ```\nconst [minTemperature] = jdunpack<[number]>(buf, \"i22.10\")\n```",
+  "jacdac.TemperatureReg.Temperature": "Read-only °C i22.10 (int32_t). The temperature.\n* ```\nconst [temperature] = jdunpack<[number]>(buf, \"i22.10\")\n```",
+  "jacdac.TemperatureReg.TemperatureError": "Read-only °C u22.10 (uint32_t). The real temperature is between `temperature - temperature_error` and `temperature + temperature_error`.\n* ```\nconst [temperatureError] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.TemperatureReg.Variant": "Constant Variant (uint8_t). Specifies the type of thermometer.\n* ```\nconst [variant] = jdunpack<[jacdac.TemperatureVariant]>(buf, \"u8\")\n```",
+  "jacdac.TemperatureRegPack.MaxTemperature": "Pack format for 'max_temperature' data.",
+  "jacdac.TemperatureRegPack.MinTemperature": "Pack format for 'min_temperature' data.",
+  "jacdac.TemperatureRegPack.Temperature": "Pack format for 'temperature' data.",
+  "jacdac.TemperatureRegPack.TemperatureError": "Pack format for 'temperature_error' data.",
+  "jacdac.TemperatureRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.TemperatureClient": "A thermometer measuring outside or inside environment.",
+  "modules.TemperatureClient.maxTemperature": "Highest temperature that can be reported.",
+  "modules.TemperatureClient.minTemperature": "Lowest temperature that can be reported.",
+  "modules.TemperatureClient.onTemperatureChangedBy": "Run code when the temperature changes by the given threshold value.",
+  "modules.TemperatureClient.temperature": "The temperature.",
+  "modules.TemperatureClient.temperatureError": "The real temperature is between `temperature - temperature_error` and `temperature + temperature_error`.",
+  "modules.TemperatureClient.variant": "Specifies the type of thermometer."
+}

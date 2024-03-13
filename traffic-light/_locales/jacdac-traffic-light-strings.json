@@ -1,0 +1,16 @@
+{
+  "jacdac.TrafficLightReg.Green": "Read-write bool (uint8_t). The on/off state of the green light.\n* ```\nconst [green] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.TrafficLightReg.Red": "Read-write bool (uint8_t). The on/off state of the red light.\n* ```\nconst [red] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.TrafficLightReg.Yellow": "Read-write bool (uint8_t). The on/off state of the yellow light.\n* ```\nconst [yellow] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "modules.TrafficLightClient.green|block": "%trafficlight green",
+  "modules.TrafficLightClient.red|block": "%trafficlight red",
+  "modules.TrafficLightClient.setGreen|block": "set %trafficlight green to $value",
+  "modules.TrafficLightClient.setRed|block": "set %trafficlight red to $value",
+  "modules.TrafficLightClient.setYellow|block": "set %trafficlight yellow to $value",
+  "modules.TrafficLightClient.yellow|block": "%trafficlight yellow",
+  "modules.trafficLight1|block": "traffic light1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Traffic Light": "Traffic Light"
+}

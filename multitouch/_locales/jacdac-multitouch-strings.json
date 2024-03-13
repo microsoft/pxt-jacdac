@@ -1,0 +1,20 @@
+{
+  "jacdac.MultitouchEvent.LongPress": "Argument: channel uint8_t. Emitted when an input is touched for longer than 500ms. TODO Not implemented.\n* ```\nconst [channel] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.MultitouchEvent.LongPress|block": "long press",
+  "jacdac.MultitouchEvent.Release": "Argument: channel uint8_t. Emitted when an input is no longer touched.\n* ```\nconst [channel] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.MultitouchEvent.Release|block": "release",
+  "jacdac.MultitouchEvent.SwipeNeg": "Emitted when input channels are successively touched in order of decreasing channel numbers.\n* ```\nconst [duration, startChannel, endChannel] = jdunpack<[number, number, number]>(buf, \"u16 u8 u8\")\n```",
+  "jacdac.MultitouchEvent.SwipeNeg|block": "swipe neg",
+  "jacdac.MultitouchEvent.SwipePos": "Emitted when input channels are successively touched in order of increasing channel numbers.\n* ```\nconst [duration, startChannel, endChannel] = jdunpack<[number, number, number]>(buf, \"u16 u8 u8\")\n```",
+  "jacdac.MultitouchEvent.SwipePos|block": "swipe pos",
+  "jacdac.MultitouchEvent.Tap": "Argument: channel uint8_t. Emitted when an input is briefly touched. TODO Not implemented.\n* ```\nconst [channel] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.MultitouchEvent.Tap|block": "tap",
+  "jacdac.MultitouchEvent.Touch": "Argument: channel uint8_t. Emitted when an input is touched.\n* ```\nconst [channel] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.MultitouchEvent.Touch|block": "touch",
+  "jacdac.MultitouchReg.Capacity": "Read-only. Capacitance of channels. The capacitance is continuously calibrated, and a value of `0` indicates\nno touch, wheres a value of around `100` or more indicates touch.\nIt's best to ignore this (unless debugging), and use events.\n* ```\nconst [capacitance] = jdunpack<[number[]]>(buf, \"i16[]\")\n```",
+  "modules.MultiTouchClient.value|block": "%multiTouch value at $index",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Touch": "Touch"
+}

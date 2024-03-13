@@ -1,0 +1,23 @@
+{
+  "jacdac.CharacterScreenReg.Brightness": "Read-write ratio u0.16 (uint16_t). Brightness of the screen. `0` means off.\n* ```\nconst [brightness] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.CharacterScreenReg.Columns": "Constant # uint8_t. Gets the number of columns.\n* ```\nconst [columns] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.CharacterScreenReg.Message": "Read-write string (bytes). Text to show. Use `\\n` to break lines.\n* ```\nconst [message] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.CharacterScreenReg.Rows": "Constant # uint8_t. Gets the number of rows.\n* ```\nconst [rows] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.CharacterScreenReg.TextDirection": "Read-write TextDirection (uint8_t). Specifies the RTL or LTR direction of the text.\n* ```\nconst [textDirection] = jdunpack<[jacdac.CharacterScreenTextDirection]>(buf, \"u8\")\n```",
+  "jacdac.CharacterScreenReg.Variant": "Constant Variant (uint8_t). Describes the type of character LED screen.\n* ```\nconst [variant] = jdunpack<[jacdac.CharacterScreenVariant]>(buf, \"u8\")\n```",
+  "jacdac.CharacterScreenTextDirection.LeftToRight|block": "left to right",
+  "jacdac.CharacterScreenTextDirection.RightToLeft|block": "right to left",
+  "jacdac.CharacterScreenVariant.Braille|block": "braille",
+  "jacdac.CharacterScreenVariant.LCD|block": "lcd",
+  "jacdac.CharacterScreenVariant.OLED|block": "oled",
+  "modules.CharacterScreenClient.brightness|block": "%characterscreen brightness",
+  "modules.CharacterScreenClient.clear|block": "clear %characterscreen",
+  "modules.CharacterScreenClient.setBrightness|block": "set %characterscreen brightness to %value",
+  "modules.CharacterScreenClient.setLineValue|block": "set %characterscreen at line |$index |to $name|= $value||with $precision decimals",
+  "modules.CharacterScreenClient.setLine|block": "set %characterscreen at line |$index |to $message",
+  "modules.characterScreen1|block": "character screen1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Display": "Display"
+}

@@ -1,0 +1,19 @@
+{
+  "jacdac.AzureIotHubHealthCmd.Connect": "No args. Starts a connection to the IoT hub service",
+  "jacdac.AzureIotHubHealthCmd.Disconnect": "No args. Starts disconnecting from the IoT hub service",
+  "jacdac.AzureIotHubHealthCmd.SetConnectionString": "Argument: connection_string string (bytes). Restricted command to override the existing connection string to the Azure IoT Hub.\n* ```\nconst [connectionString] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.AzureIotHubHealthCmdPack.SetConnectionString": "Pack format for 'set_connection_string' register data.",
+  "jacdac.AzureIotHubHealthEvent.ConnectionStatusChange": "Argument: connection_status ConnectionStatus (uint16_t). Raised when the connection status changes\n* ```\nconst [connectionStatus] = jdunpack<[jacdac.AzureIotHubHealthConnectionStatus]>(buf, \"u16\")\n```",
+  "jacdac.AzureIotHubHealthEvent.MessageSent": "Raised when a message has been sent to the hub.",
+  "jacdac.AzureIotHubHealthEventPack.ConnectionStatusChange": "Pack format for 'connection_status_change' register data.",
+  "jacdac.AzureIotHubHealthReg.ConnectionStatus": "Read-only ConnectionStatus (uint16_t). Indicates the status of connection. A message beyond the [0..3] range represents an HTTP error code.\n* ```\nconst [connectionStatus] = jdunpack<[jacdac.AzureIotHubHealthConnectionStatus]>(buf, \"u16\")\n```",
+  "jacdac.AzureIotHubHealthReg.HubDeviceId": "Read-only string (bytes). Device identifier in Azure Iot Hub if available.\n* ```\nconst [hubDeviceId] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.AzureIotHubHealthReg.HubName": "Read-only string (bytes). Something like `my-iot-hub.azure-devices.net` if available.\n* ```\nconst [hubName] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.AzureIotHubHealthReg.PushPeriod": "Read-write ms uint32_t. How often to push data to the cloud.\n* ```\nconst [pushPeriod] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "jacdac.AzureIotHubHealthReg.PushWatchdogPeriod": "Read-write ms uint32_t. If no message is published within given period, the device resets.\nThis can be due to connectivity problems or due to the device having nothing to publish.\nForced to be at least `2 * flush_period`.\nSet to `0` to disable (default).\n* ```\nconst [pushWatchdogPeriod] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "jacdac.AzureIotHubHealthRegPack.ConnectionStatus": "Pack format for 'connection_status' register data.",
+  "jacdac.AzureIotHubHealthRegPack.HubDeviceId": "Pack format for 'hub_device_id' register data.",
+  "jacdac.AzureIotHubHealthRegPack.HubName": "Pack format for 'hub_name' register data.",
+  "jacdac.AzureIotHubHealthRegPack.PushPeriod": "Pack format for 'push_period' register data.",
+  "jacdac.AzureIotHubHealthRegPack.PushWatchdogPeriod": "Pack format for 'push_watchdog_period' register data."
+}

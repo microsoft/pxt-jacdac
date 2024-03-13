@@ -1,0 +1,14 @@
+{
+  "jacdac.UvIndexReg.UvIndex": "Read-only uv u16.16 (uint32_t). Ultraviolet index, typically refreshed every second.\n* ```\nconst [uvIndex] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.UvIndexReg.UvIndexError": "Read-only uv u16.16 (uint32_t). Error on the UV measure.\n* ```\nconst [uvIndexError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.UvIndexReg.Variant": "Constant Variant (uint8_t). The type of physical sensor and capabilities.\n* ```\nconst [variant] = jdunpack<[jacdac.UvIndexVariant]>(buf, \"u8\")\n```",
+  "jacdac.UvIndexVariant.UVA_UVB|block": "uva uvb",
+  "jacdac.UvIndexVariant.Visible_IR|block": "visible ir",
+  "modules.UvIndexClient.onUvIndexChangedBy|block": "on %uvindex uv index changed by %threshold (uv)",
+  "modules.UvIndexClient.uvIndex|block": "%uvindex uv index (uv)",
+  "modules.uvIndex1|block": "uv index1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

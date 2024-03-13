@@ -1,0 +1,15 @@
+{
+  "jacdac.BrailleDisplayReg.Enabled": "Read-write bool (uint8_t). Determines if the braille display is active.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.BrailleDisplayReg.Length": "Constant # uint8_t. Gets the number of patterns that can be displayed.\n* ```\nconst [length] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.BrailleDisplayReg.Patterns": "Read-write string (bytes). Braille patterns to show. Must be unicode characters between `0x2800` and `0x28ff`.\n* ```\nconst [patterns] = jdunpack<[string]>(buf, \"s\")\n```",
+  "modules.BrailleDisplayClient.enabled|block": "%brailledisplay enabled",
+  "modules.BrailleDisplayClient.setEnabled|block": "set %brailledisplay %value=toggleOnOff",
+  "modules.BrailleDisplayClient.showNumber|block": "show %brailledisplay number %text",
+  "modules.BrailleDisplayClient.showString|block": "show %brailledisplay string %text",
+  "modules.brailleDisplay1|block": "braille display1",
+  "modules.brailleDisplay2|block": "braille display2",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Display": "Display"
+}

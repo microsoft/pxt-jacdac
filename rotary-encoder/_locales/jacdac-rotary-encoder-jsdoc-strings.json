@@ -1,0 +1,15 @@
+{
+  "jacdac.RotaryEncoderReg.Clicker": "Constant bool (uint8_t). The encoder is combined with a clicker. If this is the case, the clicker button service\nshould follow this service in the service list of the device.\n* ```\nconst [clicker] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.RotaryEncoderReg.ClicksPerTurn": "Constant # uint16_t. This specifies by how much `position` changes when the crank does 360 degree turn. Typically 12 or 24.\n* ```\nconst [clicksPerTurn] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.RotaryEncoderReg.Position": "Read-only # int32_t. Upon device reset starts at `0` (regardless of the shaft position).\nIncreases by `1` for a clockwise \"click\", by `-1` for counter-clockwise.\n* ```\nconst [position] = jdunpack<[number]>(buf, \"i32\")\n```",
+  "jacdac.RotaryEncoderRegPack.Clicker": "Pack format for 'clicker' data.",
+  "jacdac.RotaryEncoderRegPack.ClicksPerTurn": "Pack format for 'clicks_per_turn' data.",
+  "jacdac.RotaryEncoderRegPack.Position": "Pack format for 'position' data.",
+  "modules": "Jacdac modules",
+  "modules.RotaryEncoderClient": "An incremental rotary encoder - converts angular motion of a shaft to digital signal.",
+  "modules.RotaryEncoderClient.clicker": "The encoder is combined with a clicker. If this is the case, the clicker button service\nshould follow this service in the service list of the device.",
+  "modules.RotaryEncoderClient.clicksPerTurn": "This specifies by how much `position` changes when the crank does 360 degree turn. Typically 12 or 24.",
+  "modules.RotaryEncoderClient.onPositionChanged": "Run code when the position changes.",
+  "modules.RotaryEncoderClient.onPositionChanged|param|handler": "handler that runs when position changed, receives the value difference",
+  "modules.RotaryEncoderClient.position": "Upon device reset starts at `0` (regardless of the shaft position).\nIncreases by `1` for a clockwise \"click\", by `-1` for counter-clockwise."
+}

@@ -1,0 +1,20 @@
+{
+  "jacdac.DcCurrentMeasurementReg.MaxMeasurement": "Constant A f64 (uint64_t). Maximum measurable current\n* ```\nconst [maxMeasurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcCurrentMeasurementReg.Measurement": "Read-only A f64 (uint64_t). The current measurement.\n* ```\nconst [measurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcCurrentMeasurementReg.MeasurementError": "Read-only A f64 (uint64_t). Absolute error on the reading value.\n* ```\nconst [measurementError] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcCurrentMeasurementReg.MeasurementName": "Constant string (bytes). A string containing the net name that is being measured e.g. `POWER_DUT` or a reference e.g. `DIFF_DEV1_DEV2`. These constants can be used to identify a measurement from client code.\n* ```\nconst [measurementName] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.DcCurrentMeasurementReg.MinMeasurement": "Constant A f64 (uint64_t). Minimum measurable current\n* ```\nconst [minMeasurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcCurrentMeasurementRegPack.MaxMeasurement": "Pack format for 'max_measurement' data.",
+  "jacdac.DcCurrentMeasurementRegPack.Measurement": "Pack format for 'measurement' data.",
+  "jacdac.DcCurrentMeasurementRegPack.MeasurementError": "Pack format for 'measurement_error' data.",
+  "jacdac.DcCurrentMeasurementRegPack.MeasurementName": "Pack format for 'measurement_name' data.",
+  "jacdac.DcCurrentMeasurementRegPack.MinMeasurement": "Pack format for 'min_measurement' data.",
+  "modules": "Jacdac modules",
+  "modules.DcCurrentMeasurementClient": "A service that reports a current measurement.",
+  "modules.DcCurrentMeasurementClient.maxMeasurement": "Maximum measurable current",
+  "modules.DcCurrentMeasurementClient.measurement": "The current measurement.",
+  "modules.DcCurrentMeasurementClient.measurementError": "Absolute error on the reading value.",
+  "modules.DcCurrentMeasurementClient.measurementName": "A string containing the net name that is being measured e.g. `POWER_DUT` or a reference e.g. `DIFF_DEV1_DEV2`. These constants can be used to identify a measurement from client code.",
+  "modules.DcCurrentMeasurementClient.minMeasurement": "Minimum measurable current",
+  "modules.DcCurrentMeasurementClient.onMeasurementChangedBy": "Run code when the measurement changes by the given threshold value."
+}

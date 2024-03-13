@@ -1,0 +1,15 @@
+{
+  "jacdac.HidJoystickCmd.SetAxis": "Sets the state of analog inputs.\n* ```\nconst [position] = jdunpack<[number[]]>(buf, \"i1.15[]\")\n```",
+  "jacdac.HidJoystickCmd.SetButtons": "Sets the up/down button state, one byte per button, supports analog buttons. For digital buttons, use `0` for released, `1` for pressed.\n* ```\nconst [pressure] = jdunpack<[number[]]>(buf, \"u0.8[]\")\n```",
+  "jacdac.HidJoystickReg.AxisCount": "Constant uint8_t. Number of analog input supported\n* ```\nconst [axisCount] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.HidJoystickReg.ButtonCount": "Constant uint8_t. Number of button report supported\n* ```\nconst [buttonCount] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.HidJoystickReg.ButtonsAnalog": "Constant uint32_t. A bitset that indicates which button is analog.\n* ```\nconst [buttonsAnalog] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "modules.HidJoystickClient.clear|block": "clear %hidjoystick",
+  "modules.HidJoystickClient.setAxis|block": "set %hidjoystick axis $index to $position",
+  "modules.HidJoystickClient.setButton|block": "set %hidjoystick button $index to $down",
+  "modules.hidJoystick1|block": "hid joystick1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}HID Joystick": "HID Joystick"
+}

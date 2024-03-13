@@ -1,0 +1,11 @@
+{
+  "jacdac.SolenoidReg.Pulled": "Read-write bool (uint8_t). Indicates whether the solenoid is energized and pulled (on) or pushed (off).\n* ```\nconst [pulled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SolenoidReg.Variant": "Constant Variant (uint8_t). Describes the type of solenoid used.\n* ```\nconst [variant] = jdunpack<[jacdac.SolenoidVariant]>(buf, \"u8\")\n```",
+  "jacdac.SolenoidRegPack.Pulled": "Pack format for 'pulled' data.",
+  "jacdac.SolenoidRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.SolenoidClient": "A push-pull solenoid is a type of relay that pulls a coil when activated.",
+  "modules.SolenoidClient.pulled": "Indicates whether the solenoid is energized and pulled (on) or pushed (off).",
+  "modules.SolenoidClient.setPulled": "Indicates whether the solenoid is energized and pulled (on) or pushed (off).",
+  "modules.SolenoidClient.variant": "Describes the type of solenoid used."
+}

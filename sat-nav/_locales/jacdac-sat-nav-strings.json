@@ -1,0 +1,20 @@
+{
+  "jacdac.SatNavEvent.Inactive": "The module is disabled or lost connection with satellites.",
+  "jacdac.SatNavEvent.Inactive|block": "inactive",
+  "jacdac.SatNavReg.Enabled": "Read-write bool (uint8_t). Enables or disables the GPS module\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SatNavReg.Position": "Reported coordinates, geometric altitude and time of position. Altitude accuracy is 0 if not available.\n* ```\nconst [timestamp, latitude, longitude, accuracy, altitude, altitudeAccuracy] = jdunpack<[number, number, number, number, number, number]>(buf, \"u64 i9.23 i9.23 u16.16 i26.6 u16.16\")\n```",
+  "modules.SatNavClient.accuracy|block": "%satelittenavigationsystem accuracy (m)",
+  "modules.SatNavClient.altitudeAccuracy|block": "%satelittenavigationsystem altitude Accuracy (m)",
+  "modules.SatNavClient.altitude|block": "%satelittenavigationsystem altitude (m)",
+  "modules.SatNavClient.enabled|block": "%satelittenavigationsystem enabled",
+  "modules.SatNavClient.latitude|block": "%satelittenavigationsystem latitude (lat)",
+  "modules.SatNavClient.longitude|block": "%satelittenavigationsystem longitude (lon)",
+  "modules.SatNavClient.onEvent|block": "on %satelittenavigationsystem %event",
+  "modules.SatNavClient.setEnabled|block": "set %satelittenavigationsystem %value=toggleOnOff",
+  "modules.SatNavClient.timestamp|block": "%satelittenavigationsystem timestamp (ms)",
+  "modules.satNav1|block": "sat nav1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Satellite Navigation System": "Satellite Navigation System"
+}

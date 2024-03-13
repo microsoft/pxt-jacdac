@@ -1,0 +1,14 @@
+{
+  "jacdac.SolenoidReg.Pulled": "Read-write bool (uint8_t). Indicates whether the solenoid is energized and pulled (on) or pushed (off).\n* ```\nconst [pulled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SolenoidReg.Variant": "Constant Variant (uint8_t). Describes the type of solenoid used.\n* ```\nconst [variant] = jdunpack<[jacdac.SolenoidVariant]>(buf, \"u8\")\n```",
+  "jacdac.SolenoidVariant.Latch|block": "latch",
+  "jacdac.SolenoidVariant.PushPull|block": "push pull",
+  "jacdac.SolenoidVariant.Valve|block": "valve",
+  "modules.SolenoidClient.pulled|block": "%solenoid pulled",
+  "modules.SolenoidClient.setPulled|block": "set %solenoid pulled to %value",
+  "modules.solenoid1|block": "solenoid1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Solenoid": "Solenoid"
+}

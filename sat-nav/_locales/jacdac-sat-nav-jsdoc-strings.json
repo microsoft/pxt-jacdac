@@ -1,0 +1,19 @@
+{
+  "jacdac.SatNavEvent.Inactive": "The module is disabled or lost connection with satellites.",
+  "jacdac.SatNavReg.Enabled": "Read-write bool (uint8_t). Enables or disables the GPS module\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SatNavReg.Position": "Reported coordinates, geometric altitude and time of position. Altitude accuracy is 0 if not available.\n* ```\nconst [timestamp, latitude, longitude, accuracy, altitude, altitudeAccuracy] = jdunpack<[number, number, number, number, number, number]>(buf, \"u64 i9.23 i9.23 u16.16 i26.6 u16.16\")\n```",
+  "jacdac.SatNavRegPack.Enabled": "Pack format for 'enabled' data.",
+  "jacdac.SatNavRegPack.Position": "Pack format for 'position' data.",
+  "modules": "Jacdac modules",
+  "modules.SatNavClient": "A satellite-based navigation system like GPS, Gallileo, ...",
+  "modules.SatNavClient.accuracy": "Reported coordinates, geometric altitude and time of position. Altitude accuracy is 0 if not available.",
+  "modules.SatNavClient.altitude": "Reported coordinates, geometric altitude and time of position. Altitude accuracy is 0 if not available.",
+  "modules.SatNavClient.altitudeAccuracy": "Reported coordinates, geometric altitude and time of position. Altitude accuracy is 0 if not available.",
+  "modules.SatNavClient.enabled": "Enables or disables the GPS module",
+  "modules.SatNavClient.latitude": "Reported coordinates, geometric altitude and time of position. Altitude accuracy is 0 if not available.",
+  "modules.SatNavClient.longitude": "Reported coordinates, geometric altitude and time of position. Altitude accuracy is 0 if not available.",
+  "modules.SatNavClient.onEvent": "Register code to run when an event is raised",
+  "modules.SatNavClient.onInactive": "The module is disabled or lost connection with satellites.",
+  "modules.SatNavClient.setEnabled": "Enables or disables the GPS module",
+  "modules.SatNavClient.timestamp": "Reported coordinates, geometric altitude and time of position. Altitude accuracy is 0 if not available."
+}

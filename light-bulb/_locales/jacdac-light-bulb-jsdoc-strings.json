@@ -1,0 +1,11 @@
+{
+  "jacdac.LightBulbReg.Brightness": "Read-write ratio u0.16 (uint16_t). Indicates the brightness of the light bulb. Zero means completely off and 0xffff means completely on.\nFor non-dimmable lights, the value should be clamp to 0xffff for any non-zero value.\n* ```\nconst [brightness] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.LightBulbReg.Dimmable": "Constant bool (uint8_t). Indicates if the light supports dimming.\n* ```\nconst [dimmable] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.LightBulbRegPack.Brightness": "Pack format for 'brightness' data.",
+  "jacdac.LightBulbRegPack.Dimmable": "Pack format for 'dimmable' data.",
+  "modules": "Jacdac modules",
+  "modules.LightBulbClient": "A light bulb controller.",
+  "modules.LightBulbClient.brightness": "Indicates the brightness of the light bulb. Zero means completely off and 0xffff means completely on.\nFor non-dimmable lights, the value should be clamp to 0xffff for any non-zero value.",
+  "modules.LightBulbClient.dimmable": "Indicates if the light supports dimming.",
+  "modules.LightBulbClient.setBrightness": "Indicates the brightness of the light bulb. Zero means completely off and 0xffff means completely on.\nFor non-dimmable lights, the value should be clamp to 0xffff for any non-zero value."
+}

@@ -1,0 +1,13 @@
+{
+  "jacdac.AirQualityIndexReg.AqiIndex": "Read-only AQI u16.16 (uint32_t). Air quality index, typically refreshed every second.\n* ```\nconst [aqiIndex] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.AirQualityIndexReg.AqiIndexError": "Read-only AQI u16.16 (uint32_t). Error on the AQI measure.\n* ```\nconst [aqiIndexError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.AirQualityIndexReg.MaxAqiIndex": "Constant AQI u16.16 (uint32_t). Maximum AQI reading, representing a very poor air quality.\n* ```\nconst [maxAqiIndex] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.AirQualityIndexReg.MinAqiIndex": "Constant AQI u16.16 (uint32_t). Minimum AQI reading, representing a good air quality. Typically 0.\n* ```\nconst [minAqiIndex] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "modules.AirQualityIndexClient.aqiIndex|block": "%airqualityindex aqi index (AQI)",
+  "modules.AirQualityIndexClient.onAqiIndexChangedBy|block": "on %airqualityindex aqi index changed by %threshold (AQI)",
+  "modules.airQualityIndex1|block": "air quality index1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

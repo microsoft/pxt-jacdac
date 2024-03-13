@@ -1,0 +1,11 @@
+{
+  "jacdac.WindDirectionReg.WindDirection": "Read-only ° uint16_t. The direction of the wind.\n* ```\nconst [windDirection] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.WindDirectionReg.WindDirectionError": "Read-only ° uint16_t. Error on the wind direction reading\n* ```\nconst [windDirectionError] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.WindDirectionRegPack.WindDirection": "Pack format for 'wind_direction' data.",
+  "jacdac.WindDirectionRegPack.WindDirectionError": "Pack format for 'wind_direction_error' data.",
+  "modules": "Jacdac modules",
+  "modules.WindDirectionClient": "A sensor that measures wind direction.",
+  "modules.WindDirectionClient.onWindDirectionChangedBy": "Run code when the wind direction changes by the given threshold value.",
+  "modules.WindDirectionClient.windDirection": "The direction of the wind.",
+  "modules.WindDirectionClient.windDirectionError": "Error on the wind direction reading"
+}

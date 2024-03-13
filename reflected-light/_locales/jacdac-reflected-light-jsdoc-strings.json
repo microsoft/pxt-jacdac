@@ -1,0 +1,11 @@
+{
+  "jacdac.ReflectedLightReg.Brightness": "Read-only ratio u0.16 (uint16_t). Reports the reflected brightness. It may be a digital value or, for some sensor, analog value.\n* ```\nconst [brightness] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.ReflectedLightReg.Variant": "Constant Variant (uint8_t). Type of physical sensor used\n* ```\nconst [variant] = jdunpack<[jacdac.ReflectedLightVariant]>(buf, \"u8\")\n```",
+  "jacdac.ReflectedLightRegPack.Brightness": "Pack format for 'brightness' data.",
+  "jacdac.ReflectedLightRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.ReflectedLightClient": "A sensor that detects light and dark surfaces, commonly used for line following robots.",
+  "modules.ReflectedLightClient.brightness": "Reports the reflected brightness. It may be a digital value or, for some sensor, analog value.",
+  "modules.ReflectedLightClient.onBrightnessChangedBy": "Run code when the brightness changes by the given threshold value.",
+  "modules.ReflectedLightClient.variant": "Type of physical sensor used"
+}

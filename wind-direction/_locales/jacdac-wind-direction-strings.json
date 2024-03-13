@@ -1,0 +1,11 @@
+{
+  "jacdac.WindDirectionReg.WindDirection": "Read-only ° uint16_t. The direction of the wind.\n* ```\nconst [windDirection] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.WindDirectionReg.WindDirectionError": "Read-only ° uint16_t. Error on the wind direction reading\n* ```\nconst [windDirectionError] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "modules.WindDirectionClient.onWindDirectionChangedBy|block": "on %winddirection wind direction changed by %threshold (°)",
+  "modules.WindDirectionClient.windDirection|block": "%winddirection wind direction (°)",
+  "modules.windDirection1|block": "wind direction1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

@@ -13,3 +13,5 @@ docs/assets/js/*-local.js
 dist
 others
 *.gts
+package-lock.json
+package.json

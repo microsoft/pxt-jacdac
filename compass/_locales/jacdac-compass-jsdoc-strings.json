@@ -1,0 +1,17 @@
+{
+  "jacdac.CompassCmd.Calibrate": "No args. Starts a calibration sequence for the compass.",
+  "jacdac.CompassReg.Enabled": "Read-write bool (uint8_t). Turn on or off the sensor. Turning on the sensor may start a calibration sequence.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.CompassReg.Heading": "Read-only ° u16.16 (uint32_t). The heading with respect to the magnetic north.\n* ```\nconst [heading] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.CompassReg.HeadingError": "Read-only ° u16.16 (uint32_t). Error on the heading reading\n* ```\nconst [headingError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.CompassRegPack.Enabled": "Pack format for 'enabled' data.",
+  "jacdac.CompassRegPack.Heading": "Pack format for 'heading' data.",
+  "jacdac.CompassRegPack.HeadingError": "Pack format for 'heading_error' data.",
+  "modules": "Jacdac modules",
+  "modules.CompassClient": "A sensor that measures the heading.",
+  "modules.CompassClient.calibrate": "Starts a calibration sequence for the compass.",
+  "modules.CompassClient.enabled": "Turn on or off the sensor. Turning on the sensor may start a calibration sequence.",
+  "modules.CompassClient.heading": "The heading with respect to the magnetic north.",
+  "modules.CompassClient.headingError": "Error on the heading reading",
+  "modules.CompassClient.onHeadingChangedBy": "Run code when the heading changes by the given threshold value.",
+  "modules.CompassClient.setEnabled": "Turn on or off the sensor. Turning on the sensor may start a calibration sequence."
+}

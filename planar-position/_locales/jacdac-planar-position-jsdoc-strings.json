@@ -1,0 +1,11 @@
+{
+  "jacdac.PlanarPositionReg.Position": "The current position of the sensor.\n* ```\nconst [x, y] = jdunpack<[number, number]>(buf, \"i22.10 i22.10\")\n```",
+  "jacdac.PlanarPositionReg.Variant": "Constant Variant (uint8_t). Specifies the type of physical sensor.\n* ```\nconst [variant] = jdunpack<[jacdac.PlanarPositionVariant]>(buf, \"u8\")\n```",
+  "jacdac.PlanarPositionRegPack.Position": "Pack format for 'position' data.",
+  "jacdac.PlanarPositionRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.PlanarPositionClient": "A sensor that repors 2D position, typically an optical mouse tracking sensor.\n* The sensor starts at an arbitrary origin (0,0) and reports the distance from that origin.\n* The `streaming_interval` is respected when the position is changing. When the position is not changing, the streaming interval may be throttled to `500ms`.",
+  "modules.PlanarPositionClient.variant": "Specifies the type of physical sensor.",
+  "modules.PlanarPositionClient.x": "The current position of the sensor.",
+  "modules.PlanarPositionClient.y": "The current position of the sensor."
+}

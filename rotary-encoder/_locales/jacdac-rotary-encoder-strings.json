@@ -1,0 +1,14 @@
+{
+  "jacdac.RotaryEncoderReg.Clicker": "Constant bool (uint8_t). The encoder is combined with a clicker. If this is the case, the clicker button service\nshould follow this service in the service list of the device.\n* ```\nconst [clicker] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.RotaryEncoderReg.ClicksPerTurn": "Constant # uint16_t. This specifies by how much `position` changes when the crank does 360 degree turn. Typically 12 or 24.\n* ```\nconst [clicksPerTurn] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.RotaryEncoderReg.Position": "Read-only # int32_t. Upon device reset starts at `0` (regardless of the shaft position).\nIncreases by `1` for a clockwise \"click\", by `-1` for counter-clockwise.\n* ```\nconst [position] = jdunpack<[number]>(buf, \"i32\")\n```",
+  "modules.RotaryEncoderClient.onPositionChanged|block": "on %rotaryencoder position changed",
+  "modules.RotaryEncoderClient.position|block": "%rotaryencoder position (#)",
+  "modules.rotaryEncoder1|block": "rotary encoder1",
+  "modules.rotaryEncoder2|block": "rotary encoder2",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Rotary Encoder": "Rotary Encoder",
+  "{id:group}Slider": "Slider"
+}

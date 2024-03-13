@@ -1,0 +1,17 @@
+{
+  "jacdac.HeartRateReg.HeartRate": "Read-only bpm u16.16 (uint32_t). The estimated heart rate.\n* ```\nconst [heartRate] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.HeartRateReg.HeartRateError": "Read-only bpm u16.16 (uint32_t). The estimated error on the reported sensor data.\n* ```\nconst [heartRateError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.HeartRateReg.Variant": "Constant Variant (uint8_t). The type of physical sensor\n* ```\nconst [variant] = jdunpack<[jacdac.HeartRateVariant]>(buf, \"u8\")\n```",
+  "jacdac.HeartRateVariant.Chest|block": "chest",
+  "jacdac.HeartRateVariant.Finger|block": "finger",
+  "jacdac.HeartRateVariant.Pump|block": "pump",
+  "jacdac.HeartRateVariant.WebCam|block": "web cam",
+  "jacdac.HeartRateVariant.Wrist|block": "wrist",
+  "modules.HeartRateClient.heartRate|block": "%heartrate heart rate (bpm)",
+  "modules.HeartRateClient.onHeartRateChangedBy|block": "on %heartrate heart rate changed by %threshold (bpm)",
+  "modules.heartRate1|block": "heart rate1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Biometric": "Biometric"
+}

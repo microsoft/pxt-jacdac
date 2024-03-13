@@ -1,0 +1,12 @@
+{
+  "jacdac.VibrationMotorCmd.Vibrate": "Starts a sequence of vibration and pauses. To stop any existing vibration, send an empty payload.\n* ```\nconst [rest] = jdunpack<[([number, number])[]]>(buf, \"r: u8 u0.8\")\nconst [duration, intensity] = rest[0]\n```",
+  "jacdac.VibrationMotorCmdPack.Vibrate": "Pack format for 'vibrate' data.",
+  "jacdac.VibrationMotorReg.MaxVibrations": "Constant uint8_t. The maximum number of vibration sequences supported in a single packet.\n* ```\nconst [maxVibrations] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.VibrationMotorRegPack.MaxVibrations": "Pack format for 'max_vibrations' data.",
+  "modules": "Jacdac modules",
+  "modules.VibrationMotorClient": "A vibration motor.",
+  "modules.VibrationMotorClient.stop": "Stops any vibration currently running.",
+  "modules.VibrationMotorClient.vibrate": "Starts a vibration pattern.",
+  "modules.VibrationMotorClient.vibrateMulti": "Starts a sequence of vibration and pauses. To stop any existing vibration, send an empty payload.",
+  "modules.VibrationMotorClient.vibratePattern": "Starts a vibration pattern. Pattern of vibrations: \".\" dit, \"-\" dat, \" \" space, \"_\" low dat, \"=\" hight dat, \"'\" high dit, \",\" low dit."
+}

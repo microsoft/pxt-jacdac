@@ -1,0 +1,15 @@
+{
+  "jacdac.RelayReg.Active": "Read-write bool (uint8_t). Indicates whether the relay circuit is currently energized or not.\n* ```\nconst [active] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.RelayReg.MaxSwitchingCurrent": "Constant mA uint32_t. Maximum switching current for a resistive load.\n* ```\nconst [maxSwitchingCurrent] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "jacdac.RelayReg.Variant": "Constant Variant (uint8_t). Describes the type of relay used.\n* ```\nconst [variant] = jdunpack<[jacdac.RelayVariant]>(buf, \"u8\")\n```",
+  "jacdac.RelayVariant.Electromechanical|block": "electromechanical",
+  "jacdac.RelayVariant.Reed|block": "reed",
+  "jacdac.RelayVariant.SolidState|block": "solid state",
+  "modules.RelayClient.active|block": "%relay active",
+  "modules.RelayClient.setActive|block": "set %relay active to %value",
+  "modules.relay1|block": "relay1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Relay": "Relay"
+}

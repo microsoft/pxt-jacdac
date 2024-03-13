@@ -1,0 +1,16 @@
+{
+  "jacdac.ECO2Reg.ECO2": "Read-only ppm u22.10 (uint32_t). Equivalent CO₂ (eCO₂) readings.\n* ```\nconst [eCO2] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.ECO2Reg.ECO2Error": "Read-only ppm u22.10 (uint32_t). Error on the reading value.\n* ```\nconst [eCO2Error] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.ECO2Reg.MaxECO2": "Constant ppm u22.10 (uint32_t). Minimum measurable value\n* ```\nconst [maxECO2] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.ECO2Reg.MinECO2": "Constant ppm u22.10 (uint32_t). Minimum measurable value\n* ```\nconst [minECO2] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.ECO2Reg.Variant": "Constant Variant (uint8_t). Type of physical sensor and capabilities.\n* ```\nconst [variant] = jdunpack<[jacdac.ECO2Variant]>(buf, \"u8\")\n```",
+  "jacdac.ECO2Variant.NDIR|block": "ndir",
+  "jacdac.ECO2Variant.VOC|block": "voc",
+  "modules.ECO2Client.eCO2|block": "%eco2 e CO2 (ppm)",
+  "modules.ECO2Client.onECO2ChangedBy|block": "on %eco2 e CO2 changed by %threshold (ppm)",
+  "modules.eCO21|block": "e co21",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

@@ -1,0 +1,17 @@
+{
+  "jacdac.AirQualityIndexReg.AqiIndex": "Read-only AQI u16.16 (uint32_t). Air quality index, typically refreshed every second.\n* ```\nconst [aqiIndex] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.AirQualityIndexReg.AqiIndexError": "Read-only AQI u16.16 (uint32_t). Error on the AQI measure.\n* ```\nconst [aqiIndexError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.AirQualityIndexReg.MaxAqiIndex": "Constant AQI u16.16 (uint32_t). Maximum AQI reading, representing a very poor air quality.\n* ```\nconst [maxAqiIndex] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.AirQualityIndexReg.MinAqiIndex": "Constant AQI u16.16 (uint32_t). Minimum AQI reading, representing a good air quality. Typically 0.\n* ```\nconst [minAqiIndex] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.AirQualityIndexRegPack.AqiIndex": "Pack format for 'aqi_index' data.",
+  "jacdac.AirQualityIndexRegPack.AqiIndexError": "Pack format for 'aqi_index_error' data.",
+  "jacdac.AirQualityIndexRegPack.MaxAqiIndex": "Pack format for 'max_aqi_index' data.",
+  "jacdac.AirQualityIndexRegPack.MinAqiIndex": "Pack format for 'min_aqi_index' data.",
+  "modules": "Jacdac modules",
+  "modules.AirQualityIndexClient": "The Air Quality Index is a measure of how clean or polluted air is. From min, good quality, to high, low quality.\nThe range of AQI may vary between countries (https://en.wikipedia.org/wiki/Air_quality_index).",
+  "modules.AirQualityIndexClient.aqiIndex": "Air quality index, typically refreshed every second.",
+  "modules.AirQualityIndexClient.aqiIndexError": "Error on the AQI measure.",
+  "modules.AirQualityIndexClient.maxAqiIndex": "Maximum AQI reading, representing a very poor air quality.",
+  "modules.AirQualityIndexClient.minAqiIndex": "Minimum AQI reading, representing a good air quality. Typically 0.",
+  "modules.AirQualityIndexClient.onAqiIndexChangedBy": "Run code when the aqi index changes by the given threshold value."
+}

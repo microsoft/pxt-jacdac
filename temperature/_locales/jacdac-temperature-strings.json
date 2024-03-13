@@ -1,0 +1,17 @@
+{
+  "jacdac.TemperatureReg.MaxTemperature": "Constant °C i22.10 (int32_t). Highest temperature that can be reported.\n* ```\nconst [maxTemperature] = jdunpack<[number]>(buf, \"i22.10\")\n```",
+  "jacdac.TemperatureReg.MinTemperature": "Constant °C i22.10 (int32_t). Lowest temperature that can be reported.\n* ```\nconst [minTemperature] = jdunpack<[number]>(buf, \"i22.10\")\n```",
+  "jacdac.TemperatureReg.Temperature": "Read-only °C i22.10 (int32_t). The temperature.\n* ```\nconst [temperature] = jdunpack<[number]>(buf, \"i22.10\")\n```",
+  "jacdac.TemperatureReg.TemperatureError": "Read-only °C u22.10 (uint32_t). The real temperature is between `temperature - temperature_error` and `temperature + temperature_error`.\n* ```\nconst [temperatureError] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.TemperatureReg.Variant": "Constant Variant (uint8_t). Specifies the type of thermometer.\n* ```\nconst [variant] = jdunpack<[jacdac.TemperatureVariant]>(buf, \"u8\")\n```",
+  "jacdac.TemperatureVariant.Body|block": "body",
+  "jacdac.TemperatureVariant.Indoor|block": "indoor",
+  "jacdac.TemperatureVariant.Outdoor|block": "outdoor",
+  "modules.TemperatureClient.onTemperatureChangedBy|block": "on %temperature temperature changed by %threshold (°C)",
+  "modules.TemperatureClient.temperature|block": "%temperature temperature (°C)",
+  "modules.temperature1|block": "temperature1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

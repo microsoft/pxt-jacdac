@@ -1,0 +1,15 @@
+{
+  "jacdac.PCControllerCmd.OpenUrl": "Argument: url string (bytes). Open a URL in the default browser.\n* ```\nconst [url] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.PCControllerCmd.RunScript": "Argument: script string (bytes). Run a script.\n* ```\nconst [script] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.PCControllerCmd.SendText": "Argument: text string (bytes). Send text to the active window.\n* ```\nconst [text] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.PCControllerCmd.StartApp": "Argument: name string (bytes). Start an app.\n* ```\nconst [name] = jdunpack<[string]>(buf, \"s\")\n```",
+  "modules.PCController1|block": "pccontroller1",
+  "modules.PCControllerClient.openUrl|block": "%pccontroller open url $url",
+  "modules.PCControllerClient.runScript|block": "%pccontroller run script $script",
+  "modules.PCControllerClient.sendText|block": "%pccontroller send text $text",
+  "modules.PCControllerClient.startApp|block": "%pccontroller start app $name",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}PC controller": "PC controller"
+}

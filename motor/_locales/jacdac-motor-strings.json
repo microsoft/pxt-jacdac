@@ -1,0 +1,16 @@
+{
+  "jacdac.MotorReg.Enabled": "Read-write bool (uint8_t). Turn the power to the motor on/off.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.MotorReg.LoadRotationSpeed": "Constant rpm u16.16 (uint32_t). Revolutions per minute of the motor under full load.\n* ```\nconst [loadRotationSpeed] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.MotorReg.LoadTorque": "Constant kg/cm u16.16 (uint32_t). Torque required to produce the rated power of an electrical motor at load speed.\n* ```\nconst [loadTorque] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.MotorReg.Reversible": "Constant bool (uint8_t). Indicates if the motor can run backwards.\n* ```\nconst [reversible] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.MotorReg.Speed": "Read-write ratio i1.15 (int16_t). Relative speed of the motor. Use positive/negative values to run the motor forwards and backwards.\nPositive is recommended to be clockwise rotation and negative counterclockwise. A speed of ``0``\nwhile ``enabled`` acts as brake.\n* ```\nconst [speed] = jdunpack<[number]>(buf, \"i1.15\")\n```",
+  "modules.MotorClient.brake|block": "brake %motor",
+  "modules.MotorClient.enabled|block": "%motor enabled",
+  "modules.MotorClient.run|block": "run %motor at $speed=speedPicker \\%",
+  "modules.MotorClient.setEnabled|block": "set %motor %value=toggleOnOff",
+  "modules.MotorClient.stop|block": "stop %motor",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Motor": "Motor"
+}

@@ -1,0 +1,21 @@
+{
+  "jacdac.DotMatrixReg.Brightness": "Read-write ratio u0.8 (uint8_t). Reads the general brightness of the display, brightness for LEDs. `0` when the screen is off.\n* ```\nconst [brightness] = jdunpack<[number]>(buf, \"u0.8\")\n```",
+  "jacdac.DotMatrixReg.Columns": "Constant # uint16_t. Number of columns on the screen\n* ```\nconst [columns] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.DotMatrixReg.Dots": "Read-write bytes. The state of the screen where dot on/off state is\nstored as a bit, column by column. The column should be byte aligned.\n* ```\nconst [dots] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.DotMatrixReg.Rows": "Constant # uint16_t. Number of rows on the screen\n* ```\nconst [rows] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.DotMatrixReg.Variant": "Constant Variant (uint8_t). Describes the type of matrix used.\n* ```\nconst [variant] = jdunpack<[jacdac.DotMatrixVariant]>(buf, \"u8\")\n```",
+  "jacdac.DotMatrixVariant.Braille|block": "braille",
+  "jacdac.DotMatrixVariant.LED|block": "led",
+  "modules.DotMatrixClient.brightness|block": "%dotmatrix brightness",
+  "modules.DotMatrixClient.clearDots|block": "clear %dotmatrix dots",
+  "modules.DotMatrixClient.columns|block": "%dotmatrix columns",
+  "modules.DotMatrixClient.rows|block": "%dotmatrix rows",
+  "modules.DotMatrixClient.setBrightness|block": "set %dotmatrix brightness to %value",
+  "modules.DotMatrixClient.setDot|block": "set %dotmatrix dot at x %x y %y to %on=toggleOnOff",
+  "modules.DotMatrixClient.toggleDot|block": "toggle %dotmatrix dot at x $x y $y",
+  "modules.dotMatrix1|block": "dot matrix 1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Display": "Display"
+}

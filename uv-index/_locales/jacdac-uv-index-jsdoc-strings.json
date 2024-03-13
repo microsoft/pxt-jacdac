@@ -1,0 +1,14 @@
+{
+  "jacdac.UvIndexReg.UvIndex": "Read-only uv u16.16 (uint32_t). Ultraviolet index, typically refreshed every second.\n* ```\nconst [uvIndex] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.UvIndexReg.UvIndexError": "Read-only uv u16.16 (uint32_t). Error on the UV measure.\n* ```\nconst [uvIndexError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.UvIndexReg.Variant": "Constant Variant (uint8_t). The type of physical sensor and capabilities.\n* ```\nconst [variant] = jdunpack<[jacdac.UvIndexVariant]>(buf, \"u8\")\n```",
+  "jacdac.UvIndexRegPack.UvIndex": "Pack format for 'uv_index' data.",
+  "jacdac.UvIndexRegPack.UvIndexError": "Pack format for 'uv_index_error' data.",
+  "jacdac.UvIndexRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.UvIndexClient": "The UV Index is a measure of the intensity of ultraviolet (UV) rays from the Sun.",
+  "modules.UvIndexClient.onUvIndexChangedBy": "Run code when the uv index changes by the given threshold value.",
+  "modules.UvIndexClient.uvIndex": "Ultraviolet index, typically refreshed every second.",
+  "modules.UvIndexClient.uvIndexError": "Error on the UV measure.",
+  "modules.UvIndexClient.variant": "The type of physical sensor and capabilities."
+}

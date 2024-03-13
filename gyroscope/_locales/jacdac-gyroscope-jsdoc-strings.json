@@ -1,0 +1,19 @@
+{
+  "jacdac.GyroscopeReg.MaxRate": "Read-write °/s u12.20 (uint32_t). Configures the range of rotation rates.\nThe value will be \"rounded up\" to one of `max_rates_supported`.\n* ```\nconst [maxRate] = jdunpack<[number]>(buf, \"u12.20\")\n```",
+  "jacdac.GyroscopeReg.MaxRatesSupported": "Constant. Lists values supported for writing `max_rate`.\n* ```\nconst [maxRate] = jdunpack<[number[]]>(buf, \"u12.20[]\")\n```",
+  "jacdac.GyroscopeReg.RotationRates": "Indicates the current rates acting on gyroscope.\n* ```\nconst [x, y, z] = jdunpack<[number, number, number]>(buf, \"i12.20 i12.20 i12.20\")\n```",
+  "jacdac.GyroscopeReg.RotationRatesError": "Read-only °/s u12.20 (uint32_t). Error on the reading value.\n* ```\nconst [rotationRatesError] = jdunpack<[number]>(buf, \"u12.20\")\n```",
+  "jacdac.GyroscopeRegPack.MaxRate": "Pack format for 'max_rate' data.",
+  "jacdac.GyroscopeRegPack.MaxRatesSupported": "Pack format for 'max_rates_supported' data.",
+  "jacdac.GyroscopeRegPack.RotationRates": "Pack format for 'rotation_rates' data.",
+  "jacdac.GyroscopeRegPack.RotationRatesError": "Pack format for 'rotation_rates_error' data.",
+  "modules": "Jacdac modules",
+  "modules.GyroscopeClient": "A 3-axis gyroscope.",
+  "modules.GyroscopeClient.maxRate": "Configures the range of rotation rates.\nThe value will be \"rounded up\" to one of `max_rates_supported`.",
+  "modules.GyroscopeClient.maxRatesSupportedMaxRate": "Lists values supported for writing `max_rate`.",
+  "modules.GyroscopeClient.rotationRatesError": "Error on the reading value.",
+  "modules.GyroscopeClient.setMaxRate": "Configures the range of rotation rates.\nThe value will be \"rounded up\" to one of `max_rates_supported`.",
+  "modules.GyroscopeClient.x": "Indicates the current rates acting on gyroscope.",
+  "modules.GyroscopeClient.y": "Indicates the current rates acting on gyroscope.",
+  "modules.GyroscopeClient.z": "Indicates the current rates acting on gyroscope."
+}

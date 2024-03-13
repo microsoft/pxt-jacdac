@@ -1,0 +1,11 @@
+{
+  "jacdac.RainGaugeReg.Precipitation": "Read-only mm u16.16 (uint32_t). Total precipitation recorded so far.\n* ```\nconst [precipitation] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.RainGaugeReg.PrecipitationPrecision": "Constant mm u16.16 (uint32_t). Typically the amount of rain needed for tipping the bucket.\n* ```\nconst [precipitationPrecision] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "modules.RainGaugeClient.onPrecipitationChangedBy|block": "on %raingauge precipitation changed by %threshold (mm)",
+  "modules.RainGaugeClient.precipitation|block": "%raingauge precipitation (mm)",
+  "modules.rainGauge1|block": "rain gauge1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

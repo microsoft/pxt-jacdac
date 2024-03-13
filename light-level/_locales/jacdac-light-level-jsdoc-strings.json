@@ -1,0 +1,14 @@
+{
+  "jacdac.LightLevelReg.LightLevel": "Read-only ratio u0.16 (uint16_t). Detect light level\n* ```\nconst [lightLevel] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.LightLevelReg.LightLevelError": "Read-only ratio u0.16 (uint16_t). Absolute estimated error of the reading value\n* ```\nconst [lightLevelError] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.LightLevelReg.Variant": "Constant Variant (uint8_t). The type of physical sensor.\n* ```\nconst [variant] = jdunpack<[jacdac.LightLevelVariant]>(buf, \"u8\")\n```",
+  "jacdac.LightLevelRegPack.LightLevel": "Pack format for 'light_level' data.",
+  "jacdac.LightLevelRegPack.LightLevelError": "Pack format for 'light_level_error' data.",
+  "jacdac.LightLevelRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.LightLevelClient": "A sensor that measures luminosity level.",
+  "modules.LightLevelClient.lightLevel": "Detect light level",
+  "modules.LightLevelClient.lightLevelError": "Absolute estimated error of the reading value",
+  "modules.LightLevelClient.onLightLevelChangedBy": "Run code when the light level changes by the given threshold value.",
+  "modules.LightLevelClient.variant": "The type of physical sensor."
+}

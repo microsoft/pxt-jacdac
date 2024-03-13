@@ -1,0 +1,14 @@
+{
+  "jacdac.MagnetometerCmd.Calibrate": "No args. Forces a calibration sequence where the user/device\nmight have to rotate to be calibrated.",
+  "jacdac.MagnetometerReg.Forces": "Indicates the current magnetic field on magnetometer.\nFor reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).\n* ```\nconst [x, y, z] = jdunpack<[number, number, number]>(buf, \"i32 i32 i32\")\n```",
+  "jacdac.MagnetometerReg.ForcesError": "Read-only nT int32_t. Absolute estimated error on the readings.\n* ```\nconst [forcesError] = jdunpack<[number]>(buf, \"i32\")\n```",
+  "jacdac.MagnetometerRegPack.Forces": "Pack format for 'forces' data.",
+  "jacdac.MagnetometerRegPack.ForcesError": "Pack format for 'forces_error' data.",
+  "modules": "Jacdac modules",
+  "modules.MagnetometerClient": "A 3-axis magnetometer.",
+  "modules.MagnetometerClient.calibrate": "Forces a calibration sequence where the user/device\nmight have to rotate to be calibrated.",
+  "modules.MagnetometerClient.forcesError": "Absolute estimated error on the readings.",
+  "modules.MagnetometerClient.x": "Indicates the current magnetic field on magnetometer.\nFor reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).",
+  "modules.MagnetometerClient.y": "Indicates the current magnetic field on magnetometer.\nFor reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`).",
+  "modules.MagnetometerClient.z": "Indicates the current magnetic field on magnetometer.\nFor reference: `1 mgauss` is `100 nT` (and `1 gauss` is `100 000 nT`)."
+}

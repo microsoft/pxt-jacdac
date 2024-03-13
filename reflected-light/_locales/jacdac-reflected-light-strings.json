@@ -1,0 +1,13 @@
+{
+  "jacdac.ReflectedLightReg.Brightness": "Read-only ratio u0.16 (uint16_t). Reports the reflected brightness. It may be a digital value or, for some sensor, analog value.\n* ```\nconst [brightness] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.ReflectedLightReg.Variant": "Constant Variant (uint8_t). Type of physical sensor used\n* ```\nconst [variant] = jdunpack<[jacdac.ReflectedLightVariant]>(buf, \"u8\")\n```",
+  "jacdac.ReflectedLightVariant.InfraredAnalog|block": "infrared analog",
+  "jacdac.ReflectedLightVariant.InfraredDigital|block": "infrared digital",
+  "modules.ReflectedLightClient.brightness|block": "%reflectedlight brightness (\\%)",
+  "modules.ReflectedLightClient.onBrightnessChangedBy|block": "on %reflectedlight brightness changed by %threshold (\\%)",
+  "modules.reflectedLight1|block": "reflected light1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

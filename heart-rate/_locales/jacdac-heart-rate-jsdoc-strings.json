@@ -1,0 +1,14 @@
+{
+  "jacdac.HeartRateReg.HeartRate": "Read-only bpm u16.16 (uint32_t). The estimated heart rate.\n* ```\nconst [heartRate] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.HeartRateReg.HeartRateError": "Read-only bpm u16.16 (uint32_t). The estimated error on the reported sensor data.\n* ```\nconst [heartRateError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.HeartRateReg.Variant": "Constant Variant (uint8_t). The type of physical sensor\n* ```\nconst [variant] = jdunpack<[jacdac.HeartRateVariant]>(buf, \"u8\")\n```",
+  "jacdac.HeartRateRegPack.HeartRate": "Pack format for 'heart_rate' data.",
+  "jacdac.HeartRateRegPack.HeartRateError": "Pack format for 'heart_rate_error' data.",
+  "jacdac.HeartRateRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.HeartRateClient": "A sensor approximating the heart rate.\n*\n**Jacdac is NOT suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**",
+  "modules.HeartRateClient.heartRate": "The estimated heart rate.",
+  "modules.HeartRateClient.heartRateError": "The estimated error on the reported sensor data.",
+  "modules.HeartRateClient.onHeartRateChangedBy": "Run code when the heart rate changes by the given threshold value.",
+  "modules.HeartRateClient.variant": "The type of physical sensor"
+}

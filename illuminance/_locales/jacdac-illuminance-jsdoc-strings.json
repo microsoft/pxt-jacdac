@@ -1,0 +1,11 @@
+{
+  "jacdac.IlluminanceReg.Illuminance": "Read-only lux u22.10 (uint32_t). The amount of illuminance, as lumens per square metre.\n* ```\nconst [illuminance] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.IlluminanceReg.IlluminanceError": "Read-only lux u22.10 (uint32_t). Error on the reported sensor value.\n* ```\nconst [illuminanceError] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.IlluminanceRegPack.Illuminance": "Pack format for 'illuminance' data.",
+  "jacdac.IlluminanceRegPack.IlluminanceError": "Pack format for 'illuminance_error' data.",
+  "modules": "Jacdac modules",
+  "modules.IlluminanceClient": "Detects the amount of light falling onto a given surface area.\n* Note that this is different from _luminance_, the amount of light that passes through, emits from, or reflects off an object.",
+  "modules.IlluminanceClient.illuminance": "The amount of illuminance, as lumens per square metre.",
+  "modules.IlluminanceClient.illuminanceError": "Error on the reported sensor value.",
+  "modules.IlluminanceClient.onIlluminanceChangedBy": "Run code when the illuminance changes by the given threshold value."
+}

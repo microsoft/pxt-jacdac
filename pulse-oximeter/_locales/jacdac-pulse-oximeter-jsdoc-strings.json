@@ -1,0 +1,11 @@
+{
+  "jacdac.PulseOximeterReg.Oxygen": "Read-only % u8.8 (uint16_t). The estimated oxygen level in blood.\n* ```\nconst [oxygen] = jdunpack<[number]>(buf, \"u8.8\")\n```",
+  "jacdac.PulseOximeterReg.OxygenError": "Read-only % u8.8 (uint16_t). The estimated error on the reported sensor data.\n* ```\nconst [oxygenError] = jdunpack<[number]>(buf, \"u8.8\")\n```",
+  "jacdac.PulseOximeterRegPack.Oxygen": "Pack format for 'oxygen' data.",
+  "jacdac.PulseOximeterRegPack.OxygenError": "Pack format for 'oxygen_error' data.",
+  "modules": "Jacdac modules",
+  "modules.PulseOximeterClient": "A sensor approximating the oxygen level.\n* **Jacdac is not suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**",
+  "modules.PulseOximeterClient.onOxygenChangedBy": "Run code when the oxygen changes by the given threshold value.",
+  "modules.PulseOximeterClient.oxygen": "The estimated oxygen level in blood.",
+  "modules.PulseOximeterClient.oxygenError": "The estimated error on the reported sensor data."
+}

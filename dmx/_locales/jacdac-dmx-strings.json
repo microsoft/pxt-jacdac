@@ -1,0 +1,12 @@
+{
+  "jacdac.DmxCmd.Send": "Argument: channels bytes. Send a DMX packet, up to 236bytes long, including the start code.\n* ```\nconst [channels] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.DmxReg.Enabled": "Read-write bool (uint8_t). Determines if the DMX bridge is active.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "modules.DmxClient.enabled|block": "%dmx enabled",
+  "modules.DmxClient.send|block": "%dmx send $channels",
+  "modules.DmxClient.setEnabled|block": "set %dmx %value=toggleOnOff",
+  "modules.dmx1|block": "dmx1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}DMX": "DMX"
+}

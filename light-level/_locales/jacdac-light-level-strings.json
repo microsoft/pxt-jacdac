@@ -1,0 +1,15 @@
+{
+  "jacdac.LightLevelReg.LightLevel": "Read-only ratio u0.16 (uint16_t). Detect light level\n* ```\nconst [lightLevel] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.LightLevelReg.LightLevelError": "Read-only ratio u0.16 (uint16_t). Absolute estimated error of the reading value\n* ```\nconst [lightLevelError] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.LightLevelReg.Variant": "Constant Variant (uint8_t). The type of physical sensor.\n* ```\nconst [variant] = jdunpack<[jacdac.LightLevelVariant]>(buf, \"u8\")\n```",
+  "jacdac.LightLevelVariant.PhotoResistor|block": "photo resistor",
+  "jacdac.LightLevelVariant.ReverseBiasedLED|block": "reverse biased led",
+  "modules.LightLevelClient.lightLevel|block": "%lightlevel light level (\\%)",
+  "modules.LightLevelClient.onLightLevelChangedBy|block": "on %lightlevel light level changed by %threshold (\\%)",
+  "modules.lightLevel1|block": "light level1",
+  "modules.lightLevel2|block": "light level2",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

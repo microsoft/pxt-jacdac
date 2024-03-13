@@ -1,0 +1,11 @@
+{
+  "jacdac.ColorReg.Color": "Detected color in the RGB color space.\n* ```\nconst [red, green, blue] = jdunpack<[number, number, number]>(buf, \"u0.16 u0.16 u0.16\")\n```",
+  "modules.ColorClient.blue|block": "%color blue (\\%)",
+  "modules.ColorClient.green|block": "%color green (\\%)",
+  "modules.ColorClient.red|block": "%color red (\\%)",
+  "modules.color1|block": "color1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

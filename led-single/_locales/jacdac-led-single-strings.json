@@ -1,0 +1,23 @@
+{
+  "jacdac.LedSingleCmd.Animate": "This has the same semantics as `set_status_light` in the control service.\n* ```\nconst [toRed, toGreen, toBlue, speed] = jdunpack<[number, number, number, number]>(buf, \"u8 u8 u8 u8\")\n```",
+  "jacdac.LedSingleReg.Color": "The current color of the LED.\n* ```\nconst [red, green, blue] = jdunpack<[number, number, number]>(buf, \"u8 u8 u8\")\n```",
+  "jacdac.LedSingleReg.LedCount": "Constant uint16_t. If known, specifies the number of LEDs in parallel on this device.\n* ```\nconst [ledCount] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.LedSingleReg.LuminousIntensity": "Constant mcd uint16_t. The luminous intensity of the LED, at full value, in micro candella.\n* ```\nconst [luminousIntensity] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.LedSingleReg.MaxPower": "Read-write mA uint16_t. Limit the power drawn by the light-strip (and controller).\n* ```\nconst [maxPower] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.LedSingleReg.Variant": "Constant Variant (uint8_t). The physical type of LED.\n* ```\nconst [variant] = jdunpack<[jacdac.LedSingleVariant]>(buf, \"u8\")\n```",
+  "jacdac.LedSingleReg.WaveLength": "Constant nm uint16_t. If monochrome LED, specifies the wave length of the LED.\n* ```\nconst [waveLength] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.LedSingleVariant.Bead|block": "bead",
+  "jacdac.LedSingleVariant.Power|block": "power",
+  "jacdac.LedSingleVariant.SMD|block": "smd",
+  "jacdac.LedSingleVariant.ThroughHole|block": "through hole",
+  "modules.LedSingleClient.animate|block": "animate %led to %color at speed %speed",
+  "modules.LedSingleClient.blue|block": "blue",
+  "modules.LedSingleClient.color|block": "color",
+  "modules.LedSingleClient.green|block": "green",
+  "modules.LedSingleClient.red|block": "red",
+  "modules.ledSingle1|block": "led1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Light": "Light"
+}

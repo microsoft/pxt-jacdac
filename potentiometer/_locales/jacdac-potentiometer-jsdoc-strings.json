@@ -1,0 +1,11 @@
+{
+  "jacdac.PotentiometerReg.Position": "Read-only ratio u0.16 (uint16_t). The relative position of the slider.\n* ```\nconst [position] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.PotentiometerReg.Variant": "Constant Variant (uint8_t). Specifies the physical layout of the potentiometer.\n* ```\nconst [variant] = jdunpack<[jacdac.PotentiometerVariant]>(buf, \"u8\")\n```",
+  "jacdac.PotentiometerRegPack.Position": "Pack format for 'position' data.",
+  "jacdac.PotentiometerRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.PotentiometerClient": "A slider or rotary potentiometer.",
+  "modules.PotentiometerClient.onPositionChangedBy": "Run code when the position changes by the given threshold value.",
+  "modules.PotentiometerClient.position": "The relative position of the slider.",
+  "modules.PotentiometerClient.variant": "Specifies the physical layout of the potentiometer."
+}

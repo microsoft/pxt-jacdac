@@ -1,0 +1,19 @@
+{
+  "jacdac.BrailleDisplayReg.Enabled": "Read-write bool (uint8_t). Determines if the braille display is active.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.BrailleDisplayReg.Length": "Constant # uint8_t. Gets the number of patterns that can be displayed.\n* ```\nconst [length] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.BrailleDisplayReg.Patterns": "Read-write string (bytes). Braille patterns to show. Must be unicode characters between `0x2800` and `0x28ff`.\n* ```\nconst [patterns] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.BrailleDisplayRegPack.Enabled": "Pack format for 'enabled' data.",
+  "jacdac.BrailleDisplayRegPack.Length": "Pack format for 'length' data.",
+  "jacdac.BrailleDisplayRegPack.Patterns": "Pack format for 'patterns' data.",
+  "modules": "Jacdac modules",
+  "modules.BrailleDisplayClient": "A Braille pattern display module. This module display [unicode braille patterns](https://www.unicode.org/charts/PDF/U2800.pdf), country specific encoding have to be implemented by the clients.",
+  "modules.BrailleDisplayClient.enabled": "Determines if the braille display is active.",
+  "modules.BrailleDisplayClient.length": "Gets the number of patterns that can be displayed.",
+  "modules.BrailleDisplayClient.patterns": "Braille patterns to show. Must be unicode characters between `0x2800` and `0x28ff`.",
+  "modules.BrailleDisplayClient.setEnabled": "Determines if the braille display is active.",
+  "modules.BrailleDisplayClient.setPatterns": "Braille patterns to show. Must be unicode characters between `0x2800` and `0x28ff`.",
+  "modules.BrailleDisplayClient.showNumber": "Displays the number.\nEnables the display if needed.",
+  "modules.BrailleDisplayClient.showString": "Sets the text as Braille ASCII or Unicode Braille characters.\nEnables the display if needed.",
+  "modules.BrailleDisplayClient.showString|param|text": "Braille ASCII or Unicode Braille characters to display",
+  "modules.brailify": "Converts a string from unicode Braille or Braille ASCII to unicode braille"
+}

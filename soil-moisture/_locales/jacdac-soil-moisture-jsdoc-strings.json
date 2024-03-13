@@ -1,0 +1,14 @@
+{
+  "jacdac.SoilMoistureReg.Moisture": "Read-only ratio u0.16 (uint16_t). Indicates the wetness of the soil, from `dry` to `wet`.\n* ```\nconst [moisture] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.SoilMoistureReg.MoistureError": "Read-only ratio u0.16 (uint16_t). The error on the moisture reading.\n* ```\nconst [moistureError] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.SoilMoistureReg.Variant": "Constant Variant (uint8_t). Describe the type of physical sensor.\n* ```\nconst [variant] = jdunpack<[jacdac.SoilMoistureVariant]>(buf, \"u8\")\n```",
+  "jacdac.SoilMoistureRegPack.Moisture": "Pack format for 'moisture' data.",
+  "jacdac.SoilMoistureRegPack.MoistureError": "Pack format for 'moisture_error' data.",
+  "jacdac.SoilMoistureRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.SoilMoistureClient": "A soil moisture sensor.",
+  "modules.SoilMoistureClient.moisture": "Indicates the wetness of the soil, from `dry` to `wet`.",
+  "modules.SoilMoistureClient.moistureError": "The error on the moisture reading.",
+  "modules.SoilMoistureClient.onMoistureChangedBy": "Run code when the moisture changes by the given threshold value.",
+  "modules.SoilMoistureClient.variant": "Describe the type of physical sensor."
+}

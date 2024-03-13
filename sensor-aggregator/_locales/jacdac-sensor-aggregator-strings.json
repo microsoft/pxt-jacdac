@@ -1,0 +1,14 @@
+{
+  "jacdac.SensorAggregatorReg.CurrentSample": "Read-only bytes. Last collected sample.\n* ```\nconst [currentSample] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.SensorAggregatorReg.Inputs": "Set automatic input collection.\nThese settings are stored in flash.\n* ```\nconst [samplingInterval, samplesInWindow, rest] = jdunpack<[number, number, ([Buffer, number, number, number, jacdac.SensorAggregatorSampleType, number])[]]>(buf, \"u16 u16 x[4] r: b[8] u32 u8 u8 u8 i8\")\nconst [deviceId, serviceClass, serviceNum, sampleSize, sampleType, sampleShift] = rest[0]\n```",
+  "jacdac.SensorAggregatorReg.NumSamples": "Read-only uint32_t. Number of input samples collected so far.\n* ```\nconst [numSamples] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "jacdac.SensorAggregatorReg.SampleSize": "Read-only B uint8_t. Size of a single sample.\n* ```\nconst [sampleSize] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SensorAggregatorReg.StreamingSamples": "Read-write # uint32_t. When set to `N`, will stream `N` samples as `current_sample` reading.\n* ```\nconst [streamingSamples] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "jacdac.SensorAggregatorSampleType.I16|block": "i16",
+  "jacdac.SensorAggregatorSampleType.I32|block": "i32",
+  "jacdac.SensorAggregatorSampleType.I8|block": "i8",
+  "jacdac.SensorAggregatorSampleType.U16|block": "u16",
+  "jacdac.SensorAggregatorSampleType.U32|block": "u32",
+  "jacdac.SensorAggregatorSampleType.U8|block": "u8",
+  "{id:category}Jacdac": "Jacdac"
+}
