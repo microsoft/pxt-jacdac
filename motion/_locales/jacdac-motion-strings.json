@@ -1,0 +1,16 @@
+{
+  "jacdac.MotionEvent.Movement": "A movement was detected.",
+  "jacdac.MotionEvent.Movement|block": "movement",
+  "jacdac.MotionReg.Angle": "Constant ° uint16_t. Opening of the field of view\n* ```\nconst [angle] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.MotionReg.MaxDistance": "Constant m u16.16 (uint32_t). Maximum distance where objects can be detected.\n* ```\nconst [maxDistance] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.MotionReg.Moving": "Read-only bool (uint8_t). Reports is movement is currently detected by the sensor.\n* ```\nconst [moving] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.MotionReg.Variant": "Constant Variant (uint8_t). Type of physical sensor\n* ```\nconst [variant] = jdunpack<[jacdac.MotionVariant]>(buf, \"u8\")\n```",
+  "jacdac.MotionVariant.PIR|block": "pir",
+  "modules.MotionClient.moving|block": "%motion moving",
+  "modules.MotionClient.onEvent|block": "on %motion %event",
+  "modules.motion1|block": "motion1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Movement": "Movement"
+}

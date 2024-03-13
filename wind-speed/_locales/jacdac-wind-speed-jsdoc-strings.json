@@ -1,0 +1,14 @@
+{
+  "jacdac.WindSpeedReg.MaxWindSpeed": "Constant m/s u16.16 (uint32_t). Maximum speed that can be measured by the sensor.\n* ```\nconst [maxWindSpeed] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.WindSpeedReg.WindSpeed": "Read-only m/s u16.16 (uint32_t). The velocity of the wind.\n* ```\nconst [windSpeed] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.WindSpeedReg.WindSpeedError": "Read-only m/s u16.16 (uint32_t). Error on the reading\n* ```\nconst [windSpeedError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.WindSpeedRegPack.MaxWindSpeed": "Pack format for 'max_wind_speed' data.",
+  "jacdac.WindSpeedRegPack.WindSpeed": "Pack format for 'wind_speed' data.",
+  "jacdac.WindSpeedRegPack.WindSpeedError": "Pack format for 'wind_speed_error' data.",
+  "modules": "Jacdac modules",
+  "modules.WindSpeedClient": "A sensor that measures wind speed.",
+  "modules.WindSpeedClient.maxWindSpeed": "Maximum speed that can be measured by the sensor.",
+  "modules.WindSpeedClient.onWindSpeedChangedBy": "Run code when the wind speed changes by the given threshold value.",
+  "modules.WindSpeedClient.windSpeed": "The velocity of the wind.",
+  "modules.WindSpeedClient.windSpeedError": "Error on the reading"
+}

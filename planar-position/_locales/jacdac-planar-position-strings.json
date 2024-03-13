@@ -1,0 +1,12 @@
+{
+  "jacdac.PlanarPositionReg.Position": "The current position of the sensor.\n* ```\nconst [x, y] = jdunpack<[number, number]>(buf, \"i22.10 i22.10\")\n```",
+  "jacdac.PlanarPositionReg.Variant": "Constant Variant (uint8_t). Specifies the type of physical sensor.\n* ```\nconst [variant] = jdunpack<[jacdac.PlanarPositionVariant]>(buf, \"u8\")\n```",
+  "jacdac.PlanarPositionVariant.OpticalMousePosition|block": "optical mouse position",
+  "modules.PlanarPositionClient.x|block": "%planarposition x (mm)",
+  "modules.PlanarPositionClient.y|block": "%planarposition y (mm)",
+  "modules.planarPosition1|block": "planar position1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Movement": "Movement"
+}

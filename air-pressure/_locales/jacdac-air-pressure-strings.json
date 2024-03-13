@@ -1,0 +1,13 @@
+{
+  "jacdac.AirPressureReg.MaxPressure": "Constant hPa u22.10 (uint32_t). Highest air pressure that can be reported.\n* ```\nconst [maxPressure] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.AirPressureReg.MinPressure": "Constant hPa u22.10 (uint32_t). Lowest air pressure that can be reported.\n* ```\nconst [minPressure] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.AirPressureReg.Pressure": "Read-only hPa u22.10 (uint32_t). The air pressure.\n* ```\nconst [pressure] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.AirPressureReg.PressureError": "Read-only hPa u22.10 (uint32_t). The real pressure is between `pressure - pressure_error` and `pressure + pressure_error`.\n* ```\nconst [pressureError] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "modules.AirPressureClient.onPressureChangedBy|block": "on %airpressure pressure changed by %threshold (hPa)",
+  "modules.AirPressureClient.pressure|block": "%airpressure pressure (hPa)",
+  "modules.airPressure1|block": "air pressure1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Environment": "Environment"
+}

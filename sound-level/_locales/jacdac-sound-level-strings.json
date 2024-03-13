@@ -1,0 +1,20 @@
+{
+  "jacdac.SoundLevelEvent.Loud": "Generated when a loud sound is detected.",
+  "jacdac.SoundLevelEvent.Loud|block": "loud",
+  "jacdac.SoundLevelEvent.Quiet": "Generated low level of sound is detected.",
+  "jacdac.SoundLevelEvent.Quiet|block": "quiet",
+  "jacdac.SoundLevelReg.Enabled": "Read-write bool (uint8_t). Turn on or off the microphone.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SoundLevelReg.LoudThreshold": "Read-write ratio u0.16 (uint16_t). Set level at which the `loud` event is generated.\n* ```\nconst [loudThreshold] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.SoundLevelReg.QuietThreshold": "Read-write ratio u0.16 (uint16_t). Set level at which the `quiet` event is generated.\n* ```\nconst [quietThreshold] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.SoundLevelReg.SoundLevel": "Read-only ratio u0.16 (uint16_t). The sound level detected by the microphone\n* ```\nconst [soundLevel] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "modules.SoundLevelClient.enabled|block": "%soundlevel enabled",
+  "modules.SoundLevelClient.onEvent|block": "on %soundlevel %event",
+  "modules.SoundLevelClient.onSoundLevelChangedBy|block": "on %soundlevel sound level changed by %threshold (\\%)",
+  "modules.SoundLevelClient.setEnabled|block": "set %soundlevel %value=toggleOnOff",
+  "modules.SoundLevelClient.soundLevel|block": "%soundlevel sound level (\\%)",
+  "modules.soundLevel1|block": "sound level1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Sound": "Sound"
+}

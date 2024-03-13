@@ -1,0 +1,18 @@
+{
+  "jacdac.SpeechSynthesisCmd.Cancel": "No args. Cancels current utterance and all utterances from the utterance queue.",
+  "jacdac.SpeechSynthesisCmd.Speak": "Argument: text string (bytes). Adds an utterance to the utterance queue; it will be spoken when any other utterances queued before it have been spoken.\n* ```\nconst [text] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.SpeechSynthesisReg.Enabled": "Read-write bool (uint8_t). Determines if the speech engine is in a non-paused state.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SpeechSynthesisReg.Lang": "Read-write string (bytes). Language used for utterances as defined in https://www.ietf.org/rfc/bcp/bcp47.txt.\n* ```\nconst [lang] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.SpeechSynthesisReg.Pitch": "Read-write u16.16 (uint32_t). Pitch for utterances\n* ```\nconst [pitch] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.SpeechSynthesisReg.Rate": "Read-write u16.16 (uint32_t). Rate for utterances\n* ```\nconst [rate] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.SpeechSynthesisReg.Volume": "Read-write ratio u0.8 (uint8_t). Volume for utterances.\n* ```\nconst [volume] = jdunpack<[number]>(buf, \"u0.8\")\n```",
+  "modules.SpeechSynthesisClient.cancel|block": "%speechsynthesis cancel",
+  "modules.SpeechSynthesisClient.enabled|block": "%speechsynthesis enabled",
+  "modules.SpeechSynthesisClient.setEnabled|block": "set %speechsynthesis %value=toggleOnOff",
+  "modules.SpeechSynthesisClient.speak|block": "%speechsynthesis speak $text",
+  "modules.speechSynthesis1|block": "speech synthesis1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Speech synthesis": "Speech synthesis"
+}

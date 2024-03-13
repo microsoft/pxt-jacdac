@@ -1,0 +1,14 @@
+{
+  "jacdac.GyroscopeReg.MaxRate": "Read-write °/s u12.20 (uint32_t). Configures the range of rotation rates.\nThe value will be \"rounded up\" to one of `max_rates_supported`.\n* ```\nconst [maxRate] = jdunpack<[number]>(buf, \"u12.20\")\n```",
+  "jacdac.GyroscopeReg.MaxRatesSupported": "Constant. Lists values supported for writing `max_rate`.\n* ```\nconst [maxRate] = jdunpack<[number[]]>(buf, \"u12.20[]\")\n```",
+  "jacdac.GyroscopeReg.RotationRates": "Indicates the current rates acting on gyroscope.\n* ```\nconst [x, y, z] = jdunpack<[number, number, number]>(buf, \"i12.20 i12.20 i12.20\")\n```",
+  "jacdac.GyroscopeReg.RotationRatesError": "Read-only °/s u12.20 (uint32_t). Error on the reading value.\n* ```\nconst [rotationRatesError] = jdunpack<[number]>(buf, \"u12.20\")\n```",
+  "modules.GyroscopeClient.x|block": "%gyroscope x (°/s)",
+  "modules.GyroscopeClient.y|block": "%gyroscope y (°/s)",
+  "modules.GyroscopeClient.z|block": "%gyroscope z (°/s)",
+  "modules.gyroscope1|block": "gyroscope1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Movement": "Movement"
+}

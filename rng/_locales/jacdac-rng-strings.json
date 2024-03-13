@@ -1,0 +1,12 @@
+{
+  "jacdac.RngReg.Random": "Read-only bytes. A register that returns a 64 bytes random buffer on every request.\nThis never blocks for a long time. If you need additional random bytes, keep querying the register.\n* ```\nconst [random] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.RngReg.Variant": "Constant Variant (uint8_t). The type of algorithm/technique used to generate the number.\n`Quantum` refers to dedicated hardware device generating random noise due to quantum effects.\n`ADCNoise` is the noise from quick readings of analog-digital converter, which reads temperature of the MCU or some floating pin.\n`WebCrypto` refers is used in simulators, where the source of randomness comes from an advanced operating system.\n* ```\nconst [variant] = jdunpack<[jacdac.RngVariant]>(buf, \"u8\")\n```",
+  "jacdac.RngVariant.ADCNoise|block": "adcnoise",
+  "jacdac.RngVariant.Quantum|block": "quantum",
+  "jacdac.RngVariant.WebCrypto|block": "web crypto",
+  "modules.rng1|block": "rng1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Random Number Generator": "Random Number Generator"
+}

@@ -1,0 +1,15 @@
+{
+  "jacdac.PotentiometerReg.Position": "Read-only ratio u0.16 (uint16_t). The relative position of the slider.\n* ```\nconst [position] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.PotentiometerReg.Variant": "Constant Variant (uint8_t). Specifies the physical layout of the potentiometer.\n* ```\nconst [variant] = jdunpack<[jacdac.PotentiometerVariant]>(buf, \"u8\")\n```",
+  "jacdac.PotentiometerVariant.Hall|block": "hall",
+  "jacdac.PotentiometerVariant.Rotary|block": "rotary",
+  "jacdac.PotentiometerVariant.Slider|block": "slider",
+  "modules.PotentiometerClient.onPositionChangedBy|block": "on %potentiometer position changed by %threshold (\\%)",
+  "modules.PotentiometerClient.position|block": "%potentiometer position (\\%)",
+  "modules.potentiometer1|block": "potentiometer1",
+  "modules.potentiometer2|block": "potentiometer2",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Slider": "Slider"
+}

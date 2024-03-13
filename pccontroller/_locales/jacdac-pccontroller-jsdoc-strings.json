@@ -1,0 +1,16 @@
+{
+  "jacdac.PCControllerCmd.OpenUrl": "Argument: url string (bytes). Open a URL in the default browser.\n* ```\nconst [url] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.PCControllerCmd.RunScript": "Argument: script string (bytes). Run a script.\n* ```\nconst [script] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.PCControllerCmd.SendText": "Argument: text string (bytes). Send text to the active window.\n* ```\nconst [text] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.PCControllerCmd.StartApp": "Argument: name string (bytes). Start an app.\n* ```\nconst [name] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.PCControllerCmdPack.OpenUrl": "Pack format for 'open_url' data.",
+  "jacdac.PCControllerCmdPack.RunScript": "Pack format for 'run_script' data.",
+  "jacdac.PCControllerCmdPack.SendText": "Pack format for 'send_text' data.",
+  "jacdac.PCControllerCmdPack.StartApp": "Pack format for 'start_app' data.",
+  "modules": "Jacdac modules",
+  "modules.PCControllerClient": "Send various events to PC, including opening a URL, start an app, sending text, etc.",
+  "modules.PCControllerClient.openUrl": "Open a URL in the default browser.",
+  "modules.PCControllerClient.runScript": "Run a script.",
+  "modules.PCControllerClient.sendText": "Send text to the active window.",
+  "modules.PCControllerClient.startApp": "Start an app."
+}

@@ -1,0 +1,19 @@
+{
+  "jacdac.DistanceReg.Distance": "Read-only m u16.16 (uint32_t). Current distance from the object\n* ```\nconst [distance] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.DistanceReg.DistanceError": "Read-only m u16.16 (uint32_t). Absolute error on the reading value.\n* ```\nconst [distanceError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.DistanceReg.MaxRange": "Constant m u16.16 (uint32_t). Maximum measurable distance\n* ```\nconst [maxRange] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.DistanceReg.MinRange": "Constant m u16.16 (uint32_t). Minimum measurable distance\n* ```\nconst [minRange] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.DistanceReg.Variant": "Constant Variant (uint8_t). Determines the type of sensor used.\n* ```\nconst [variant] = jdunpack<[jacdac.DistanceVariant]>(buf, \"u8\")\n```",
+  "jacdac.DistanceVariant.Infrared|block": "infrared",
+  "jacdac.DistanceVariant.Laser|block": "laser",
+  "jacdac.DistanceVariant.LiDAR|block": "li dar",
+  "jacdac.DistanceVariant.Ultrasonic|block": "ultrasonic",
+  "modules.DistanceClient.distance|block": "%distance distance (m)",
+  "modules.DistanceClient.onDistanceChangedBy|block": "on %distance distance changed by %threshold (m)",
+  "modules.distance1|block": "distance1",
+  "modules.distance2|block": "distance2",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Distance": "Distance"
+}

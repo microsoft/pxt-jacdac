@@ -1,0 +1,19 @@
+{
+  "jacdac.MotionEvent.Movement": "A movement was detected.",
+  "jacdac.MotionReg.Angle": "Constant ° uint16_t. Opening of the field of view\n* ```\nconst [angle] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.MotionReg.MaxDistance": "Constant m u16.16 (uint32_t). Maximum distance where objects can be detected.\n* ```\nconst [maxDistance] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.MotionReg.Moving": "Read-only bool (uint8_t). Reports is movement is currently detected by the sensor.\n* ```\nconst [moving] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.MotionReg.Variant": "Constant Variant (uint8_t). Type of physical sensor\n* ```\nconst [variant] = jdunpack<[jacdac.MotionVariant]>(buf, \"u8\")\n```",
+  "jacdac.MotionRegPack.Angle": "Pack format for 'angle' data.",
+  "jacdac.MotionRegPack.MaxDistance": "Pack format for 'max_distance' data.",
+  "jacdac.MotionRegPack.Moving": "Pack format for 'moving' data.",
+  "jacdac.MotionRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.MotionClient": "A sensor, typically PIR, that detects object motion within a certain range",
+  "modules.MotionClient.angle": "Opening of the field of view",
+  "modules.MotionClient.maxDistance": "Maximum distance where objects can be detected.",
+  "modules.MotionClient.moving": "Reports is movement is currently detected by the sensor.",
+  "modules.MotionClient.onEvent": "Register code to run when an event is raised",
+  "modules.MotionClient.onMovement": "A movement was detected.",
+  "modules.MotionClient.variant": "Type of physical sensor"
+}

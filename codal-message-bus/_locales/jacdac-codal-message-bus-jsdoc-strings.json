@@ -1,0 +1,6 @@
+{
+  "jacdac.CodalMessageBusCmd.Send": "Send a message on the CODAL bus. If `source` is `0`, it is treated as wildcard.\n* ```\nconst [source, value] = jdunpack<[number, number]>(buf, \"u16 u16\")\n```",
+  "jacdac.CodalMessageBusCmdPack.Send": "Pack format for 'send' data.",
+  "jacdac.CodalMessageBusEvent.Message": "Raised by the server is triggered by the server. The filtering logic of which event to send over Jacdac is up to the server implementation.\n* ```\nconst [source, value] = jdunpack<[number, number]>(buf, \"u16 u16\")\n```",
+  "jacdac.CodalMessageBusEventPack.Message": "Pack format for 'message' data."
+}

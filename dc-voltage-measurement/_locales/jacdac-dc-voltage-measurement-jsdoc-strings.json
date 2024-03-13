@@ -1,0 +1,23 @@
+{
+  "jacdac.DcVoltageMeasurementReg.MaxMeasurement": "Constant V f64 (uint64_t). Maximum measurable current\n* ```\nconst [maxMeasurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcVoltageMeasurementReg.Measurement": "Read-only V f64 (uint64_t). The voltage measurement.\n* ```\nconst [measurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcVoltageMeasurementReg.MeasurementError": "Read-only V f64 (uint64_t). Absolute error on the reading value.\n* ```\nconst [measurementError] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcVoltageMeasurementReg.MeasurementName": "Constant string (bytes). A string containing the net name that is being measured e.g. `POWER_DUT` or a reference e.g. `DIFF_DEV1_DEV2`. These constants can be used to identify a measurement from client code.\n* ```\nconst [measurementName] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.DcVoltageMeasurementReg.MeasurementType": "Constant VoltageMeasurementType (uint8_t). The type of measurement that is taking place. Absolute results are measured with respect to ground, whereas differential results are measured against another signal that is not ground.\n* ```\nconst [measurementType] = jdunpack<[jacdac.DcVoltageMeasurementVoltageMeasurementType]>(buf, \"u8\")\n```",
+  "jacdac.DcVoltageMeasurementReg.MinMeasurement": "Constant V f64 (uint64_t). Minimum measurable current\n* ```\nconst [minMeasurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcVoltageMeasurementRegPack.MaxMeasurement": "Pack format for 'max_measurement' data.",
+  "jacdac.DcVoltageMeasurementRegPack.Measurement": "Pack format for 'measurement' data.",
+  "jacdac.DcVoltageMeasurementRegPack.MeasurementError": "Pack format for 'measurement_error' data.",
+  "jacdac.DcVoltageMeasurementRegPack.MeasurementName": "Pack format for 'measurement_name' data.",
+  "jacdac.DcVoltageMeasurementRegPack.MeasurementType": "Pack format for 'measurement_type' data.",
+  "jacdac.DcVoltageMeasurementRegPack.MinMeasurement": "Pack format for 'min_measurement' data.",
+  "modules": "Jacdac modules",
+  "modules.DcVoltageMeasurementClient": "A service that reports a voltage measurement.",
+  "modules.DcVoltageMeasurementClient.maxMeasurement": "Maximum measurable current",
+  "modules.DcVoltageMeasurementClient.measurement": "The voltage measurement.",
+  "modules.DcVoltageMeasurementClient.measurementError": "Absolute error on the reading value.",
+  "modules.DcVoltageMeasurementClient.measurementName": "A string containing the net name that is being measured e.g. `POWER_DUT` or a reference e.g. `DIFF_DEV1_DEV2`. These constants can be used to identify a measurement from client code.",
+  "modules.DcVoltageMeasurementClient.measurementType": "The type of measurement that is taking place. Absolute results are measured with respect to ground, whereas differential results are measured against another signal that is not ground.",
+  "modules.DcVoltageMeasurementClient.minMeasurement": "Minimum measurable current",
+  "modules.DcVoltageMeasurementClient.onMeasurementChangedBy": "Run code when the measurement changes by the given threshold value."
+}

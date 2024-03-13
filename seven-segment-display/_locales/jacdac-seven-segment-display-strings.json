@@ -1,0 +1,16 @@
+{
+  "jacdac.SevenSegmentDisplayCmd.SetNumber": "Argument: value f64 (uint64_t). Shows the number on the screen using the decimal dot if available.",
+  "jacdac.SevenSegmentDisplayReg.Brightness": "Read-write ratio u0.16 (uint16_t). Controls the brightness of the LEDs. `0` means off.\n* ```\nconst [brightness] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.SevenSegmentDisplayReg.DecimalPoint": "Constant bool (uint8_t). True if decimal points are available (on all digits).\n* ```\nconst [decimalPoint] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SevenSegmentDisplayReg.DigitCount": "Constant uint8_t. The number of digits available on the display.\n* ```\nconst [digitCount] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SevenSegmentDisplayReg.Digits": "Read-write bytes. Each byte encodes the display status of a digit using,\nwhere lowest bit 0 encodes segment `A`, bit 1 encodes segments `B`, ..., bit 6 encodes segments `G`, and bit 7 encodes the decimal point (if present).\nIf incoming `digits` data is smaller than `digit_count`, the remaining digits will be cleared.\nThus, sending an empty `digits` payload clears the screen.\n* ```\nconst [digits] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.SevenSegmentDisplayReg.DoubleDots": "Read-write bool (uint8_t). Turn on or off the column LEDs (separating minutes from hours, etc.) in of the segment.\nIf the column LEDs is not supported, the value remains false.\n* ```\nconst [doubleDots] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "modules.SevenSegmentDisplayClient.brightness|block": "%sevensegmentdisplay brightness",
+  "modules.SevenSegmentDisplayClient.setBrightness|block": "set %sevensegmentdisplay brightness to %value",
+  "modules.SevenSegmentDisplayClient.setNumber|block": "%sevensegmentdisplay set number $value",
+  "modules.sevenSegmentDisplay1|block": "seven segment display1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Display": "Display"
+}

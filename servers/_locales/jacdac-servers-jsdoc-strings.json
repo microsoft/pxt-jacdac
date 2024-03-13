@@ -1,0 +1,4 @@
+{
+  "servers": "Blocs to handle Jacdac servers",
+  "servers.startServer": "Starts a jacdac server. Add this bloc at the start of ``on start``."
+}

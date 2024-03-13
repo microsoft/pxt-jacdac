@@ -1,0 +1,17 @@
+{
+  "jacdac.DcVoltageMeasurementReg.MaxMeasurement": "Constant V f64 (uint64_t). Maximum measurable current\n* ```\nconst [maxMeasurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcVoltageMeasurementReg.Measurement": "Read-only V f64 (uint64_t). The voltage measurement.\n* ```\nconst [measurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcVoltageMeasurementReg.MeasurementError": "Read-only V f64 (uint64_t). Absolute error on the reading value.\n* ```\nconst [measurementError] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcVoltageMeasurementReg.MeasurementName": "Constant string (bytes). A string containing the net name that is being measured e.g. `POWER_DUT` or a reference e.g. `DIFF_DEV1_DEV2`. These constants can be used to identify a measurement from client code.\n* ```\nconst [measurementName] = jdunpack<[string]>(buf, \"s\")\n```",
+  "jacdac.DcVoltageMeasurementReg.MeasurementType": "Constant VoltageMeasurementType (uint8_t). The type of measurement that is taking place. Absolute results are measured with respect to ground, whereas differential results are measured against another signal that is not ground.\n* ```\nconst [measurementType] = jdunpack<[jacdac.DcVoltageMeasurementVoltageMeasurementType]>(buf, \"u8\")\n```",
+  "jacdac.DcVoltageMeasurementReg.MinMeasurement": "Constant V f64 (uint64_t). Minimum measurable current\n* ```\nconst [minMeasurement] = jdunpack<[number]>(buf, \"f64\")\n```",
+  "jacdac.DcVoltageMeasurementVoltageMeasurementType.Absolute|block": "absolute",
+  "jacdac.DcVoltageMeasurementVoltageMeasurementType.Differential|block": "differential",
+  "modules.DcVoltageMeasurementClient.measurement|block": "%dcvoltagemeasurement measurement (V)",
+  "modules.DcVoltageMeasurementClient.onMeasurementChangedBy|block": "on %dcvoltagemeasurement measurement changed by %threshold (V)",
+  "modules.dcVoltageMeasurement1|block": "dc voltage measurement1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}DC Voltage Measurement": "DC Voltage Measurement"
+}

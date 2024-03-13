@@ -1,0 +1,22 @@
+{
+  "jacdac.DotMatrixReg.Brightness": "Read-write ratio u0.8 (uint8_t). Reads the general brightness of the display, brightness for LEDs. `0` when the screen is off.\n* ```\nconst [brightness] = jdunpack<[number]>(buf, \"u0.8\")\n```",
+  "jacdac.DotMatrixReg.Columns": "Constant # uint16_t. Number of columns on the screen\n* ```\nconst [columns] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.DotMatrixReg.Dots": "Read-write bytes. The state of the screen where dot on/off state is\nstored as a bit, column by column. The column should be byte aligned.\n* ```\nconst [dots] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.DotMatrixReg.Rows": "Constant # uint16_t. Number of rows on the screen\n* ```\nconst [rows] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.DotMatrixReg.Variant": "Constant Variant (uint8_t). Describes the type of matrix used.\n* ```\nconst [variant] = jdunpack<[jacdac.DotMatrixVariant]>(buf, \"u8\")\n```",
+  "jacdac.DotMatrixRegPack.Brightness": "Pack format for 'brightness' data.",
+  "jacdac.DotMatrixRegPack.Columns": "Pack format for 'columns' data.",
+  "jacdac.DotMatrixRegPack.Dots": "Pack format for 'dots' data.",
+  "jacdac.DotMatrixRegPack.Rows": "Pack format for 'rows' data.",
+  "jacdac.DotMatrixRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.DotMatrixClient": "A rectangular dot matrix display, made of monochrome LEDs or braille pins.",
+  "modules.DotMatrixClient.brightness": "Reads the general brightness of the display, brightness for LEDs. `0` when the screen is off.",
+  "modules.DotMatrixClient.clearDots": "Clear all dots\n//% \n//% \n//% \n//%",
+  "modules.DotMatrixClient.columns": "Number of columns on the screen",
+  "modules.DotMatrixClient.rows": "Number of rows on the screen",
+  "modules.DotMatrixClient.setBrightness": "Reads the general brightness of the display, brightness for LEDs. `0` when the screen is off.",
+  "modules.DotMatrixClient.setDot": "Sets a dot entry to a particular value\n//% \n//% \n//% \n//%",
+  "modules.DotMatrixClient.toggleDot": "Toggle a dot\n//% \n//% \n//% \n//%",
+  "modules.DotMatrixClient.variant": "Describes the type of matrix used."
+}

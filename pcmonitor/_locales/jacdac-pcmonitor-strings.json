@@ -1,0 +1,12 @@
+{
+  "jacdac.PCMonitorReg.CpuTemperature": "Read-only °C uint8_t. CPU temperature in Celsius.\n* ```\nconst [cpuTemperature] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.PCMonitorReg.CpuUsage": "Read-only % uint8_t. CPU usage in percent.\n* ```\nconst [cpuUsage] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.PCMonitorReg.GpuInformation": "GPU info.\n* ```\nconst [usage, temperature] = jdunpack<[number, number]>(buf, \"u8 u8\")\n```",
+  "jacdac.PCMonitorReg.NetworkInformation": "Network transmit/receive speed in Kbytes per second.\n* ```\nconst [tx, rx] = jdunpack<[number, number]>(buf, \"u16 u16\")\n```",
+  "jacdac.PCMonitorReg.RamUsage": "Read-only % uint8_t. RAM usage in percent.\n* ```\nconst [ramUsage] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "modules.PCMonitor1|block": "pcmonitor1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}PC monitor": "PC monitor"
+}

@@ -1,0 +1,11 @@
+{
+  "jacdac.DmxCmd.Send": "Argument: channels bytes. Send a DMX packet, up to 236bytes long, including the start code.\n* ```\nconst [channels] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.DmxCmdPack.Send": "Pack format for 'send' data.",
+  "jacdac.DmxReg.Enabled": "Read-write bool (uint8_t). Determines if the DMX bridge is active.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.DmxRegPack.Enabled": "Pack format for 'enabled' data.",
+  "modules": "Jacdac modules",
+  "modules.DmxClient": "A service that can send DMX512-A packets with limited size. This service is designed to allow tinkering with a few DMX devices, but only allows 235 channels. More about DMX at https://en.wikipedia.org/wiki/DMX512.",
+  "modules.DmxClient.enabled": "Determines if the DMX bridge is active.",
+  "modules.DmxClient.send": "Send a DMX packet, up to 236bytes long, including the start code.",
+  "modules.DmxClient.setEnabled": "Determines if the DMX bridge is active."
+}

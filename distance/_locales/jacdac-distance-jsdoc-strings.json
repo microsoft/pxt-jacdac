@@ -1,0 +1,20 @@
+{
+  "jacdac.DistanceReg.Distance": "Read-only m u16.16 (uint32_t). Current distance from the object\n* ```\nconst [distance] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.DistanceReg.DistanceError": "Read-only m u16.16 (uint32_t). Absolute error on the reading value.\n* ```\nconst [distanceError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.DistanceReg.MaxRange": "Constant m u16.16 (uint32_t). Maximum measurable distance\n* ```\nconst [maxRange] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.DistanceReg.MinRange": "Constant m u16.16 (uint32_t). Minimum measurable distance\n* ```\nconst [minRange] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.DistanceReg.Variant": "Constant Variant (uint8_t). Determines the type of sensor used.\n* ```\nconst [variant] = jdunpack<[jacdac.DistanceVariant]>(buf, \"u8\")\n```",
+  "jacdac.DistanceRegPack.Distance": "Pack format for 'distance' data.",
+  "jacdac.DistanceRegPack.DistanceError": "Pack format for 'distance_error' data.",
+  "jacdac.DistanceRegPack.MaxRange": "Pack format for 'max_range' data.",
+  "jacdac.DistanceRegPack.MinRange": "Pack format for 'min_range' data.",
+  "jacdac.DistanceRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.DistanceClient": "A sensor that determines the distance of an object without any physical contact involved.",
+  "modules.DistanceClient.distance": "Current distance from the object",
+  "modules.DistanceClient.distanceError": "Absolute error on the reading value.",
+  "modules.DistanceClient.maxRange": "Maximum measurable distance",
+  "modules.DistanceClient.minRange": "Minimum measurable distance",
+  "modules.DistanceClient.onDistanceChangedBy": "Run code when the distance changes by the given threshold value.",
+  "modules.DistanceClient.variant": "Determines the type of sensor used."
+}

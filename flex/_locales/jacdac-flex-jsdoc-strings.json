@@ -1,0 +1,11 @@
+{
+  "jacdac.FlexReg.Bending": "Read-only ratio i1.15 (int16_t). A measure of the bending.\n* ```\nconst [bending] = jdunpack<[number]>(buf, \"i1.15\")\n```",
+  "jacdac.FlexReg.Length": "Constant mm uint16_t. Length of the flex sensor\n* ```\nconst [length] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.FlexRegPack.Bending": "Pack format for 'bending' data.",
+  "jacdac.FlexRegPack.Length": "Pack format for 'length' data.",
+  "modules": "Jacdac modules",
+  "modules.FlexClient": "A bending or deflection sensor.",
+  "modules.FlexClient.bending": "A measure of the bending.",
+  "modules.FlexClient.length": "Length of the flex sensor",
+  "modules.FlexClient.onBendingChangedBy": "Run code when the bending changes by the given threshold value."
+}

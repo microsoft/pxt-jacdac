@@ -1,0 +1,17 @@
+{
+  "jacdac.AcidityReg.Acidity": "Read-only pH u4.12 (uint16_t). The acidity, pH, of water.\n* ```\nconst [acidity] = jdunpack<[number]>(buf, \"u4.12\")\n```",
+  "jacdac.AcidityReg.AcidityError": "Read-only pH u4.12 (uint16_t). Error on the acidity reading.\n* ```\nconst [acidityError] = jdunpack<[number]>(buf, \"u4.12\")\n```",
+  "jacdac.AcidityReg.MaxHumidity": "Constant pH u4.12 (uint16_t). Highest acidity that can be reported.\n* ```\nconst [maxHumidity] = jdunpack<[number]>(buf, \"u4.12\")\n```",
+  "jacdac.AcidityReg.MinAcidity": "Constant pH u4.12 (uint16_t). Lowest acidity that can be reported.\n* ```\nconst [minAcidity] = jdunpack<[number]>(buf, \"u4.12\")\n```",
+  "jacdac.AcidityRegPack.Acidity": "Pack format for 'acidity' data.",
+  "jacdac.AcidityRegPack.AcidityError": "Pack format for 'acidity_error' data.",
+  "jacdac.AcidityRegPack.MaxHumidity": "Pack format for 'max_humidity' data.",
+  "jacdac.AcidityRegPack.MinAcidity": "Pack format for 'min_acidity' data.",
+  "modules": "Jacdac modules",
+  "modules.AcidityClient": "A sensor measuring water acidity, commonly called pH.",
+  "modules.AcidityClient.acidity": "The acidity, pH, of water.",
+  "modules.AcidityClient.acidityError": "Error on the acidity reading.",
+  "modules.AcidityClient.maxHumidity": "Highest acidity that can be reported.",
+  "modules.AcidityClient.minAcidity": "Lowest acidity that can be reported.",
+  "modules.AcidityClient.onAcidityChangedBy": "Run code when the acidity changes by the given threshold value."
+}

@@ -1,0 +1,14 @@
+{
+  "jacdac.WaterLevelReg.Level": "Read-only ratio u0.16 (uint16_t). The reported water level.\n* ```\nconst [level] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.WaterLevelReg.LevelError": "Read-only ratio u0.16 (uint16_t). The error rage on the current reading\n* ```\nconst [levelError] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "jacdac.WaterLevelReg.Variant": "Constant Variant (uint8_t). The type of physical sensor.\n* ```\nconst [variant] = jdunpack<[jacdac.WaterLevelVariant]>(buf, \"u8\")\n```",
+  "jacdac.WaterLevelRegPack.Level": "Pack format for 'level' data.",
+  "jacdac.WaterLevelRegPack.LevelError": "Pack format for 'level_error' data.",
+  "jacdac.WaterLevelRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.WaterLevelClient": "A sensor that measures liquid/water level.",
+  "modules.WaterLevelClient.level": "The reported water level.",
+  "modules.WaterLevelClient.levelError": "The error rage on the current reading",
+  "modules.WaterLevelClient.onLevelChangedBy": "Run code when the level changes by the given threshold value.",
+  "modules.WaterLevelClient.variant": "The type of physical sensor."
+}

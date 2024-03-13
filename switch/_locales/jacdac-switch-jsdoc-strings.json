@@ -1,0 +1,15 @@
+{
+  "jacdac.SwitchEvent.Off": "Emitted when switch goes from `on` to `off`.",
+  "jacdac.SwitchEvent.On": "Emitted when switch goes from `off` to `on`.",
+  "jacdac.SwitchReg.Active": "Read-only bool (uint8_t). Indicates whether the switch is currently active (on).\n* ```\nconst [active] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.SwitchReg.Variant": "Constant Variant (uint8_t). Describes the type of switch used.\n* ```\nconst [variant] = jdunpack<[jacdac.SwitchVariant]>(buf, \"u8\")\n```",
+  "jacdac.SwitchRegPack.Active": "Pack format for 'active' data.",
+  "jacdac.SwitchRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.SwitchClient": "A switch, which keeps its position.",
+  "modules.SwitchClient.active": "Indicates whether the switch is currently active (on).",
+  "modules.SwitchClient.onEvent": "Register code to run when an event is raised",
+  "modules.SwitchClient.onOff": "Emitted when switch goes from `on` to `off`.",
+  "modules.SwitchClient.onOn": "Emitted when switch goes from `off` to `on`.",
+  "modules.SwitchClient.variant": "Describes the type of switch used."
+}

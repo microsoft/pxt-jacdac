@@ -1,0 +1,16 @@
+{
+  "jacdac.CompassCmd.Calibrate": "No args. Starts a calibration sequence for the compass.",
+  "jacdac.CompassReg.Enabled": "Read-write bool (uint8_t). Turn on or off the sensor. Turning on the sensor may start a calibration sequence.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.CompassReg.Heading": "Read-only ° u16.16 (uint32_t). The heading with respect to the magnetic north.\n* ```\nconst [heading] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.CompassReg.HeadingError": "Read-only ° u16.16 (uint32_t). Error on the heading reading\n* ```\nconst [headingError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "modules.CompassClient.calibrate|block": "%compass calibrate",
+  "modules.CompassClient.enabled|block": "%compass enabled",
+  "modules.CompassClient.heading|block": "%compass heading (°)",
+  "modules.CompassClient.onHeadingChangedBy|block": "on %compass heading changed by %threshold (°)",
+  "modules.CompassClient.setEnabled|block": "set %compass %value=toggleOnOff",
+  "modules.compass1|block": "compass1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Compass": "Compass"
+}
