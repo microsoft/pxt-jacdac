@@ -1,20 +1,21 @@
 {
-    "name": "jacdac-pcmonitor",
-    "version": "1.9.25",
-    "description": "Measures PC monitor.",
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "testFiles": [],
-    "supportedTargets": [
-        "microbit",
-        "arcade",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+  "name": "jacdac-pcmonitor",
+  "version": "1.9.25",
+  "description": "Measures PC monitor.",
+  "files": [
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-pcmonitor-strings.json"
+  ],
+  "testFiles": [],
+  "supportedTargets": [
+    "microbit",
+    "arcade",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  }
 }

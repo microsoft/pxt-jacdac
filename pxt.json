@@ -1,125 +1,24 @@
 {
-  "name": "jacdac",
+  "name": "jacdac-pulse-oximeter",
   "version": "1.9.25",
-  "description": "Jacdac for MakeCode",
-  "dependencies": {
-    "core": "*",
-    "settings": "*"
-  },
+  "description": "A sensor approximating the oxygen level. \n\n**Jacdac is not suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**",
   "files": [
-    "README.md",
-    "jdlow.c",
-    "jdlow.h",
-    "jdprotocol.h",
-    "jdutil.c",
-    "app.cpp",
-    "hw.cpp",
-    "led.cpp",
-    "hw-esp32.c",
-    "jdsim.ts",
-    "nonmaker.ts",
-    "maker.ts",
-    "hw.h",
-    "mbbridge.h",
-    "mbbridge.cpp",
-    "JacdacBLE.h",
-    "JacdacBLE.cpp",
-    "jdble.cpp",
-    "microbit.ts",
-    "calliopemini.ts",
-    "mbcompat.ts",
-    "commands.ts",
-    "config.ts",
-    "packet.ts",
-    "pack.ts",
-    "service.ts",
-    "pipes.ts",
-    "diagnostics.ts",
-    "eventqueue.ts",
-    "ns.ts",
-    "system/constants.ts",
-    "base/constants.ts",
-    "infrastructure/constants.ts",
-    "proxy/constants.ts",
-    "infrastructure/constants.ts",
-    "bootloader/constants.ts",
-    "control/constants.ts",
-    "logger/constants.ts",
-    "logger/client.ts",
-    "logger-server/server.ts",
-    "settings/constants.ts",
-    "settings/client.ts",
-    "settings-server/server.ts",
-    "sensor/constants.ts",
-    "sensor/client.ts",
-    "sensor/server.ts",
-    "role-manager/constants.ts",
-    "rolemgr.ts",
-    "proto-test/constants.ts",
-    "proto-test/server.ts",
-    "unique-brain/constants.ts",
-    "bridge/constants.ts",
-    "routing.ts",
-    "eventsource.ts",
-    "servers.ts",
-    "version.ts",
-    "button/button-smasher.md",
-    "_locales/de/jacdac-strings.json"
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-pulse-oximeter-strings.json"
   ],
-  "testFiles": [
-    "test.microbit.ts",
-    "test.ts"
-  ],
-  "testDependencies": {},
-  "fileDependencies": {
-    "mbcompat.ts": "target:microbit || target:calliopemini",
-    "microbit.ts": "target:microbit",
-    "calliopemini.ts": "target:calliopemini",
-    "nonmaker.ts": "!target:maker",
-    "maker.ts": "target:maker",
-    "test.microbit.ts": "target:microbit || target:calliopemini",
-    "hw.cpp": "!core---esp32 && !core---esp32s2",
-    "hw-esp32.c": "core---esp32 || core---esp32s2"
-  },
-  "public": true,
-  "targetVersions": {
-    "target": "4.0.11",
-    "targetId": "microbit"
-  },
+  "testFiles": [],
   "supportedTargets": [
     "arcade",
-    "maker",
     "microbit",
+    "maker",
     "calliopemini"
   ],
-  "preferredEditor": "tsprj",
-  "disablesVariants": [
-    "mbdal"
-  ],
-  "binaryonly": true,
-  "extension": {
-    "namespace": "modules",
-    "label": "Configure",
-    "group": "Roles",
-    "url": "https://microsoft.github.io/jacdac-docs/tools/makecode-editor-extension",
-    "localUrl": "http://localhost:8000/tools/makecode-editor-extension"
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
   },
-  "yotta": {
-    "config": {
-      "JACDAC_WEBUSB": 1,
-      "JACDAC_SWS_TRANSPORT": 1,
-      "microbit-dal": {
-        "bluetooth": {
-          "enabled": 0
-        }
-      },
-      "optionalConfig": {
-        "microbit-dal": {
-          "bluetooth": {
-            "enabled": 0
-          }
-        }
-      }
-    }
+  "testDependencies": {
+    "nucleo-f411re": "*"
   }
 }

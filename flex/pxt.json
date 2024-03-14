@@ -1,19 +1,20 @@
 {
-    "name": "jacdac-flex",
-    "version": "1.9.25",
-    "description": "A bending or deflection sensor.",
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "microbit",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+  "name": "jacdac-flex",
+  "version": "1.9.25",
+  "description": "A bending or deflection sensor.",
+  "files": [
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-flex-strings.json"
+  ],
+  "supportedTargets": [
+    "arcade",
+    "microbit",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  }
 }
