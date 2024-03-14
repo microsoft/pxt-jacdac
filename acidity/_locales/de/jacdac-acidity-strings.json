@@ -1,0 +1,13 @@
+{
+  "jacdac.AcidityReg.Acidity": "Nur-Lesen pH u4.",
+  "jacdac.AcidityReg.AcidityError": "Nur-Lesen pH Fehler u4.",
+  "jacdac.AcidityReg.MaxHumidity": "Konstante pH u4.",
+  "jacdac.AcidityReg.MinAcidity": "Konstante pH u4.",
+  "modules.AcidityClient.acidity|block": "%acidity Säuregehalt (pH)",
+  "modules.AcidityClient.onAcidityChangedBy|block": "wenn %acidity Säuregehalt sich um %threshold ändert (pH)",
+  "modules.acidity1|block": "acidity1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}
