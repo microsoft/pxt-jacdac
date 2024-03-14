@@ -1,19 +1,20 @@
 {
-    "name": "jacdac-air-quality-index",
-    "version": "1.9.25",
-    "description": "The Air Quality Index is a measure of how clean or polluted air is. From min, good quality, to high, low quality.\nThe range of AQI may vary between countries (https://en.wikipedia.org/wiki/Air_quality_index).",
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "supportedTargets": [
-        "microbit",
-        "arcade",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+  "name": "jacdac-air-quality-index",
+  "version": "1.9.25",
+  "description": "The Air Quality Index is a measure of how clean or polluted air is. From min, good quality, to high, low quality.\nThe range of AQI may vary between countries (https://en.wikipedia.org/wiki/Air_quality_index).",
+  "files": [
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-air-quality-index-strings.json"
+  ],
+  "supportedTargets": [
+    "microbit",
+    "arcade",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  }
 }

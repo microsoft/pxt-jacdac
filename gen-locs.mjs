@@ -15,17 +15,35 @@ for (const lib of libs) {
         // generate strings file
         try {
             cd(lib)
+            
             const pkg = fs.readJSONSync("pxt.json")
             if (!pkg.supportedTargets?.includes(target)) return
             await $`pxt install`
             await $`pxt gendocs --locs`
             await $`git checkout -- 'pxt.json'`.nothrow()
+            // update translations as needed
+            const clijs = `${
+                lib === "." ? "" : "../"
+            }.genaiscript/genaiscript.cjs`
+            for (const lang of langs)
+                await $`node ${clijs} run loc-strings "_locales/*-strings.json" --apply-edits --vars target=${target} lang=${lang}`.nothrow()
+            // add generated files to pxt.json
+            let modded = false
+            const locs = await glob(`_locales/*/*.json`)
+            for (const loc of locs)
+                if (!pkg.files.includes(loc)) {
+                    pkg.files.push(loc)
+                    modded = true
+                }
+            if (modded)
+                await fs.writeFile(`pxt.json`, JSON.stringify(pkg, null, 2), {
+                    encoding: "utf8",
+                })
+            
+            // build again
+            await $`mkc`
         } finally {
             if (lib !== ".") cd("..")
-        }
-        // update translations as needed
-        for (const lang of langs) {
-            await $`node .genaiscript/genaiscript.cjs run loc-strings "${lib}/_locales/jacdac*-strings.json" --apply-edits --vars target=${target} lang=${lang}`.nothrow()
         }
     })
 }
