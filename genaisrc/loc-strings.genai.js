@@ -115,6 +115,7 @@ and should be translated following these rules:
 - Some variable names have a value, like '%foo=toggleOnOff'. The value should be NOT translated.
 - All variables in the original string should be in the translated string.
 - Make sure to translate '\\%' to '\\%' and '\\$' to '\\$' if they are not variables.
+- Event string starts with 'on', like 'on pressed'. Interpret 'on' as 'when' when, like 'when pressed', when translating.
 
 `
 
@@ -138,6 +139,7 @@ defFileMerge((filename, label, before, generated) => {
     const news = generated
         .split(/\n/g)
         .map(line => /^([^=]+)=(.+)$/.exec(line))
+        .filter(m => !!m)
         .reduce((o, m) => {
             o[m[1]] = m[2]
             return o
