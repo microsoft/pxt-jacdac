@@ -1,7 +1,7 @@
 script({
     title: "MakeCode Blocks Localization",
     description: "Translate block strings that define blocks in MakeCode",
-    categories: ["MakeCode"],
+    categories: ["MakeCode"]
 })
 
 /**
@@ -81,19 +81,21 @@ You are an expert ${langName} translator.
 
 ## Task
 
-Translate the documentation in ORIGINAL to ${langName} (lang-iso '${langCode}').
+Translate the content of ORIGINAL to ${langName} (lang-iso '${langCode}').
 The ORIGINAL files are formatted with one key and localized value pair per line as follows.
 
 \`\`\`
-key1=localized value 1
-key2=localized value 2
+key1=en value1
+key2=en value2
+...
 \`\`\`
 
-Write the translation to file \`${trfn}\` formatted with one key and localized value pair per line as follows.
+Write the translation to file \`${trfn}\` formatted with one key and localized value pair per line as follows (DO NOT use JSON).
 
-\`\`\`
-key1=${langCode} value 1
-key2=${langCode} value 2
+\`\`\` file="${trfn}"
+key1=${langCode} value1
+key2=${langCode} value2
+...
 \`\`\`
 
 
@@ -101,10 +103,12 @@ key2=${langCode} value 2
 
 - DO NOT translate the keys
 - DO translate the values to ${langName} (lang-iso '${langCode}')
+- DO NOT use foul language.
 
 ### Block Strings
 
-The value for keys ending with "|block" are MakeCode block strings (https://makecode.com/defining-blocks) and should be translated as such.
+The value for keys ending with "|block" are MakeCode block strings (https://makecode.com/defining-blocks)
+and should be translated following these rules:
 
 - Every variable name is prefixed with a '%' or a '$', like %foo or $bar.
 - Do NOT translate variable names.
