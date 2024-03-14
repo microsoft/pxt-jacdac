@@ -2,7 +2,7 @@ script({
     title: "MakeCode Blocks Localization",
     description: "Translate block strings that define blocks in MakeCode",
     categories: ["MakeCode"],
-    temperature: 0
+    temperature: 0,
 })
 
 /**
@@ -26,7 +26,9 @@ script({
  */
 
 // language parameterization
-const langCode = env.vars.lang || "fr"
+const langCode = env.vars.lang || "de"
+const target = env.vars.target || "microbit"
+
 // given a language code, refer to the full name to help the LLM
 const langName = {
     fr: "French",
@@ -46,17 +48,19 @@ const file = env.files.find(
         !/_locales\/\w+\/[/]+-strings\.json/.test(filename)
 )
 if (!file) cancel("no strings file found")
-
-// convert JSON to YAML as it typically works better with LLM tokenizers
 const { filename, label, content } = file
+const dir = path.dirname(filename)
+
+// there should be a pxt.json file in the folder
+const pxtJson = parsers.JSON5(await fs.readFile(path.join(dir, "..", "pxt.json")))
+if (!pxtJson || !pxtJson.supportedTargets?.includes(target))
+    cancel(`package not supported by ${target}`)
+
+// read the stings, which are stored as a JSON record
 const strings = JSON.parse(content)
 
 // find the existing translation and remove existing translations
-const trfn = path.join(
-    path.dirname(filename),
-    langCode,
-    path.basename(filename)
-)
+const trfn = path.join(dir, langCode, path.basename(filename))
 const translated = parsers.JSON5(await fs.readFile(trfn))
 
 // remove strings that have already been translated
@@ -117,6 +121,7 @@ and should be translated following these rules:
 - All variables in the original string should be in the translated string.
 - Make sure to translate '\\%' to '\\%' and '\\$' to '\\$' if they are not variables.
 - Event string starts with 'on', like 'on pressed'. Interpret 'on' as 'when' when, like 'when pressed', when translating.
+- The translations of "...|block" string should be short.
 
 `
 
@@ -134,6 +139,8 @@ def(
 // merge the translations with the old one and marshal yaml to json
 defFileMerge((filename, label, before, generated) => {
     if (!filename.endsWith("-strings.json")) return undefined
+
+    // existing translatins
     const olds = JSON.parse(before || "{}")
 
     // parse out kv
@@ -142,7 +149,9 @@ defFileMerge((filename, label, before, generated) => {
         .map(line => /^([^=]+)=(.+)$/.exec(line))
         .filter(m => !!m)
         .reduce((o, m) => {
-            o[m[1]] = m[2]
+            const [, key, value] = m
+            // assign
+            o[key] = value
             return o
         }, {})
 

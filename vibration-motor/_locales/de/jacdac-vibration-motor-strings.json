@@ -1,0 +1,12 @@
+{
+  "jacdac.VibrationMotorCmd.Vibrate": "Startet eine Sequenz von Vibrationen und Pausen.",
+  "jacdac.VibrationMotorReg.MaxVibrations": "Konstante uint8_t.",
+  "modules.VibrationMotorClient.vibratePattern|block": "%vibration Vibrationsmuster %pattern",
+  "modules.VibrationMotorClient.vibrate|block": "%vibration vibriere %millis ms bei %intensity \\%",
+  "modules.vibrationMotor1|block": "Vibrationsmotor1",
+  "modules.vibrationMotor2|block": "Vibrationsmotor2",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Vibration motor": "Vibrationsmotor"
+}

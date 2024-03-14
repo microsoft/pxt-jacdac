@@ -1,0 +1,11 @@
+{
+  "jacdac.WindDirectionReg.WindDirection": "Nur-Lesen ° uint16_t.",
+  "jacdac.WindDirectionReg.WindDirectionError": "Nur-Lesen ° uint16_t.",
+  "modules.WindDirectionClient.onWindDirectionChangedBy|block": "wenn %winddirection Windrichtung sich um %threshold (°) ändert",
+  "modules.WindDirectionClient.windDirection|block": "%winddirection Windrichtung (°)",
+  "modules.windDirection1|block": "Windrichtung1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}
