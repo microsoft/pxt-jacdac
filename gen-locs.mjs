@@ -13,9 +13,8 @@ console.log(`generating locs for ${libs.length} libraries`)
 for (const lib of libs) {
     await spinner(lib, async () => {
         // generate strings file
+        if (lib !== ".") cd(lib)
         try {
-            cd(lib)
-            
             const pkg = fs.readJSONSync("pxt.json")
             if (!pkg.supportedTargets?.includes(target)) return
             await $`pxt install`
@@ -39,9 +38,6 @@ for (const lib of libs) {
                 await fs.writeFile(`pxt.json`, JSON.stringify(pkg, null, 2), {
                     encoding: "utf8",
                 })
-            
-            // build again
-            await $`mkc`
         } finally {
             if (lib !== ".") cd("..")
         }

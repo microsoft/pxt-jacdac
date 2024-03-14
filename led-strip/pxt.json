@@ -1,31 +1,32 @@
 {
-    "name": "jacdac-led-strip",
-    "version": "1.9.25",
-    "description": "MakeCode support for Jacdac LED pixel strips",
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "files": [
-        "constants.ts",
-        "encoder.ts",
-        "client.ts"
-    ],
-    "testFiles": [
-        "test.microbit.ts"
-    ],
-    "targetVersions": {
-        "target": "3.1.79",
-        "targetId": "microbit"
-    },
-    "supportedTargets": [
-        "arcade",
-        "maker",
-        "microbit",
-        "calliopemini"
-    ],
-    "preferredEditor": "tsprj",
-    "fileDependencies": {
-        "test.microbit.ts": "target:microbit || target:calliopemini"
-    }
+  "name": "jacdac-led-strip",
+  "version": "1.9.25",
+  "description": "MakeCode support for Jacdac LED pixel strips",
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "files": [
+    "constants.ts",
+    "encoder.ts",
+    "client.ts",
+    "_locales/de/jacdac-led-strip-strings.json"
+  ],
+  "testFiles": [
+    "test.microbit.ts"
+  ],
+  "targetVersions": {
+    "target": "3.1.79",
+    "targetId": "microbit"
+  },
+  "supportedTargets": [
+    "arcade",
+    "maker",
+    "microbit",
+    "calliopemini"
+  ],
+  "preferredEditor": "tsprj",
+  "fileDependencies": {
+    "test.microbit.ts": "target:microbit || target:calliopemini"
+  }
 }
