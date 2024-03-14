@@ -1,5 +1,5 @@
 {
-  "jacdac.MotionEvent.Movement": "Es wurde eine Bewegung erkannt.",
+  "jacdac.MotionEvent.Movement": "Eine Bewegung wurde erkannt.",
   "jacdac.MotionEvent.Movement|block": "Bewegung",
   "jacdac.MotionReg.Angle": "Konstante ° uint16_t.",
   "jacdac.MotionReg.MaxDistance": "Konstante m u16.",

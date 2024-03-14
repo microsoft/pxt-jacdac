@@ -1,0 +1,9 @@
+{
+  "jacdac.BuzzerCmd.PlayNote": "Spiele eine Note mit der angegebenen Frequenz und Lautstärke.",
+  "jacdac.BuzzerCmd.PlayTone": "Spiele einen PWM-Ton mit gegebener Periode und Tastverhältnis für die angegebene Dauer.",
+  "jacdac.BuzzerReg.Volume": "Lese-Schreib-Verhältnis u0.",
+  "modules.BuzzerClient.playTone|block": "spiele %music Ton|bei %note|für %duration",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Music": "Musik"
+}

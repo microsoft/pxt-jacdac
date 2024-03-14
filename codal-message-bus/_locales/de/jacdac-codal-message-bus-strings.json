@@ -1,0 +1,6 @@
+{
+  "jacdac.CodalMessageBusCmd.Send": "Eine Nachricht auf dem CODAL-Bus senden.",
+  "jacdac.CodalMessageBusEvent.Message": "Wird vom Server ausgelöst, wenn dieser getriggert wird.",
+  "jacdac.CodalMessageBusEvent.Message|block": "Nachricht",
+  "{id:category}Jacdac": "Jacdac"
+}

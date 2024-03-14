@@ -95,7 +95,7 @@ key2=en value2
 ...
 \`\`\`
 
-Write the translation to file \`${trfn}\` formatted with one key and localized value pair per line as follows (DO NOT use JSON).
+Write the translation to file ${trfn} formatted with one key and localized value pair per line as follows (DO NOT use JSON).
 
 \`\`\` file="${trfn}"
 key1=${langCode} value1
