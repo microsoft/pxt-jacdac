@@ -1,8 +1,8 @@
 import "zx/globals"
 
 const target = "microbit"
+const langs = ["de"]
 
-await $`pxt target ${target}`
 const libs = (await fs.readdir(".", { withFileTypes: true }))
     .filter(
         f => f.isDirectory() && fs.existsSync(path.join(f.name, "pxt.json"))
@@ -12,6 +12,7 @@ libs.unshift(".")
 console.log(`generating locs for ${libs.length} libraries`)
 for (const lib of libs) {
     await spinner(lib, async () => {
+        // generate strings file
         try {
             cd(lib)
             const pkg = fs.readJSONSync("pxt.json")
@@ -20,8 +21,11 @@ for (const lib of libs) {
             await $`pxt gendocs --locs`
             await $`git checkout -- 'pxt.json'`.nothrow()
         } finally {
-            if (lib !== ".")
-                cd("..")
+            if (lib !== ".") cd("..")
+        }
+        // update translations as needed
+        for (const lang of langs) {
+            await $`node .genaiscript/genaiscript.cjs run loc-strings "${lib}/_locales/jacdac*-strings.json" --apply-edits --vars target=${target} lang=${lang}`.nothrow()
         }
     })
 }

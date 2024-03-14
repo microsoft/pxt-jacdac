@@ -4,4 +4,5 @@ set -e
 
 npm install -g pxt
 npm install zx
-node locs.mjs
+pxt target microbit
+node gen-locs.mjs
