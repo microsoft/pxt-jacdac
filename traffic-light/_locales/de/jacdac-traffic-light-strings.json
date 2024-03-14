@@ -1,0 +1,16 @@
+{
+  "jacdac.TrafficLightReg.Green": "Lese-Schreib-Bool (uint8_t).",
+  "jacdac.TrafficLightReg.Red": "Lese-Schreib-Bool (uint8_t).",
+  "jacdac.TrafficLightReg.Yellow": "Lese-Schreib-Bool (uint8_t).",
+  "modules.TrafficLightClient.green|block": "%trafficlight grün",
+  "modules.TrafficLightClient.red|block": "%trafficlight rot",
+  "modules.TrafficLightClient.setGreen|block": "setze %trafficlight grün auf $value",
+  "modules.TrafficLightClient.setRed|block": "setze %trafficlight rot auf $value",
+  "modules.TrafficLightClient.setYellow|block": "setze %trafficlight gelb auf $value",
+  "modules.TrafficLightClient.yellow|block": "%trafficlight gelb",
+  "modules.trafficLight1|block": "Ampel1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Traffic Light": "Ampel"
+}
