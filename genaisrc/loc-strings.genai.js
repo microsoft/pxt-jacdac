@@ -1,7 +1,7 @@
 script({
     title: "MakeCode Blocks Localization",
     description: "Translate block strings that define blocks in MakeCode",
-    categories: ["MakeCode"]
+    categories: ["MakeCode"],
 })
 
 /**
@@ -49,6 +49,7 @@ if (!file) cancel("no strings file found")
 // convert JSON to YAML as it typically works better with LLM tokenizers
 const { filename, label, content } = file
 const strings = JSON.parse(content)
+
 // find the existing translation and remove existing translations
 const trfn = path.join(
     path.dirname(filename),
@@ -56,34 +57,18 @@ const trfn = path.join(
     path.basename(filename)
 )
 const translated = parsers.JSON5(await fs.readFile(trfn))
-if (translated) {
-    for (const k of Object.keys(strings)) {
-        if (translated[k]) {
-            delete strings[k]
-        }
-    }
-}
+
+// remove strings that have already been translated
+if (translated)
+    for (const k of Object.keys(strings)) if (translated[k]) delete strings[k]
 
 // shortcut: all translation is done
 if (Object.keys(strings).length === 0) cancel(`no strings to translate`)
 
-// use YAML for content as it work better with LLMs
-// fix some makecode formatting issues
-const contentToTranslate = YAML.stringify(strings).replace(
-    /\* \`\`\`/g,
-    " ```"
-)
-
-// add to prompt context
-def(
-    "ORIGINAL",
-    {
-        filename,
-        label,
-        content: contentToTranslate,
-    },
-    { language: "yaml" }
-)
+// use simple .env format key=value format
+const contentToTranslate = Object.entries(strings)
+    .map(([k, v]) => `${k}=${v.replace(/(\.|\n).*/s, ".").trim()}`)
+    .join("\n")
 
 // the prompt engineering piece
 $`
@@ -97,15 +82,20 @@ You are an expert ${langName} translator.
 ## Task
 
 Translate the documentation in ORIGINAL to ${langName} (lang-iso '${langCode}').
-Write the translation to file "${trfn}" in JSON.
+The ORIGINAL files are formatted with one key and localized value pair per line as follows.
 
-The ORIGINAL files are formatted in YAML where the key is an identifer and the value is the localized string.
-
-EXAMPLE of ORIGINAL:
-\`\`\`yaml
-key1: localized value 1
-key2: localized value 2
 \`\`\`
+key1=localized value 1
+key2=localized value 2
+\`\`\`
+
+Write the translation to file \`${trfn}\` formatted with one key and localized value pair per line as follows.
+
+\`\`\`
+key1=${langCode} value 1
+key2=${langCode} value 2
+\`\`\`
+
 
 ## Recommendations
 
@@ -121,13 +111,34 @@ The value for keys ending with "|block" are MakeCode block strings (https://make
 - Some variable names have a value, like '%foo=toggleOnOff'. The value should be NOT translated.
 - All variables in the original string should be in the translated string.
 - Make sure to translate '\\%' to '\\%' and '\\$' to '\\$' if they are not variables.
+
 `
+
+// add to prompt context
+def(
+    "ORIGINAL",
+    {
+        filename,
+        label,
+        content: contentToTranslate,
+    },
+    { language: "txt" }
+)
 
 // merge the translations with the old one and marshal yaml to json
 defFileMerge((filename, label, before, generated) => {
     if (!filename.endsWith("-strings.json")) return undefined
     const olds = JSON.parse(before || "{}")
-    const news = JSON.parse(generated)
+
+    // parse out kv
+    const news = generated
+        .split(/\n/g)
+        .map(line => /^([^=]+)=(.+)$/.exec(line))
+        .reduce((o, m) => {
+            o[m[1]] = m[2]
+            return o
+        }, {})
+
     // merge new translations with olds ones
     Object.assign(olds, news)
 
