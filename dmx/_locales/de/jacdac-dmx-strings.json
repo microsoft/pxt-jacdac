@@ -1,0 +1,12 @@
+{
+  "jacdac.DmxCmd.Send": "Argument: Kanäle Bytes.",
+  "jacdac.DmxReg.Enabled": "Lese-Schreib-Bool (uint8_t).",
+  "modules.DmxClient.enabled|block": "%dmx aktiviert",
+  "modules.DmxClient.send|block": "%dmx sende $channels",
+  "modules.DmxClient.setEnabled|block": "setze %dmx %value=toggleOnOff",
+  "modules.dmx1|block": "dmx1",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}DMX": "DMX"
+}

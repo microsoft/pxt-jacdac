@@ -1,0 +1,16 @@
+jacdac.SpeechSynthesisCmd.Cancel=Keine Argumente.
+jacdac.SpeechSynthesisCmd.Speak=Argument: Textstring (Bytes).
+jacdac.SpeechSynthesisReg.Enabled=Lese-Schreib-Bool (uint8_t).
+jacdac.SpeechSynthesisReg.Lang=Lese-Schreib-String (Bytes).
+jacdac.SpeechSynthesisReg.Pitch=Lese-Schreib u16.
+jacdac.SpeechSynthesisReg.Rate=Lese-Schreib u16.
+jacdac.SpeechSynthesisReg.Volume=Lese-Schreib-Verhältnis u0.
+modules.SpeechSynthesisClient.cancel|block=%speechsynthesis abbrechen
+modules.SpeechSynthesisClient.enabled|block=%speechsynthesis aktiviert
+modules.SpeechSynthesisClient.setEnabled|block=setze %speechsynthesis %value=toggleOnOff
+modules.SpeechSynthesisClient.speak|block=%speechsynthesis spreche $text
+modules.speechSynthesis1|block=Sprachsynthese1
+modules|block=Module
+{id:category}Jacdac=Jacdac
+{id:category}Modules=Module
+{id:group}Speech synthesis=Sprachsynthese

@@ -1,0 +1,14 @@
+{
+  "jacdac.DcCurrentMeasurementReg.MaxMeasurement": "Konstante A f64 (uint64_t).",
+  "jacdac.DcCurrentMeasurementReg.Measurement": "Nur-Lesen A f64 (uint64_t).",
+  "jacdac.DcCurrentMeasurementReg.MeasurementError": "Nur-Lesen A f64 (uint64_t).",
+  "jacdac.DcCurrentMeasurementReg.MeasurementName": "Konstante Zeichenkette (Bytes).",
+  "jacdac.DcCurrentMeasurementReg.MinMeasurement": "Konstante A f64 (uint64_t).",
+  "modules.DcCurrentMeasurementClient.measurement|block": "%dccurrentmeasurement Messung (A)",
+  "modules.DcCurrentMeasurementClient.onMeasurementChangedBy|block": "wenn %dccurrentmeasurement Messung sich um %threshold ändert (A)",
+  "modules.dcCurrentMeasurement1|block": "dc Strommessung1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}DC Current Measurement": "DC Strommessung"
+}

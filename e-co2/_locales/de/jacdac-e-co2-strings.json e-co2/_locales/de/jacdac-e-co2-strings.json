@@ -1,0 +1,16 @@
+{
+  "jacdac.ECO2Reg.ECO2": "Nur-Lesen ppm u22.",
+  "jacdac.ECO2Reg.ECO2Error": "Nur-Lesen ppm u22.",
+  "jacdac.ECO2Reg.MaxECO2": "Konstante ppm u22.",
+  "jacdac.ECO2Reg.MinECO2": "Konstante ppm u22.",
+  "jacdac.ECO2Reg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.ECO2Variant.NDIR|block": "ndir",
+  "jacdac.ECO2Variant.VOC|block": "voc",
+  "modules.ECO2Client.eCO2|block": "%eco2 e CO2 (ppm)",
+  "modules.ECO2Client.onECO2ChangedBy|block": "wenn %eco2 e CO2 sich um %threshold (ppm) ändert",
+  "modules.eCO21|block": "e co21",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

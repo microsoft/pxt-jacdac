@@ -1,0 +1,14 @@
+{
+  "jacdac.SoilMoistureReg.Moisture": "Nur-Lesen Verhältnis u0.",
+  "jacdac.SoilMoistureReg.MoistureError": "Nur-Lesen Verhältnis u0.",
+  "jacdac.SoilMoistureReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.SoilMoistureVariant.Capacitive|block": "kapazitiv",
+  "jacdac.SoilMoistureVariant.Resistive|block": "resistiv",
+  "modules.SoilMoistureClient.moisture|block": "%soilmoisture Feuchtigkeit (\\%)",
+  "modules.SoilMoistureClient.onMoistureChangedBy|block": "wenn %soilmoisture Feuchtigkeit geändert um %threshold (\\%)",
+  "modules.soilMoisture1|block": "Bodenfeuchtigkeit1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

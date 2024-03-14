@@ -1,0 +1,16 @@
+{
+  "jacdac.MotorReg.Enabled": "Lese-Schreib-Bool (uint8_t).",
+  "jacdac.MotorReg.LoadRotationSpeed": "Konstante U/min u16.",
+  "jacdac.MotorReg.LoadTorque": "Konstantes Drehmoment kg/cm u16.",
+  "jacdac.MotorReg.Reversible": "Konstante Bool (uint8_t).",
+  "jacdac.MotorReg.Speed": "Lese-Schreib-Verhältnis i1.",
+  "modules.MotorClient.brake|block": "bremse %motor",
+  "modules.MotorClient.enabled|block": "%motor aktiviert",
+  "modules.MotorClient.run|block": "laufe %motor mit $speed=speedPicker \\%",
+  "modules.MotorClient.setEnabled|block": "setze %motor %value=toggleOnOff",
+  "modules.MotorClient.stop|block": "stoppe %motor",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Motor": "Motor"
+}

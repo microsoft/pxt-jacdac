@@ -1,0 +1,12 @@
+{
+  "jacdac.PCMonitorReg.CpuTemperature": "Nur-Lesen °C uint8_t.",
+  "jacdac.PCMonitorReg.CpuUsage": "Nur-Lesen % uint8_t.",
+  "jacdac.PCMonitorReg.GpuInformation": "GPU-Informationen.",
+  "jacdac.PCMonitorReg.NetworkInformation": "Netzwerk Sende-/Empfangsgeschwindigkeit in Kbytes pro Sekunde.",
+  "jacdac.PCMonitorReg.RamUsage": "Nur-Lesen % uint8_t.",
+  "modules.PCMonitor1|block": "pcmonitor1",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}PC monitor": "PC-Monitor"
+}

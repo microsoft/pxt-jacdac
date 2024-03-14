@@ -1,0 +1,12 @@
+{
+  "jacdac.PlanarPositionReg.Position": "Die aktuelle Position des Sensors.",
+  "jacdac.PlanarPositionReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.PlanarPositionVariant.OpticalMousePosition|block": "optische Mausposition",
+  "modules.PlanarPositionClient.x|block": "%planarposition x (mm)",
+  "modules.PlanarPositionClient.y|block": "%planarposition y (mm)",
+  "modules.planarPosition1|block": "Planarposition1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Movement": "Bewegung"
+}

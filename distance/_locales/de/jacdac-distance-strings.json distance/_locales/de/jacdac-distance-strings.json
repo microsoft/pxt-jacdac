@@ -1,0 +1,19 @@
+{
+  "jacdac.DistanceReg.Distance": "Nur-Lesen m u16.",
+  "jacdac.DistanceReg.DistanceError": "Nur-Lesen m u16.",
+  "jacdac.DistanceReg.MaxRange": "Konstante m u16.",
+  "jacdac.DistanceReg.MinRange": "Konstante m u16.",
+  "jacdac.DistanceReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.DistanceVariant.Infrared|block": "infrarot",
+  "jacdac.DistanceVariant.Laser|block": "laser",
+  "jacdac.DistanceVariant.LiDAR|block": "li dar",
+  "jacdac.DistanceVariant.Ultrasonic|block": "ultraschall",
+  "modules.DistanceClient.distance|block": "%distance Entfernung (m)",
+  "modules.DistanceClient.onDistanceChangedBy|block": "wenn %distance Entfernung sich um %threshold (m) ändert",
+  "modules.distance1|block": "entfernung1",
+  "modules.distance2|block": "entfernung2",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Distance": "Entfernung"
+}

@@ -1,0 +1,19 @@
+{
+  "jacdac.DualMotorsReg.Enabled": "Lese-Schreib-Bool (uint8_t).",
+  "jacdac.DualMotorsReg.LoadRotationSpeed": "Konstante U/min u16.",
+  "jacdac.DualMotorsReg.LoadTorque": "Konstantes Drehmoment kg/cm u16.",
+  "jacdac.DualMotorsReg.Reversible": "Konstante Bool (uint8_t).",
+  "jacdac.DualMotorsReg.Speed": "Relative Geschwindigkeit der Motoren.",
+  "modules.DualMotorsClient.brake|block": "bremse %motor",
+  "modules.DualMotorsClient.enabled|block": "%dualmotors aktiviert",
+  "modules.DualMotorsClient.run|block": "laufe %motor mit links $left \\% rechts $right \\%",
+  "modules.DualMotorsClient.setEnabled|block": "setze %dualmotors %value=toggleOnOff",
+  "modules.DualMotorsClient.speedLeft|block": "%dualmotors Geschwindigkeit Links",
+  "modules.DualMotorsClient.speedRight|block": "%dualmotors Geschwindigkeit Rechts",
+  "modules.DualMotorsClient.stop|block": "stoppe %motor",
+  "modules.dualMotors1|block": "doppelte Motoren1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Motor": "Motor"
+}

@@ -1,0 +1,14 @@
+{
+  "jacdac.RotaryEncoderReg.Clicker": "Konstante bool (uint8_t).",
+  "jacdac.RotaryEncoderReg.ClicksPerTurn": "Konstante # uint16_t.",
+  "jacdac.RotaryEncoderReg.Position": "Nur-Lesen # int32_t.",
+  "modules.RotaryEncoderClient.onPositionChanged|block": "wenn %rotaryencoder Position geändert",
+  "modules.RotaryEncoderClient.position|block": "%rotaryencoder Position (#)",
+  "modules.rotaryEncoder1|block": "Drehencoder1",
+  "modules.rotaryEncoder2|block": "Drehencoder2",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Rotary Encoder": "Drehencoder",
+  "{id:group}Slider": "Schieberegler"
+}

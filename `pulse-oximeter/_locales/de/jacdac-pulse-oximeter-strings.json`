@@ -1,0 +1,9 @@
+jacdac.PulseOximeterReg.Oxygen=Nur-Lesen % u8.
+jacdac.PulseOximeterReg.OxygenError=Nur-Lesen % u8.
+modules.PulseOximeterClient.onOxygenChangedBy|block=wenn %pulseoximeter Sauerstoffgehalt ändert um %threshold (\%)
+modules.PulseOximeterClient.oxygen|block=%pulseoximeter Sauerstoffgehalt (\%)
+modules.pulseOximeter1|block=Pulsoximeter1
+modules|block=Module
+{id:category}Jacdac=Jacdac
+{id:category}Modules=Module
+{id:group}Biometric=Biometrisch

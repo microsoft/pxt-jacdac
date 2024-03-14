@@ -1,0 +1,17 @@
+{
+  "jacdac.HeartRateReg.HeartRate": "Nur-Lesen bpm u16.",
+  "jacdac.HeartRateReg.HeartRateError": "Nur-Lesen bpm u16.",
+  "jacdac.HeartRateReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.HeartRateVariant.Chest|block": "Brust",
+  "jacdac.HeartRateVariant.Finger|block": "Finger",
+  "jacdac.HeartRateVariant.Pump|block": "Pumpe",
+  "jacdac.HeartRateVariant.WebCam|block": "Webkamera",
+  "jacdac.HeartRateVariant.Wrist|block": "Handgelenk",
+  "modules.HeartRateClient.heartRate|block": "%heartrate Herzfrequenz (bpm)",
+  "modules.HeartRateClient.onHeartRateChangedBy|block": "wenn %heartrate Herzfrequenz sich um %threshold (bpm) ändert",
+  "modules.heartRate1|block": "Herzfrequenz1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Biometric": "Biometrisch"
+}

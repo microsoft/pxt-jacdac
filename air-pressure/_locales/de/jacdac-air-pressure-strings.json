@@ -1,0 +1,13 @@
+{
+  "jacdac.AirPressureReg.MaxPressure": "Konstanter hPa u22.",
+  "jacdac.AirPressureReg.MinPressure": "Konstanter hPa u22.",
+  "jacdac.AirPressureReg.Pressure": "Nur-Lesen hPa u22.",
+  "jacdac.AirPressureReg.PressureError": "Nur-Lesen hPa u22.",
+  "modules.AirPressureClient.onPressureChangedBy|block": "wenn %airpressure Druck sich um %threshold (hPa) ändert",
+  "modules.AirPressureClient.pressure|block": "%airpressure Druck (hPa)",
+  "modules.airPressure1|block": "Luftdruck1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

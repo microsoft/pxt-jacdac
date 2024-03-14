@@ -1,0 +1,5 @@
+{
+  "servers.startServer|block": "starte $server Server",
+  "servers|block": "Server",
+  "{id:category}Servers": "Server"
+}

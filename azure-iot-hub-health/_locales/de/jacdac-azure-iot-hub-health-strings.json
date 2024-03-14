@@ -1,0 +1,19 @@
+{
+  "jacdac.AzureIotHubHealthCmd.Connect": "Keine Argumente.",
+  "jacdac.AzureIotHubHealthCmd.Disconnect": "Keine Argumente.",
+  "jacdac.AzureIotHubHealthCmd.SetConnectionString": "Argument: connection_string Zeichenkette (Bytes).",
+  "jacdac.AzureIotHubHealthConnectionStatus.Connected|block": "verbunden",
+  "jacdac.AzureIotHubHealthConnectionStatus.Connecting|block": "verbindet",
+  "jacdac.AzureIotHubHealthConnectionStatus.Disconnected|block": "getrennt",
+  "jacdac.AzureIotHubHealthConnectionStatus.Disconnecting|block": "trennt",
+  "jacdac.AzureIotHubHealthEvent.ConnectionStatusChange": "Argument: connection_status Verbindungsstatus (uint16_t).",
+  "jacdac.AzureIotHubHealthEvent.ConnectionStatusChange|block": "Verbindungsstatusänderung",
+  "jacdac.AzureIotHubHealthEvent.MessageSent": "Ausgelöst, wenn eine Nachricht an das Hub gesendet wurde.",
+  "jacdac.AzureIotHubHealthEvent.MessageSent|block": "Nachricht gesendet",
+  "jacdac.AzureIotHubHealthReg.ConnectionStatus": "Nur-Lesen Verbindungsstatus (uint16_t).",
+  "jacdac.AzureIotHubHealthReg.HubDeviceId": "Nur-Lesen Zeichenkette (Bytes).",
+  "jacdac.AzureIotHubHealthReg.HubName": "Nur-Lesen Zeichenkette (Bytes).",
+  "jacdac.AzureIotHubHealthReg.PushPeriod": "Lese-Schreib ms uint32_t.",
+  "jacdac.AzureIotHubHealthReg.PushWatchdogPeriod": "Lese-Schreib ms uint32_t.",
+  "{id:category}Jacdac": "Jacdac"
+}

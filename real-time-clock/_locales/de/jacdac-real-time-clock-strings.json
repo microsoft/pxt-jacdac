@@ -1,0 +1,23 @@
+{
+  "jacdac.RealTimeClockCmd.SetTime": "Setzt die aktuelle Zeit und setzt den Fehler zurück.",
+  "jacdac.RealTimeClockReg.Drift": "Nur-Lesen s u16.",
+  "jacdac.RealTimeClockReg.LocalTime": "Aktuelle Zeit in 24-Stunden-Darstellung.",
+  "jacdac.RealTimeClockReg.Precision": "Konstante ppm u16.",
+  "jacdac.RealTimeClockReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.RealTimeClockVariant.Computer|block": "Computer",
+  "jacdac.RealTimeClockVariant.Crystal|block": "Kristall",
+  "jacdac.RealTimeClockVariant.Cuckoo|block": "Kuckuck",
+  "modules.RealTimeClockClient.dayOfMonth|block": "%realtimeclock Tag des Monats",
+  "modules.RealTimeClockClient.dayOfWeek|block": "%realtimeclock Wochentag",
+  "modules.RealTimeClockClient.hour|block": "%realtimeclock Stunde",
+  "modules.RealTimeClockClient.min|block": "%realtimeclock Minute",
+  "modules.RealTimeClockClient.month|block": "%realtimeclock Monat",
+  "modules.RealTimeClockClient.sec|block": "%realtimeclock Sekunde",
+  "modules.RealTimeClockClient.setTime|block": "%realtimeclock Zeit einstellen |year $year |month $month |dayOfMonth $dayOfMonth |dayOfWeek $dayOfWeek |hour $hour |min $min |sec $sec",
+  "modules.RealTimeClockClient.year|block": "%realtimeclock Jahr",
+  "modules.realTimeClock1|block": "Echtzeituhr1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Real time clock": "Echtzeituhr"
+}

@@ -1,0 +1,15 @@
+{
+  "jacdac.LightLevelReg.LightLevel": "Nur-Lese Verhältnis u0.",
+  "jacdac.LightLevelReg.LightLevelError": "Nur-Lese Verhältnis u0.",
+  "jacdac.LightLevelReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.LightLevelVariant.PhotoResistor|block": "Fotowiderstand",
+  "jacdac.LightLevelVariant.ReverseBiasedLED|block": "rückwärts vorgespannte LED",
+  "modules.LightLevelClient.lightLevel|block": "%lightlevel Helligkeitsniveau (\\%)",
+  "modules.LightLevelClient.onLightLevelChangedBy|block": "wenn %lightlevel Helligkeitsniveau sich um %threshold ändert (\\%)",
+  "modules.lightLevel1|block": "Helligkeitsniveau1",
+  "modules.lightLevel2|block": "Helligkeitsniveau2",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

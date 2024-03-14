@@ -1,0 +1,13 @@
+{
+  "jacdac.AirQualityIndexReg.AqiIndex": "Nur-Lesen AQI u16.",
+  "jacdac.AirQualityIndexReg.AqiIndexError": "Nur-Lesen AQI Fehler u16.",
+  "jacdac.AirQualityIndexReg.MaxAqiIndex": "Konstante AQI u16.",
+  "jacdac.AirQualityIndexReg.MinAqiIndex": "Konstante AQI u16.",
+  "modules.AirQualityIndexClient.aqiIndex|block": "%airqualityindex AQI-Index (AQI)",
+  "modules.AirQualityIndexClient.onAqiIndexChangedBy|block": "wenn %airqualityindex AQI-Index sich um %threshold ändert (AQI)",
+  "modules.airQualityIndex1|block": "Luftqualitätsindex1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

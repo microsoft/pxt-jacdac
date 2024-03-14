@@ -1,0 +1,11 @@
+{
+  "jacdac.IlluminanceReg.Illuminance": "Nur-Lesen Lux u22.",
+  "jacdac.IlluminanceReg.IlluminanceError": "Nur-Lesen Lux u22.",
+  "modules.IlluminanceClient.illuminance|block": "%illuminance Helligkeit (Lux)",
+  "modules.IlluminanceClient.onIlluminanceChangedBy|block": "wenn %illuminance Helligkeit sich um %threshold ändert (Lux)",
+  "modules.illuminance1|block": "illuminance1",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

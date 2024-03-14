@@ -1,0 +1,13 @@
+{
+  "jacdac.ReflectedLightReg.Brightness": "Nur-Lese Verhältnis u0.",
+  "jacdac.ReflectedLightReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.ReflectedLightVariant.InfraredAnalog|block": "infrarot analog",
+  "jacdac.ReflectedLightVariant.InfraredDigital|block": "infrarot digital",
+  "modules.ReflectedLightClient.brightness|block": "%reflectedlight Helligkeit (\\%)",
+  "modules.ReflectedLightClient.onBrightnessChangedBy|block": "wenn %reflectedlight Helligkeit geändert um %threshold (\\%)",
+  "modules.reflectedLight1|block": "reflektiertes Licht1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

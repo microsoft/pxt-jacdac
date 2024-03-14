@@ -1,0 +1,14 @@
+{
+  "jacdac.SensorAggregatorReg.CurrentSample": "Nur-Lese Bytes.",
+  "jacdac.SensorAggregatorReg.Inputs": "Automatische Eingangssammlung einstellen.",
+  "jacdac.SensorAggregatorReg.NumSamples": "Nur-Lese uint32_t.",
+  "jacdac.SensorAggregatorReg.SampleSize": "Nur-Lese B uint8_t.",
+  "jacdac.SensorAggregatorReg.StreamingSamples": "Lese-Schreib # uint32_t.",
+  "jacdac.SensorAggregatorSampleType.I16|block": "i16",
+  "jacdac.SensorAggregatorSampleType.I32|block": "i32",
+  "jacdac.SensorAggregatorSampleType.I8|block": "i8",
+  "jacdac.SensorAggregatorSampleType.U16|block": "u16",
+  "jacdac.SensorAggregatorSampleType.U32|block": "u32",
+  "jacdac.SensorAggregatorSampleType.U8|block": "u8",
+  "{id:category}Jacdac": "Jacdac"
+}

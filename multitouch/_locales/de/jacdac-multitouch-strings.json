@@ -1,0 +1,20 @@
+{
+  "jacdac.MultitouchEvent.LongPress": "Argument: Kanal uint8_t.",
+  "jacdac.MultitouchEvent.LongPress|block": "langer Druck",
+  "jacdac.MultitouchEvent.Release": "Argument: Kanal uint8_t.",
+  "jacdac.MultitouchEvent.Release|block": "loslassen",
+  "jacdac.MultitouchEvent.SwipeNeg": "Wird ausgelöst, wenn Eingangskanäle in absteigender Kanalnummernfolge nacheinander berührt werden.",
+  "jacdac.MultitouchEvent.SwipeNeg|block": "wischen neg",
+  "jacdac.MultitouchEvent.SwipePos": "Wird ausgelöst, wenn Eingangskanäle in aufsteigender Kanalnummernfolge nacheinander berührt werden.",
+  "jacdac.MultitouchEvent.SwipePos|block": "wischen pos",
+  "jacdac.MultitouchEvent.Tap": "Argument: Kanal uint8_t.",
+  "jacdac.MultitouchEvent.Tap|block": "tippen",
+  "jacdac.MultitouchEvent.Touch": "Argument: Kanal uint8_t.",
+  "jacdac.MultitouchEvent.Touch|block": "berühren",
+  "jacdac.MultitouchReg.Capacity": "Nur-Lesen.",
+  "modules.MultiTouchClient.value|block": "%multiTouch Wert bei $index",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Touch": "Berührung"
+}

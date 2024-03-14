@@ -1,0 +1,15 @@
+{
+  "jacdac.HidJoystickCmd.SetAxis": "Setzt den Zustand der analogen Eingänge.",
+  "jacdac.HidJoystickCmd.SetButtons": "Setzt den Hoch/Runter-Button-Zustand, ein Byte pro Taste, unterstützt analoge Tasten.",
+  "jacdac.HidJoystickReg.AxisCount": "Konstante uint8_t.",
+  "jacdac.HidJoystickReg.ButtonCount": "Konstante uint8_t.",
+  "jacdac.HidJoystickReg.ButtonsAnalog": "Konstante uint32_t.",
+  "modules.HidJoystickClient.clear|block": "lösche %hidjoystick",
+  "modules.HidJoystickClient.setAxis|block": "setze %hidjoystick Achse $index auf $position",
+  "modules.HidJoystickClient.setButton|block": "setze %hidjoystick Taste $index auf $down",
+  "modules.hidJoystick1|block": "hid Joystick1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}HID Joystick": "HID Joystick"
+}

@@ -1,0 +1,23 @@
+{
+  "jacdac.CharacterScreenReg.Brightness": "Lese-Schreib-Verhältnis u0.",
+  "jacdac.CharacterScreenReg.Columns": "Konstante # uint8_t.",
+  "jacdac.CharacterScreenReg.Message": "Lese-Schreib-String (Bytes).",
+  "jacdac.CharacterScreenReg.Rows": "Konstante # uint8_t.",
+  "jacdac.CharacterScreenReg.TextDirection": "Lese-Schreib Textausrichtung (uint8_t).",
+  "jacdac.CharacterScreenReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.CharacterScreenTextDirection.LeftToRight|block": "von links nach rechts",
+  "jacdac.CharacterScreenTextDirection.RightToLeft|block": "von rechts nach links",
+  "jacdac.CharacterScreenVariant.Braille|block": "braille",
+  "jacdac.CharacterScreenVariant.LCD|block": "lcd",
+  "jacdac.CharacterScreenVariant.OLED|block": "oled",
+  "modules.CharacterScreenClient.brightness|block": "%characterscreen Helligkeit",
+  "modules.CharacterScreenClient.clear|block": "lösche %characterscreen",
+  "modules.CharacterScreenClient.setBrightness|block": "setze %characterscreen Helligkeit auf %value",
+  "modules.CharacterScreenClient.setLineValue|block": "setze %characterscreen in Zeile |$index |auf $name|= $value||mit $precision Dezimalstellen",
+  "modules.CharacterScreenClient.setLine|block": "setze %characterscreen in Zeile |$index |auf $message",
+  "modules.characterScreen1|block": "character screen1",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Display": "Anzeige"
+}

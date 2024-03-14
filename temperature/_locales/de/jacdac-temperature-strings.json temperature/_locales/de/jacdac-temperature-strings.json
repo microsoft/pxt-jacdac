@@ -1,0 +1,17 @@
+{
+  "jacdac.TemperatureReg.MaxTemperature": "Konstante °C i22.",
+  "jacdac.TemperatureReg.MinTemperature": "Konstante °C i22.",
+  "jacdac.TemperatureReg.Temperature": "Nur-Lesen °C i22.",
+  "jacdac.TemperatureReg.TemperatureError": "Nur-Lesen °C u22.",
+  "jacdac.TemperatureReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.TemperatureVariant.Body|block": "Körper",
+  "jacdac.TemperatureVariant.Indoor|block": "innen",
+  "jacdac.TemperatureVariant.Outdoor|block": "außen",
+  "modules.TemperatureClient.onTemperatureChangedBy|block": "wenn %temperature Temperatur sich um %threshold (°C) ändert",
+  "modules.TemperatureClient.temperature|block": "%temperature Temperatur (°C)",
+  "modules.temperature1|block": "Temperatur1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

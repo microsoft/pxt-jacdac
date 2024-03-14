@@ -1,0 +1,21 @@
+{
+  "jacdac.DotMatrixReg.Brightness": "Lese-Schreib-Verhältnis u0.",
+  "jacdac.DotMatrixReg.Columns": "Konstante # uint16_t.",
+  "jacdac.DotMatrixReg.Dots": "Lese-Schreib-Bytes.",
+  "jacdac.DotMatrixReg.Rows": "Konstante # uint16_t.",
+  "jacdac.DotMatrixReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.DotMatrixVariant.Braille|block": "Braille",
+  "jacdac.DotMatrixVariant.LED|block": "LED",
+  "modules.DotMatrixClient.brightness|block": "Helligkeit von %dotmatrix",
+  "modules.DotMatrixClient.clearDots|block": "lösche %dotmatrix Punkte",
+  "modules.DotMatrixClient.columns|block": "Spalten von %dotmatrix",
+  "modules.DotMatrixClient.rows|block": "Zeilen von %dotmatrix",
+  "modules.DotMatrixClient.setBrightness|block": "setze Helligkeit von %dotmatrix auf %value",
+  "modules.DotMatrixClient.setDot|block": "setze %dotmatrix Punkt bei x %x y %y auf %on=toggleOnOff",
+  "modules.DotMatrixClient.toggleDot|block": "schalte %dotmatrix Punkt bei x $x y $y um",
+  "modules.dotMatrix1|block": "Dot-Matrix 1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Display": "Anzeige"
+}

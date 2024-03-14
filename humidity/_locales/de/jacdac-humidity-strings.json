@@ -1,0 +1,13 @@
+{
+  "jacdac.HumidityReg.Humidity": "Nur-Lesen %RH u22.",
+  "jacdac.HumidityReg.HumidityError": "Nur-Lesen %RH u22.",
+  "jacdac.HumidityReg.MaxHumidity": "Konstante %RH u22.",
+  "jacdac.HumidityReg.MinHumidity": "Konstante %RH u22.",
+  "modules.HumidityClient.humidity|block": "%humidity Luftfeuchtigkeit (\\%RH)",
+  "modules.HumidityClient.onHumidityChangedBy|block": "wenn %humidity Luftfeuchtigkeit sich um %threshold ändert (\\%RH)",
+  "modules.humidity1|block": "Luftfeuchtigkeit1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}
