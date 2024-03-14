@@ -5,7 +5,8 @@
   "files": [
     "constants.ts",
     "client.g.ts",
-    "_locales/de/jacdac-pulse-oximeter-strings.json"
+    "_locales/de/jacdac-pulse-oximeter-strings.json",
+    "_locales/de/jacdac-strings.json"
   ],
   "testFiles": [],
   "supportedTargets": [

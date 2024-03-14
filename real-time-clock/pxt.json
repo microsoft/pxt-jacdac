@@ -1,23 +1,24 @@
 {
-    "name": "jacdac-real-time-clock",
-    "version": "1.9.25",
-    "description": "Real time clock to support collecting data with precise time stamps.",
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "testFiles": [],
-    "testDependencies": {
-        "nucleo-f411re": "*"
-    },
-    "supportedTargets": [
-        "arcade",
-        "microbit",
-        "maker",
-        "calliopemini"
-    ]
+  "name": "jacdac-real-time-clock",
+  "version": "1.9.25",
+  "description": "Real time clock to support collecting data with precise time stamps.",
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "files": [
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-real-time-clock-strings.json"
+  ],
+  "testFiles": [],
+  "testDependencies": {
+    "nucleo-f411re": "*"
+  },
+  "supportedTargets": [
+    "arcade",
+    "microbit",
+    "maker",
+    "calliopemini"
+  ]
 }

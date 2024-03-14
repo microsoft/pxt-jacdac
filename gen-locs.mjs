@@ -9,6 +9,7 @@ const libs = (await fs.readdir(".", { withFileTypes: true }))
     )
     .map(f => f.name)
 libs.unshift(".")
+libs.reverse()
 console.log(`generating locs for ${libs.length} libraries`)
 for (const lib of libs) {
     console.log(lib)
