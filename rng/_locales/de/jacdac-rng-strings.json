@@ -1,0 +1,12 @@
+{
+  "jacdac.RngReg.Random": "Nur-Lese Bytes.",
+  "jacdac.RngReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.RngVariant.ADCNoise|block": "adcrauschen",
+  "jacdac.RngVariant.Quantum|block": "quantum",
+  "jacdac.RngVariant.WebCrypto|block": "webkrypto",
+  "modules.rng1|block": "rng1",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Random Number Generator": "Zufallszahlengenerator"
+}

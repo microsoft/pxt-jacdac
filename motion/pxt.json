@@ -1,23 +1,24 @@
 {
-    "name": "jacdac-motion",
-    "version": "1.9.25",
-    "description": "A sensor, typically PIR, that detects object motion within a certain range",
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "testFiles": [],
-    "supportedTargets": [
-        "arcade",
-        "microbit",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
-    }
+  "name": "jacdac-motion",
+  "version": "1.9.25",
+  "description": "A sensor, typically PIR, that detects object motion within a certain range",
+  "files": [
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-motion-strings.json"
+  ],
+  "testFiles": [],
+  "supportedTargets": [
+    "arcade",
+    "microbit",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "testDependencies": {
+    "nucleo-f411re": "*"
+  }
 }

@@ -1,0 +1,13 @@
+{
+  "jacdac.TvocReg.MaxTVOC": "Konstante ppb u22.",
+  "jacdac.TvocReg.MinTVOC": "Konstante ppb u22.",
+  "jacdac.TvocReg.TVOC": "Nur-Lesen ppb u22.",
+  "jacdac.TvocReg.TVOCError": "Nur-Lesen ppb u22.",
+  "modules.TvocClient.onTVOCChangedBy|block": "wenn %tvoc TVOC sich um %threshold (ppb) ändert",
+  "modules.TvocClient.tVOC|block": "%tvoc TVOC (ppb)",
+  "modules.tvoc1|block": "tvoc1",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

@@ -1,25 +1,26 @@
 {
-    "name": "jacdac-seven-segment-display",
-    "version": "1.9.25",
-    "description": "A 7-segment numeric display, with one or more digits.",
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "testFiles": [
-        "test.microbit.ts"
-    ],
-    "supportedTargets": [
-        "microbit",
-        "arcade",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "fileDependencies": {
-        "test.microbit.ts": "target:microbit || target:calliopemini"
-    }
+  "name": "jacdac-seven-segment-display",
+  "version": "1.9.25",
+  "description": "A 7-segment numeric display, with one or more digits.",
+  "files": [
+    "constants.ts",
+    "client.ts",
+    "_locales/de/jacdac-seven-segment-display-strings.json"
+  ],
+  "testFiles": [
+    "test.microbit.ts"
+  ],
+  "supportedTargets": [
+    "microbit",
+    "arcade",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "fileDependencies": {
+    "test.microbit.ts": "target:microbit || target:calliopemini"
+  }
 }

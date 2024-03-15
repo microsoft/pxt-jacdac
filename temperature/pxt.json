@@ -1,26 +1,27 @@
 {
-    "name": "jacdac-temperature",
-    "version": "1.9.25",
-    "description": "A thermometer measuring outside or inside environment.",
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "supportedTargets": [
-        "microbit",
-        "arcade",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testFiles": [
-        "test.microbit.ts"
-    ],
-    "testDependencies": {},
-    "fileDependencies": {
-        "test.microbit.ts": "target:microbit || target:calliopemini"
-    }
+  "name": "jacdac-temperature",
+  "version": "1.9.25",
+  "description": "A thermometer measuring outside or inside environment.",
+  "files": [
+    "constants.ts",
+    "client.ts",
+    "_locales/de/jacdac-temperature-strings.json"
+  ],
+  "supportedTargets": [
+    "microbit",
+    "arcade",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "testFiles": [
+    "test.microbit.ts"
+  ],
+  "testDependencies": {},
+  "fileDependencies": {
+    "test.microbit.ts": "target:microbit || target:calliopemini"
+  }
 }

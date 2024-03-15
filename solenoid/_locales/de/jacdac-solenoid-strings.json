@@ -1,0 +1,14 @@
+{
+  "jacdac.SolenoidReg.Pulled": "Lese-Schreib-Bool (uint8_t).",
+  "jacdac.SolenoidReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.SolenoidVariant.Latch|block": "Riegel",
+  "jacdac.SolenoidVariant.PushPull|block": "Drücken Ziehen",
+  "jacdac.SolenoidVariant.Valve|block": "Ventil",
+  "modules.SolenoidClient.pulled|block": "%solenoid gezogen",
+  "modules.SolenoidClient.setPulled|block": "setze %solenoid gezogen auf %value",
+  "modules.solenoid1|block": "solenoid1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Solenoid": "Magnetventil"
+}

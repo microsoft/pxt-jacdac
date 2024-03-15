@@ -1,20 +1,21 @@
 {
-    "name": "jacdac-sound-level",
-    "version": "1.9.25",
-    "description": "Jacdac sound level service",
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker",
-        "microbit",
-        "calliopemini"
-    ],
-    "preferredEditor": "tsprj"
+  "name": "jacdac-sound-level",
+  "version": "1.9.25",
+  "description": "Jacdac sound level service",
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "files": [
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-sound-level-strings.json"
+  ],
+  "supportedTargets": [
+    "arcade",
+    "maker",
+    "microbit",
+    "calliopemini"
+  ],
+  "preferredEditor": "tsprj"
 }

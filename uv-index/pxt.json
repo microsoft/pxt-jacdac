@@ -1,23 +1,24 @@
 {
-    "name": "jacdac-uv-index",
-    "version": "1.9.25",
-    "description": "The UV Index is a measure of the intensity of ultraviolet (UV) rays from the Sun.",
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "testFiles": [],
-    "supportedTargets": [
-        "arcade",
-        "microbit",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {
-        "nucleo-f411re": "*"
-    }
+  "name": "jacdac-uv-index",
+  "version": "1.9.25",
+  "description": "The UV Index is a measure of the intensity of ultraviolet (UV) rays from the Sun.",
+  "files": [
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-uv-index-strings.json"
+  ],
+  "testFiles": [],
+  "supportedTargets": [
+    "arcade",
+    "microbit",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "testDependencies": {
+    "nucleo-f411re": "*"
+  }
 }

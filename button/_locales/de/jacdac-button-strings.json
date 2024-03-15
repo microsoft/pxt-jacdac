@@ -1,0 +1,22 @@
+{
+  "jacdac.ButtonEvent.Down": "Ausgelöst, wenn der Knopf von inaktiv zu aktiv wechselt.",
+  "jacdac.ButtonEvent.Down|block": "unten",
+  "jacdac.ButtonEvent.Hold": "Argument: Zeit ms uint32_t.",
+  "jacdac.ButtonEvent.Hold|block": "halten",
+  "jacdac.ButtonEvent.Up": "Argument: Zeit ms uint32_t.",
+  "jacdac.ButtonEvent.Up|block": "hoch",
+  "jacdac.ButtonReg.Analog": "Konstant bool (uint8_t).",
+  "jacdac.ButtonReg.Pressed": "Nur-Lesen bool (uint8_t).",
+  "jacdac.ButtonReg.Pressure": "Nur-Lesen Verhältnis u0.",
+  "modules.ButtonClient.holdDuration|block": "%button Haltezeit (ms)",
+  "modules.ButtonClient.onEvent|block": "bei %button %event",
+  "modules.ButtonClient.pressed|block": "%button gedrückt",
+  "modules.button1|block": "knopf1",
+  "modules.button2|block": "knopf2",
+  "modules.button3|block": "knopf3",
+  "modules.button4|block": "knopf4",
+  "modules|block": "module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Button": "Knopf"
+}

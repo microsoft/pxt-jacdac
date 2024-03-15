@@ -1,0 +1,15 @@
+{
+  "jacdac.WaterLevelReg.Level": "Nur-Lesen Verhältnis u0.",
+  "jacdac.WaterLevelReg.LevelError": "Nur-Lesen Verhältnis u0.",
+  "jacdac.WaterLevelReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.WaterLevelVariant.ContactPhotoElectric|block": "kontakt photoelektrisch",
+  "jacdac.WaterLevelVariant.NonContactPhotoElectric|block": "non-kontakt photoelektrisch",
+  "jacdac.WaterLevelVariant.Resistive|block": "resistiv",
+  "modules.WaterLevelClient.level|block": "%waterlevel Füllstand (\\%)",
+  "modules.WaterLevelClient.onLevelChangedBy|block": "wenn %waterlevel Füllstand sich um %threshold ändert (\\%)",
+  "modules.waterLevel1|block": "Wasserstand1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Water level": "Wasserstand"
+}

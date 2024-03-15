@@ -1,0 +1,11 @@
+{
+  "jacdac.RainGaugeReg.Precipitation": "Nur-Lesen mm u16.",
+  "jacdac.RainGaugeReg.PrecipitationPrecision": "Konstante mm u16.",
+  "modules.RainGaugeClient.onPrecipitationChangedBy|block": "wenn %raingauge Niederschlag sich um %threshold (mm) ändert",
+  "modules.RainGaugeClient.precipitation|block": "%raingauge Niederschlag (mm)",
+  "modules.rainGauge1|block": "Regenmesser1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

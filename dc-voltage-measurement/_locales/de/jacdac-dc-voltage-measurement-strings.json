@@ -1,0 +1,17 @@
+{
+  "jacdac.DcVoltageMeasurementReg.MaxMeasurement": "Konstante V f64 (uint64_t).",
+  "jacdac.DcVoltageMeasurementReg.Measurement": "Nur-Lesen V f64 (uint64_t).",
+  "jacdac.DcVoltageMeasurementReg.MeasurementError": "Nur-Lesen V f64 (uint64_t).",
+  "jacdac.DcVoltageMeasurementReg.MeasurementName": "Konstante Zeichenkette (Bytes).",
+  "jacdac.DcVoltageMeasurementReg.MeasurementType": "Konstante VoltageMeasurementType (uint8_t).",
+  "jacdac.DcVoltageMeasurementReg.MinMeasurement": "Konstante V f64 (uint64_t).",
+  "jacdac.DcVoltageMeasurementVoltageMeasurementType.Absolute|block": "absolut",
+  "jacdac.DcVoltageMeasurementVoltageMeasurementType.Differential|block": "differenziell",
+  "modules.DcVoltageMeasurementClient.measurement|block": "%dcvoltagemeasurement Messung (V)",
+  "modules.DcVoltageMeasurementClient.onMeasurementChangedBy|block": "wenn %dcvoltagemeasurement Messung sich um %threshold (V) ändert",
+  "modules.dcVoltageMeasurement1|block": "dc Spannungsmessung1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}DC Voltage Measurement": "DC Spannungsmessung"
+}

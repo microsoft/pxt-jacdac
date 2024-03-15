@@ -1,0 +1,14 @@
+{
+  "jacdac.GyroscopeReg.MaxRate": "Schreib-Lese °/s u12.",
+  "jacdac.GyroscopeReg.MaxRatesSupported": "Konstante.",
+  "jacdac.GyroscopeReg.RotationRates": "Zeigt die aktuellen Raten, die auf das Gyroskop wirken.",
+  "jacdac.GyroscopeReg.RotationRatesError": "Nur-Lese °/s u12.",
+  "modules.GyroscopeClient.x|block": "%gyroscope x (°/s)",
+  "modules.GyroscopeClient.y|block": "%gyroscope y (°/s)",
+  "modules.GyroscopeClient.z|block": "%gyroscope z (°/s)",
+  "modules.gyroscope1|block": "gyroscope1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Movement": "Bewegung"
+}

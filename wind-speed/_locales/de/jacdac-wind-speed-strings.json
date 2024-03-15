@@ -1,0 +1,12 @@
+{
+  "jacdac.WindSpeedReg.MaxWindSpeed": "Konstante m/s u16.",
+  "jacdac.WindSpeedReg.WindSpeed": "Nur-Lesen m/s u16.",
+  "jacdac.WindSpeedReg.WindSpeedError": "Nur-Lesen m/s u16.",
+  "modules.WindSpeedClient.onWindSpeedChangedBy|block": "wenn %windspeed Windgeschwindigkeit sich um %threshold (m/s) ändert",
+  "modules.WindSpeedClient.windSpeed|block": "%windspeed Windgeschwindigkeit (m/s)",
+  "modules.windSpeed1|block": "Windgeschwindigkeit1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

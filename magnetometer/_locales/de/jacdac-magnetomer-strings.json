@@ -1,0 +1,14 @@
+{
+  "jacdac.MagnetometerCmd.Calibrate": "Keine Argumente.",
+  "jacdac.MagnetometerReg.Forces": "Zeigt das aktuelle Magnetfeld am Magnetometer an.",
+  "jacdac.MagnetometerReg.ForcesError": "Nur-Lesen nT int32_t.",
+  "modules.MagnetometerClient.calibrate|block": "%magnetomer kalibrieren",
+  "modules.MagnetometerClient.x|block": "%magnetomer x (nT)",
+  "modules.MagnetometerClient.y|block": "%magnetomer y (nT)",
+  "modules.MagnetometerClient.z|block": "%magnetomer z (nT)",
+  "modules.magnetometer1|block": "Magnetometer1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Magnetometer": "Magnetometer"
+}

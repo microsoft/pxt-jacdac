@@ -1,0 +1,11 @@
+{
+  "jacdac.LightBulbReg.Brightness": "Lese-Schreib-Verhältnis u0.",
+  "jacdac.LightBulbReg.Dimmable": "Konstante bool (uint8_t).",
+  "modules.LightBulbClient.brightness|block": "%lightbulb Helligkeit (\\%)",
+  "modules.LightBulbClient.setBrightness|block": "setze %lightbulb Helligkeit auf %value (\\%)",
+  "modules.lightBulb1|block": "Glühbirne1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Light": "Licht"
+}

@@ -1,0 +1,15 @@
+{
+  "jacdac.BrailleDisplayReg.Enabled": "Lese-Schreib-Bool (uint8_t).",
+  "jacdac.BrailleDisplayReg.Length": "Konstante # uint8_t.",
+  "jacdac.BrailleDisplayReg.Patterns": "Lese-Schreib-String (Bytes).",
+  "modules.BrailleDisplayClient.enabled|block": "%brailledisplay aktiviert",
+  "modules.BrailleDisplayClient.setEnabled|block": "setze %brailledisplay %value=toggleOnOff",
+  "modules.BrailleDisplayClient.showNumber|block": "zeige %brailledisplay Nummer %text",
+  "modules.BrailleDisplayClient.showString|block": "zeige %brailledisplay Zeichenkette %text",
+  "modules.brailleDisplay1|block": "Braille-Anzeige1",
+  "modules.brailleDisplay2|block": "Braille-Anzeige2",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Display": "Anzeige"
+}

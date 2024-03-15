@@ -15,3 +15,5 @@ others
 *.gts
 package-lock.json
 package.json
+.genaiscript
+.env

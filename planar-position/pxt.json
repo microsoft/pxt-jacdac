@@ -1,20 +1,21 @@
 {
-    "name": "jacdac-planar-position",
-    "version": "1.9.25",
-    "description": "A sensor that repors 2D position, typically an optical mouse tracking sensor.\n\nThe sensor starts at an arbitrary origin (0,0) and reports the distance from that origin.\n\nThe `streaming_interval` is respected when the position is changing. When the position is not changing, the streaming interval may be throttled to `500ms`.",
-    "files": [
-        "constants.ts",
-        "client.g.ts"
-    ],
-    "testFiles": [],
-    "supportedTargets": [
-        "microbit",
-        "arcade",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+  "name": "jacdac-planar-position",
+  "version": "1.9.25",
+  "description": "A sensor that repors 2D position, typically an optical mouse tracking sensor.\n\nThe sensor starts at an arbitrary origin (0,0) and reports the distance from that origin.\n\nThe `streaming_interval` is respected when the position is changing. When the position is not changing, the streaming interval may be throttled to `500ms`.",
+  "files": [
+    "constants.ts",
+    "client.g.ts",
+    "_locales/de/jacdac-planar-position-strings.json"
+  ],
+  "testFiles": [],
+  "supportedTargets": [
+    "microbit",
+    "arcade",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  }
 }

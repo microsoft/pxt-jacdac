@@ -1,25 +1,26 @@
 {
-    "name": "jacdac-character-screen",
-    "version": "1.9.25",
-    "description": "A screen that displays characters.",
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "testFiles": [
-        "test.microbit.ts"
-    ],
-    "fileDependencies": {
-        "test.microbit.ts": "target:microbit || target:calliopemini"
-    },
-    "supportedTargets": [
-        "arcade",
-        "microbit",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    }
+  "name": "jacdac-character-screen",
+  "version": "1.9.25",
+  "description": "A screen that displays characters.",
+  "files": [
+    "constants.ts",
+    "client.ts",
+    "_locales/de/jacdac-character-screen-strings.json"
+  ],
+  "testFiles": [
+    "test.microbit.ts"
+  ],
+  "fileDependencies": {
+    "test.microbit.ts": "target:microbit || target:calliopemini"
+  },
+  "supportedTargets": [
+    "arcade",
+    "microbit",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  }
 }

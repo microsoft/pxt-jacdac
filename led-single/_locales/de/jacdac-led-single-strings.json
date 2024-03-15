@@ -1,0 +1,23 @@
+{
+  "jacdac.LedSingleCmd.Animate": "Dies hat die gleiche Semantik wie `set_status_light` im Steuerungsdienst.",
+  "jacdac.LedSingleReg.Color": "Die aktuelle Farbe der LED.",
+  "jacdac.LedSingleReg.LedCount": "Konstante uint16_t.",
+  "jacdac.LedSingleReg.LuminousIntensity": "Konstante mcd uint16_t.",
+  "jacdac.LedSingleReg.MaxPower": "Lese-Schreibe mA uint16_t.",
+  "jacdac.LedSingleReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.LedSingleReg.WaveLength": "Konstante nm uint16_t.",
+  "jacdac.LedSingleVariant.Bead|block": "Perle",
+  "jacdac.LedSingleVariant.Power|block": "Kraft",
+  "jacdac.LedSingleVariant.SMD|block": "SMD",
+  "jacdac.LedSingleVariant.ThroughHole|block": "Durchsteckmontage",
+  "modules.LedSingleClient.animate|block": "animiere %led zu %color mit Geschwindigkeit %speed",
+  "modules.LedSingleClient.blue|block": "blau",
+  "modules.LedSingleClient.color|block": "Farbe",
+  "modules.LedSingleClient.green|block": "grün",
+  "modules.LedSingleClient.red|block": "rot",
+  "modules.ledSingle1|block": "led1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Light": "Licht"
+}

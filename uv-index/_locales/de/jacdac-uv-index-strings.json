@@ -1,0 +1,14 @@
+{
+  "jacdac.UvIndexReg.UvIndex": "Nur-Lesen uv u16.",
+  "jacdac.UvIndexReg.UvIndexError": "Nur-Lesen uv u16.",
+  "jacdac.UvIndexReg.Variant": "Konstante Variante (uint8_t).",
+  "jacdac.UvIndexVariant.UVA_UVB|block": "uva uvb",
+  "jacdac.UvIndexVariant.Visible_IR|block": "sichtbar ir",
+  "modules.UvIndexClient.onUvIndexChangedBy|block": "wenn %uvindex UV-Index sich um %threshold (uv) ändert",
+  "modules.UvIndexClient.uvIndex|block": "%uvindex UV-Index (uv)",
+  "modules.uvIndex1|block": "UV-Index1",
+  "modules|block": "Module",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Module",
+  "{id:group}Environment": "Umwelt"
+}

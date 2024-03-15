@@ -1,20 +1,21 @@
 {
-    "name": "jacdac-model-runner",
-    "version": "1.9.25",
-    "description": "MakeCode support for Jacdac Model runner service",
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "maker",
-        "microbit",
-        "calliopemini"
-    ],
-    "preferredEditor": "tsprj"
+  "name": "jacdac-model-runner",
+  "version": "1.9.25",
+  "description": "MakeCode support for Jacdac Model runner service",
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "files": [
+    "constants.ts",
+    "client.ts",
+    "_locales/de/jacdac-model-runner-strings.json"
+  ],
+  "supportedTargets": [
+    "arcade",
+    "maker",
+    "microbit",
+    "calliopemini"
+  ],
+  "preferredEditor": "tsprj"
 }

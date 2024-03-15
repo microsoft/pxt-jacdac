@@ -1,23 +1,24 @@
 {
-    "name": "jacdac-button",
-    "version": "1.9.25",
-    "description": "A push-button, which returns to inactive position when not operated anymore.",
-    "files": [
-        "constants.ts",
-        "client.ts"
-    ],
-    "testFiles": [
-        "test.ts"
-    ],
-    "supportedTargets": [
-        "arcade",
-        "microbit",
-        "maker",
-        "calliopemini"
-    ],
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
-    "testDependencies": {}
+  "name": "jacdac-button",
+  "version": "1.9.25",
+  "description": "A push-button, which returns to inactive position when not operated anymore.",
+  "files": [
+    "constants.ts",
+    "client.ts",
+    "_locales/de/jacdac-button-strings.json"
+  ],
+  "testFiles": [
+    "test.ts"
+  ],
+  "supportedTargets": [
+    "arcade",
+    "microbit",
+    "maker",
+    "calliopemini"
+  ],
+  "dependencies": {
+    "core": "*",
+    "jacdac": "github:microsoft/pxt-jacdac"
+  },
+  "testDependencies": {}
 }
