@@ -122,8 +122,15 @@ and should be translated following these rules:
 - Make sure to translate '\\%' to '\\%' and '\\$' to '\\$' if they are not variables.
 - Event string starts with 'on', like 'on pressed'. Interpret 'on' as 'when' when, like 'when pressed', when translating.
 - The translations of "...|block" string should be short.
+- Capitalize acronyms (LCD, OLED), Bool.
 
 `
+
+// language specific instructions
+if (langCode === "de") {
+    $`- Capitalize Pipe in translations.`
+}
+
 
 // add to prompt context
 def(
