@@ -1,20 +1,20 @@
 {
-  "name": "jacdac-servers",
-  "version": "1.9.25",
-  "description": "MakeCode support for Jacdac servers",
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "files": [
-    "servers.ts",
-    "_locales/de/jacdac-servers-strings.json"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "maker",
-    "microbit",
-    "calliopemini"
-  ],
-  "preferredEditor": "tsprj"
+    "name": "jacdac-servers",
+    "version": "1.9.26",
+    "description": "MakeCode support for Jacdac servers",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "files": [
+        "servers.ts",
+        "_locales/de/jacdac-servers-strings.json"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit",
+        "calliopemini"
+    ],
+    "preferredEditor": "tsprj"
 }

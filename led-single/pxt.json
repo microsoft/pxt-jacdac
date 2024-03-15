@@ -1,20 +1,20 @@
 {
-  "name": "jacdac-led-single",
-  "version": "1.9.25",
-  "description": "A controller for 1 or more monochrome or RGB LEDs connected in parallel.",
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "_locales/de/jacdac-led-single-strings.json"
-  ],
-  "supportedTargets": [
-    "microbit",
-    "arcade",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  }
+    "name": "jacdac-led-single",
+    "version": "1.9.26",
+    "description": "A controller for 1 or more monochrome or RGB LEDs connected in parallel.",
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "_locales/de/jacdac-led-single-strings.json"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
 }

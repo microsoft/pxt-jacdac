@@ -1,23 +1,23 @@
 {
-  "name": "jacdac-dot-matrix",
-  "version": "1.9.25",
-  "description": "A rectangular dot matrix display, made of monochrome LEDs or braille pins.",
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "_locales/de/jacdac-dot-matrix-strings.json"
-  ],
-  "testFiles": [
-    "test.ts"
-  ],
-  "supportedTargets": [
-    "microbit",
-    "arcade",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  }
+    "name": "jacdac-dot-matrix",
+    "version": "1.9.26",
+    "description": "A rectangular dot matrix display, made of monochrome LEDs or braille pins.",
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "_locales/de/jacdac-dot-matrix-strings.json"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
 }

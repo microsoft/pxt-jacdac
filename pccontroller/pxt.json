@@ -1,21 +1,21 @@
 {
-  "name": "jacdac-pccontroller",
-  "version": "1.9.25",
-  "description": "Send various events to PC, including opening a URL, start an app, sending text, etc.",
-  "files": [
-    "constants.ts",
-    "client.g.ts",
-    "_locales/de/jacdac-pccontroller-strings.json"
-  ],
-  "testFiles": [],
-  "supportedTargets": [
-    "microbit",
-    "arcade",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  }
+    "name": "jacdac-pccontroller",
+    "version": "1.9.26",
+    "description": "Send various events to PC, including opening a URL, start an app, sending text, etc.",
+    "files": [
+        "constants.ts",
+        "client.g.ts",
+        "_locales/de/jacdac-pccontroller-strings.json"
+    ],
+    "testFiles": [],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
 }

@@ -1,23 +1,23 @@
 {
-  "name": "jacdac-braille-display",
-  "version": "1.9.25",
-  "description": "A Braille pattern display module. This module display [unicode braille patterns](https://www.unicode.org/charts/PDF/U2800.pdf), country specific encoding have to be implemented by the clients.",
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "_locales/de/jacdac-braille-display-strings.json"
-  ],
-  "testFiles": [
-    "test.ts"
-  ],
-  "supportedTargets": [
-    "microbit",
-    "arcade",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  }
+    "name": "jacdac-braille-display",
+    "version": "1.9.26",
+    "description": "A Braille pattern display module. This module display [unicode braille patterns](https://www.unicode.org/charts/PDF/U2800.pdf), country specific encoding have to be implemented by the clients.",
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "_locales/de/jacdac-braille-display-strings.json"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
 }

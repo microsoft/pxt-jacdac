@@ -1,6 +1,6 @@
 {
     "name": "jacdac-microbit-jukebox",
-    "version": "1.9.25",
+    "version": "1.9.26",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -61,7 +61,10 @@
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": ["microbit", "calliopemini"],
+    "supportedTargets": [
+        "microbit",
+        "calliopemini"
+    ],
     "fileDependencies": {
         "microbit.ts": "target:microbit",
         "calliopemini.ts": "target:calliopemini"

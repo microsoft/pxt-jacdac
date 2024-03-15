@@ -1,23 +1,23 @@
 {
-  "name": "jacdac-solenoid",
-  "version": "1.9.25",
-  "description": "A push-pull solenoid is a type of relay that pulls a coil when activated.",
-  "files": [
-    "constants.ts",
-    "client.g.ts",
-    "_locales/de/jacdac-solenoid-strings.json"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "microbit",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "testDependencies": {
-    "nucleo-f411re": "*"
-  }
+    "name": "jacdac-solenoid",
+    "version": "1.9.26",
+    "description": "A push-pull solenoid is a type of relay that pulls a coil when activated.",
+    "files": [
+        "constants.ts",
+        "client.g.ts",
+        "_locales/de/jacdac-solenoid-strings.json"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }

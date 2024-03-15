@@ -1,28 +1,28 @@
 {
-  "name": "jacdac-servo",
-  "version": "1.9.25",
-  "description": "MakeCode support for Jacdac Servo service",
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "clients.ts",
-    "_locales/de/jacdac-servo-strings.json"
-  ],
-  "testFiles": [
-    "test.microbit.ts"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "maker",
-    "microbit",
-    "calliopemini"
-  ],
-  "preferredEditor": "tsprj",
-  "fileDependencies": {
-    "test.microbit.ts": "target:microbit || target:calliopemini"
-  }
+    "name": "jacdac-servo",
+    "version": "1.9.26",
+    "description": "MakeCode support for Jacdac Servo service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "clients.ts",
+        "_locales/de/jacdac-servo-strings.json"
+    ],
+    "testFiles": [
+        "test.microbit.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit",
+        "calliopemini"
+    ],
+    "preferredEditor": "tsprj",
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit || target:calliopemini"
+    }
 }

@@ -1,21 +1,21 @@
 {
-  "name": "jacdac-motor",
-  "version": "1.9.25",
-  "description": "MakeCode support for Jacdac Motor service",
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "_locales/de/jacdac-motor-strings.json"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "maker",
-    "microbit",
-    "calliopemini"
-  ],
-  "preferredEditor": "tsprj"
+    "name": "jacdac-motor",
+    "version": "1.9.26",
+    "description": "MakeCode support for Jacdac Motor service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "_locales/de/jacdac-motor-strings.json"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit",
+        "calliopemini"
+    ],
+    "preferredEditor": "tsprj"
 }

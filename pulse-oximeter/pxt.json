@@ -1,24 +1,24 @@
 {
-  "name": "jacdac-pulse-oximeter",
-  "version": "1.9.25",
-  "description": "A sensor approximating the oxygen level. \n\n**Jacdac is not suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**",
-  "files": [
-    "constants.ts",
-    "client.g.ts",
-    "_locales/de/jacdac-pulse-oximeter-strings.json"
-  ],
-  "testFiles": [],
-  "supportedTargets": [
-    "arcade",
-    "microbit",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "testDependencies": {
-    "nucleo-f411re": "*"
-  }
+    "name": "jacdac-pulse-oximeter",
+    "version": "1.9.26",
+    "description": "A sensor approximating the oxygen level. \n\n**Jacdac is not suitable for medical devices and should NOT be used in any kind of device to diagnose or treat any medical conditions.**",
+    "files": [
+        "constants.ts",
+        "client.g.ts",
+        "_locales/de/jacdac-pulse-oximeter-strings.json"
+    ],
+    "testFiles": [],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }

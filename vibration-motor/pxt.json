@@ -1,23 +1,23 @@
 {
-  "name": "jacdac-vibration-motor",
-  "version": "1.9.25",
-  "description": "A vibration motor.",
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "_locales/de/jacdac-vibration-motor-strings.json"
-  ],
-  "testFiles": [
-    "test.ts"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "microbit",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  }
+    "name": "jacdac-vibration-motor",
+    "version": "1.9.26",
+    "description": "A vibration motor.",
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "_locales/de/jacdac-vibration-motor-strings.json"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
 }

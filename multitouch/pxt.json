@@ -1,21 +1,21 @@
 {
-  "name": "jacdac-multitouch",
-  "version": "1.9.25",
-  "description": "MakeCode support for Jacdac Multi Touch service",
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "_locales/de/jacdac-multitouch-strings.json"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "maker",
-    "microbit",
-    "calliopemini"
-  ],
-  "preferredEditor": "tsprj"
+    "name": "jacdac-multitouch",
+    "version": "1.9.26",
+    "description": "MakeCode support for Jacdac Multi Touch service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "_locales/de/jacdac-multitouch-strings.json"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit",
+        "calliopemini"
+    ],
+    "preferredEditor": "tsprj"
 }

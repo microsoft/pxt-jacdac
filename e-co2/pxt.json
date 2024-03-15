@@ -1,23 +1,23 @@
 {
-  "name": "jacdac-e-co2",
-  "version": "1.9.25",
-  "description": "Measures equivalent CO₂ levels.",
-  "files": [
-    "constants.ts",
-    "client.g.ts",
-    "_locales/de/jacdac-e-co2-strings.json"
-  ],
-  "testFiles": [
-    "test.ts"
-  ],
-  "supportedTargets": [
-    "microbit",
-    "arcade",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  }
+    "name": "jacdac-e-co2",
+    "version": "1.9.26",
+    "description": "Measures equivalent CO₂ levels.",
+    "files": [
+        "constants.ts",
+        "client.g.ts",
+        "_locales/de/jacdac-e-co2-strings.json"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
 }

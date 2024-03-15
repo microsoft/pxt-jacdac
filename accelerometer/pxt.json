@@ -1,27 +1,27 @@
 {
-  "name": "jacdac-accelerometer",
-  "version": "1.9.25",
-  "description": "MakeCode support for Jacdac Accelerometer service",
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "files": [
-    "constants.ts",
-    "client.g.ts",
-    "_locales/de/jacdac-accelerometer-strings.json"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "maker",
-    "microbit",
-    "calliopemini"
-  ],
-  "preferredEditor": "tsprj",
-  "testFiles": [
-    "test.microbit.ts"
-  ],
-  "fileDependencies": {
-    "test.microbit.ts": "target:microbit"
-  }
+    "name": "jacdac-accelerometer",
+    "version": "1.9.26",
+    "description": "MakeCode support for Jacdac Accelerometer service",
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "files": [
+        "constants.ts",
+        "client.g.ts",
+        "_locales/de/jacdac-accelerometer-strings.json"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "maker",
+        "microbit",
+        "calliopemini"
+    ],
+    "preferredEditor": "tsprj",
+    "testFiles": [
+        "test.microbit.ts"
+    ],
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit"
+    }
 }

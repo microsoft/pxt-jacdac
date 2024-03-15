@@ -1,24 +1,24 @@
 {
-  "name": "jacdac-rain-gauge",
-  "version": "1.9.25",
-  "description": "Measures the amount of liquid precipitation over an area in a predefined period of time.",
-  "files": [
-    "constants.ts",
-    "client.g.ts",
-    "_locales/de/jacdac-rain-gauge-strings.json"
-  ],
-  "testFiles": [],
-  "supportedTargets": [
-    "arcade",
-    "microbit",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "testDependencies": {
-    "nucleo-f411re": "*"
-  }
+    "name": "jacdac-rain-gauge",
+    "version": "1.9.26",
+    "description": "Measures the amount of liquid precipitation over an area in a predefined period of time.",
+    "files": [
+        "constants.ts",
+        "client.g.ts",
+        "_locales/de/jacdac-rain-gauge-strings.json"
+    ],
+    "testFiles": [],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }

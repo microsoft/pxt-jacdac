@@ -1,23 +1,23 @@
 {
-  "name": "jacdac-speech-synthesis",
-  "version": "1.9.25",
-  "description": "A speech synthesizer",
-  "files": [
-    "constants.ts",
-    "client.g.ts",
-    "_locales/de/jacdac-speech-synthesis-strings.json"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "microbit",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "testDependencies": {
-    "nucleo-f411re": "*"
-  }
+    "name": "jacdac-speech-synthesis",
+    "version": "1.9.26",
+    "description": "A speech synthesizer",
+    "files": [
+        "constants.ts",
+        "client.g.ts",
+        "_locales/de/jacdac-speech-synthesis-strings.json"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }

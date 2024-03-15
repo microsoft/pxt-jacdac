@@ -1,28 +1,28 @@
 {
-  "name": "jacdac-distance",
-  "version": "1.9.25",
-  "description": "A sensor that determines the distance of an object without any physical contact involved.",
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "clients.ts",
-    "_locales/de/jacdac-distance-strings.json"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "microbit",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "testFiles": [
-    "test.microbit.ts"
-  ],
-  "testDependencies": {},
-  "fileDependencies": {
-    "test.microbit.ts": "target:microbit || target:calliopemini"
-  }
+    "name": "jacdac-distance",
+    "version": "1.9.26",
+    "description": "A sensor that determines the distance of an object without any physical contact involved.",
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "clients.ts",
+        "_locales/de/jacdac-distance-strings.json"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testFiles": [
+        "test.microbit.ts"
+    ],
+    "testDependencies": {},
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit || target:calliopemini"
+    }
 }

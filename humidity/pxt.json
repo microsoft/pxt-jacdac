@@ -1,27 +1,27 @@
 {
-  "name": "jacdac-humidity",
-  "version": "1.9.25",
-  "description": "A sensor measuring humidity of outside environment.",
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "_locales/de/jacdac-humidity-strings.json"
-  ],
-  "supportedTargets": [
-    "arcade",
-    "microbit",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  },
-  "testFiles": [
-    "test.microbit.ts"
-  ],
-  "testDependencies": {},
-  "fileDependencies": {
-    "test.microbit.ts": "target:microbit || target:calliopemini"
-  }
+    "name": "jacdac-humidity",
+    "version": "1.9.26",
+    "description": "A sensor measuring humidity of outside environment.",
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "_locales/de/jacdac-humidity-strings.json"
+    ],
+    "supportedTargets": [
+        "arcade",
+        "microbit",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testFiles": [
+        "test.microbit.ts"
+    ],
+    "testDependencies": {},
+    "fileDependencies": {
+        "test.microbit.ts": "target:microbit || target:calliopemini"
+    }
 }

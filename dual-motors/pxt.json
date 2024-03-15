@@ -1,23 +1,23 @@
 {
-  "name": "jacdac-dual-motors",
-  "version": "1.9.25",
-  "description": "A synchronized pair of motors.",
-  "files": [
-    "constants.ts",
-    "client.ts",
-    "_locales/de/jacdac-dual-motors-strings.json"
-  ],
-  "testFiles": [
-    "test.ts"
-  ],
-  "supportedTargets": [
-    "microbit",
-    "arcade",
-    "maker",
-    "calliopemini"
-  ],
-  "dependencies": {
-    "core": "*",
-    "jacdac": "github:microsoft/pxt-jacdac"
-  }
+    "name": "jacdac-dual-motors",
+    "version": "1.9.26",
+    "description": "A synchronized pair of motors.",
+    "files": [
+        "constants.ts",
+        "client.ts",
+        "_locales/de/jacdac-dual-motors-strings.json"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit",
+        "arcade",
+        "maker",
+        "calliopemini"
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    }
 }
