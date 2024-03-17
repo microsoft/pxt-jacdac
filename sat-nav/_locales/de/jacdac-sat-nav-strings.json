@@ -9,7 +9,7 @@
   "modules.SatNavClient.enabled|block": "%satelittenavigationsystem aktiviert",
   "modules.SatNavClient.latitude|block": "%satelittenavigationsystem Breitengrad (lat)",
   "modules.SatNavClient.longitude|block": "%satelittenavigationsystem Längengrad (lon)",
-  "modules.SatNavClient.onEvent|block": "bei %satelittenavigationsystem %event",
+  "modules.SatNavClient.onEvent|block": "wenn %satelittenavigationsystem %event",
   "modules.SatNavClient.setEnabled|block": "setze %satelittenavigationsystem %value=toggleOnOff",
   "modules.SatNavClient.timestamp|block": "%satelittenavigationsystem Zeitstempel (ms)",
   "modules.satNav1|block": "sat nav1",

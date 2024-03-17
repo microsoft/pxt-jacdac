@@ -7,7 +7,7 @@
   "jacdac.MotionReg.Variant": "Konstante Variante (uint8_t).",
   "jacdac.MotionVariant.PIR|block": "pir",
   "modules.MotionClient.moving|block": "%motion bewegt sich",
-  "modules.MotionClient.onEvent|block": "bei %motion %event",
+  "modules.MotionClient.onEvent|block": "wenn %motion %event",
   "modules.motion1|block": "motion1",
   "modules|block": "module",
   "{id:category}Jacdac": "Jacdac",

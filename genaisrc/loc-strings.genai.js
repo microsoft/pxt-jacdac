@@ -128,7 +128,10 @@ and should be translated following these rules:
 
 // language specific instructions
 if (langCode === "de") {
-    $`- Capitalize Pipe in translations.`
+    $`
+- Capitalize Pipe in translations.
+- Always translate "on ..." with "wenn ..."
+`
 }
 
 

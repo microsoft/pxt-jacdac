@@ -9,7 +9,7 @@
   "jacdac.ButtonReg.Pressed": "Nur-Lesen bool (uint8_t).",
   "jacdac.ButtonReg.Pressure": "Nur-Lesen Verhältnis u0.",
   "modules.ButtonClient.holdDuration|block": "%button Haltezeit (ms)",
-  "modules.ButtonClient.onEvent|block": "bei %button %event",
+  "modules.ButtonClient.onEvent|block": "wenn %button %event",
   "modules.ButtonClient.pressed|block": "%button gedrückt",
   "modules.button1|block": "knopf1",
   "modules.button2|block": "knopf2",

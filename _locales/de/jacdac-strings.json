@@ -20,7 +20,7 @@
   "jacdac.BootloaderError.PacketTooSmall|block": "Paket zu klein",
   "jacdac.BridgeReg.Enabled": "Lese-Schreib-Bool (uint8_t).",
   "jacdac.Client.isConnected|block": "%client verbunden",
-  "jacdac.Client.onConnectionChanged|block": "bei %client $state",
+  "jacdac.Client.onConnectionChanged|block": "wenn %client $state",
   "jacdac.ClientConnectionState.Connected|block": "verbunden",
   "jacdac.ClientConnectionState.Disconnected|block": "getrennt",
   "jacdac.ControlAnnounceFlags.IsClient|block": "ist Client",

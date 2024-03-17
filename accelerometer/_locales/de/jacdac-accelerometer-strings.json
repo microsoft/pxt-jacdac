@@ -27,7 +27,7 @@
   "jacdac.AccelerometerReg.ForcesError": "Nur-Lesen g u12.",
   "jacdac.AccelerometerReg.MaxForce": "Schreib-Lesen g u12.",
   "jacdac.AccelerometerReg.MaxForcesSupported": "Konstante.",
-  "modules.AccelerometerClient.onEvent|block": "bei %accelerometer %event",
+  "modules.AccelerometerClient.onEvent|block": "wenn %accelerometer %event",
   "modules.AccelerometerClient.x|block": "%accelerometer x (g)",
   "modules.AccelerometerClient.y|block": "%accelerometer y (g)",
   "modules.AccelerometerClient.z|block": "%accelerometer z (g)",

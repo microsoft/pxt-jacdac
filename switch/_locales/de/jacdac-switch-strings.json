@@ -14,7 +14,7 @@
   "jacdac.SwitchVariant.Tilt|block": "Neigung",
   "jacdac.SwitchVariant.Toggle|block": "Umschalter",
   "modules.SwitchClient.active|block": "%switch aktiv",
-  "modules.SwitchClient.onEvent|block": "bei %switch %event",
+  "modules.SwitchClient.onEvent|block": "wenn %switch %event",
   "modules.switch_1|block": "Schalter1",
   "modules.switch_2|block": "Schalter2",
   "modules|block": "Module",

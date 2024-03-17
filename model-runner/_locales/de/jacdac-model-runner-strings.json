@@ -1,5 +1,5 @@
 {
-  "jacdac.ModelRunnerClient.onDetection|block": "bei %modelRunner ML Klasse %classId erkannt",
+  "jacdac.ModelRunnerClient.onDetection|block": "wenn %modelRunner ML Klasse %classId erkannt",
   "jacdac.ModelRunnerCmd.Predict": "Bericht SetModel.",
   "jacdac.ModelRunnerCmd.SetModel": "Argument: model_size B uint32_t.",
   "jacdac.ModelRunnerModelFormat.EdgeImpulseCompiled|block": "edge impulse kompiliert",
