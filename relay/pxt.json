@@ -1,6 +1,6 @@
 {
     "name": "jacdac-relay",
-    "version": "1.9.26",
+    "version": "1.9.27",
     "description": "A switching relay.",
     "files": [
         "constants.ts",
