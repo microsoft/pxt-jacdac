@@ -41,14 +41,34 @@ interface PromptLike extends PromptDefinition {
     text?: string
 }
 
-type SystemPromptId = "system.diff" | "system.annotations" | "system.explanations" | "system.fs_find_files" | "system.fs_read_file" | "system.files" | "system.changelog" | "system.json" | "system" | "system.python" | "system.summary" | "system.tasks" | "system.schema" | "system.technical" | "system.typescript" | "system.web_search" | "system.functions"
+type SystemPromptId = "system.diff" | "system.annotations" | "system.explanations" | "system.fs_find_files" | "system.fs_read_file" | "system.files" | "system.changelog" | "system.json" | "system" | "system.python" | "system.summary" | "system.tasks" | "system.schema" | "system.technical" | "system.typescript" | "system.web_search" | "system.zero_shot_cot" | "system.functions"
 
 type FileMergeHandler = (
     filename: string,
     label: string,
     before: string,
     generated: string
-) => string
+) => string | Promise<string>
+
+interface PromptOutputProcessorResult {
+    /**
+     * Updated text
+     */
+    text?: string
+    /**
+     * Generated files from the output
+     */
+    files?: Record<string, string>
+
+    /**
+     * User defined errors
+     */
+    annotations?: Diagnostic[]
+}
+
+type PromptOutputProcessorHandler = (
+    output: PromptGenerationOutput
+) => PromptOutputProcessorResult | Promise<PromptOutputProcessorResult>
 
 interface UrlAdapter {
     contentType?: "text/plain" | "application/json"
@@ -104,18 +124,22 @@ interface ModelOptions {
      * A deterministic integer seed to use for the model.
      */
     seed?: number
+
+    /**
+     * Default value for emitting line numbers in fenced code blocks.
+     */
+    lineNumbers?: boolean
+    /**
+     * Use AICI controller
+     */
+    aici?: boolean
 }
 
 interface PromptTemplate extends PromptLike, ModelOptions {
     /**
-     * If this is `["a", "b.c"]` then the prompt will include values of variables:
-     * `@prompt`, `@prompt.a`, `@prompt.b`, `@prompt.b.c`
-     * TODO implement this
-     *
-     * @example ["summarize"]
-     * @example ["code.ts.node"]
+     * Groups template in UI
      */
-    categories?: string[]
+    group?: string
 
     /**
      * Don't show it to the user in lists. Template `system.*` are automatically unlisted.
@@ -148,16 +172,6 @@ interface PromptTemplate extends PromptLike, ModelOptions {
     urlAdapters?: UrlAdapter[]
 
     /**
-     * Indicate if the tool can be used in a copilot chat context. `true` is exclusive, `false` never and `undefined` is both.
-     */
-    chat?: boolean
-
-    /**
-     * If running in chat, use copilot LLM model
-     */
-    copilot?: boolean
-
-    /**
      * Secrets required by the prompt
      */
     secrets?: string[]
@@ -181,51 +195,6 @@ interface LinkedFile {
      * Content of the file.
      */
     content: string
-}
-
-type ChatMessageRole = "user" | "system" | "assistant"
-
-interface ChatMessageRequest {
-    content: string
-    agentId?: string
-    command?: string
-    name?: string
-    variables: Record<string, (string | { uri: string })[]>
-}
-
-interface ChatMessageFileTree {
-    uri: string
-    children?: ChatMessageFileTreeNode[]
-}
-
-interface ChatMessageFileTreeNode {
-    label: string
-    children?: ChatMessageFileTreeNode[]
-}
-
-interface ChatMessageResponse {
-    content?: string
-    uri?: string
-    fileTree?: ChatMessageFileTree
-}
-
-// ChatML
-interface ChatMessage {
-    request: ChatMessageRequest
-    response: ChatMessageResponse[]
-}
-
-interface ChatAgentContext {
-    /**
-    /**
-     * All of the chat messages so far in the current chat session.
-     */
-    history: ChatMessage[]
-
-    /**
-     * The prompt that was used to start the chat session.
-     */
-    prompt?: string
 }
 
 interface ChatFunctionDefinition {
@@ -388,11 +357,6 @@ interface ExpansionVariables {
     files: LinkedFile[]
 
     /**
-     * If the contents of this variable occurs in output, an error message will be shown to the user.
-     */
-    error: string
-
-    /**
      * current prompt template
      */
     template: PromptDefinition
@@ -401,11 +365,6 @@ interface ExpansionVariables {
      * User defined variables
      */
     vars: Record<string, string>
-
-    /**
-     * Chat context if called from a chat command
-     */
-    chat?: ChatAgentContext
 
     /**
      * List of secrets used by the prompt, must be registred in `genaiscript`.
@@ -526,11 +485,23 @@ type JSONSchema = JSONSchemaObject | JSONSchemaArray
 interface JSONSchemaValidation {
     schema?: JSONSchema
     valid: boolean
-    errors?: string
+    error?: string
+}
+
+interface DataFrame {
+    schema?: string
+    data: unknown
+    validation?: JSONSchemaValidation
 }
 
 interface RunPromptResult {
     text: string
+    finishReason?:
+        | "stop"
+        | "length"
+        | "tool_calls"
+        | "content_filter"
+        | "cancel"
 }
 
 /**
@@ -584,6 +555,16 @@ interface Fenced {
     args?: { schema?: string } & Record<string, string>
 
     validation?: JSONSchemaValidation
+}
+
+interface XMLParseOptions {
+    allowBooleanAttributes?: boolean
+    ignoreAttributes?: boolean
+    ignoreDeclaration?: boolean
+    ignorePiTags?: boolean
+    parseAttributeValue?: boolean
+    removeNSPrefix?: boolean
+    unpairedTags?: string[]
 }
 
 interface Parsers {
@@ -650,6 +631,30 @@ interface Parsers {
     ): object[] | undefined
 
     /**
+     * Parses a .env file
+     * @param content
+     */
+    dotEnv(content: string | LinkedFile): Record<string, string>
+
+    /**
+     * Parses a .ini file
+     * @param content
+     */
+    INI(
+        content: string | LinkedFile,
+        options?: { defaultValue?: any }
+    ): any | undefined
+
+    /**
+     * Parses a .xml file
+     * @param content
+     */
+    XML(
+        content: string | LinkedFile,
+        options?: { defaultValue?: any } & XMLParseOptions
+    ): any | undefined
+
+    /**
      * Estimates the number of tokens in the content.
      * @param content content to tokenize
      */
@@ -667,6 +672,60 @@ interface Parsers {
     annotations(content: string | LinkedFile): Diagnostic[]
 }
 
+interface AICIGenOptions {
+    /**
+     * Make sure the generated text is one of the options.
+     */
+    options?: string[]
+    /**
+     * Make sure the generated text matches given regular expression.
+     */
+    regex?: string | RegExp
+    /**
+     * Make sure the generated text matches given yacc-like grammar.
+     */
+    yacc?: string
+    /**
+     * Make sure the generated text is a substring of the given string.
+     */
+    substring?: string
+    /**
+     * Used together with `substring` - treat the substring as ending the substring
+     * (typically '"' or similar).
+     */
+    substringEnd?: string
+    /**
+     * Store result of the generation (as bytes) into a shared variable.
+     */
+    storeVar?: string
+    /**
+     * Stop generation when the string is generated (the result includes the string and any following bytes (from the same token)).
+     */
+    stopAt?: string
+    /**
+     * Stop generation when the given number of tokens have been generated.
+     */
+    maxTokens?: number
+}
+
+interface AICINode {
+    type: "aici"
+    name: "gen"
+}
+
+interface AICIGenNode extends AICINode {
+    name: "gen"
+    options: AICIGenOptions
+}
+
+interface AICI {
+    /**
+     * Generate a string that matches given constraints.
+     * If the tokens do not map cleanly into strings, it will contain Unicode replacement characters.
+     */
+    gen(options: AICIGenOptions): AICIGenNode
+}
+
 interface YAML {
     /**
      * Converts an object to its YAML representation
@@ -677,6 +736,42 @@ interface YAML {
      * Parses a YAML string to object
      */
     parse(text: string): any
+}
+
+interface INI {
+    /**
+     * Parses a .ini file
+     * @param text
+     */
+    parse(text: string): any
+
+    /**
+     * Converts an object to.ini string
+     * @param value
+     */
+    stringify(value: any): string
+}
+
+interface CSV {
+    /**
+     * Parses a CSV string to an array of objects
+     * @param text
+     * @param options
+     */
+    parse(
+        text: string,
+        options?: {
+            delimiter?: string
+            headers?: string[]
+        }
+    ): object[]
+
+    /**
+     * Converts an array of object that represents a data table to a markdown table
+     * @param csv
+     * @param options
+     */
+    mardownify(csv: object[], options?: { headers?: string[] }): string
 }
 
 interface HighlightOptions {
@@ -705,6 +800,10 @@ interface Retreival {
              * Maximum number of embeddings to use
              */
             topK?: number
+            /**
+             * Minimum similarity score
+             */
+            minScore?: number
         }
     ): Promise<{
         files: LinkedFile[]
@@ -734,13 +833,47 @@ type ChatFunctionHandler = (
 ) => ChatFunctionCallOutput | Promise<ChatFunctionCallOutput>
 
 // keep in sync with prompt_type.d.ts
-interface PromptContext {
+interface RunPromptContext {
     writeText(body: string): void
     $(strings: TemplateStringsArray, ...args: any[]): void
+    fence(body: StringLike, options?: FenceOptions): void
+    def(name: string, body: StringLike, options?: DefOptions): string
+    runPrompt(
+        generator: (ctx: RunPromptContext) => void | Promise<void>,
+        options?: ModelOptions
+    ): Promise<RunPromptResult>
+}
+
+interface PromptGenerationOutput {
+    /**
+     * LLM output.
+     */
+    text: string
+
+    /**
+     * Parsed fence sections
+     */
+    fences: Fenced[]
+
+    /**
+     * Parsed data sections
+     */
+    frames: DataFrame[]
+
+    /**
+     * A map of file updates
+     */
+    fileEdits: Record<string, { before: string; after: string }>
+
+    /**
+     * Generated variables, typically from AICI.gen
+     */
+    genVars: Record<string, string>
+}
+
+interface PromptContext extends RunPromptContext {
     script(options: PromptArgs): void
     system(options: PromptSystemArgs): void
-    fence(body: StringLike, options?: FenceOptions): void
-    def(name: string, body: StringLike, options?: DefOptions): void
     defImages(files: StringLike, options?: DefImagesOptions): void
     defFunction(
         name: string,
@@ -749,20 +882,17 @@ interface PromptContext {
         fn: ChatFunctionHandler
     ): void
     defFileMerge(fn: FileMergeHandler): void
+    defOutput(fn: PromptOutputProcessorHandler): void
     defSchema(
         name: string,
         schema: JSONSchema,
         options?: DefSchemaOptions
-    ): void
+    ): string
     defData(
         name: string,
         data: object[] | object,
         options?: DefDataOptions
-    ): void
-    runPrompt(
-        generator: () => void | Promise<void>,
-        options?: ModelOptions
-    ): Promise<RunPromptResult>
+    ): string
     fetchText(
         urlOrFile: string | LinkedFile,
         options?: FetchTextOptions
@@ -779,6 +909,9 @@ interface PromptContext {
     retreival: Retreival
     fs: FileSystem
     YAML: YAML
+    CSV: CSV
+    INI: INI
+    AICI: AICI
 }
 
 
@@ -822,8 +955,9 @@ declare function fence(body: StringLike, options?: FenceOptions): void
  *
  * @param name name of defined entity, eg. "NOTE" or "This is text before NOTE"
  * @param body string to be fenced/defined
+ * @returns variable name
  */
-declare function def(name: string, body: StringLike, options?: DefOptions): void
+declare function def(name: string, body: StringLike, options?: DefOptions): string
 
 /**
  * Declares a function that can be called from the prompt.
@@ -876,6 +1010,16 @@ declare var fs: FileSystem
 declare var YAML: YAML
 
 /**
+ * INI parsing and stringifying.
+ */
+declare var INI: INI
+
+/**
+ * AICI operations
+ */
+declare var AICI: AICI
+
+/**
  * Fetches a given URL and returns the response.
  * @param url
  */
@@ -888,6 +1032,7 @@ declare function fetchText(
  * Declares a JSON schema variable.
  * @param name name of the variable
  * @param schema JSON schema instance
+ * @returns variable name
  */
 declare function defSchema(
     name: string,
@@ -907,12 +1052,13 @@ declare function defImages(files: StringLike, options?: DefImagesOptions): void
  * @param name
  * @param data
  * @param options
+ * @returns variable name
  */
 declare function defData(
     name: string,
     data: object[] | object,
     options?: DefDataOptions
-): void
+): string
 
 /**
  * Cancels the current prompt generation/execution with the given reason.
@@ -925,6 +1071,13 @@ declare function cancel(reason?: string): void
  * @param generator
  */
 declare function runPrompt(
-    generator: () => void | Promise<void>,
+    generator: (ctx: RunPromptContext) => void | Promise<void>,
     options?: ModelOptions
 ): Promise<RunPromptResult>
+
+
+/**
+ * Registers a callback to process the LLM output
+ * @param fn 
+ */
+declare function defOutput(fn: PromptOutputProcessorHandler): void
