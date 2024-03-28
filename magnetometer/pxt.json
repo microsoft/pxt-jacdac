@@ -1,6 +1,6 @@
 {
     "name": "jacdac-magnetomer",
-    "version": "1.9.27",
+    "version": "1.9.28",
     "description": "A 3-axis magnetometer.",
     "files": [
         "constants.ts",
