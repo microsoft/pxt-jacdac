@@ -68,7 +68,7 @@ interface PromptOutputProcessorResult {
 
 type PromptOutputProcessorHandler = (
     output: PromptGenerationOutput
-) => PromptOutputProcessorResult | Promise<PromptOutputProcessorResult>
+) => PromptOutputProcessorResult | Promise<PromptOutputProcessorResult> | undefined | Promise<undefined>
 
 interface UrlAdapter {
     contentType?: "text/plain" | "application/json"
@@ -388,15 +388,15 @@ interface FenceOptions {
      * Language of the fenced code block. Defaults to "markdown".
      */
     language?:
-        | "markdown"
-        | "json"
-        | "yaml"
-        | "javascript"
-        | "typescript"
-        | "python"
-        | "shell"
-        | "toml"
-        | string
+    | "markdown"
+    | "json"
+    | "yaml"
+    | "javascript"
+    | "typescript"
+    | "python"
+    | "shell"
+    | "toml"
+    | string
 
     /**
      * Prepend each line with a line numbers. Helps with generating diffs.
@@ -497,11 +497,11 @@ interface DataFrame {
 interface RunPromptResult {
     text: string
     finishReason?:
-        | "stop"
-        | "length"
-        | "tool_calls"
-        | "content_filter"
-        | "cancel"
+    | "stop"
+    | "length"
+    | "tool_calls"
+    | "content_filter"
+    | "cancel"
 }
 
 /**
@@ -832,9 +832,16 @@ type ChatFunctionHandler = (
     args: { context: ChatFunctionCallContext } & Record<string, any>
 ) => ChatFunctionCallOutput | Promise<ChatFunctionCallOutput>
 
+interface WriteTextOptions {
+    /**
+     * Append text to the assistant response
+     */
+    assistant?: boolean
+}
+
 // keep in sync with prompt_type.d.ts
 interface RunPromptContext {
-    writeText(body: string): void
+    writeText(body: string | Promise<string>, options?: WriteTextOptions): void
     $(strings: TemplateStringsArray, ...args: any[]): void
     fence(body: StringLike, options?: FenceOptions): void
     def(name: string, body: StringLike, options?: DefOptions): string
@@ -869,6 +876,11 @@ interface PromptGenerationOutput {
      * Generated variables, typically from AICI.gen
      */
     genVars: Record<string, string>
+
+    /**
+     * Generated annotations
+     */
+    annotations: Diagnostic[]
 }
 
 interface PromptContext extends RunPromptContext {
@@ -933,7 +945,7 @@ declare function system(options: PromptSystemArgs): void
  * Append given string to the prompt. It automatically appends "\n".
  * Typically best to use `` $`...` ``-templates instead.
  */
-declare function writeText(body: string): void
+declare function writeText(body: string | Promise<string>, options?: WriteTextOptions): void
 
 /**
  * Append given string to the prompt. It automatically appends "\n".
