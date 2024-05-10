@@ -1,9 +1,22 @@
 type DiagnosticSeverity = "error" | "warning" | "info"
+
 interface Diagnostic {
     filename: string
     range: CharRange
     severity: DiagnosticSeverity
     message: string
+}
+
+type Awaitable<T> = T | PromiseLike<T>
+
+interface SerializedError {
+    name?: string
+    message?: string
+    stack?: string
+    cause?: unknown
+    code?: string
+    line?: number
+    column?: number
 }
 
 interface PromptDefinition {
@@ -41,14 +54,16 @@ interface PromptLike extends PromptDefinition {
     text?: string
 }
 
-type SystemPromptId = "system.diff" | "system.annotations" | "system.explanations" | "system.fs_find_files" | "system.fs_read_file" | "system.files" | "system.changelog" | "system.json" | "system" | "system.python" | "system.summary" | "system.tasks" | "system.schema" | "system.technical" | "system.typescript" | "system.web_search" | "system.zero_shot_cot" | "system.functions"
+type SystemPromptId = "system" | "system.annotations" | "system.changelog" | "system.diff" | "system.explanations" | "system.files" | "system.files_schema" | "system.fs_find_files" | "system.fs_read_file" | "system.fs_read_summary" | "system.functions" | "system.json" | "system.math" | "system.python" | "system.schema" | "system.tasks" | "system.technical" | "system.typescript" | "system.web_search" | "system.zero_shot_cot"
+
+type SystemToolId = "fs_find_files" | "fs_read_file" | "fs_read_summary" | "math_eval" | "web_search"
 
 type FileMergeHandler = (
     filename: string,
     label: string,
     before: string,
     generated: string
-) => string | Promise<string>
+) => Awaitable<string>
 
 interface PromptOutputProcessorResult {
     /**
@@ -67,8 +82,12 @@ interface PromptOutputProcessorResult {
 }
 
 type PromptOutputProcessorHandler = (
-    output: PromptGenerationOutput
-) => PromptOutputProcessorResult | Promise<PromptOutputProcessorResult> | undefined | Promise<undefined>
+    output: GenerationOutput
+) =>
+    | PromptOutputProcessorResult
+    | Promise<PromptOutputProcessorResult>
+    | undefined
+    | Promise<undefined>
 
 interface UrlAdapter {
     contentType?: "text/plain" | "application/json"
@@ -90,15 +109,25 @@ interface UrlAdapter {
 
 type PromptTemplateResponseType = "json_object" | undefined
 
-interface ModelOptions {
+interface ModelConnectionOptions {
     /**
      * Which LLM model to use.
      *
      * @default gpt-4
-     * @example gpt-4 gpt-4-32k gpt-3.5-turbo
+     * @example gpt-4 gpt-4-32k gpt-3.5-turbo ollama:phi3 ollama:llama3 ollama:mixtral aici:mixtral
      */
-    model?: "gpt-4" | "gpt-4-32k" | "gpt-3.5-turbo" | string
+    model?:
+        | "gpt-4"
+        | "gpt-4-32k"
+        | "gpt-3.5-turbo"
+        | "ollama:phi3"
+        | "ollama:llama3"
+        | "ollama:mixtral"
+        | "aici:mixtral"
+        | string
+}
 
+interface ModelOptions extends ModelConnectionOptions {
     /**
      * Temperature to use. Higher temperature means more hallucination/creativity.
      * Range 0.0-2.0.
@@ -121,45 +150,62 @@ interface ModelOptions {
     maxTokens?: number
 
     /**
+     * Maximum number of tool calls to make.
+     */
+    maxToolCalls?: number
+
+    /**
      * A deterministic integer seed to use for the model.
      */
     seed?: number
 
     /**
-     * Default value for emitting line numbers in fenced code blocks.
+     * If true, the prompt will be cached. If false, the LLM chat is never cached.
+     * Leave empty to use the default behavior.
      */
-    lineNumbers?: boolean
+    cache?: boolean
+
     /**
-     * Use AICI controller
+     * Custom cache name. If not set, the default cache is used.
      */
-    aici?: boolean
+    cacheName?: string
 }
 
-interface PromptTemplate extends PromptLike, ModelOptions {
-    /**
-     * Groups template in UI
-     */
-    group?: string
-
-    /**
-     * Don't show it to the user in lists. Template `system.*` are automatically unlisted.
-     */
-    unlisted?: boolean
-
-    /**
-     * Set if this is a system prompt.
-     */
-    isSystem?: boolean
-
-    /**
-     * Template identifiers for the system prompts (concatenated).
-     */
+interface ScriptRuntimeOptions {
+/**
+* System prompt identifiers ([reference](https://microsoft.github.io/genaiscript/reference/scripts/system/))
+* - `system`: Markdown system prompt
+* - `system.annotations`: Emits annotations compatible with GitHub Actions
+* - `system.changelog`: Generate changelog formatter edits
+* - `system.diff`: Generates concise file diffs.
+* - `system.explanations`: Explain your answers
+* - `system.files`: File generation
+* - `system.files_schema`: Apply JSON schemas to generated data.
+* - `system.fs_find_files`: File Find Files
+* - `system.fs_read_file`: File Read File
+* - `system.fs_read_summary`: File Read Summary
+* - `system.functions`: use functions
+* - `system.json`: JSON system prompt
+* - `system.math`: Math expression evaluator
+* - `system.python`: Expert at generating and understanding Python code.
+* - `system.schema`: JSON Schema support
+* - `system.tasks`: Generates tasks
+* - `system.technical`: Technical Writer
+* - `system.typescript`: Export TypeScript Developer
+* - `system.web_search`: Web Search
+* - `system.zero_shot_cot`: Zero-shot Chain Of Though
+**/
     system?: SystemPromptId[]
 
-    /**
-     * Specifies a folder to create output files into
-     */
-    outputFolder?: string
+/**
+* System tool identifiers ([reference](https://microsoft.github.io/genaiscript/reference/scripts/tools/))
+* - `fs_find_files`: Finds file matching a glob pattern.
+* - `fs_read_file`: Reads a file as text from the file system.
+* - `fs_read_summary`: Reads a summary of a file from the file system.
+* - `math_eval`: Evaluates a math expression
+* - `web_search`: Search the web for a user query using Bing Search.
+**/
+    tools?: SystemToolId[]
 
     /**
      * Specifies the type of output. Default is `markdown`.
@@ -175,17 +221,138 @@ interface PromptTemplate extends PromptLike, ModelOptions {
      * Secrets required by the prompt
      */
     secrets?: string[]
+
+    /**
+     * Default value for emitting line numbers in fenced code blocks.
+     */
+    lineNumbers?: boolean
+}
+
+type PromptParameterType =
+    | string
+    | number
+    | boolean
+    | JSONSchemaNumber
+    | JSONSchemaString
+    | JSONSchemaBoolean
+type PromptParametersSchema = Record<string, PromptParameterType>
+type PromptParameters = Record<string, string | number | boolean | any>
+
+type PromptAssertion = {
+    // How heavily to weigh the assertion. Defaults to 1.0
+    weight?: number
+    /**
+     * The transformation to apply to the output before checking the assertion.
+     */
+    transform?: string
+} & (
+    | {
+          // type of assertion
+          type:
+              | "icontains"
+              | "not-icontains"
+              | "equals"
+              | "not-equals"
+              | "starts-with"
+              | "not-starts-with"
+          // The expected value
+          value: string
+      }
+    | {
+          // type of assertion
+          type:
+              | "contains-all"
+              | "not-contains-all"
+              | "contains-any"
+              | "not-contains-any"
+              | "icontains-all"
+              | "not-icontains-all"
+          // The expected values
+          value: string[]
+      }
+    | {
+          // type of assertion
+          type: "levenshtein" | "not-levenshtein"
+          // The expected value
+          value: string
+          // The threshold value
+          threshold?: number
+      }
+    | {
+          type: "javascript"
+          /**
+           * JavaScript expression to evaluate.
+           */
+          value: string
+          /**
+           * Optional threshold if the javascript expression returns a number
+           */
+          threshold?: number
+      }
+)
+
+interface PromptTest {
+    /**
+     * Description of the test.
+     */
+    description?: string
+    /**
+     * List of files to apply the test to.
+     */
+    files?: string | string[]
+    /**
+     * Extra set of variables for this scenario
+     */
+    vars?: PromptParameters
+    /**
+     * LLM output matches a given rubric, using a Language Model to grade output.
+     */
+    rubrics?: string | string[]
+    /**
+     * LLM output adheres to the given facts, using Factuality method from OpenAI evaluation.
+     */
+    facts?: string | string[]
+    /**
+     * List of keywords that should be contained in the LLM output.
+     */
+    keywords?: string | string[]
+    /**
+     * Additional deterministic assertions.
+     */
+    asserts?: PromptAssertion | PromptAssertion[]
+}
+
+interface PromptScript extends PromptLike, ModelOptions, ScriptRuntimeOptions {
+    /**
+     * Groups template in UI
+     */
+    group?: string
+
+    /**
+     * Additional template parameters that will populate `env.vars`
+     */
+    parameters?: PromptParametersSchema
+
+    /**
+     * Tests to validate this script.
+     */
+    tests?: PromptTest | PromptTest[]
+
+    /**
+     * Don't show it to the user in lists. Template `system.*` are automatically unlisted.
+     */
+    unlisted?: boolean
+
+    /**
+     * Set if this is a system prompt.
+     */
+    isSystem?: boolean
 }
 
 /**
  * Represent a file linked from a `.gpsec.md` document.
  */
-interface LinkedFile {
-    /**
-     * If file is linked through `[foo](./path/to/file)` then this is "foo"
-     */
-    label: string
-
+interface WorkspaceFile {
     /**
      * Name of the file, relative to project root.
      */
@@ -195,6 +362,13 @@ interface LinkedFile {
      * Content of the file.
      */
     content: string
+}
+
+interface WorkspaceFileWithScore extends WorkspaceFile {
+    /**
+     * Score allocated by search algorithm
+     */
+    score?: number
 }
 
 interface ChatFunctionDefinition {
@@ -310,13 +484,26 @@ type ChatFunctionCallOutput =
     | ChatFunctionCallContent
     | ChatFunctionCallShell
 
-interface FileSystem {
-    findFiles(glob: string): Promise<string[]>
+interface WorkspaceFileSystem {
     /**
-     * Reads the content of a file
+     * Searches for files using the glob pattern and returns a list of files.
+     * If the file is text, also return the content.
+     * @param glob
+     */
+    findFiles(
+        glob: string,
+        options?: {
+            /**
+             * Set to false to read text content by default
+             */
+            readText?: boolean
+        }
+    ): Promise<WorkspaceFile[]>
+    /**
+     * Reads the content of a file as text
      * @param path
      */
-    readFile(path: string): Promise<LinkedFile>
+    readText(path: string | WorkspaceFile): Promise<WorkspaceFile>
 }
 
 interface ChatFunctionCallContext {
@@ -335,26 +522,14 @@ interface ChatFunctionCallback {
  */
 interface ExpansionVariables {
     /**
-     * Used to delimit multi-line strings, expect for markdown.
-     * `fence(X)` is preferred (equivalent to `` $`${env.fence}\n${X}\n${env.fence}` ``)
-     */
-    fence: string
-
-    /**
-     * Used to delimit multi-line markdown strings.
-     * `fence(X, { language: "markdown" })` is preferred (equivalent to `` $`${env.markdownFence}\n${X}\n${env.markdownFence}` ``)
-     */
-    markdownFence: string
-
-    /**
      * Description of the context as markdown; typically the content of a .gpspec.md file.
      */
-    spec: LinkedFile
+    spec: WorkspaceFile
 
     /**
      * List of linked files parsed in context
      */
-    files: LinkedFile[]
+    files: WorkspaceFile[]
 
     /**
      * current prompt template
@@ -364,7 +539,7 @@ interface ExpansionVariables {
     /**
      * User defined variables
      */
-    vars: Record<string, string>
+    vars: PromptParameters
 
     /**
      * List of secrets used by the prompt, must be registred in `genaiscript`.
@@ -374,29 +549,29 @@ interface ExpansionVariables {
 
 type MakeOptional<T, P extends keyof T> = Partial<Pick<T, P>> & Omit<T, P>
 
-type PromptArgs = Omit<PromptTemplate, "text" | "id" | "jsSource">
+type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource">
 
 type PromptSystemArgs = Omit<
     PromptArgs,
-    "model" | "temperature" | "topP" | "maxTokens" | "seed"
+    "model" | "temperature" | "topP" | "maxTokens" | "seed" | "tests"
 >
 
-type StringLike = string | LinkedFile | LinkedFile[]
+type StringLike = string | WorkspaceFile | WorkspaceFile[]
 
 interface FenceOptions {
     /**
      * Language of the fenced code block. Defaults to "markdown".
      */
     language?:
-    | "markdown"
-    | "json"
-    | "yaml"
-    | "javascript"
-    | "typescript"
-    | "python"
-    | "shell"
-    | "toml"
-    | string
+        | "markdown"
+        | "json"
+        | "yaml"
+        | "javascript"
+        | "typescript"
+        | "python"
+        | "shell"
+        | "toml"
+        | string
 
     /**
      * Prepend each line with a line numbers. Helps with generating diffs.
@@ -409,7 +584,15 @@ interface FenceOptions {
     schema?: string
 }
 
-interface DefOptions extends FenceOptions {
+interface ContextExpansionOptions {
+    priority?: number
+    /**
+     * Specifies an maximum of estimated tokesn for this entry; after which it will be truncated.
+     */
+    maxTokens?: number
+}
+
+interface DefOptions extends FenceOptions, ContextExpansionOptions {
     /**
      * Filename filter based on file suffix. Case insensitive.
      */
@@ -419,6 +602,11 @@ interface DefOptions extends FenceOptions {
      * Filename filter using glob syntax.
      */
     glob?: string
+
+    /**
+     * By default, throws an error if the value in def is empty.
+     */
+    ignoreEmpty?: boolean
 }
 
 interface DefImagesOptions {
@@ -452,16 +640,19 @@ type JSONSchemaType =
 interface JSONSchemaString {
     type: "string"
     description?: string
+    default?: string
 }
 
 interface JSONSchemaNumber {
     type: "number" | "integer"
     description?: string
+    default?: number
 }
 
 interface JSONSchemaBoolean {
     type: "boolean"
     description?: string
+    default?: boolean
 }
 
 interface JSONSchemaObject {
@@ -496,12 +687,19 @@ interface DataFrame {
 
 interface RunPromptResult {
     text: string
-    finishReason?:
-    | "stop"
-    | "length"
-    | "tool_calls"
-    | "content_filter"
-    | "cancel"
+    annotations?: Diagnostic[]
+    fences?: Fenced[]
+    frames?: DataFrame[]
+    json?: any
+    error?: SerializedError
+    genVars?: Record<string, string>
+    finishReason:
+        | "stop"
+        | "length"
+        | "tool_calls"
+        | "content_filter"
+        | "cancel"
+        | "fail"
 }
 
 /**
@@ -567,19 +765,32 @@ interface XMLParseOptions {
     unpairedTags?: string[]
 }
 
+interface ParsePDFOptions {
+    filter?: (pageIndex: number, text?: string) => boolean
+}
+
+interface HTMLToTextOptions {
+    /**
+     * After how many chars a line break should follow in `p` elements.
+     *
+     * Set to `null` or `false` to disable word-wrapping.
+     */
+    wordwrap?: number | false | null | undefined
+}
+
 interface Parsers {
     /**
      * Parses text as a JSON5 payload
      */
     JSON5(
-        content: string | LinkedFile,
+        content: string | WorkspaceFile,
         options?: { defaultValue?: any }
     ): any | undefined
     /**
      * Parses text as a YAML paylaod
      */
     YAML(
-        content: string | LinkedFile,
+        content: string | WorkspaceFile,
         options?: { defaultValue?: any }
     ): any | undefined
 
@@ -588,7 +799,7 @@ interface Parsers {
      * @param text text as TOML payload
      */
     TOML(
-        content: string | LinkedFile,
+        content: string | WorkspaceFile,
         options?: { defaultValue?: any }
     ): any | undefined
 
@@ -598,7 +809,7 @@ interface Parsers {
      * @param defaultValue
      */
     frontmatter(
-        content: string | LinkedFile,
+        content: string | WorkspaceFile,
         options?: { defaultValue?: any; format: "yaml" | "json" | "toml" }
     ): any | undefined
 
@@ -607,26 +818,24 @@ interface Parsers {
      * @param content
      */
     PDF(
-        content: string | LinkedFile,
-        options?: {
-            filter?: (pageIndex: number, text?: string) => boolean
-        }
-    ): Promise<{ file: LinkedFile; pages: string[] } | undefined>
+        content: string | WorkspaceFile,
+        options?: ParsePDFOptions
+    ): Promise<{ file: WorkspaceFile; pages: string[] } | undefined>
 
     /**
      * Parses a .docx file
      * @param content
      */
     DOCX(
-        content: string | LinkedFile
-    ): Promise<{ file: LinkedFile } | undefined>
+        content: string | WorkspaceFile
+    ): Promise<{ file: WorkspaceFile } | undefined>
 
     /**
      * Parses a CSV file or text
      * @param content
      */
     CSV(
-        content: string | LinkedFile,
+        content: string | WorkspaceFile,
         options?: { delimiter?: string; headers?: string[] }
     ): object[] | undefined
 
@@ -634,14 +843,14 @@ interface Parsers {
      * Parses a .env file
      * @param content
      */
-    dotEnv(content: string | LinkedFile): Record<string, string>
+    dotEnv(content: string | WorkspaceFile): Record<string, string>
 
     /**
      * Parses a .ini file
      * @param content
      */
     INI(
-        content: string | LinkedFile,
+        content: string | WorkspaceFile,
         options?: { defaultValue?: any }
     ): any | undefined
 
@@ -650,26 +859,49 @@ interface Parsers {
      * @param content
      */
     XML(
-        content: string | LinkedFile,
+        content: string | WorkspaceFile,
         options?: { defaultValue?: any } & XMLParseOptions
     ): any | undefined
+
+    /**
+     * Convert HTML to text
+     * @param content html string or file
+     * @param options
+     */
+    HTMLToText(
+        content: string | WorkspaceFile,
+        options?: HTMLToTextOptions
+    ): string
 
     /**
      * Estimates the number of tokens in the content.
      * @param content content to tokenize
      */
-    tokens(content: string | LinkedFile): number
+    tokens(content: string | WorkspaceFile): number
 
     /**
      * Parses fenced code sections in a markdown text
      */
-    fences(content: string | LinkedFile): Fenced[]
+    fences(content: string | WorkspaceFile): Fenced[]
 
     /**
      * Parses various format of annotations (error, warning, ...)
      * @param content
      */
-    annotations(content: string | LinkedFile): Diagnostic[]
+    annotations(content: string | WorkspaceFile): Diagnostic[]
+
+    /**
+     * Executes a tree-sitter query on a code file
+     * @param file
+     * @param query tree sitter query; if missing, returns the entire tree
+     */
+    code(file: WorkspaceFile, query?: string): Promise<QueryCapture[]>
+
+    /**
+     * Parses and evaluates a math expression
+     * @param expression math expression compatible with mathjs
+     */
+    math(expression: string): string | number | undefined
 }
 
 interface AICIGenOptions {
@@ -738,6 +970,14 @@ interface YAML {
     parse(text: string): any
 }
 
+interface XML {
+    /**
+     * Parses an XML payload to an object
+     * @param text
+     */
+    parse(text: string): any
+}
+
 interface INI {
     /**
      * Parses a .ini file
@@ -778,23 +1018,82 @@ interface HighlightOptions {
     maxLength?: number
 }
 
-interface SearchResult {
-    webPages: LinkedFile[]
+interface WebSearchResult {
+    webPages: WorkspaceFile[]
 }
 
-interface Retreival {
+interface VectorSearchOptions {
+    indexName?: string
+}
+
+interface VectorSearchEmbeddingsOptions extends VectorSearchOptions {
+    llmModel?: string
+    /**
+     * Model used to generated models.
+     * ollama:nomic-embed-text ollama:all-minilm
+     */
+    embedModel?:
+        | "text-embedding-ada-002"
+        | "ollama:mxbai-embed-large"
+        | "ollama:nomic-embed-text"
+        | "ollama:all-minilm"
+        | string
+    temperature?: number
+    chunkSize?: number
+    chunkOverlap?: number
+}
+
+interface FuzzSearchOptions {
+    /**
+     * Controls whether to perform prefix search. It can be a simple boolean, or a
+     * function.
+     *
+     * If a boolean is passed, prefix search is performed if true.
+     *
+     * If a function is passed, it is called upon search with a search term, the
+     * positional index of that search term in the tokenized search query, and the
+     * tokenized search query.
+     */
+    prefix?: boolean
+    /**
+     * Controls whether to perform fuzzy search. It can be a simple boolean, or a
+     * number, or a function.
+     *
+     * If a boolean is given, fuzzy search with a default fuzziness parameter is
+     * performed if true.
+     *
+     * If a number higher or equal to 1 is given, fuzzy search is performed, with
+     * a maximum edit distance (Levenshtein) equal to the number.
+     *
+     * If a number between 0 and 1 is given, fuzzy search is performed within a
+     * maximum edit distance corresponding to that fraction of the term length,
+     * approximated to the nearest integer. For example, 0.2 would mean an edit
+     * distance of 20% of the term length, so 1 character in a 5-characters term.
+     * The calculated fuzziness value is limited by the `maxFuzzy` option, to
+     * prevent slowdown for very long queries.
+     */
+    fuzzy?: boolean | number
+    /**
+     * Controls the maximum fuzziness when using a fractional fuzzy value. This is
+     * set to 6 by default. Very high edit distances usually don't produce
+     * meaningful results, but can excessively impact search performance.
+     */
+    maxFuzzy?: number
+}
+
+interface Retrieval {
     /**
      * Executers a Bing web search. Requires to configure the BING_SEARCH_API_KEY secret.
      * @param query
      */
-    webSearch(query: string): Promise<SearchResult>
+    webSearch(query: string): Promise<WorkspaceFile[]>
 
     /**
-     * Search for embeddings
+     * Search using similarity distance on embeddings
      */
-    search(
+    vectorSearch(
         query: string,
-        files: (string | LinkedFile)[],
+        files: (string | WorkspaceFile) | (string | WorkspaceFile)[],
         options?: {
             /**
              * Maximum number of embeddings to use
@@ -804,22 +1103,29 @@ interface Retreival {
              * Minimum similarity score
              */
             minScore?: number
-        }
-    ): Promise<{
-        files: LinkedFile[]
-        fragments: LinkedFile[]
-    }>
+            /**
+             * Specifies the type of output. `chunk` returns individual chunks of the file, fill returns a reconstructed file from chunks.
+             */
+            outputType?: "file" | "chunk"
+        } & Omit<VectorSearchEmbeddingsOptions, "llmToken">
+    ): Promise<WorkspaceFile[]>
 
     /**
-     * Generate an outline of the files
-     * @param files
+     * Performs a fuzzy search over the files
+     * @param query keywords to search
+     * @param files list of files
+     * @param options fuzzing configuration
      */
-    outline(files: LinkedFile[]): Promise<string>
+    fuzzSearch(
+        query: string,
+        files: WorkspaceFile | WorkspaceFile[],
+        options?: FuzzSearchOptions
+    ): Promise<WorkspaceFile[]>
 }
 
 type FetchTextOptions = Omit<RequestInit, "body" | "signal" | "window">
 
-interface DefDataOptions {
+interface DefDataOptions extends Omit<ContextExpansionOptions, "maxTokens"> {
     format?: "json" | "yaml" | "csv"
     headers?: string[]
 }
@@ -832,26 +1138,53 @@ type ChatFunctionHandler = (
     args: { context: ChatFunctionCallContext } & Record<string, any>
 ) => ChatFunctionCallOutput | Promise<ChatFunctionCallOutput>
 
-interface WriteTextOptions {
+interface WriteTextOptions extends ContextExpansionOptions {
     /**
      * Append text to the assistant response
      */
     assistant?: boolean
 }
 
+type RunPromptGenerator = (ctx: RunPromptContext) => Awaitable<void>
+
 // keep in sync with prompt_type.d.ts
 interface RunPromptContext {
-    writeText(body: string | Promise<string>, options?: WriteTextOptions): void
+    writeText(body: Awaitable<string>, options?: WriteTextOptions): void
     $(strings: TemplateStringsArray, ...args: any[]): void
     fence(body: StringLike, options?: FenceOptions): void
     def(name: string, body: StringLike, options?: DefOptions): string
+    defData(
+        name: string,
+        data: object[] | object,
+        options?: DefDataOptions
+    ): string
+    defSchema(
+        name: string,
+        schema: JSONSchema,
+        options?: DefSchemaOptions
+    ): string
     runPrompt(
-        generator: (ctx: RunPromptContext) => void | Promise<void>,
+        generator: string | RunPromptGenerator,
         options?: ModelOptions
     ): Promise<RunPromptResult>
+    /**
+     * @deprecated use `defTool` instead
+     */
+    defFunction(
+        name: string,
+        description: string,
+        parameters: ChatFunctionParameters,
+        fn: ChatFunctionHandler
+    ): void
+    defTool(
+        name: string,
+        description: string,
+        parameters: ChatFunctionParameters,
+        fn: ChatFunctionHandler
+    ): void
 }
 
-interface PromptGenerationOutput {
+interface GenerationOutput {
     /**
      * LLM output.
      */
@@ -883,47 +1216,147 @@ interface PromptGenerationOutput {
     annotations: Diagnostic[]
 }
 
+type Point = {
+    row: number
+    column: number
+}
+
+interface SyntaxNode {
+    id: number
+    typeId: number
+    grammarId: number
+    type: string
+    grammarType: string
+    isNamed: boolean
+    isMissing: boolean
+    isExtra: boolean
+    hasChanges: boolean
+    hasError: boolean
+    isError: boolean
+    text: string
+    parseState: number
+    nextParseState: number
+    startPosition: Point
+    endPosition: Point
+    startIndex: number
+    endIndex: number
+    parent: SyntaxNode | null
+    children: Array<SyntaxNode>
+    namedChildren: Array<SyntaxNode>
+    childCount: number
+    namedChildCount: number
+    firstChild: SyntaxNode | null
+    firstNamedChild: SyntaxNode | null
+    lastChild: SyntaxNode | null
+    lastNamedChild: SyntaxNode | null
+    nextSibling: SyntaxNode | null
+    nextNamedSibling: SyntaxNode | null
+    previousSibling: SyntaxNode | null
+    previousNamedSibling: SyntaxNode | null
+    descendantCount: number
+
+    equals(other: SyntaxNode): boolean
+    toString(): string
+    child(index: number): SyntaxNode | null
+    namedChild(index: number): SyntaxNode | null
+    childForFieldName(fieldName: string): SyntaxNode | null
+    childForFieldId(fieldId: number): SyntaxNode | null
+    fieldNameForChild(childIndex: number): string | null
+    childrenForFieldName(
+        fieldName: string,
+        cursor: TreeCursor
+    ): Array<SyntaxNode>
+    childrenForFieldId(fieldId: number, cursor: TreeCursor): Array<SyntaxNode>
+    firstChildForIndex(index: number): SyntaxNode | null
+    firstNamedChildForIndex(index: number): SyntaxNode | null
+
+    descendantForIndex(index: number): SyntaxNode
+    descendantForIndex(startIndex: number, endIndex: number): SyntaxNode
+    namedDescendantForIndex(index: number): SyntaxNode
+    namedDescendantForIndex(startIndex: number, endIndex: number): SyntaxNode
+    descendantForPosition(position: Point): SyntaxNode
+    descendantForPosition(startPosition: Point, endPosition: Point): SyntaxNode
+    namedDescendantForPosition(position: Point): SyntaxNode
+    namedDescendantForPosition(
+        startPosition: Point,
+        endPosition: Point
+    ): SyntaxNode
+    descendantsOfType(
+        types: String | Array<String>,
+        startPosition?: Point,
+        endPosition?: Point
+    ): Array<SyntaxNode>
+
+    walk(): TreeCursor
+}
+
+interface TreeCursor {
+    nodeType: string
+    nodeTypeId: number
+    nodeStateId: number
+    nodeText: string
+    nodeId: number
+    nodeIsNamed: boolean
+    nodeIsMissing: boolean
+    startPosition: Point
+    endPosition: Point
+    startIndex: number
+    endIndex: number
+    readonly currentNode: SyntaxNode
+    readonly currentFieldName: string
+    readonly currentFieldId: number
+    readonly currentDepth: number
+    readonly currentDescendantIndex: number
+
+    reset(node: SyntaxNode): void
+    resetTo(cursor: TreeCursor): void
+    gotoParent(): boolean
+    gotoFirstChild(): boolean
+    gotoLastChild(): boolean
+    gotoFirstChildForIndex(goalIndex: number): boolean
+    gotoFirstChildForPosition(goalPosition: Point): boolean
+    gotoNextSibling(): boolean
+    gotoPreviousSibling(): boolean
+    gotoDescendant(goalDescendantIndex: number): void
+}
+
+interface QueryCapture {
+    name: string
+    node: SyntaxNode
+}
+
+interface ChatSession {
+    askUser(question: string): Promise<string>
+}
+
 interface PromptContext extends RunPromptContext {
     script(options: PromptArgs): void
     system(options: PromptSystemArgs): void
     defImages(files: StringLike, options?: DefImagesOptions): void
-    defFunction(
-        name: string,
-        description: string,
-        parameters: ChatFunctionParameters,
-        fn: ChatFunctionHandler
-    ): void
     defFileMerge(fn: FileMergeHandler): void
-    defOutput(fn: PromptOutputProcessorHandler): void
-    defSchema(
-        name: string,
-        schema: JSONSchema,
-        options?: DefSchemaOptions
-    ): string
-    defData(
-        name: string,
-        data: object[] | object,
-        options?: DefDataOptions
-    ): string
+    defOutputProcessor(fn: PromptOutputProcessorHandler): void
     fetchText(
-        urlOrFile: string | LinkedFile,
+        urlOrFile: string | WorkspaceFile,
         options?: FetchTextOptions
     ): Promise<{
         ok: boolean
         status: number
         text?: string
-        file?: LinkedFile
+        file?: WorkspaceFile
     }>
     cancel(reason?: string): void
     env: ExpansionVariables
     path: Path
     parsers: Parsers
-    retreival: Retreival
-    fs: FileSystem
+    retrieval: Retrieval
+    fs: WorkspaceFileSystem
+    workspace: WorkspaceFileSystem
     YAML: YAML
+    XML: XML
     CSV: CSV
     INI: INI
     AICI: AICI
+    chat: ChatSession
 }
 
 
@@ -945,7 +1378,10 @@ declare function system(options: PromptSystemArgs): void
  * Append given string to the prompt. It automatically appends "\n".
  * Typically best to use `` $`...` ``-templates instead.
  */
-declare function writeText(body: string | Promise<string>, options?: WriteTextOptions): void
+declare function writeText(
+    body: Awaitable<string>,
+    options?: WriteTextOptions
+): void
 
 /**
  * Append given string to the prompt. It automatically appends "\n".
@@ -969,16 +1405,30 @@ declare function fence(body: StringLike, options?: FenceOptions): void
  * @param body string to be fenced/defined
  * @returns variable name
  */
-declare function def(name: string, body: StringLike, options?: DefOptions): string
+declare function def(
+    name: string,
+    body: StringLike,
+    options?: DefOptions
+): string
 
 /**
- * Declares a function that can be called from the prompt.
- * @param name The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
- * @param description A description of what the function does, used by the model to choose when and how to call the function.
- * @param parameters The parameters the functions accepts, described as a JSON Schema object.
- * @param fn callback invoked when the LLM requests to run this function
+ * @deprecated Use `defTool` instead.
  */
 declare function defFunction(
+    name: string,
+    description: string,
+    parameters: ChatFunctionParameters,
+    fn: ChatFunctionHandler
+): void
+
+/**
+ * Declares a tool that can be called from the prompt.
+ * @param name The name of the tool to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+ * @param description A description of what the function does, used by the model to choose when and how to call the function.
+ * @param parameters The parameters the tool accepts, described as a JSON Schema object.
+ * @param fn callback invoked when the LLM requests to run this function
+ */
+declare function defTool(
     name: string,
     description: string,
     parameters: ChatFunctionParameters,
@@ -1007,14 +1457,20 @@ declare var path: Path
 declare var parsers: Parsers
 
 /**
- * Retreival Augmented Generation services
+ * Retrieval Augmented Generation services
  */
-declare var retreival: Retreival
+declare var retrieval: Retrieval
 
 /**
- * Access to file system operation on the current workspace.
+ * Access to the workspace file system.
  */
-declare var fs: FileSystem
+declare var workspace: WorkspaceFileSystem
+
+/**
+ * Access to the workspace file system.
+ * @deprecated Use `workspace` instead.
+ */
+declare var fs: WorkspaceFileSystem
 
 /**
  * YAML parsing and stringifying functions.
@@ -1032,13 +1488,18 @@ declare var INI: INI
 declare var AICI: AICI
 
 /**
+ * Access to current LLM chat session information
+ */
+declare var chat: ChatSession
+
+/**
  * Fetches a given URL and returns the response.
  * @param url
  */
 declare function fetchText(
-    url: string | LinkedFile,
+    url: string | WorkspaceFile,
     options?: FetchTextOptions
-): Promise<{ ok: boolean; status: number; text?: string; file?: LinkedFile }>
+): Promise<{ ok: boolean; status: number; text?: string; file?: WorkspaceFile }>
 
 /**
  * Declares a JSON schema variable.
@@ -1083,13 +1544,17 @@ declare function cancel(reason?: string): void
  * @param generator
  */
 declare function runPrompt(
-    generator: (ctx: RunPromptContext) => void | Promise<void>,
+    generator: string | RunPromptGenerator,
     options?: ModelOptions
 ): Promise<RunPromptResult>
 
-
 /**
  * Registers a callback to process the LLM output
- * @param fn 
+ * @param fn
+ */
+declare function defOutputProcessor(fn: PromptOutputProcessorHandler): void
+
+/**
+ * @deprecated Use `defOutputProcessor` instead.
  */
 declare function defOutput(fn: PromptOutputProcessorHandler): void
