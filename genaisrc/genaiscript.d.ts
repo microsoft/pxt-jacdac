@@ -54,9 +54,9 @@ interface PromptLike extends PromptDefinition {
     text?: string
 }
 
-type SystemPromptId = "system" | "system.annotations" | "system.changelog" | "system.diff" | "system.explanations" | "system.files" | "system.files_schema" | "system.fs_find_files" | "system.fs_read_file" | "system.fs_read_summary" | "system.functions" | "system.json" | "system.math" | "system.python" | "system.schema" | "system.tasks" | "system.technical" | "system.typescript" | "system.web_search" | "system.zero_shot_cot"
+type SystemPromptId = "system" | "system.annotations" | "system.changelog" | "system.diff" | "system.explanations" | "system.files" | "system.files_schema" | "system.fs_find_files" | "system.fs_read_file" | "system.fs_read_summary" | "system.functions" | "system.json" | "system.math" | "system.python" | "system.retrieval_fuzz_search" | "system.retrieval_vector_search" | "system.retrieval_web_search" | "system.schema" | "system.tasks" | "system.technical" | "system.typescript" | "system.zero_shot_cot"
 
-type SystemToolId = "fs_find_files" | "fs_read_file" | "fs_read_summary" | "math_eval" | "web_search"
+type SystemToolId = "fs_find_files" | "fs_read_file" | "fs_read_summary" | "math_eval" | "retrieval_fuzz_search" | "retrieval_vector_search" | "retrieval_web_search"
 
 type FileMergeHandler = (
     filename: string,
@@ -188,11 +188,13 @@ interface ScriptRuntimeOptions {
 * - `system.json`: JSON system prompt
 * - `system.math`: Math expression evaluator
 * - `system.python`: Expert at generating and understanding Python code.
+* - `system.retrieval_fuzz_search`: Full Text Fuzzy Search
+* - `system.retrieval_vector_search`: Embeddings Vector Search
+* - `system.retrieval_web_search`: Web Search
 * - `system.schema`: JSON Schema support
 * - `system.tasks`: Generates tasks
 * - `system.technical`: Technical Writer
 * - `system.typescript`: Export TypeScript Developer
-* - `system.web_search`: Web Search
 * - `system.zero_shot_cot`: Zero-shot Chain Of Though
 **/
     system?: SystemPromptId[]
@@ -203,14 +205,22 @@ interface ScriptRuntimeOptions {
 * - `fs_read_file`: Reads a file as text from the file system.
 * - `fs_read_summary`: Reads a summary of a file from the file system.
 * - `math_eval`: Evaluates a math expression
-* - `web_search`: Search the web for a user query using Bing Search.
+* - `retrieval_fuzz_search`: Search for keywords using the full text of files and a fuzzy distance.
+* - `retrieval_vector_search`: Search files using embeddings and similarity distance.
+* - `retrieval_web_search`: Search the web for a user query using Bing Search.
 **/
     tools?: SystemToolId[]
 
     /**
-     * Specifies the type of output. Default is `markdown`.
+     * Specifies the type of output. Default is `markdown`. Use `responseSchema` to
+     * specify an output schema.
      */
     responseType?: PromptTemplateResponseType
+
+    /**
+     * JSON object schema for the output. Enables the `JSON` output mode.
+     */
+    responseSchema?: JSONSchemaObject
 
     /**
      * Given a user friendly URL, return a URL that can be used to fetch the content. Returns undefined if unknown.
@@ -334,6 +344,11 @@ interface PromptScript extends PromptLike, ModelOptions, ScriptRuntimeOptions {
     parameters?: PromptParametersSchema
 
     /**
+     * Extra variable values that can be used to configure system prompts.
+     */
+    vars?: Record<string, string>
+
+    /**
      * Tests to validate this script.
      */
     tests?: PromptTest | PromptTest[]
@@ -393,19 +408,8 @@ interface ChatFunctionDefinition {
      *
      * Omitting `parameters` defines a function with an empty parameter list.
      */
-    parameters?: ChatFunctionParameters
+    parameters?: JSONSchema
 }
-
-/**
- * The parameters the functions accepts, described as a JSON Schema object. See the
- * [guide](https://platform.openai.com/docs/guides/text-generation/function-calling)
- * for examples, and the
- * [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for
- * documentation about the format.
- *
- * Omitting `parameters` defines a function with an empty parameter list.
- */
-type ChatFunctionParameters = JSONSchema
 
 interface ChatFunctionCallTrace {
     log(message: string): void
@@ -467,22 +471,7 @@ interface ChatFunctionCallContent {
     edits?: Edits[]
 }
 
-interface ChatFunctionCallShell {
-    type: "shell"
-    command: string
-    stdin?: string
-    files?: Record<string, string>
-    outputFile?: string
-    cwd?: string
-    args?: string[]
-    timeout?: number
-    ignoreExitCode?: boolean
-}
-
-type ChatFunctionCallOutput =
-    | string
-    | ChatFunctionCallContent
-    | ChatFunctionCallShell
+type ChatFunctionCallOutput = string | ChatFunctionCallContent
 
 interface WorkspaceFileSystem {
     /**
@@ -549,11 +538,11 @@ interface ExpansionVariables {
 
 type MakeOptional<T, P extends keyof T> = Partial<Pick<T, P>> & Omit<T, P>
 
-type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource">
+type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource" | "activation">
 
 type PromptSystemArgs = Omit<
     PromptArgs,
-    "model" | "temperature" | "topP" | "maxTokens" | "seed" | "tests"
+    "model" | "temperature" | "topP" | "maxTokens" | "seed" | "tests" | "responseType" | "responseSchema"
 >
 
 type StringLike = string | WorkspaceFile | WorkspaceFile[]
@@ -693,6 +682,7 @@ interface RunPromptResult {
     json?: any
     error?: SerializedError
     genVars?: Record<string, string>
+    schemas?: Record<string, JSONSchema>
     finishReason:
         | "stop"
         | "length"
@@ -1167,19 +1157,10 @@ interface RunPromptContext {
         generator: string | RunPromptGenerator,
         options?: ModelOptions
     ): Promise<RunPromptResult>
-    /**
-     * @deprecated use `defTool` instead
-     */
-    defFunction(
-        name: string,
-        description: string,
-        parameters: ChatFunctionParameters,
-        fn: ChatFunctionHandler
-    ): void
     defTool(
         name: string,
         description: string,
-        parameters: ChatFunctionParameters,
+        parameters: PromptParametersSchema | JSONSchema,
         fn: ChatFunctionHandler
     ): void
 }
@@ -1214,6 +1195,16 @@ interface GenerationOutput {
      * Generated annotations
      */
     annotations: Diagnostic[]
+
+    /**
+     * Schema definition used in the generation
+     */
+    schemas: Record<string, JSONSchema>
+
+    /**
+     * Output as JSON if parsable
+     */
+    json?: any
 }
 
 type Point = {
@@ -1325,8 +1316,27 @@ interface QueryCapture {
     node: SyntaxNode
 }
 
-interface ChatSession {
+interface ShellOptions {
+    cwd?: string
+    stdin?: string
+    timeout?: number
+}
+
+interface ShellOutput {
+    stdout?: string
+    stderr?: string
+    output?: string
+    exitCode: number
+    failed: boolean
+}
+
+interface PromptHost {
     askUser(question: string): Promise<string>
+    exec(
+        command: string,
+        args: string[],
+        options?: ShellOptions
+    ): Promise<Partial<ShellOutput>>
 }
 
 interface PromptContext extends RunPromptContext {
@@ -1356,7 +1366,7 @@ interface PromptContext extends RunPromptContext {
     CSV: CSV
     INI: INI
     AICI: AICI
-    chat: ChatSession
+    host: PromptHost
 }
 
 
@@ -1410,16 +1420,6 @@ declare function def(
     body: StringLike,
     options?: DefOptions
 ): string
-
-/**
- * @deprecated Use `defTool` instead.
- */
-declare function defFunction(
-    name: string,
-    description: string,
-    parameters: ChatFunctionParameters,
-    fn: ChatFunctionHandler
-): void
 
 /**
  * Declares a tool that can be called from the prompt.
@@ -1490,7 +1490,7 @@ declare var AICI: AICI
 /**
  * Access to current LLM chat session information
  */
-declare var chat: ChatSession
+declare var host: PromptHost
 
 /**
  * Fetches a given URL and returns the response.
