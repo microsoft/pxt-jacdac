@@ -1,3 +1,10 @@
+interface PromptConsole {
+    log(...data: any[]): void
+    warn(...data: any[]): void
+    debug(...data: any[]): void
+    error(...data: any[]): void
+}
+
 type DiagnosticSeverity = "error" | "warning" | "info"
 
 interface Diagnostic {
@@ -89,24 +96,6 @@ type PromptOutputProcessorHandler = (
     | undefined
     | Promise<undefined>
 
-interface UrlAdapter {
-    contentType?: "text/plain" | "application/json"
-
-    /**
-     * Given a friendly URL, return a URL that can be used to fetch the content.
-     * @param url
-     * @returns
-     */
-    matcher: (url: string) => string
-
-    /**
-     * Convers the body of the response to a string.
-     * @param body
-     * @returns
-     */
-    adapter?: (body: string | any) => string | undefined
-}
-
 type PromptTemplateResponseType = "json_object" | undefined
 
 interface ModelConnectionOptions {
@@ -174,7 +163,7 @@ interface ModelOptions extends ModelConnectionOptions {
 interface ScriptRuntimeOptions {
 /**
 * System prompt identifiers ([reference](https://microsoft.github.io/genaiscript/reference/scripts/system/))
-* - `system`: Markdown system prompt
+* - `system`: Base system prompt
 * - `system.annotations`: Emits annotations compatible with GitHub Actions
 * - `system.changelog`: Generate changelog formatter edits
 * - `system.diff`: Generates concise file diffs.
@@ -221,11 +210,6 @@ interface ScriptRuntimeOptions {
      * JSON object schema for the output. Enables the `JSON` output mode.
      */
     responseSchema?: JSONSchemaObject
-
-    /**
-     * Given a user friendly URL, return a URL that can be used to fetch the content. Returns undefined if unknown.
-     */
-    urlAdapters?: UrlAdapter[]
 
     /**
      * Secrets required by the prompt
@@ -327,6 +311,10 @@ interface PromptTest {
      */
     keywords?: string | string[]
     /**
+     * List of keywords that should not be contained in the LLM output. 
+     */
+    forbidden?: string | string[]
+    /**
      * Additional deterministic assertions.
      */
     asserts?: PromptAssertion | PromptAssertion[]
@@ -342,6 +330,12 @@ interface PromptScript extends PromptLike, ModelOptions, ScriptRuntimeOptions {
      * Additional template parameters that will populate `env.vars`
      */
     parameters?: PromptParametersSchema
+
+    /**
+     * A file path or list of file paths or globs. 
+     * The content of these files will be by the files selected in the UI by the user or the cli arguments.
+     */
+    files?: string | string[]
 
     /**
      * Extra variable values that can be used to configure system prompts.
@@ -376,7 +370,7 @@ interface WorkspaceFile {
     /**
      * Content of the file.
      */
-    content: string
+    content?: string
 }
 
 interface WorkspaceFileWithScore extends WorkspaceFile {
@@ -493,6 +487,13 @@ interface WorkspaceFileSystem {
      * @param path
      */
     readText(path: string | WorkspaceFile): Promise<WorkspaceFile>
+
+    /**
+     * Writes a file as text to the file system
+     * @param path
+     * @param content
+     */
+    writeText(path: string, content: string): Promise<void>
 }
 
 interface ChatFunctionCallContext {
@@ -542,7 +543,15 @@ type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource" | "activation">
 
 type PromptSystemArgs = Omit<
     PromptArgs,
-    "model" | "temperature" | "topP" | "maxTokens" | "seed" | "tests" | "responseType" | "responseSchema"
+    | "model"
+    | "temperature"
+    | "topP"
+    | "maxTokens"
+    | "seed"
+    | "tests"
+    | "responseType"
+    | "responseSchema"
+    | "files"
 >
 
 type StringLike = string | WorkspaceFile | WorkspaceFile[]
@@ -581,7 +590,7 @@ interface ContextExpansionOptions {
     maxTokens?: number
 }
 
-interface DefOptions extends FenceOptions, ContextExpansionOptions {
+interface DefOptions extends FenceOptions, ContextExpansionOptions, DataFilter {
     /**
      * Filename filter based on file suffix. Case insensitive.
      */
@@ -636,6 +645,10 @@ interface JSONSchemaNumber {
     type: "number" | "integer"
     description?: string
     default?: number
+    minimum?: number
+    exclusiveMinimum?: number
+    maximum?: number
+    exclusiveMaximum?: number
 }
 
 interface JSONSchemaBoolean {
@@ -645,6 +658,7 @@ interface JSONSchemaBoolean {
 }
 
 interface JSONSchemaObject {
+    $schema?: string
     type: "object"
     description?: string
     properties?: {
@@ -655,6 +669,7 @@ interface JSONSchemaObject {
 }
 
 interface JSONSchemaArray {
+    $schema?: string
     type: "array"
     description?: string
     items?: JSONSchemaType
@@ -768,6 +783,22 @@ interface HTMLToTextOptions {
     wordwrap?: number | false | null | undefined
 }
 
+interface ParseXLSXOptions {
+    // specific worksheet name
+    sheet?: string
+    // Use specified range (A1-style bounded range string)
+    range?: string
+}
+
+interface WorkbookSheet {
+    name: string
+    rows: object[]
+}
+
+interface ParseZipOptions {
+    glob?: string
+}
+
 interface Parsers {
     /**
      * Parses text as a JSON5 payload
@@ -830,6 +861,15 @@ interface Parsers {
     ): object[] | undefined
 
     /**
+     * Parses a XLSX file and a given worksheet
+     * @param content
+     */
+    XLSX(
+        content: WorkspaceFile,
+        options?: ParseXLSXOptions
+    ): Promise<WorkbookSheet[] | undefined>
+
+    /**
      * Parses a .env file
      * @param content
      */
@@ -864,6 +904,16 @@ interface Parsers {
     ): string
 
     /**
+     * Extracts the contents of a zip archive file
+     * @param file
+     * @param options
+     */
+    unzip(
+        file: WorkspaceFile,
+        options?: ParseZipOptions
+    ): Promise<WorkspaceFile[]>
+
+    /**
      * Estimates the number of tokens in the content.
      * @param content content to tokenize
      */
@@ -892,6 +942,13 @@ interface Parsers {
      * @param expression math expression compatible with mathjs
      */
     math(expression: string): string | number | undefined
+
+    /**
+     * Using the JSON schema, validates the content
+     * @param schema JSON schema instance
+     * @param content object to validate
+     */
+    validateJSON(schema: JSONSchema, content: any): JSONSchemaValidation
 }
 
 interface AICIGenOptions {
@@ -1069,6 +1126,10 @@ interface FuzzSearchOptions {
      * meaningful results, but can excessively impact search performance.
      */
     maxFuzzy?: number
+    /**
+     * Maximum number of results to return
+     */
+    topK?: number
 }
 
 interface Retrieval {
@@ -1115,9 +1176,38 @@ interface Retrieval {
 
 type FetchTextOptions = Omit<RequestInit, "body" | "signal" | "window">
 
-interface DefDataOptions extends Omit<ContextExpansionOptions, "maxTokens"> {
-    format?: "json" | "yaml" | "csv"
+interface DataFilter {
+    /**
+     * The keys to select from the object.
+     * If a key is prefixed with -, it will be removed from the object.
+     */
     headers?: string[]
+    /**
+     * Selects the first N elements from the data
+     */
+    sliceHead?: number
+    /**
+     * Selects the last N elements from the data
+     */
+    sliceTail?: number
+    /**
+     * Selects the a random sample of N items in the collection.
+     */
+    sliceSample?: number
+
+    /**
+     * Removes items with duplicate values for the specified keys.
+     */
+    distinct?: string[]
+}
+
+interface DefDataOptions
+    extends Omit<ContextExpansionOptions, "maxTokens">,
+        DataFilter {
+    /**
+     * Output format in the prompt. Defaults to markdownified CSV
+     */
+    format?: "json" | "yaml" | "csv"
 }
 
 interface DefSchemaOptions {
@@ -1137,6 +1227,13 @@ interface WriteTextOptions extends ContextExpansionOptions {
 
 type RunPromptGenerator = (ctx: RunPromptContext) => Awaitable<void>
 
+interface RunPromptOptions extends ModelOptions {
+    /**
+     * Label for trace
+     */
+    label?: string
+}
+
 // keep in sync with prompt_type.d.ts
 interface RunPromptContext {
     writeText(body: Awaitable<string>, options?: WriteTextOptions): void
@@ -1155,7 +1252,7 @@ interface RunPromptContext {
     ): string
     runPrompt(
         generator: string | RunPromptGenerator,
-        options?: ModelOptions
+        options?: RunPromptOptions
     ): Promise<RunPromptResult>
     defTool(
         name: string,
@@ -1163,6 +1260,7 @@ interface RunPromptContext {
         parameters: PromptParametersSchema | JSONSchema,
         fn: ChatFunctionHandler
     ): void
+    console: PromptConsole
 }
 
 interface GenerationOutput {
@@ -1319,7 +1417,14 @@ interface QueryCapture {
 interface ShellOptions {
     cwd?: string
     stdin?: string
+    /**
+     * Process timeout in  milliseconds, default is 60s
+     */
     timeout?: number
+    /**
+     * trace label
+     */
+    label?: string
 }
 
 interface ShellOutput {
@@ -1330,13 +1435,81 @@ interface ShellOutput {
     failed: boolean
 }
 
-interface PromptHost {
-    askUser(question: string): Promise<string>
+interface ShellHost {
     exec(
         command: string,
         args: string[],
         options?: ShellOptions
     ): Promise<Partial<ShellOutput>>
+}
+
+interface ContainerOptions {
+    /**
+     * Container image names.
+     * @example python:alpine python:slim python
+     * @see https://hub.docker.com/_/python/
+     */
+    image?: string
+
+    /**
+     * Enable networking in container (disabled by default)
+     */
+    networkEnabled?: boolean
+
+    /**
+     * Environment variables in container. A null/undefined variable is removed from the environment.
+     */
+    env?: Record<string, string>
+
+    /**
+     * Assign the specified name to the container. Must match [a-zA-Z0-9_-]+
+     */
+    name?: string
+
+    /**
+     * Disable automatic purge of container and volume directory
+     */
+    disablePurge?: boolean
+}
+
+interface PromptHost extends ShellHost {
+    askUser(question: string): Promise<string>
+    container(options?: ContainerOptions): Promise<ContainerHost>
+}
+
+interface ContainerHost extends ShellHost {
+    /**
+     * Container unique identifier in provider
+     */
+    id: string
+
+    /**
+     * Disable automatic purge of container and volume directory
+     */
+    disablePurge: boolean
+
+    /**
+     * Path to the volume mounted in the host
+     */
+    hostPath: string
+
+    /**
+     * Path to the volume mounted in the container
+     */
+    containerPath: string
+
+    /**
+     * Writes a file as text to the file system
+     * @param path
+     * @param content
+     */
+    writeText(path: string, content: string): Promise<void>
+
+    /**
+     * Reads a file as text from the container mounted volume
+     * @param path
+     */
+    readText(path: string): Promise<string>
 }
 
 interface PromptContext extends RunPromptContext {
@@ -1372,6 +1545,11 @@ interface PromptContext extends RunPromptContext {
 
 
 // keep in sync with PromptContext!
+
+/**
+ * Console functions
+ */
+declare var console: PromptConsole
 
 /**
  * Setup prompt title and other parameters.
@@ -1545,7 +1723,7 @@ declare function cancel(reason?: string): void
  */
 declare function runPrompt(
     generator: string | RunPromptGenerator,
-    options?: ModelOptions
+    options?: RunPromptOptions
 ): Promise<RunPromptResult>
 
 /**
