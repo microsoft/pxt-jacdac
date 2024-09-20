@@ -13,14 +13,8 @@ script({
     },
 })
 
-/** ------------------------------------------------
- *  Configuration
- */
 const { errors } = env.vars
 
-/** ------------------------------------------------
- *  Context
- */
 let content = ""
 /**
  * env.files contains the file selected by the user in VSCode or through the cli arguments.
@@ -28,7 +22,7 @@ let content = ""
 if (env.files.length) {
     content = def("FILE", env.files, {
         maxTokens: 5000,
-        glob: "**/*.{py,ts,cs,rs,c,cpp,h,hpp,js,mjs,mts}", // TODO:
+        glob: "**/*.{py,ts,cs,rs,c,cpp,h,hpp,js,mjs,mts}",
     })
 } else {
     // No files selected, review the current changes
