@@ -26,12 +26,12 @@ const langName = {
 if (!langName) cancel(`unknown language ${langCode}`)
 
 const files = env.files.filter(({ filename }) =>
-    /_locales\/[a-z0-9\-_]+-strings\.json$/i.test(filename)
+    /\/_locales\/[a-z0-9\-_]+-strings\.json$/i.test(filename)
 )
 for (const file of files) {
     await translateFile(file)
 }
-
+console.log(YAML.stringify(files.map(f => f.filename)))
 async function translateFile(file: WorkspaceFile) {
     const { filename, content } = file
     console.log(`> ${filename}`)

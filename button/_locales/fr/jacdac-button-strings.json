@@ -1,0 +1,22 @@
+{
+  "jacdac.ButtonEvent.Down": "Émis lorsque le bouton passe de l'état inactif à actif.",
+  "jacdac.ButtonEvent.Down|block": "bas",
+  "jacdac.ButtonEvent.Hold": "Argument : temps ms uint32_t. Émis lorsque le temps de pression est supérieur à 500 ms, puis au moins toutes les 500 ms\ntant que le bouton reste enfoncé. Le paramètre 'time' enregistre la durée pendant laquelle\nle bouton a été maintenu (depuis l'événement bas).\n* ```\nconst [time] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "jacdac.ButtonEvent.Hold|block": "maintenir",
+  "jacdac.ButtonEvent.Up": "Argument : temps ms uint32_t. Émis lorsque le bouton passe de l'état actif à inactif. Le paramètre 'time'\nenregistre la durée entre les événements bas et haut.\n* ```\nconst [time] = jdunpack<[number]>(buf, \"u32\")\n```",
+  "jacdac.ButtonEvent.Up|block": "haut",
+  "jacdac.ButtonReg.Analog": "Constant bool (uint8_t). Indique si le bouton fournit des lectures `pressure` analogiques.\n* ```\nconst [analog] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.ButtonReg.Pressed": "Lecture seule bool (uint8_t). Détermine si le bouton est actuellement pressé.",
+  "jacdac.ButtonReg.Pressure": "Lecture seule ratio u0.16 (uint16_t). Indique l'état de pression du bouton, où `0` est ouvert.\n* ```\nconst [pressure] = jdunpack<[number]>(buf, \"u0.16\")\n```",
+  "modules.ButtonClient.holdDuration|block": "%button durée de maintien (ms)",
+  "modules.ButtonClient.onEvent|block": "on %button %event",
+  "modules.ButtonClient.pressed|block": "%button pressé",
+  "modules.button1|block": "bouton1",
+  "modules.button2|block": "bouton2",
+  "modules.button3|block": "bouton3",
+  "modules.button4|block": "bouton4",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Button": "Bouton"
+}
