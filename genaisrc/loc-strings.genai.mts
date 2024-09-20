@@ -1,18 +1,11 @@
 script({
     title: "MakeCode Blocks Localization Env",
     description: "Translate block strings that define blocks in MakeCode",
-    group: "MakeCode",
-    temperature: 0,
-    system: [],
     parameters: {
         lang: {
             type: "string",
             description: "translation locale",
             default: "de",
-        },
-        langName: {
-            type: "string",
-            description: "Human friendly locale name",
         },
     },
 })
@@ -22,16 +15,14 @@ const langCode = env.vars.lang
 console.log(`lang: ${langCode}`)
 
 // given a language code, refer to the full name to help the LLM
-const langName =
-    env.vars.langName ||
-    {
-        fr: "French",
-        "es-ES": "Spanish",
-        de: "German",
-        sr: "Serbian",
-        vi: "Vietnamese",
-        it: "Italian",
-    }[langCode]
+const langName = {
+    fr: "French",
+    "es-ES": "Spanish",
+    de: "German",
+    sr: "Serbian",
+    vi: "Vietnamese",
+    it: "Italian",
+}[langCode]
 if (!langName) cancel(`unknown language ${langCode}`)
 
 const files = env.files.filter(({ filename }) =>
@@ -67,8 +58,9 @@ async function translateFile(file: WorkspaceFile) {
     const contentToTranslate = INI.stringify(strings)
 
     // the prompt engineering piece
-    const { fences, text } = await runPrompt(ctx => {
-        ctx.$`
+    const { fences, text } = await runPrompt(
+        ctx => {
+            ctx.$`
 ## Role
 
 You are an expert at Computer Science education. 
@@ -106,9 +98,11 @@ and should be translated following these rules:
 - The translations of "...|block" string should be short.
 
 `
-        ctx.def("ORIGINAL", contentToTranslate, { language: "ini" })
-    })
-    const news = INI.parse(fences[0]?.content || text)
+            ctx.def("ORIGINAL", contentToTranslate, { language: "ini" })
+        },
+        { label: filename }
+    )
+    const news = INI.parse(fences?.[0]?.content || text)
     Object.assign(translated, news)
     const newContent = JSON.stringify(translated, null, 2)
     if (content !== newContent) await workspace.writeText(trfn, newContent)

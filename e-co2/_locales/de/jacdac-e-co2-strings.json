@@ -1,9 +1,9 @@
 {
-  "jacdac.ECO2Reg.ECO2": "Nur-Lese ppm u22.10 (uint32_t). Äquivalente CO₂ (eCO₂) Messwerte.\n* ```\nconst [eCO2] = jdunpack<[number]>(buf, \"u22.10\")\n```",
-  "jacdac.ECO2Reg.ECO2Error": "Nur-Lese ppm u22.10 (uint32_t). Fehler im Messwert.\n* ```\nconst [eCO2Error] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.ECO2Reg.ECO2": "Schreibgeschützt ppm u22.10 (uint32_t). Äquivalente CO₂ (eCO₂)-Messwerte.\n* ```\nconst [eCO2] = jdunpack<[number]>(buf, \"u22.10\")\n```",
+  "jacdac.ECO2Reg.ECO2Error": "Schreibgeschützt ppm u22.10 (uint32_t). Fehler beim Messwert.\n* ```\nconst [eCO2Error] = jdunpack<[number]>(buf, \"u22.10\")\n```",
   "jacdac.ECO2Reg.MaxECO2": "Konstante ppm u22.10 (uint32_t). Minimal messbarer Wert\n* ```\nconst [maxECO2] = jdunpack<[number]>(buf, \"u22.10\")\n```",
   "jacdac.ECO2Reg.MinECO2": "Konstante ppm u22.10 (uint32_t). Minimal messbarer Wert\n* ```\nconst [minECO2] = jdunpack<[number]>(buf, \"u22.10\")\n```",
-  "jacdac.ECO2Reg.Variant": "Konstanter Variant (uint8_t). Typ des physikalischen Sensors und Fähigkeiten.\n* ```\nconst [variant] = jdunpack<[jacdac.ECO2Variant]>(buf, \"u8\")\n```",
+  "jacdac.ECO2Reg.Variant": "Konstante Variante (uint8_t). Typ des physikalischen Sensors und Fähigkeiten.\n* ```\nconst [variant] = jdunpack<[jacdac.ECO2Variant]>(buf, \"u8\")\n```",
   "jacdac.ECO2Variant.NDIR|block": "ndir",
   "jacdac.ECO2Variant.VOC|block": "voc",
   "modules.ECO2Client.eCO2|block": "%eco2 e CO2 (ppm)",
