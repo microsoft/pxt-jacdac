@@ -19,10 +19,11 @@ script({
 
 // language parameterization
 const langCode = env.vars.lang
+console.log(`lang: ${langCode}`)
 
 // given a language code, refer to the full name to help the LLM
 const langName =
-    env.vars.langName ??
+    env.vars.langName ||
     {
         fr: "French",
         "es-ES": "Spanish",
@@ -31,35 +32,43 @@ const langName =
         vi: "Vietnamese",
         it: "Italian",
     }[langCode]
-if (!langName) cancel("unknown language")
+if (!langName) cancel(`unknown language ${langCode}`)
 
-// assume we've been pointed at the .json file
-const file = env.files[0]
-if (!file) cancel("no strings file found")
-
-const { filename, content } = file
-const dir = path.dirname(filename)
-
-// read the stings, which are stored as a JSON record
-const strings = JSON.parse(content)
-
-// find the existing translation and remove existing translations
-const trfn = path.join(dir, langCode, path.basename(filename))
-const trsrc = await workspace.readText(trfn)
-const translated = parsers.JSON5(trsrc) || {}
-for (const k of Object.keys(strings)) if (translated[k]) delete strings[k]
-
-// shortcut: all translation is done
-if (Object.keys(strings).length === 0) cancel(`no strings to translate`)
-
-// use simple .env format key=value format
-Object.keys(strings).forEach(
-    k => (strings[k] = strings[k].replace(/(\.|\n).*/s, ".").trim())
+const files = env.files.filter(({ filename }) =>
+    /_locales\/[a-z0-9\-_]+-strings\.json$/i.test(filename)
 )
-const contentToTranslate = INI.stringify(strings)
+for (const file of files) {
+    await translateFile(file)
+}
 
-// the prompt engineering piece
-$`
+async function translateFile(file: WorkspaceFile) {
+    const { filename, content } = file
+    console.log(`> ${filename}`)
+    const dir = path.dirname(filename)
+
+    // read the stings, which are stored as a JSON record
+    const strings: Record<string, string> = JSON.parse(content)
+
+    // find the existing translation and remove existing translations
+    const trfn = path.join(dir, langCode, path.basename(filename))
+    const trsrc = await workspace.readText(trfn)
+    const translated = parsers.JSON5(trsrc) || {}
+    for (const k of Object.keys(strings)) if (translated[k]) delete strings[k]
+
+    // shortcut: all translation is done
+    if (Object.keys(strings).length === 0) {
+        console.log(`no strings to translate`)
+        return
+    }
+
+    console.log(`strings: ${Object.keys(strings).length} to translate`)
+
+    // serialize as ini
+    const contentToTranslate = INI.stringify(strings)
+
+    // the prompt engineering piece
+    const { fences, text } = await runPrompt(ctx => {
+        ctx.$`
 ## Role
 
 You are an expert at Computer Science education. 
@@ -97,13 +106,10 @@ and should be translated following these rules:
 - The translations of "...|block" string should be short.
 
 `
-def("ORIGINAL", contentToTranslate, { language: "ini" })
-defOutputProcessor(async o => {
-    const news = INI.parse(o.text)
+        ctx.def("ORIGINAL", contentToTranslate, { language: "ini" })
+    })
+    const news = INI.parse(fences[0]?.content || text)
     Object.assign(translated, news)
-    return {
-        files: {
-            [trfn]: JSON.stringify(translated, null, 2),
-        },
-    }
-})
+    const newContent = JSON.stringify(translated, null, 2)
+    if (content !== newContent) await workspace.writeText(trfn, newContent)
+}
