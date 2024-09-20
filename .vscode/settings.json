@@ -19,5 +19,8 @@
         "**/yotta_modules": true,
         "**/yotta_targets": true,
         "**/pxt_modules": true
+    },
+    "genaiscript.languageChatModels": {
+        "openai:gpt-4o": "gpt-4o"
     }
 }

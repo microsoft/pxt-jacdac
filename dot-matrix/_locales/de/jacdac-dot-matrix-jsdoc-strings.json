@@ -1,0 +1,22 @@
+{
+  "jacdac.DotMatrixReg.Brightness": "Lese-Schreib-Verhältnis u0.8 (uint8_t). Liest die allgemeine Helligkeit des Displays, Helligkeit für LEDs. `0`, wenn der Bildschirm aus ist.\n* ```\nconst [brightness] = jdunpack<[number]>(buf, \"u0.8\")\n```",
+  "jacdac.DotMatrixReg.Columns": "Konstante # uint16_t. Anzahl der Spalten auf dem Bildschirm\n* ```\nconst [columns] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.DotMatrixReg.Dots": "Lese-Schreib-Bytes. Der Zustand des Bildschirms, bei dem der Punkt Ein/Aus-Zustand ist, wird als Bit gespeichert, Spalte für Spalte. Die Spalte sollte Byte-ausgerichtet sein.\n* ```\nconst [dots] = jdunpack<[Buffer]>(buf, \"b\")\n```",
+  "jacdac.DotMatrixReg.Rows": "Konstante # uint16_t. Anzahl der Reihen auf dem Bildschirm\n* ```\nconst [rows] = jdunpack<[number]>(buf, \"u16\")\n```",
+  "jacdac.DotMatrixReg.Variant": "Konstante Variante (uint8_t). Beschreibt den Typ der verwendeten Matrix.\n* ```\nconst [variant] = jdunpack<[jacdac.DotMatrixVariant]>(buf, \"u8\")\n```",
+  "jacdac.DotMatrixRegPack.Brightness": "Paketformat für 'brightness'-Daten.",
+  "jacdac.DotMatrixRegPack.Columns": "Paketformat für 'columns'-Daten.",
+  "jacdac.DotMatrixRegPack.Dots": "Paketformat für 'dots'-Daten.",
+  "jacdac.DotMatrixRegPack.Rows": "Paketformat für 'rows'-Daten.",
+  "jacdac.DotMatrixRegPack.Variant": "Paketformat für 'variant'-Daten.",
+  "modules": "Jacdac-Module",
+  "modules.DotMatrixClient": "Ein rechteckiges Punktmatrix-Display, bestehend aus monochromen LEDs oder Braille-Stiften.",
+  "modules.DotMatrixClient.brightness": "Liest die allgemeine Helligkeit des Displays, Helligkeit für LEDs. `0`, wenn der Bildschirm aus ist.",
+  "modules.DotMatrixClient.clearDots": "Alle Punkte löschen\n//% \n//% \n//% \n//%",
+  "modules.DotMatrixClient.columns": "Anzahl der Spalten auf dem Bildschirm",
+  "modules.DotMatrixClient.rows": "Anzahl der Reihen auf dem Bildschirm",
+  "modules.DotMatrixClient.setBrightness": "Liest die allgemeine Helligkeit des Displays, Helligkeit für LEDs. `0`, wenn der Bildschirm aus ist.",
+  "modules.DotMatrixClient.setDot": "Setzt einen Punkteintrag auf einen bestimmten Wert\n//% \n//% \n//% \n//%",
+  "modules.DotMatrixClient.toggleDot": "Einen Punkt umschalten\n//% \n//% \n//% \n//%",
+  "modules.DotMatrixClient.variant": "Beschreibt den Typ der verwendeten Matrix."
+}

@@ -1,25 +1,25 @@
-// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.134.0/containers/javascript-node
 {
-    "name": "Node.js",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "args": {
-            "VARIANT": "16"
-        }
-    },
-    // Add the IDs of extensions you want installed when the container is created.
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
     "customizations": {
         "vscode": {
             "extensions": [
-                "dbaeumer.vscode-eslint",
+                "GitHub.copilot-chat",
                 "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint",
+                "bierner.markdown-mermaid",
+                "yoavbls.pretty-ts-errors",
+                "file-icons.file-icons",
+                "GitHub.vscode-pull-request-github",
+                "johnpapa.vscode-peacock",
+                "usernamehw.errorlens",
                 "genaiscript.genaiscript-vscode"
             ]
         }
     },
-    // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    "forwardPorts": [8080, 8000],
-    // Comment out the next line to run as root instead.
-    "remoteUser": "node"
+    "features": {
+        "ghcr.io/ghcr.io/devcontainers/features/github-cli:1.0.13": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/azure-cli:1.2.5": {},
+        "ghcr.io/devcontainers/features/python:1.6.3": {}
+    }
 }
