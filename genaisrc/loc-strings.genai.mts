@@ -5,7 +5,7 @@ script({
         lang: {
             type: "string",
             description: "translation locale",
-            default: "de",
+            default: "fr",
         },
     },
 })

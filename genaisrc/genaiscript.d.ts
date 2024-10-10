@@ -71,6 +71,13 @@ interface PromptLike extends PromptDefinition {
 
 type SystemPromptId = OptionsOrString<
     | "system"
+    | "system.agent_docs"
+    | "system.agent_fs"
+    | "system.agent_git"
+    | "system.agent_github"
+    | "system.agent_interpreter"
+    | "system.agent_memory"
+    | "system.agent_user_input"
     | "system.annotations"
     | "system.changelog"
     | "system.diagrams"
@@ -78,32 +85,84 @@ type SystemPromptId = OptionsOrString<
     | "system.explanations"
     | "system.files"
     | "system.files_schema"
+    | "system.fs_diff_files"
     | "system.fs_find_files"
     | "system.fs_read_file"
+    | "system.git"
+    | "system.git_diff"
+    | "system.git_info"
+    | "system.github_actions"
+    | "system.github_files"
+    | "system.github_info"
+    | "system.github_issues"
+    | "system.github_pulls"
     | "system.math"
+    | "system.md_find_files"
     | "system.md_frontmatter"
+    | "system.node_info"
+    | "system.node_test"
+    | "system.planner"
     | "system.python"
     | "system.python_code_interpreter"
+    | "system.python-types"
     | "system.retrieval_fuzz_search"
     | "system.retrieval_vector_search"
     | "system.retrieval_web_search"
+    | "system.safety_harmful_content"
+    | "system.safety_protected_material"
+    | "system.safety_ungrounded_content_summarization"
     | "system.schema"
     | "system.tasks"
     | "system.technical"
     | "system.tools"
     | "system.typescript"
+    | "system.user_input"
     | "system.zero_shot_cot"
 >
 
 type SystemToolId = OptionsOrString<
+    | "agent_docs"
+    | "agent_fs"
+    | "agent_git"
+    | "agent_github"
+    | "agent_interpreter"
+    | "agent_memory"
+    | "agent_user_input"
+    | "fs_diff_files"
     | "fs_find_files"
     | "fs_read_file"
+    | "git_branch_current"
+    | "git_branch_default"
+    | "git_branch_list"
+    | "git_diff"
+    | "git_diff"
+    | "git_last_tag"
+    | "git_list_commits"
+    | "git_status"
+    | "github_actions_job_logs_diff"
+    | "github_actions_job_logs_get"
+    | "github_actions_jobs_list"
+    | "github_actions_workflows_list"
+    | "github_files_get"
+    | "github_files_list"
+    | "github_issues_comments_list"
+    | "github_issues_get"
+    | "github_issues_list"
+    | "github_pulls_get"
+    | "github_pulls_list"
+    | "github_pulls_review_comments_list"
     | "math_eval"
+    | "md_find_files"
     | "md_read_frontmatter"
-    | "python_code_interpreter"
+    | "node_test"
+    | "python_code_interpreter_copy_files"
+    | "python_code_interpreter_run"
     | "retrieval_fuzz_search"
     | "retrieval_vector_search"
     | "retrieval_web_search"
+    | "user_input_confirm"
+    | "user_input_select"
+    | "user_input_text"
 >
 
 type FileMergeHandler = (
@@ -143,21 +202,28 @@ type PromptTemplateResponseType = "json_object" | "json_schema" | undefined
 
 interface ModelConnectionOptions {
     /**
-     * Which LLM model to use.
-     *
-     * @default gpt-4
-     * @example gpt-4
+     * Which LLM model to use. Use `large` for the default set of model candidates, `small` for the set of small models like gpt-4o-mini.
      */
     model?: OptionsOrString<
+        | "large"
+        | "small"
         | "openai:gpt-4o"
         | "openai:gpt-4o-mini"
-        | "openai:gpt-4"
-        | "openai:gpt-4-turbo"
         | "openai:gpt-3.5-turbo"
+        | "azure:gpt-4o"
+        | "azure:gpt-4o-mini"
         | "ollama:phi3"
         | "ollama:llama3"
         | "ollama:mixtral"
     >
+
+    /**
+     * Which LLM model to use for the "small" model.
+     *
+     * @default gpt-4
+     * @example gpt-4
+     */
+    smallModel?: OptionsOrString<"openai:gpt-4o-mini" | "openai:gpt-3.5-turbo">
 }
 
 interface ModelOptions extends ModelConnectionOptions {
@@ -225,6 +291,11 @@ interface ModelOptions extends ModelConnectionOptions {
      * Budget of tokens to apply the prompt flex renderer.
      */
     flexTokens?: number
+
+    /**
+     * A list of model ids and their maximum number of concurrent requests.
+     */
+    modelConcurrency?: Record<string, number>
 }
 
 interface EmbeddingsModelConnectionOptions {
@@ -247,12 +318,12 @@ interface PromptSystemOptions {
     /**
      * List of system script ids used by the prompt.
      */
-    system?: SystemPromptId | SystemPromptId[]
+    system?: ElementOrArray<SystemPromptId>
 
     /**
      * List of tools used by the prompt.
      */
-    tools?: SystemToolId | SystemToolId[]
+    tools?: ElementOrArray<SystemToolId>
 }
 
 interface ScriptRuntimeOptions {
@@ -414,6 +485,11 @@ interface PromptScript
      * Set if this is a system prompt.
      */
     isSystem?: boolean
+
+    /**
+     * List of tools defined in the script
+     */
+    defTools?: { id: string; description: string; kind: "tool" | "agent" }[]
 }
 
 /**
@@ -532,6 +608,7 @@ type ToolCallOutput =
     | ShellOutput
     | WorkspaceFile
     | RunPromptResult
+    | SerializedError
     | undefined
 
 interface WorkspaceFileCache<K, V> {
@@ -558,6 +635,26 @@ interface WorkspaceFileCache<K, V> {
     values(): Promise<V[]>
 }
 
+interface WorkspaceGrepOptions {
+    /**
+     * List of paths to
+     */
+    path?: ElementOrArray<string>
+    /**
+     * list of filename globs to search. !-prefixed globs are excluded. ** are not supported.
+     */
+    glob?: ElementOrArray<string>
+    /**
+     * Set to false to skip read text content. True by default
+     */
+    readText?: boolean
+}
+
+interface WorkspaceGrepResult {
+    files: WorkspaceFile[]
+    matches: WorkspaceFile[]
+}
+
 interface WorkspaceFileSystem {
     /**
      * Searches for files using the glob pattern and returns a list of files.
@@ -581,14 +678,13 @@ interface WorkspaceFileSystem {
      */
     grep(
         query: string | RegExp,
-        globs: string | string[],
-        options?: {
-            /**
-             * Set to false to skip read text content. True by default
-             */
-            readText?: boolean
-        }
-    ): Promise<{ files: WorkspaceFile[] }>
+        options?: WorkspaceGrepOptions
+    ): Promise<WorkspaceGrepResult>
+    grep(
+        query: string | RegExp,
+        glob: string,
+        options?: Omit<WorkspaceGrepOptions, "path" | "glob">
+    ): Promise<WorkspaceGrepResult>
 
     /**
      * Reads the content of a file as text
@@ -603,9 +699,27 @@ interface WorkspaceFileSystem {
     readJSON(path: string | Awaitable<WorkspaceFile>): Promise<any>
 
     /**
+     * Reads the content of a file and parses to YAML.
+     * @param path
+     */
+    readYAML(path: string | Awaitable<WorkspaceFile>): Promise<any>
+
+    /**
      * Reads the content of a file and parses to XML, using the XML parser.
      */
-    readXML(path: string | Awaitable<WorkspaceFile>): Promise<any>
+    readXML(
+        path: string | Awaitable<WorkspaceFile>,
+        options?: XMLParseOptions
+    ): Promise<any>
+
+    /**
+     * Reads the content of a CSV file.
+     * @param path
+     */
+    readCSV<T extends object>(
+        path: string | Awaitable<WorkspaceFile>,
+        options?: CSVParseOptions
+    ): Promise<T[]>
 
     /**
      * Writes a file as text to the file system
@@ -615,7 +729,7 @@ interface WorkspaceFileSystem {
     writeText(path: string, content: string): Promise<void>
 
     /**
-     * Opens a key-value cache for the given cache name.
+     * Opens a file-backed key-value cache for the given cache name.
      * The cache is persisted across runs of the script. Entries are dropped when the cache grows too large.
      * @param cacheName
      */
@@ -625,11 +739,13 @@ interface WorkspaceFileSystem {
 }
 
 interface ToolCallContext {
+    log(message: string): void
     trace: ToolCallTrace
 }
 
 interface ToolCallback {
     spec: ToolDefinition
+    options?: DefToolOptions
     impl: (
         args: { context: ToolCallContext } & Record<string, any>
     ) => Awaitable<ToolCallOutput>
@@ -696,7 +812,10 @@ interface ExpansionVariables {
 
 type MakeOptional<T, P extends keyof T> = Partial<Pick<T, P>> & Omit<T, P>
 
-type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource" | "activation">
+type PromptArgs = Omit<
+    PromptScript,
+    "text" | "id" | "jsSource" | "activation" | "defTools"
+>
 
 type PromptSystemArgs = Omit<
     PromptArgs,
@@ -711,11 +830,20 @@ type PromptSystemArgs = Omit<
     | "responseType"
     | "responseSchema"
     | "files"
+    | "modelConcurrency"
+    | "parameters"
 >
 
 type StringLike = string | WorkspaceFile | WorkspaceFile[]
 
-interface FenceOptions {
+interface LineNumberingOptions {
+    /**
+     * Prepend each line with a line numbers. Helps with generating diffs.
+     */
+    lineNumbers?: boolean
+}
+
+interface FenceOptions extends LineNumberingOptions {
     /**
      * Language of the fenced code block. Defaults to "markdown".
      */
@@ -729,11 +857,6 @@ interface FenceOptions {
         | "shell"
         | "toml"
         | string
-
-    /**
-     * Prepend each line with a line numbers. Helps with generating diffs.
-     */
-    lineNumbers?: boolean
 
     /**
      * JSON schema identifier
@@ -756,24 +879,35 @@ interface ContextExpansionOptions {
      * It defaults to 1 on all elements.
      */
     flex?: number
+    /**
+     * This text is likely to change and will probably break the prefix cache.
+     */
+    ephemeral?: boolean
 }
 
 interface DefOptions extends FenceOptions, ContextExpansionOptions, DataFilter {
     /**
      * Filename filter based on file suffix. Case insensitive.
      */
-    endsWith?: string
+    endsWith?: ElementOrArray<string>
 
     /**
      * Filename filter using glob syntax.
      */
-    glob?: string
+    glob?: ElementOrArray<string>
 
     /**
      * By default, throws an error if the value in def is empty.
      */
     ignoreEmpty?: boolean
 }
+
+/**
+ * Options for the `defDiff` command.
+ */
+interface DefDiffOptions
+    extends ContextExpansionOptions,
+        LineNumberingOptions {}
 
 interface DefImagesOptions {
     detail?: "high" | "low"
@@ -817,6 +951,7 @@ type JSONSchemaType =
 
 interface JSONSchemaString {
     type: "string"
+    enum?: string[]
     description?: string
     default?: string
 }
@@ -885,6 +1020,10 @@ interface RunPromptResult {
         | "content_filter"
         | "cancel"
         | "fail"
+    usages?: ChatCompletionUsages
+    fileEdits?: Record<string, FileUpdate>
+    edits?: Edits[]
+    changelogs?: ChangeLog[]
 }
 
 /**
@@ -987,6 +1126,33 @@ interface ParseZipOptions {
 
 type TokenEncoder = (text: string) => number[]
 
+interface CSVParseOptions {
+    delimiter?: string
+    headers?: string[]
+}
+
+interface Tokenizers {
+    /**
+     * Estimates the number of tokens in the content. May not be accurate
+     * @param model
+     * @param text
+     */
+    count(text: string, options?: { model: string }): Promise<number>
+
+    /**
+     * Truncates the text to a given number of tokens, approximation.
+     * @param model
+     * @param text
+     * @param maxTokens
+     * @param options
+     */
+    truncate(
+        text: string,
+        maxTokens: number,
+        options?: { model?: string; last?: boolean }
+    ): Promise<string>
+}
+
 interface Parsers {
     /**
      * Parses text as a JSON5 payload
@@ -1052,7 +1218,7 @@ interface Parsers {
      */
     CSV(
         content: string | WorkspaceFile,
-        options?: { delimiter?: string; headers?: string[] }
+        options?: CSVParseOptions
     ): object[] | undefined
 
     /**
@@ -1096,14 +1262,14 @@ interface Parsers {
     HTMLToText(
         content: string | WorkspaceFile,
         options?: HTMLToTextOptions
-    ): string
+    ): Promise<string>
 
     /**
      * Convert HTML to markdown
      * @param content html string or file
      * @param options
      */
-    HTMLToMarkdown(content: string | WorkspaceFile): string
+    HTMLToMarkdown(content: string | WorkspaceFile): Promise<string>
 
     /**
      * Extracts the contents of a zip archive file
@@ -1162,6 +1328,15 @@ interface Parsers {
      * Renders a jinja template
      */
     jinja(text: string | WorkspaceFile, data: Record<string, any>): string
+
+    /**
+     * Computes a diff between two files
+     */
+    diff(
+        left: WorkspaceFile,
+        right: WorkspaceFile,
+        options?: DefDiffOptions
+    ): string
 }
 
 interface AICIGenOptions {
@@ -1264,17 +1439,389 @@ interface HTML {
     convertTablesToJSON(
         html: string,
         options?: HTMLTableToJSONOptions
-    ): object[][]
+    ): Promise<object[][]>
     /**
      * Converts HTML markup to plain text
      * @param html
      */
-    convertToText(html: string): string
+    convertToText(html: string): Promise<string>
     /**
      * Converts HTML markup to markdown
      * @param html
      */
-    convertToMarkdown(html: string): string
+    convertToMarkdown(html: string): Promise<string>
+}
+
+interface GitCommit {
+    sha: string
+    message: string
+}
+
+interface Git {
+    /**
+     * Resolves the default branch for this repository
+     */
+    defaultBranch(): Promise<string>
+
+    /**
+     * Gets the last tag in the repository
+     */
+    lastTag(): Promise<string>
+
+    /**
+     * Gets the current branch of the repository
+     */
+    branch(): Promise<string>
+
+    /**
+     * Executes a git command in the repository and returns the stdout
+     * @param cmd
+     */
+    exec(args: string[] | string, options?: { label?: string }): Promise<string>
+
+    /**
+     * Lists the branches in the git repository
+     */
+    listBranches(): Promise<string[]>
+
+    /**
+     * Finds specific files in the git repository.
+     * By default, work
+     * @param options
+     */
+    listFiles(
+        scope: "modified-base" | "staged" | "modified",
+        options?: {
+            base?: string
+            /**
+             * Ask the user to stage the changes if the diff is empty.
+             */
+            askStageOnEmpty?: boolean
+            paths?: ElementOrArray<string>
+            excludedPaths?: ElementOrArray<string>
+        }
+    ): Promise<WorkspaceFile[]>
+
+    /**
+     *
+     * @param options
+     */
+    diff(options?: {
+        staged?: boolean
+        /**
+         * Ask the user to stage the changes if the diff is empty.
+         */
+        askStageOnEmpty?: boolean
+        base?: string
+        head?: string
+        paths?: ElementOrArray<string>
+        excludedPaths?: ElementOrArray<string>
+        unified?: number
+        /**
+         * Modifies the diff to be in a more LLM friendly format
+         */
+        llmify?: boolean
+    }): Promise<string>
+
+    /**
+     * Lists the commits in the git repository
+     */
+    log(options?: {
+        base?: string
+        head?: string
+        merges?: boolean
+        excludedGrep?: string | RegExp
+        paths?: ElementOrArray<string>
+        excludedPaths?: ElementOrArray<string>
+    }): Promise<GitCommit[]>
+}
+
+interface GitHubOptions {
+    owner: string
+    repo: string
+    baseUrl?: string
+    auth?: string
+    ref?: string
+    refName?: string
+}
+
+type GitHubWorkflowRunStatus =
+    | "completed"
+    | "action_required"
+    | "cancelled"
+    | "failure"
+    | "neutral"
+    | "skipped"
+    | "stale"
+    | "success"
+    | "timed_out"
+    | "in_progress"
+    | "queued"
+    | "requested"
+    | "waiting"
+    | "pending"
+
+interface GitHubWorkflowRun {
+    id: number
+    name?: string
+    display_title: string
+    status: string
+    conclusion: string
+    html_url: string
+    created_at: string
+    head_branch: string
+    head_sha: string
+}
+
+interface GitHubWorkflowJob {
+    id: number
+    run_id: number
+    status: string
+    conclusion: string
+    name: string
+    html_url: string
+    logs_url: string
+    logs: string
+    started_at: string
+    completed_at: string
+    content: string
+}
+
+interface GitHubIssue {
+    id: number
+    body?: string
+    title: string
+    number: number
+    state: string
+    state_reason?: "completed" | "reopened" | "not_planned" | null
+    html_url: string
+    draft?: boolean
+    reactions?: GitHubReactions
+    user: GitHubUser
+    assignee?: GitHubUser
+}
+
+interface GitHubReactions {
+    url: string
+    total_count: number
+    "+1": number
+    "-1": number
+    laugh: number
+    confused: number
+    heart: number
+    hooray: number
+    eyes: number
+    rocket: number
+}
+
+interface GitHubComment {
+    id: number
+    body?: string
+    user: GitHubUser
+    created_at: string
+    updated_at: string
+    html_url: string
+    reactions?: GitHubReactions
+}
+
+interface GitHubPullRequest extends GitHubIssue {
+    head: {
+        ref: string
+    }
+    base: {
+        ref: string
+    }
+}
+
+interface GitHubCodeSearchResult {
+    name: string
+    path: string
+    sha: string
+    html_url: string
+    score: number
+    repository: string
+}
+
+interface GitHubWorkflow {
+    id: number
+    name: string
+    path: string
+}
+
+interface GitHubPaginationOptions {
+    /**
+     * Default number of items to fetch, default is 50.
+     */
+    count?: number
+}
+
+interface GitHubFile extends WorkspaceFile {
+    type: "file" | "dir" | "submodule" | "symlink"
+    size: number
+}
+
+interface GitHubUser {
+    login: string
+}
+
+interface GitHub {
+    /**
+     * Gets connection information for octokit
+     */
+    info(): Promise<GitHubOptions | undefined>
+
+    /**
+     * Lists workflows in a GitHub repository
+     */
+    listWorkflows(options?: GitHubPaginationOptions): Promise<GitHubWorkflow[]>
+
+    /**
+     * Lists workflow runs for a given workflow
+     * @param workflowId
+     * @param options
+     */
+    listWorkflowRuns(
+        workflow_id: string | number,
+        options?: {
+            branch?: string
+            event?: string
+            status?: GitHubWorkflowRunStatus
+        } & GitHubPaginationOptions
+    ): Promise<GitHubWorkflowRun[]>
+
+    /**
+     * Downloads a GitHub Action workflow run log
+     * @param runId
+     */
+    listWorkflowJobs(
+        runId: number,
+        options?: GitHubPaginationOptions
+    ): Promise<GitHubWorkflowJob[]>
+
+    /**
+     * Downloads a GitHub Action workflow run log
+     * @param jobId
+     */
+    downloadWorkflowJobLog(
+        jobId: number,
+        options?: { llmify?: boolean }
+    ): Promise<string>
+
+    /**
+     * Diffs two GitHub Action workflow job logs
+     */
+    diffWorkflowJobLogs(job_id: number, other_job_id: number): Promise<string>
+
+    /**
+     * Lists issues for a given repository
+     * @param options
+     */
+    listIssues(
+        options?: {
+            state?: "open" | "closed" | "all"
+            labels?: string
+            sort?: "created" | "updated" | "comments"
+            direction?: "asc" | "desc"
+            creator?: string
+            assignee?: string
+            since?: string
+            mentioned?: string
+        } & GitHubPaginationOptions
+    ): Promise<GitHubIssue[]>
+
+    /**
+     * Gets the details of a GitHub issue
+     * @param number issue number (not the issue id!)
+     */
+    getIssue(number: number): Promise<GitHubIssue>
+
+    /**
+     * Lists comments for a given issue
+     * @param issue_number
+     * @param options
+     */
+    listIssueComments(
+        issue_number: number,
+        options?: GitHubPaginationOptions
+    ): Promise<GitHubComment[]>
+
+    /**
+     * Lists pull requests for a given repository
+     * @param options
+     */
+    listPullRequests(
+        options?: {
+            state?: "open" | "closed" | "all"
+            sort?: "created" | "updated" | "popularity" | "long-running"
+            direction?: "asc" | "desc"
+        } & GitHubPaginationOptions
+    ): Promise<GitHubPullRequest[]>
+
+    /**
+     * Gets the details of a GitHub pull request
+     * @param pull_number pull request number. Default resolves the pull requeset for the current branch.
+     */
+    getPullRequest(pull_number?: number): Promise<GitHubPullRequest>
+
+    /**
+     * Lists comments for a given pull request
+     * @param pull_number
+     * @param options
+     */
+    listPullRequestReviewComments(
+        pull_number: number,
+        options?: GitHubPaginationOptions
+    ): Promise<GitHubComment[]>
+
+    /**
+     * Gets the content of a file from a GitHub repository
+     * @param filepath
+     * @param options
+     */
+    getFile(
+        filepath: string,
+        /**
+         * commit sha, branch name or tag name
+         */
+        ref: string
+    ): Promise<WorkspaceFile>
+
+    /**
+     * Searches code in a GitHub repository
+     */
+    searchCode(
+        query: string,
+        options?: GitHubPaginationOptions
+    ): Promise<GitHubCodeSearchResult[]>
+
+    /**
+     * Lists branches in a GitHub repository
+     */
+    listBranches(options?: GitHubPaginationOptions): Promise<string[]>
+
+    /**
+     * Lists tags in a GitHub repository
+     */
+    listRepositoryLanguages(): Promise<Record<string, number>>
+
+    /**
+     * Lists tags in a GitHub repository
+     */
+    getRepositoryContent(
+        path?: string,
+        options?: {
+            ref?: string
+            glob?: string
+            downloadContent?: boolean
+            maxDownloadSize?: number
+            type?: (typeof GitHubFile)["type"]
+        }
+    ): Promise<GitHubFile[]>
+
+    /**
+     * Gets the underlying Octokit client
+     */
+    client(): Promise<any>
 }
 
 interface MD {
@@ -1329,11 +1876,23 @@ interface INI {
     stringify(value: any): string
 }
 
+interface CSVStringifyOptions {
+    delimiter?: string
+    header?: boolean
+}
+
+/**
+ * Interface representing CSV operations.
+ */
 interface CSV {
     /**
-     * Parses a CSV string to an array of objects
-     * @param text
-     * @param options
+     * Parses a CSV string to an array of objects.
+     *
+     * @param text - The CSV string to parse.
+     * @param options - Optional settings for parsing.
+     * @param options.delimiter - The delimiter used in the CSV string. Defaults to ','.
+     * @param options.headers - An array of headers to use. If not provided, headers will be inferred from the first row.
+     * @returns An array of objects representing the parsed CSV data.
      */
     parse(
         text: string,
@@ -1344,9 +1903,22 @@ interface CSV {
     ): object[]
 
     /**
-     * Converts an array of object that represents a data table to a markdown table
-     * @param csv
-     * @param options
+     * Converts an array of objects to a CSV string.
+     *
+     * @param csv - The array of objects to convert.
+     * @param options - Optional settings for stringifying.
+     * @param options.headers - An array of headers to use. If not provided, headers will be inferred from the object keys.
+     * @returns A CSV string representing the data.
+     */
+    stringify(csv: object[], options?: CSVStringifyOptions): string
+
+    /**
+     * Converts an array of objects that represents a data table to a markdown table.
+     *
+     * @param csv - The array of objects to convert.
+     * @param options - Optional settings for markdown conversion.
+     * @param options.headers - An array of headers to use. If not provided, headers will be inferred from the object keys.
+     * @returns A markdown string representing the data table.
      */
     markdownify(csv: object[], options?: { headers?: string[] }): string
 }
@@ -1484,9 +2056,8 @@ interface DefSchemaOptions {
     format?: "typescript" | "json" | "yaml"
 }
 
-type ChatFunctionHandler = (
-    args: { context: ToolCallContext } & Record<string, any>
-) => Awaitable<ToolCallOutput>
+type ChatFunctionArgs = { context: ToolCallContext } & Record<string, any>
+type ChatFunctionHandler = (args: ChatFunctionArgs) => Awaitable<ToolCallOutput>
 
 interface WriteTextOptions extends ContextExpansionOptions {
     /**
@@ -1502,6 +2073,11 @@ interface PromptGeneratorOptions extends ModelOptions, PromptSystemOptions {
      * Label for trace
      */
     label?: string
+
+    /**
+     * Write file edits to the file system
+     */
+    applyEdits?: boolean
 }
 
 interface FileOutputOptions {
@@ -1512,7 +2088,7 @@ interface FileOutputOptions {
 }
 
 interface FileOutput {
-    pattern: string
+    pattern: string[]
     description?: string
     options?: FileOutputOptions
 }
@@ -1556,17 +2132,33 @@ interface ChatTurnGenerationContext {
         options?: ImportTemplateOptions
     ): void
     writeText(body: Awaitable<string>, options?: WriteTextOptions): void
+    assistant(
+        text: Awaitable<string>,
+        options?: Omit<WriteTextOptions, "assistant">
+    ): void
     $(strings: TemplateStringsArray, ...args: any[]): PromptTemplateString
     fence(body: StringLike, options?: FenceOptions): void
     def(
         name: string,
-        body: string | WorkspaceFile | WorkspaceFile[] | ShellOutput | Fenced,
+        body:
+            | string
+            | WorkspaceFile
+            | WorkspaceFile[]
+            | ShellOutput
+            | Fenced
+            | RunPromptResult,
         options?: DefOptions
     ): string
     defData(
         name: string,
         data: object[] | object,
         options?: DefDataOptions
+    ): string
+    defDiff<T extends string | WorkspaceFile>(
+        name: string,
+        left: T,
+        right: T,
+        options?: DefDiffOptions
     ): string
     console: PromptGenerationConsole
 }
@@ -1581,6 +2173,30 @@ interface RunPromptResultPromiseWithOptions extends Promise<RunPromptResult> {
     options(values?: PromptGeneratorOptions): RunPromptResultPromiseWithOptions
 }
 
+interface DefToolOptions {
+    /**
+     * Maximum number of tokens per tool content response
+     */
+    maxTokens?: number
+}
+
+interface DefAgentOptions extends Omit<PromptGeneratorOptions, "label"> {
+    /**
+     * Excludes agent conversation from agent memory
+     */
+    disableMemory?: boolean
+
+    /**
+     * Diable memory query on each query (let the agent call the tool)
+     */
+    disableMemoryQuery?: boolean
+}
+
+type ChatAgentHandler = (
+    ctx: ChatGenerationContext,
+    args: ChatFunctionArgs
+) => Awaitable<unknown>
+
 interface ChatGenerationContext extends ChatTurnGenerationContext {
     defSchema(
         name: string,
@@ -1592,20 +2208,28 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
         options?: DefImagesOptions
     ): void
     defTool(
-        tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback
+        tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback,
+        options?: DefToolOptions
     ): void
     defTool(
         name: string,
         description: string,
         parameters: PromptParametersSchema | JSONSchema,
-        fn: ChatFunctionHandler
+        fn: ChatFunctionHandler,
+        options?: DefToolOptions
+    ): void
+    defAgent(
+        name: string,
+        description: string,
+        fn: string | ChatAgentHandler,
+        options?: DefAgentOptions
     ): void
     defChatParticipant(
         participant: ChatParticipantHandler,
         options?: ChatParticipantOptions
     ): void
     defFileOutput(
-        pattern: string,
+        pattern: ElementOrArray<string | WorkspaceFile>,
         description?: string,
         options?: FileOutputOptions
     ): void
@@ -1617,6 +2241,8 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
         strings: TemplateStringsArray,
         ...args: any[]
     ): RunPromptResultPromiseWithOptions
+    defFileMerge(fn: FileMergeHandler): void
+    defOutputProcessor(fn: PromptOutputProcessorHandler): void
 }
 
 interface GenerationOutput {
@@ -2255,7 +2881,7 @@ interface ShellHost {
 }
 
 interface ContainerPortBinding {
-    containerPort: OptionsOrString<"80/tcp">
+    containerPort: OptionsOrString<"8000/tcp">
     hostPort: string | number
 }
 
@@ -2295,12 +2921,53 @@ interface ContainerOptions {
     ports?: ElementOrArray<ContainerPortBinding>
 }
 
+interface PromiseQueue {
+    /**
+     * Adds a new promise to the queue
+     * @param fn
+     */
+    add<Arguments extends unknown[], ReturnType>(
+        function_: (...arguments_: Arguments) => Awaitable<ReturnType>,
+        ...arguments_: Arguments
+    ): Promise<ReturnType>
+
+    /**
+     * Runs all the functions in the queue with limited concurrency
+     * @param fns
+     */
+    all<T = any>(fns: (() => Awaitable<T>)[]): Promise<T[]>
+
+    /**
+     * Applies a function to all the values in the queue with limited concurrency
+     * @param values
+     * @param fn
+     */
+    mapAll<T extends unknown, Arguments extends unknown[], ReturnType>(
+        values: T[],
+        fn: (value: T, ...arguments_: Arguments) => Awaitable<ReturnType>,
+        ...arguments_: Arguments
+    ): Promise<ReturnType[]>
+}
+
 interface PromptHost extends ShellHost {
+    /**
+     * Opens a in-memory key-value cache for the given cache name. Entries are dropped when the cache grows too large.
+     * @param cacheName
+     */
+    cache<K = any, V = any>(
+        cacheName: string
+    ): Promise<WorkspaceFileCache<K, V>>
+
     /**
      * Starts a container
      * @param options container creation options
      */
     container(options?: ContainerOptions): Promise<ContainerHost>
+
+    /**
+     * Create a new promise queue to run async functions with limited concurrency
+     */
+    promiseQueue(concurrency: number): PromiseQueue
 }
 
 interface ContainerHost extends ShellHost {
@@ -2358,8 +3025,6 @@ interface ContainerHost extends ShellHost {
 interface PromptContext extends ChatGenerationContext {
     script(options: PromptArgs): void
     system(options: PromptSystemArgs): void
-    defFileMerge(fn: FileMergeHandler): void
-    defOutputProcessor(fn: PromptOutputProcessorHandler): void
     env: ExpansionVariables
     path: Path
     parsers: Parsers
@@ -2413,6 +3078,14 @@ declare function writeText(
 ): void
 
 /**
+ * Append given string to the prompt as an assistant mesage.
+ */
+declare function assistant(
+    text: Awaitable<string>,
+    options?: Omit<WriteTextOptions, "assistant">
+): void
+
+/**
  * Append given string to the prompt. It automatically appends "\n".
  * `` $`foo` `` is the same as `text("foo")`.
  */
@@ -2439,7 +3112,13 @@ declare function fence(body: StringLike, options?: FenceOptions): void
  */
 declare function def(
     name: string,
-    body: string | WorkspaceFile | WorkspaceFile[] | ShellOutput | Fenced,
+    body:
+        | string
+        | WorkspaceFile
+        | WorkspaceFile[]
+        | ShellOutput
+        | Fenced
+        | RunPromptResult,
     options?: DefOptions
 ): string
 
@@ -2449,7 +3128,7 @@ declare function def(
  * @param options expectations about the generated file content
  */
 declare function defFileOutput(
-    pattern: string,
+    pattern: ElementOrArray<string | WorkspaceFile>,
     description?: string,
     options?: FileOutputOptions
 ): void
@@ -2463,13 +3142,29 @@ declare function defFileOutput(
  * @param fn callback invoked when the LLM requests to run this function
  */
 declare function defTool(
-    tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback
+    tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback,
+    options?: DefToolOptions
 ): void
 declare function defTool(
     name: string,
     description: string,
     parameters: PromptParametersSchema | JSONSchema,
-    fn: ChatFunctionHandler
+    fn: ChatFunctionHandler,
+    options?: DefToolOptions
+): void
+
+/**
+ * Declares a LLM agent tool that can be called from the prompt.
+ * @param name name of the agent, do not prefix with agent
+ * @param description description of the agent, used by the model to choose when and how to call the agent
+ * @param fn prompt generation context
+ * @param options additional options for the agent LLM
+ */
+declare function defAgent(
+    name: string,
+    description: string,
+    fn: string | ChatAgentHandler,
+    options?: DefAgentOptions
 ): void
 
 /**
@@ -2549,6 +3244,21 @@ declare var AICI: AICI
 declare var host: PromptHost
 
 /**
+ * Access to GitHub queries for the current repository
+ */
+declare var github: GitHub
+
+/**
+ * Access to Git operations for the current repository
+ */
+declare var git: Git
+
+/**
+ * Computation around tokens
+ */
+declare var tokenizers: Tokenizers
+
+/**
  * Fetches a given URL and returns the response.
  * @param url
  */
@@ -2590,6 +3300,19 @@ declare function defData(
     name: string,
     data: object[] | object,
     options?: DefDataOptions
+): string
+
+/**
+ * Renders a diff of the two given values
+ * @param left
+ * @param right
+ * @param options
+ */
+declare function defDiff<T extends string | WorkspaceFile>(
+    name: string,
+    left: T,
+    right: T,
+    options?: DefDiffOptions
 ): string
 
 /**
