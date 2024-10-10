@@ -32,6 +32,7 @@ for (const file of files) {
     await translateFile(file)
 }
 console.log(YAML.stringify(files.map(f => f.filename)))
+
 async function translateFile(file: WorkspaceFile) {
     const { filename, content } = file
     console.log(`> ${filename}`)
@@ -42,8 +43,8 @@ async function translateFile(file: WorkspaceFile) {
 
     // find the existing translation and remove existing translations
     const trfn = path.join(dir, langCode, path.basename(filename))
-    const trsrc = await workspace.readText(trfn)
-    const translated = parsers.JSON5(trsrc) || {}
+    const translated: Record<string, string> =
+        (await workspace.readJSON(trfn)) || {}
     for (const k of Object.keys(strings)) if (translated[k]) delete strings[k]
 
     // shortcut: all translation is done
@@ -53,9 +54,6 @@ async function translateFile(file: WorkspaceFile) {
     }
 
     console.log(`strings: ${Object.keys(strings).length} to translate`)
-
-    // serialize as ini
-    const contentToTranslate = INI.stringify(strings)
 
     // the prompt engineering piece
     const { fences, text } = await runPrompt(
@@ -98,7 +96,7 @@ and should be translated following these rules:
 - The translations of "...|block" string should be short.
 
 `
-            ctx.def("ORIGINAL", contentToTranslate, { language: "ini" })
+            ctx.def("ORIGINAL", INI.stringify(strings), { language: "ini" })
         },
         { label: filename, cache: "translate" }
     )
@@ -111,7 +109,10 @@ and should be translated following these rules:
             delete news[key]
         }
 
+    // merge the translations
     Object.assign(translated, news)
+
+    // write the translations back if modified
     const newContent = JSON.stringify(translated, null, 2)
     if (content !== newContent) await workspace.writeText(trfn, newContent)
 
