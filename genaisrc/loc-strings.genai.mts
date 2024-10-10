@@ -1,6 +1,6 @@
 script({
-    title: "MakeCode Blocks Localization Env",
-    description: "Translate block strings that define blocks in MakeCode",
+    title: "translate blocks",
+    description: "Translate block strings in compiled locales files",
     parameters: {
         lang: {
             type: "string",
@@ -100,10 +100,20 @@ and should be translated following these rules:
 `
             ctx.def("ORIGINAL", contentToTranslate, { language: "ini" })
         },
-        { label: filename }
+        { label: filename, cache: "translate" }
     )
-    const news = INI.parse(fences?.[0]?.content || text)
+    const news = INI.parse(fences?.[0]?.content || text) || {}
+
+    // validate that keys are the same
+    for (const key in news)
+        if (!strings[key]) {
+            console.warn(`key ${key} not found in original`)
+            delete news[key]
+        }
+
     Object.assign(translated, news)
     const newContent = JSON.stringify(translated, null, 2)
     if (content !== newContent) await workspace.writeText(trfn, newContent)
+
+    // TODO build and validate translations
 }

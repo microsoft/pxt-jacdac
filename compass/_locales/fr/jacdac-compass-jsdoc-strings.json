@@ -1,0 +1,17 @@
+{
+  "jacdac.CompassCmd.Calibrate": "Pas d'arguments. Démarre une séquence de calibration pour la boussole.",
+  "jacdac.CompassReg.Enabled": "Lecture-écriture booléen (uint8_t). Allume ou éteint le capteur. Allumer le capteur peut démarrer une séquence de calibration.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.CompassReg.Heading": "Lecture seule ° u16.16 (uint32_t). La direction par rapport au nord magnétique.\n* ```\nconst [heading] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.CompassReg.HeadingError": "Lecture seule ° u16.16 (uint32_t). Erreur sur la lecture de la direction\n* ```\nconst [headingError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.CompassRegPack.Enabled": "Format de paquet pour les données 'enabled'.",
+  "jacdac.CompassRegPack.Heading": "Format de paquet pour les données 'heading'.",
+  "jacdac.CompassRegPack.HeadingError": "Format de paquet pour les données 'heading_error'.",
+  "modules": "Modules Jacdac",
+  "modules.CompassClient": "Un capteur qui mesure la direction.",
+  "modules.CompassClient.calibrate": "Démarre une séquence de calibration pour la boussole.",
+  "modules.CompassClient.enabled": "Allume ou éteint le capteur. Allumer le capteur peut démarrer une séquence de calibration.",
+  "modules.CompassClient.heading": "La direction par rapport au nord magnétique.",
+  "modules.CompassClient.headingError": "Erreur sur la lecture de la direction",
+  "modules.CompassClient.onHeadingChangedBy": "Exécute le code lorsque la direction change de la valeur seuil donnée.",
+  "modules.CompassClient.setEnabled": "Allume ou éteint le capteur. Allumer le capteur peut démarrer une séquence de calibration."
+}

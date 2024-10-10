@@ -1,0 +1,16 @@
+{
+  "jacdac.CompassCmd.Calibrate": "Pas d'arguments. Démarre une séquence d'étalonnage pour la boussole.",
+  "jacdac.CompassReg.Enabled": "Lecture-écriture booléen (uint8_t). Allume ou éteint le capteur. Allumer le capteur peut démarrer une séquence d'étalonnage.\n* ```\nconst [enabled] = jdunpack<[number]>(buf, \"u8\")\n```",
+  "jacdac.CompassReg.Heading": "Lecture seule ° u16.16 (uint32_t). L'orientation par rapport au nord magnétique.\n* ```\nconst [heading] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "jacdac.CompassReg.HeadingError": "Lecture seule ° u16.16 (uint32_t). Erreur sur la lecture de l'orientation\n* ```\nconst [headingError] = jdunpack<[number]>(buf, \"u16.16\")\n```",
+  "modules.CompassClient.calibrate|block": "%compass calibrer",
+  "modules.CompassClient.enabled|block": "%compass activé",
+  "modules.CompassClient.heading|block": "%compass orientation (°)",
+  "modules.CompassClient.onHeadingChangedBy|block": "quand %compass orientation change de %threshold (°)",
+  "modules.CompassClient.setEnabled|block": "mettre %compass %value=toggleOnOff",
+  "modules.compass1|block": "boussole1",
+  "modules|block": "modules",
+  "{id:category}Jacdac": "Jacdac",
+  "{id:category}Modules": "Modules",
+  "{id:group}Compass": "Boussole"
+}
