@@ -22,5 +22,5 @@
         "ghcr.io/devcontainers/features/azure-cli:1.2.5": {},
         "ghcr.io/devcontainers/features/python:1.6.4": {}
     },
-    "postCreateCommand": "node npm install -g makecode"
+    "postCreateCommand": "node npm install -g makecode@v0.34.6"
 }
