@@ -17,7 +17,7 @@ npx http-server docs -p 3232
 ```
 
 * head to 
-https://microsoft.github.io/jacdac-docs/dashboard/?localhost=1
+https://jacdac.github.io/jacdac-docs/dashboard/?localhost=1
 and spin up "Azure IoT (localhost)" simulator.
 
 To publish a new version to github pages, do the following:

@@ -5,9 +5,9 @@
     "dependencies": {
         "core": "*",
         "mouse": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
-        "jacdac-hid-mouse": "github:microsoft/pxt-jacdac/hid-mouse"
+        "jacdac": "gitub:jacdac/pxt-jacdac",
+        "jacdac-servers": "gitub:jacdac/pxt-jacdac/servers",
+        "jacdac-hid-mouse": "gitub:jacdac/pxt-jacdac/hid-mouse"
     },
     "testFiles": [
         "test.ts"

@@ -30888,7 +30888,7 @@ switch (step) {
     { step = 11; continue; }
   case 3:
   case 4:
-// twins.ts(232,15): url = `https://microsoft.github.io/jacdac-docs/services/twin/x${toHexNum(
+// twins.ts(232,15): url = `https://jacdac.github.io/jacdac-docs/services/twin/x${toHexNum(
     s.tmp_4 = jacdac_twins_toHexNum__P2635_mk(s);
     s.tmp_4.arg0 = s.arg0;
     s.callLocIdx = 1256; s.pc = 15; return s.tmp_4;
@@ -30904,7 +30904,7 @@ switch (step) {
   case 16:
     r0 = s.retval;
     s.tmp_2 = r0;
-    r0 = pxsim_String__concat("https://microsoft.github.io/jacdac-docs/services/twin/x", s.tmp_2);
+    r0 = pxsim_String__concat("https://jacdac.github.io/jacdac-docs/services/twin/x", s.tmp_2);
     s.tmp_1 = r0;
     r0 = pxsim_String__concat(s.tmp_1, ".json");
     s.url___10560 = (r0);

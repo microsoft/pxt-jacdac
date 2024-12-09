@@ -12,8 +12,8 @@
     ],
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-hid-joystick-server": "github:microsoft/pxt-jacdac/hid-joystick-server"
+        "jacdac": "gitub:jacdac/pxt-jacdac",
+        "jacdac-hid-joystick-server": "gitub:jacdac/pxt-jacdac/hid-joystick-server"
     },
     "testDependencies": {
         "jacdac-brain-f4": "*"

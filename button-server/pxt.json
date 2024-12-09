@@ -5,8 +5,8 @@
     "dependencies": {
         "core": "*",
         "buttons": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-button": "github:microsoft/pxt-jacdac/button"
+        "jacdac": "gitub:jacdac/pxt-jacdac",
+        "jacdac-button": "gitub:jacdac/pxt-jacdac/button"
     },
     "files": [
         "server.ts"

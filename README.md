@@ -2,12 +2,12 @@
 
 This project contains [Jacdac](https://aka.ms/jacdac) host and client services for MakeCode editors.
 
-* [Read the documentation](https://microsoft.github.io/jacdac-docs/clients/makecode/)
+* [Read the documentation](https://jacdac.github.io/jacdac-docs/clients/makecode/)
 
 ## Using this extensions
 
 -   Open your MakeCode editor (see supported editors)
--   Go to the extension dialog and search for https://github.com/microsoft/pxt-jacdac
+-   Go to the extension dialog and search for https://github.com/jacdac/pxt-jacdac
 -   Import the extension.
 
 ### Supported editors
@@ -18,7 +18,7 @@ This project contains [Jacdac](https://aka.ms/jacdac) host and client services f
 
 ## Developer section
 
-Issues are tracked at https://github.com/microsoft/jacdac/issues .
+Issues are tracked at https://github.com/jacdac/jacdac/issues .
 
 To build all projects
 
@@ -34,7 +34,7 @@ sh bump.sh
 
 Run `makecode --pxt-modules` to create files in `pxt_modules/*`, which help with TypeScript auto-completion.
 
-To refresh the `constants.ts` files, build jacdac-spec (`yarn buildspecs` from jacdac-ts) from https://github.com/microsoft/jacdac-ts .
+To refresh the `constants.ts` files, build jacdac-spec (`yarn buildspecs` from jacdac-ts) from https://github.com/jacdac/jacdac-ts .
 
 ### Deploying in WSL/Codespaces
 
@@ -55,17 +55,3 @@ makecode -c ../mkc-arcade.json
 ```
 
 You can also add `--hw d5` or `--hw d5,f4,...` to build for specific hardware profiles.
-
-## Contributing
-
-This project welcomes contributions and suggestions. Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
-
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.

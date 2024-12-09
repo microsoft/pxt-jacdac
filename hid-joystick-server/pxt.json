@@ -5,9 +5,9 @@
     "dependencies": {
         "core": "*",
         "gamepad": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-servers": "github:microsoft/pxt-jacdac/servers",
-        "jacdac-hid-joystick": "github:microsoft/pxt-jacdac/hid-joystick"
+        "jacdac": "gitub:jacdac/pxt-jacdac",
+        "jacdac-servers": "gitub:jacdac/pxt-jacdac/servers",
+        "jacdac-hid-joystick": "gitub:jacdac/pxt-jacdac/hid-joystick"
     },
     "files": [
         "server.ts"

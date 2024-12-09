@@ -12,9 +12,9 @@
     ],
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-hid-mouse-server": "github:microsoft/pxt-jacdac/hid-mouse-server",
-        "jacdac-hid-keyboard-server": "github:microsoft/pxt-jacdac/hid-keyboard-server"
+        "jacdac": "gitub:jacdac/pxt-jacdac",
+        "jacdac-hid-mouse-server": "gitub:jacdac/pxt-jacdac/hid-mouse-server",
+        "jacdac-hid-keyboard-server": "gitub:jacdac/pxt-jacdac/hid-keyboard-server"
     },
     "testDependencies": {
         "jacdac-brain-f4": "*"

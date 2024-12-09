@@ -49,9 +49,19 @@ interface PromptDefinition {
      * Longer description of the prompt. Shows in UI grayed-out.
      */
     description?: string
+
+    /**
+     * Groups template in UI
+     */
+    group?: string
+
+    /**
+     * List of tools defined in the script
+     */
+    defTools?: { id: string; description: string; kind: "tool" | "agent" }[]
 }
 
-interface PromptLike extends PromptDefinition {
+interface PromptLike extends PromptDefinition, PromptToolsDefinition {
     /**
      * File where the prompt comes from (if any).
      */
@@ -76,15 +86,18 @@ type SystemPromptId = OptionsOrString<
     | "system.agent_git"
     | "system.agent_github"
     | "system.agent_interpreter"
-    | "system.agent_memory"
+    | "system.agent_planner"
     | "system.agent_user_input"
+    | "system.agent_web"
     | "system.annotations"
+    | "system.assistant"
     | "system.changelog"
     | "system.diagrams"
     | "system.diff"
     | "system.explanations"
     | "system.files"
     | "system.files_schema"
+    | "system.fs_ask_file"
     | "system.fs_diff_files"
     | "system.fs_find_files"
     | "system.fs_read_file"
@@ -99,24 +112,31 @@ type SystemPromptId = OptionsOrString<
     | "system.math"
     | "system.md_find_files"
     | "system.md_frontmatter"
+    | "system.meta_prompt"
+    | "system.meta_schema"
     | "system.node_info"
     | "system.node_test"
     | "system.planner"
     | "system.python"
     | "system.python_code_interpreter"
-    | "system.python-types"
+    | "system.python_types"
     | "system.retrieval_fuzz_search"
     | "system.retrieval_vector_search"
     | "system.retrieval_web_search"
+    | "system.safety_canary_word"
     | "system.safety_harmful_content"
+    | "system.safety_jailbreak"
     | "system.safety_protected_material"
     | "system.safety_ungrounded_content_summarization"
+    | "system.safety_validate_harmful_content"
     | "system.schema"
     | "system.tasks"
     | "system.technical"
+    | "system.tool_calls"
     | "system.tools"
     | "system.typescript"
     | "system.user_input"
+    | "system.vision_ask_image"
     | "system.zero_shot_cot"
 >
 
@@ -126,8 +146,10 @@ type SystemToolId = OptionsOrString<
     | "agent_git"
     | "agent_github"
     | "agent_interpreter"
-    | "agent_memory"
+    | "agent_planner"
     | "agent_user_input"
+    | "agent_web-search"
+    | "fs_ask_file"
     | "fs_diff_files"
     | "fs_find_files"
     | "fs_read_file"
@@ -154,8 +176,11 @@ type SystemToolId = OptionsOrString<
     | "math_eval"
     | "md_find_files"
     | "md_read_frontmatter"
+    | "meta_prompt"
+    | "meta_schema"
     | "node_test"
-    | "python_code_interpreter_copy_files"
+    | "python_code_interpreter_copy_files_to_container"
+    | "python_code_interpreter_read_file"
     | "python_code_interpreter_run"
     | "retrieval_fuzz_search"
     | "retrieval_vector_search"
@@ -163,6 +188,7 @@ type SystemToolId = OptionsOrString<
     | "user_input_confirm"
     | "user_input_select"
     | "user_input_text"
+    | "vision_ask_image"
 >
 
 type FileMergeHandler = (
@@ -200,30 +226,89 @@ type PromptOutputProcessorHandler = (
 
 type PromptTemplateResponseType = "json_object" | "json_schema" | undefined
 
+type ModelType = OptionsOrString<
+    | "large"
+    | "small"
+    | "vision"
+    | "openai:gpt-4o"
+    | "openai:gpt-4o-mini"
+    | "openai:gpt-3.5-turbo"
+    | "openai:o1-mini"
+    | "openai:o1-preview"
+    | "github:gpt-4o"
+    | "github:gpt-4o-mini"
+    | "github:o1-mini"
+    | "github:o1-preview"
+    | "github:AI21-Jamba-1.5-Large"
+    | "github:AI21-Jamba-1-5-Mini"
+    | "azure:gpt-4o"
+    | "azure:gpt-4o-mini"
+    | "ollama:marco-o1"
+    | "ollama:tulu3"
+    | "ollama:athene-v2"
+    | "ollama:opencoder"
+    | "ollama:qwen2.5-coder"
+    | "ollama:llama3.2-vision"
+    | "ollama:llama3.2"
+    | "ollama:phi3.5"
+    | "anthropic:claude-3-5-sonnet-20240620"
+    | "anthropic:claude-3-opus-20240229"
+    | "anthropic:claude-3-sonnet-20240229"
+    | "anthropic:claude-3-haiku-20240307"
+    | "anthropic:claude-2.1"
+    | "anthropic:claude-2.0"
+    | "anthropic:claude-instant-1.2"
+    | "huggingface:microsoft/Phi-3-mini-4k-instruct"
+    | "google:gemini-1.5-flash"
+    | "google:gemini-1.5-flash-8b"
+    | "google:gemini-1.5-flash-002"
+    | "google:gemini-1.5-pro"
+    | "google:gemini-1.5-pro-002"
+    | "google:gemini-1-pro"
+    | "mistral:mistral-large-latest"
+    | "mistral:mistral-small-latest"
+    | "mistral:pixtral-large-latest"
+    | "mistral:codestral-latest"
+    | "mistral:nemo"
+    | "alibaba:qwen-turbo"
+    | "alibaba:qwen-max"
+    | "alibaba:qwen-plus"
+    | "alibaba:qwen2-72b-instruct"
+    | "alibaba:qwen2-57b-a14b-instruct"
+    | "transformers:onnx-community/Qwen2.5-0.5B-Instruct:q4"
+    | "transformers:HuggingFaceTB/SmolLM2-1.7B-Instruct:q4f16"
+>
+
+type ModelSmallType = OptionsOrString<
+    | "openai:gpt-4o-mini"
+    | "github:gpt-4o-mini"
+    | "azure:gpt-4o-mini"
+    | "openai:gpt-3.5-turbo"
+    | "github:Phi-3-5-mini-instruct"
+    | "github:AI21-Jamba-1-5-Mini"
+>
+
+type ModelVisionType = OptionsOrString<
+    "openai:gpt-4o" | "github:gpt-4o" | "azure:gpt-4o" | "azure:gpt-4o-mini"
+>
+
 interface ModelConnectionOptions {
     /**
-     * Which LLM model to use. Use `large` for the default set of model candidates, `small` for the set of small models like gpt-4o-mini.
+     * Which LLM model by default or for the `large` alias.
      */
-    model?: OptionsOrString<
-        | "large"
-        | "small"
-        | "openai:gpt-4o"
-        | "openai:gpt-4o-mini"
-        | "openai:gpt-3.5-turbo"
-        | "azure:gpt-4o"
-        | "azure:gpt-4o-mini"
-        | "ollama:phi3"
-        | "ollama:llama3"
-        | "ollama:mixtral"
-    >
+    model?: ModelType
+}
+
+interface ModelAliasesOptions {
+    /**
+     * Configure the `small` model alias.
+     */
+    smallModel?: ModelSmallType
 
     /**
-     * Which LLM model to use for the "small" model.
-     *
-     * @default gpt-4
-     * @example gpt-4
+     * Configure the `vision` model alias.
      */
-    smallModel?: OptionsOrString<"openai:gpt-4o-mini" | "openai:gpt-3.5-turbo">
+    visionModel?: ModelVisionType
 }
 
 interface ModelOptions extends ModelConnectionOptions {
@@ -234,6 +319,21 @@ interface ModelOptions extends ModelConnectionOptions {
      * @default 0.2
      */
     temperature?: number
+
+    /**
+     * A list of keywords that should be found in the output.
+     */
+    choices?: ElementOrArray<string>
+
+    /**
+     * Returns the log probabilities of the each tokens. Not supported in all models.
+     */
+    logprobs?: boolean
+
+    /**
+     * Number of alternate token logprobs to generate, up to 5. Enables logprobs.
+     */
+    topLogprobs?: number
 
     /**
      * Specifies the type of output. Default is plain text.
@@ -256,7 +356,7 @@ interface ModelOptions extends ModelConnectionOptions {
     topP?: number
 
     /**
-     * When to stop producing output.
+     * Maximum number of completion tokens
      *
      */
     maxTokens?: number
@@ -324,28 +424,30 @@ interface PromptSystemOptions {
      * List of tools used by the prompt.
      */
     tools?: ElementOrArray<SystemToolId>
+
+    /**
+     * List of system to exclude from the prompt.
+     */
+    excludedSystem?: ElementOrArray<SystemPromptId>
 }
 
-interface ScriptRuntimeOptions {
+interface ScriptRuntimeOptions extends LineNumberingOptions {
     /**
      * Secrets required by the prompt
      */
     secrets?: string[]
-
-    /**
-     * Default value for emitting line numbers in fenced code blocks.
-     */
-    lineNumbers?: boolean
 }
+
+type PromptJSONParameterType<T> = T & { required?: boolean }
 
 type PromptParameterType =
     | string
     | number
     | boolean
     | object
-    | JSONSchemaNumber
-    | JSONSchemaString
-    | JSONSchemaBoolean
+    | PromptJSONParameterType<JSONSchemaNumber>
+    | PromptJSONParameterType<JSONSchemaString>
+    | PromptJSONParameterType<JSONSchemaBoolean>
 type PromptParametersSchema = Record<
     string,
     PromptParameterType | PromptParameterType[]
@@ -444,17 +546,18 @@ interface PromptTest {
     asserts?: PromptAssertion | PromptAssertion[]
 }
 
+interface ContentSafetyOptions {
+    contentSafety?: ContentSafetyProvider
+}
+
 interface PromptScript
     extends PromptLike,
         ModelOptions,
+        ModelAliasesOptions,
         PromptSystemOptions,
         EmbeddingsModelOptions,
+        ContentSafetyOptions,
         ScriptRuntimeOptions {
-    /**
-     * Groups template in UI
-     */
-    group?: string
-
     /**
      * Additional template parameters that will populate `env.vars`
      */
@@ -485,11 +588,6 @@ interface PromptScript
      * Set if this is a system prompt.
      */
     isSystem?: boolean
-
-    /**
-     * List of tools defined in the script
-     */
-    defTools?: { id: string; description: string; kind: "tool" | "agent" }[]
 }
 
 /**
@@ -655,6 +753,10 @@ interface WorkspaceGrepResult {
     matches: WorkspaceFile[]
 }
 
+interface INIParseOptions {
+    defaultValue?: any
+}
+
 interface WorkspaceFileSystem {
     /**
      * Searches for files using the glob pattern and returns a list of files.
@@ -722,6 +824,14 @@ interface WorkspaceFileSystem {
     ): Promise<T[]>
 
     /**
+     * Reads the content of a file and parses to INI
+     */
+    readINI(
+        path: string | Awaitable<WorkspaceFile>,
+        options?: INIParseOptions
+    ): Promise<any>
+
+    /**
      * Writes a file as text to the file system
      * @param path
      * @param content
@@ -740,6 +850,7 @@ interface WorkspaceFileSystem {
 
 interface ToolCallContext {
     log(message: string): void
+    debug(message: string): void
     trace: ToolCallTrace
 }
 
@@ -790,32 +901,50 @@ interface ExpansionVariables {
     files: WorkspaceFile[]
 
     /**
-     * current prompt template
-     */
-    template: PromptDefinition
-
-    /**
      * User defined variables
      */
-    vars?: Record<string, string | boolean | number | object | any>
+    vars: Record<string, string | boolean | number | object | any> & {
+        /**
+         * When running in GitHub Copilot Chat, the current user prompt
+         */
+        question?: string
+        /**
+         * When running in GitHub Copilot Chat, the current chat history
+         */
+        "copilot.history"?: (HistoryMessageUser | HistoryMessageAssistant)[]
+        /**
+         * When running in GitHub Copilot Chat, the current editor content
+         */
+        "copilot.editor"?: string
+        /**
+         * When running in GitHub Copilot Chat, the current selection
+         */
+        "copilot.selection"?: string
+        /**
+         * When running in GitHub Copilot Chat, the current terminal content
+         */
+        "copilot.terminalSelection"?: string
+    }
 
     /**
      * List of secrets used by the prompt, must be registered in `genaiscript`.
      */
-    secrets?: Record<string, string>
+    secrets: Record<string, string>
 
     /**
      * Root prompt generation context
      */
     generator: ChatGenerationContext
+
+    /**
+     * Metadata of the top-level prompt
+     */
+    meta: PromptDefinition & ModelConnectionOptions
 }
 
 type MakeOptional<T, P extends keyof T> = Partial<Pick<T, P>> & Omit<T, P>
 
-type PromptArgs = Omit<
-    PromptScript,
-    "text" | "id" | "jsSource" | "activation" | "defTools"
->
+type PromptArgs = Omit<PromptScript, "text" | "id" | "jsSource" | "defTools">
 
 type PromptSystemArgs = Omit<
     PromptArgs,
@@ -831,7 +960,6 @@ type PromptSystemArgs = Omit<
     | "responseSchema"
     | "files"
     | "modelConcurrency"
-    | "parameters"
 >
 
 type StringLike = string | WorkspaceFile | WorkspaceFile[]
@@ -885,7 +1013,18 @@ interface ContextExpansionOptions {
     ephemeral?: boolean
 }
 
-interface DefOptions extends FenceOptions, ContextExpansionOptions, DataFilter {
+interface RangeOptions {
+    /**
+     * The inclusive start of the line range, with a 1-based index
+     */
+    lineStart?: number
+    /**
+     * The inclusive end of the line range, with a 1-based index
+     */
+    lineEnd?: number
+}
+
+interface FileFilterOptions {
     /**
      * Filename filter based on file suffix. Case insensitive.
      */
@@ -895,11 +1034,33 @@ interface DefOptions extends FenceOptions, ContextExpansionOptions, DataFilter {
      * Filename filter using glob syntax.
      */
     glob?: ElementOrArray<string>
+}
 
+interface ContentSafetyOptions {
+    /**
+     * Runs the default content safety validator
+     * to prevent prompt injection.
+     */
+    detectPromptInjection?: "always" | "available" | boolean
+}
+
+interface DefOptions
+    extends FenceOptions,
+        ContextExpansionOptions,
+        DataFilter,
+        RangeOptions,
+        FileFilterOptions,
+        ContentSafetyOptions {
     /**
      * By default, throws an error if the value in def is empty.
      */
     ignoreEmpty?: boolean
+
+    /**
+     * The content of the def is a predicted output.
+     * This setting disables line numbers.
+     */
+    prediction?: boolean
 }
 
 /**
@@ -910,26 +1071,42 @@ interface DefDiffOptions
         LineNumberingOptions {}
 
 interface DefImagesOptions {
+    /**
+     * A "low" detail image is always downsampled to 512x512 pixels.
+     */
     detail?: "high" | "low"
     /**
-     * Maximum width of the image
+     * Crops the image to the specified region.
      */
-    maxWidth?: number
-    /**
-     * Maximum height of the image
-     */
-    maxHeight?: number
+    crop?: { x?: number; y?: number; w?: number; h?: number }
     /**
      * Auto cropping same color on the edges of the image
      */
     autoCrop?: boolean
-}
-
-interface ChatTaskOptions {
-    command: string
-    cwd?: string
-    env?: Record<string, string>
-    args?: string[]
+    /**
+     * Applies a scaling factor to the image after cropping.
+     */
+    scale?: number
+    /**
+     * Rotates the image by the specified number of degrees.
+     */
+    rotate?: number
+    /**
+     * Maximum width of the image. Applied after rotation.
+     */
+    maxWidth?: number
+    /**
+     * Maximum height of the image. Applied after rotation.
+     */
+    maxHeight?: number
+    /**
+     * Removes colour from the image using ITU Rec 709 luminance values
+     */
+    greyscale?: boolean
+    /**
+     * Flips the image horizontally and/or vertically.
+     */
+    flip?: { horizontal?: boolean; vertical?: boolean }
 }
 
 type JSONSchemaTypeName =
@@ -981,6 +1158,8 @@ interface JSONSchemaObject {
     }
     required?: string[]
     additionalProperties?: boolean
+
+    default?: object
 }
 
 interface JSONSchemaArray {
@@ -988,23 +1167,42 @@ interface JSONSchemaArray {
     type: "array"
     description?: string
     items?: JSONSchemaType
+
+    default?: any[]
 }
 
 type JSONSchema = JSONSchemaObject | JSONSchemaArray
 
-interface JSONSchemaValidation {
+interface FileEditValidation {
+    /**
+     * JSON schema
+     */
     schema?: JSONSchema
-    valid: boolean
-    error?: string
+    /**
+     * Error while validating the JSON schema
+     */
+    schemaError?: string
+    /**
+     * The path was validated with a file output (defFileOutput)
+     */
+    pathValid?: boolean
 }
 
 interface DataFrame {
     schema?: string
     data: unknown
-    validation?: JSONSchemaValidation
+    validation?: FileEditValidation
+}
+
+interface Logprob {
+    token: string
+    logprob: number
+    entropy?: number
+    topLogprobs?: { token: string; logprob: number }[]
 }
 
 interface RunPromptResult {
+    messages: ChatCompletionMessageParam[]
     text: string
     annotations?: Diagnostic[]
     fences?: Fenced[]
@@ -1024,6 +1222,10 @@ interface RunPromptResult {
     fileEdits?: Record<string, FileUpdate>
     edits?: Edits[]
     changelogs?: ChangeLog[]
+    model?: ModelType
+    logprobs?: Logprob[]
+    perplexity?: number
+    uncertainty?: number
 }
 
 /**
@@ -1082,7 +1284,7 @@ interface Fenced {
     content: string
     args?: { schema?: string } & Record<string, string>
 
-    validation?: JSONSchemaValidation
+    validation?: FileEditValidation
 }
 
 interface XMLParseOptions {
@@ -1096,6 +1298,9 @@ interface XMLParseOptions {
 }
 
 interface ParsePDFOptions {
+    disableCleanup?: boolean
+    renderAsImage?: boolean
+    scale?: number
     filter?: (pageIndex: number, text?: string) => boolean
 }
 
@@ -1125,10 +1330,56 @@ interface ParseZipOptions {
 }
 
 type TokenEncoder = (text: string) => number[]
+type TokenDecoder = (lines: Iterable<number>) => string
+
+interface Tokenizer {
+    model: string
+    /**
+     * Number of tokens
+     */
+    size?: number
+    encode: TokenEncoder
+    decode: TokenDecoder
+}
 
 interface CSVParseOptions {
     delimiter?: string
     headers?: string[]
+    repair?: boolean
+}
+
+interface TextChunk extends WorkspaceFile {
+    lineStart: number
+    lineEnd: number
+}
+
+interface TextChunkerConfig extends LineNumberingOptions {
+    model?: ModelType
+    chunkSize?: number
+    chunkOverlap?: number
+    docType?: OptionsOrString<
+        | "cpp"
+        | "python"
+        | "py"
+        | "java"
+        | "go"
+        | "c#"
+        | "c"
+        | "cs"
+        | "ts"
+        | "js"
+        | "tsx"
+        | "typescript"
+        | "js"
+        | "jsx"
+        | "javascript"
+        | "php"
+        | "md"
+        | "mdx"
+        | "markdown"
+        | "rst"
+        | "rust"
+    >
 }
 
 interface Tokenizers {
@@ -1137,7 +1388,7 @@ interface Tokenizers {
      * @param model
      * @param text
      */
-    count(text: string, options?: { model: string }): Promise<number>
+    count(text: string, options?: { model?: ModelType }): Promise<number>
 
     /**
      * Truncates the text to a given number of tokens, approximation.
@@ -1149,8 +1400,30 @@ interface Tokenizers {
     truncate(
         text: string,
         maxTokens: number,
-        options?: { model?: string; last?: boolean }
+        options?: { model?: ModelType; last?: boolean }
     ): Promise<string>
+
+    /**
+     * Tries to resolve a tokenizer for a given model. Defaults to gpt-4o if not found.
+     * @param model
+     */
+    resolve(model?: ModelType): Promise<Tokenizer>
+
+    /**
+     * Chunk the text into smaller pieces based on a token limit and chunking strategy.
+     * @param text
+     * @param options
+     */
+    chunk(
+        file: Awaitable<string | WorkspaceFile>,
+        options?: TextChunkerConfig
+    ): Promise<TextChunk[]>
+}
+
+interface HashOptions {
+    algorithm?: "sha-1" | "sha-256"
+    length?: number
+    version?: boolean
 }
 
 interface Parsers {
@@ -1202,7 +1475,9 @@ interface Parsers {
     PDF(
         content: string | WorkspaceFile,
         options?: ParsePDFOptions
-    ): Promise<{ file: WorkspaceFile; pages: string[] } | undefined>
+    ): Promise<
+        { file: WorkspaceFile; pages: string[]; images?: Buffer[] } | undefined
+    >
 
     /**
      * Parses a .docx file
@@ -1242,7 +1517,7 @@ interface Parsers {
      */
     INI(
         content: string | WorkspaceFile,
-        options?: { defaultValue?: any }
+        options?: INIParseOptions
     ): any | undefined
 
     /**
@@ -1267,9 +1542,12 @@ interface Parsers {
     /**
      * Convert HTML to markdown
      * @param content html string or file
-     * @param options
+     * @param options rendering options
      */
-    HTMLToMarkdown(content: string | WorkspaceFile): Promise<string>
+    HTMLToMarkdown(
+        content: string | WorkspaceFile,
+        options?: HTMLToMarkdownOptions
+    ): Promise<string>
 
     /**
      * Extracts the contents of a zip archive file
@@ -1301,22 +1579,29 @@ interface Parsers {
     /**
      * Executes a tree-sitter query on a code file
      * @param file
-     * @param query tree sitter query; if missing, returns the entire tree
+     * @param query tree sitter query; if missing, returns the entire tree. `tags` return tags
      */
-    code(file: WorkspaceFile, query?: string): Promise<QueryCapture[]>
+    code(
+        file: WorkspaceFile,
+        query?: OptionsOrString<"tags">
+    ): Promise<{ captures: QueryCapture[] }>
 
     /**
      * Parses and evaluates a math expression
      * @param expression math expression compatible with mathjs
+     * @param scope object to read/write variables
      */
-    math(expression: string): Promise<string | number | undefined>
+    math(
+        expression: string,
+        scope?: object
+    ): Promise<string | number | undefined>
 
     /**
      * Using the JSON schema, validates the content
      * @param schema JSON schema instance
      * @param content object to validate
      */
-    validateJSON(schema: JSONSchema, content: any): JSONSchemaValidation
+    validateJSON(schema: JSONSchema, content: any): FileEditValidation
 
     /**
      * Renders a mustache template
@@ -1337,6 +1622,26 @@ interface Parsers {
         right: WorkspaceFile,
         options?: DefDiffOptions
     ): string
+
+    /**
+     * Cleans up a dataset made of rows of data
+     * @param rows
+     * @param options
+     */
+    tidyData(rows: object[], options?: DataFilter): object[]
+
+    /**
+     * Computes a sha1 that can be used for hashing purpose, not cryptographic.
+     * @param content content to hash
+     */
+    hash(content: any, options?: HashOptions): Promise<string>
+
+    /**
+     * Optionally removes a code fence section around the text
+     * @param text
+     * @param language
+     */
+    unfence(text: string, language: string): string
 }
 
 interface AICIGenOptions {
@@ -1402,7 +1707,7 @@ interface YAML {
     /**
      * Parses a YAML string to object
      */
-    parse(text: string): any
+    parse(text: string | WorkspaceFile): any
 }
 
 interface XML {
@@ -1410,7 +1715,7 @@ interface XML {
      * Parses an XML payload to an object
      * @param text
      */
-    parse(text: string, options?: XMLParseOptions): any
+    parse(text: string | WorkspaceFile, options?: XMLParseOptions): any
 }
 
 interface HTMLTableToJSONOptions {
@@ -1428,6 +1733,10 @@ interface HTMLTableToJSONOptions {
     headings?: string[] | null
     containsClasses?: string[] | null
     limitrows?: number | null
+}
+
+interface HTMLToMarkdownOptions {
+    disableGfm?: boolean
 }
 
 interface HTML {
@@ -1449,11 +1758,15 @@ interface HTML {
      * Converts HTML markup to markdown
      * @param html
      */
-    convertToMarkdown(html: string): Promise<string>
+    convertToMarkdown(
+        html: string,
+        options?: HTMLToMarkdownOptions
+    ): Promise<string>
 }
 
 interface GitCommit {
     sha: string
+    date: string
     message: string
 }
 
@@ -1477,7 +1790,12 @@ interface Git {
      * Executes a git command in the repository and returns the stdout
      * @param cmd
      */
-    exec(args: string[] | string, options?: { label?: string }): Promise<string>
+    exec(
+        args: string[] | string,
+        options?: {
+            label?: string
+        }
+    ): Promise<string>
 
     /**
      * Lists the branches in the git repository
@@ -1529,11 +1847,21 @@ interface Git {
     log(options?: {
         base?: string
         head?: string
+        count?: number
         merges?: boolean
+        author?: string
+        until?: string
+        after?: string
         excludedGrep?: string | RegExp
         paths?: ElementOrArray<string>
         excludedPaths?: ElementOrArray<string>
     }): Promise<GitCommit[]>
+
+    /**
+     * Open a git client on a different directory
+     * @param cwd working directory
+     */
+    client(cwd: string): Git
 }
 
 interface GitHubOptions {
@@ -1543,6 +1871,7 @@ interface GitHubOptions {
     auth?: string
     ref?: string
     refName?: string
+    issueNumber?: number
 }
 
 type GitHubWorkflowRunStatus =
@@ -1731,9 +2060,19 @@ interface GitHub {
 
     /**
      * Gets the details of a GitHub issue
-     * @param number issue number (not the issue id!)
+     * @param issueNumber issue number (not the issue id!). If undefined, reads value from GITHUB_ISSUE environment variable.
      */
-    getIssue(number: number): Promise<GitHubIssue>
+    getIssue(issueNumber?: number | string): Promise<GitHubIssue>
+
+    /**
+     * Create a GitHub issue comment
+     * @param issueNumber issue number (not the issue id!). If undefined, reads value from GITHUB_ISSUE environment variable.
+     * @param body the body of the comment as Github Flavored markdown
+     */
+    createIssueComment(
+        issueNumber: number | string,
+        body: string
+    ): Promise<GitHubComment>
 
     /**
      * Lists comments for a given issue
@@ -1741,7 +2080,7 @@ interface GitHub {
      * @param options
      */
     listIssueComments(
-        issue_number: number,
+        issue_number: number | string,
         options?: GitHubPaginationOptions
     ): Promise<GitHubComment[]>
 
@@ -1759,9 +2098,9 @@ interface GitHub {
 
     /**
      * Gets the details of a GitHub pull request
-     * @param pull_number pull request number. Default resolves the pull requeset for the current branch.
+     * @param pull_number pull request number. Default resolves the pull request for the current branch.
      */
-    getPullRequest(pull_number?: number): Promise<GitHubPullRequest>
+    getPullRequest(pull_number?: number | string): Promise<GitHubPullRequest>
 
     /**
      * Lists comments for a given pull request
@@ -1821,7 +2160,14 @@ interface GitHub {
     /**
      * Gets the underlying Octokit client
      */
-    client(): Promise<any>
+    api(): Promise<any>
+
+    /**
+     * Opens a client to a different repository
+     * @param owner
+     * @param repo
+     */
+    client(owner: string, repo: string): GitHub
 }
 
 interface MD {
@@ -1829,12 +2175,15 @@ interface MD {
      * Parses front matter from markdown
      * @param text
      */
-    frontmatter(text: string, format?: "yaml" | "json" | "toml" | "text"): any
+    frontmatter(
+        text: string | WorkspaceFile,
+        format?: "yaml" | "json" | "toml" | "text"
+    ): any
 
     /**
      * Removes the front matter from the markdown text
      */
-    content(text: string): string
+    content(text: string | WorkspaceFile): string
 
     /**
      * Merges frontmatter with the existing text
@@ -1854,7 +2203,7 @@ interface JSONL {
      * Parses a JSONL string to an array of objects
      * @param text
      */
-    parse(text: string): any[]
+    parse(text: string | WorkspaceFile): any[]
     /**
      * Converts objects to JSONL format
      * @param objs
@@ -1867,7 +2216,7 @@ interface INI {
      * Parses a .ini file
      * @param text
      */
-    parse(text: string): any
+    parse(text: string | WorkspaceFile): any
 
     /**
      * Converts an object to.ini string
@@ -1894,13 +2243,7 @@ interface CSV {
      * @param options.headers - An array of headers to use. If not provided, headers will be inferred from the first row.
      * @returns An array of objects representing the parsed CSV data.
      */
-    parse(
-        text: string,
-        options?: {
-            delimiter?: string
-            headers?: string[]
-        }
-    ): object[]
+    parse(text: string | WorkspaceFile, options?: CSVParseOptions): object[]
 
     /**
      * Converts an array of objects to a CSV string.
@@ -1921,14 +2264,49 @@ interface CSV {
      * @returns A markdown string representing the data table.
      */
     markdownify(csv: object[], options?: { headers?: string[] }): string
+
+    /**
+     * Splits the original array into chunks of the specified size.
+     * @param csv
+     * @param rows
+     */
+    chunk(
+        csv: object[],
+        size: number
+    ): { chunkStartIndex: number; rows: object[] }[]
+}
+
+/**
+ * Provide service for responsible.
+ */
+interface ContentSafety {
+    /**
+     * Scans text for the risk of a User input attack on a Large Language Model.
+     * If not supported, the method is not defined.
+     */
+    detectPromptInjection?(
+        content: Awaitable<
+            ElementOrArray<string> | ElementOrArray<WorkspaceFile>
+        >
+    ): Promise<{ attackDetected: boolean; filename?: string; chunk?: string }>
+    /**
+     * Analyzes text for harmful content.
+     * If not supported, the method is not defined.
+     * @param content
+     */
+    detectHarmfulContent?(
+        content: Awaitable<
+            ElementOrArray<string> | ElementOrArray<WorkspaceFile>
+        >
+    ): Promise<{
+        harmfulContentDetected: boolean
+        filename?: string
+        chunk?: string
+    }>
 }
 
 interface HighlightOptions {
     maxLength?: number
-}
-
-interface WebSearchResult {
-    webPages: WorkspaceFile[]
 }
 
 interface VectorSearchOptions extends EmbeddingsModelOptions {
@@ -1986,10 +2364,20 @@ interface FuzzSearchOptions {
 
 interface Retrieval {
     /**
-     * Executers a Bing web search. Requires to configure the BING_SEARCH_API_KEY secret.
+     * Executers a web search with Tavily or Bing Search.
      * @param query
      */
-    webSearch(query: string): Promise<WorkspaceFile[]>
+    webSearch(
+        query: string,
+        options?: {
+            count?: number
+            provider?: "tavily" | "bing"
+            /**
+             * Return undefined when no web search providers are present
+             */
+            ignoreMissingProvider?: boolean
+        }
+    ): Promise<WorkspaceFile[]>
 
     /**
      * Search using similarity distance on embeddings
@@ -2013,14 +2401,12 @@ interface Retrieval {
     ): Promise<WorkspaceFile[]>
 }
 
-type FetchTextOptions = Omit<RequestInit, "body" | "signal" | "window">
-
 interface DataFilter {
     /**
      * The keys to select from the object.
      * If a key is prefixed with -, it will be removed from the object.
      */
-    headers?: string[]
+    headers?: ElementOrArray<string>
     /**
      * Selects the first N elements from the data
      */
@@ -2033,11 +2419,15 @@ interface DataFilter {
      * Selects the a random sample of N items in the collection.
      */
     sliceSample?: number
-
     /**
      * Removes items with duplicate values for the specified keys.
      */
-    distinct?: string[]
+    distinct?: ElementOrArray<string>
+
+    /**
+     * Sorts the data by the specified key(s)
+     */
+    sort?: ElementOrArray<string>
 }
 
 interface DefDataOptions
@@ -2058,17 +2448,37 @@ interface DefSchemaOptions {
 
 type ChatFunctionArgs = { context: ToolCallContext } & Record<string, any>
 type ChatFunctionHandler = (args: ChatFunctionArgs) => Awaitable<ToolCallOutput>
+type ChatMessageRole = "user" | "assistant" | "system"
+
+interface HistoryMessageUser {
+    role: "user"
+    content: string
+}
+
+interface HistoryMessageAssistant {
+    role: "assistant"
+    name?: string
+    content: string
+}
 
 interface WriteTextOptions extends ContextExpansionOptions {
     /**
-     * Append text to the assistant response
+     * Append text to the assistant response. This feature is not supported by all models.
+     * @deprecated
      */
     assistant?: boolean
+    /**
+     * Specifies the message role. Default is user
+     */
+    role?: ChatMessageRole
 }
 
 type PromptGenerator = (ctx: ChatGenerationContext) => Awaitable<unknown>
 
-interface PromptGeneratorOptions extends ModelOptions, PromptSystemOptions {
+interface PromptGeneratorOptions
+    extends ModelOptions,
+        PromptSystemOptions,
+        ContentSafetyOptions {
     /**
      * Label for trace
      */
@@ -2078,6 +2488,11 @@ interface PromptGeneratorOptions extends ModelOptions, PromptSystemOptions {
      * Write file edits to the file system
      */
     applyEdits?: boolean
+
+    /**
+     * Throws if the generation is not successful
+     */
+    throwOnError?: boolean
 }
 
 interface FileOutputOptions {
@@ -2093,7 +2508,12 @@ interface FileOutput {
     options?: FileOutputOptions
 }
 
-interface ImportTemplateOptions {}
+interface ImportTemplateOptions {
+    /**
+     * Ignore unknown arguments
+     */
+    allowExtraArguments?: boolean
+}
 
 interface PromptTemplateString {
     /**
@@ -2121,6 +2541,11 @@ interface PromptTemplateString {
      * @param tokens
      */
     maxTokens(tokens: number): PromptTemplateString
+
+    /**
+     * Updates the role of the message
+     */
+    role(role: ChatMessageRole): PromptTemplateString
 }
 
 interface ChatTurnGenerationContext {
@@ -2166,7 +2591,7 @@ interface ChatTurnGenerationContext {
 interface FileUpdate {
     before: string
     after: string
-    validation?: JSONSchemaValidation
+    validation?: FileEditValidation
 }
 
 interface RunPromptResultPromiseWithOptions extends Promise<RunPromptResult> {
@@ -2187,7 +2612,7 @@ interface DefAgentOptions extends Omit<PromptGeneratorOptions, "label"> {
     disableMemory?: boolean
 
     /**
-     * Diable memory query on each query (let the agent call the tool)
+     * Disable memory query on each query (let the agent call the tool)
      */
     disableMemoryQuery?: boolean
 }
@@ -2196,6 +2621,18 @@ type ChatAgentHandler = (
     ctx: ChatGenerationContext,
     args: ChatFunctionArgs
 ) => Awaitable<unknown>
+
+interface McpServerConfig {
+    command: string
+    args: string[]
+    params?: string[]
+    version?: string
+
+    id: string
+    options?: DefToolOptions
+}
+
+type McpServersConfig = Record<string, Omit<McpServerConfig, "id" | "options">>
 
 interface ChatGenerationContext extends ChatTurnGenerationContext {
     defSchema(
@@ -2208,7 +2645,11 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
         options?: DefImagesOptions
     ): void
     defTool(
-        tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback,
+        tool:
+            | ToolCallback
+            | AgenticToolCallback
+            | AgenticToolProviderCallback
+            | McpServersConfig,
         options?: DefToolOptions
     ): void
     defTool(
@@ -2230,7 +2671,7 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
     ): void
     defFileOutput(
         pattern: ElementOrArray<string | WorkspaceFile>,
-        description?: string,
+        description: string,
         options?: FileOutputOptions
     ): void
     runPrompt(
@@ -2246,6 +2687,11 @@ interface ChatGenerationContext extends ChatTurnGenerationContext {
 }
 
 interface GenerationOutput {
+    /**
+     * full chat history
+     */
+    messages: ChatCompletionMessageParam[]
+
     /**
      * LLM output.
      */
@@ -2846,7 +3292,9 @@ interface ShellHost {
         args: string[],
         options?: ShellOptions
     ): Promise<ShellOutput>
+}
 
+interface UserInterfaceHost {
     /**
      * Starts a headless browser and navigates to the page.
      * Requires to [install playwright and dependencies](https://microsoft.github.io/genaiscript/reference/scripts/browser).
@@ -2906,19 +3354,24 @@ interface ContainerOptions {
     env?: Record<string, string>
 
     /**
-     * Assign the specified name to the container. Must match [a-zA-Z0-9_-]+
+     * Assign the specified name to the container. Must match [a-zA-Z0-9_-]+.
      */
     name?: string
 
     /**
-     * Disable automatic purge of container and volume directory
+     * Disable automatic purge of container and volume directory and potentially reuse with same name, configuration.
      */
-    disablePurge?: boolean
+    persistent?: boolean
 
     /**
      * List of exposed TCP ports
      */
     ports?: ElementOrArray<ContainerPortBinding>
+
+    /**
+     * Commands to executes after the container is created
+     */
+    postCreateCommands?: ElementOrArray<string>
 }
 
 interface PromiseQueue {
@@ -2949,7 +3402,66 @@ interface PromiseQueue {
     ): Promise<ReturnType[]>
 }
 
-interface PromptHost extends ShellHost {
+interface LanguageModelReference {
+    provider: string
+    model: string
+}
+
+interface LanguageModelHost {
+    /**
+     * Resolve a language model alias to a provider and model based on the current configuration
+     * @param modelId
+     */
+    resolveLanguageModel(modelId?: string): Promise<LanguageModelReference>
+}
+
+type ContentSafetyProvider = "azure"
+
+interface ContentSafetyHost {
+    /**
+     * Resolve a content safety client
+     * @param id safety detection project
+     */
+    contentSafety(id?: ContentSafetyProvider): Promise<ContentSafety>
+}
+
+type FetchOptions = RequestInit & {
+    retryOn?: number[] // HTTP status codes to retry on
+    retries?: number // Number of retry attempts
+    retryDelay?: number // Initial delay between retries
+    maxDelay?: number // Maximum delay between retries
+}
+
+type FetchTextOptions = Omit<FetchOptions, "body" | "signal" | "window">
+
+interface PromptHost
+    extends ShellHost,
+        UserInterfaceHost,
+        LanguageModelHost,
+        ContentSafetyHost {
+    /**
+     * A fetch wrapper with proxy, retry and timeout handling.
+     */
+    fetch(
+        input: string | URL | globalThis.Request,
+        init?: FetchOptions
+    ): Promise<Response>
+
+    /**
+     * A function that fetches text from a URL or a file
+     * @param url
+     * @param options
+     */
+    fetchText(
+        url: string | WorkspaceFile,
+        options?: FetchTextOptions
+    ): Promise<{
+        ok: boolean
+        status: number
+        text?: string
+        file?: WorkspaceFile
+    }>
+
     /**
      * Opens a in-memory key-value cache for the given cache name. Entries are dropped when the cache grows too large.
      * @param cacheName
@@ -2977,19 +3489,19 @@ interface ContainerHost extends ShellHost {
     id: string
 
     /**
+     * Name assigned to the container. For persistent containers, also contains the sha of the options
+     */
+    name: string
+
+    /**
      * Disable automatic purge of container and volume directory
      */
-    disablePurge: boolean
+    persistent: boolean
 
     /**
      * Path to the volume mounted in the host
      */
     hostPath: string
-
-    /**
-     * Path to the volume mounted in the container
-     */
-    containerPath: string
 
     /**
      * Writes a file as text to the container file system
@@ -3009,7 +3521,13 @@ interface ContainerHost extends ShellHost {
      * @param fromHost glob matching files
      * @param toContainer directory in the container
      */
-    copyTo(fromHost: string | string[], toContainer: string): Promise<void>
+    copyTo(fromHost: string | string[], toContainer: string): Promise<string[]>
+
+    /**
+     * List files in a directory in the container
+     * @param dir
+     */
+    listFiles(dir: string): Promise<string[]>
 
     /**
      * Stops and cleans out the container
@@ -3017,9 +3535,24 @@ interface ContainerHost extends ShellHost {
     stop(): Promise<void>
 
     /**
+     * Pause container
+     */
+    pause(): Promise<void>
+
+    /**
+     * Resume execution of the container
+     */
+    resume(): Promise<void>
+
+    /**
      * Force disconnect network
      */
     disconnect(): Promise<void>
+
+    /**
+     * A promise queue of concurrency 1 to run serialized functions against the container
+     */
+    scheduler: PromiseQueue
 }
 
 interface PromptContext extends ChatGenerationContext {
@@ -3142,7 +3675,11 @@ declare function defFileOutput(
  * @param fn callback invoked when the LLM requests to run this function
  */
 declare function defTool(
-    tool: ToolCallback | AgenticToolCallback | AgenticToolProviderCallback,
+    tool:
+        | ToolCallback
+        | AgenticToolCallback
+        | AgenticToolProviderCallback
+        | McpServersConfig,
     options?: DefToolOptions
 ): void
 declare function defTool(
@@ -3259,8 +3796,7 @@ declare var git: Git
 declare var tokenizers: Tokenizers
 
 /**
- * Fetches a given URL and returns the response.
- * @param url
+ * @deprecated use `host.fetchText` instead
  */
 declare function fetchText(
     url: string | WorkspaceFile,

@@ -4,8 +4,8 @@
     "description": "MakeCode support for Jacdac Buzzer server",
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-buzzer": "github:microsoft/pxt-jacdac/buzzer"
+        "jacdac": "gitub:jacdac/pxt-jacdac",
+        "jacdac-buzzer": "gitub:jacdac/pxt-jacdac/buzzer"
     },
     "files": [
         "server.ts",

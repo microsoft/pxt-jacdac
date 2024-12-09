@@ -4,8 +4,8 @@
     "description": "MakeCode support for Jacdac LED server",
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac",
-        "jacdac-led": "github:microsoft/pxt-jacdac/led"
+        "jacdac": "gitub:jacdac/pxt-jacdac",
+        "jacdac-led": "gitub:jacdac/pxt-jacdac/led"
     },
     "files": [
         "server.ts"

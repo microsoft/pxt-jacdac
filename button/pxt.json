@@ -18,7 +18,7 @@
     ],
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac": "gitub:jacdac/pxt-jacdac"
     },
     "testDependencies": {}
 }

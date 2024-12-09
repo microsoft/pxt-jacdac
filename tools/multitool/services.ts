@@ -198,7 +198,7 @@ function deviceView(d: jacdac.Device) {
 
     function noop() {}
 
-    // TODO: using function syntax here causes crash at runtime; https://github.com/microsoft/pxt/issues/8172
+    // TODO: using function syntax here causes crash at runtime; https://github.com/jacdac/pxt/issues/8172
     const noopTest = () => {
         noopSent = noopRecv = 0
         const pkt = jacdac.JDPacket.from(
