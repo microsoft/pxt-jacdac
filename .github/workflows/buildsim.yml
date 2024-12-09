@@ -20,9 +20,9 @@ jobs:
               with:
                   submodules: recursive
             - name: Use Node.js ${{ matrix.node-version }}
-              working-directory: ./jacdac-docs
               uses: actions/setup-node@v4
               with:
+                  working-directory: ./jacdac-docs
                   node-version: ${{ matrix.node-version }}
                   cache: "yarn"
             - run: git checkout makecodesim
@@ -35,9 +35,9 @@ jobs:
                   GATSBY_GITHUB_SHA: ${{ github.sha }}
                   NODE_OPTIONS: --max-old-space-size=4096
             - name: github pages
-              working-directory: ./jacdac-docs
               uses: peaceiris/actions-gh-pages@v3
               with:
+                  working-directory: ./jacdac-docs
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_dir: ./public
                   force_orphan: true
