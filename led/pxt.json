@@ -21,6 +21,6 @@
     },
     "dependencies": {
         "core": "*",
-        "jacdac": "gitub:jacdac/pxt-jacdac"
+        "jacdac": "github:jacdac/pxt-jacdac"
     }
 }

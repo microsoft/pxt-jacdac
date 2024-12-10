@@ -12,8 +12,8 @@
     "dependencies": {
         "core": "*",
         "light": "*",
-        "jacdac": "gitub:jacdac/pxt-jacdac",
-        "jacdac-hid-keyboard-server": "gitub:jacdac/pxt-jacdac/hid-keyboard-server"
+        "jacdac": "github:jacdac/pxt-jacdac",
+        "jacdac-hid-keyboard-server": "github:jacdac/pxt-jacdac/hid-keyboard-server"
     },
     "testDependencies": {}
 }

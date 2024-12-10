@@ -85,6 +85,6 @@ Connect your micro:bit V2, slot it into the Jacdaptor and connect a Jacdac butto
 Press the **Download** button to get your code running on the micro:bit. Happy smashing!
 
 ```package
-jacdac=gitub:jacdac/pxt-jacdac
-jacdac-button=gitub:jacdac/pxt-jacdac/button
+jacdac=github:jacdac/pxt-jacdac
+jacdac-button=github:jacdac/pxt-jacdac/button
 ```

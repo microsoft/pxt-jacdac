@@ -4,14 +4,14 @@
     "dependencies": {
         "core": "*",
         "microphone": "*",
-        "data-streamer": "gitub:microsoft/pxt-data-streamer",
-        "jacdac": "gitub:jacdac/pxt-jacdac",
-        "jacdac-light-level": "gitub:jacdac/pxt-jacdac/light-level",
-        "jacdac-temperature": "gitub:jacdac/pxt-jacdac/temperature",
-        "jacdac-humidity": "gitub:jacdac/pxt-jacdac/humidity",
-        "jacdac-relay": "gitub:jacdac/pxt-jacdac/relay",
-        "jacdac-soil-moisture": "gitub:jacdac/pxt-jacdac/soil-moisture",
-        "jacdac-uv-index": "gitub:jacdac/pxt-jacdac/uv-index"
+        "data-streamer": "github:microsoft/pxt-data-streamer",
+        "jacdac": "github:jacdac/pxt-jacdac",
+        "jacdac-light-level": "github:jacdac/pxt-jacdac/light-level",
+        "jacdac-temperature": "github:jacdac/pxt-jacdac/temperature",
+        "jacdac-humidity": "github:jacdac/pxt-jacdac/humidity",
+        "jacdac-relay": "github:jacdac/pxt-jacdac/relay",
+        "jacdac-soil-moisture": "github:jacdac/pxt-jacdac/soil-moisture",
+        "jacdac-uv-index": "github:jacdac/pxt-jacdac/uv-index"
     },
     "files": ["main.ts", "README.md"],
     "targetVersions": {

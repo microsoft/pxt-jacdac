@@ -5,9 +5,9 @@
     "dependencies": {
         "core": "*",
         "net": "*",
-        "jacdac": "gitub:jacdac/pxt-jacdac",
-        "jacdac-servers": "gitub:jacdac/pxt-jacdac/servers",
-        "jacdac-wifi": "gitub:jacdac/pxt-jacdac/wifi"
+        "jacdac": "github:jacdac/pxt-jacdac",
+        "jacdac-servers": "github:jacdac/pxt-jacdac/servers",
+        "jacdac-wifi": "github:jacdac/pxt-jacdac/wifi"
     },
     "files": [
         "server.ts"

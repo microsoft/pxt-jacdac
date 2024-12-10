@@ -6,9 +6,9 @@
         "jacdac-iot-s2": "*",
         "net": "*",
         "azureiot": "*",
-        "jacdac": "gitub:jacdac/pxt-jacdac",
-        "jacdac-wifi-server": "gitub:jacdac/pxt-jacdac/wifi-server",
-        "jacdac-azure-iot-hub-health-server": "gitub:jacdac/pxt-jacdac/azure-iot-hub-health-server"
+        "jacdac": "github:jacdac/pxt-jacdac",
+        "jacdac-wifi-server": "github:jacdac/pxt-jacdac/wifi-server",
+        "jacdac-azure-iot-hub-health-server": "github:jacdac/pxt-jacdac/azure-iot-hub-health-server"
     },
     "files": [
         "twins.ts",
