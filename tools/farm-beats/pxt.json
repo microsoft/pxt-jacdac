@@ -4,7 +4,7 @@
     "dependencies": {
         "core": "*",
         "microphone": "*",
-        "data-streamer": "gitub:jacdac/pxt-data-streamer",
+        "data-streamer": "gitub:microsoft/pxt-data-streamer",
         "jacdac": "gitub:jacdac/pxt-jacdac",
         "jacdac-light-level": "gitub:jacdac/pxt-jacdac/light-level",
         "jacdac-temperature": "gitub:jacdac/pxt-jacdac/temperature",
