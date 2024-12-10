@@ -17,8 +17,8 @@ jobs:
                 node-version: [14.x]
         steps:
             - uses: actions/checkout@v4
-            - run: git checkout makecodesim
-            - run: git submodule update --init --recursive
+              with:
+                  submodules: recursive
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v4
               with:
