@@ -23,6 +23,8 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
+                  cache: "yarn"
+                  cache-dependency-path: ./jacdac-docs/yarn.lock
             - run: yarn install --frozen-lockfile
             - run: yarn builddocsts
             - run: yarn distdocs
