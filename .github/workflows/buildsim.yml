@@ -1,0 +1,43 @@
+name: Build
+on:
+    push:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./jacdac-docs
+        permissions: 
+            actions: read
+            contents: write
+        strategy:
+            matrix:
+                node-version: [14.x]
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  submodules: recursive
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "yarn"
+                  cache-dependency-path: ./jacdac-docs/yarn.lock
+            - run: yarn install --frozen-lockfile
+            - run: yarn builddocsts
+            - run: yarn distdocs
+              env:
+                  GATSBY_GITHUB_REPOSITORY: ${{ github.repository }}
+                  GATSBY_GITHUB_REF: ${{ github.ref }}
+                  GATSBY_GITHUB_SHA: ${{ github.sha }}
+                  NODE_OPTIONS: --max-old-space-size=4096
+            - name: github pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./jacdac-docs/public
+                  force_orphan: true
+
+

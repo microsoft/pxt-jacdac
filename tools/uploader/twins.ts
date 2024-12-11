@@ -336,7 +336,7 @@ namespace jacdac.twins {
         const cached = settings.readString(key)
         if (cached) return JSON.parse(cached)
 
-        const url = `https://microsoft.github.io/jacdac-docs/services/twin/x${toHexNum(
+        const url = `https://jacdac.github.io/jacdac-docs/services/twin/x${toHexNum(
             serviceClass
         )}.json`
 

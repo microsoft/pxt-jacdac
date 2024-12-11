@@ -4,7 +4,7 @@
     "description": "Jacdac sound level service",
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac": "github:jacdac/pxt-jacdac"
     },
     "files": [
         "constants.ts",

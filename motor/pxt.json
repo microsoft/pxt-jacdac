@@ -4,7 +4,7 @@
     "description": "MakeCode support for Jacdac Motor service",
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac": "github:jacdac/pxt-jacdac"
     },
     "files": [
         "constants.ts",

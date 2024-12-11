@@ -1,7 +1,7 @@
 {
     "name": "jacdac-bit-radio",
     "version": "0.0.0",
-    "description": "Support for sending and receiving packets using the [Bit Radio protocol](https://github.com/microsoft/pxt-common-packages/blob/master/libs/radio/docs/reference/radio.md), typically used between micro:bit devices.",
+    "description": "Support for sending and receiving packets using the [Bit Radio protocol](https://github.com/jacdac/pxt-common-packages/blob/master/libs/radio/docs/reference/radio.md), typically used between micro:bit devices.",
     "files": [
         "constants.ts",
         "client.g.ts"
@@ -17,6 +17,6 @@
     ],
     "dependencies": {
         "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
+        "jacdac": "github:jacdac/pxt-jacdac"
     }
 }

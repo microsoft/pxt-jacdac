@@ -43,10 +43,11 @@ jobs:
             - run: cd tools/microbit-oob && makecode
             - run: cd tools/microbit-jukebox && makecode
             - run: cd tools/farm-beats && makecode
-            - run: ./test-others.sh
+# for now, don't run the others, as they don't point here
+#            - run: ./test-others.sh
             - run: ./copy-release-files.sh
             - name: Upload release files
-              uses: actions/upload-artifact@v1
+              uses: actions/upload-artifact@v4
               with:
                   name: release-files
                   path: dist/

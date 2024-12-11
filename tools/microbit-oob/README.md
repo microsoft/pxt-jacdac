@@ -2,7 +2,7 @@ DEPRECATED
 
 # Jacdac "Out of the Box" experience for micro:bit V2 and basic Jacdac modules
 
-Usage: Drop the `.uf2` generated in [Actions](https://github.com/microsoft/pxt-jacdac/actions) (or from a release) on your micro:bit V2 device.
+Usage: Drop the `.uf2` generated in [Actions](https://github.com/jacdac/pxt-jacdac/actions) (or from a release) on your micro:bit V2 device.
 
 Currently only works with micro:bit v2
 
