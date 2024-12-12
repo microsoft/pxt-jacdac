@@ -22,10 +22,9 @@ for (const lib of libs) {
         await $`pxt gendocs --locs`
         await $`git checkout -- 'pxt.json'`.nothrow()
         // update translations as needed
-        const clijs = `${lib === "." ? "" : "../"}.genaiscript/genaiscript.cjs`
         const tool = `${lib === "." ? "" : "../"}genaisrc/loc-strings.genai.js`
         for (const lang of langs)
-            await $`node ${clijs} run ${tool} "_locales/*-strings.json" --apply-edits --vars target=${target} lang=${lang}`.nothrow()
+            await $`genaiscript run ${tool} "_locales/*-strings.json" --apply-edits --vars target=${target} lang=${lang}`.nothrow()
         // add generated files to pxt.json
         let modded = false
         const locs = await glob(`_locales/*/*.json`)
