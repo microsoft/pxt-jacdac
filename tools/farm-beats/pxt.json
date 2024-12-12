@@ -13,12 +13,18 @@
         "jacdac-soil-moisture": "github:microsoft/pxt-jacdac/soil-moisture",
         "jacdac-uv-index": "github:microsoft/pxt-jacdac/uv-index"
     },
-    "files": ["main.ts", "README.md"],
+    "files": [
+        "main.ts",
+        "README.md"
+    ],
     "targetVersions": {
         "target": "4.0.11",
         "targetId": "microbit"
     },
-    "supportedTargets": ["microbit", "calliopemini"],
+    "supportedTargets": [
+        "microbit",
+        "calliopemini"
+    ],
     "preferredEditor": "tsprj",
-    "version": "1.9.28"
+    "version": "1.9.29"
 }
