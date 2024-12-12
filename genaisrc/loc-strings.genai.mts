@@ -26,7 +26,7 @@ const langName = {
 if (!langName) cancel(`unknown language ${langCode}`)
 
 const files = env.files.filter(({ filename }) =>
-    /\/_locales\/[a-z0-9\-_]+-strings\.json$/i.test(filename)
+    /^_locales\/[a-z0-9\-_]+-strings\.json$/i.test(filename)
 )
 for (const file of files) {
     await translateFile(file)

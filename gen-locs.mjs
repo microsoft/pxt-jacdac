@@ -1,6 +1,7 @@
 import "zx/globals"
+import { run } from "genaiscript/api"
 
-const target = "microbit"
+const targets = ["microbit", "arcade"]
 const langs = ["de"]
 
 const libs = (await fs.readdir(".", { withFileTypes: true }))
@@ -17,14 +18,20 @@ for (const lib of libs) {
     if (lib !== ".") cd(lib)
     try {
         const pkg = fs.readJSONSync("pxt.json")
-        if (!pkg.supportedTargets?.includes(target)) continue
+        if (!targets.some(target => pkg.supportedTargets?.includes(target)))
+            continue
         await $`pxt install`
         await $`pxt gendocs --locs`
         await $`git checkout -- 'pxt.json'`.nothrow()
-        // update translations as needed
-        const tool = `${lib === "." ? "" : "../"}genaisrc/loc-strings.genai.js`
-        for (const lang of langs)
-            await $`genaiscript run ${tool} "_locales/*-strings.json" --apply-edits --vars target=${target} lang=${lang}`.nothrow()
+        const tool = `${lib === "." ? "" : "../"}genaisrc/loc-strings.genai.mjs`
+        for (const lang of langs) {
+            console.log(`generating locs ${lib} for ${lang}`)
+            $`genaiscript run ${tool} _locales/*-strings.json --vars lang=${lang}`.nothrow()
+            //            await run(tool, files, {
+            //              applyEdits: true,
+            //            varsMap: { lang: lang },
+            //      })
+        }
         // add generated files to pxt.json
         let modded = false
         const locs = await glob(`_locales/*/*.json`)
