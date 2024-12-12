@@ -2,23 +2,23 @@
     "name": "jacdac-weight-scale",
     "version": "1.9.28",
     "description": "A weight measuring sensor.",
-    "dependencies": {
-        "core": "*",
-        "jacdac": "github:microsoft/pxt-jacdac"
-    },
     "files": [
         "constants.ts",
         "client.g.ts",
         "_locales/de/jacdac-weight-scale-strings.json"
     ],
     "testFiles": [],
-    "testDependencies": {
-        "nucleo-f411re": "*"
-    },
     "supportedTargets": [
         "arcade",
         "microbit",
         "maker",
         "calliopemini"
-    ]
+    ],
+    "dependencies": {
+        "core": "*",
+        "jacdac": "github:microsoft/pxt-jacdac"
+    },
+    "testDependencies": {
+        "nucleo-f411re": "*"
+    }
 }
