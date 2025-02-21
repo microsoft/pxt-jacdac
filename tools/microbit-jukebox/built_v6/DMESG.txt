@@ -1,0 +1,30 @@
+Animated bar chartShow dataDevice
+Device
+tt2c4
+random seed: 81550028
+formatting...
+mounted, end=0x4000 meta=0x4000 free=0x10
+clearing user files
+running flash FS GC; needed 2147418112, left 16352
+GC done: 16352 free
+JD: init
+modules: register 52# ready
+1405449
+modules: register 504462570
+modules: register 331331532
+modules: register 458731991
+modules: register 343122531
+modules: register 277836886
+modules: register 382210232
+modules: register 369743088
+modules: register 522667846
+modules: register 318642191
+modules: register 400333340
+modules: register 406840918
+modules: register 284830153
+modules: register 318542083
+modules: register 450008066
+modules: register 337754823
+modules: register 337275786
+modules: register 406832290
+modules: register 414210922

@@ -212,6 +212,7 @@ namespace machine {
         jacdac.bus.on(jacdac.DEVICE_ANNOUNCE, startClients)
         jacdac.bus.on(jacdac.DEVICE_DISCONNECT, destroyClients)
         basic.showIcon(IconNames.Happy)
+        control.dmesg("ready")
     }
 
     start()

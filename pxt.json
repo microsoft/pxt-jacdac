@@ -106,6 +106,9 @@
     },
     "yotta": {
         "config": {
+            "DMESG_ENABLE": 1,
+            "DEVICE_DMESG_BUFFER_SIZE": 1024,
+            "DMESG_SERIAL_DEBUG": 1,
             "JACDAC_WEBUSB": 1,
             "JACDAC_SWS_TRANSPORT": 1,
             "microbit-dal": {

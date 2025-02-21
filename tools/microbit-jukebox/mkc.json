@@ -80,7 +80,7 @@
         "pxt-k-bit": "C:\\github\\pxt\\pxt-jacdac\\others\\pxt-k-bit",
         "pxt-dfrobot_maqueenplus_v20": "C:\\github\\pxt\\pxt-jacdac\\others\\pxt-dfrobot_maqueenplus_v20"
     },
-    "targetWebsite": "https://makecode.microbit.org/v7",
+    "targetWebsite": "https://makecode.microbit.org/v6",
     "overrides": {
         "testDependencies": {}
     }
