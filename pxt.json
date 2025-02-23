@@ -22,9 +22,6 @@
         "hw.h",
         "mbbridge.h",
         "mbbridge.cpp",
-        "JacdacBLE.h",
-        "JacdacBLE.cpp",
-        "jdble.cpp",
         "microbit.ts",
         "calliopemini.ts",
         "mbcompat.ts",
@@ -108,13 +105,6 @@
         "config": {
             "JACDAC_WEBUSB": 1,
             "JACDAC_SWS_TRANSPORT": 1,
-            "microbit-dal": {
-                "bluetooth": {
-                    "enabled": 0
-                }
-            }
-        },
-        "optionalConfig": {
             "microbit-dal": {
                 "bluetooth": {
                     "enabled": 0
