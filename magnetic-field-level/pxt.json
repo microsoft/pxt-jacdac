@@ -1,6 +1,6 @@
 {
     "name": "jacdac-magnetic-field-level",
-    "version": "1.9.29",
+    "version": "1.9.30",
     "description": "A sensor that measures strength and polarity of magnetic field.",
     "files": [
         "constants.ts",

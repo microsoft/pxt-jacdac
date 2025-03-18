@@ -1,6 +1,6 @@
 {
     "name": "jacdac-pccontroller",
-    "version": "1.9.29",
+    "version": "1.9.30",
     "description": "Send various events to PC, including opening a URL, start an app, sending text, etc.",
     "files": [
         "constants.ts",
