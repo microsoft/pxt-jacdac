@@ -12,9 +12,9 @@ This project contains [Jacdac](https://aka.ms/jacdac) host and client services f
 
 ### Supported editors
 
--   micro:bit V2, https://makecode.microbit.org/
--   Arcade, https://arcade.makecode.com/
--   Maker, https://maker.makecode.com/
+-   MakeCode for micro:bit (V2), https://makecode.microbit.org/
+-   MakeCode Arcade, https://arcade.makecode.com/
+-   Calliope, https://makecode.calliope.cc/
 
 ## Developer section
 
