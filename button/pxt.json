@@ -5,6 +5,7 @@
     "files": [
         "constants.ts",
         "client.ts",
+        "clients.ts",
         "_locales/de/jacdac-button-strings.json"
     ],
     "testFiles": [
