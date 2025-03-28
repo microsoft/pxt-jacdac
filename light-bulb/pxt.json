@@ -5,6 +5,7 @@
     "files": [
         "constants.ts",
         "client.g.ts",
+        "clients.ts",
         "_locales/de/jacdac-light-bulb-strings.json"
     ],
     "testFiles": [

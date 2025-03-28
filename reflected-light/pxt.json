@@ -5,7 +5,6 @@
     "files": [
         "constants.ts",
         "client.g.ts",
-        "clients.ts",
         "_locales/de/jacdac-reflected-light-strings.json"
     ],
     "testFiles": [],
