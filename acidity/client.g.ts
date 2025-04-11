@@ -6,7 +6,7 @@ namespace modules {
     export class AcidityClient extends jacdac.SimpleSensorClient {
         private readonly _acidityError: jacdac.RegisterClient<[number]>
         private readonly _minAcidity: jacdac.RegisterClient<[number]>
-        private readonly _maxHumidity: jacdac.RegisterClient<[number]>
+        private readonly _maxAcidity: jacdac.RegisterClient<[number]>
 
         constructor(role: string) {
             super(jacdac.SRV_ACIDITY, role, jacdac.AcidityRegPack.Acidity)
@@ -22,9 +22,9 @@ namespace modules {
                 jacdac.RegisterClientFlags.Optional |
                     jacdac.RegisterClientFlags.Const
             )
-            this._maxHumidity = this.addRegister<[number]>(
-                jacdac.AcidityReg.MaxHumidity,
-                jacdac.AcidityRegPack.MaxHumidity,
+            this._maxAcidity = this.addRegister<[number]>(
+                jacdac.AcidityReg.MaxAcidity,
+                jacdac.AcidityRegPack.MaxAcidity,
                 jacdac.RegisterClientFlags.Optional |
                     jacdac.RegisterClientFlags.Const
             )
@@ -72,9 +72,9 @@ namespace modules {
         //% callInDebugger
         //% group="Environment"
         //% weight=97
-        maxHumidity(): number {
+        maxAcidity(): number {
             this.start()
-            const values = this._maxHumidity.pauseUntilValues() as any[]
+            const values = this._maxAcidity.pauseUntilValues() as any[]
             return values[0]
         }
 
