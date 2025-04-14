@@ -26,7 +26,7 @@ jobs:
                   cache-dependency-path: ./jacdac-docs/yarn.lock
             - run: cd jacdac-docs; yarn install --frozen-lockfile
             - run: cd jacdac-docs; yarn builddocsts
-            - run: cd jacdac-cocs; yarn distdocs
+            - run: cd jacdac-docs; yarn distdocs
               env:
                   GATSBY_GITHUB_REPOSITORY: ${{ github.repository }}
                   GATSBY_GITHUB_REF: ${{ github.ref }}
