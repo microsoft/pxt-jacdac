@@ -17,9 +17,7 @@ jobs:
                 node-version: [14.x]
         steps:
             - name: clone jacdac-docs
-              with:
-                working-directory: ./
-                run: git clone https://github.com/jacdac/jacdac-docs
+              run: cd ..; git clone https://github.com/jacdac/jacdac-docs
             - run: git submodule update --init --recursive
             - run: git checkout makecodesim
             - name: Use Node.js ${{ matrix.node-version }}
