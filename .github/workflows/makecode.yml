@@ -26,7 +26,7 @@ jobs:
                   node-version: 20
             - name: npm install
               run: |
-                  npm install -g makecode@v0.34.6
+                  npm install -g makecode@v1.3.4
             - run: makecode -u -j --mono-repo -c mkc.json
             - run: makecode -u -j --mono-repo -c mkc-maker.json
             - run: makecode -u -j --mono-repo -c mkc-arcade.json
