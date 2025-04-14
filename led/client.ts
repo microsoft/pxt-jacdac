@@ -465,6 +465,6 @@ namespace modules {
         }
     }
 
-    //% fixedInstance whenUsed
+    //% fixedInstance whenUsed weight=1 block="led 1"
     export const led1 = new LedClient("led 1")
 }

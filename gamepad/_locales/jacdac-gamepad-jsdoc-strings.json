@@ -1,0 +1,21 @@
+{
+  "jacdac.GamepadEvent.ButtonsChanged": "Argument: buttons Buttons (uint32_t). Emitted whenever the state of buttons changes.\n* ```\nconst [buttons] = jdunpack<[jacdac.GamepadButtons]>(buf, \"u32\")\n```",
+  "jacdac.GamepadEventPack.ButtonsChanged": "Pack format for 'buttons_changed' data.",
+  "jacdac.GamepadReg.ButtonsAvailable": "Constant Buttons (uint32_t). Indicates a bitmask of the buttons that are mounted on the gamepad.\nIf the `Left`/`Up`/`Right`/`Down` buttons are marked as available here, the gamepad is digital.\nEven when marked as not available, they will still be simulated based on the analog gamepad.\n* ```\nconst [buttonsAvailable] = jdunpack<[jacdac.GamepadButtons]>(buf, \"u32\")\n```",
+  "jacdac.GamepadReg.Direction": "If the gamepad is analog, the directional buttons should be \"simulated\", based on gamepad position\n(`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).\nIf the gamepad is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).\nThe primary button on the gamepad is `A`.\n* ```\nconst [buttons, x, y] = jdunpack<[jacdac.GamepadButtons, number, number]>(buf, \"u32 i1.15 i1.15\")\n```",
+  "jacdac.GamepadReg.Variant": "Constant Variant (uint8_t). The type of physical gamepad.\n* ```\nconst [variant] = jdunpack<[jacdac.GamepadVariant]>(buf, \"u8\")\n```",
+  "jacdac.GamepadRegPack.ButtonsAvailable": "Pack format for 'buttons_available' data.",
+  "jacdac.GamepadRegPack.Direction": "Pack format for 'direction' data.",
+  "jacdac.GamepadRegPack.Variant": "Pack format for 'variant' data.",
+  "modules": "Jacdac modules",
+  "modules.GamepadClient": "A two axis directional joystick",
+  "modules.GamepadClient.buttons": "If the joystick is analog, the directional buttons should be \"simulated\", based on joystick position\n(`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).\nIf the joystick is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).\nThe primary button on the joystick is `A`.",
+  "modules.GamepadClient.buttonsAvailable": "Indicates a bitmask of the buttons that are mounted on the joystick.\nIf the `Left`/`Up`/`Right`/`Down` buttons are marked as available here, the joystick is digital.\nEven when marked as not available, they will still be simulated based on the analog joystick.",
+  "modules.GamepadClient.isButtonDown": "Indicates if the button (or combination of) is down.",
+  "modules.GamepadClient.isButtonDown|param|button": "@returns true if selected buttons are down",
+  "modules.GamepadClient.onButtonsChanged": "Emitted whenever the state of buttons changes.",
+  "modules.GamepadClient.onEvent": "Register code to run when an event is raised",
+  "modules.GamepadClient.variant": "The type of physical joystick.",
+  "modules.GamepadClient.x": "If the joystick is analog, the directional buttons should be \"simulated\", based on joystick position\n(`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).\nIf the joystick is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).\nThe primary button on the joystick is `A`.",
+  "modules.GamepadClient.y": "If the joystick is analog, the directional buttons should be \"simulated\", based on joystick position\n(`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).\nIf the joystick is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).\nThe primary button on the joystick is `A`."
+}
