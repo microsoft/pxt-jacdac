@@ -28,18 +28,11 @@ jobs:
               run: |
                   npm install -g makecode@v1.3.4
             - run: makecode -u -j --mono-repo -c mkc.json
-            - run: makecode -u -j --mono-repo -c mkc-maker.json
             - run: makecode -u -j --mono-repo -c mkc-arcade.json
             - run: makecode -u -j --mono-repo -c mkc-calliope.json
             - run: makecode -c mkc.json
-            - run: makecode -c mkc-maker.json --hw nucleo-f411re
             - run: makecode -c mkc-arcade.json --hw F4,D5,N4,N3
             - run: cd tools/multitool && makecode --hw F4,D5,N4,N3
-            - run: cd tools/uploader && makecode
-            - run: cd tools/hid-servers && makecode
-            - run: cd tools/hid-servers && makecode -c mkc-rp2040.json
-            - run: cd tools/hid-joystick && makecode
-            - run: cd tools/hid-joystick && makecode -c mkc-rp2040.json
             - run: cd tools/microbit-oob && makecode
             - run: cd tools/microbit-jukebox && makecode
             - run: cd tools/farm-beats && makecode

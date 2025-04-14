@@ -1,10 +1,11 @@
 {
     "name": "jacdac-button",
-    "version": "1.9.29",
+    "version": "1.9.32",
     "description": "A push-button, which returns to inactive position when not operated anymore.",
     "files": [
         "constants.ts",
         "client.ts",
+        "clients.ts",
         "_locales/de/jacdac-button-strings.json"
     ],
     "testFiles": [
