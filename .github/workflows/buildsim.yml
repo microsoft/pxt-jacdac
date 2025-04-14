@@ -6,9 +6,6 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./jacdac-docs
         permissions: 
             actions: read
             contents: write
@@ -17,18 +14,19 @@ jobs:
                 node-version: [14.x]
         steps:
             - name: clone jacdac-docs
-              run: cd ..; git clone https://github.com/jacdac/jacdac-docs
-            - run: git submodule update --init --recursive
-            - run: git checkout makecodesim
+              run: git clone https://github.com/jacdac/jacdac-docs
+            - run: cd jacdac-docs; git submodule update --init --recursive
+            - run: cd jacdac-docs; git checkout makecodesim
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v4
               with:
+                  working-directory: ./jacdac-docs
                   node-version: ${{ matrix.node-version }}
                   cache: "yarn"
                   cache-dependency-path: ./jacdac-docs/yarn.lock
-            - run: yarn install --frozen-lockfile
-            - run: yarn builddocsts
-            - run: yarn distdocs
+            - run: cd jacdac-docs; yarn install --frozen-lockfile
+            - run: cd jacdac-docs; yarn builddocsts
+            - run: cd jacdac-cocs; yarn distdocs
               env:
                   GATSBY_GITHUB_REPOSITORY: ${{ github.repository }}
                   GATSBY_GITHUB_REF: ${{ github.ref }}
