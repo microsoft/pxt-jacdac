@@ -1,6 +1,6 @@
 {
     "name": "jacdac-buzzer",
-    "version": "1.9.32",
+    "version": "1.9.33",
     "description": "MakeCode support for Jacdac Buzzer service",
     "dependencies": {
         "core": "*",

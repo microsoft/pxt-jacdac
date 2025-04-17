@@ -4,5 +4,5 @@ namespace jacdac {
     /**
      * Version of the package
      */
-    export const VERSION = "v1.9.32"
+    export const VERSION = "v1.9.33"
 }

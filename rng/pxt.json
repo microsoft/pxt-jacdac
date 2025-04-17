@@ -1,6 +1,6 @@
 {
     "name": "jacdac-rng",
-    "version": "1.9.32",
+    "version": "1.9.33",
     "description": "Generates random numbers using entropy sourced from physical processes.\n\nThis typically uses a cryptographical pseudo-random number generator (for example [Fortuna](<https://en.wikipedia.org/wiki/Fortuna_(PRNG)>)),\nwhich is periodically re-seeded with entropy coming from some hardware source.",
     "files": [
         "constants.ts",
