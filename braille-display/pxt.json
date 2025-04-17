@@ -1,6 +1,6 @@
 {
     "name": "jacdac-braille-display",
-    "version": "1.9.33",
+    "version": "1.9.34",
     "description": "A Braille pattern display module. This module display [unicode braille patterns](https://www.unicode.org/charts/PDF/U2800.pdf), country specific encoding have to be implemented by the clients.",
     "files": [
         "constants.ts",

@@ -1,6 +1,6 @@
 {
     "name": "jacdac-real-time-clock",
-    "version": "1.9.33",
+    "version": "1.9.34",
     "description": "Real time clock to support collecting data with precise time stamps.",
     "dependencies": {
         "core": "*",
