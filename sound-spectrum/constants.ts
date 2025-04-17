@@ -89,5 +89,4 @@ namespace jacdac {
          */
         export const SmoothingTimeConstant = "u0.8"
     }
-
 }

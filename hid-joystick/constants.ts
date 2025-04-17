@@ -78,5 +78,4 @@ namespace jacdac {
          */
         export const SetAxis = "r: i1.15"
     }
-
 }

@@ -84,5 +84,4 @@ namespace jacdac {
          */
         export const Volume = "u0.8"
     }
-
 }

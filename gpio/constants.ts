@@ -29,7 +29,6 @@ namespace jacdac {
         BaseModeMask = 0xf,
     }
 
-
     export const enum GPIOCapabilities { // uint16_t
         //% block="pull up"
         PullUp = 0x1,
@@ -177,5 +176,4 @@ namespace jacdac {
          */
         export const PinByHwPinReport = "u8 u8 u16 u8 s"
     }
-
 }

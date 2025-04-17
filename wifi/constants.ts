@@ -122,21 +122,20 @@ namespace jacdac {
         export const ListKnownNetworks = "b[12]"
     }
 
-    export const enum WifiPipe {
-        /**
-         * pipe_report Results
-         * ```
-         * const [flags, rssi, channel, bssid, ssid] = jdunpack<[jacdac.WifiAPFlags, number, number, Buffer, string]>(buf, "u32 x[4] i8 u8 b[6] s[33]")
-         * ```
-         */
+    export const enum WifiPipe {}
+    /**
+     * pipe_report Results
+     * ```
+     * const [flags, rssi, channel, bssid, ssid] = jdunpack<[jacdac.WifiAPFlags, number, number, Buffer, string]>(buf, "u32 x[4] i8 u8 b[6] s[33]")
+     * ```
+     */
 
-        /**
-         * pipe_report NetworkResults
-         * ```
-         * const [priority, flags, ssid] = jdunpack<[number, number, string]>(buf, "i16 i16 s")
-         * ```
-         */
-    }
+    /**
+     * pipe_report NetworkResults
+     * ```
+     * const [priority, flags, ssid] = jdunpack<[number, number, string]>(buf, "i16 i16 s")
+     * ```
+     */
 
     export namespace WifiPipePack {
         /**
@@ -280,5 +279,4 @@ namespace jacdac {
          */
         export const ConnectionFailed = "s"
     }
-
 }

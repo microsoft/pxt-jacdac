@@ -164,5 +164,4 @@ namespace jacdac {
          */
         export const SensorWatchdogPeriod = "u32"
     }
-
 }

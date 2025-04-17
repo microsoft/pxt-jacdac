@@ -17,7 +17,6 @@ namespace jacdac {
         DefaultMask = 0x100,
     }
 
-
     export const enum WsskDataType { // uint8_t
         //% block="binary"
         Binary = 0x1,
@@ -243,5 +242,4 @@ namespace jacdac {
          */
         export const ExceptionReport = "b"
     }
-
 }

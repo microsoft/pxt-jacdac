@@ -51,14 +51,13 @@ namespace jacdac {
         export const ReadBytecode = "b[12]"
     }
 
-    export const enum DeviceScriptManagerPipe {
-        /**
-         * pipe_report Bytecode
-         * ```
-         * const [data] = jdunpack<[Buffer]>(buf, "b")
-         * ```
-         */
-    }
+    export const enum DeviceScriptManagerPipe {}
+    /**
+     * pipe_report Bytecode
+     * ```
+     * const [data] = jdunpack<[Buffer]>(buf, "b")
+     * ```
+     */
 
     export namespace DeviceScriptManagerPipePack {
         /**
@@ -214,5 +213,4 @@ namespace jacdac {
          */
         export const ProgramPanic = "u32 u32"
     }
-
 }

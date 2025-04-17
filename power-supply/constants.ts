@@ -60,5 +60,4 @@ namespace jacdac {
          */
         export const MaximumVoltage = "f64"
     }
-
 }

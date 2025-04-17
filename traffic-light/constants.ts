@@ -46,5 +46,4 @@ namespace jacdac {
          */
         export const Green = "u8"
     }
-
 }

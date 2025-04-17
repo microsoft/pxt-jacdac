@@ -33,5 +33,4 @@ namespace jacdac {
          */
         export const Dimmable = "u8"
     }
-
 }

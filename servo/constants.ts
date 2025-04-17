@@ -144,5 +144,4 @@ namespace jacdac {
          */
         export const ActualAngle = "i16.16"
     }
-
 }

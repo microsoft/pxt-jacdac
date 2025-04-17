@@ -76,5 +76,4 @@ namespace jacdac {
          */
         export const Reversible = "u8"
     }
-
 }

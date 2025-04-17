@@ -144,5 +144,4 @@ namespace jacdac {
          */
         export const Received = "b"
     }
-
 }

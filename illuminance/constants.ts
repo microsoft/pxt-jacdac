@@ -32,5 +32,4 @@ namespace jacdac {
          */
         export const IlluminanceError = "u22.10"
     }
-
 }

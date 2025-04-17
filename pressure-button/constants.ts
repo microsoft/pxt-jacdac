@@ -18,5 +18,4 @@ namespace jacdac {
          */
         export const Threshold = "u0.16"
     }
-
 }

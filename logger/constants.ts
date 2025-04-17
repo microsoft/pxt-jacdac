@@ -96,5 +96,4 @@ namespace jacdac {
          */
         export const Error = "s"
     }
-
 }

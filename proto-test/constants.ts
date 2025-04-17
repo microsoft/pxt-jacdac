@@ -426,14 +426,13 @@ namespace jacdac {
         export const CReportPipe = "b[12]"
     }
 
-    export const enum ProtoTestPipe {
-        /**
-         * pipe_report PBytes
-         * ```
-         * const [byte] = jdunpack<[number]>(buf, "u8")
-         * ```
-         */
-    }
+    export const enum ProtoTestPipe {}
+    /**
+     * pipe_report PBytes
+     * ```
+     * const [byte] = jdunpack<[number]>(buf, "u8")
+     * ```
+     */
 
     export namespace ProtoTestPipePack {
         /**
@@ -441,5 +440,4 @@ namespace jacdac {
          */
         export const PBytes = "u8"
     }
-
 }

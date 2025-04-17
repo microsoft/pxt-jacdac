@@ -92,21 +92,20 @@ namespace jacdac {
         export const List = "b[12]"
     }
 
-    export const enum SettingsPipe {
-        /**
-         * pipe_report ListedKey
-         * ```
-         * const [key] = jdunpack<[string]>(buf, "s")
-         * ```
-         */
+    export const enum SettingsPipe {}
+    /**
+     * pipe_report ListedKey
+     * ```
+     * const [key] = jdunpack<[string]>(buf, "s")
+     * ```
+     */
 
-        /**
-         * pipe_report ListedEntry
-         * ```
-         * const [key, value] = jdunpack<[string, Buffer]>(buf, "z b")
-         * ```
-         */
-    }
+    /**
+     * pipe_report ListedEntry
+     * ```
+     * const [key, value] = jdunpack<[string, Buffer]>(buf, "z b")
+     * ```
+     */
 
     export namespace SettingsPipePack {
         /**
@@ -127,5 +126,4 @@ namespace jacdac {
         //% block="change"
         Change = 0x3,
     }
-
 }

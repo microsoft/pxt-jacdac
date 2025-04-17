@@ -153,5 +153,4 @@ namespace jacdac {
          */
         export const LongClick = "u8"
     }
-
 }

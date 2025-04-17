@@ -156,5 +156,4 @@ namespace jacdac {
          */
         export const ConnectionStatusChange = "u16"
     }
-
 }

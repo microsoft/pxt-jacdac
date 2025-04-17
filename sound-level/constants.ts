@@ -74,5 +74,4 @@ namespace jacdac {
         //% block="quiet"
         Quiet = 0x2,
     }
-
 }

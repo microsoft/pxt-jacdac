@@ -91,5 +91,4 @@ namespace jacdac {
          */
         export const PageDataReport = "u32 u32 u32"
     }
-
 }

@@ -68,5 +68,4 @@ namespace jacdac {
          */
         export const BufferPending = "u32"
     }
-
 }

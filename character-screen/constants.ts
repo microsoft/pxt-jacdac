@@ -11,7 +11,6 @@ namespace jacdac {
         Braille = 0x3,
     }
 
-
     export const enum CharacterScreenTextDirection { // uint8_t
         //% block="left to right"
         LeftToRight = 0x1,
@@ -106,5 +105,4 @@ namespace jacdac {
          */
         export const Columns = "u8"
     }
-
 }

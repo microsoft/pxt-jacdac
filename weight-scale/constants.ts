@@ -150,5 +150,4 @@ namespace jacdac {
          */
         export const CalibrateGain = "u22.10"
     }
-
 }

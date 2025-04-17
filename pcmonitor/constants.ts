@@ -74,5 +74,4 @@ namespace jacdac {
          */
         export const NetworkInformation = "u16 u16"
     }
-
 }

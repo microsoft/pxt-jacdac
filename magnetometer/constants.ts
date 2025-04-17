@@ -41,5 +41,4 @@ namespace jacdac {
          */
         Calibrate = 0x2,
     }
-
 }

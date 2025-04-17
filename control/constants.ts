@@ -178,14 +178,13 @@ namespace jacdac {
         export const Standby = "u32"
     }
 
-    export const enum ControlPipe {
-        /**
-         * pipe_command WrappedCommand
-         * ```
-         * const [serviceSize, serviceIndex, serviceCommand, payload] = jdunpack<[number, number, number, Buffer]>(buf, "u8 u8 u16 b")
-         * ```
-         */
-    }
+    export const enum ControlPipe {}
+    /**
+     * pipe_command WrappedCommand
+     * ```
+     * const [serviceSize, serviceIndex, serviceCommand, payload] = jdunpack<[number, number, number, Buffer]>(buf, "u8 u8 u16 b")
+     * ```
+     */
 
     export namespace ControlPipePack {
         /**
@@ -297,5 +296,4 @@ namespace jacdac {
          */
         export const Uptime = "u64"
     }
-
 }

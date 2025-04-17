@@ -235,5 +235,4 @@ namespace jacdac {
          */
         export const Parallel = "u8"
     }
-
 }

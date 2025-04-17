@@ -18,5 +18,4 @@ namespace jacdac {
          */
         export const Enabled = "u8"
     }
-
 }

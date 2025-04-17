@@ -74,5 +74,4 @@ namespace jacdac {
         //% block="movement"
         Movement = 0x1,
     }
-
 }

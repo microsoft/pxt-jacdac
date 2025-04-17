@@ -32,5 +32,4 @@ namespace jacdac {
          */
         export const OxygenError = "u8.8"
     }
-
 }

@@ -18,5 +18,4 @@ namespace jacdac {
          */
         export const Color = "u0.16 u0.16 u0.16"
     }
-
 }

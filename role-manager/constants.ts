@@ -75,14 +75,13 @@ namespace jacdac {
         export const ListRoles = "b[12]"
     }
 
-    export const enum RoleManagerPipe {
-        /**
-         * pipe_report Roles
-         * ```
-         * const [deviceId, serviceClass, serviceIdx, role] = jdunpack<[Buffer, number, number, string]>(buf, "b[8] u32 u8 s")
-         * ```
-         */
-    }
+    export const enum RoleManagerPipe {}
+    /**
+     * pipe_report Roles
+     * ```
+     * const [deviceId, serviceClass, serviceIdx, role] = jdunpack<[Buffer, number, number, string]>(buf, "b[8] u32 u8 s")
+     * ```
+     */
 
     export namespace RoleManagerPipePack {
         /**
@@ -98,5 +97,4 @@ namespace jacdac {
         //% block="change"
         Change = 0x3,
     }
-
 }

@@ -92,5 +92,4 @@ namespace jacdac {
          */
         export const CurrentSample = "b"
     }
-
 }

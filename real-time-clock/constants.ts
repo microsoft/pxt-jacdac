@@ -88,5 +88,4 @@ namespace jacdac {
          */
         export const SetTime = "u16 u8 u8 u8 u8 u8 u8"
     }
-
 }
