@@ -60,4 +60,5 @@ namespace jacdac {
          */
         export const MaxHumidity = "u22.10"
     }
+
 }

@@ -40,4 +40,5 @@ namespace jacdac {
          */
         export const SamplingPeriod = "u32"
     }
+
 }

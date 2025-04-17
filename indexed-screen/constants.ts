@@ -162,4 +162,5 @@ namespace jacdac {
          */
         export const Rotation = "u16"
     }
+
 }

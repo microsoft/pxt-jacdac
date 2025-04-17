@@ -32,4 +32,5 @@ namespace jacdac {
          */
         export const PrecipitationPrecision = "u16.16"
     }
+
 }

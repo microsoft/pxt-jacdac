@@ -32,4 +32,5 @@ namespace jacdac {
          */
         export const WindDirectionError = "u16"
     }
+
 }

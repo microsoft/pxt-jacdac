@@ -56,4 +56,5 @@ namespace jacdac {
          */
         export const MaxSwitchingCurrent = "u32"
     }
+
 }

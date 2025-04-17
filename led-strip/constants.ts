@@ -11,6 +11,7 @@ namespace jacdac {
         SK9822 = 0x11,
     }
 
+
     export const enum LedStripVariant { // uint8_t
         //% block="strip"
         Strip = 0x1,
@@ -182,4 +183,5 @@ namespace jacdac {
          */
         export const Run = "b"
     }
+
 }

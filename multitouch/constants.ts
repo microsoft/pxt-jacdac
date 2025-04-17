@@ -114,4 +114,5 @@ namespace jacdac {
          */
         export const SwipeNeg = "u16 u8 u8"
     }
+
 }

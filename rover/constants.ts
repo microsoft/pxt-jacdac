@@ -18,4 +18,5 @@ namespace jacdac {
          */
         export const Kinematics = "i16.16 i16.16 i16.16 i16.16 i16.16"
     }
+
 }

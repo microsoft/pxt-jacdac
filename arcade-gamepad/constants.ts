@@ -92,4 +92,5 @@ namespace jacdac {
          */
         export const Up = "u8"
     }
+
 }

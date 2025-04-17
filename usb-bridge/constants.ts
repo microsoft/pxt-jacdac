@@ -40,4 +40,5 @@ namespace jacdac {
          */
         EnableLog = 0x83,
     }
+
 }

@@ -37,4 +37,5 @@ namespace jacdac {
          */
         export const MaxVibrations = "u8"
     }
+
 }

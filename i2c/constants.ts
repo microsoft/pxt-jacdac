@@ -62,4 +62,5 @@ namespace jacdac {
          */
         export const TransactionReport = "u8 b"
     }
+
 }

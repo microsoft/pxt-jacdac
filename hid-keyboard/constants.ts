@@ -265,6 +265,7 @@ namespace jacdac {
         VolumeDown = 0x81,
     }
 
+
     export const enum HidKeyboardModifiers { // uint8_t
         //% block="none"
         None = 0x0,
@@ -285,6 +286,7 @@ namespace jacdac {
         //% block="right gui"
         RightGUI = 0x80,
     }
+
 
     export const enum HidKeyboardAction { // uint8_t
         //% block="press"
@@ -318,4 +320,5 @@ namespace jacdac {
          */
         export const Key = "r: u16 u8 u8"
     }
+
 }

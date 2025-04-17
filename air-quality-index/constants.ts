@@ -60,4 +60,5 @@ namespace jacdac {
          */
         export const MaxAqiIndex = "u16.16"
     }
+
 }

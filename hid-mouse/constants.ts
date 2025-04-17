@@ -11,6 +11,7 @@ namespace jacdac {
         Middle = 0x4,
     }
 
+
     export const enum HidMouseButtonEvent { // uint8_t
         //% block="up"
         Up = 0x1,
@@ -71,4 +72,5 @@ namespace jacdac {
          */
         export const Wheel = "i16 u16"
     }
+
 }

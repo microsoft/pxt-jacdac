@@ -46,4 +46,5 @@ namespace jacdac {
          */
         export const StreamingPreferredInterval = "u32"
     }
+
 }

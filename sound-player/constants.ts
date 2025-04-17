@@ -56,13 +56,14 @@ namespace jacdac {
         export const ListSounds = "b[12]"
     }
 
-    export const enum SoundPlayerPipe {}
-    /**
-     * pipe_report ListSoundsPipe
-     * ```
-     * const [duration, name] = jdunpack<[number, string]>(buf, "u32 s")
-     * ```
-     */
+    export const enum SoundPlayerPipe {
+        /**
+         * pipe_report ListSoundsPipe
+         * ```
+         * const [duration, name] = jdunpack<[number, string]>(buf, "u32 s")
+         * ```
+         */
+    }
 
     export namespace SoundPlayerPipePack {
         /**
@@ -70,4 +71,5 @@ namespace jacdac {
          */
         export const ListSoundsPipe = "u32 s"
     }
+
 }

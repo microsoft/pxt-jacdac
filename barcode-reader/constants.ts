@@ -82,4 +82,5 @@ namespace jacdac {
          */
         export const Detect = "u8 s"
     }
+
 }

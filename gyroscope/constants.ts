@@ -61,4 +61,5 @@ namespace jacdac {
          */
         export const MaxRatesSupported = "r: u12.20"
     }
+
 }

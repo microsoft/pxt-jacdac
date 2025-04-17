@@ -177,4 +177,5 @@ namespace jacdac {
          */
         export const PowerStatusChanged = "u8"
     }
+
 }

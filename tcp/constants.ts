@@ -73,20 +73,21 @@ namespace jacdac {
         export const Error = "i32"
     }
 
-    export const enum TcpPipe {}
-    /**
-     * pipe_command Outdata
-     * ```
-     * const [data] = jdunpack<[Buffer]>(buf, "b")
-     * ```
-     */
+    export const enum TcpPipe {
+        /**
+         * pipe_command Outdata
+         * ```
+         * const [data] = jdunpack<[Buffer]>(buf, "b")
+         * ```
+         */
 
-    /**
-     * pipe_report Indata
-     * ```
-     * const [data] = jdunpack<[Buffer]>(buf, "b")
-     * ```
-     */
+        /**
+         * pipe_report Indata
+         * ```
+         * const [data] = jdunpack<[Buffer]>(buf, "b")
+         * ```
+         */
+    }
 
     export namespace TcpPipePack {
         /**
@@ -99,4 +100,5 @@ namespace jacdac {
          */
         export const Indata = "b"
     }
+
 }

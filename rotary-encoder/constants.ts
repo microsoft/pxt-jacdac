@@ -48,4 +48,5 @@ namespace jacdac {
          */
         export const Clicker = "u8"
     }
+
 }

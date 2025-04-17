@@ -46,4 +46,5 @@ namespace jacdac {
          */
         export const MaxWindSpeed = "u16.16"
     }
+
 }

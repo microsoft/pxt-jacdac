@@ -11,6 +11,7 @@ namespace jacdac {
         Faulty = 0x2,
     }
 
+
     export const enum VerifiedTelemetryFingerprintType { // uint8_t
         //% block="fall curve"
         FallCurve = 0x1,
@@ -116,4 +117,5 @@ namespace jacdac {
          */
         export const TelemetryStatusChange = "u8"
     }
+
 }

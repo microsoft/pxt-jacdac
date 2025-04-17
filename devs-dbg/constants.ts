@@ -59,6 +59,7 @@ namespace jacdac {
         User4 = 0xf4,
     }
 
+
     export const enum DevsDbgValueSpecial { // uint8_t
         //% block="undefined"
         Undefined = 0x0,
@@ -74,6 +75,7 @@ namespace jacdac {
         CurrentException = 0x65,
     }
 
+
     export const enum DevsDbgFunIdx { // uint16_t
         //% block="none"
         None = 0x0,
@@ -83,17 +85,22 @@ namespace jacdac {
         FirstBuiltIn = 0xc350,
     }
 
+
     export const enum DevsDbgFiberHandle { // uint32_t
         //% block="none"
         None = 0x0,
     }
 
-    export const enum DevsDbgProgramCounter {} // uint32_t
+
+    export const enum DevsDbgProgramCounter { // uint32_t
+    }
+
 
     export const enum DevsDbgObjStackFrame { // uint32_t
         //% block="null"
         Null = 0x0,
     }
+
 
     export const enum DevsDbgString { // uint32_t
         //% block="static indicator mask"
@@ -106,6 +113,7 @@ namespace jacdac {
         Unhandled = 0x0,
     }
 
+
     export const enum DevsDbgStepFlags { // uint16_t
         //% block="step out"
         StepOut = 0x1,
@@ -114,6 +122,7 @@ namespace jacdac {
         //% block="throw"
         Throw = 0x4,
     }
+
 
     export const enum DevsDbgSuspensionType { // uint8_t
         //% block="none"
@@ -299,41 +308,42 @@ namespace jacdac {
         export const Step = "u32 u16 u16 r: u32"
     }
 
-    export const enum DevsDbgPipe {}
-    /**
-     * pipe_report Fiber
-     * ```
-     * const [handle, initialFn, currFn] = jdunpack<[jacdac.DevsDbgFiberHandle, jacdac.DevsDbgFunIdx, jacdac.DevsDbgFunIdx]>(buf, "u32 u16 u16")
-     * ```
-     */
+    export const enum DevsDbgPipe {
+        /**
+         * pipe_report Fiber
+         * ```
+         * const [handle, initialFn, currFn] = jdunpack<[jacdac.DevsDbgFiberHandle, jacdac.DevsDbgFunIdx, jacdac.DevsDbgFunIdx]>(buf, "u32 u16 u16")
+         * ```
+         */
 
-    /**
-     * pipe_report Stackframe
-     * ```
-     * const [self, pc, closure, fnIdx] = jdunpack<[jacdac.DevsDbgObjStackFrame, jacdac.DevsDbgProgramCounter, jacdac.DevsDbgObjStackFrame, jacdac.DevsDbgFunIdx]>(buf, "u32 u32 u32 u16 x[2]")
-     * ```
-     */
+        /**
+         * pipe_report Stackframe
+         * ```
+         * const [self, pc, closure, fnIdx] = jdunpack<[jacdac.DevsDbgObjStackFrame, jacdac.DevsDbgProgramCounter, jacdac.DevsDbgObjStackFrame, jacdac.DevsDbgFunIdx]>(buf, "u32 u32 u32 u16 x[2]")
+         * ```
+         */
 
-    /**
-     * pipe_report Value
-     * ```
-     * const [v0, v1, fnIdx, tag] = jdunpack<[number, number, jacdac.DevsDbgFunIdx, jacdac.DevsDbgValueTag]>(buf, "u32 u32 u16 u8")
-     * ```
-     */
+        /**
+         * pipe_report Value
+         * ```
+         * const [v0, v1, fnIdx, tag] = jdunpack<[number, number, jacdac.DevsDbgFunIdx, jacdac.DevsDbgValueTag]>(buf, "u32 u32 u16 u8")
+         * ```
+         */
 
-    /**
-     * pipe_report KeyValue
-     * ```
-     * const [key, v0, v1, fnIdx, tag] = jdunpack<[jacdac.DevsDbgString, number, number, jacdac.DevsDbgFunIdx, jacdac.DevsDbgValueTag]>(buf, "u32 u32 u32 u16 u8")
-     * ```
-     */
+        /**
+         * pipe_report KeyValue
+         * ```
+         * const [key, v0, v1, fnIdx, tag] = jdunpack<[jacdac.DevsDbgString, number, number, jacdac.DevsDbgFunIdx, jacdac.DevsDbgValueTag]>(buf, "u32 u32 u32 u16 u8")
+         * ```
+         */
 
-    /**
-     * pipe_report BytesValue
-     * ```
-     * const [data] = jdunpack<[Buffer]>(buf, "b")
-     * ```
-     */
+        /**
+         * pipe_report BytesValue
+         * ```
+         * const [data] = jdunpack<[Buffer]>(buf, "b")
+         * ```
+         */
+    }
 
     export namespace DevsDbgPipePack {
         /**
@@ -441,4 +451,5 @@ namespace jacdac {
          */
         export const Suspended = "u32 u8"
     }
+
 }
