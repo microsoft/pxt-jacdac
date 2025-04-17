@@ -1,6 +1,6 @@
 {
     "name": "jacdac-azure-iot-hub-health-server",
-    "version": "1.9.32",
+    "version": "1.9.33",
     "description": "Health and diagnostics information about the Azure Iot Hub connection.",
     "files": [
         "server.ts"

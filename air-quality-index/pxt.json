@@ -1,6 +1,6 @@
 {
     "name": "jacdac-air-quality-index",
-    "version": "1.9.32",
+    "version": "1.9.33",
     "description": "The Air Quality Index is a measure of how clean or polluted air is. From min, good quality, to high, low quality.\nThe range of AQI may vary between countries (https://en.wikipedia.org/wiki/Air_quality_index).",
     "files": [
         "constants.ts",
