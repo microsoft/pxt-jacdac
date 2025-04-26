@@ -1,6 +1,6 @@
 {
     "name": "jacdac-temperature",
-    "version": "1.9.34",
+    "version": "1.9.35",
     "description": "A thermometer measuring outside or inside environment.",
     "files": [
         "constants.ts",

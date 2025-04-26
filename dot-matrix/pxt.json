@@ -1,6 +1,6 @@
 {
     "name": "jacdac-dot-matrix",
-    "version": "1.9.34",
+    "version": "1.9.35",
     "description": "A rectangular dot matrix display, made of monochrome LEDs or braille pins.",
     "files": [
         "constants.ts",

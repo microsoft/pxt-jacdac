@@ -1,6 +1,6 @@
 {
     "name": "jacdac-uv-index",
-    "version": "1.9.34",
+    "version": "1.9.35",
     "description": "The UV Index is a measure of the intensity of ultraviolet (UV) rays from the Sun.",
     "files": [
         "constants.ts",

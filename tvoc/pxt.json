@@ -1,6 +1,6 @@
 {
     "name": "jacdac-tvoc",
-    "version": "1.9.34",
+    "version": "1.9.35",
     "description": "Measures equivalent Total Volatile Organic Compound levels.",
     "files": [
         "constants.ts",

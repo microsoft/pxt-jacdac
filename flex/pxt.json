@@ -1,6 +1,6 @@
 {
     "name": "jacdac-flex",
-    "version": "1.9.34",
+    "version": "1.9.35",
     "description": "A bending or deflection sensor.",
     "files": [
         "constants.ts",
