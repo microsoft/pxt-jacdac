@@ -2,7 +2,7 @@ namespace pxsim {
     const JD_SERIAL_EVT_DATA_READY = 1
 
     export interface SimulatorJacDacMessage extends SimulatorBroadcastMessage {
-        type: "pxt-jacdac/jacdac"
+        type: "jacdac/pxt-jacdac"
         broadcast: true
         packet: Uint8Array
     }
@@ -52,7 +52,7 @@ namespace pxsim {
         sendPacket(buf: RefBuffer) {
             //console.log("jd> send " + pxsim.BufferMethods.toHex(buf));
             Runtime.postMessage(<SimulatorJacDacMessage>{
-                type: "pxt-jacdac/jacdac",
+                type: "jacdac/pxt-jacdac",
                 broadcast: true,
                 packet: BufferMethods.getBytes(buf),
             })
