@@ -125,7 +125,7 @@ function makeCodeRun(options) {
                     if (brk.exceptionMessage) console.error(stackTrace)
                 } else if (d.type === "messagepacket" && d.channel) {
                     if (
-                        d.channel == "jacdac/pxt-jacdac" &&
+                        d.channel == "jacdac" &&
                         d.broadcast &&
                         window.parent != window
                     ) {
@@ -148,7 +148,7 @@ function makeCodeRun(options) {
             } else {
                 if (
                     d.type == "messagepacket" &&
-                    d.channel == "jacdac/pxt-jacdac" &&
+                    d.channel == "jacdac" &&
                     d.sender != selfId
                 ) {
                     postMessage(d)

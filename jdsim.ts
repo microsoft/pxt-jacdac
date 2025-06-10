@@ -34,6 +34,9 @@ namespace jacdac {
         const crc = jdCrc16(payload.slice(2))
         header[0] = payload[0] = (crc >> 0) & 0xff
         header[1] = payload[1] = (crc >> 8) & 0xff
+        // it is important to use the same channel as the 
+        // one used by the simx extension framework (jacdac/pxt-jacdac)
+        // in order to get the jacdac simulator to work
         control.simmessages.send("jacdac/pxt-jacdac", payload)
     }
 
@@ -70,7 +73,7 @@ namespace jacdac {
     export function __physStart(): void {
         if (__physIsRunning()) return
         recvQ = []
-        control.simmessages.onReceived("jacdac/pxt-jacdac", buf => {
+        control.simmessages.onReceived("jacdac", buf => {
             if (buf[2] + 12 != buf.length) {
                 control.dmesg("bad size in sim jdpkt: " + buf.toHex())
                 buf = buf.slice(0, buf[2] + 12)
