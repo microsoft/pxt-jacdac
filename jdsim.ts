@@ -37,7 +37,7 @@ namespace jacdac {
         // it is important to use the same channel as the 
         // one used by the simx extension framework (jacdac/pxt-jacdac)
         // in order to get the jacdac simulator to work
-        control.simmessages.send("jacdac/pxt-jacdac", payload)
+        control.simmessages.send("jacdac", payload)
     }
 
     /**
