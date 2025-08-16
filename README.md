@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This repository has moved to https://github.com/jacdac/pxt-jacdac.
+
 # Jacdac Services for MakeCode
 
 This project contains [Jacdac](https://aka.ms/jacdac) host and client services for MakeCode editors.
